@@ -89,6 +89,7 @@
 		8D23C1E72B02C81D00F7D878 /* Double+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1E52B02C81D00F7D878 /* Double+extensions.swift */; };
 		8D23C1E92B02CD7E00F7D878 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C1E82B02CD7E00F7D878 /* README.md */; };
 		8D23C1EB2B02CD9800F7D878 /* LICENSE.md in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C1EA2B02CD9800F7D878 /* LICENSE.md */; };
+		8D23C1EE2B02D00700F7D878 /* swashteroids.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C1ED2B02D00700F7D878 /* swashteroids.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -174,6 +175,7 @@
 		8D23C1E52B02C81D00F7D878 /* Double+extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Double+extensions.swift"; sourceTree = "<group>"; };
 		8D23C1E82B02CD7E00F7D878 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8D23C1EA2B02CD9800F7D878 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
+		8D23C1ED2B02D00700F7D878 /* swashteroids.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = swashteroids.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,6 +193,7 @@
 		8D23C1292B02C4C900F7D878 = {
 			isa = PBXGroup;
 			children = (
+				8D23C1EC2B02CFAD00F7D878 /* images */,
 				8D23C1342B02C4CA00F7D878 /* Swashteroids */,
 				8D23C1E82B02CD7E00F7D878 /* README.md */,
 				8D23C1EA2B02CD9800F7D878 /* LICENSE.md */,
@@ -348,6 +351,14 @@
 			path = views;
 			sourceTree = "<group>";
 		};
+		8D23C1EC2B02CFAD00F7D878 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				8D23C1ED2B02D00700F7D878 /* swashteroids.png */,
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -413,6 +424,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D23C1DE2B02C59D00F7D878 /* beat1.wav in Resources */,
+				8D23C1EE2B02D00700F7D878 /* swashteroids.png in Resources */,
 				8D23C1D92B02C59D00F7D878 /* fire.wav in Resources */,
 				8D23C1C52B02C59D00F7D878 /* asteroidExplosion.sks in Resources */,
 				8D23C1412B02C4CA00F7D878 /* Main.storyboard in Resources */,

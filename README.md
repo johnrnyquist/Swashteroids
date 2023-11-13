@@ -1,3 +1,5 @@
+![Swashteroids](images/swashteroids.png)
+
 # Swashteroids
 ## An example of using the Swash framework
 
