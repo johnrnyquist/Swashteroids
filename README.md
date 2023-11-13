@@ -1,7 +1,7 @@
 ![Swashteroids](images/swashteroids.png)
 
 # Swashteroids
-_An example of using the Swash framework_
+_An example using the Swash framework_
 
 An example game using the ECS framework [Swash](https://github.com/johnrnyquist/Swash) along with some SpriteKit.
 
