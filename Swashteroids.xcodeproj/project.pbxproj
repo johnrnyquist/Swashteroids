@@ -87,6 +87,8 @@
 		8D23C1E32B02C59D00F7D878 /* WaitForStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C19C2B02C59D00F7D878 /* WaitForStartView.swift */; };
 		8D23C1E62B02C81D00F7D878 /* CGPoint+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1E42B02C81D00F7D878 /* CGPoint+extensions.swift */; };
 		8D23C1E72B02C81D00F7D878 /* Double+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1E52B02C81D00F7D878 /* Double+extensions.swift */; };
+		8D23C1E92B02CD7E00F7D878 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C1E82B02CD7E00F7D878 /* README.md */; };
+		8D23C1EB2B02CD9800F7D878 /* LICENSE.md in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C1EA2B02CD9800F7D878 /* LICENSE.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -170,6 +172,8 @@
 		8D23C19C2B02C59D00F7D878 /* WaitForStartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaitForStartView.swift; sourceTree = "<group>"; };
 		8D23C1E42B02C81D00F7D878 /* CGPoint+extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGPoint+extensions.swift"; sourceTree = "<group>"; };
 		8D23C1E52B02C81D00F7D878 /* Double+extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Double+extensions.swift"; sourceTree = "<group>"; };
+		8D23C1E82B02CD7E00F7D878 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		8D23C1EA2B02CD9800F7D878 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,6 +192,8 @@
 			isa = PBXGroup;
 			children = (
 				8D23C1342B02C4CA00F7D878 /* Swashteroids */,
+				8D23C1E82B02CD7E00F7D878 /* README.md */,
+				8D23C1EA2B02CD9800F7D878 /* LICENSE.md */,
 				8D23C1332B02C4CA00F7D878 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -416,7 +422,9 @@
 				8D23C1D72B02C59D00F7D878 /* bangLarge.wav in Resources */,
 				8D23C1DA2B02C59D00F7D878 /* extraShip.wav in Resources */,
 				8D23C1D62B02C59D00F7D878 /* saucerBig.wav in Resources */,
+				8D23C1EB2B02CD9800F7D878 /* LICENSE.md in Resources */,
 				8D23C1432B02C4CC00F7D878 /* Assets.xcassets in Resources */,
+				8D23C1E92B02CD7E00F7D878 /* README.md in Resources */,
 				8D23C1C42B02C59D00F7D878 /* photon.sks in Resources */,
 				8D23C1462B02C4CC00F7D878 /* LaunchScreen.storyboard in Resources */,
 				8D23C1DB2B02C59D00F7D878 /* bangSmall.wav in Resources */,
