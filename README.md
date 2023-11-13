@@ -11,7 +11,7 @@ This game is started out as a port of the Ash ECS example [Asteroids](https://gi
 - [John Nyquist](https://linkedin.com/in/nyquist)
 
 ### Thank You
-- [Swash](https://github.com/johnrnyquist/Swash) is based on the brilliant [Ash](https://github.com/richardlord/Ash) framework by Richard Lord. 
+- [Swash](https://github.com/johnrnyquist/Swash) is based on the brilliant [Ash](https://github.com/richardlord/Ash) framework by [Richard Lord](https://richardlord.net). 
 
 ### License
 - This project is licensed under the MIT License - see the LICENSE.md file for details
