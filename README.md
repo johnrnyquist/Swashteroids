@@ -1,4 +1,6 @@
-![Swashteroids](images/0001-0054.gif)
+<p align="center">
+  <img src="images/0001-0054.gif" alt="Swashteroids"/>
+</p>
 
 # Swashteroids
 _An example using the Swash framework_
