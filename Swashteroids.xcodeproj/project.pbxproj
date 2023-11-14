@@ -90,6 +90,7 @@
 		8D23C1E92B02CD7E00F7D878 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C1E82B02CD7E00F7D878 /* README.md */; };
 		8D23C1EB2B02CD9800F7D878 /* LICENSE.md in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C1EA2B02CD9800F7D878 /* LICENSE.md */; };
 		8D23C1EE2B02D00700F7D878 /* swashteroids.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C1ED2B02D00700F7D878 /* swashteroids.png */; };
+		931392A72F550D08153829B2 /* HudEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931390CE0425A854FD0B8DE1 /* HudEntity.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -176,6 +177,7 @@
 		8D23C1E82B02CD7E00F7D878 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8D23C1EA2B02CD9800F7D878 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		8D23C1ED2B02D00700F7D878 /* swashteroids.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = swashteroids.png; sourceTree = "<group>"; };
+		931390CE0425A854FD0B8DE1 /* HudEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudEntity.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -221,15 +223,15 @@
 				8D23C14F2B02C59B00F7D878 /* Asteroids.swift */,
 				8D23C1E42B02C81D00F7D878 /* CGPoint+extensions.swift */,
 				8D23C1E52B02C81D00F7D878 /* Double+extensions.swift */,
-				8D23C1642B02C59C00F7D878 /* components */,
 				8D23C1502B02C59B00F7D878 /* Constants.swift */,
 				8D23C1892B02C59D00F7D878 /* entities */,
+				8D23C1642B02C59C00F7D878 /* components */,
+				8D23C17B2B02C59C00F7D878 /* systems */,
+				8D23C1512B02C59C00F7D878 /* nodes */,
 				8D23C1762B02C59C00F7D878 /* Hashable+extensions.swift */,
 				8D23C18B2B02C59D00F7D878 /* KeyPoll.swift */,
-				8D23C1512B02C59C00F7D878 /* nodes */,
 				8D23C1772B02C59C00F7D878 /* particles */,
 				8D23C18C2B02C59D00F7D878 /* sounds */,
-				8D23C17B2B02C59C00F7D878 /* systems */,
 				8D23C1972B02C59D00F7D878 /* views */,
 			);
 			path = Swashteroids;
@@ -318,6 +320,7 @@
 			isa = PBXGroup;
 			children = (
 				8D23C18A2B02C59D00F7D878 /* EntityCreator.swift */,
+				931390CE0425A854FD0B8DE1 /* HudEntity.swift */,
 			);
 			path = entities;
 			sourceTree = "<group>";
@@ -515,6 +518,7 @@
 				8D23C1AC2B02C59D00F7D878 /* MotionControlsNode.swift in Sources */,
 				8D23C1A92B02C59D00F7D878 /* ShipEngineNode.swift in Sources */,
 				8D23C1D32B02C59D00F7D878 /* EntityCreator.swift in Sources */,
+				931392A72F550D08153829B2 /* HudEntity.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

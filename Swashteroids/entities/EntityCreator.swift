@@ -1,7 +1,6 @@
 import SpriteKit
 import Swash
 
-
 enum Layers: CGFloat {
     case asteroids
     case bullet
@@ -13,9 +12,10 @@ enum Layers: CGFloat {
 
 class GunSupplierComponent: Component {}
 
+/// EntityCreator is a bunch of convenience methods that create and configure entities, then adds them to its engine.
 class EntityCreator {
     private weak var engine: Engine!
-    private var waitEntity: Entity?
+//    private var waitEntity: Entity?
     private var numAsteroids = 0
     private var numBullets = 0
 
@@ -26,8 +26,7 @@ class EntityCreator {
     @discardableResult
     func createGunSupplier(radius: Double = 7, x: Double = 512, y: Double = 484) -> Entity {
         let sprite = GunSupplierView(texture: createGunSupplierTexture(radius: radius, color: .cyan))
-        let entity = Entity()
-        entity.name = "gunSupplier"
+        let entity = Entity(name: "gunSupplier")
         sprite.name = entity.name
         entity
                 .add(component: PositionComponent(x: Double.random(in: 200...824),
@@ -44,14 +43,11 @@ class EntityCreator {
 
     @discardableResult
     func createHud() -> Entity {
+        // Here we create a subclass of entity
         let hudView = HudView()
-        let entity: Entity = Entity(name: "hud")
-                .add(component: GameStateComponent())
-                .add(component: HudComponent(hudView: hudView))
-                .add(component: DisplayComponent(displayObject: hudView))
-                .add(component: PositionComponent(x: 0, y: 0, z: .hud, rotation: 0))
-        try! engine.addEntity(entity: entity)
-        return entity
+        let hudEntity = HudEntity(name: "hud", view: hudView)
+        try! engine.addEntity(entity: hudEntity)
+        return hudEntity
     }
 
     @discardableResult
@@ -91,7 +87,8 @@ class EntityCreator {
         let sparkEmiter = SKEmitterNode(fileNamed: "photon.sks")!
         sparkEmiter.emissionAngle = parentPosition.rotation * Double.pi / 180 + (dir > 0 ? Double.pi : 0)
         sprite.addChild(sparkEmiter)
-        let entity = Entity()
+        numBullets += 1
+        let entity = Entity(name: "bullet_\(numBullets)")
                 .add(component: BulletComponent(lifeRemaining: gun.bulletLifetime))
                 .add(component: PositionComponent(x: cos * gun.offsetFromParent.x - sin * gun.offsetFromParent
                                                                                              .y + parentPosition.position
@@ -108,8 +105,6 @@ class EntityCreator {
                                                 damping: 0 + parentMotion.damping))
                 .add(component: DisplayComponent(displayObject: sprite))
                 .add(component: AudioComponent("fire.wav"))
-        numBullets += 1
-        entity.name = "bullet_\(numBullets)"
         sprite.name = entity.name
         try? engine.addEntity(entity: entity)
         return entity
@@ -117,14 +112,14 @@ class EntityCreator {
 
     @discardableResult
     func createWaitForClick() -> Entity? {
-        if waitEntity == nil {
-            let waitView: WaitForStartView = WaitForStartView()
-            waitEntity = Entity(name: "wait")
-                    .add(component: WaitForStartComponent())
-                    .add(component: DisplayComponent(displayObject: waitView))
-                    .add(component: PositionComponent(x: 0, y: 0, z: .wait, rotation: 0))
-        }
-        guard let waitEntity else { return nil }
+//        if waitEntity == nil {
+        let waitView: WaitForStartView = WaitForStartView()
+        let waitEntity = Entity(name: "wait")
+                .add(component: WaitForStartComponent())
+                .add(component: DisplayComponent(displayObject: waitView))
+                .add(component: PositionComponent(x: 0, y: 0, z: .wait, rotation: 0))
+//        }
+//        guard let waitEntity else { return nil }
         do {
             try engine?.addEntity(entity: waitEntity)
         }
@@ -136,30 +131,30 @@ class EntityCreator {
 
     func createButtons() {
         // left
-        let leftButton = SKSpriteNode(texture: createButtonTexture(color: .red))
+        let leftButton = SKSpriteNode(texture: createButtonTexture(color: .systemGreen))
         leftButton.alpha = 0.5
         leftButton.name = "leftButton"
-        let leftx = leftButton.size.width / 2 + 10
-        let lefty = leftButton.size.height / 2 + 10
+        let leftx = leftButton.size.width / 2 + 30
+        let lefty = leftButton.size.height / 2 + 30
         let leftButtonEntity = Entity(name: "leftButton")
                 .add(component: PositionComponent(x: leftx, y: lefty, z: .buttons, rotation: 0.0))
                 .add(component: DisplayComponent(displayObject: leftButton))
         try! engine.addEntity(entity: leftButtonEntity)
         // right
-        let rightButton = SKSpriteNode(texture: createButtonTexture(color: .red))
+        let rightButton = SKSpriteNode(texture: createButtonTexture(color: .systemGreen))
         rightButton.alpha = 0.5
         rightButton.name = "rightButton"
-        let rightx = rightButton.size.width + 10 + leftx
+        let rightx = rightButton.size.width + 30 + leftx
         let righty = lefty
         let rightButtonEntity = Entity(name: "rightButton")
                 .add(component: PositionComponent(x: rightx, y: righty, z: .buttons, rotation: 0.0))
                 .add(component: DisplayComponent(displayObject: rightButton))
         try! engine.addEntity(entity: rightButtonEntity)
         // fire
-        let fireButton = SKSpriteNode(texture: createButtonTexture(color: .red))
+        let fireButton = SKSpriteNode(texture: createButtonTexture(color: .systemRed))
         fireButton.alpha = 0.5
         fireButton.name = "fireButton"
-        let firex = 1024 - fireButton.size.width / 2 - 10
+        let firex = 1024 - fireButton.size.width / 2 - 30
         let firey = lefty
         let fireButtonEntity = Entity(name: "fireButton")
                 .add(component: PositionComponent(x: firex, y: firey, z: .buttons, rotation: 0.0))
@@ -169,7 +164,7 @@ class EntityCreator {
         let thrustButton = SKSpriteNode(texture: createButtonTexture(color: .white))
         thrustButton.alpha = 0.5
         thrustButton.name = "thrustButton"
-        let thrustx = -fireButton.size.width - 20 + firex
+        let thrustx = -fireButton.size.width - 30 + firex
         let thrusty = lefty
         let thrustButtonEntity = Entity(name: "thrustButton")
                 .add(component: PositionComponent(x: thrustx, y: thrusty, z: .buttons, rotation: 0.0))

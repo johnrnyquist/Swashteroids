@@ -4,7 +4,7 @@ import Swash
 
 class WaitForStartView: SKSpriteNode {
     private var gameOver: SKLabelNode = {
-        let gameOver = SKLabelNode(text: "Swash Asteroids")
+        let gameOver = SKLabelNode(text: "Swashteroids!")
         gameOver.fontName = "Helvetica"
         gameOver.color = .white
         gameOver.fontSize = 72
