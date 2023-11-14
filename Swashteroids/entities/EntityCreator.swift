@@ -131,7 +131,7 @@ class EntityCreator {
 
     func createButtons() {
         // left
-        let leftButton = SKSpriteNode(texture: createButtonTexture(color: .systemGreen))
+        let leftButton = SKSpriteNode(texture: createButtonTexture(color: .white))
         leftButton.alpha = 0.5
         leftButton.name = "leftButton"
         let leftx = leftButton.size.width / 2 + 30
@@ -141,7 +141,7 @@ class EntityCreator {
                 .add(component: DisplayComponent(displayObject: leftButton))
         try! engine.addEntity(entity: leftButtonEntity)
         // right
-        let rightButton = SKSpriteNode(texture: createButtonTexture(color: .systemGreen))
+        let rightButton = SKSpriteNode(texture: createButtonTexture(color: .white))
         rightButton.alpha = 0.5
         rightButton.name = "rightButton"
         let rightx = rightButton.size.width + 30 + leftx
@@ -161,7 +161,7 @@ class EntityCreator {
                 .add(component: DisplayComponent(displayObject: fireButton))
         try! engine.addEntity(entity: fireButtonEntity)
         // thrust
-        let thrustButton = SKSpriteNode(texture: createButtonTexture(color: .white))
+        let thrustButton = SKSpriteNode(texture: createButtonTexture(color: .systemGreen))
         thrustButton.alpha = 0.5
         thrustButton.name = "thrustButton"
         let thrustx = -fireButton.size.width - 30 + firex
