@@ -20,6 +20,16 @@ final class GameViewController: UIViewController {
 		skview.presentScene(scene)
 	}
 
+	override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+		if motion == .motionShake {
+			if 
+				let skView = view as? SKView,
+				let scene = skView.scene as? GameScene {
+				scene.shake()
+			}
+		}
+	}
+
 	override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
 		if UIDevice.current.userInterfaceIdiom == .phone {
 			return .allButUpsideDown
@@ -29,69 +39,5 @@ final class GameViewController: UIViewController {
 	}
 	override var prefersStatusBarHidden: Bool {
 		return true
-	}
-
-	override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
-		// Run backward or forward when the user presses a left or right arrow key.
-		var didHandleEvent = false
-		for press in presses {
-			guard let key = press.key else { continue }
-			if key.charactersIgnoringModifiers == UIKeyCommand.inputLeftArrow {
-				keyPoll.leftIsDown = true
-				didHandleEvent = true
-			}
-			if key.charactersIgnoringModifiers == UIKeyCommand.inputRightArrow {
-				keyPoll.rightIsDown = true
-				didHandleEvent = true
-			}
-			if key.charactersIgnoringModifiers == UIKeyCommand.inputUpArrow {
-				keyPoll.thrustIsDown = true
-				didHandleEvent = true
-			}
-			if key.charactersIgnoringModifiers == UIKeyCommand.inputDownArrow {
-				keyPoll.aftTriggerIsDown = true
-				didHandleEvent = true
-			}
-			if key.keyCode == .keyboardSpacebar {
-				keyPoll.triggerIsDown = true
-				didHandleEvent = true
-			}
-		}
-		if didHandleEvent == false {
-			// Didn't handle this key press, so pass the event to the next responder.
-			super.pressesBegan(presses, with: event)
-		}
-	}
-
-	override func pressesEnded(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
-		// Stop running when the user releases the left or right arrow key.
-		var didHandleEvent = false
-		for press in presses {
-			guard let key = press.key else { continue }
-			if key.charactersIgnoringModifiers == UIKeyCommand.inputLeftArrow {
-				keyPoll.leftIsDown = false
-				didHandleEvent = true
-			}
-			if key.charactersIgnoringModifiers == UIKeyCommand.inputRightArrow {
-				keyPoll.rightIsDown = false
-				didHandleEvent = true
-			}
-			if key.charactersIgnoringModifiers == UIKeyCommand.inputUpArrow {
-				keyPoll.thrustIsDown = false
-				didHandleEvent = true
-			}
-			if key.charactersIgnoringModifiers == UIKeyCommand.inputDownArrow {
-				keyPoll.aftTriggerIsDown = false
-				didHandleEvent = true
-			}
-			if key.keyCode == .keyboardSpacebar {
-				keyPoll.triggerIsDown = false
-				didHandleEvent = true
-			}
-		}
-		if didHandleEvent == false {
-			// Didn't handle this key press, so pass the event to the next responder.
-			super.pressesBegan(presses, with: event)
-		}
 	}
 }

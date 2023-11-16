@@ -20,9 +20,13 @@ class MotionControlsSystem: ListIteratingSystem {
             let control = node[MotionControlsComponent.self],
             let audio = node[AudioComponent.self]
         else { print("ALERT: \(node) is not \(MotionControlsNode.self)"); return }
-        if keyPoll.leftIsDown {
-            position.rotation += control.rotationRate * time
-        }
+		if keyPoll.flipIsDown {
+			position.rotation += 180
+			keyPoll.flipIsDown = false
+		}
+		if keyPoll.leftIsDown {
+			position.rotation += control.rotationRate * time
+		}
         if keyPoll.rightIsDown {
             position.rotation -= control.rotationRate * time
         }

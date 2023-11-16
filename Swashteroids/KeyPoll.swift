@@ -1,4 +1,5 @@
 public class KeyPoll {
+	var flipIsDown = false
     var leftIsDown = false
     var rightIsDown = false
     var thrustIsDown = false

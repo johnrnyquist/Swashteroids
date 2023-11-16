@@ -73,8 +73,8 @@ class EntityCreator {
                 .add(component: MotionControlsComponent(left: 1,
                                                         right: 2,
                                                         accelerate: 4,
-                                                        accelerationRate: 80,
-                                                        rotationRate: 90))
+                                                        accelerationRate: 90,
+                                                        rotationRate: 100))
         try! engine.addEntity(entity: entity)
         return entity
     }
@@ -130,16 +130,26 @@ class EntityCreator {
     }
 
     func createButtons() {
-        // left
-        let leftButton = SKSpriteNode(texture: createButtonTexture(color: .white))
-        leftButton.alpha = 0.5
-        leftButton.name = "leftButton"
-        let leftx = leftButton.size.width / 2 + 30
-        let lefty = leftButton.size.height / 2 + 30
-        let leftButtonEntity = Entity(name: "leftButton")
-                .add(component: PositionComponent(x: leftx, y: lefty, z: .buttons, rotation: 0.0))
-                .add(component: DisplayComponent(displayObject: leftButton))
-        try! engine.addEntity(entity: leftButtonEntity)
+		// flip
+		let flipButton = SKSpriteNode(texture: createButtonTexture(color: .systemYellow))
+		flipButton.alpha = 0.5
+		flipButton.name = "flipButton"
+		let flipx = flipButton.size.width / 2 + 30
+		let flipy = flipButton.size.height + 120
+		let flipButtonEntity = Entity(name: "flipButton")
+			.add(component: PositionComponent(x: flipx, y: flipy, z: .buttons, rotation: 0.0))
+			.add(component: DisplayComponent(displayObject: flipButton))
+		try! engine.addEntity(entity: flipButtonEntity)
+		// left
+		let leftButton = SKSpriteNode(texture: createButtonTexture(color: .white))
+		leftButton.alpha = 0.5
+		leftButton.name = "leftButton"
+		let leftx = leftButton.size.width / 2 + 30
+		let lefty = leftButton.size.height / 2 + 30
+		let leftButtonEntity = Entity(name: "leftButton")
+			.add(component: PositionComponent(x: leftx, y: lefty, z: .buttons, rotation: 0.0))
+			.add(component: DisplayComponent(displayObject: leftButton))
+		try! engine.addEntity(entity: leftButtonEntity)
         // right
         let rightButton = SKSpriteNode(texture: createButtonTexture(color: .white))
         rightButton.alpha = 0.5
@@ -151,22 +161,22 @@ class EntityCreator {
                 .add(component: DisplayComponent(displayObject: rightButton))
         try! engine.addEntity(entity: rightButtonEntity)
         // fire
-        let fireButton = SKSpriteNode(texture: createButtonTexture(color: .systemRed))
+        let fireButton = SKSpriteNode(texture: createButtonTexture(color: .systemGreen))
         fireButton.alpha = 0.5
-        fireButton.name = "fireButton"
+        fireButton.name = "thrustButton"
         let firex = 1024 - fireButton.size.width / 2 - 30
         let firey = lefty
-        let fireButtonEntity = Entity(name: "fireButton")
+        let fireButtonEntity = Entity(name: "thrustButton")
                 .add(component: PositionComponent(x: firex, y: firey, z: .buttons, rotation: 0.0))
                 .add(component: DisplayComponent(displayObject: fireButton))
         try! engine.addEntity(entity: fireButtonEntity)
         // thrust
-        let thrustButton = SKSpriteNode(texture: createButtonTexture(color: .systemGreen))
+        let thrustButton = SKSpriteNode(texture: createButtonTexture(color: .systemRed))
         thrustButton.alpha = 0.5
-        thrustButton.name = "thrustButton"
+        thrustButton.name = "fireButton"
         let thrustx = -fireButton.size.width - 30 + firex
         let thrusty = lefty
-        let thrustButtonEntity = Entity(name: "thrustButton")
+        let thrustButtonEntity = Entity(name: "fireButton")
                 .add(component: PositionComponent(x: thrustx, y: thrusty, z: .buttons, rotation: 0.0))
                 .add(component: DisplayComponent(displayObject: thrustButton))
         try! engine.addEntity(entity: thrustButtonEntity)

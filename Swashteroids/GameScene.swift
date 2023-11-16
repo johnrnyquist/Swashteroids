@@ -18,8 +18,17 @@ final class GameScene: SKScene {
 		game.tickProvider.dispatchTick()
 	}
 
+	func shake() {
+		// Your code here
+		print("Phone has been shaken!")
+		ship?
+			.add(component: HyperSpaceComponent(x: CGFloat(Int.random(in: 0...Int(game.config.width))),
+												y: CGFloat(Int.random(in: 0...Int(game.config.height)))))
+	}
+
 	//MARK:- TOUCHES -------------------------
 
+	var flipTouched: UITouch?
 	var leftTouched: UITouch?
 	var rightTouched: UITouch?
 	var triggerTouched: UITouch?
@@ -37,6 +46,11 @@ final class GameScene: SKScene {
 		else { return }
 		if let ship,
 		   ship.has(componentClassName: MotionComponent.name) {
+			if nodeTouched.name == "flipButton" {
+				flipTouched = touch
+				game.keyPoll.flipIsDown = true
+				generator.impactOccurred()
+			}
 			if nodeTouched.name == "fireButton" {
 				triggerTouched = touch
 				game.keyPoll.triggerIsDown = true
@@ -69,22 +83,21 @@ final class GameScene: SKScene {
 
 	func touchUp(atPoint pos: CGPoint, touch: UITouch) {
 		switch touch {
+			case flipTouched:
+				flipTouched = nil
+				game.keyPoll.flipIsDown = false
 			case leftTouched:
 				leftTouched = nil
 				game.keyPoll.leftIsDown = false
-				break
 			case rightTouched:
 				rightTouched = nil
 				game.keyPoll.rightIsDown = false
-				break
 			case thrustTouched:
 				thrustTouched = nil
 				game.keyPoll.thrustIsDown = false
-				break
 			case triggerTouched:
 				triggerTouched = nil
 				game.keyPoll.triggerIsDown = false
-				break
 			default:
 				break
 		}

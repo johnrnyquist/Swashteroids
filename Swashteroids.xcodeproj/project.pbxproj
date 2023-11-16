@@ -90,6 +90,9 @@
 		8D23C1E92B02CD7E00F7D878 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C1E82B02CD7E00F7D878 /* README.md */; };
 		8D23C1EB2B02CD9800F7D878 /* LICENSE.md in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C1EA2B02CD9800F7D878 /* LICENSE.md */; };
 		8D23C1EE2B02D00700F7D878 /* swashteroids.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C1ED2B02D00700F7D878 /* swashteroids.png */; };
+		8D9DEF642B059E3800064B01 /* HyperSpaceComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9DEF632B059E3800064B01 /* HyperSpaceComponent.swift */; };
+		8D9DEF662B059EC400064B01 /* HyperSpaceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9DEF652B059EC400064B01 /* HyperSpaceNode.swift */; };
+		8D9DEF682B059F2800064B01 /* HyperSpaceSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9DEF672B059F2800064B01 /* HyperSpaceSystem.swift */; };
 		931392A72F550D08153829B2 /* HudEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931390CE0425A854FD0B8DE1 /* HudEntity.swift */; };
 /* End PBXBuildFile section */
 
@@ -177,6 +180,9 @@
 		8D23C1E82B02CD7E00F7D878 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8D23C1EA2B02CD9800F7D878 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		8D23C1ED2B02D00700F7D878 /* swashteroids.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = swashteroids.png; sourceTree = "<group>"; };
+		8D9DEF632B059E3800064B01 /* HyperSpaceComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyperSpaceComponent.swift; sourceTree = "<group>"; };
+		8D9DEF652B059EC400064B01 /* HyperSpaceNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyperSpaceNode.swift; sourceTree = "<group>"; };
+		8D9DEF672B059F2800064B01 /* HyperSpaceSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyperSpaceSystem.swift; sourceTree = "<group>"; };
 		931390CE0425A854FD0B8DE1 /* HudEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudEntity.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -240,6 +246,8 @@
 		8D23C1512B02C59C00F7D878 /* nodes */ = {
 			isa = PBXGroup;
 			children = (
+				8D9DEF652B059EC400064B01 /* HyperSpaceNode.swift */,
+				8D23C1602B02C59C00F7D878 /* MovementNode.swift */,
 				8D23C1522B02C59C00F7D878 /* ShipCollisionNode.swift */,
 				8D23C1532B02C59C00F7D878 /* RenderNode.swift */,
 				8D23C1542B02C59C00F7D878 /* ShipNode.swift */,
@@ -254,7 +262,6 @@
 				8D23C15D2B02C59C00F7D878 /* BulletCollisionNode.swift */,
 				8D23C15E2B02C59C00F7D878 /* HudNode.swift */,
 				8D23C15F2B02C59C00F7D878 /* MotionControlsNode.swift */,
-				8D23C1602B02C59C00F7D878 /* MovementNode.swift */,
 				8D23C1612B02C59C00F7D878 /* AsteroidCollisionNode.swift */,
 				8D23C1622B02C59C00F7D878 /* GameNode.swift */,
 				8D23C1632B02C59C00F7D878 /* GunControlNode.swift */,
@@ -282,6 +289,7 @@
 				8D23C1732B02C59C00F7D878 /* HudComponent.swift */,
 				8D23C1742B02C59C00F7D878 /* CollisionComponent.swift */,
 				8D23C1752B02C59C00F7D878 /* WaitForStartComponent.swift */,
+				8D9DEF632B059E3800064B01 /* HyperSpaceComponent.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -299,18 +307,19 @@
 		8D23C17B2B02C59C00F7D878 /* systems */ = {
 			isa = PBXGroup;
 			children = (
+				8D23C1812B02C59C00F7D878 /* MotionControlsSystem.swift */,
+				8D23C1862B02C59C00F7D878 /* WaitForStartSystem.swift */,
+				8D23C1842B02C59C00F7D878 /* HudSystem.swift */,
 				8D23C17C2B02C59C00F7D878 /* CollisionSystem.swift */,
 				8D23C17D2B02C59C00F7D878 /* ShipEngineSystem.swift */,
 				8D23C17E2B02C59C00F7D878 /* AudioSystem.swift */,
 				8D23C17F2B02C59C00F7D878 /* FiringControlsSystem.swift */,
 				8D23C1802B02C59C00F7D878 /* BulletAgeSystem.swift */,
-				8D23C1812B02C59C00F7D878 /* MotionControlsSystem.swift */,
 				8D23C1822B02C59C00F7D878 /* GameManagerSystem.swift */,
 				8D23C1832B02C59C00F7D878 /* DeathThroesSystem.swift */,
-				8D23C1842B02C59C00F7D878 /* HudSystem.swift */,
 				8D23C1852B02C59C00F7D878 /* AnimationSystem.swift */,
-				8D23C1862B02C59C00F7D878 /* WaitForStartSystem.swift */,
 				8D23C1872B02C59C00F7D878 /* MovementSystem.swift */,
+				8D9DEF672B059F2800064B01 /* HyperSpaceSystem.swift */,
 				8D23C1882B02C59C00F7D878 /* RenderSystem.swift */,
 			);
 			path = systems;
@@ -507,8 +516,11 @@
 				8D23C13E2B02C4CA00F7D878 /* GameViewController.swift in Sources */,
 				8D23C1CB2B02C59D00F7D878 /* MotionControlsSystem.swift in Sources */,
 				8D23C1E72B02C81D00F7D878 /* Double+extensions.swift in Sources */,
+				8D9DEF682B059F2800064B01 /* HyperSpaceSystem.swift in Sources */,
 				8D23C1BB2B02C59D00F7D878 /* GunComponent.swift in Sources */,
 				8D23C1BA2B02C59D00F7D878 /* GunControlsComponent.swift in Sources */,
+				8D9DEF642B059E3800064B01 /* HyperSpaceComponent.swift in Sources */,
+				8D9DEF662B059EC400064B01 /* HyperSpaceNode.swift in Sources */,
 				8D23C1C12B02C59D00F7D878 /* WaitForStartComponent.swift in Sources */,
 				8D23C1362B02C4CA00F7D878 /* AppDelegate.swift in Sources */,
 				8D23C1E22B02C59D00F7D878 /* GunSupplierView.swift in Sources */,
@@ -669,7 +681,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = W8GR9TRDWE;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -697,7 +709,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = W8GR9TRDWE;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
