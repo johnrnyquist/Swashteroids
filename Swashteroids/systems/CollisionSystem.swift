@@ -31,6 +31,7 @@ final class CollisionSystem: System {
     }
 
     private func splitAsteroid(asteroidCollision: CollisionComponent, asteroidPosition: PositionComponent, asteroidCollisionNode: Node?) {
+        guard let asteroidCollisionNode else { return }
         if (asteroidCollision.radius > LARGE_ASTEROID_RADIUS / 4) {
             creator.createAsteroid(radius: asteroidCollision.radius / 2,
                                    x: asteroidPosition.position.x + Double.random(in: -5...5),
@@ -43,7 +44,7 @@ final class CollisionSystem: System {
         let spriteNode = SKNode()
         let emitter = SKEmitterNode(fileNamed: "shipExplosion.sks")!
         spriteNode.addChild(emitter)
-        asteroidCollisionNode!.entity!
+        asteroidCollisionNode.entity!
                               .remove(componentClass: DisplayComponent.self)
                               .remove(componentClass: CollisionComponent.self)
                               .add(component: DisplayComponent(displayObject: spriteNode))

@@ -5,16 +5,18 @@
 //  Created by John Nyquist on 11/15/23.
 //
 
-import Foundation
 import Swash
-
+import SpriteKit
 
 class HyperSpaceSystem: ListIteratingSystem {
-	var config: GameConfig!
+	var config: GameConfig
+	var sound = SKAction.playSoundFileNamed("hyperspace.wav", waitForCompletion: false)
+	var scene: SKScene
 
-	init(config: GameConfig) {
-		super.init(nodeClass: HyperSpaceNode.self)
+	init(config: GameConfig, scene: SKScene) {
 		self.config = config
+		self.scene = scene
+		super.init(nodeClass: HyperSpaceNode.self)
 		nodeUpdateFunction = updateNode
 	}
 
@@ -25,5 +27,6 @@ class HyperSpaceSystem: ListIteratingSystem {
 		position.position.x += hyperSpace.x
 		position.position.y += hyperSpace.y
 		node.entity?.remove(componentClass: HyperSpaceComponent.self)
+		scene.run(sound)
 	}
 }

@@ -10,6 +10,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	let bangSmall = SKAction.playSoundFileNamed("bangSmall.wav", waitForCompletion: false)
 	let fire = SKAction.playSoundFileNamed("fire.wav", waitForCompletion: false)
 	let thrust = SKAction.playSoundFileNamed("thrust.wav", waitForCompletion: false)
+	let hyperspace = SKAction.playSoundFileNamed("hyperspace.wav", waitForCompletion: false)
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 		return true

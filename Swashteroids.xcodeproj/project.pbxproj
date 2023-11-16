@@ -90,6 +90,7 @@
 		8D23C1E92B02CD7E00F7D878 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C1E82B02CD7E00F7D878 /* README.md */; };
 		8D23C1EB2B02CD9800F7D878 /* LICENSE.md in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C1EA2B02CD9800F7D878 /* LICENSE.md */; };
 		8D23C1EE2B02D00700F7D878 /* swashteroids.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C1ED2B02D00700F7D878 /* swashteroids.png */; };
+		8D688FBD2B0680D900056CD3 /* hyperspace.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D688FBC2B0680D900056CD3 /* hyperspace.wav */; };
 		8D9DEF642B059E3800064B01 /* HyperSpaceComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9DEF632B059E3800064B01 /* HyperSpaceComponent.swift */; };
 		8D9DEF662B059EC400064B01 /* HyperSpaceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9DEF652B059EC400064B01 /* HyperSpaceNode.swift */; };
 		8D9DEF682B059F2800064B01 /* HyperSpaceSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9DEF672B059F2800064B01 /* HyperSpaceSystem.swift */; };
@@ -180,6 +181,7 @@
 		8D23C1E82B02CD7E00F7D878 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8D23C1EA2B02CD9800F7D878 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		8D23C1ED2B02D00700F7D878 /* swashteroids.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = swashteroids.png; sourceTree = "<group>"; };
+		8D688FBC2B0680D900056CD3 /* hyperspace.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = hyperspace.wav; sourceTree = "<group>"; };
 		8D9DEF632B059E3800064B01 /* HyperSpaceComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyperSpaceComponent.swift; sourceTree = "<group>"; };
 		8D9DEF652B059EC400064B01 /* HyperSpaceNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyperSpaceNode.swift; sourceTree = "<group>"; };
 		8D9DEF672B059F2800064B01 /* HyperSpaceSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyperSpaceSystem.swift; sourceTree = "<group>"; };
@@ -232,8 +234,8 @@
 				8D23C1502B02C59B00F7D878 /* Constants.swift */,
 				8D23C1892B02C59D00F7D878 /* entities */,
 				8D23C1642B02C59C00F7D878 /* components */,
-				8D23C17B2B02C59C00F7D878 /* systems */,
 				8D23C1512B02C59C00F7D878 /* nodes */,
+				8D23C17B2B02C59C00F7D878 /* systems */,
 				8D23C1762B02C59C00F7D878 /* Hashable+extensions.swift */,
 				8D23C18B2B02C59D00F7D878 /* KeyPoll.swift */,
 				8D23C1772B02C59C00F7D878 /* particles */,
@@ -246,25 +248,25 @@
 		8D23C1512B02C59C00F7D878 /* nodes */ = {
 			isa = PBXGroup;
 			children = (
-				8D9DEF652B059EC400064B01 /* HyperSpaceNode.swift */,
-				8D23C1602B02C59C00F7D878 /* MovementNode.swift */,
-				8D23C1522B02C59C00F7D878 /* ShipCollisionNode.swift */,
-				8D23C1532B02C59C00F7D878 /* RenderNode.swift */,
-				8D23C1542B02C59C00F7D878 /* ShipNode.swift */,
+				8D23C15A2B02C59C00F7D878 /* AnimationNode.swift */,
+				8D23C1612B02C59C00F7D878 /* AsteroidCollisionNode.swift */,
 				8D23C1552B02C59C00F7D878 /* AudioNode.swift */,
 				8D23C1562B02C59C00F7D878 /* BulletAgeNode.swift */,
-				8D23C1572B02C59C00F7D878 /* DeathThroesNode.swift */,
-				8D23C1582B02C59C00F7D878 /* NodeX.swift */,
-				8D23C1592B02C59C00F7D878 /* WaitForStartNode.swift */,
-				8D23C15A2B02C59C00F7D878 /* AnimationNode.swift */,
-				8D23C15B2B02C59C00F7D878 /* GunSupplierNode.swift */,
-				8D23C15C2B02C59C00F7D878 /* ShipEngineNode.swift */,
 				8D23C15D2B02C59C00F7D878 /* BulletCollisionNode.swift */,
-				8D23C15E2B02C59C00F7D878 /* HudNode.swift */,
-				8D23C15F2B02C59C00F7D878 /* MotionControlsNode.swift */,
-				8D23C1612B02C59C00F7D878 /* AsteroidCollisionNode.swift */,
+				8D23C1572B02C59C00F7D878 /* DeathThroesNode.swift */,
 				8D23C1622B02C59C00F7D878 /* GameNode.swift */,
 				8D23C1632B02C59C00F7D878 /* GunControlNode.swift */,
+				8D23C15B2B02C59C00F7D878 /* GunSupplierNode.swift */,
+				8D23C15E2B02C59C00F7D878 /* HudNode.swift */,
+				8D9DEF652B059EC400064B01 /* HyperSpaceNode.swift */,
+				8D23C15F2B02C59C00F7D878 /* MotionControlsNode.swift */,
+				8D23C1602B02C59C00F7D878 /* MovementNode.swift */,
+				8D23C1582B02C59C00F7D878 /* NodeX.swift */,
+				8D23C1532B02C59C00F7D878 /* RenderNode.swift */,
+				8D23C1522B02C59C00F7D878 /* ShipCollisionNode.swift */,
+				8D23C15C2B02C59C00F7D878 /* ShipEngineNode.swift */,
+				8D23C1542B02C59C00F7D878 /* ShipNode.swift */,
+				8D23C1592B02C59C00F7D878 /* WaitForStartNode.swift */,
 			);
 			path = nodes;
 			sourceTree = "<group>";
@@ -272,24 +274,24 @@
 		8D23C1642B02C59C00F7D878 /* components */ = {
 			isa = PBXGroup;
 			children = (
-				8D23C1652B02C59C00F7D878 /* BulletComponent.swift */,
-				8D23C1662B02C59C00F7D878 /* EngineComponent.swift */,
-				8D23C1672B02C59C00F7D878 /* GameStateComponent.swift */,
-				8D23C1682B02C59C00F7D878 /* AudioComponent.swift */,
 				8D23C1692B02C59C00F7D878 /* AnimationComponent.swift */,
 				8D23C16A2B02C59C00F7D878 /* AsteroidComponent.swift */,
-				8D23C16B2B02C59C00F7D878 /* ShipComponent.swift */,
-				8D23C16C2B02C59C00F7D878 /* MotionComponent.swift */,
+				8D23C1682B02C59C00F7D878 /* AudioComponent.swift */,
+				8D23C1652B02C59C00F7D878 /* BulletComponent.swift */,
+				8D23C1742B02C59C00F7D878 /* CollisionComponent.swift */,
 				8D23C16D2B02C59C00F7D878 /* DeathThroesComponent.swift */,
-				8D23C16E2B02C59C00F7D878 /* GunControlsComponent.swift */,
-				8D23C16F2B02C59C00F7D878 /* GunComponent.swift */,
 				8D23C1702B02C59C00F7D878 /* DisplayComponent.swift */,
+				8D23C1662B02C59C00F7D878 /* EngineComponent.swift */,
+				8D23C1672B02C59C00F7D878 /* GameStateComponent.swift */,
+				8D23C16F2B02C59C00F7D878 /* GunComponent.swift */,
+				8D23C16E2B02C59C00F7D878 /* GunControlsComponent.swift */,
+				8D23C1732B02C59C00F7D878 /* HudComponent.swift */,
+				8D9DEF632B059E3800064B01 /* HyperSpaceComponent.swift */,
+				8D23C16C2B02C59C00F7D878 /* MotionComponent.swift */,
 				8D23C1712B02C59C00F7D878 /* MotionControlsComponent.swift */,
 				8D23C1722B02C59C00F7D878 /* PositionComponent.swift */,
-				8D23C1732B02C59C00F7D878 /* HudComponent.swift */,
-				8D23C1742B02C59C00F7D878 /* CollisionComponent.swift */,
+				8D23C16B2B02C59C00F7D878 /* ShipComponent.swift */,
 				8D23C1752B02C59C00F7D878 /* WaitForStartComponent.swift */,
-				8D9DEF632B059E3800064B01 /* HyperSpaceComponent.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -297,9 +299,9 @@
 		8D23C1772B02C59C00F7D878 /* particles */ = {
 			isa = PBXGroup;
 			children = (
-				8D23C1782B02C59C00F7D878 /* shipExplosion.sks */,
-				8D23C1792B02C59C00F7D878 /* photon.sks */,
 				8D23C17A2B02C59C00F7D878 /* asteroidExplosion.sks */,
+				8D23C1792B02C59C00F7D878 /* photon.sks */,
+				8D23C1782B02C59C00F7D878 /* shipExplosion.sks */,
 			);
 			path = particles;
 			sourceTree = "<group>";
@@ -307,20 +309,20 @@
 		8D23C17B2B02C59C00F7D878 /* systems */ = {
 			isa = PBXGroup;
 			children = (
-				8D23C1812B02C59C00F7D878 /* MotionControlsSystem.swift */,
-				8D23C1862B02C59C00F7D878 /* WaitForStartSystem.swift */,
-				8D23C1842B02C59C00F7D878 /* HudSystem.swift */,
-				8D23C17C2B02C59C00F7D878 /* CollisionSystem.swift */,
-				8D23C17D2B02C59C00F7D878 /* ShipEngineSystem.swift */,
-				8D23C17E2B02C59C00F7D878 /* AudioSystem.swift */,
-				8D23C17F2B02C59C00F7D878 /* FiringControlsSystem.swift */,
-				8D23C1802B02C59C00F7D878 /* BulletAgeSystem.swift */,
-				8D23C1822B02C59C00F7D878 /* GameManagerSystem.swift */,
-				8D23C1832B02C59C00F7D878 /* DeathThroesSystem.swift */,
 				8D23C1852B02C59C00F7D878 /* AnimationSystem.swift */,
-				8D23C1872B02C59C00F7D878 /* MovementSystem.swift */,
+				8D23C17E2B02C59C00F7D878 /* AudioSystem.swift */,
+				8D23C1802B02C59C00F7D878 /* BulletAgeSystem.swift */,
+				8D23C17C2B02C59C00F7D878 /* CollisionSystem.swift */,
+				8D23C1832B02C59C00F7D878 /* DeathThroesSystem.swift */,
+				8D23C17F2B02C59C00F7D878 /* FiringControlsSystem.swift */,
+				8D23C1822B02C59C00F7D878 /* GameManagerSystem.swift */,
+				8D23C1842B02C59C00F7D878 /* HudSystem.swift */,
 				8D9DEF672B059F2800064B01 /* HyperSpaceSystem.swift */,
+				8D23C1812B02C59C00F7D878 /* MotionControlsSystem.swift */,
+				8D23C1872B02C59C00F7D878 /* MovementSystem.swift */,
 				8D23C1882B02C59C00F7D878 /* RenderSystem.swift */,
+				8D23C17D2B02C59C00F7D878 /* ShipEngineSystem.swift */,
+				8D23C1862B02C59C00F7D878 /* WaitForStartSystem.swift */,
 			);
 			path = systems;
 			sourceTree = "<group>";
@@ -337,16 +339,17 @@
 		8D23C18C2B02C59D00F7D878 /* sounds */ = {
 			isa = PBXGroup;
 			children = (
-				8D23C18D2B02C59D00F7D878 /* saucerSmall.wav */,
-				8D23C18E2B02C59D00F7D878 /* saucerBig.wav */,
 				8D23C18F2B02C59D00F7D878 /* bangLarge.wav */,
-				8D23C1902B02C59D00F7D878 /* thrust.wav */,
-				8D23C1912B02C59D00F7D878 /* fire.wav */,
-				8D23C1922B02C59D00F7D878 /* extraShip.wav */,
-				8D23C1932B02C59D00F7D878 /* bangSmall.wav */,
 				8D23C1942B02C59D00F7D878 /* bangMedium.wav */,
-				8D23C1952B02C59D00F7D878 /* beat2.wav */,
+				8D23C1932B02C59D00F7D878 /* bangSmall.wav */,
 				8D23C1962B02C59D00F7D878 /* beat1.wav */,
+				8D23C1952B02C59D00F7D878 /* beat2.wav */,
+				8D23C1922B02C59D00F7D878 /* extraShip.wav */,
+				8D23C1912B02C59D00F7D878 /* fire.wav */,
+				8D688FBC2B0680D900056CD3 /* hyperspace.wav */,
+				8D23C18E2B02C59D00F7D878 /* saucerBig.wav */,
+				8D23C18D2B02C59D00F7D878 /* saucerSmall.wav */,
+				8D23C1902B02C59D00F7D878 /* thrust.wav */,
 			);
 			path = sounds;
 			sourceTree = "<group>";
@@ -355,9 +358,9 @@
 			isa = PBXGroup;
 			children = (
 				8D23C1982B02C59D00F7D878 /* Create_Texture.swift */,
+				8D23C19B2B02C59D00F7D878 /* GunSupplierView.swift */,
 				8D23C1992B02C59D00F7D878 /* HudView.swift */,
 				8D23C19A2B02C59D00F7D878 /* SKNode+extensions.swift */,
-				8D23C19B2B02C59D00F7D878 /* GunSupplierView.swift */,
 				8D23C19C2B02C59D00F7D878 /* WaitForStartView.swift */,
 			);
 			path = views;
@@ -446,6 +449,7 @@
 				8D23C1D72B02C59D00F7D878 /* bangLarge.wav in Resources */,
 				8D23C1DA2B02C59D00F7D878 /* extraShip.wav in Resources */,
 				8D23C1D62B02C59D00F7D878 /* saucerBig.wav in Resources */,
+				8D688FBD2B0680D900056CD3 /* hyperspace.wav in Resources */,
 				8D23C1EB2B02CD9800F7D878 /* LICENSE.md in Resources */,
 				8D23C1432B02C4CC00F7D878 /* Assets.xcassets in Resources */,
 				8D23C1E92B02CD7E00F7D878 /* README.md in Resources */,
@@ -681,7 +685,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = W8GR9TRDWE;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -709,7 +713,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = W8GR9TRDWE;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

@@ -29,8 +29,7 @@ class GameManagerSystem: System {
               let gameStateComponent = gameNode[GameStateComponent.self] else {
             return
         }
-        if ships.empty,
-           gameStateComponent.playing {
+        if ships.empty, gameStateComponent.playing {
             if (gameStateComponent.lives > 0) {
                 let newSpaceshipPosition = CGPoint(x: config.width * 0.5, y: config.height * 0.5)
                 var clearToAddSpaceship = true
@@ -54,11 +53,8 @@ class GameManagerSystem: System {
                 creator.createWaitForClick()
             }
         }
-        if asteroids.empty,
-           bullets.empty,
-           !ships.empty {
+        if asteroids.empty, bullets.empty, !ships.empty {
             // next level
-            
             guard
                 let shipNode = ships.head,
                 let spaceShipPosition = shipNode[PositionComponent.self] 
@@ -69,9 +65,22 @@ class GameManagerSystem: System {
                 // check not on top of ship
                 var position: CGPoint
                 repeat {
-                    position = CGPoint(x: Double.random(in: 0.0...1.0) * config.width,
-                                       y: Double.random(in: 0.0...1.0) * config.height)
+                    // Randomly decide if the asteroid will be created along the vertical or horizontal bounds
+                    let isVertical = Bool.random()
+                    // Randomly decide if the asteroid will be created along the positive or negative bound
+                    let isPositive = Bool.random()
+                    if isVertical {
+                        // If isVertical is true, create the asteroid along the top or bottom bound
+                        let y = isPositive ? Double(config.height) : 0.0
+                        position = CGPoint(x: Double.random(in: 0.0...1.0) * config.width, y: y)
+                    } else {
+                        // If isVertical is false, create the asteroid along the left or right bound
+                        let x = isPositive ? Double(config.width) : 0.0
+                        position = CGPoint(x: x, y: Double.random(in: 0.0...1.0) * config.height)
+                    }
+                    // Repeat until the asteroid is not on top of the ship
                 } while (position.distance(p: spaceShipPosition.position) <= 80)
+                // Create the asteroid at the calculated position
                 creator.createAsteroid(radius: LARGE_ASTEROID_RADIUS, x: position.x, y: position.y)
             }
         }

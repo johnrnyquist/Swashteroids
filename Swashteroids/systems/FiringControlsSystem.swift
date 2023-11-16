@@ -30,8 +30,8 @@ class FiringControlsSystem: ListIteratingSystem {
         if gun.shooting,
            gun.timeSinceLastShot >= gun.minimumShotInterval {
             if keyPoll.aftTriggerIsDown {
-                creator?.createUserBullet(gun, position, motion,dir: -1)
-                
+                creator?.createUserBullet(gun, position, motion, dir: -1)
+
             } else if keyPoll.triggerIsDown {
                 creator?.createUserBullet(gun, position, motion)
                 
