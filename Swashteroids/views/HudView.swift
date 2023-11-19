@@ -45,7 +45,7 @@ class HudView: SKNode {
         let tf = SKLabelNode()
         tf.horizontalAlignmentMode = .left
         tf.fontName = "Helvetica"
-        tf.color = .white
+		tf.fontColor = .hudText
         tf.fontSize = 36
         return tf
     }

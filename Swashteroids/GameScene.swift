@@ -9,6 +9,7 @@ final class GameScene: SKScene {
 
 	override func didMove(to view: SKView) {
 		super.didMove(to: view)
+		backgroundColor = .background
 		game = Asteroids(container: self, width: frame.width, height: frame.height)
 		game.start()
 	}

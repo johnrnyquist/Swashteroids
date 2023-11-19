@@ -65,8 +65,8 @@ public class Asteroids {
     }
 
 	func shake() {
-		ship?.add(component: HyperSpaceComponent(x: CGFloat(Int.random(in: 0...Int(width))),
-												 y: CGFloat(Int.random(in: 0...Int(height)))))
+		ship?.add(component: HyperSpaceComponent(x: Double(Int.random(in: 0...Int(width))),
+												 y: Double(Int.random(in: 0...Int(height)))))
 	}
 }
 

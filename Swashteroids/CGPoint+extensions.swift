@@ -1,5 +1,4 @@
 import func Foundation.sqrt
-import struct Foundation.CGFloat
 import struct Foundation.CGPoint
 
 extension CGPoint {
@@ -15,7 +14,7 @@ extension CGPoint {
         return sum
     }
 
-    func distance(p: CGPoint) -> CGFloat {
+    func distance(p: CGPoint) -> Double {
         let dx = x - p.x
         let dy = y - p.y
         return sqrt(dx * dx + dy * dy)

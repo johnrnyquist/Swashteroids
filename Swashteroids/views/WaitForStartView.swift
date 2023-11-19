@@ -6,7 +6,7 @@ class WaitForStartView: SKSpriteNode {
     private var gameOver: SKLabelNode = {
         let gameOver = SKLabelNode(text: "Swashteroids!")
         gameOver.fontName = "Helvetica"
-        gameOver.color = .white
+        gameOver.fontColor = .waitText
         gameOver.fontSize = 72
         gameOver.horizontalAlignmentMode = .center
         gameOver.position = CGPoint(x: 512, y: 400)
@@ -15,7 +15,7 @@ class WaitForStartView: SKSpriteNode {
     private var clickToStart: SKLabelNode = {
         let clickToStart = SKLabelNode(text: "Tap to start")
         clickToStart.fontName = "Helvetica Light"
-        clickToStart.color = .white
+		clickToStart.fontColor = .waitText
         clickToStart.fontSize = 64
         clickToStart.horizontalAlignmentMode = .center
         clickToStart.position = CGPoint(x: 512, y: 330)
@@ -28,7 +28,7 @@ class WaitForStartView: SKSpriteNode {
         anchorPoint = .zero
         addChild(clickToStart)
         addChild(gameOver)
-        zPosition = 101 //HACK
+		zPosition = Layers.wait.rawValue
     }
 
     required init?(coder aDecoder: NSCoder) {

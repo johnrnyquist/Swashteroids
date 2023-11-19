@@ -24,16 +24,12 @@ class FiringControlsSystem: ListIteratingSystem {
 			  let input = node[InputComponent.self],
               bullets.numNodes < 5
         else { return }
-        gun.shooting = input.triggerIsDown || input.aftTriggerIsDown
+        gun.shooting = input.triggerIsDown
         gun.timeSinceLastShot += time
         if gun.shooting,
            gun.timeSinceLastShot >= gun.minimumShotInterval {
-            if input.aftTriggerIsDown {
-                creator?.createUserBullet(gun, position, motion, dir: -1)
-
-            } else if input.triggerIsDown {
+           if input.triggerIsDown {
                 creator?.createUserBullet(gun, position, motion)
-                
             }
             gun.timeSinceLastShot = 0
         }

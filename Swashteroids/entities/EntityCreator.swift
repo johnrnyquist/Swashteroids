@@ -1,7 +1,7 @@
 import SpriteKit
 import Swash
 
-enum Layers: CGFloat {
+enum Layers: Double {
     case asteroids
     case bullet
     case ship
@@ -82,12 +82,12 @@ class EntityCreator {
     }
 
     @discardableResult
-    func createUserBullet(_ gun: GunComponent, _ parentPosition: PositionComponent, _ parentMotion: MotionComponent, dir: Double = 1.0) -> Entity {
+    func createUserBullet(_ gun: GunComponent, _ parentPosition: PositionComponent, _ parentMotion: MotionComponent) -> Entity {
         let cos = cos(parentPosition.rotation * Double.pi / 180)
         let sin = sin(parentPosition.rotation * Double.pi / 180)
-        let sprite = SKSpriteNode(texture: createBulletTexture(color: dir > 0 ? .green : .yellow))
+        let sprite = SKSpriteNode(texture: createBulletTexture(color: .bullet))
         let sparkEmiter = SKEmitterNode(fileNamed: "photon.sks")!
-        sparkEmiter.emissionAngle = parentPosition.rotation * Double.pi / 180 + (dir > 0 ? Double.pi : 0)
+        sparkEmiter.emissionAngle = parentPosition.rotation * Double.pi / 180 + Double.pi
         sprite.addChild(sparkEmiter)
         numBullets += 1
         let entity = Entity(name: "bullet_\(numBullets)")
@@ -101,8 +101,8 @@ class EntityCreator {
                                                   z: Layers.bullet,
                                                   rotation: 0))
                 .add(component: CollisionComponent(radius: 0))
-                .add(component: MotionComponent(velocityX: dir * cos * 220 + parentMotion.velocity.x,
-                                                velocityY: dir * sin * 220 + parentMotion.velocity.y,
+                .add(component: MotionComponent(velocityX: cos * 220 + parentMotion.velocity.x,
+                                                velocityY: sin * 220 + parentMotion.velocity.y,
                                                 angularVelocity: 0 + parentMotion.angularVelocity,
                                                 damping: 0 + parentMotion.damping))
                 .add(component: DisplayComponent(displayObject: sprite))

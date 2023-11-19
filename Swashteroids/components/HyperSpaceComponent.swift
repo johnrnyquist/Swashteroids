@@ -9,10 +9,10 @@ import Swash
 import Foundation
 
 class HyperSpaceComponent: Component {
-	let x: CGFloat
-	let y: CGFloat
+	let x: Double
+	let y: Double
 
-	init(x: CGFloat, y: CGFloat) {
+	init(x: Double, y: Double) {
 		self.x = x
 		self.y = y
 	}

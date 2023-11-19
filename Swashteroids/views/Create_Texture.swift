@@ -3,7 +3,7 @@ import UIKit
 import Swash
 
 
-let LINE_WIDTH: CGFloat = 1
+let LINE_WIDTH: Double = 1
 
 func createGunSupplierTexture(radius: Double, color: UIColor) -> SKTexture {
     let size = CGSize(width: radius * 2, height: radius * 2)
