@@ -8,6 +8,7 @@ class GunControlNode: Node {
             PositionComponent.name: nil_component,
             GunControlsComponent.name: nil_component,
             GunComponent.name: nil_component,
+			InputComponent.name: nil_component
         ]
     }
 }

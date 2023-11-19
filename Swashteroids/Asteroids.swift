@@ -12,15 +12,13 @@ struct GameConfig {
 
 public class Asteroids {
 	var config: GameConfig!
+	var engine: Engine!
+	var tickProvider: FrameTickProvider!
 	private var container: SKScene
 	private var creator: EntityCreator!
-	private var engine: Engine!
-	var tickProvider: FrameTickProvider!
-	var keyPoll: KeyPoll!
 
-	public init(container: SKScene, width: Double, height: Double, keyPoll: KeyPoll) {
+	public init(container: SKScene, width: Double, height: Double) {
 		self.container = container
-		self.keyPoll = keyPoll //HACK
 		prepare(width: width, height: height)
 	}
 
@@ -34,15 +32,15 @@ public class Asteroids {
 			.addSystem(system: BulletAgeSystem(creator: creator), priority: SystemPriorities.update.rawValue)
 			.addSystem(system: CollisionSystem(creator), priority: SystemPriorities.resolveCollisions.rawValue)
 			.addSystem(system: DeathThroesSystem(creator: creator), priority: SystemPriorities.update.rawValue)
-			.addSystem(system: FiringControlsSystem(keyPoll: keyPoll, creator: creator), priority: SystemPriorities.update.rawValue)
+			.addSystem(system: FiringControlsSystem(creator: creator), priority: SystemPriorities.update.rawValue)
 			.addSystem(system: GameManagerSystem(creator: creator, config: config, scene: container as? GameScene), priority: SystemPriorities.preUpdate.rawValue)
 			.addSystem(system: HudSystem(), priority: SystemPriorities.animate.rawValue)
 			.addSystem(system: HyperSpaceSystem(config: config, scene: container), priority: SystemPriorities.update.rawValue)
-			.addSystem(system: MotionControlsSystem(keyPoll: keyPoll), priority: SystemPriorities.update.rawValue)
+			.addSystem(system: MotionControlsSystem(), priority: SystemPriorities.update.rawValue)
 			.addSystem(system: MovementSystem(config: config), priority: SystemPriorities.move.rawValue)
 			.addSystem(system: RenderSystem(container: container), priority: SystemPriorities.render.rawValue)
 			.addSystem(system: ShipEngineSystem(), priority: SystemPriorities.update.rawValue)
-			.addSystem(system: WaitForStartSystem(creator, keyPoll: keyPoll), priority: SystemPriorities.preUpdate.rawValue)
+			.addSystem(system: WaitForStartSystem(creator), priority: SystemPriorities.preUpdate.rawValue)
 		creator.createWaitForClick()
 		creator.createHud()
 		creator.createButtons()

@@ -5,12 +5,11 @@ import Swash
 
 final class GameScene: SKScene {
 	var game: Asteroids!
-	var keyPoll: KeyPoll! //HACK
 	var ship: Entity?
 
 	override func didMove(to view: SKView) {
 		super.didMove(to: view)
-		game = Asteroids(container: self, width: frame.width, height: frame.height, keyPoll: keyPoll)
+		game = Asteroids(container: self, width: frame.width, height: frame.height)
 		game.start()
 	}
 
@@ -36,43 +35,46 @@ final class GameScene: SKScene {
 	let generator = UIImpactFeedbackGenerator(style: .heavy)
 
 	func touchDown(atPoint pos: CGPoint, touch: UITouch) {
-		//HACK is there a child named "wait"?
-		guard childNode(withName: "wait") == nil else {
-			game.keyPoll.tapped = true
+		if let wait = game.engine.getEntity(named: "wait"),
+		   let input = wait.get(componentClassName: InputComponent.name) as? InputComponent {
+			input.tapped = true
 			generator.impactOccurred()
 			return
 		}
+
 		guard let nodeTouched = atPoint(pos) == self ? nil : atPoint(pos)
 		else { return }
 		if let ship,
-		   ship.has(componentClassName: MotionComponent.name) {
+		   ship.has(componentClassName: MotionComponent.name),
+		   let input = ship.get(componentClassName: InputComponent.name) as? InputComponent
+		{
 			if nodeTouched.name == "flipButton" {
 				flipTouched = touch
-				game.keyPoll.flipIsDown = true
+				input.flipIsDown = true
 				generator.impactOccurred()
 			}
 			if nodeTouched.name == "fireButton" {
 				triggerTouched = touch
-				game.keyPoll.triggerIsDown = true
+				input.triggerIsDown = true
 				generator.impactOccurred()
 			}
 			if nodeTouched.name == "thrustButton" {
-				if game.keyPoll.thrustIsDown == false {
+				if input.thrustIsDown == false {
 					thrustTouched = touch
-					game.keyPoll.thrustIsDown = true
+					input.thrustIsDown = true
 					generator.impactOccurred()
 				}
 			}
 			// either or
 			if nodeTouched.name == "leftButton" {
 				leftTouched = touch
-				game.keyPoll.rightIsDown = false
-				game.keyPoll.leftIsDown = true
+				input.rightIsDown = false
+				input.leftIsDown = true
 				generator.impactOccurred()
 			} else if nodeTouched.name == "rightButton" {
 				rightTouched = touch
-				game.keyPoll.leftIsDown = false
-				game.keyPoll.rightIsDown = true
+				input.leftIsDown = false
+				input.rightIsDown = true
 				generator.impactOccurred()
 			}
 		}
@@ -82,22 +84,27 @@ final class GameScene: SKScene {
 	}
 
 	func touchUp(atPoint pos: CGPoint, touch: UITouch) {
+		guard let ship,
+			  ship.has(componentClassName: MotionComponent.name),
+			  ship.has(componentClassName: InputComponent.name),
+			  let input = ship.get(componentClassName: InputComponent.name) as? InputComponent
+		else { return }
 		switch touch {
 			case flipTouched:
 				flipTouched = nil
-				game.keyPoll.flipIsDown = false
+				input.flipIsDown = false
 			case leftTouched:
 				leftTouched = nil
-				game.keyPoll.leftIsDown = false
+				input.leftIsDown = false
 			case rightTouched:
 				rightTouched = nil
-				game.keyPoll.rightIsDown = false
+				input.rightIsDown = false
 			case thrustTouched:
 				thrustTouched = nil
-				game.keyPoll.thrustIsDown = false
+				input.thrustIsDown = false
 			case triggerTouched:
 				triggerTouched = nil
-				game.keyPoll.triggerIsDown = false
+				input.triggerIsDown = false
 			default:
 				break
 		}

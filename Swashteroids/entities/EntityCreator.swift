@@ -15,7 +15,6 @@ class GunSupplierComponent: Component {}
 /// EntityCreator is a bunch of convenience methods that create and configure entities, then adds them to its engine.
 class EntityCreator {
     private weak var engine: Engine!
-//    private var waitEntity: Entity?
     private var numAsteroids = 0
     private var numBullets = 0
 
@@ -61,7 +60,7 @@ class EntityCreator {
         engineSprite.name = "engine"
         shipSprite.addChild(engineSprite)
         entity
-                .add(component: EngineComponent())
+                .add(component: WarpDriveComponent())
                 .add(component: AudioComponent())
                 .add(component: GunControlsComponent())
                 .add(component: PositionComponent(x: 512, y: 384, z: .ship, rotation: 0.0))
@@ -75,6 +74,7 @@ class EntityCreator {
                                                         accelerate: 4,
                                                         accelerationRate: 90,
                                                         rotationRate: 100))
+                .add(component: InputComponent())
         try! engine.addEntity(entity: entity)
         return entity
     }
@@ -112,14 +112,12 @@ class EntityCreator {
 
     @discardableResult
     func createWaitForClick() -> Entity? {
-//        if waitEntity == nil {
         let waitView: WaitForStartView = WaitForStartView()
         let waitEntity = Entity(name: "wait")
                 .add(component: WaitForStartComponent())
                 .add(component: DisplayComponent(displayObject: waitView))
                 .add(component: PositionComponent(x: 0, y: 0, z: .wait, rotation: 0))
-//        }
-//        guard let waitEntity else { return nil }
+                .add(component: InputComponent())
         do {
             try engine?.addEntity(entity: waitEntity)
         }

@@ -5,7 +5,7 @@ class ShipEngineNode: Node {
         super.init()
         components = [
             DisplayComponent.name: nil_component,
-            EngineComponent.name: nil_component,
+            WarpDriveComponent.name: nil_component,
         ]
     }
 }

@@ -7,8 +7,9 @@ class MotionControlsNode: Node {
             MotionControlsComponent.name: nil_component,
             MotionComponent.name: nil_component,
             PositionComponent.name: nil_component,
-            EngineComponent.name: nil_component,
-            AudioComponent.name: nil_component
+            WarpDriveComponent.name: nil_component,
+            AudioComponent.name: nil_component,
+            InputComponent.name: nil_component
         ]
     }
 }

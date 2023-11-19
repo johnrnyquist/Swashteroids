@@ -3,12 +3,10 @@ import Swash
 
 
 class FiringControlsSystem: ListIteratingSystem {
-    private var keyPoll: KeyPoll
     private var creator: EntityCreator?
     private var bullets: NodeList!
 
-    init(keyPoll: KeyPoll, creator: EntityCreator) {
-        self.keyPoll = keyPoll
+    init(creator: EntityCreator) {
         self.creator = creator
         super.init(nodeClass: GunControlNode.self)
         nodeUpdateFunction = updateNode
@@ -23,16 +21,17 @@ class FiringControlsSystem: ListIteratingSystem {
         guard let motion = node[MotionComponent.self],
               let position = node[PositionComponent.self],
               let gun = node[GunComponent.self],
+			  let input = node[InputComponent.self],
               bullets.numNodes < 5
         else { return }
-        gun.shooting = keyPoll.triggerIsDown || keyPoll.aftTriggerIsDown
+        gun.shooting = input.triggerIsDown || input.aftTriggerIsDown
         gun.timeSinceLastShot += time
         if gun.shooting,
            gun.timeSinceLastShot >= gun.minimumShotInterval {
-            if keyPoll.aftTriggerIsDown {
+            if input.aftTriggerIsDown {
                 creator?.createUserBullet(gun, position, motion, dir: -1)
 
-            } else if keyPoll.triggerIsDown {
+            } else if input.triggerIsDown {
                 creator?.createUserBullet(gun, position, motion)
                 
             }

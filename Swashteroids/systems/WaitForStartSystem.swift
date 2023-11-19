@@ -3,16 +3,14 @@ import Swash
 
 
 final class WaitForStartSystem: System {
-    private var keyPoll: KeyPoll
     private var engine: Engine?
     private var creator: EntityCreator?
     private var gameNodes: NodeList?
     private var waitNodes: NodeList?
     private var asteroids: NodeList?
 
-    init(_ creator: EntityCreator, keyPoll: KeyPoll) {
+    init(_ creator: EntityCreator) {
         self.creator = creator
-        self.keyPoll = keyPoll
     }
 
     public override func addToEngine(engine: Engine) {
@@ -24,10 +22,12 @@ final class WaitForStartSystem: System {
 
     public override func update(time: TimeInterval) {
         guard let waitNode = waitNodes?.head,
+			  let input = waitNode[InputComponent.self],
               let gameNode = gameNodes?.head,
               let gameStateComponent = gameNode[GameStateComponent.self]
         else { return }
-        if keyPoll.tapped {
+        print(#function, Unmanaged.passUnretained(input).toOpaque())
+        if input.tapped {
             // Clear any existing asteroids
             var asteroid = asteroids?.head
             while asteroid != nil {
@@ -36,7 +36,7 @@ final class WaitForStartSystem: System {
             }
             // Start state
             gameStateComponent.resetBoard()
-            keyPoll.tapped = false
+            input.tapped = false
             engine?.removeEntity(entity: waitNode.entity!)
         }
     }

@@ -10,7 +10,7 @@ class ShipEngineSystem: ListIteratingSystem {
 
     private func updateNode(node: Node, time: TimeInterval) {
         guard
-            let engineComponent = node[EngineComponent.self],
+            let engineComponent = node[WarpDriveComponent.self],
             let displayComponent = node[DisplayComponent.self]
         else { return }
         if engineComponent.isThrusting {

@@ -2,7 +2,6 @@ import UIKit
 import SpriteKit
 
 final class GameViewController: UIViewController {
-	private var keyPoll = KeyPoll()
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -10,7 +9,6 @@ final class GameViewController: UIViewController {
 		view = skview
 		view.isUserInteractionEnabled = true
 		let scene = GameScene(size: view.frame.size)
-		scene.keyPoll = keyPoll
 		scene.scaleMode = .aspectFit
 		skview.showsFPS = true
 		skview.isUserInteractionEnabled = true

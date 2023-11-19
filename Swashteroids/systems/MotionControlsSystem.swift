@@ -4,10 +4,8 @@ import Swash
 
 
 class MotionControlsSystem: ListIteratingSystem {
-    private var keyPoll: KeyPoll
 
-    init(keyPoll: KeyPoll) {
-        self.keyPoll = keyPoll
+    init() {
         super.init(nodeClass: MotionControlsNode.self)
         nodeUpdateFunction = updateNode
     }
@@ -16,28 +14,29 @@ class MotionControlsSystem: ListIteratingSystem {
         guard
             let position = node[PositionComponent.self],
             let motion = node[MotionComponent.self],
-            let engine = node[EngineComponent.self],
+            let engine = node[WarpDriveComponent.self],
             let control = node[MotionControlsComponent.self],
-            let audio = node[AudioComponent.self]
+            let audio = node[AudioComponent.self],
+			let input = node[InputComponent.self]
         else { print("ALERT: \(node) is not \(MotionControlsNode.self)"); return }
-		if keyPoll.flipIsDown {
+		if input.flipIsDown {
 			position.rotation += 180
-			keyPoll.flipIsDown = false
+			input.flipIsDown = false
 		}
-		if keyPoll.leftIsDown {
+		if input.leftIsDown {
 			position.rotation += control.rotationRate * time
 		}
-        if keyPoll.rightIsDown {
+        if input.rightIsDown {
             position.rotation -= control.rotationRate * time
         }
-        if keyPoll.thrustIsDown,
+        if input.thrustIsDown,
            engine.isThrusting == false {
             engine.isThrusting = true
             let thrustOnce = SKAction.playSoundFileNamed("thrust.wav", waitForCompletion: true)
             let thrust = SKAction.repeatForever(thrustOnce)
             audio.addSoundAction(thrust, withKey: "thrust")
         }
-        if keyPoll.thrustIsDown,
+        if input.thrustIsDown,
            engine.isThrusting == true {
             let rot = position.rotation * Double.pi / 180.0
             motion.velocity.x += cos(rot) * control.accelerationRate * time
