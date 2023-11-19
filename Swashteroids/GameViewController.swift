@@ -13,9 +13,6 @@ final class GameViewController: UIViewController {
 		skview.isUserInteractionEnabled = true
 		skview.isMultipleTouchEnabled = true
 		skview.showsPhysics = false
-		skview.ignoresSiblingOrder = true
-		skview.showsNodeCount = true
-		skview.showsFPS = true
 		skview.presentScene(scene)
 	}
 
