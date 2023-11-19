@@ -2,7 +2,7 @@ import SpriteKit
 import Swash
 
 
-class AudioComponent: Component {
+final class AudioComponent: Component {
     var toPlay: [String: SKAction] = [:]
     var toRemove: [String] = []
 

@@ -1,6 +1,6 @@
 import Swash
 
-class WaitForStartNode: Node {
+final class WaitForStartNode: Node {
     required init() {
         super.init()
         components = [

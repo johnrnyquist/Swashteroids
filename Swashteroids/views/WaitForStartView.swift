@@ -3,7 +3,7 @@ import Swash
 
 
 class WaitForStartView: SKSpriteNode {
-    private var gameOver: SKLabelNode = {
+    private var titleText: SKLabelNode = {
         let gameOver = SKLabelNode(text: "Swashteroids!")
         gameOver.fontName = "Helvetica"
         gameOver.fontColor = .waitText
@@ -12,7 +12,7 @@ class WaitForStartView: SKSpriteNode {
         gameOver.position = CGPoint(x: 512, y: 400)
         return gameOver
     }()
-    private var clickToStart: SKLabelNode = {
+    private var tapToStartText: SKLabelNode = {
         let clickToStart = SKLabelNode(text: "Tap to start")
         clickToStart.fontName = "Helvetica Light"
 		clickToStart.fontColor = .waitText
@@ -26,8 +26,8 @@ class WaitForStartView: SKSpriteNode {
         super.init(texture: nil, color: .clear, size: CGSize(width: 1024, height: 768))
         name = "wait"
         anchorPoint = .zero
-        addChild(clickToStart)
-        addChild(gameOver)
+        addChild(tapToStartText)
+        addChild(titleText)
 		zPosition = Layers.wait.rawValue
     }
 

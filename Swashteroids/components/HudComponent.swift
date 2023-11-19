@@ -1,6 +1,6 @@
 import Swash
 
-class HudComponent: Component {
+final class HudComponent: Component {
     let hudView: HudView
 
     init(hudView: HudView) {

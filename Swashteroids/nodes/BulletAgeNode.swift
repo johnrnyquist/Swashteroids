@@ -1,6 +1,6 @@
 import Swash
 
-class BulletAgeNode: Node {
+final class BulletAgeNode: Node {
     required init() {
         super.init()
         components = [

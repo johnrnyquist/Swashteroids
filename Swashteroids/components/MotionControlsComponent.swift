@@ -1,7 +1,7 @@
 import Swash
 
 //_TODO: This class needs to be reworked_
-class MotionControlsComponent: Component {
+final class MotionControlsComponent: Component {
     var left: UInt32 = 1
     var right: UInt32 = 2
     var accelerate: UInt32 = 4

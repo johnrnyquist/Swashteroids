@@ -2,8 +2,8 @@ import SpriteKit
 import Swash
 
 
-class AudioSystem: ListIteratingSystem {
-    var scene: SKScene!
+final class AudioSystem: ListIteratingSystem {
+    private weak var scene: SKScene!
 
     init(scene: SKScene) {
         self.scene = scene
@@ -22,6 +22,10 @@ class AudioSystem: ListIteratingSystem {
             scene.removeAction(forKey: soundAction)
         }
         audioComponent.toRemove.removeAll()
+    }
+    
+    public override func removeFromEngine(engine: Engine) {
+        scene = nil
     }
 }
 

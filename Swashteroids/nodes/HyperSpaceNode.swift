@@ -1,13 +1,6 @@
-//
-//  HyperSpaceNode.swift
-//  Swashteroids
-//
-//  Created by John Nyquist on 11/15/23.
-//
-
 import Swash
 
-class HyperSpaceNode: Node {
+final class HyperSpaceNode: Node {
 	required init() {
 		super.init()
 		components = [

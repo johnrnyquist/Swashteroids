@@ -1,6 +1,6 @@
 import Swash
 
-class RenderNode: Node {
+final class RenderNode: Node {
     required init() {
         super.init()
         components = [

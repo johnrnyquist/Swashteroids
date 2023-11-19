@@ -1,4 +1,4 @@
 import Swash
 
-class ShipComponent: Component {
+final class ShipComponent: Component {
 }

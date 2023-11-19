@@ -3,12 +3,12 @@ import Swash
 
 
 final class CollisionSystem: System {
-    var creator: EntityCreator
-    var games: NodeList!
-    var ships: NodeList!
-    var asteroids: NodeList!
-    var bullets: NodeList!
-    var gunSuppliers: NodeList!
+    private weak var creator: EntityCreator!
+    private weak var games: NodeList!
+    private weak var ships: NodeList!
+    private weak var asteroids: NodeList!
+    private weak var bullets: NodeList!
+    private weak var gunSuppliers: NodeList!
 
     init(_ creator: EntityCreator) {
         self.creator = creator
@@ -171,9 +171,12 @@ final class CollisionSystem: System {
     }
 
     public override func removeFromEngine(engine: Engine) {
+        creator = nil
+        games = nil
         ships = nil
         asteroids = nil
         bullets = nil
+        gunSuppliers = nil
     }
 }
 

@@ -8,7 +8,7 @@
 import Swash
 import Foundation
 
-class HyperSpaceComponent: Component {
+final class HyperSpaceComponent: Component {
 	let x: Double
 	let y: Double
 

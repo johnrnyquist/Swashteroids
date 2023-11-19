@@ -1,6 +1,6 @@
 import Swash
 
-class DeathThroesNode: Node {
+final class DeathThroesNode: Node {
     required init() {
         super.init()
         components = [

@@ -1,6 +1,6 @@
 import Swash
 
-class MotionControlsNode: Node {
+final class MotionControlsNode: Node {
     required init() {
         super.init()
         components = [

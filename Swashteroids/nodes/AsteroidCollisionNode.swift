@@ -1,6 +1,6 @@
 import Swash
 
-class AsteroidCollisionNode: Node {
+final class AsteroidCollisionNode: Node {
     required init() {
         super.init()
         components = [

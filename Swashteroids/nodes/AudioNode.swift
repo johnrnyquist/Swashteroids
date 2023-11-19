@@ -1,6 +1,6 @@
 import Swash
 
-class AudioNode: Node {
+final class AudioNode: Node {
     required init() {
         super.init()
         components = [

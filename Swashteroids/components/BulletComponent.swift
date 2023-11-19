@@ -1,7 +1,7 @@
 import Foundation
 import Swash
 
-class BulletComponent: Component {
+final class BulletComponent: Component {
     var lifeRemaining: TimeInterval = 0.0
 
     init(lifeRemaining: TimeInterval) {

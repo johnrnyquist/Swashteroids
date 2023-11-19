@@ -1,6 +1,6 @@
 import Swash
 
-class GunSupplierNode: Node {
+final class GunSupplierNode: Node {
     required init() {
         super.init()
         components = [

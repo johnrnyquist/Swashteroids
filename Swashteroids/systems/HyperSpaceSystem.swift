@@ -8,10 +8,10 @@
 import Swash
 import SpriteKit
 
-class HyperSpaceSystem: ListIteratingSystem {
-	var config: GameConfig
-	var sound = SKAction.playSoundFileNamed("hyperspace.wav", waitForCompletion: false)
-	var scene: SKScene
+final class HyperSpaceSystem: ListIteratingSystem {
+	private var config: GameConfig
+	private var sound = SKAction.playSoundFileNamed("hyperspace.wav", waitForCompletion: false)
+	private weak var scene: SKScene!
 
 	init(config: GameConfig, scene: SKScene) {
 		self.config = config
@@ -30,5 +30,9 @@ class HyperSpaceSystem: ListIteratingSystem {
 		position.position.y += hyperSpace.y
 		node.entity?.remove(componentClass: HyperSpaceComponent.self)
 		scene.run(sound)
+	}
+
+	public override func removeFromEngine(engine: Engine) {
+		scene = nil
 	}
 }

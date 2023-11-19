@@ -1,6 +1,6 @@
 import Swash
 
-class GameStateComponent: Component {
+final class GameStateComponent: Component {
     var lives = 0
     var level = 0
     var hits = 0

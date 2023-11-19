@@ -1,6 +1,6 @@
 import Swash
 
-class AnimationNode: Node {
+final class AnimationNode: Node {
     required init() {
         super.init()
         components = [

@@ -3,8 +3,8 @@ import Swash
 
 
 final class RenderSystem: System {
-    private var scene: SKScene
-    private var nodes: NodeList?
+    private weak var scene: SKScene!
+    private weak var nodes: NodeList?
 
     init(container: SKScene) {
         scene = container
@@ -54,5 +54,6 @@ final class RenderSystem: System {
 
     override func removeFromEngine(engine: Engine) {
         nodes = nil
+        scene = nil
     }
 }

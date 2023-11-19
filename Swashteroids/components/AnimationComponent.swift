@@ -2,7 +2,7 @@ import Foundation
 import Swash
 
 
-class AnimationComponent: Component {
+final class AnimationComponent: Component {
     var animation: Animatable
 
     init(animation: Animatable) {

@@ -1,6 +1,6 @@
 import Swash
 
-class ShipEngineNode: Node {
+final class ShipEngineNode: Node {
     required init() {
         super.init()
         components = [

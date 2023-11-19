@@ -2,7 +2,7 @@ import Foundation
 import Swash
 
 
-class MovementSystem: ListIteratingSystem {
+final class MovementSystem: ListIteratingSystem {
     var config: GameConfig!
 
     init(config: GameConfig) {

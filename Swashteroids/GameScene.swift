@@ -34,7 +34,12 @@ final class GameScene: SKScene {
 
 	func touchDown(atPoint pos: CGPoint, touch: UITouch) {
 		if let _ = game.wait {
-			   game.input.tapped = true
+			game.input.tapped = true
+			generator.impactOccurred()
+			return
+		}
+		if let _ = game.gameOver {
+			game.input.tapped = true
 			generator.impactOccurred()
 			return
 		}

@@ -2,9 +2,9 @@ import Foundation
 import Swash
 
 
-class FiringControlsSystem: ListIteratingSystem {
-    private var creator: EntityCreator?
-    private var bullets: NodeList!
+final class FiringControlsSystem: ListIteratingSystem {
+    private weak var creator: EntityCreator?
+    private weak var bullets: NodeList!
 
     init(creator: EntityCreator) {
         self.creator = creator
@@ -26,12 +26,16 @@ class FiringControlsSystem: ListIteratingSystem {
         else { return }
         gun.shooting = input.triggerIsDown
         gun.timeSinceLastShot += time
-        if gun.shooting,
-           gun.timeSinceLastShot >= gun.minimumShotInterval {
+        if gun.shooting, gun.timeSinceLastShot >= gun.minimumShotInterval {
            if input.triggerIsDown {
                 creator?.createUserBullet(gun, position, motion)
             }
             gun.timeSinceLastShot = 0
         }
+    }
+
+    public override func removeFromEngine(engine: Engine) {
+        creator = nil
+        bullets = nil
     }
 }

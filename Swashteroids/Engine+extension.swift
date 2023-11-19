@@ -15,4 +15,7 @@ extension Engine {
 	public var wait: Entity? {
 		get { self.getEntity(named: "wait") }
 	}
+	public var gameOver: Entity? {
+		get { self.getEntity(named: "gameOver") }
+	}
 }

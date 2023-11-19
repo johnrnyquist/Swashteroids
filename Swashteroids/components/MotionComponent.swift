@@ -2,7 +2,7 @@ import Foundation
 import Swash
 
 
-class MotionComponent: Component {
+final class MotionComponent: Component {
     var velocity = CGPoint()
     var angularVelocity: Double
     var damping: Double

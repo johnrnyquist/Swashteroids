@@ -1,6 +1,6 @@
 import Swash
 
-class GameNode: Node {
+final class GameNode: Node {
     required init() {
         super.init()
         components = [

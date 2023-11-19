@@ -10,7 +10,7 @@ struct GameConfig {
     var height: Double
 }
 
-public class Asteroids {
+final public class Asteroids {
     private var config: GameConfig
     private var engine: Engine
     private var tickProvider: FrameTickProvider
@@ -19,7 +19,8 @@ public class Asteroids {
     
 	var input: InputComponent
     var ship: Entity? { engine.ship }
-    var wait: Entity? { engine.wait }
+	var wait: Entity? { engine.wait }
+	var gameOver: Entity? { engine.gameOver }
     var width: Double { config.width }
     var height: Double { config.height }
 
@@ -47,9 +48,10 @@ public class Asteroids {
                 .addSystem(system: MovementSystem(config: config), priority: SystemPriorities.move.rawValue)
                 .addSystem(system: RenderSystem(container: container), priority: SystemPriorities.render.rawValue)
                 .addSystem(system: ShipEngineSystem(), priority: SystemPriorities.update.rawValue)
-                .addSystem(system: WaitForStartSystem(creator), priority: SystemPriorities.preUpdate.rawValue)
-		
-		creator.createWaitForClick()
+				.addSystem(system: WaitForStartSystem(creator), priority: SystemPriorities.preUpdate.rawValue)
+				.addSystem(system: GameOverSystem(creator), priority: SystemPriorities.preUpdate.rawValue)
+
+		creator.createWaitForTap()
         creator.createHud()
         creator.createButtons()
     }

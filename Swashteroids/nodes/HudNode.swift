@@ -1,6 +1,6 @@
 import Swash
 
-class HudNode: Node {
+final class HudNode: Node {
     required init() {
         super.init()
         components = [

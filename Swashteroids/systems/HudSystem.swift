@@ -2,7 +2,7 @@ import Foundation
 import Swash
 
 
-public class HudSystem: ListIteratingSystem {
+final public class HudSystem: ListIteratingSystem {
     init() {
         super.init(nodeClass: HudNode.self)
         nodeUpdateFunction = updateFunction

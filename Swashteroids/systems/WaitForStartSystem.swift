@@ -3,11 +3,11 @@ import Swash
 
 
 final class WaitForStartSystem: System {
-    private var engine: Engine?
-    private var creator: EntityCreator?
-    private var gameNodes: NodeList?
-    private var waitNodes: NodeList?
-    private var asteroids: NodeList?
+    private weak var engine: Engine?
+    private weak var creator: EntityCreator?
+    private weak var gameNodes: NodeList?
+    private weak var waitNodes: NodeList?
+    private weak var asteroids: NodeList?
 
     init(_ creator: EntityCreator) {
         self.creator = creator
@@ -22,7 +22,7 @@ final class WaitForStartSystem: System {
 
     public override func update(time: TimeInterval) {
         guard let waitNode = waitNodes?.head,
-			  let input = waitNode[InputComponent.self],
+              let input = waitNode[InputComponent.self],
               let gameNode = gameNodes?.head,
               let gameStateComponent = gameNode[GameStateComponent.self]
         else { return }
@@ -41,7 +41,10 @@ final class WaitForStartSystem: System {
     }
 
     public override func removeFromEngine(engine: Engine) {
+        self.engine = nil
+        creator = nil
         gameNodes = nil
         waitNodes = nil
+        asteroids = nil
     }
 }

@@ -1,4 +1,4 @@
 import Swash
 
-class WaitForStartComponent: Component {
+final class WaitForStartComponent: Component {
 }

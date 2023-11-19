@@ -2,7 +2,7 @@ import Foundation
 import Swash
 
 
-class PositionComponent: Component {
+final class PositionComponent: Component {
     var position: CGPoint
     var rotation: Double
     var zPosition: Layers

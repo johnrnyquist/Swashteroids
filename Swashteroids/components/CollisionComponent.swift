@@ -1,6 +1,6 @@
 import Swash
 
-class CollisionComponent: Component {
+final class CollisionComponent: Component {
     var radius = 0.0
 
     init(radius: Double) {

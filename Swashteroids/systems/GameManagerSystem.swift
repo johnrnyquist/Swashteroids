@@ -2,9 +2,9 @@ import Foundation
 import Swash
 
 
-class GameManagerSystem: System {
+final class GameManagerSystem: System {
     private var config: GameConfig
-    private var creator: EntityCreator
+    private weak var creator: EntityCreator!
     private weak var asteroids: NodeList!
     private weak var bullets: NodeList!
     private weak var gameNodes: NodeList!
@@ -49,7 +49,7 @@ class GameManagerSystem: System {
                 }
             } else if gameStateComponent.playing {
                 gameStateComponent.playing = false
-                creator.createWaitForClick()
+                creator.createGameOver()
             }
         }
         if asteroids.empty, bullets.empty, !ships.empty {
@@ -86,6 +86,7 @@ class GameManagerSystem: System {
     }
 
     public override func removeFromEngine(engine: Engine) {
+		creator = nil
         gameNodes = nil
         ships = nil
         asteroids = nil

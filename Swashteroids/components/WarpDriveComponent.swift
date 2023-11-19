@@ -1,5 +1,5 @@
 import Swash
 
-class WarpDriveComponent: Component {
+final class WarpDriveComponent: Component {
     var isThrusting = false
 }

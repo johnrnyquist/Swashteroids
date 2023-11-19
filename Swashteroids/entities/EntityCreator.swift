@@ -113,8 +113,8 @@ class EntityCreator {
     }
 
     @discardableResult
-    func createWaitForClick() -> Entity? {
-        let waitView: WaitForStartView = WaitForStartView()
+    func createWaitForTap() -> Entity? {
+        let waitView = WaitForStartView()
         let waitEntity = Entity(name: "wait")
                 .add(component: WaitForStartComponent())
                 .add(component: DisplayComponent(displayObject: waitView))
@@ -127,6 +127,23 @@ class EntityCreator {
             print(error)
         }
         return waitEntity
+    }
+
+    @discardableResult
+    func createGameOver() -> Entity? {
+        let gameOverView = GameOVerView()
+        let gameOverEntity = Entity(name: "gameOver")
+                .add(component: GameOverComponent())
+                .add(component: DisplayComponent(displayObject: gameOverView))
+                .add(component: PositionComponent(x: 0, y: 0, z: .wait, rotation: 0))
+                .add(component: inputComponent)
+        do {
+            try engine?.addEntity(entity: gameOverEntity)
+        }
+        catch {
+            print(error)
+        }
+        return gameOverEntity
     }
 
 	func createButtons() {

@@ -2,7 +2,7 @@ import Foundation
 import Swash
 
 
-class GunComponent: Component {
+final class GunComponent: Component {
     var shooting = false
     var offsetFromParent: CGPoint
     var timeSinceLastShot: TimeInterval = 0

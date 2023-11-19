@@ -1,4 +1,4 @@
 import Swash
 
-class AsteroidComponent: Component {
+final class AsteroidComponent: Component {
 }

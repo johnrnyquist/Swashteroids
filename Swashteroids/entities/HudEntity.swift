@@ -4,7 +4,7 @@
 
 import Swash
 
-class HudEntity: Entity {
+final class HudEntity: Entity {
     init(name: String, view: HudView) {
         super.init(name: name)
         self.add(component: GameStateComponent())

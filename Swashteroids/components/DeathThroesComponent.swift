@@ -2,7 +2,7 @@ import Foundation
 import Swash
 
 
-class DeathThroesComponent: Component {
+final class DeathThroesComponent: Component {
     var countdown: TimeInterval
 
     init(countdown: TimeInterval) {

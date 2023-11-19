@@ -2,8 +2,8 @@ import SpriteKit
 import Swash
 
 
-class DeathThroesSystem: ListIteratingSystem {
-    private var creator: EntityCreator
+final class DeathThroesSystem: ListIteratingSystem {
+    private weak var creator: EntityCreator!
 
     init(creator: EntityCreator) {
         self.creator = creator
@@ -19,6 +19,10 @@ class DeathThroesSystem: ListIteratingSystem {
            let entity = node.entity {
             creator.destroyEntity(entity)
         }
+    }
+
+    public override func removeFromEngine(engine: Engine) {
+        creator = nil
     }
 }
 

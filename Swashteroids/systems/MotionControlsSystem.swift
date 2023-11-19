@@ -3,7 +3,7 @@ import SpriteKit
 import Swash
 
 
-class MotionControlsSystem: ListIteratingSystem {
+final class MotionControlsSystem: ListIteratingSystem {
 
     init() {
         super.init(nodeClass: MotionControlsNode.self)

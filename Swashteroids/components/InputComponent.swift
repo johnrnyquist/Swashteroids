@@ -1,6 +1,6 @@
 import Swash
 
-public class InputComponent: Component {
+final public class InputComponent: Component {
     var hyperSpaceIsDown: Bool
     var flipIsDown: Bool
     var leftIsDown: Bool

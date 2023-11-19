@@ -2,7 +2,7 @@ import Foundation
 import Swash
 
 
-class AnimationSystem: ListIteratingSystem {
+final class AnimationSystem: ListIteratingSystem {
     init() {
         super.init(nodeClass: AnimationNode.self)
         nodeUpdateFunction = updateNode
