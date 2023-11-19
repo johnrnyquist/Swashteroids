@@ -130,6 +130,7 @@ class EntityCreator {
     }
 
     func createButtons() {
+        
 		// flip
 		let flipButton = SKSpriteNode(texture: createButtonTexture(color: .flipButton))
 		flipButton.alpha = 0.5
@@ -184,6 +185,17 @@ class EntityCreator {
                 .add(component: PositionComponent(x: firex, y: firey, z: .buttons, rotation: 0.0))
                 .add(component: DisplayComponent(displayObject: fireButton))
         try! engine.addEntity(entity: fireButtonEntity)
+
+        // hyperSpace
+        let hyperSpaceButton = SKSpriteNode(texture: createButtonTexture(color: .hyperSpaceButton))
+        hyperSpaceButton.alpha = 0.5
+        hyperSpaceButton.name = InputName.hyperSpaceButton
+        let hyperSpacex = 1024 - thrustButton.size.width / 2 - 30
+        let hyperSpacey = hyperSpaceButton.size.height + 120
+        let hyperSpaceButtonEntity = Entity(name: InputName.hyperSpaceButton)
+                .add(component: PositionComponent(x: hyperSpacex, y: hyperSpacey, z: .buttons, rotation: 0.0))
+                .add(component: DisplayComponent(displayObject: hyperSpaceButton))
+        try! engine.addEntity(entity: hyperSpaceButtonEntity)
     }
 
     @discardableResult

@@ -22,8 +22,10 @@ class HyperSpaceSystem: ListIteratingSystem {
 
 	private func updateNode(node: Node, time: TimeInterval) {
 		guard let position = node[PositionComponent.self],
-			  let hyperSpace = node[HyperSpaceComponent.self]
+			  let hyperSpace = node[HyperSpaceComponent.self],
+			  let input = node[InputComponent.self]
 		else { return }
+		input.hyperSpaceIsDown = false
 		position.position.x += hyperSpace.x
 		position.position.y += hyperSpace.y
 		node.entity?.remove(componentClass: HyperSpaceComponent.self)

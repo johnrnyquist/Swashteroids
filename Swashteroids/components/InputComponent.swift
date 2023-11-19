@@ -1,6 +1,7 @@
 import Swash
 
 public class InputComponent: Component {
+    var hyperSpaceIsDown: Bool
     var flipIsDown: Bool
     var leftIsDown: Bool
     var rightIsDown: Bool
@@ -8,13 +9,15 @@ public class InputComponent: Component {
     var triggerIsDown: Bool
     var tapped: Bool
 
-    init(flipIsDown: Bool = false,
+    init(hyperSpaceIsDown: Bool = false,
+         flipIsDown: Bool = false,
          leftIsDown: Bool = false,
          rightIsDown: Bool = false,
          thrustIsDown: Bool = false,
          triggerIsDown: Bool = false,
-         tapped: Bool = false)
+         tapped: Bool = false) 
     {
+        self.hyperSpaceIsDown = hyperSpaceIsDown
         self.flipIsDown = flipIsDown
         self.leftIsDown = leftIsDown
         self.rightIsDown = rightIsDown

@@ -25,6 +25,7 @@ final class GameScene: SKScene {
 	//MARK:- TOUCHES -------------------------
 
 	var flipTouched: UITouch?
+	var hyperSpaceTouched: UITouch?
 	var leftTouched: UITouch?
 	var rightTouched: UITouch?
 	var triggerTouched: UITouch?
@@ -43,6 +44,13 @@ final class GameScene: SKScene {
 		if let ship = game.ship,
 		   ship.has(componentClassName: MotionComponent.name)
 		{
+			if nodeTouched.name == InputName.hyperSpaceButton {
+				hyperSpaceTouched = touch
+				game.input.hyperSpaceIsDown = true
+				game.ship?.add(component: HyperSpaceComponent(x: Double(Int.random(in: 0...Int(game.width))),
+															  y: Double(Int.random(in: 0...Int(game.height)))))
+				generator.impactOccurred()
+			}
 			if nodeTouched.name == InputName.flipButton {
 				flipTouched = touch
 				game.input.flipIsDown = true
@@ -86,6 +94,9 @@ final class GameScene: SKScene {
 		switch touch {
 			case flipTouched:
 				flipTouched = nil
+				game.input.flipIsDown = false
+			case hyperSpaceTouched:
+				hyperSpaceTouched = nil
 				game.input.flipIsDown = false
 			case leftTouched:
 				leftTouched = nil

@@ -13,6 +13,7 @@ class HyperSpaceNode: Node {
 		components = [
 			HyperSpaceComponent.name: nil_component,
 			PositionComponent.name: nil_component,
+			InputComponent.name: nil_component
 		]
 	}
 }

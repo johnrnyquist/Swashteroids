@@ -14,7 +14,7 @@ class MotionControlsSystem: ListIteratingSystem {
         guard
             let position = node[PositionComponent.self],
             let motion = node[MotionComponent.self],
-            let engine = node[WarpDriveComponent.self],
+            let warpDrive = node[WarpDriveComponent.self],
             let control = node[MotionControlsComponent.self],
             let audio = node[AudioComponent.self],
 			let input = node[InputComponent.self]
@@ -30,19 +30,19 @@ class MotionControlsSystem: ListIteratingSystem {
             position.rotation -= control.rotationRate * time
         }
         if input.thrustIsDown,
-           engine.isThrusting == false {
-            engine.isThrusting = true
+           warpDrive.isThrusting == false {
+            warpDrive.isThrusting = true
             let thrustOnce = SKAction.playSoundFileNamed("thrust.wav", waitForCompletion: true)
             let thrust = SKAction.repeatForever(thrustOnce)
             audio.addSoundAction(thrust, withKey: "thrust")
         }
         if input.thrustIsDown,
-           engine.isThrusting == true {
+           warpDrive.isThrusting == true {
             let rot = position.rotation * Double.pi / 180.0
             motion.velocity.x += cos(rot) * control.accelerationRate * time
             motion.velocity.y += sin(rot) * control.accelerationRate * time
-        } else if engine.isThrusting {
-            engine.isThrusting = false
+        } else if warpDrive.isThrusting {
+            warpDrive.isThrusting = false
             audio.removeSoundAction("thrust")
         }
     }
