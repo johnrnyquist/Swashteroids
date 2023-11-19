@@ -5,7 +5,6 @@ import Swash
 
 final class GameScene: SKScene {
 	var game: Asteroids!
-	var ship: Entity?
 
 	override func didMove(to view: SKView) {
 		super.didMove(to: view)
@@ -14,15 +13,15 @@ final class GameScene: SKScene {
 	}
 
 	override func update(_ currentTime: TimeInterval) {
-		game.tickProvider.dispatchTick()
+		game.dispatchTick()
 	}
 
 	func shake() {
 		// Your code here
 		print("Phone has been shaken!")
-		ship?
-			.add(component: HyperSpaceComponent(x: CGFloat(Int.random(in: 0...Int(game.config.width))),
-												y: CGFloat(Int.random(in: 0...Int(game.config.height)))))
+		game.ship?
+			.add(component: HyperSpaceComponent(x: CGFloat(Int.random(in: 0...Int(game.width))),
+												y: CGFloat(Int.random(in: 0...Int(game.height)))))
 	}
 
 	//MARK:- TOUCHES -------------------------
@@ -35,7 +34,7 @@ final class GameScene: SKScene {
 	let generator = UIImpactFeedbackGenerator(style: .heavy)
 
 	func touchDown(atPoint pos: CGPoint, touch: UITouch) {
-		if let wait = game.engine.getEntity(named: "wait"),
+		if let wait = game.wait,
 		   let input = wait.get(componentClassName: InputComponent.name) as? InputComponent {
 			input.tapped = true
 			generator.impactOccurred()
@@ -44,7 +43,7 @@ final class GameScene: SKScene {
 
 		guard let nodeTouched = atPoint(pos) == self ? nil : atPoint(pos)
 		else { return }
-		if let ship,
+		if let ship = game.ship,
 		   ship.has(componentClassName: MotionComponent.name),
 		   let input = ship.get(componentClassName: InputComponent.name) as? InputComponent
 		{
@@ -84,7 +83,7 @@ final class GameScene: SKScene {
 	}
 
 	func touchUp(atPoint pos: CGPoint, touch: UITouch) {
-		guard let ship,
+		guard let ship = game.ship,
 			  ship.has(componentClassName: MotionComponent.name),
 			  ship.has(componentClassName: InputComponent.name),
 			  let input = ship.get(componentClassName: InputComponent.name) as? InputComponent

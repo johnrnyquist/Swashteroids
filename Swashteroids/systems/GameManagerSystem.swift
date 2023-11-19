@@ -9,12 +9,11 @@ class GameManagerSystem: System {
     private weak var bullets: NodeList!
     private weak var gameNodes: NodeList!
     private weak var ships: NodeList!
-    private weak var scene: GameScene?
 
-    init(creator: EntityCreator, config: GameConfig, scene: GameScene?) {
+	
+    init(creator: EntityCreator, config: GameConfig) {
         self.creator = creator
         self.config = config
-        self.scene = scene //HACK
     }
 
     public override func addToEngine(engine: Engine) {
@@ -45,7 +44,7 @@ class GameManagerSystem: System {
                     asteroid = asteroid?.next
                 }
                 if clearToAddSpaceship {
-                    scene?.ship = creator.createShip()
+					creator.createShip()
                     creator.createGunSupplier()
                 }
             } else if gameStateComponent.playing {

@@ -90,6 +90,7 @@
 		8D23C1EB2B02CD9800F7D878 /* LICENSE.md in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C1EA2B02CD9800F7D878 /* LICENSE.md */; };
 		8D23C1EE2B02D00700F7D878 /* swashteroids.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C1ED2B02D00700F7D878 /* swashteroids.png */; };
 		8D688FBD2B0680D900056CD3 /* hyperspace.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D688FBC2B0680D900056CD3 /* hyperspace.wav */; };
+		8D6AD4B42B09D2B000E258BF /* Engine+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6AD4B32B09D2B000E258BF /* Engine+extension.swift */; };
 		8D9DEF642B059E3800064B01 /* HyperSpaceComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9DEF632B059E3800064B01 /* HyperSpaceComponent.swift */; };
 		8D9DEF662B059EC400064B01 /* HyperSpaceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9DEF652B059EC400064B01 /* HyperSpaceNode.swift */; };
 		8D9DEF682B059F2800064B01 /* HyperSpaceSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9DEF672B059F2800064B01 /* HyperSpaceSystem.swift */; };
@@ -182,6 +183,7 @@
 		8D23C1ED2B02D00700F7D878 /* swashteroids.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = swashteroids.png; sourceTree = "<group>"; };
 		8D688FBC2B0680D900056CD3 /* hyperspace.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = hyperspace.wav; sourceTree = "<group>"; };
 		8D688FBE2B068E2200056CD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		8D6AD4B32B09D2B000E258BF /* Engine+extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Engine+extension.swift"; sourceTree = "<group>"; };
 		8D9DEF632B059E3800064B01 /* HyperSpaceComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyperSpaceComponent.swift; sourceTree = "<group>"; };
 		8D9DEF652B059EC400064B01 /* HyperSpaceNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyperSpaceNode.swift; sourceTree = "<group>"; };
 		8D9DEF672B059F2800064B01 /* HyperSpaceSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyperSpaceSystem.swift; sourceTree = "<group>"; };
@@ -233,6 +235,7 @@
 				8D23C14F2B02C59B00F7D878 /* Asteroids.swift */,
 				8D23C1E42B02C81D00F7D878 /* CGPoint+extensions.swift */,
 				8D23C1E52B02C81D00F7D878 /* Double+extensions.swift */,
+				8D6AD4B32B09D2B000E258BF /* Engine+extension.swift */,
 				8D23C1502B02C59B00F7D878 /* Constants.swift */,
 				8D23C1892B02C59D00F7D878 /* entities */,
 				8D23C1642B02C59C00F7D878 /* components */,
@@ -481,6 +484,7 @@
 				8D23C1E12B02C59D00F7D878 /* SKNode+extensions.swift in Sources */,
 				8D23C19E2B02C59D00F7D878 /* Constants.swift in Sources */,
 				8D23C1E62B02C81D00F7D878 /* CGPoint+extensions.swift in Sources */,
+				8D6AD4B42B09D2B000E258BF /* Engine+extension.swift in Sources */,
 				8D23C1D12B02C59D00F7D878 /* MovementSystem.swift in Sources */,
 				8D23C1BF2B02C59D00F7D878 /* HudComponent.swift in Sources */,
 				8D23C1C02B02C59D00F7D878 /* CollisionComponent.swift in Sources */,

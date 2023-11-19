@@ -26,7 +26,6 @@ final class WaitForStartSystem: System {
               let gameNode = gameNodes?.head,
               let gameStateComponent = gameNode[GameStateComponent.self]
         else { return }
-        print(#function, Unmanaged.passUnretained(input).toOpaque())
         if input.tapped {
             // Clear any existing asteroids
             var asteroid = asteroids?.head

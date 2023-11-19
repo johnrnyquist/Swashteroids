@@ -6,49 +6,58 @@ import Swash
 import SpriteKit
 
 struct GameConfig {
-	var width: Double
-	var height: Double
+    var width: Double
+    var height: Double
 }
 
 public class Asteroids {
-	var config: GameConfig!
-	var engine: Engine!
-	var tickProvider: FrameTickProvider!
-	private var container: SKScene
-	private var creator: EntityCreator!
+    private var config: GameConfig
+    private var engine: Engine
+    private var tickProvider: FrameTickProvider
+    private var container: SKScene
+    private var creator: EntityCreator!
+    
+    var ship: Entity? { engine.ship }
+    var wait: Entity? { engine.wait }
+    var width: Double { config.width }
+    var height: Double { config.height }
 
-	public init(container: SKScene, width: Double, height: Double) {
-		self.container = container
-		prepare(width: width, height: height)
-	}
+    public init(container: SKScene, width: Double, height: Double) {
+        self.container = container
+        engine = Engine()
+        creator = EntityCreator(engine: engine)
+        config = GameConfig(width: 1024, height: 768)
+        tickProvider = FrameTickProvider()
+        engine
+                .addSystem(system: AnimationSystem(), priority: SystemPriorities.animate.rawValue)
+                .addSystem(system: AudioSystem(scene: container), priority: SystemPriorities.render.rawValue)
+                .addSystem(system: BulletAgeSystem(creator: creator), priority: SystemPriorities.update.rawValue)
+                .addSystem(system: CollisionSystem(creator), priority: SystemPriorities.resolveCollisions.rawValue)
+                .addSystem(system: DeathThroesSystem(creator: creator), priority: SystemPriorities.update.rawValue)
+                .addSystem(system: FiringControlsSystem(creator: creator), priority: SystemPriorities.update.rawValue)
+                .addSystem(system: GameManagerSystem(creator: creator, config: config),
+                           priority: SystemPriorities.preUpdate.rawValue)
+                .addSystem(system: HudSystem(), priority: SystemPriorities.animate.rawValue)
+                .addSystem(system: HyperSpaceSystem(config: config, scene: container),
+                           priority: SystemPriorities.update.rawValue)
+                .addSystem(system: MotionControlsSystem(), priority: SystemPriorities.update.rawValue)
+                .addSystem(system: MovementSystem(config: config), priority: SystemPriorities.move.rawValue)
+                .addSystem(system: RenderSystem(container: container), priority: SystemPriorities.render.rawValue)
+                .addSystem(system: ShipEngineSystem(), priority: SystemPriorities.update.rawValue)
+                .addSystem(system: WaitForStartSystem(creator), priority: SystemPriorities.preUpdate.rawValue)
+        creator.createWaitForClick()
+        creator.createHud()
+        creator.createButtons()
+    }
 
-	private func prepare(width: Double, height: Double) {
-		engine = Engine()
-		creator = EntityCreator(engine: engine)
-		config = GameConfig(width: 1024, height: 768)
-		engine
-			.addSystem(system: AnimationSystem(), priority: SystemPriorities.animate.rawValue)
-			.addSystem(system: AudioSystem(scene: container), priority: SystemPriorities.render.rawValue)
-			.addSystem(system: BulletAgeSystem(creator: creator), priority: SystemPriorities.update.rawValue)
-			.addSystem(system: CollisionSystem(creator), priority: SystemPriorities.resolveCollisions.rawValue)
-			.addSystem(system: DeathThroesSystem(creator: creator), priority: SystemPriorities.update.rawValue)
-			.addSystem(system: FiringControlsSystem(creator: creator), priority: SystemPriorities.update.rawValue)
-			.addSystem(system: GameManagerSystem(creator: creator, config: config, scene: container as? GameScene), priority: SystemPriorities.preUpdate.rawValue)
-			.addSystem(system: HudSystem(), priority: SystemPriorities.animate.rawValue)
-			.addSystem(system: HyperSpaceSystem(config: config, scene: container), priority: SystemPriorities.update.rawValue)
-			.addSystem(system: MotionControlsSystem(), priority: SystemPriorities.update.rawValue)
-			.addSystem(system: MovementSystem(config: config), priority: SystemPriorities.move.rawValue)
-			.addSystem(system: RenderSystem(container: container), priority: SystemPriorities.render.rawValue)
-			.addSystem(system: ShipEngineSystem(), priority: SystemPriorities.update.rawValue)
-			.addSystem(system: WaitForStartSystem(creator), priority: SystemPriorities.preUpdate.rawValue)
-		creator.createWaitForClick()
-		creator.createHud()
-		creator.createButtons()
-	}
 
-	func start() {
-		tickProvider = FrameTickProvider()
-		tickProvider.add(Listener(engine.update)) // Then engine listens for ticks
-		tickProvider.start()
-	}
+    func start() {
+        tickProvider.add(Listener(engine.update)) // Then engine listens for ticks
+        tickProvider.start()
+    }
+
+    func dispatchTick() {
+        tickProvider.dispatchTick()
+    }
 }
+
