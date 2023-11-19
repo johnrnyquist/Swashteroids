@@ -10,11 +10,12 @@ final class GameViewController: UIViewController {
 		view.isUserInteractionEnabled = true
 		let scene = GameScene(size: view.frame.size)
 		scene.scaleMode = .aspectFit
-		skview.showsFPS = true
 		skview.isUserInteractionEnabled = true
 		skview.isMultipleTouchEnabled = true
 		skview.showsPhysics = false
+		skview.ignoresSiblingOrder = true
 		skview.showsNodeCount = true
+		skview.showsFPS = true
 		skview.presentScene(scene)
 	}
 

@@ -34,18 +34,33 @@ func createBulletTexture(color: UIColor) -> SKTexture {
     return SKTexture(image: controller)
 }
 
-func createButtonTexture(color: UIColor) -> SKTexture {
-    let size = CGSize(width: 120, height: 120)
-    let renderer = UIGraphicsImageRenderer(size: size)
-    let controller = renderer.image { ctx in
-        ctx.cgContext.setStrokeColor(color.cgColor)
-        ctx.cgContext.setFillColor(color.cgColor)
-        ctx.cgContext.setLineWidth(0)
-        ctx.cgContext.move(to: CGPoint(x: 0, y: 0))
-        ctx.cgContext.strokeEllipse(in: CGRect(origin: .zero, size: size))
-        ctx.cgContext.fillEllipse(in: CGRect(origin: .zero, size: size))
-    }
-    return SKTexture(image: controller)
+func createButtonTexture(color: UIColor, text: String) -> SKTexture {
+	let size = CGSize(width: 120, height: 120)
+	let renderer = UIGraphicsImageRenderer(size: size)
+	let controller = renderer.image { ctx in
+		ctx.cgContext.setStrokeColor(color.cgColor)
+		ctx.cgContext.setFillColor(color.cgColor)
+		ctx.cgContext.setLineWidth(0)
+		ctx.cgContext.move(to: CGPoint(x: 0, y: 0))
+		ctx.cgContext.strokeEllipse(in: CGRect(origin: .zero, size: size))
+		ctx.cgContext.fillEllipse(in: CGRect(origin: .zero, size: size))
+
+		// Create a label and render it to an image
+		let label = SKLabelNode(text: text)
+		label.horizontalAlignmentMode = .center
+		label.fontName = "Helvetica Bold"
+		label.fontColor = .black
+		label.alpha = 0.3
+		label.fontSize = 9
+		label.position = CGPoint(x: size.width / 2, y: size.height / 2 - 8)
+		let view = SKView()
+		let labelTexture = view.texture(from: label)
+		let labelImage = UIImage(cgImage: labelTexture!.cgImage())
+
+		// Draw the label image onto the button image
+		labelImage.draw(at: CGPoint(x: (size.width - labelImage.size.width) / 2, y: (size.height - labelImage.size.height) / 2))
+	}
+	return SKTexture(image: controller)
 }
 
 func createEnemyShipTexture(color: UIColor) -> SKTexture {
