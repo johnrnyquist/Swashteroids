@@ -15,11 +15,13 @@ class GunSupplierComponent: Component {}
 /// EntityCreator is a bunch of convenience methods that create and configure entities, then adds them to its engine.
 class EntityCreator {
     private weak var engine: Engine!
+    private weak var inputComponent: InputComponent!
     private var numAsteroids = 0
     private var numBullets = 0
 
-    init(engine: Engine) {
+    init(engine: Engine, input: InputComponent) {
         self.engine = engine
+        self.inputComponent = input
     }
 
     @discardableResult
@@ -74,7 +76,7 @@ class EntityCreator {
                                                         accelerate: 4,
                                                         accelerationRate: 90,
                                                         rotationRate: 100))
-                .add(component: InputComponent())
+                .add(component: inputComponent)
         try! engine.addEntity(entity: entity)
         return entity
     }
@@ -117,7 +119,7 @@ class EntityCreator {
                 .add(component: WaitForStartComponent())
                 .add(component: DisplayComponent(displayObject: waitView))
                 .add(component: PositionComponent(x: 0, y: 0, z: .wait, rotation: 0))
-                .add(component: InputComponent())
+                .add(component: inputComponent)
         do {
             try engine?.addEntity(entity: waitEntity)
         }
@@ -131,53 +133,57 @@ class EntityCreator {
 		// flip
 		let flipButton = SKSpriteNode(texture: createButtonTexture(color: .systemYellow))
 		flipButton.alpha = 0.5
-		flipButton.name = "flipButton"
+		flipButton.name = InputName.flipButton
 		let flipx = flipButton.size.width / 2 + 30
 		let flipy = flipButton.size.height + 120
-		let flipButtonEntity = Entity(name: "flipButton")
+		let flipButtonEntity = Entity(name: InputName.flipButton)
 			.add(component: PositionComponent(x: flipx, y: flipy, z: .buttons, rotation: 0.0))
 			.add(component: DisplayComponent(displayObject: flipButton))
 		try! engine.addEntity(entity: flipButtonEntity)
+        
 		// left
 		let leftButton = SKSpriteNode(texture: createButtonTexture(color: .white))
 		leftButton.alpha = 0.5
-		leftButton.name = "leftButton"
+		leftButton.name = InputName.leftButton
 		let leftx = leftButton.size.width / 2 + 30
 		let lefty = leftButton.size.height / 2 + 30
-		let leftButtonEntity = Entity(name: "leftButton")
+		let leftButtonEntity = Entity(name: InputName.leftButton)
 			.add(component: PositionComponent(x: leftx, y: lefty, z: .buttons, rotation: 0.0))
 			.add(component: DisplayComponent(displayObject: leftButton))
 		try! engine.addEntity(entity: leftButtonEntity)
+        
         // right
         let rightButton = SKSpriteNode(texture: createButtonTexture(color: .white))
         rightButton.alpha = 0.5
-        rightButton.name = "rightButton"
+        rightButton.name = InputName.rightButton
         let rightx = rightButton.size.width + 30 + leftx
         let righty = lefty
-        let rightButtonEntity = Entity(name: "rightButton")
+        let rightButtonEntity = Entity(name: InputName.rightButton)
                 .add(component: PositionComponent(x: rightx, y: righty, z: .buttons, rotation: 0.0))
                 .add(component: DisplayComponent(displayObject: rightButton))
         try! engine.addEntity(entity: rightButtonEntity)
-        // fire
-        let fireButton = SKSpriteNode(texture: createButtonTexture(color: .systemGreen))
-        fireButton.alpha = 0.5
-        fireButton.name = "thrustButton"
-        let firex = 1024 - fireButton.size.width / 2 - 30
-        let firey = lefty
-        let fireButtonEntity = Entity(name: "thrustButton")
-                .add(component: PositionComponent(x: firex, y: firey, z: .buttons, rotation: 0.0))
-                .add(component: DisplayComponent(displayObject: fireButton))
-        try! engine.addEntity(entity: fireButtonEntity)
+        
         // thrust
-        let thrustButton = SKSpriteNode(texture: createButtonTexture(color: .systemRed))
+        let thrustButton = SKSpriteNode(texture: createButtonTexture(color: .systemGreen))
         thrustButton.alpha = 0.5
-        thrustButton.name = "fireButton"
-        let thrustx = -fireButton.size.width - 30 + firex
+        thrustButton.name = InputName.thrustButton
+        let thrustx = 1024 - thrustButton.size.width / 2 - 30
         let thrusty = lefty
-        let thrustButtonEntity = Entity(name: "fireButton")
+        let thrustButtonEntity = Entity(name: InputName.thrustButton)
                 .add(component: PositionComponent(x: thrustx, y: thrusty, z: .buttons, rotation: 0.0))
                 .add(component: DisplayComponent(displayObject: thrustButton))
         try! engine.addEntity(entity: thrustButtonEntity)
+
+        // fire
+        let fireButton = SKSpriteNode(texture: createButtonTexture(color: .systemRed))
+        fireButton.alpha = 0.5
+        fireButton.name = InputName.fireButton
+        let firex = -thrustButton.size.width - 30 + thrustx
+        let firey = lefty
+        let fireButtonEntity = Entity(name: InputName.fireButton)
+                .add(component: PositionComponent(x: firex, y: firey, z: .buttons, rotation: 0.0))
+                .add(component: DisplayComponent(displayObject: fireButton))
+        try! engine.addEntity(entity: fireButtonEntity)
     }
 
     @discardableResult

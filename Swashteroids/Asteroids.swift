@@ -17,6 +17,7 @@ public class Asteroids {
     private var container: SKScene
     private var creator: EntityCreator!
     
+	var input: InputComponent
     var ship: Entity? { engine.ship }
     var wait: Entity? { engine.wait }
     var width: Double { config.width }
@@ -24,10 +25,12 @@ public class Asteroids {
 
     public init(container: SKScene, width: Double, height: Double) {
         self.container = container
+		input = InputComponent()
         engine = Engine()
-        creator = EntityCreator(engine: engine)
+		creator = EntityCreator(engine: engine, input: input)
         config = GameConfig(width: 1024, height: 768)
         tickProvider = FrameTickProvider()
+
         engine
                 .addSystem(system: AnimationSystem(), priority: SystemPriorities.animate.rawValue)
                 .addSystem(system: AudioSystem(scene: container), priority: SystemPriorities.render.rawValue)
@@ -45,7 +48,8 @@ public class Asteroids {
                 .addSystem(system: RenderSystem(container: container), priority: SystemPriorities.render.rawValue)
                 .addSystem(system: ShipEngineSystem(), priority: SystemPriorities.update.rawValue)
                 .addSystem(system: WaitForStartSystem(creator), priority: SystemPriorities.preUpdate.rawValue)
-        creator.createWaitForClick()
+		
+		creator.createWaitForClick()
         creator.createHud()
         creator.createButtons()
     }
@@ -59,5 +63,10 @@ public class Asteroids {
     func dispatchTick() {
         tickProvider.dispatchTick()
     }
+
+	func shake() {
+		ship?.add(component: HyperSpaceComponent(x: CGFloat(Int.random(in: 0...Int(width))),
+												 y: CGFloat(Int.random(in: 0...Int(height)))))
+	}
 }
 
