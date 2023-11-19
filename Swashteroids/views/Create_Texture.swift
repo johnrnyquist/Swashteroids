@@ -1,10 +1,11 @@
 import SpriteKit
+import UIKit
 import Swash
 
 
 let LINE_WIDTH: CGFloat = 1
 
-func createGunSupplierTexture(radius: Double, color: UIColor = .systemRed) -> SKTexture {
+func createGunSupplierTexture(radius: Double, color: UIColor) -> SKTexture {
     let size = CGSize(width: radius * 2, height: radius * 2)
     let renderer = UIGraphicsImageRenderer(size: size)
     let controller = renderer.image { ctx in
@@ -18,7 +19,7 @@ func createGunSupplierTexture(radius: Double, color: UIColor = .systemRed) -> SK
     return SKTexture(image: controller)
 }
 
-func createBulletTexture(color: UIColor = .green) -> SKTexture {
+func createBulletTexture(color: UIColor) -> SKTexture {
     let rect = CGRect(x: 0, y: 0, width: 6, height: 6)
     let size = rect.size
     let renderer = UIGraphicsImageRenderer(size: size)
@@ -33,7 +34,7 @@ func createBulletTexture(color: UIColor = .green) -> SKTexture {
     return SKTexture(image: controller)
 }
 
-func createButtonTexture(color: UIColor = .systemRed) -> SKTexture {
+func createButtonTexture(color: UIColor) -> SKTexture {
     let size = CGSize(width: 120, height: 120)
     let renderer = UIGraphicsImageRenderer(size: size)
     let controller = renderer.image { ctx in
@@ -47,7 +48,7 @@ func createButtonTexture(color: UIColor = .systemRed) -> SKTexture {
     return SKTexture(image: controller)
 }
 
-func createEnemyShipTexture(color: UIColor = .white) -> SKTexture {
+func createEnemyShipTexture(color: UIColor) -> SKTexture {
     let renderer = UIGraphicsImageRenderer(size: CGSize(width: 51, height: 42))
     let ship = renderer.image { ctx in
         // triangle ship
@@ -60,7 +61,7 @@ func createEnemyShipTexture(color: UIColor = .white) -> SKTexture {
     return SKTexture(image: ship)
 }
 
-func createEngineTexture(color: UIColor = .orange) -> SKTexture {
+func createEngineTexture(color: UIColor = .engine) -> SKTexture {
     let renderer = UIGraphicsImageRenderer(size: CGSize(width: 51, height: 42))
     let ship = renderer.image { ctx in
         ctx.cgContext.addRect(CGRect(x: 23, y: 10, width: 2, height: -4))
@@ -75,7 +76,7 @@ func createEngineTexture(color: UIColor = .orange) -> SKTexture {
     return SKTexture(image: ship)
 }
 
-func createShipTexture(color: UIColor = .white) -> SKTexture {
+func createShipTexture(color: UIColor = .ship) -> SKTexture {
     let renderer = UIGraphicsImageRenderer(size: CGSize(width: 51, height: 42))
     let ship = renderer.image { ctx in
         drawPrimaryHull(ctx: ctx)
@@ -138,11 +139,11 @@ func createShipTexture(color: UIColor = .white) -> SKTexture {
      */
 }
 
-func createAsteroidTexture(radius: Double) -> SKTexture {
+func createAsteroidTexture(radius: Double, color: UIColor) -> SKTexture {
     let renderer = UIGraphicsImageRenderer(size: CGSize(width: radius * 2, height: radius * 2))
     let asteroid = renderer.image { ctx in
         ctx.cgContext.translateBy(x: radius, y: radius) // move to center
-        ctx.cgContext.setStrokeColor(UIColor.white.cgColor)
+		ctx.cgContext.setStrokeColor(color.cgColor)
         ctx.cgContext.setLineWidth(LINE_WIDTH)
         var angle = 0.0
         ctx.cgContext.move(to: CGPoint(x: radius, y: 0.0))

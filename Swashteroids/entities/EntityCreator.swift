@@ -131,7 +131,7 @@ class EntityCreator {
 
     func createButtons() {
 		// flip
-		let flipButton = SKSpriteNode(texture: createButtonTexture(color: .systemYellow))
+		let flipButton = SKSpriteNode(texture: createButtonTexture(color: .flipButton))
 		flipButton.alpha = 0.5
 		flipButton.name = InputName.flipButton
 		let flipx = flipButton.size.width / 2 + 30
@@ -142,7 +142,7 @@ class EntityCreator {
 		try! engine.addEntity(entity: flipButtonEntity)
         
 		// left
-		let leftButton = SKSpriteNode(texture: createButtonTexture(color: .white))
+		let leftButton = SKSpriteNode(texture: createButtonTexture(color: .leftButton))
 		leftButton.alpha = 0.5
 		leftButton.name = InputName.leftButton
 		let leftx = leftButton.size.width / 2 + 30
@@ -153,7 +153,7 @@ class EntityCreator {
 		try! engine.addEntity(entity: leftButtonEntity)
         
         // right
-        let rightButton = SKSpriteNode(texture: createButtonTexture(color: .white))
+        let rightButton = SKSpriteNode(texture: createButtonTexture(color: .rightButton))
         rightButton.alpha = 0.5
         rightButton.name = InputName.rightButton
         let rightx = rightButton.size.width + 30 + leftx
@@ -164,7 +164,7 @@ class EntityCreator {
         try! engine.addEntity(entity: rightButtonEntity)
         
         // thrust
-        let thrustButton = SKSpriteNode(texture: createButtonTexture(color: .systemGreen))
+        let thrustButton = SKSpriteNode(texture: createButtonTexture(color: .thrustButton))
         thrustButton.alpha = 0.5
         thrustButton.name = InputName.thrustButton
         let thrustx = 1024 - thrustButton.size.width / 2 - 30
@@ -175,7 +175,7 @@ class EntityCreator {
         try! engine.addEntity(entity: thrustButtonEntity)
 
         // fire
-        let fireButton = SKSpriteNode(texture: createButtonTexture(color: .systemRed))
+        let fireButton = SKSpriteNode(texture: createButtonTexture(color: .fireButton))
         fireButton.alpha = 0.5
         fireButton.name = InputName.fireButton
         let firex = -thrustButton.size.width - 30 + thrustx
@@ -187,8 +187,8 @@ class EntityCreator {
     }
 
     @discardableResult
-    func createAsteroid(radius: Double, x: Double, y: Double) -> Entity {
-        let sprite = SKSpriteNode(texture: createAsteroidTexture(radius: radius))
+	func createAsteroid(radius: Double, x: Double, y: Double, color: UIColor = .asteroid) -> Entity {
+		let sprite = SKSpriteNode(texture: createAsteroidTexture(radius: radius, color: color))
         let entity = Entity()
         numAsteroids += 1
         entity.name = "asteroid_\(numAsteroids)"
