@@ -3,9 +3,11 @@
 # Swashteroids
 _An example using the Swash framework_
 
-An example game using the ECS framework [Swash](https://github.com/johnrnyquist/Swash) along with some SpriteKit.
+[Swashteroids](https://apps.apple.com/us/app/swashteroids/id6472061502) is a game I made with the ECS framework [Swash](https://github.com/johnrnyquist/Swash) along with some SpriteKit. Buy it in the App Store (only $0.99) to support development (mainly by encouraging the developer). 
 
-This game is started out as a port of the Ash ECS example [Asteroids](https://github.com/richardlord/Asteroids) project. I made some changes for fun :-)
+Here's a [video](https://www.youtube.com/watch?v=WM2IAM2pBCY) of the gameplay.
+
+![Swashteroids](images/swashteroids.png)
 
 
 #### Developer
