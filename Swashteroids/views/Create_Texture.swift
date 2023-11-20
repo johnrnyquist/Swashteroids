@@ -46,13 +46,13 @@ func createButtonTexture(color: UIColor, text: String) -> SKTexture {
 		ctx.cgContext.fillEllipse(in: CGRect(origin: .zero, size: size))
 
 		// Create a label and render it to an image
-		let label = SKLabelNode(text: text)
+		let label = SKLabelNode(text: " \(text) ")
 		label.horizontalAlignmentMode = .center
 		label.fontName = "Helvetica Bold"
 		label.fontColor = .black
 		label.alpha = 0.3
-		label.fontSize = 9
-		label.position = CGPoint(x: size.width / 2, y: size.height / 2 - 8)
+		label.fontSize = 18/UIScreen.main.scale
+		label.position = CGPoint(x: size.width / 2, y: size.height / 2 - 16/UIScreen.main.scale)
 		let view = SKView()
 		let labelTexture = view.texture(from: label)
 		let labelImage = UIImage(cgImage: labelTexture!.cgImage())
@@ -62,6 +62,7 @@ func createButtonTexture(color: UIColor, text: String) -> SKTexture {
 	}
 	return SKTexture(image: controller)
 }
+
 
 func createEnemyShipTexture(color: UIColor) -> SKTexture {
     let renderer = UIGraphicsImageRenderer(size: CGSize(width: 51, height: 42))
