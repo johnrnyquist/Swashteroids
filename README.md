@@ -7,8 +7,6 @@ _An example using the Swash framework_
 
 Here's a [video](https://www.youtube.com/watch?v=WM2IAM2pBCY) of the gameplay.
 
-![Swashteroids](images/swashteroids.png)
-
 
 #### Developer
 - [John Nyquist](https://linkedin.com/in/nyquist)
