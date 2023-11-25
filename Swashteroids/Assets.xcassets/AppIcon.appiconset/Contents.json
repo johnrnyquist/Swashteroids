@@ -1,19 +1,19 @@
 {
   "images" : [
     {
-      "filename" : "iTunesArtwork@2x 1.png",
+      "filename" : "iTunesArtwork@2x.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
     },
     {
-      "filename" : "Icon-Small-40.png",
+      "filename" : "Icon-Small-40 1.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "20x20"
     },
     {
-      "filename" : "Icon-60@2x 1.png",
+      "filename" : "Icon-60 1.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "20x20"
@@ -73,16 +73,10 @@
       "size" : "60x60"
     },
     {
-      "filename" : "iTunesArtwork@2x 2.png",
+      "filename" : "iTunesArtwork@2x 1.png",
       "idiom" : "ios-marketing",
       "scale" : "1x",
       "size" : "1024x1024"
-    },
-    {
-      "filename" : "iTunesArtwork@2x.png",
-      "idiom" : "mac",
-      "scale" : "2x",
-      "size" : "512x512"
     }
   ],
   "info" : {
