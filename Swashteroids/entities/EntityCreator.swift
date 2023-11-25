@@ -57,10 +57,10 @@ class EntityCreator {
         let entity = Entity()
         entity.name = "ship"
         shipSprite.name = entity.name
-        let engineSprite = SKSpriteNode(texture: createEngineTexture())
-        engineSprite.isHidden = true
-        engineSprite.name = "engine"
-        shipSprite.addChild(engineSprite)
+        let nacellesSprite = SKSpriteNode(texture: createEngineTexture())
+        nacellesSprite.isHidden = true
+        nacellesSprite.name = "nacelles"
+        shipSprite.addChild(nacellesSprite)
         entity
                 .add(component: WarpDriveComponent())
                 .add(component: AudioComponent())

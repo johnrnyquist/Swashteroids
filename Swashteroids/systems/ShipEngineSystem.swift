@@ -14,9 +14,9 @@ final class ShipEngineSystem: ListIteratingSystem {
             let displayComponent = node[DisplayComponent.self]
         else { return }
         if engineComponent.isThrusting {
-            displayComponent.displayObject?.childNode(withName: "//engine")?.isHidden = false
+            displayComponent.displayObject?.childNode(withName: "//nacelles")?.isHidden = false
         } else {
-            displayComponent.displayObject?.childNode(withName: "//engine")?.isHidden = true
+            displayComponent.displayObject?.childNode(withName: "//nacelles")?.isHidden = true
         }
     }
 }

@@ -77,7 +77,7 @@ func createEnemyShipTexture(color: UIColor) -> SKTexture {
     return SKTexture(image: ship)
 }
 
-func createEngineTexture(color: UIColor = .engine) -> SKTexture {
+func createEngineTexture(color: UIColor = .nacelles) -> SKTexture {
     let renderer = UIGraphicsImageRenderer(size: CGSize(width: 51, height: 42))
     let ship = renderer.image { ctx in
         ctx.cgContext.addRect(CGRect(x: 23, y: 10, width: 2, height: -4))
