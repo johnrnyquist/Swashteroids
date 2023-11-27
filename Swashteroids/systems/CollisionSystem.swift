@@ -4,7 +4,7 @@ import Swash
 
 final class CollisionSystem: System {
     private weak var creator: EntityCreator!
-    private weak var games: NodeList!
+    private weak var gameStateNodes: NodeList!
     private weak var ships: NodeList!
     private weak var asteroids: NodeList!
     private weak var bullets: NodeList!
@@ -15,7 +15,7 @@ final class CollisionSystem: System {
     }
 
     public override func addToEngine(engine: Engine) {
-        games = engine.getNodeList(nodeClassType: GameNode.self)
+        gameStateNodes = engine.getNodeList(nodeClassType: GameStateNode.self)
         ships = engine.getNodeList(nodeClassType: ShipCollisionNode.self)
         asteroids = engine.getNodeList(nodeClassType: AsteroidCollisionNode.self)
         bullets = engine.getNodeList(nodeClassType: BulletCollisionNode.self)
@@ -98,9 +98,9 @@ final class CollisionSystem: System {
                     splitAsteroid(asteroidCollision: asteroidCollision,
                                   asteroidPosition: asteroidPosition,
                                   asteroidCollisionNode: asteroidNode)
-                    if let game = games.head,
-                       let component = game[GameStateComponent.self] {
-                        component.hits += 1
+                    if let gameStateNode = gameStateNodes.head,
+                       let gameStateComponent = gameStateNode[GameStateComponent.self] {
+                        gameStateComponent.hits += 1
                     }
                     break
                 }
@@ -147,10 +147,11 @@ final class CollisionSystem: System {
                                      .remove(componentClass: GunComponent.self)
                                      .remove(componentClass: MotionControlsComponent.self)
                                      .remove(componentClass: DisplayComponent.self)
+									 .remove(componentClass: HyperSpaceComponent.self)
                                      .add(component: DisplayComponent(displayObject: spriteNode))
                                      .add(component: DeathThroesComponent(countdown: 3.0))
                                      .add(component: AudioComponent())
-                        if let gameNode = games.head,
+                        if let gameNode = gameStateNodes.head,
                            let component = gameNode[GameStateComponent.self] {
                             component.lives -= 1
                         }
@@ -172,7 +173,7 @@ final class CollisionSystem: System {
 
     public override func removeFromEngine(engine: Engine) {
         creator = nil
-        games = nil
+        gameStateNodes = nil
         ships = nil
         asteroids = nil
         bullets = nil

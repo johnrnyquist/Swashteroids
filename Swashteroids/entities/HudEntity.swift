@@ -5,11 +5,12 @@
 import Swash
 
 final class HudEntity: Entity {
-    init(name: String, view: HudView) {
-        super.init(name: name)
-        self.add(component: GameStateComponent())
+    init(name: String, view: HudView, gameState: GameStateComponent) {
+		super.init(name: name)
+        self
             .add(component: HudComponent(hudView: view))
             .add(component: DisplayComponent(displayObject: view))
             .add(component: PositionComponent(x: 0, y: 0, z: .hud, rotation: 0))
+			.add(component: gameState)
     }
 }

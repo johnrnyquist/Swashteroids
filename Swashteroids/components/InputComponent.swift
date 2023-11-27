@@ -5,7 +5,7 @@ final public class InputComponent: Component {
     var flipIsDown: Bool
     var leftIsDown: Bool
     var rightIsDown: Bool
-    var thrustIsDown: Bool
+	var thrustIsDown: Bool
     var triggerIsDown: Bool
     var tapped: Bool
 

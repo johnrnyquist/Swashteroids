@@ -8,7 +8,7 @@ final class GameViewController: UIViewController {
 		let skview = SKView(frame: CGRect(x: 0, y: 0, width: 1024, height: 768))
 		view = skview
 		view.isUserInteractionEnabled = true
-		let scene = GameScene(size: view.frame.size)
+		let scene = NoButtonsGameScene(size: view.frame.size)
 		scene.scaleMode = .aspectFit
 		skview.isUserInteractionEnabled = true
 		skview.isMultipleTouchEnabled = true
@@ -20,7 +20,7 @@ final class GameViewController: UIViewController {
 		if motion == .motionShake {
 			if 
 				let skView = view as? SKView,
-				let scene = skView.scene as? GameScene {
+				let scene = skView.scene as? Buttons {
 				scene.shake()
 			}
 		}

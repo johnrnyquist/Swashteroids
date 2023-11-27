@@ -1,6 +1,7 @@
 import SpriteKit
 import Swash
 
+
 enum Layers: Double {
     case asteroids
     case bullet
@@ -16,12 +17,16 @@ class GunSupplierComponent: Component {}
 class EntityCreator {
     private weak var engine: Engine!
     private weak var inputComponent: InputComponent!
+	private weak var scene: SKScene!
+	private var size: CGSize
     private var numAsteroids = 0
     private var numBullets = 0
 
-    init(engine: Engine, input: InputComponent) {
+	init(engine: Engine, input: InputComponent, scene: SKScene, size: CGSize) {
         self.engine = engine
         self.inputComponent = input
+		self.size = size
+		self.scene = scene
     }
 
     @discardableResult
@@ -43,10 +48,10 @@ class EntityCreator {
     }
 
     @discardableResult
-    func createHud() -> Entity {
+	func createHud(gameState: GameStateComponent) -> Entity {
         // Here we create a subclass of entity
         let hudView = HudView()
-        let hudEntity = HudEntity(name: "hud", view: hudView)
+		let hudEntity = HudEntity(name: "hud", view: hudView, gameState: gameState)
         try! engine.addEntity(entity: hudEntity)
         return hudEntity
     }
@@ -113,13 +118,14 @@ class EntityCreator {
     }
 
     @discardableResult
-    func createWaitForTap() -> Entity? {
-        let waitView = WaitForStartView()
+	func createWaitForTap(gameState: GameStateComponent) -> Entity? {
+		let waitView = WaitForStartView(scene: scene)
         let waitEntity = Entity(name: "wait")
                 .add(component: WaitForStartComponent())
                 .add(component: DisplayComponent(displayObject: waitView))
                 .add(component: PositionComponent(x: 0, y: 0, z: .wait, rotation: 0))
                 .add(component: inputComponent)
+				.add(component: gameState)
         do {
             try engine?.addEntity(entity: waitEntity)
         }
@@ -131,7 +137,7 @@ class EntityCreator {
 
     @discardableResult
     func createGameOver() -> Entity? {
-        let gameOverView = GameOVerView()
+		let gameOverView = GameOVerView(size: size)
         let gameOverEntity = Entity(name: "gameOver")
                 .add(component: GameOverComponent())
                 .add(component: DisplayComponent(displayObject: gameOverView))
@@ -147,6 +153,75 @@ class EntityCreator {
     }
 
 	func createButtons() {
+		let flipButton = SKSpriteNode(imageNamed: "flip")
+		flipButton.alpha = 0.4
+		flipButton.name = InputName.flipButton
+		let flipx = flipButton.size.width / 2 + 30
+		let flipy = flipButton.size.height + 120
+		let flipButtonEntity = Entity(name: InputName.flipButton)
+			.add(component: PositionComponent(x: flipx, y: flipy, z: .buttons, rotation: 0.0))
+			.add(component: DisplayComponent(displayObject: flipButton))
+		try! engine.addEntity(entity: flipButtonEntity)
+
+
+		// left
+		let leftButton = SKSpriteNode(imageNamed: "left")
+		leftButton.alpha = 0.4
+		leftButton.name = InputName.leftButton
+		let leftx = leftButton.size.width / 2 + 30
+		let lefty = leftButton.size.height / 2 + 30
+		let leftButtonEntity = Entity(name: InputName.leftButton)
+			.add(component: PositionComponent(x: leftx, y: lefty, z: .buttons, rotation: 0.0))
+			.add(component: DisplayComponent(displayObject: leftButton))
+		try! engine.addEntity(entity: leftButtonEntity)
+
+		// right
+		let rightButton = SKSpriteNode(imageNamed: "left")
+		rightButton.alpha = 0.4
+		rightButton.name = InputName.rightButton
+		rightButton.xScale = -1.0
+		let rightx = rightButton.size.width + 30 + leftx
+		let righty = lefty
+		let rightButtonEntity = Entity(name: InputName.rightButton)
+			.add(component: PositionComponent(x: rightx, y: righty, z: .buttons, rotation: 0.0))
+			.add(component: DisplayComponent(displayObject: rightButton))
+		try! engine.addEntity(entity: rightButtonEntity)
+
+		// thrust
+		let thrustButton = SKSpriteNode(imageNamed: "thrust")
+		thrustButton.alpha = 0.4
+		thrustButton.name = InputName.thrustButton
+		let thrustx = 1024 - thrustButton.size.width / 2 - 30
+		let thrusty = lefty
+		let thrustButtonEntity = Entity(name: InputName.thrustButton)
+			.add(component: PositionComponent(x: thrustx, y: thrusty, z: .buttons, rotation: 0.0))
+			.add(component: DisplayComponent(displayObject: thrustButton))
+		try! engine.addEntity(entity: thrustButtonEntity)
+
+		// fire
+		let fireButton = SKSpriteNode(imageNamed: "trigger")
+		fireButton.alpha = 0.4
+		fireButton.name = InputName.fireButton
+		let firex = -thrustButton.size.width - 30 + thrustx
+		let firey = lefty
+		let fireButtonEntity = Entity(name: InputName.fireButton)
+			.add(component: PositionComponent(x: firex, y: firey, z: .buttons, rotation: 0.0))
+			.add(component: DisplayComponent(displayObject: fireButton))
+		try! engine.addEntity(entity: fireButtonEntity)
+
+		// hyperSpace
+		let hyperSpaceButton = SKSpriteNode(imageNamed: "hyperspace")
+		hyperSpaceButton.alpha = 0.4
+		hyperSpaceButton.name = InputName.hyperSpaceButton
+		let hyperSpacex = 1024 - thrustButton.size.width / 2 - 30
+		let hyperSpacey = hyperSpaceButton.size.height + 120
+		let hyperSpaceButtonEntity = Entity(name: InputName.hyperSpaceButton)
+			.add(component: PositionComponent(x: hyperSpacex, y: hyperSpacey, z: .buttons, rotation: 0.0))
+			.add(component: DisplayComponent(displayObject: hyperSpaceButton))
+		try! engine.addEntity(entity: hyperSpaceButtonEntity)
+	}
+
+	func createButtons2() {
 
 		// flip
 		let flipButton = SKSpriteNode(texture: createButtonTexture(color: .flipButton, text: "flip"))

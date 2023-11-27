@@ -3,11 +3,11 @@ import Swash
 
 
 final class MovementSystem: ListIteratingSystem {
-    var config: GameConfig!
+    var size: CGSize
 
-    init(config: GameConfig) {
-        super.init(nodeClass: MovementNode.self)
-        self.config = config
+    init(size: CGSize) {
+        self.size = size
+		super.init(nodeClass: MovementNode.self)
         nodeUpdateFunction = updateNode
     }
 
@@ -18,16 +18,16 @@ final class MovementSystem: ListIteratingSystem {
         position.position.x += motion.velocity.x * time
         position.position.y += motion.velocity.y * time
         if (position.position.x < 0) {
-            position.position.x += config.width
+            position.position.x += size.width
         }
-        if (position.position.x > config.width) {
-            position.position.x -= config.width
+        if (position.position.x > size.width) {
+            position.position.x -= size.width
         }
         if (position.position.y < 0) {
-            position.position.y += config.height
+            position.position.y += size.height
         }
-        if (position.position.y > config.height) {
-            position.position.y -= config.height
+        if (position.position.y > size.height) {
+            position.position.y -= size.height
         }
         position.rotation += motion.angularVelocity * time
         if (motion.damping > 0) {

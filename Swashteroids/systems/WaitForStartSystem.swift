@@ -16,7 +16,7 @@ final class WaitForStartSystem: System {
     public override func addToEngine(engine: Engine) {
         self.engine = engine
         waitNodes = engine.getNodeList(nodeClassType: WaitForStartNode.self)
-        gameNodes = engine.getNodeList(nodeClassType: GameNode.self)
+        gameNodes = engine.getNodeList(nodeClassType: GameStateNode.self)
         asteroids = engine.getNodeList(nodeClassType: AsteroidCollisionNode.self)
     }
 
@@ -35,8 +35,10 @@ final class WaitForStartSystem: System {
             }
             // Start state
             gameStateComponent.resetBoard()
+			gameStateComponent.playing = true
             input.tapped = false
             engine?.removeEntity(entity: waitNode.entity!)
+			creator?.createHud(gameState: gameStateComponent)
         }
     }
 

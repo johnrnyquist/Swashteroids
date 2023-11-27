@@ -4,13 +4,13 @@ import AVFoundation
 import Swash
 
 
-final class GameScene: SKScene {
+final class Buttons: SKScene {
 	var game: Asteroids!
 
 	override func didMove(to view: SKView) {
 		super.didMove(to: view)
 		backgroundColor = .background
-		game = Asteroids(container: self, width: frame.width, height: frame.height)
+		game = Asteroids(scene: self)
 		game.start()
 	}
 
@@ -52,8 +52,8 @@ final class GameScene: SKScene {
 			if nodeTouched.name == InputName.hyperSpaceButton {
 				hyperSpaceTouched = touch
 				game.input.hyperSpaceIsDown = true
-				game.ship?.add(component: HyperSpaceComponent(x: Double(Int.random(in: 0...Int(game.width))),
-															  y: Double(Int.random(in: 0...Int(game.height)))))
+				game.ship?.add(component: HyperSpaceComponent(x: Double(Int.random(in: 0...Int(size.width))),
+															  y: Double(Int.random(in: 0...Int(size.height)))))
 				generator.impactOccurred()
 			}
 			if nodeTouched.name == InputName.flipButton {

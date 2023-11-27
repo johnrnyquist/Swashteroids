@@ -8,16 +8,16 @@ class HudView: SKNode {
 
     override init() {
         super.init()
-        score = createTextField()
+        score = createLabel()
         score.horizontalAlignmentMode = .center
         score.x = 512
         score.y = 700
         addChild(score)
-        lives = createTextField()
+        lives = createLabel()
         lives.x = 12
         lives.y = 700
         addChild(lives)
-        level = createTextField()
+        level = createLabel()
         level.horizontalAlignmentMode = .right
         level.y = 700
         level.x = 1012
@@ -40,12 +40,12 @@ class HudView: SKNode {
         level.text = "LEVEL: \(value)"
     }
 
-    private func createTextField() -> SKLabelNode {
+    private func createLabel() -> SKLabelNode {
         let tf = SKLabelNode()
         tf.horizontalAlignmentMode = .left
-        tf.fontName = "Helvetica"
+        tf.fontName = "Badloc ICG"
 		tf.fontColor = .hudText
-        tf.fontSize = 36
+        tf.fontSize = 48
         return tf
     }
 }

@@ -21,8 +21,9 @@ final class FiringControlsSystem: ListIteratingSystem {
         guard let motion = node[MotionComponent.self],
               let position = node[PositionComponent.self],
               let gun = node[GunComponent.self],
-			  let input = node[InputComponent.self],
-              bullets.numNodes < 5
+			  let input = node[InputComponent.self]
+//				,
+//              bullets.numNodes < 5
         else { return }
         gun.shooting = input.triggerIsDown
         gun.timeSinceLastShot += time

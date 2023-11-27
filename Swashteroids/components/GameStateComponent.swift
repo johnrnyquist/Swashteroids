@@ -10,6 +10,5 @@ final class GameStateComponent: Component {
         lives = 3
         level = 0
         hits = 0
-        playing = true
     }
 }

@@ -9,18 +9,18 @@ import SpriteKit
 
 
 class GameOVerView: SKSpriteNode {
-	private var gameOver: SKLabelNode = {
+	lazy private var gameOver: SKLabelNode = {
 		let gameOver = SKLabelNode(text: "Game Over")
-		gameOver.fontName = "Helvetica"
+		gameOver.fontName = "Badloc ICG"
 		gameOver.fontColor = .waitText
-		gameOver.fontSize = 72
+		gameOver.fontSize = 96
 		gameOver.horizontalAlignmentMode = .center
-		gameOver.position = CGPoint(x: 512, y: 400)
+		gameOver.position = CGPoint(x: size.width/2, y: size.height * 0.55)
 		return gameOver
 	}()
 
-	init() {
-		super.init(texture: nil, color: .clear, size: CGSize(width: 1024, height: 768))
+	init(size: CGSize) {
+		super.init(texture: nil, color: .clear, size: size)
 		name = "gameOver"
 		anchorPoint = .zero
 		addChild(gameOver)
