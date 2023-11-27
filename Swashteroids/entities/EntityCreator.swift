@@ -73,7 +73,8 @@ class EntityCreator {
                 .add(component: PositionComponent(x: 512, y: 384, z: .ship, rotation: 0.0))
                 .add(component: ShipComponent())
                 .add(component: MotionComponent(velocityX: 0.0,
-                                                velocityY: 0.0))
+                                                velocityY: 0.0,
+												damping: 0.0))
                 .add(component: CollisionComponent(radius: 25))
                 .add(component: DisplayComponent(displayObject: shipSprite))
                 .add(component: MotionControlsComponent(left: 1,
@@ -154,7 +155,7 @@ class EntityCreator {
 
 	func createButtons() {
 		let flipButton = SKSpriteNode(imageNamed: "flip")
-		flipButton.alpha = 0.4
+		flipButton.alpha = 0.2
 		flipButton.name = InputName.flipButton
 		let flipx = flipButton.size.width / 2 + 30
 		let flipy = flipButton.size.height + 120
@@ -166,7 +167,7 @@ class EntityCreator {
 
 		// left
 		let leftButton = SKSpriteNode(imageNamed: "left")
-		leftButton.alpha = 0.4
+		leftButton.alpha = 0.2
 		leftButton.name = InputName.leftButton
 		let leftx = leftButton.size.width / 2 + 30
 		let lefty = leftButton.size.height / 2 + 30
@@ -177,7 +178,7 @@ class EntityCreator {
 
 		// right
 		let rightButton = SKSpriteNode(imageNamed: "left")
-		rightButton.alpha = 0.4
+		rightButton.alpha = 0.2
 		rightButton.name = InputName.rightButton
 		rightButton.xScale = -1.0
 		let rightx = rightButton.size.width + 30 + leftx
@@ -189,7 +190,7 @@ class EntityCreator {
 
 		// thrust
 		let thrustButton = SKSpriteNode(imageNamed: "thrust")
-		thrustButton.alpha = 0.4
+		thrustButton.alpha = 0.2
 		thrustButton.name = InputName.thrustButton
 		let thrustx = 1024 - thrustButton.size.width / 2 - 30
 		let thrusty = lefty
@@ -200,7 +201,7 @@ class EntityCreator {
 
 		// fire
 		let fireButton = SKSpriteNode(imageNamed: "trigger")
-		fireButton.alpha = 0.4
+		fireButton.alpha = 0.2
 		fireButton.name = InputName.fireButton
 		let firex = -thrustButton.size.width - 30 + thrustx
 		let firey = lefty
@@ -211,7 +212,7 @@ class EntityCreator {
 
 		// hyperSpace
 		let hyperSpaceButton = SKSpriteNode(imageNamed: "hyperspace")
-		hyperSpaceButton.alpha = 0.4
+		hyperSpaceButton.alpha = 0.2
 		hyperSpaceButton.name = InputName.hyperSpaceButton
 		let hyperSpacex = 1024 - thrustButton.size.width / 2 - 30
 		let hyperSpacey = hyperSpaceButton.size.height + 120

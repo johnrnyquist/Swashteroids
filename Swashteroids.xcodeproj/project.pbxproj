@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8D23C1362B02C4CA00F7D878 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1352B02C4CA00F7D878 /* AppDelegate.swift */; };
-		8D23C13C2B02C4CA00F7D878 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C13B2B02C4CA00F7D878 /* Buttons.swift */; };
+		8D23C13C2B02C4CA00F7D878 /* ButtonsGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C13B2B02C4CA00F7D878 /* ButtonsGameScene.swift */; };
 		8D23C13E2B02C4CA00F7D878 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C13D2B02C4CA00F7D878 /* GameViewController.swift */; };
 		8D23C1412B02C4CA00F7D878 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C13F2B02C4CA00F7D878 /* Main.storyboard */; };
 		8D23C1432B02C4CC00F7D878 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C1422B02C4CC00F7D878 /* Assets.xcassets */; };
@@ -106,7 +106,7 @@
 /* Begin PBXFileReference section */
 		8D23C1322B02C4CA00F7D878 /* Swashteroids.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swashteroids.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D23C1352B02C4CA00F7D878 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		8D23C13B2B02C4CA00F7D878 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
+		8D23C13B2B02C4CA00F7D878 /* ButtonsGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsGameScene.swift; sourceTree = "<group>"; };
 		8D23C13D2B02C4CA00F7D878 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		8D23C1402B02C4CA00F7D878 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8D23C1422B02C4CC00F7D878 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -241,7 +241,7 @@
 				8D23C1442B02C4CC00F7D878 /* LaunchScreen.storyboard */,
 				8D23C1352B02C4CA00F7D878 /* AppDelegate.swift */,
 				8D23C13D2B02C4CA00F7D878 /* GameViewController.swift */,
-				8D23C13B2B02C4CA00F7D878 /* Buttons.swift */,
+				8D23C13B2B02C4CA00F7D878 /* ButtonsGameScene.swift */,
 				8DF68A872B12DD8100932316 /* NoButtonsGameScene.swift */,
 				8D23C14F2B02C59B00F7D878 /* Asteroids.swift */,
 				8D23C1E42B02C81D00F7D878 /* CGPoint+extensions.swift */,
@@ -297,19 +297,19 @@
 				8D23C1742B02C59C00F7D878 /* CollisionComponent.swift */,
 				8D23C16D2B02C59C00F7D878 /* DeathThroesComponent.swift */,
 				8D23C1702B02C59C00F7D878 /* DisplayComponent.swift */,
-				8D23C1662B02C59C00F7D878 /* WarpDriveComponent.swift */,
+				8D6A0E002B0AB82E00F2E137 /* GameOverComponent.swift */,
 				8D23C1672B02C59C00F7D878 /* GameStateComponent.swift */,
 				8D23C16F2B02C59C00F7D878 /* GunComponent.swift */,
 				8D23C16E2B02C59C00F7D878 /* GunControlsComponent.swift */,
 				8D23C1732B02C59C00F7D878 /* HudComponent.swift */,
 				8D9DEF632B059E3800064B01 /* HyperSpaceComponent.swift */,
+				931396DD35CCD39E8E4EDB16 /* InputComponent.swift */,
 				8D23C16C2B02C59C00F7D878 /* MotionComponent.swift */,
 				8D23C1712B02C59C00F7D878 /* MotionControlsComponent.swift */,
 				8D23C1722B02C59C00F7D878 /* PositionComponent.swift */,
 				8D23C16B2B02C59C00F7D878 /* ShipComponent.swift */,
 				8D23C1752B02C59C00F7D878 /* WaitForStartComponent.swift */,
-				931396DD35CCD39E8E4EDB16 /* InputComponent.swift */,
-				8D6A0E002B0AB82E00F2E137 /* GameOverComponent.swift */,
+				8D23C1662B02C59C00F7D878 /* WarpDriveComponent.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -526,7 +526,7 @@
 				8D6A0DFF2B0AB64A00F2E137 /* GameOverView.swift in Sources */,
 				8D23C1AD2B02C59D00F7D878 /* MovementNode.swift in Sources */,
 				8D23C1A72B02C59D00F7D878 /* AnimationNode.swift in Sources */,
-				8D23C13C2B02C4CA00F7D878 /* Buttons.swift in Sources */,
+				8D23C13C2B02C4CA00F7D878 /* ButtonsGameScene.swift in Sources */,
 				8D23C1B82B02C59D00F7D878 /* MotionComponent.swift in Sources */,
 				8D23C1BE2B02C59D00F7D878 /* PositionComponent.swift in Sources */,
 				8D6A0E012B0AB82E00F2E137 /* GameOverComponent.swift in Sources */,

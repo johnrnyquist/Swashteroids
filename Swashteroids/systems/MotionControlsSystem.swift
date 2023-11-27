@@ -13,7 +13,7 @@ final class MotionControlsSystem: ListIteratingSystem {
     }
 
     private func updateNode(node: Node, time: TimeInterval) {
-		guard let data = motionManager.accelerometerData else {	return}
+//		guard let data = motionManager.accelerometerData else {	return}
         guard
             let position = node[PositionComponent.self],
             let motion = node[MotionComponent.self],
@@ -27,17 +27,17 @@ final class MotionControlsSystem: ListIteratingSystem {
 			input.flipIsDown = false
 		}
 
-		position.rotation += control.rotationRate * (data.acceleration.y * 0.025)
+//		position.rotation += control.rotationRate * (data.acceleration.y * 0.025)
 
 
-//		if input.leftIsDown {
-//			position.rotation += control.rotationRate * time
-//		}
-//        if input.rightIsDown {
-//            position.rotation -= control.rotationRate * time
-//        }
+		if input.leftIsDown {
+			position.rotation += control.rotationRate * time
+		}
+		if input.rightIsDown {
+			position.rotation -= control.rotationRate * time
+		}
 
-		input.thrustIsDown = data.acceleration.x > -0.65 // landscape right
+//		input.thrustIsDown = data.acceleration.x > -0.65 // landscape right
 
         if input.thrustIsDown,
            warpDrive.isThrusting == false {

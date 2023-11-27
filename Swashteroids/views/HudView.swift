@@ -43,7 +43,7 @@ class HudView: SKNode {
     private func createLabel() -> SKLabelNode {
         let tf = SKLabelNode()
         tf.horizontalAlignmentMode = .left
-        tf.fontName = "Badloc ICG"
+        tf.fontName = "Futura Condensed Medium"
 		tf.fontColor = .hudText
         tf.fontSize = 48
         return tf

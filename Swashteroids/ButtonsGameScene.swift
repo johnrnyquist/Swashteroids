@@ -4,7 +4,7 @@ import AVFoundation
 import Swash
 
 
-final class Buttons: SKScene {
+final class ButtonsGameScene: SKScene {
 	var game: Asteroids!
 
 	override func didMove(to view: SKView) {
@@ -16,10 +16,6 @@ final class Buttons: SKScene {
 
 	override func update(_ currentTime: TimeInterval) {
 		game.dispatchTick()
-	}
-
-	func shake() {
-		game.shake()
 	}
 
 	//MARK:- TOUCHES -------------------------
@@ -49,6 +45,8 @@ final class Buttons: SKScene {
 		if let ship = game.ship,
 		   ship.has(componentClassName: MotionComponent.name)
 		{
+			(nodeTouched as! SKSpriteNode).alpha = 0.6
+
 			if nodeTouched.name == InputName.hyperSpaceButton {
 				hyperSpaceTouched = touch
 				game.input.hyperSpaceIsDown = true
@@ -76,12 +74,10 @@ final class Buttons: SKScene {
 			// either or
 			if nodeTouched.name == InputName.leftButton {
 				leftTouched = touch
-				game.input.rightIsDown = false
 				game.input.leftIsDown = true
 				generator.impactOccurred()
 			} else if nodeTouched.name == InputName.rightButton {
 				rightTouched = touch
-				game.input.leftIsDown = false
 				game.input.rightIsDown = true
 				generator.impactOccurred()
 			}
@@ -96,23 +92,42 @@ final class Buttons: SKScene {
 			  ship.has(componentClassName: MotionComponent.name),
 			  ship.has(componentClassName: InputComponent.name)
 		else { return }
+		
 		switch touch {
 			case flipTouched:
+				if let node = self.childNode(withName: InputName.flipButton) as? SKSpriteNode {
+					node.alpha = 0.2
+				}
 				flipTouched = nil
 				game.input.flipIsDown = false
 			case hyperSpaceTouched:
-				hyperSpaceTouched = nil
-				game.input.flipIsDown = false
+				if let node = self.childNode(withName: InputName.hyperSpaceButton) as? SKSpriteNode {
+					node.alpha = 0.2
+				}
+			hyperSpaceTouched = nil
+				game.input.hyperSpaceIsDown = false
 			case leftTouched:
+				if let node = self.childNode(withName: InputName.leftButton) as? SKSpriteNode {
+					node.alpha = 0.2
+				}
 				leftTouched = nil
 				game.input.leftIsDown = false
 			case rightTouched:
+				if let node = self.childNode(withName: InputName.rightButton) as? SKSpriteNode {
+					node.alpha = 0.2
+				}
 				rightTouched = nil
 				game.input.rightIsDown = false
 			case thrustTouched:
+				if let node = self.childNode(withName: InputName.thrustButton) as? SKSpriteNode {
+					node.alpha = 0.2
+				}
 				thrustTouched = nil
 				game.input.thrustIsDown = false
 			case triggerTouched:
+				if let node = self.childNode(withName: InputName.fireButton) as? SKSpriteNode {
+					node.alpha = 0.2
+				}
 				triggerTouched = nil
 				game.input.triggerIsDown = false
 			default:

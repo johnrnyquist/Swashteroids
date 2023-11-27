@@ -44,7 +44,6 @@ final public class Asteroids {
 				.addSystem(system: GameOverSystem(creator), priority: SystemPriorities.preUpdate.rawValue)
 
 		creator.createWaitForTap(gameState: GameStateComponent())
-//        creator.createHud()
         creator.createButtons()
     }
 
@@ -57,10 +56,5 @@ final public class Asteroids {
     func dispatchTick() {
         tickProvider.dispatchTick()
     }
-
-	func shake() {
-		ship?.add(component: HyperSpaceComponent(x: Double(Int.random(in: 0...Int(scene.size.width))),
-												 y: Double(Int.random(in: 0...Int(scene.size.height)))))
-	}
 }
 
