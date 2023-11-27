@@ -33,7 +33,7 @@ final class GameManagerSystem: System {
             return
         }
         if ships.empty, gameStateComponent.playing {
-            if gameStateComponent.lives > 0 {
+            if gameStateComponent.ships > 0 {
                 let newSpaceshipPosition = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
                 var clearToAddSpaceship = true
                 var asteroid = asteroids.head

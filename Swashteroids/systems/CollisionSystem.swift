@@ -153,7 +153,7 @@ final class CollisionSystem: System {
                                      .add(component: AudioComponent())
                         if let gameNode = gameStateNodes.head,
                            let component = gameNode[GameStateComponent.self] {
-                            component.lives -= 1
+                            component.ships -= 1
                         }
                     }
                     splitAsteroid(asteroidCollision: asteroidCollision,

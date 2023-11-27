@@ -3,7 +3,7 @@ import SpriteKit
 
 class HudView: SKNode {
     private var score: SKLabelNode!
-    private var lives: SKLabelNode!
+    private var ships: SKLabelNode!
     private var level: SKLabelNode!
 
     override init() {
@@ -13,10 +13,10 @@ class HudView: SKNode {
         score.x = 512
         score.y = 700
         addChild(score)
-        lives = createLabel()
-        lives.x = 12
-        lives.y = 700
-        addChild(lives)
+        ships = createLabel()
+        ships.x = 12
+        ships.y = 700
+        addChild(ships)
         level = createLabel()
         level.horizontalAlignmentMode = .right
         level.y = 700
@@ -32,8 +32,8 @@ class HudView: SKNode {
         score.text = "SCORE: \(value)"
     }
 
-    func setLives(_ value: Int) {
-        lives.text = "LIVES: \(value)"
+    func setNumShips(_ value: Int) {
+        ships.text = "SHIPS: \(value)"
     }
 
     func setLevel(_ value: Int) {

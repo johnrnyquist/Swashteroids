@@ -12,7 +12,7 @@ final public class HudSystem: ListIteratingSystem {
         guard let hudComponent = hudNode[HudComponent.self],
               let gameStateComponent = hudNode[GameStateComponent.self]
         else { return }
-        hudComponent.hudView.setLives(gameStateComponent.lives)
+        hudComponent.hudView.setNumShips(gameStateComponent.ships)
         hudComponent.hudView.setScore(gameStateComponent.hits)
         hudComponent.hudView.setLevel(gameStateComponent.level)
     }
