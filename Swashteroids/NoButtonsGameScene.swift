@@ -5,9 +5,9 @@ import Swash
 
 
 final class NoButtonsGameScene: SKScene {
-	var do_flip = false
-	var do_fire = false
-	var do_hyperSpace = false
+	var flipTouched = false
+	var triggerTouched = false
+	var hyperspaceTouched = false
 
 	var game: Asteroids!
 
@@ -22,18 +22,18 @@ final class NoButtonsGameScene: SKScene {
 		if let ship = game.ship,
 		   ship.has(componentClassName: MotionComponent.name)
 		{
-			if do_fire {
+			if triggerTouched {
 				game.input.triggerIsDown = true
 			}
-			if do_hyperSpace {
-				do_hyperSpace = false
+			if hyperspaceTouched {
+				hyperspaceTouched = false
 				game.input.hyperSpaceIsDown = true
 				game.ship?.add(component: HyperSpaceComponent(x: Double(Int.random(in: 0...Int(size.width))),
 															  y: Double(Int.random(in: 0...Int(size.height)))))
 			}
-			if do_flip {
+			if flipTouched {
 				print("flip button tapped")
-				do_flip = false
+				flipTouched = false
 				game.input.flipIsDown = true
 			}
 		}
@@ -52,15 +52,15 @@ final class NoButtonsGameScene: SKScene {
 
 		if pos.x > size.width/2 {
 			if pos.y < size.height/2 {
-				do_fire = true
+				triggerTouched = true
 			} else {
-				do_fire = true
+				triggerTouched = true
 			}
 		} else {
 			if pos.y < size.height/2 {
-				do_flip = true
+				flipTouched = true
 			} else {
-				do_hyperSpace = true
+				hyperspaceTouched = true
 			}
 		}
 	}
@@ -73,16 +73,16 @@ final class NoButtonsGameScene: SKScene {
 			if pos.y < size.height/2 {
 			} else {
 			}
-			do_fire = false
+			triggerTouched = false
 			game.input.triggerIsDown = false
 			
 		} else {
 			if pos.y < size.height/2 {
-				do_flip = false
+				flipTouched = false
 				game.input.flipIsDown = false
 				
 			} else {
-				do_hyperSpace = false
+				hyperspaceTouched = false
 				game.input.hyperSpaceIsDown = false
 			}
 		}

@@ -7,10 +7,10 @@ import SpriteKit
 
 
 final public class Asteroids {
-    private var engine: Engine
+     var engine: Engine
     private var tickProvider: FrameTickProvider
     private var scene: SKScene
-    private var creator: EntityCreator!
+      var creator: EntityCreator!
     
 	var input: InputComponent
     var ship: Entity? { engine.ship }
@@ -44,7 +44,6 @@ final public class Asteroids {
 				.addSystem(system: GameOverSystem(creator), priority: SystemPriorities.preUpdate.rawValue)
 
 		creator.createWaitForTap(gameState: GameStateComponent())
-        creator.createButtons()
     }
 
 

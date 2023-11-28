@@ -4,12 +4,12 @@ import Swash
 import CoreMotion
 
 final class MotionControlsSystem: ListIteratingSystem {
-	let motionManager = CMMotionManager()
+//	let motionManager = CMMotionManager()
 
     init() {
         super.init(nodeClass: MotionControlsNode.self)
         nodeUpdateFunction = updateNode
-		motionManager.startAccelerometerUpdates()
+//		motionManager.startAccelerometerUpdates()
     }
 
     private func updateNode(node: Node, time: TimeInterval) {
@@ -28,8 +28,7 @@ final class MotionControlsSystem: ListIteratingSystem {
 		}
 
 //		position.rotation += control.rotationRate * (data.acceleration.y * 0.025)
-
-
+    
 		if input.leftIsDown {
 			position.rotation += control.rotationRate * time
 		}

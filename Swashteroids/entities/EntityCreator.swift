@@ -154,8 +154,30 @@ class EntityCreator {
         return gameOverEntity
     }
 
+	func removeButtons() {
+		if let button = engine.getEntity(named: InputName.flipButton) {
+			engine.removeEntity(entity: button)
+		}
+		if let button = engine.getEntity(named: InputName.hyperSpaceButton) {
+			engine.removeEntity(entity: button)
+		}
+		if let button = engine.getEntity(named: InputName.thrustButton) {
+			engine.removeEntity(entity: button)
+		}
+		if let button = engine.getEntity(named: InputName.fireButton) {
+			engine.removeEntity(entity: button)
+		}
+		if let button = engine.getEntity(named: InputName.leftButton) {
+			engine.removeEntity(entity: button)
+		}
+		if let button = engine.getEntity(named: InputName.rightButton) {
+			engine.removeEntity(entity: button)
+		}
+	}
+
 	func createButtons() {
 		let flipButton = SKSpriteNode(imageNamed: "flip")
+		flipButton.name = "flip"
 		flipButton.alpha = 0.2
 		flipButton.name = InputName.flipButton
 		let flipx = flipButton.size.width / 2 + 30

@@ -1,7 +1,9 @@
 import UIKit
 import SpriteKit
+import CoreMotion
 
 final class GameViewController: UIViewController {
+	var game: Asteroids!
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -9,6 +11,8 @@ final class GameViewController: UIViewController {
 		view = skview
 		view.isUserInteractionEnabled = true
 		let scene = ButtonsGameScene(size: view.frame.size)
+		game = Asteroids(scene: scene)
+		scene.game = game
 		scene.scaleMode = .aspectFit
 		skview.isUserInteractionEnabled = true
 		skview.isMultipleTouchEnabled = true
