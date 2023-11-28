@@ -53,6 +53,7 @@ final class GameManagerSystem: System {
                 }
             } else if gameStateComponent.playing {
                 gameStateComponent.playing = false
+				creator.removeButtons() //HACK
                 creator.createGameOver()
             }
         }

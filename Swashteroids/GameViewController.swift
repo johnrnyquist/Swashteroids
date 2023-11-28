@@ -10,7 +10,7 @@ final class GameViewController: UIViewController {
 		let skview = SKView(frame: CGRect(x: 0, y: 0, width: 1024, height: 768))
 		view = skview
 		view.isUserInteractionEnabled = true
-		let scene = ButtonsGameScene(size: view.frame.size)
+		let scene = GameScene(size: view.frame.size)
 		game = Asteroids(scene: scene)
 		scene.game = game
 		scene.scaleMode = .aspectFit

@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8D23C1362B02C4CA00F7D878 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1352B02C4CA00F7D878 /* AppDelegate.swift */; };
-		8D23C13C2B02C4CA00F7D878 /* ButtonsGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C13B2B02C4CA00F7D878 /* ButtonsGameScene.swift */; };
+		8D23C13C2B02C4CA00F7D878 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C13B2B02C4CA00F7D878 /* GameScene.swift */; };
 		8D23C13E2B02C4CA00F7D878 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C13D2B02C4CA00F7D878 /* GameViewController.swift */; };
 		8D23C1412B02C4CA00F7D878 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C13F2B02C4CA00F7D878 /* Main.storyboard */; };
 		8D23C1432B02C4CC00F7D878 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C1422B02C4CC00F7D878 /* Assets.xcassets */; };
@@ -98,7 +98,6 @@
 		8D9DEF642B059E3800064B01 /* HyperSpaceComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9DEF632B059E3800064B01 /* HyperSpaceComponent.swift */; };
 		8D9DEF662B059EC400064B01 /* HyperSpaceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9DEF652B059EC400064B01 /* HyperSpaceNode.swift */; };
 		8D9DEF682B059F2800064B01 /* HyperSpaceSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9DEF672B059F2800064B01 /* HyperSpaceSystem.swift */; };
-		8DF68A882B12DD8100932316 /* NoButtonsGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF68A872B12DD8100932316 /* NoButtonsGameScene.swift */; };
 		931392A72F550D08153829B2 /* HudEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931390CE0425A854FD0B8DE1 /* HudEntity.swift */; };
 		931393799C3434FBF3FC0CCD /* InputComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931396DD35CCD39E8E4EDB16 /* InputComponent.swift */; };
 /* End PBXBuildFile section */
@@ -106,7 +105,7 @@
 /* Begin PBXFileReference section */
 		8D23C1322B02C4CA00F7D878 /* Swashteroids.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swashteroids.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D23C1352B02C4CA00F7D878 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		8D23C13B2B02C4CA00F7D878 /* ButtonsGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsGameScene.swift; sourceTree = "<group>"; };
+		8D23C13B2B02C4CA00F7D878 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		8D23C13D2B02C4CA00F7D878 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		8D23C1402B02C4CA00F7D878 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8D23C1422B02C4CC00F7D878 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -196,7 +195,6 @@
 		8D9DEF632B059E3800064B01 /* HyperSpaceComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyperSpaceComponent.swift; sourceTree = "<group>"; };
 		8D9DEF652B059EC400064B01 /* HyperSpaceNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyperSpaceNode.swift; sourceTree = "<group>"; };
 		8D9DEF672B059F2800064B01 /* HyperSpaceSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyperSpaceSystem.swift; sourceTree = "<group>"; };
-		8DF68A872B12DD8100932316 /* NoButtonsGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoButtonsGameScene.swift; sourceTree = "<group>"; };
 		931390CE0425A854FD0B8DE1 /* HudEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudEntity.swift; sourceTree = "<group>"; };
 		931396DD35CCD39E8E4EDB16 /* InputComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputComponent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -241,8 +239,7 @@
 				8D23C1442B02C4CC00F7D878 /* LaunchScreen.storyboard */,
 				8D23C1352B02C4CA00F7D878 /* AppDelegate.swift */,
 				8D23C13D2B02C4CA00F7D878 /* GameViewController.swift */,
-				8D23C13B2B02C4CA00F7D878 /* ButtonsGameScene.swift */,
-				8DF68A872B12DD8100932316 /* NoButtonsGameScene.swift */,
+				8D23C13B2B02C4CA00F7D878 /* GameScene.swift */,
 				8D23C14F2B02C59B00F7D878 /* Asteroids.swift */,
 				8D23C1E42B02C81D00F7D878 /* CGPoint+extensions.swift */,
 				8D23C1E52B02C81D00F7D878 /* Double+extensions.swift */,
@@ -507,7 +504,6 @@
 				8D23C19D2B02C59D00F7D878 /* Asteroids.swift in Sources */,
 				8D23C1B02B02C59D00F7D878 /* GunControlNode.swift in Sources */,
 				8D23C1B92B02C59D00F7D878 /* DeathThroesComponent.swift in Sources */,
-				8DF68A882B12DD8100932316 /* NoButtonsGameScene.swift in Sources */,
 				8D23C1CF2B02C59D00F7D878 /* AnimationSystem.swift in Sources */,
 				8D23C1CD2B02C59D00F7D878 /* DeathThroesSystem.swift in Sources */,
 				8D23C1B22B02C59D00F7D878 /* WarpDriveComponent.swift in Sources */,
@@ -526,7 +522,7 @@
 				8D6A0DFF2B0AB64A00F2E137 /* GameOverView.swift in Sources */,
 				8D23C1AD2B02C59D00F7D878 /* MovementNode.swift in Sources */,
 				8D23C1A72B02C59D00F7D878 /* AnimationNode.swift in Sources */,
-				8D23C13C2B02C4CA00F7D878 /* ButtonsGameScene.swift in Sources */,
+				8D23C13C2B02C4CA00F7D878 /* GameScene.swift in Sources */,
 				8D23C1B82B02C59D00F7D878 /* MotionComponent.swift in Sources */,
 				8D23C1BE2B02C59D00F7D878 /* PositionComponent.swift in Sources */,
 				8D6A0E012B0AB82E00F2E137 /* GameOverComponent.swift in Sources */,
