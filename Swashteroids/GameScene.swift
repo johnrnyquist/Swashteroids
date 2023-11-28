@@ -4,7 +4,7 @@ import AVFoundation
 import Swash
 import CoreMotion
 
-final class ButtonsGameScene: SKScene {
+final class GameScene: SKScene {
 	var game: Asteroids!
 	var motionManager: CMMotionManager?
 
