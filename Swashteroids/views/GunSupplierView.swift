@@ -12,8 +12,8 @@ class GunSupplierView: SKSpriteNode, Animatable {
             self.time = 0
             dir = dir == 1.0 ? -1.0 : 1.0
         }
-        alpha += Double(dir * time / 2)
-		xScale += Double(dir * time / 10)
-		yScale += Double(dir * time / 10)
+//        alpha += Double(dir * time / 2)
+//		xScale += Double(dir * time / 10)
+//		yScale += Double(dir * time / 10)
     }
 }

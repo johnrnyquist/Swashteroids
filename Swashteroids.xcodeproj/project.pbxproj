@@ -53,7 +53,7 @@
 		8D23C1C22B02C59D00F7D878 /* Hashable+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1762B02C59C00F7D878 /* Hashable+extensions.swift */; };
 		8D23C1C32B02C59D00F7D878 /* shipExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C1782B02C59C00F7D878 /* shipExplosion.sks */; };
 		8D23C1C42B02C59D00F7D878 /* photon.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C1792B02C59C00F7D878 /* photon.sks */; };
-		8D23C1C52B02C59D00F7D878 /* asteroidExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C17A2B02C59C00F7D878 /* asteroidExplosion.sks */; };
+		8D23C1C52B02C59D00F7D878 /* hyperspace.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C17A2B02C59C00F7D878 /* hyperspace.sks */; };
 		8D23C1C62B02C59D00F7D878 /* CollisionSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C17C2B02C59C00F7D878 /* CollisionSystem.swift */; };
 		8D23C1C72B02C59D00F7D878 /* ShipEngineSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C17D2B02C59C00F7D878 /* ShipEngineSystem.swift */; };
 		8D23C1C82B02C59D00F7D878 /* AudioSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C17E2B02C59C00F7D878 /* AudioSystem.swift */; };
@@ -95,6 +95,7 @@
 		8D6A0E032B0AB84B00F2E137 /* GameOverNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6A0E022B0AB84B00F2E137 /* GameOverNode.swift */; };
 		8D6A0E052B0AB87400F2E137 /* GameOverSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6A0E042B0AB87400F2E137 /* GameOverSystem.swift */; };
 		8D6AD4B42B09D2B000E258BF /* Engine+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6AD4B32B09D2B000E258BF /* Engine+extension.swift */; };
+		8D8A511A2B16880500A5F254 /* gunSupplier.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8D8A51192B16880500A5F254 /* gunSupplier.sks */; };
 		8D9DEF642B059E3800064B01 /* HyperSpaceComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9DEF632B059E3800064B01 /* HyperSpaceComponent.swift */; };
 		8D9DEF662B059EC400064B01 /* HyperSpaceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9DEF652B059EC400064B01 /* HyperSpaceNode.swift */; };
 		8D9DEF682B059F2800064B01 /* HyperSpaceSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9DEF672B059F2800064B01 /* HyperSpaceSystem.swift */; };
@@ -149,7 +150,7 @@
 		8D23C1762B02C59C00F7D878 /* Hashable+extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Hashable+extensions.swift"; sourceTree = "<group>"; };
 		8D23C1782B02C59C00F7D878 /* shipExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = shipExplosion.sks; sourceTree = "<group>"; };
 		8D23C1792B02C59C00F7D878 /* photon.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = photon.sks; sourceTree = "<group>"; };
-		8D23C17A2B02C59C00F7D878 /* asteroidExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = asteroidExplosion.sks; sourceTree = "<group>"; };
+		8D23C17A2B02C59C00F7D878 /* hyperspace.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = hyperspace.sks; sourceTree = "<group>"; };
 		8D23C17C2B02C59C00F7D878 /* CollisionSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollisionSystem.swift; sourceTree = "<group>"; };
 		8D23C17D2B02C59C00F7D878 /* ShipEngineSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipEngineSystem.swift; sourceTree = "<group>"; };
 		8D23C17E2B02C59C00F7D878 /* AudioSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioSystem.swift; sourceTree = "<group>"; };
@@ -192,6 +193,7 @@
 		8D6A0E022B0AB84B00F2E137 /* GameOverNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverNode.swift; sourceTree = "<group>"; };
 		8D6A0E042B0AB87400F2E137 /* GameOverSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverSystem.swift; sourceTree = "<group>"; };
 		8D6AD4B32B09D2B000E258BF /* Engine+extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Engine+extension.swift"; sourceTree = "<group>"; };
+		8D8A51192B16880500A5F254 /* gunSupplier.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = gunSupplier.sks; sourceTree = "<group>"; };
 		8D9DEF632B059E3800064B01 /* HyperSpaceComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyperSpaceComponent.swift; sourceTree = "<group>"; };
 		8D9DEF652B059EC400064B01 /* HyperSpaceNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyperSpaceNode.swift; sourceTree = "<group>"; };
 		8D9DEF672B059F2800064B01 /* HyperSpaceSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyperSpaceSystem.swift; sourceTree = "<group>"; };
@@ -314,9 +316,10 @@
 		8D23C1772B02C59C00F7D878 /* particles */ = {
 			isa = PBXGroup;
 			children = (
-				8D23C17A2B02C59C00F7D878 /* asteroidExplosion.sks */,
-				8D23C1792B02C59C00F7D878 /* photon.sks */,
+				8D23C17A2B02C59C00F7D878 /* hyperspace.sks */,
+				8D8A51192B16880500A5F254 /* gunSupplier.sks */,
 				8D23C1782B02C59C00F7D878 /* shipExplosion.sks */,
+				8D23C1792B02C59C00F7D878 /* photon.sks */,
 			);
 			path = particles;
 			sourceTree = "<group>";
@@ -467,7 +470,7 @@
 				8D23C1DE2B02C59D00F7D878 /* beat1.wav in Resources */,
 				8D23C1EE2B02D00700F7D878 /* swashteroids.png in Resources */,
 				8D23C1D92B02C59D00F7D878 /* fire.wav in Resources */,
-				8D23C1C52B02C59D00F7D878 /* asteroidExplosion.sks in Resources */,
+				8D23C1C52B02C59D00F7D878 /* hyperspace.sks in Resources */,
 				8D23C1412B02C4CA00F7D878 /* Main.storyboard in Resources */,
 				8D23C1DC2B02C59D00F7D878 /* bangMedium.wav in Resources */,
 				8D23C1C32B02C59D00F7D878 /* shipExplosion.sks in Resources */,
@@ -480,6 +483,7 @@
 				8D23C1432B02C4CC00F7D878 /* Assets.xcassets in Resources */,
 				8D23C1E92B02CD7E00F7D878 /* README.md in Resources */,
 				8D23C1C42B02C59D00F7D878 /* photon.sks in Resources */,
+				8D8A511A2B16880500A5F254 /* gunSupplier.sks in Resources */,
 				8D23C1462B02C4CC00F7D878 /* LaunchScreen.storyboard in Resources */,
 				8D23C1DB2B02C59D00F7D878 /* bangSmall.wav in Resources */,
 				8D23C1D52B02C59D00F7D878 /* saucerSmall.wav in Resources */,

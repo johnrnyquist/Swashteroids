@@ -58,6 +58,19 @@ final class GameScene: SKScene {
 
 	func do_hyperspace() {
 		childNode(withName: InputName.hyperSpaceButton)?.alpha = 0.6
+
+		let colorize = SKAction.colorize(with: .yellow, colorBlendFactor: 1.0, duration: 0.25)
+		let wait = SKAction.wait(forDuration: 0.5)
+		let uncolorize = SKAction.colorize(withColorBlendFactor: 0.0, duration: 0.25)
+		let sequence = SKAction.sequence([colorize, wait, uncolorize])
+		if let ship = childNode(withName: "ship") {
+			let emitter = SKEmitterNode(fileNamed: "hyperspace.sks")!
+			ship.addChild(emitter)
+			ship.run(sequence) {
+				emitter.removeFromParent()
+			}
+		}
+
 		game.input.hyperSpaceIsDown = true
 		game.ship?.add(component: HyperSpaceComponent(x: Double(Int.random(in: 0...Int(size.width))),
 													  y: Double(Int.random(in: 0...Int(size.height)))))

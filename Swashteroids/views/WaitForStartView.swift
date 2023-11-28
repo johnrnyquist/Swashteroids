@@ -3,15 +3,24 @@ import Swash
 
 
 class WaitForStartView: SKSpriteNode {
-    lazy private var tapToStartText: SKLabelNode = {
-        let clickToStart = SKLabelNode(text: "Tap to start")
-        clickToStart.fontName = "Futura Condensed Medium"
-		clickToStart.fontColor = .waitText
-        clickToStart.fontSize = 60
-        clickToStart.horizontalAlignmentMode = .center
-		clickToStart.position = CGPoint(x: size.width/2, y: size.height * 0.45)
-        return clickToStart
-    }()
+	lazy private var tapToStartText: SKLabelNode = {
+		let label = SKLabelNode(text: "Tap to start")
+		label.fontName = "Futura Condensed Medium"
+		label.fontColor = .waitText
+		label.fontSize = 60
+		label.horizontalAlignmentMode = .center
+		label.position = CGPoint(x: size.width/2, y: size.height * 0.45)
+		return label
+	}()
+	lazy private var versionInfo: SKLabelNode = {
+		let label = SKLabelNode(text: "v\(appVersion) (build \(appBuild))")
+		label.fontName = "Futura Condensed Medium"
+		label.fontColor = .versionInfo
+		label.fontSize = 14
+		label.horizontalAlignmentMode = .center
+		label.position = CGPoint(x: size.width/2, y: 50)
+		return label
+	}()
 
 	init(scene: SKScene) {
 		super.init(texture: nil, color: .clear, size: scene.size)
@@ -30,15 +39,20 @@ class WaitForStartView: SKSpriteNode {
 		let bounceUpAction = SKAction.moveBy(x: 0, y: 10, duration: 0.07)
 		let bounceDownAction = SKAction.moveBy(x: 0, y: -10, duration: 0.07)
 
+		let node = SKNode()
+		node.addChild(tapToStartText)
+		node.addChild(versionInfo)
+		node.alpha = 0
 
-		tapToStartText.alpha = 0
 		let fadeInAction = SKAction.fadeIn(withDuration: 0.5)
 		let sequenceAction = SKAction.sequence([moveAction, bounceDownAction, bounceUpAction, bounceDownAction])
+
+		addChild(node)
+
 		title.run(sequenceAction) {
-			self.tapToStartText.run(fadeInAction)
+			node.run(fadeInAction)
 		}
 		addChild(title)
-		addChild(tapToStartText)
 
 		let nobuttons = SKSpriteNode(imageNamed: "nobuttons")
 		nobuttons.anchorPoint = .zero
@@ -51,6 +65,8 @@ class WaitForStartView: SKSpriteNode {
 		buttons.position = CGPoint(x: scene.size.width - buttons.size.width, y: 50)
 		addChild(buttons)
 		addChild(nobuttons)
+
+
     }
 
     required init?(coder aDecoder: NSCoder) {

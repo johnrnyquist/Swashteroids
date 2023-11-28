@@ -143,14 +143,15 @@ final class CollisionSystem: System {
                         spriteNode.addChild(emitter)
                         spriteNode.run(fade)
                         shipComponent.entity?
-                                     .remove(componentClass: GunControlsComponent.self)
-                                     .remove(componentClass: GunComponent.self)
-                                     .remove(componentClass: MotionControlsComponent.self)
-                                     .remove(componentClass: DisplayComponent.self)
-									 .remove(componentClass: HyperSpaceComponent.self)
-                                     .add(component: DisplayComponent(displayObject: spriteNode))
-                                     .add(component: DeathThroesComponent(countdown: 3.0))
-                                     .add(component: AudioComponent())
+							.remove(componentClass: InputComponent.self)
+							.remove(componentClass: GunControlsComponent.self)
+							.remove(componentClass: GunComponent.self)
+							.remove(componentClass: MotionControlsComponent.self)
+							.remove(componentClass: DisplayComponent.self)
+							.remove(componentClass: HyperSpaceComponent.self)
+							.add(component: DisplayComponent(displayObject: spriteNode))
+							.add(component: DeathThroesComponent(countdown: 3.0))
+							.add(component: AudioComponent())
                         if let gameNode = gameStateNodes.head,
                            let component = gameNode[GameStateComponent.self] {
                             component.ships -= 1
