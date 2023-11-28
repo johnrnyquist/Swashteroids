@@ -31,7 +31,7 @@ class EntityCreator {
 
     @discardableResult
     func createGunSupplier(radius: Double = 7, x: Double = 512, y: Double = 484) -> Entity {
-        let sprite = GunSupplierView(texture: createGunSupplierTexture(radius: radius, color: .cyan))
+        let sprite = GunSupplierView(imageNamed: "scope")
         let entity = Entity(name: "gunSupplier")
         sprite.name = entity.name
         entity
@@ -43,6 +43,7 @@ class EntityCreator {
                 .add(component: GunSupplierComponent())
                 .add(component: DisplayComponent(displayObject: sprite))
                 .add(component: AnimationComponent(animation: sprite))
+				.add(component: MotionComponent(velocityX: 0, velocityY: 0, angularVelocity: 100))
         try! engine.addEntity(entity: entity)
         return entity
     }
@@ -92,9 +93,9 @@ class EntityCreator {
         let cos = cos(parentPosition.rotation * Double.pi / 180)
         let sin = sin(parentPosition.rotation * Double.pi / 180)
         let sprite = SKSpriteNode(texture: createBulletTexture(color: .bullet))
-        let sparkEmiter = SKEmitterNode(fileNamed: "photon.sks")!
-        sparkEmiter.emissionAngle = parentPosition.rotation * Double.pi / 180 + Double.pi
-        sprite.addChild(sparkEmiter)
+//        let sparkEmiter = SKEmitterNode(fileNamed: "photon.sks")!
+//        sparkEmiter.emissionAngle = parentPosition.rotation * Double.pi / 180 + Double.pi
+//        sprite.addChild(sparkEmiter)
         numBullets += 1
         let entity = Entity(name: "bullet_\(numBullets)")
                 .add(component: BulletComponent(lifeRemaining: gun.bulletLifetime))

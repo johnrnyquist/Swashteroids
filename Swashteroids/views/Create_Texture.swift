@@ -20,13 +20,13 @@ func createGunSupplierTexture(radius: Double, color: UIColor) -> SKTexture {
 }
 
 func createBulletTexture(color: UIColor) -> SKTexture {
-    let rect = CGRect(x: 0, y: 0, width: 6, height: 6)
-    let size = rect.size
+    let rect = CGRect(x: 0, y: 0, width: 7, height: 7)
+    let size = CGSize(width: 5, height: 5)
     let renderer = UIGraphicsImageRenderer(size: size)
     let controller = renderer.image { ctx in
-        ctx.cgContext.setStrokeColor(color.cgColor)
+		ctx.cgContext.setStrokeColor(UIColor.clear.cgColor)
         ctx.cgContext.setFillColor(color.cgColor)
-        ctx.cgContext.setLineWidth(2)
+        ctx.cgContext.setLineWidth(0)
         ctx.cgContext.move(to: CGPoint(x: 0, y: 0))
         ctx.cgContext.fillEllipse(in: rect)
         ctx.cgContext.strokeEllipse(in: rect)
