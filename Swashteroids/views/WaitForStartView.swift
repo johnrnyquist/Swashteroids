@@ -8,17 +8,18 @@ class WaitForStartView: SKSpriteNode {
 		label.fontName = "Futura Condensed Medium"
 		label.fontColor = .waitText
 		label.fontSize = 60
+		label.alpha = 0
 		label.horizontalAlignmentMode = .center
 		label.position = CGPoint(x: size.width/2, y: size.height * 0.45)
 		return label
 	}()
 	lazy private var versionInfo: SKLabelNode = {
-		let label = SKLabelNode(text: "v\(appVersion) (build \(appBuild))")
+		let label = SKLabelNode(text: "Nyquist Art + Logic, LLC v\(appVersion) (build \(appBuild))")
 		label.fontName = "Futura Condensed Medium"
 		label.fontColor = .versionInfo
-		label.fontSize = 14
+		label.fontSize = 21
+		label.alpha = 0
 		label.horizontalAlignmentMode = .center
-		label.position = CGPoint(x: size.width/2, y: 50)
 		return label
 	}()
 
@@ -39,20 +40,20 @@ class WaitForStartView: SKSpriteNode {
 		let bounceUpAction = SKAction.moveBy(x: 0, y: 10, duration: 0.07)
 		let bounceDownAction = SKAction.moveBy(x: 0, y: -10, duration: 0.07)
 
-		let node = SKNode()
-		node.addChild(tapToStartText)
-		node.addChild(versionInfo)
-		node.alpha = 0
+		addChild(title)
+		addChild(tapToStartText)
+		addChild(versionInfo)
+		title.position = CGPoint(x: size.width/2, y: size.height/2)
+
 
 		let fadeInAction = SKAction.fadeIn(withDuration: 0.5)
 		let sequenceAction = SKAction.sequence([moveAction, bounceDownAction, bounceUpAction, bounceDownAction])
 
-		addChild(node)
-
 		title.run(sequenceAction) {
-			node.run(fadeInAction)
+			self.tapToStartText.run(fadeInAction)
+			self.versionInfo.run(fadeInAction)
+			self.versionInfo.position = CGPoint(x: self.size.width/2, y: title.y-title.size.height )
 		}
-		addChild(title)
 
 		let nobuttons = SKSpriteNode(imageNamed: "nobuttons")
 		nobuttons.anchorPoint = .zero

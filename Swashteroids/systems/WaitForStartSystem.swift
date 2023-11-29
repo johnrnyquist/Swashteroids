@@ -39,6 +39,7 @@ final class WaitForStartSystem: System {
             input.tapped = false
             engine?.removeEntity(entity: waitNode.entity!)
 			creator?.createHud(gameState: gameStateComponent)
+			creator?.createShowHideButtons()
         }
     }
 

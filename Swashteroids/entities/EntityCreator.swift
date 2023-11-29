@@ -179,9 +179,26 @@ class EntityCreator {
 		}
 	}
 
+	func removeShowHideButtons() {
+		guard let entity = engine.getEntity(named: InputName.showHideButtons) else { return }
+		engine.removeEntity(entity: entity)
+	}
+
+	func createShowHideButtons() {
+		let showHideButtons = SKSpriteNode(imageNamed: "showHideButtons")
+		showHideButtons.name = "showHideButtons"
+		showHideButtons.alpha = 0.2
+		let sx = scene.size.width/2
+		let sy = showHideButtons.size.height + 30
+		let showHideButtonEntity = Entity(name: "showHideButtons")
+			.add(component: PositionComponent(x: sx, y: sy, z: .buttons, rotation: 0.0))
+			.add(component: DisplayComponent(displayObject: showHideButtons))
+		try! engine.addEntity(entity: showHideButtonEntity)
+	}
+
 	func createButtons() {
+
 		let flipButton = SKSpriteNode(imageNamed: "flip")
-		flipButton.name = "flip"
 		flipButton.alpha = 0.2
 		flipButton.name = InputName.flipButton
 		let flipx = flipButton.size.width / 2 + 30

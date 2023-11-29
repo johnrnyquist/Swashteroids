@@ -48,6 +48,7 @@ final class GameScene: SKScene {
 
 	//MARK:- TOUCHES -------------------------
 
+	var showHideButtons: UITouch?
 	var flipTouched: UITouch?
 	var hyperSpaceTouched: UITouch?
 	var leftTouched: UITouch?
@@ -59,6 +60,7 @@ final class GameScene: SKScene {
 	func do_hyperspace() {
 		childNode(withName: InputName.hyperSpaceButton)?.alpha = 0.6
 
+		//HACK
 		let colorize = SKAction.colorize(with: .yellow, colorBlendFactor: 1.0, duration: 0.25)
 		let wait = SKAction.wait(forDuration: 0.5)
 		let uncolorize = SKAction.colorize(withColorBlendFactor: 0.0, duration: 0.25)
@@ -133,17 +135,26 @@ final class GameScene: SKScene {
 		game.input.rightIsDown = false
 	}
 
+	func do_showHideButtons(action: String) {
+		switch action {
+			case "show":
+				motionManager = nil
+				game.creator.createButtons()
+			case "hide":
+				motionManager = CMMotionManager()
+				motionManager?.startAccelerometerUpdates()
+				game.creator.removeButtons()
+			default:
+				break
+		}
+	}
+
 	func touchDown(atPoint pos: CGPoint, touch: UITouch) {
 		if let _ = game.wait {
 			if pos.x < size.width/2 {
-				// remove buttons
-				game.creator.removeButtons()
-				motionManager = CMMotionManager()		
-				motionManager?.startAccelerometerUpdates()
+				do_showHideButtons(action: "hide")
 			} else {
-				// keep buttons
-				motionManager = nil
-				game.creator.createButtons()
+				do_showHideButtons(action: "show")
 			}
 			game.input.tapped = true
 			generator.impactOccurred()
@@ -157,7 +168,13 @@ final class GameScene: SKScene {
 		
 		guard let _ = game?.ship?.has(componentClassName: InputComponent.name) else { return }
 		
+		let nodeTouched = atPoint(pos) == self ? nil : atPoint(pos)
+		
 		if let _ = motionManager {
+			if let nodeTouched, nodeTouched.name == InputName.showHideButtons {
+				do_showHideButtons(action: "show")
+				return
+			}
 			if pos.x > size.width/2 {
 				game.input.triggerIsDown = true
 				do_fire()
@@ -175,9 +192,13 @@ final class GameScene: SKScene {
 			return			
 		}
 		
-		guard let nodeTouched = atPoint(pos) == self ? nil : atPoint(pos)
-		else { return }
+		guard let nodeTouched else { return }
 		
+		if nodeTouched.name == InputName.showHideButtons {
+			do_showHideButtons(action: "hide")
+			return
+		}
+
 		if nodeTouched.name == InputName.hyperSpaceButton {
 			hyperSpaceTouched = touch
 			do_hyperspace()

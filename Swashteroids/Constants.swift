@@ -7,4 +7,5 @@ enum InputName {
     static let thrustButton = "thrustButton"
     static let rightButton = "rightButton"
     static let leftButton = "leftButton"
+    static let showHideButtons = "showHideButtons"
 }
