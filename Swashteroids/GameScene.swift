@@ -39,11 +39,11 @@ final class GameScene: SKScene {
 			undo_left()
 			do_right()
 		}
-		if data.acceleration.x > -0.65 { // landscape right
-			do_thrust()
-		} else {
-			undo_thrust()
-		}
+//		if data.acceleration.x > -0.65 { // landscape right
+//			do_thrust()
+//		} else {
+//			undo_thrust()
+//		}
 	}
 
 	//MARK:- TOUCHES -------------------------
@@ -176,18 +176,19 @@ final class GameScene: SKScene {
 				return
 			}
 			if pos.x > size.width/2 {
-				game.input.triggerIsDown = true
-				do_fire()
+				if pos.y < size.height/2 {
+					do_fire()
+				} else {
+					do_thrust()
+				}
 				generator.impactOccurred()
 			} else {
 				if pos.y < size.height/2 {
-					game.input.flipIsDown = true
 					do_flip()
-					generator.impactOccurred()
 				} else {
 					do_hyperspace()
-					generator.impactOccurred()
 				}
+				generator.impactOccurred()
 			}
 			return			
 		}
@@ -245,7 +246,11 @@ final class GameScene: SKScene {
 
 		if let _ = motionManager {
 			if pos.x > size.width/2 {
-				undo_fire()
+				if pos.y < size.height/2 {
+					undo_fire()
+				} else {
+					undo_thrust()
+				}
 			} else {
 				if pos.y < size.height/2 {
 					undo_flip()
