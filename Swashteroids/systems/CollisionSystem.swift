@@ -14,7 +14,7 @@ final class CollisionSystem: System {
         self.creator = creator
     }
 
-    public override func addToEngine(engine: Engine) {
+    override public func addToEngine(engine: Engine) {
         gameStateNodes = engine.getNodeList(nodeClassType: GameStateNode.self)
         ships = engine.getNodeList(nodeClassType: ShipCollisionNode.self)
         asteroids = engine.getNodeList(nodeClassType: AsteroidCollisionNode.self)
@@ -24,7 +24,7 @@ final class CollisionSystem: System {
 
     /// 
     /// - Parameter time: The time since the last update
-    public override func update(time: TimeInterval) {
+    override public func update(time: TimeInterval) {
         shipGunCollisionCheck()
         bulletAsteroidCollisionCheck()
         shipAsteroidCollisionCheck()
@@ -172,7 +172,7 @@ final class CollisionSystem: System {
         sqrt((from.x - to.x) * (from.x - to.x) + (from.y - to.y) * (from.y - to.y))
     }
 
-    public override func removeFromEngine(engine: Engine) {
+    override public func removeFromEngine(engine: Engine) {
         creator = nil
         gameStateNodes = nil
         ships = nil

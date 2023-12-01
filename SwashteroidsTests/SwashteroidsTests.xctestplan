@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "E950CA3E-2686-4158-BE00-60D8650EDF71",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Swashteroids.xcodeproj",
+        "identifier" : "8D4159502B18F692009B1369",
+        "name" : "SwashteroidsTests"
+      }
+    }
+  ],
+  "version" : 1
+}

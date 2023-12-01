@@ -11,7 +11,7 @@ final class DeathThroesSystem: ListIteratingSystem {
         nodeUpdateFunction = updateNode
     }
 
-    private func updateNode(node: Node, time: TimeInterval) {
+    func updateNode(node: Node, time: TimeInterval) {
         guard let deathComponent = node[DeathThroesComponent.self]
         else { return }
         deathComponent.countdown -= time
@@ -21,7 +21,7 @@ final class DeathThroesSystem: ListIteratingSystem {
         }
     }
 
-    public override func removeFromEngine(engine: Engine) {
+    override public func removeFromEngine(engine: Engine) {
         creator = nil
     }
 }

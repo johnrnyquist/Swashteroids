@@ -4,15 +4,16 @@ import SpriteKit
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 	var window: UIWindow?
-	//HACK to preload sounds
-	let bangLarge = SKAction.playSoundFileNamed("bangLarge.wav", waitForCompletion: false)
-	let bangMedium = SKAction.playSoundFileNamed("bangMedium.wav", waitForCompletion: false)
-	let bangSmall = SKAction.playSoundFileNamed("bangSmall.wav", waitForCompletion: false)
-	let fire = SKAction.playSoundFileNamed("fire.wav", waitForCompletion: false)
-	let thrust = SKAction.playSoundFileNamed("thrust.wav", waitForCompletion: false)
-	let hyperspace = SKAction.playSoundFileNamed("hyperspace.wav", waitForCompletion: false)
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+		//HACK to preload sounds
+		let _ = SKAction.playSoundFileNamed("bangLarge.wav", waitForCompletion: false)
+		let _ = SKAction.playSoundFileNamed("bangMedium.wav", waitForCompletion: false)
+		let _ = SKAction.playSoundFileNamed("bangSmall.wav", waitForCompletion: false)
+		let _ = SKAction.playSoundFileNamed("fire.wav", waitForCompletion: false)
+		let _ = SKAction.playSoundFileNamed("thrust.wav", waitForCompletion: false)
+		let _ = SKAction.playSoundFileNamed("hyperspace.wav", waitForCompletion: false)
+		let _ = SKAction.playSoundFileNamed("braam-6150.wav", waitForCompletion: false)
 		return true
 	}
 
@@ -32,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func applicationDidBecomeActive(_ application: UIApplication) {
 		// Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 	}
-}
+	}
 
 
 var appVersion: String {
@@ -42,3 +43,4 @@ var appVersion: String {
 var appBuild: String {
 	return Bundle.main.object(forInfoDictionaryKey: kCFBundleVersionKey as String) as! String
 }
+

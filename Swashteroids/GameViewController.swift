@@ -30,4 +30,19 @@ final class GameViewController: UIViewController {
 	override var prefersStatusBarHidden: Bool {
 		return true
 	}
+
+	override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+		switch UIDevice.current.orientation {
+			case .landscapeLeft:
+				print("landscapeLeft")
+			case .portrait:
+				print("portrait")
+			case .landscapeRight:
+				print("landscapeRight")
+			case .portraitUpsideDown:
+				print("portraitUpsideDown")
+			default:
+				break
+		}
+	}
 }

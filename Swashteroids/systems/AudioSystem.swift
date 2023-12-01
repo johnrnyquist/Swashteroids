@@ -11,7 +11,7 @@ final class AudioSystem: ListIteratingSystem {
         nodeUpdateFunction = updateNode
     }
 
-    private func updateNode(node: Node, time: TimeInterval) {
+	func updateNode(node: Node, time: TimeInterval) {
         guard let audioComponent = node[AudioComponent.self]
         else { return }
         for (key, soundAction) in audioComponent.toPlay {
@@ -24,7 +24,7 @@ final class AudioSystem: ListIteratingSystem {
         audioComponent.toRemove.removeAll()
     }
     
-    public override func removeFromEngine(engine: Engine) {
+	override public func removeFromEngine(engine: Engine) {
         scene = nil
     }
 }

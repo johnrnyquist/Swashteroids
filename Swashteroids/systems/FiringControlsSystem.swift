@@ -12,7 +12,7 @@ final class FiringControlsSystem: ListIteratingSystem {
         nodeUpdateFunction = updateNode
     }
 
-    public override func addToEngine(engine: Engine) {
+    override public func addToEngine(engine: Engine) {
         super.addToEngine(engine: engine)
         bullets = engine.getNodeList(nodeClassType: BulletCollisionNode.self)
     }
@@ -35,7 +35,7 @@ final class FiringControlsSystem: ListIteratingSystem {
         }
     }
 
-    public override func removeFromEngine(engine: Engine) {
+    override public func removeFromEngine(engine: Engine) {
         creator = nil
         bullets = nil
     }

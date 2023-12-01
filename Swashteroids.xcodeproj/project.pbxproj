@@ -88,6 +88,7 @@
 		8D23C1E92B02CD7E00F7D878 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C1E82B02CD7E00F7D878 /* README.md */; };
 		8D23C1EB2B02CD9800F7D878 /* LICENSE.md in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C1EA2B02CD9800F7D878 /* LICENSE.md */; };
 		8D23C1EE2B02D00700F7D878 /* swashteroids.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C1ED2B02D00700F7D878 /* swashteroids.png */; };
+		8D41595A2B18F699009B1369 /* AnimationSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4159492B18E8AA009B1369 /* AnimationSystemTests.swift */; };
 		8D59EDDE2B139088003BD073 /* Badloc ICG.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8D59EDDD2B138ED6003BD073 /* Badloc ICG.ttf */; };
 		8D688FBD2B0680D900056CD3 /* hyperspace.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D688FBC2B0680D900056CD3 /* hyperspace.wav */; };
 		8D6A0DFF2B0AB64A00F2E137 /* GameOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6A0DFE2B0AB64A00F2E137 /* GameOverView.swift */; };
@@ -95,6 +96,11 @@
 		8D6A0E032B0AB84B00F2E137 /* GameOverNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6A0E022B0AB84B00F2E137 /* GameOverNode.swift */; };
 		8D6A0E052B0AB87400F2E137 /* GameOverSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6A0E042B0AB87400F2E137 /* GameOverSystem.swift */; };
 		8D6AD4B42B09D2B000E258BF /* Engine+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6AD4B32B09D2B000E258BF /* Engine+extension.swift */; };
+		8D6D81522B1A25EE00AD8D18 /* BulletAgeSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6D81512B1A25EE00AD8D18 /* BulletAgeSystemTests.swift */; };
+		8D6D81552B1A562900AD8D18 /* braam-6150.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D6D81542B1A562900AD8D18 /* braam-6150.wav */; };
+		8D6D81572B1A5EC200AD8D18 /* NoButtons.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8D6D81562B1A5EC200AD8D18 /* NoButtons.sks */; };
+		8D6D81592B1A648400AD8D18 /* StartScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8D6D81582B1A648400AD8D18 /* StartScene.sks */; };
+		8D6D815F2B1A7A9E00AD8D18 /* ButtonsInfo.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8D6D815E2B1A7A9E00AD8D18 /* ButtonsInfo.sks */; };
 		8D8A511A2B16880500A5F254 /* gunSupplier.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8D8A51192B16880500A5F254 /* gunSupplier.sks */; };
 		8D9DEF642B059E3800064B01 /* HyperSpaceComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9DEF632B059E3800064B01 /* HyperSpaceComponent.swift */; };
 		8D9DEF662B059EC400064B01 /* HyperSpaceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9DEF652B059EC400064B01 /* HyperSpaceNode.swift */; };
@@ -102,6 +108,16 @@
 		931392A72F550D08153829B2 /* HudEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931390CE0425A854FD0B8DE1 /* HudEntity.swift */; };
 		931393799C3434FBF3FC0CCD /* InputComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931396DD35CCD39E8E4EDB16 /* InputComponent.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8D4159552B18F692009B1369 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8D23C12A2B02C4C900F7D878 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D23C1312B02C4CA00F7D878;
+			remoteInfo = Swashteroids;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		8D23C1322B02C4CA00F7D878 /* Swashteroids.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swashteroids.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -185,6 +201,8 @@
 		8D23C1E82B02CD7E00F7D878 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8D23C1EA2B02CD9800F7D878 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		8D23C1ED2B02D00700F7D878 /* swashteroids.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = swashteroids.png; sourceTree = "<group>"; };
+		8D4159492B18E8AA009B1369 /* AnimationSystemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationSystemTests.swift; sourceTree = "<group>"; };
+		8D4159512B18F692009B1369 /* SwashteroidsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwashteroidsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D59EDDD2B138ED6003BD073 /* Badloc ICG.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Badloc ICG.ttf"; sourceTree = "<group>"; };
 		8D688FBC2B0680D900056CD3 /* hyperspace.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = hyperspace.wav; sourceTree = "<group>"; };
 		8D688FBE2B068E2200056CD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -193,6 +211,12 @@
 		8D6A0E022B0AB84B00F2E137 /* GameOverNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverNode.swift; sourceTree = "<group>"; };
 		8D6A0E042B0AB87400F2E137 /* GameOverSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverSystem.swift; sourceTree = "<group>"; };
 		8D6AD4B32B09D2B000E258BF /* Engine+extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Engine+extension.swift"; sourceTree = "<group>"; };
+		8D6D81512B1A25EE00AD8D18 /* BulletAgeSystemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BulletAgeSystemTests.swift; sourceTree = "<group>"; };
+		8D6D81532B1A30C000AD8D18 /* SwashteroidsTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = SwashteroidsTests.xctestplan; sourceTree = "<group>"; };
+		8D6D81542B1A562900AD8D18 /* braam-6150.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "braam-6150.wav"; sourceTree = "<group>"; };
+		8D6D81562B1A5EC200AD8D18 /* NoButtons.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = NoButtons.sks; sourceTree = "<group>"; };
+		8D6D81582B1A648400AD8D18 /* StartScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = StartScene.sks; sourceTree = "<group>"; };
+		8D6D815E2B1A7A9E00AD8D18 /* ButtonsInfo.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ButtonsInfo.sks; sourceTree = "<group>"; };
 		8D8A51192B16880500A5F254 /* gunSupplier.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = gunSupplier.sks; sourceTree = "<group>"; };
 		8D9DEF632B059E3800064B01 /* HyperSpaceComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyperSpaceComponent.swift; sourceTree = "<group>"; };
 		8D9DEF652B059EC400064B01 /* HyperSpaceNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyperSpaceNode.swift; sourceTree = "<group>"; };
@@ -210,6 +234,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8D41594E2B18F692009B1369 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -220,6 +251,7 @@
 				8D23C1342B02C4CA00F7D878 /* Swashteroids */,
 				8D23C1E82B02CD7E00F7D878 /* README.md */,
 				8D23C1EA2B02CD9800F7D878 /* LICENSE.md */,
+				8D4159522B18F692009B1369 /* SwashteroidsTests */,
 				8D23C1332B02C4CA00F7D878 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -228,6 +260,7 @@
 			isa = PBXGroup;
 			children = (
 				8D23C1322B02C4CA00F7D878 /* Swashteroids.app */,
+				8D4159512B18F692009B1369 /* SwashteroidsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -349,6 +382,7 @@
 		8D23C18C2B02C59D00F7D878 /* sounds */ = {
 			isa = PBXGroup;
 			children = (
+				8D6D81542B1A562900AD8D18 /* braam-6150.wav */,
 				8D23C18F2B02C59D00F7D878 /* bangLarge.wav */,
 				8D23C1942B02C59D00F7D878 /* bangMedium.wav */,
 				8D23C1932B02C59D00F7D878 /* bangSmall.wav */,
@@ -367,6 +401,9 @@
 		8D23C1972B02C59D00F7D878 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				8D6D81562B1A5EC200AD8D18 /* NoButtons.sks */,
+				8D6D815E2B1A7A9E00AD8D18 /* ButtonsInfo.sks */,
+				8D6D81582B1A648400AD8D18 /* StartScene.sks */,
 				8D23C1982B02C59D00F7D878 /* Create_Texture.swift */,
 				8D23C19B2B02C59D00F7D878 /* GunSupplierView.swift */,
 				8D23C1992B02C59D00F7D878 /* HudView.swift */,
@@ -383,6 +420,16 @@
 				8D23C1ED2B02D00700F7D878 /* swashteroids.png */,
 			);
 			path = images;
+			sourceTree = "<group>";
+		};
+		8D4159522B18F692009B1369 /* SwashteroidsTests */ = {
+			isa = PBXGroup;
+			children = (
+				8D4159492B18E8AA009B1369 /* AnimationSystemTests.swift */,
+				8D6D81512B1A25EE00AD8D18 /* BulletAgeSystemTests.swift */,
+				8D6D81532B1A30C000AD8D18 /* SwashteroidsTests.xctestplan */,
+			);
+			path = SwashteroidsTests;
 			sourceTree = "<group>";
 		};
 		8D6AD48B2B099F9900E258BF /* list_iterating */ = {
@@ -425,6 +472,24 @@
 			productReference = 8D23C1322B02C4CA00F7D878 /* Swashteroids.app */;
 			productType = "com.apple.product-type.application";
 		};
+		8D4159502B18F692009B1369 /* SwashteroidsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8D4159572B18F692009B1369 /* Build configuration list for PBXNativeTarget "SwashteroidsTests" */;
+			buildPhases = (
+				8D41594D2B18F692009B1369 /* Sources */,
+				8D41594E2B18F692009B1369 /* Frameworks */,
+				8D41594F2B18F692009B1369 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8D4159562B18F692009B1369 /* PBXTargetDependency */,
+			);
+			name = SwashteroidsTests;
+			productName = SwashteroidsTests2;
+			productReference = 8D4159512B18F692009B1369 /* SwashteroidsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -437,6 +502,9 @@
 				TargetAttributes = {
 					8D23C1312B02C4CA00F7D878 = {
 						CreatedOnToolsVersion = 15.0;
+					};
+					8D4159502B18F692009B1369 = {
+						CreatedOnToolsVersion = 15.0.1;
 					};
 				};
 			};
@@ -457,6 +525,7 @@
 			projectRoot = "";
 			targets = (
 				8D23C1312B02C4CA00F7D878 /* Swashteroids */,
+				8D4159502B18F692009B1369 /* SwashteroidsTests */,
 			);
 		};
 /* End PBXProject section */
@@ -469,13 +538,17 @@
 				8D59EDDE2B139088003BD073 /* Badloc ICG.ttf in Resources */,
 				8D23C1DE2B02C59D00F7D878 /* beat1.wav in Resources */,
 				8D23C1EE2B02D00700F7D878 /* swashteroids.png in Resources */,
+				8D6D815F2B1A7A9E00AD8D18 /* ButtonsInfo.sks in Resources */,
 				8D23C1D92B02C59D00F7D878 /* fire.wav in Resources */,
 				8D23C1C52B02C59D00F7D878 /* hyperspace.sks in Resources */,
 				8D23C1412B02C4CA00F7D878 /* Main.storyboard in Resources */,
 				8D23C1DC2B02C59D00F7D878 /* bangMedium.wav in Resources */,
 				8D23C1C32B02C59D00F7D878 /* shipExplosion.sks in Resources */,
+				8D6D81592B1A648400AD8D18 /* StartScene.sks in Resources */,
+				8D6D81572B1A5EC200AD8D18 /* NoButtons.sks in Resources */,
 				8D23C1D82B02C59D00F7D878 /* thrust.wav in Resources */,
 				8D23C1D72B02C59D00F7D878 /* bangLarge.wav in Resources */,
+				8D6D81552B1A562900AD8D18 /* braam-6150.wav in Resources */,
 				8D23C1DA2B02C59D00F7D878 /* extraShip.wav in Resources */,
 				8D23C1D62B02C59D00F7D878 /* saucerBig.wav in Resources */,
 				8D688FBD2B0680D900056CD3 /* hyperspace.wav in Resources */,
@@ -488,6 +561,13 @@
 				8D23C1DB2B02C59D00F7D878 /* bangSmall.wav in Resources */,
 				8D23C1D52B02C59D00F7D878 /* saucerSmall.wav in Resources */,
 				8D23C1DD2B02C59D00F7D878 /* beat2.wav in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8D41594F2B18F692009B1369 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -572,7 +652,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8D41594D2B18F692009B1369 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D6D81522B1A25EE00AD8D18 /* BulletAgeSystemTests.swift in Sources */,
+				8D41595A2B18F699009B1369 /* AnimationSystemTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8D4159562B18F692009B1369 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8D23C1312B02C4CA00F7D878 /* Swashteroids */;
+			targetProxy = 8D4159552B18F692009B1369 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		8D23C13F2B02C4CA00F7D878 /* Main.storyboard */ = {
@@ -719,7 +816,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_TEAM = W8GR9TRDWE;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Swashteroids/Info.plist;
@@ -730,7 +827,8 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationLandscapeRight;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationLandscapeRight;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -750,7 +848,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_TEAM = W8GR9TRDWE;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Swashteroids/Info.plist;
@@ -761,7 +859,8 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationLandscapeRight;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationLandscapeRight;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -770,6 +869,40 @@
 				PRODUCT_BUNDLE_IDENTIFIER = net.nyquist.Swashteroids;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		8D4159582B18F692009B1369 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = W8GR9TRDWE;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = net.nyquist.SwashteroidsTests2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8D4159592B18F692009B1369 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = W8GR9TRDWE;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = net.nyquist.SwashteroidsTests2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -792,6 +925,15 @@
 			buildConfigurations = (
 				8D23C14A2B02C4CC00F7D878 /* Debug */,
 				8D23C14B2B02C4CC00F7D878 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8D4159572B18F692009B1369 /* Build configuration list for PBXNativeTarget "SwashteroidsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8D4159582B18F692009B1369 /* Debug */,
+				8D4159592B18F692009B1369 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

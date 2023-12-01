@@ -7,43 +7,41 @@ import CoreMotion
 final class GameScene: SKScene {
 	var game: Asteroids!
 	var motionManager: CMMotionManager?
+	var orientation = 1.0
 
 	override func didMove(to view: SKView) {
 		super.didMove(to: view)
 		backgroundColor = .background
+		NotificationCenter.default.addObserver(self, 
+											   selector: #selector(orientationChanged),
+											   name: UIDevice.orientationDidChangeNotification, object: nil)
+		orientation = UIDevice.current.orientation == .landscapeRight ? -1.0 : 1.0
 		game.start()
+	}
+
+	@objc func orientationChanged(_ notification: Notification) {
+		print(#function, UIDevice.current.orientation, notification)
+		orientation = UIDevice.current.orientation == .landscapeRight ? -1.0 : 1.0
 	}
 
 	override func update(_ currentTime: TimeInterval) {
 		game.dispatchTick()
 
-
 		guard let data = motionManager?.accelerometerData else { return }
-		switch data.acceleration.y {
-			case let x where x > 0.2:
+
+		switch data.acceleration.y*orientation {
+			case let y where y > 0.05:
 				undo_right()
-				do_left()
-			case let x where x < -0.2:
+				do_left(data.acceleration.y*orientation)
+			case let y where y < -0.05:
 				undo_left()
-				do_right()
-			case -0.2...0.2:
+				do_right(data.acceleration.y*orientation)
+			case -0.05...0.05:
 				undo_left()
 				undo_right()
 			default:
 				break
 		}		
-		if data.acceleration.y > 0.2 {
-			undo_right()
-			do_left()
-		} else if data.acceleration.y < -0.2 {
-			undo_left()
-			do_right()
-		}
-//		if data.acceleration.x > -0.65 { // landscape right
-//			do_thrust()
-//		} else {
-//			undo_thrust()
-//		}
 	}
 
 	//MARK:- TOUCHES -------------------------
@@ -60,7 +58,7 @@ final class GameScene: SKScene {
 	func do_hyperspace() {
 		childNode(withName: InputName.hyperSpaceButton)?.alpha = 0.6
 
-		//HACK
+		//HACK I should incorporate this into a system
 		let colorize = SKAction.colorize(with: .yellow, colorBlendFactor: 1.0, duration: 0.25)
 		let wait = SKAction.wait(forDuration: 0.5)
 		let uncolorize = SKAction.colorize(withColorBlendFactor: 0.0, duration: 0.25)
@@ -78,6 +76,7 @@ final class GameScene: SKScene {
 													  y: Double(Int.random(in: 0...Int(size.height)))))
 	}
 
+	//HACK I should incorporate these do_ undo_ into a system
 	func do_flip() {
 		childNode(withName: InputName.flipButton)?.alpha = 0.6
 		game.input.flipIsDown = true
@@ -93,14 +92,14 @@ final class GameScene: SKScene {
 			game.input.thrustIsDown = true
 	}
 
-	func do_left() {
+	func do_left(_ amount: Double = 0.35) {
 		childNode(withName: InputName.leftButton)?.alpha = 0.6
-		game.input.leftIsDown = true
+		game.input.leftIsDown = (true, amount)
 	}
 
-	func do_right() {
+	func do_right(_ amount: Double = -0.35) {
 		childNode(withName: InputName.rightButton)?.alpha = 0.6
-		game.input.rightIsDown = true
+		game.input.rightIsDown = (true, amount)
 	}
 
 	func undo_hyperspace() {
@@ -127,23 +126,25 @@ final class GameScene: SKScene {
 
 	func undo_left() {
 		childNode(withName: InputName.rightButton)?.alpha = 0.2
-		game.input.leftIsDown = false
+		game.input.leftIsDown = (false, 0.0)
 	}
 
 	func undo_right() {
 		childNode(withName: InputName.leftButton)?.alpha = 0.2
-		game.input.rightIsDown = false
+		game.input.rightIsDown = (false, 0.0)
 	}
 
 	func do_showHideButtons(action: String) {
 		switch action {
-			case "show":
+			case "showButtons":
 				motionManager = nil
 				game.creator.createButtons()
-			case "hide":
+				game.input.buttonsIsDown = true
+			case "hideButtons":
 				motionManager = CMMotionManager()
 				motionManager?.startAccelerometerUpdates()
 				game.creator.removeButtons()
+				game.input.noButtonsIsDown = true
 			default:
 				break
 		}
@@ -152,9 +153,9 @@ final class GameScene: SKScene {
 	func touchDown(atPoint pos: CGPoint, touch: UITouch) {
 		if let _ = game.wait {
 			if pos.x < size.width/2 {
-				do_showHideButtons(action: "hide")
+				do_showHideButtons(action: "hideButtons")
 			} else {
-				do_showHideButtons(action: "show")
+				do_showHideButtons(action: "showButtons")
 			}
 			game.input.tapped = true
 			generator.impactOccurred()
@@ -172,7 +173,7 @@ final class GameScene: SKScene {
 		
 		if let _ = motionManager {
 			if let nodeTouched, nodeTouched.name == InputName.showHideButtons {
-				do_showHideButtons(action: "show")
+				do_showHideButtons(action: "showButtons")
 				return
 			}
 			if pos.x > size.width/2 {
@@ -196,7 +197,7 @@ final class GameScene: SKScene {
 		guard let nodeTouched else { return }
 		
 		if nodeTouched.name == InputName.showHideButtons {
-			do_showHideButtons(action: "hide")
+			do_showHideButtons(action: "hideButtons")
 			return
 		}
 
@@ -207,37 +208,29 @@ final class GameScene: SKScene {
 		}
 		if nodeTouched.name == InputName.flipButton {
 			flipTouched = touch
-			game.input.flipIsDown = true
 			do_flip()
 			generator.impactOccurred()
 		}
 		if nodeTouched.name == InputName.fireButton {
 			triggerTouched = touch
-			game.input.triggerIsDown = true
 			do_fire()
 			generator.impactOccurred()
 		}
 		if nodeTouched.name == InputName.thrustButton {
 			thrustTouched = touch
-			game.input.thrustIsDown = true
 			do_thrust()
 			generator.impactOccurred()
 		}
 		// either or
 		if nodeTouched.name == InputName.leftButton {
 			leftTouched = touch
-			game.input.leftIsDown = true
 			do_left()
 			generator.impactOccurred()
 		} else if nodeTouched.name == InputName.rightButton {
 			rightTouched = touch
-			game.input.rightIsDown = true
 			do_right()
 			generator.impactOccurred()
 		}
-	}
-
-	func touchMoved(toPoint pos: CGPoint, touch: UITouch) {
 	}
 
 	func touchUp(atPoint pos: CGPoint, touch: UITouch) {
@@ -260,8 +253,7 @@ final class GameScene: SKScene {
 			}
 			return
 		}
-
-
+		
 		switch touch {
 			case hyperSpaceTouched:
 				childNode(withName: InputName.hyperSpaceButton)?.alpha = 0.2
@@ -284,8 +276,8 @@ final class GameScene: SKScene {
 				childNode(withName: InputName.rightButton)?.alpha = 0.2
 				leftTouched = nil
 				rightTouched = nil
-				game.input.leftIsDown = false
-				game.input.rightIsDown = false
+				game.input.leftIsDown = (false, 0.0)
+				game.input.rightIsDown = (false, 0.0)
 			default:
 				break
 		}
@@ -295,12 +287,6 @@ final class GameScene: SKScene {
 		super.touchesBegan(touches, with: event)
 		for t in touches {
 			touchDown(atPoint: t.location(in: self), touch: t)
-		}
-	}
-
-	override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-		for t in touches {
-			touchMoved(toPoint: t.location(in: self), touch: t)
 		}
 	}
 

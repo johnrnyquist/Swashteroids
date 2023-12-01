@@ -8,7 +8,7 @@ final class AnimationSystem: ListIteratingSystem {
         nodeUpdateFunction = updateNode
     }
 
-    private func updateNode(node: Node, time: TimeInterval) {
+	func updateNode(node: Node, time: TimeInterval) {
         guard let animationComponent = node[AnimationComponent.self]
         else { return }
         animationComponent.animation.animate(time)

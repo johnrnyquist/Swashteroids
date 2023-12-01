@@ -31,7 +31,7 @@ final public class Asteroids {
                 .addSystem(system: CollisionSystem(creator), priority: SystemPriorities.resolveCollisions.rawValue)
                 .addSystem(system: DeathThroesSystem(creator: creator), priority: SystemPriorities.update.rawValue)
                 .addSystem(system: FiringControlsSystem(creator: creator), priority: SystemPriorities.update.rawValue)
-				.addSystem(system: GameManagerSystem(creator: creator, size: scene.size),
+				.addSystem(system: GameManagerSystem(creator: creator, size: scene.size, scene: scene),
                            priority: SystemPriorities.preUpdate.rawValue)
                 .addSystem(system: HudSystem(), priority: SystemPriorities.animate.rawValue)
                 .addSystem(system: HyperSpaceSystem(scene: scene),
@@ -40,7 +40,7 @@ final public class Asteroids {
                 .addSystem(system: MovementSystem(size: scene.size), priority: SystemPriorities.move.rawValue)
                 .addSystem(system: RenderSystem(container: scene), priority: SystemPriorities.render.rawValue)
                 .addSystem(system: ShipEngineSystem(), priority: SystemPriorities.update.rawValue)
-				.addSystem(system: WaitForStartSystem(creator), priority: SystemPriorities.preUpdate.rawValue)
+				.addSystem(system: WaitForStartSystem(creator, scene: scene), priority: SystemPriorities.preUpdate.rawValue)
 				.addSystem(system: GameOverSystem(creator), priority: SystemPriorities.preUpdate.rawValue)
 
 		creator.createWaitForTap(gameState: GameStateComponent())

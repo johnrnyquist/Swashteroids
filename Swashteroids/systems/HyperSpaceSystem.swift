@@ -30,7 +30,7 @@ final class HyperSpaceSystem: ListIteratingSystem {
 		scene.run(sound) // This probably should be elsewhere
 	}
 
-	public override func removeFromEngine(engine: Engine) {
+	override public func removeFromEngine(engine: Engine) {
 		scene = nil
 	}
 }

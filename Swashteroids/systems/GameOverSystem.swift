@@ -13,14 +13,14 @@ final class GameOverSystem: System {
 		self.creator = creator
 	}
 
-	public override func addToEngine(engine: Engine) {
+	override public func addToEngine(engine: Engine) {
 		self.engine = engine
 		gameOverNodes = engine.getNodeList(nodeClassType: GameOverNode.self)
 		gameNodes = engine.getNodeList(nodeClassType: GameStateNode.self)
 		asteroids = engine.getNodeList(nodeClassType: AsteroidCollisionNode.self)
 	}
 
-	public override func update(time: TimeInterval) {
+	override public func update(time: TimeInterval) {
 		guard let gameOverNode = gameOverNodes?.head,
 			  let input = gameOverNode[InputComponent.self],
 			  let gameNode = gameNodes?.head,
@@ -46,7 +46,7 @@ final class GameOverSystem: System {
 		}
 	}
 
-	public override func removeFromEngine(engine: Engine) {
+	override public func removeFromEngine(engine: Engine) {
 		self.engine = nil
 		creator = nil
 		gameOverNodes = nil

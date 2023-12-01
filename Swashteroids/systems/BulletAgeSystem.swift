@@ -11,7 +11,7 @@ final class BulletAgeSystem: ListIteratingSystem {
         nodeUpdateFunction = updateNode
     }
 
-    private func updateNode(node: Node, time: TimeInterval) {
+	func updateNode(node: Node, time: TimeInterval) {
         guard let bulletComponent = node[BulletComponent.self]
         else { return }
         bulletComponent.lifeRemaining -= time
@@ -21,7 +21,7 @@ final class BulletAgeSystem: ListIteratingSystem {
         }
     }
 
-    public override func removeFromEngine(engine: Engine) {
+    override public func removeFromEngine(engine: Engine) {
         creator = nil
     }
 }

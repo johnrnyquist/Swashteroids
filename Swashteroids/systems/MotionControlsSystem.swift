@@ -4,16 +4,13 @@ import Swash
 import CoreMotion
 
 final class MotionControlsSystem: ListIteratingSystem {
-//	let motionManager = CMMotionManager()
 
     init() {
         super.init(nodeClass: MotionControlsNode.self)
         nodeUpdateFunction = updateNode
-//		motionManager.startAccelerometerUpdates()
     }
 
     private func updateNode(node: Node, time: TimeInterval) {
-//		guard let data = motionManager.accelerometerData else {	return}
         guard
             let position = node[PositionComponent.self],
             let motion = node[MotionComponent.self],
@@ -27,16 +24,16 @@ final class MotionControlsSystem: ListIteratingSystem {
 			input.flipIsDown = false
 		}
 
-//		position.rotation += control.rotationRate * (data.acceleration.y * 0.025)
-    
-		if input.leftIsDown {
-			position.rotation += control.rotationRate * time
-		}
-		if input.rightIsDown {
-			position.rotation -= control.rotationRate * time
-		}
+//        position.rotation += control.rotationRate * (data.acceleration.y * 0.025)
 
-//		input.thrustIsDown = data.acceleration.x > -0.65 // landscape right
+        if input.leftIsDown.down {
+            position.rotation += control.rotationRate * (input.leftIsDown.amount * 0.05)
+//			position.rotation += control.rotationRate * time
+		}
+		if input.rightIsDown.down {
+            position.rotation += control.rotationRate * (input.rightIsDown.amount * 0.05)
+//			position.rotation -= control.rotationRate * time
+		}
 
         if input.thrustIsDown,
            warpDrive.isThrusting == false {
