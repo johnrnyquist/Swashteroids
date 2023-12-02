@@ -139,26 +139,29 @@ final class GameScene: SKScene {
 			case "showButtons":
 				motionManager = nil
 				game.creator.createButtons()
-				game.input.buttonsIsDown = true
 			case "hideButtons":
 				motionManager = CMMotionManager()
 				motionManager?.startAccelerometerUpdates()
 				game.creator.removeButtons()
-				game.input.noButtonsIsDown = true
 			default:
 				break
 		}
 	}
 
 	func touchDown(atPoint pos: CGPoint, touch: UITouch) {
+		let nodeTouched = atPoint(pos) == self ? nil : atPoint(pos)
+
 		if let _ = game.wait {
-			if pos.x < size.width/2 {
+			if let nodeTouched, nodeTouched.name == "nobuttons" {
+				game.input.noButtonsIsDown = true
+			} else if let nodeTouched, nodeTouched.name == "buttons" {
+				game.input.buttonsIsDown = true
+			} else if game.input.noButtonsIsDown {
 				do_showHideButtons(action: "hideButtons")
-			} else {
+			} else if game.input.buttonsIsDown {
 				do_showHideButtons(action: "showButtons")
 			}
 			game.input.tapped = true
-			generator.impactOccurred()
 			return
 		}
 		if let _ = game.gameOver {
@@ -169,8 +172,7 @@ final class GameScene: SKScene {
 		
 		guard let _ = game?.ship?.has(componentClassName: InputComponent.name) else { return }
 		
-		let nodeTouched = atPoint(pos) == self ? nil : atPoint(pos)
-		
+
 		if let _ = motionManager {
 			if let nodeTouched, nodeTouched.name == InputName.showHideButtons {
 				do_showHideButtons(action: "showButtons")

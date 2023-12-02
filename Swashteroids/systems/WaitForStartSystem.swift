@@ -31,32 +31,31 @@ final class WaitForStartSystem: System {
         else { return }
 
         if input.tapped {
-			input.tapped = false
-
-			if input.noButtonsIsDown {
-				input.noButtonsIsDown = false
-				if waitView.quadrants.alpha == 0 {
-					waitView.showQuadrants()
-					return
-				} else {
-					waitView.hideQuadrants()
-				}
-			} else if input.buttonsIsDown {
-				input.buttonsIsDown = false
-				if waitView.buttonsInfo.alpha == 0 {
-					waitView.showButtonsInfo()
-					return
-				} else {
-					waitView.hideButtonsInfo()
-				}
-			}
-
+            input.tapped = false
+            if input.noButtonsIsDown == false && input.buttonsIsDown == false {
+                return
+            }
+            if input.noButtonsIsDown {
+                if waitView.quadrants.alpha == 0 {
+                    waitView.showQuadrants()
+                    return
+                } else {
+                    waitView.hideQuadrants()
+                }
+            } else if input.buttonsIsDown {
+                if waitView.buttonsInfo.alpha == 0 {
+                    waitView.showButtonsInfo()
+                    return
+                } else {
+                    waitView.hideButtonsInfo()
+                }
+            }
             // Start state
             gameStateComponent.resetBoard()
-			gameStateComponent.playing = true
+            gameStateComponent.playing = true
             engine?.removeEntity(entity: waitNode.entity!)
-			creator?.createHud(gameState: gameStateComponent)
-			creator?.createShowHideButtons()
+            creator?.createHud(gameState: gameStateComponent)
+            creator?.createShowHideButtons()
         }
     }
 

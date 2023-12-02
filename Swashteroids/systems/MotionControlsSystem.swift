@@ -24,14 +24,17 @@ final class MotionControlsSystem: ListIteratingSystem {
 			input.flipIsDown = false
 		}
 
+		// original no buttons rotation that I liked
 //        position.rotation += control.rotationRate * (data.acceleration.y * 0.025)
 
         if input.leftIsDown.down {
             position.rotation += control.rotationRate * (input.leftIsDown.amount * 0.05)
+			// original rotation with buttons
 //			position.rotation += control.rotationRate * time
 		}
 		if input.rightIsDown.down {
             position.rotation += control.rotationRate * (input.rightIsDown.amount * 0.05)
+			// original rotation with buttons
 //			position.rotation -= control.rotationRate * time
 		}
 

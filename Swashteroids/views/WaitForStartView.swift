@@ -17,7 +17,6 @@ class WaitForStartView: SKSpriteNode {
 		quadrants = nbscene.childNode(withName: "quadrants")!
 		let bscene = SKScene(fileNamed: "ButtonsInfo.sks")!
 		buttonsInfo = bscene.childNode(withName: "buttonsInfo")!
-
 		versionInfo = SKLabelNode(text: "Nyquist Art + Logic, LLC v\(appVersion) (build \(appBuild))")
 		title = SKSpriteNode(imageNamed: "title")
 		nobuttons = SKSpriteNode(imageNamed: "nobuttons")

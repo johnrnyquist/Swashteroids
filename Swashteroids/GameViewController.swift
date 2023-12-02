@@ -14,6 +14,7 @@ final class GameViewController: UIViewController {
 		game = Asteroids(scene: scene)
 		scene.game = game
 		scene.scaleMode = .aspectFit
+		skview.ignoresSiblingOrder = false
 		skview.isUserInteractionEnabled = true
 		skview.isMultipleTouchEnabled = true
 		skview.showsPhysics = false

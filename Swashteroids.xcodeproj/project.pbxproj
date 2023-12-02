@@ -101,6 +101,7 @@
 		8D6D81572B1A5EC200AD8D18 /* NoButtons.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8D6D81562B1A5EC200AD8D18 /* NoButtons.sks */; };
 		8D6D81592B1A648400AD8D18 /* StartScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8D6D81582B1A648400AD8D18 /* StartScene.sks */; };
 		8D6D815F2B1A7A9E00AD8D18 /* ButtonsInfo.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8D6D815E2B1A7A9E00AD8D18 /* ButtonsInfo.sks */; };
+		8D6D81612B1AB09500AD8D18 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6D81602B1AB09500AD8D18 /* AudioPlayer.swift */; };
 		8D8A511A2B16880500A5F254 /* gunSupplier.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8D8A51192B16880500A5F254 /* gunSupplier.sks */; };
 		8D9DEF642B059E3800064B01 /* HyperSpaceComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9DEF632B059E3800064B01 /* HyperSpaceComponent.swift */; };
 		8D9DEF662B059EC400064B01 /* HyperSpaceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9DEF652B059EC400064B01 /* HyperSpaceNode.swift */; };
@@ -217,6 +218,7 @@
 		8D6D81562B1A5EC200AD8D18 /* NoButtons.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = NoButtons.sks; sourceTree = "<group>"; };
 		8D6D81582B1A648400AD8D18 /* StartScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = StartScene.sks; sourceTree = "<group>"; };
 		8D6D815E2B1A7A9E00AD8D18 /* ButtonsInfo.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ButtonsInfo.sks; sourceTree = "<group>"; };
+		8D6D81602B1AB09500AD8D18 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 		8D8A51192B16880500A5F254 /* gunSupplier.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = gunSupplier.sks; sourceTree = "<group>"; };
 		8D9DEF632B059E3800064B01 /* HyperSpaceComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyperSpaceComponent.swift; sourceTree = "<group>"; };
 		8D9DEF652B059EC400064B01 /* HyperSpaceNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyperSpaceNode.swift; sourceTree = "<group>"; };
@@ -394,6 +396,7 @@
 				8D23C18E2B02C59D00F7D878 /* saucerBig.wav */,
 				8D23C18D2B02C59D00F7D878 /* saucerSmall.wav */,
 				8D23C1902B02C59D00F7D878 /* thrust.wav */,
+				8D6D81602B1AB09500AD8D18 /* AudioPlayer.swift */,
 			);
 			path = sounds;
 			sourceTree = "<group>";
@@ -589,6 +592,7 @@
 				8D23C1B02B02C59D00F7D878 /* GunControlNode.swift in Sources */,
 				8D23C1B92B02C59D00F7D878 /* DeathThroesComponent.swift in Sources */,
 				8D23C1CF2B02C59D00F7D878 /* AnimationSystem.swift in Sources */,
+				8D6D81612B1AB09500AD8D18 /* AudioPlayer.swift in Sources */,
 				8D23C1CD2B02C59D00F7D878 /* DeathThroesSystem.swift in Sources */,
 				8D23C1B22B02C59D00F7D878 /* WarpDriveComponent.swift in Sources */,
 				8D23C1B12B02C59D00F7D878 /* BulletComponent.swift in Sources */,
