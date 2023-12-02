@@ -180,14 +180,14 @@ final class GameScene: SKScene {
 			}
 			if pos.x > size.width/2 {
 				if pos.y < size.height/2 {
-					do_fire()
+					do_flip()
 				} else {
-					do_thrust()
+					do_fire()
 				}
 				generator.impactOccurred()
 			} else {
 				if pos.y < size.height/2 {
-					do_flip()
+					do_thrust()
 				} else {
 					do_hyperspace()
 				}
@@ -235,6 +235,53 @@ final class GameScene: SKScene {
 		}
 	}
 
+	func touchMoved(toPoint pos: CGPoint, touch: UITouch) {
+		if let _ = motionManager {
+			if pos.x > size.width/2 {
+				if pos.y < size.height/2 {
+					undo_flip()
+				} else {
+					undo_fire()
+				}
+			} else {
+				if pos.y < size.height/2 {
+					undo_thrust()
+				} else {
+					undo_hyperspace()
+				}
+			}
+			return
+		}
+
+		switch touch {
+			case hyperSpaceTouched:
+				childNode(withName: InputName.hyperSpaceButton)?.alpha = 0.2
+				hyperSpaceTouched = nil
+				game.input.hyperSpaceIsDown = false
+			case flipTouched:
+				childNode(withName: InputName.flipButton)?.alpha = 0.2
+				flipTouched = nil
+				game.input.flipIsDown = false
+			case triggerTouched:
+				childNode(withName: InputName.fireButton)?.alpha = 0.2
+				triggerTouched = nil
+				game.input.triggerIsDown = false
+			case thrustTouched:
+				childNode(withName: InputName.thrustButton)?.alpha = 0.2
+				thrustTouched = nil
+				game.input.thrustIsDown = false
+			case leftTouched, rightTouched:
+				childNode(withName: InputName.leftButton)?.alpha = 0.2
+				childNode(withName: InputName.rightButton)?.alpha = 0.2
+				leftTouched = nil
+				rightTouched = nil
+				game.input.leftIsDown = (false, 0.0)
+				game.input.rightIsDown = (false, 0.0)
+			default:
+				break
+		}
+	}
+
 	func touchUp(atPoint pos: CGPoint, touch: UITouch) {
 		guard let _ = game?.ship?.has(componentClassName: InputComponent.name)
 		else { return }
@@ -242,13 +289,13 @@ final class GameScene: SKScene {
 		if let _ = motionManager {
 			if pos.x > size.width/2 {
 				if pos.y < size.height/2 {
-					undo_fire()
+					undo_flip()
 				} else {
-					undo_thrust()
+					undo_fire()
 				}
 			} else {
 				if pos.y < size.height/2 {
-					undo_flip()
+					undo_thrust()
 				} else {
 					undo_hyperspace()
 				}
@@ -289,6 +336,12 @@ final class GameScene: SKScene {
 		super.touchesBegan(touches, with: event)
 		for t in touches {
 			touchDown(atPoint: t.location(in: self), touch: t)
+		}
+	}
+
+	override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+		for t in touches {
+			touchMoved(toPoint: t.location(in: self), touch: t)
 		}
 	}
 
