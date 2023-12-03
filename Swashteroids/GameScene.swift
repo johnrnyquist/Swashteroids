@@ -135,10 +135,20 @@ final class GameScene: SKScene {
 	}
 
 	func do_showHideButtons(action: String) {
+		let playSound = SKAction.playSoundFileNamed("toggle.wav", waitForCompletion: false)
+		run(playSound)
+		if let sprite = childNode(withName: "//showHideButtonsOn") as? SKSpriteNode {
+			sprite.texture = SKTexture(imageNamed: "showHideButtonsOff")
+			sprite.name = "showHideButtonsOff"
+		} else if let sprite = childNode(withName: "//showHideButtonsOff") as? SKSpriteNode {
+			sprite.texture = SKTexture(imageNamed: "showHideButtonsOn")
+			sprite.name = "showHideButtonsOn"
+		}
 		switch action {
 			case "showButtons":
 				motionManager = nil
 				game.creator.createButtons()
+				
 			case "hideButtons":
 				motionManager = CMMotionManager()
 				motionManager?.startAccelerometerUpdates()
@@ -174,15 +184,15 @@ final class GameScene: SKScene {
 		
 
 		if let _ = motionManager {
-			if let nodeTouched, nodeTouched.name == InputName.showHideButtons {
+			if let nodeTouched, nodeTouched.name == "showHideButtonsOff" {
 				do_showHideButtons(action: "showButtons")
 				return
 			}
 			if pos.x > size.width/2 {
 				if pos.y < size.height/2 {
-					do_flip()
-				} else {
 					do_fire()
+				} else {
+					do_flip()
 				}
 				generator.impactOccurred()
 			} else {
@@ -198,7 +208,7 @@ final class GameScene: SKScene {
 		
 		guard let nodeTouched else { return }
 		
-		if nodeTouched.name == InputName.showHideButtons {
+		if nodeTouched.name == "showHideButtonsOn" {
 			do_showHideButtons(action: "hideButtons")
 			return
 		}
@@ -289,9 +299,9 @@ final class GameScene: SKScene {
 		if let _ = motionManager {
 			if pos.x > size.width/2 {
 				if pos.y < size.height/2 {
-					undo_flip()
-				} else {
 					undo_fire()
+				} else {
+					undo_flip()
 				}
 			} else {
 				if pos.y < size.height/2 {

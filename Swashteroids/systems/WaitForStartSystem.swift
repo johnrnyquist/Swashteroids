@@ -41,6 +41,7 @@ final class WaitForStartSystem: System {
                     return
                 } else {
                     waitView.hideQuadrants()
+					creator?.createShowHideButtons("hide")
                 }
             } else if input.buttonsIsDown {
                 if waitView.buttonsInfo.alpha == 0 {
@@ -48,6 +49,7 @@ final class WaitForStartSystem: System {
                     return
                 } else {
                     waitView.hideButtonsInfo()
+					creator?.createShowHideButtons("show")
                 }
             }
             // Start state
@@ -55,7 +57,6 @@ final class WaitForStartSystem: System {
             gameStateComponent.playing = true
             engine?.removeEntity(entity: waitNode.entity!)
             creator?.createHud(gameState: gameStateComponent)
-            creator?.createShowHideButtons()
         }
     }
 

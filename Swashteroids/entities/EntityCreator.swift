@@ -184,12 +184,13 @@ class EntityCreator {
 		engine.removeEntity(entity: entity)
 	}
 
-	func createShowHideButtons() {
-		let showHideButtons = SKSpriteNode(imageNamed: "showHideButtons")
-		showHideButtons.name = "showHideButtons"
+	func createShowHideButtons(_ state: String) {
+		let name = state == "show" ? "showHideButtonsOn" : "showHideButtonsOff"
+		let showHideButtons = SKSpriteNode(imageNamed: name)
+		showHideButtons.name = name
 		showHideButtons.alpha = 0.2
 		let sx = scene.size.width/2
-		let sy = showHideButtons.size.height + 30
+		let sy = 90.0
 		let showHideButtonEntity = Entity(name: "showHideButtons")
 			.add(component: PositionComponent(x: sx, y: sy, z: .buttons, rotation: 0.0))
 			.add(component: DisplayComponent(displayObject: showHideButtons))
