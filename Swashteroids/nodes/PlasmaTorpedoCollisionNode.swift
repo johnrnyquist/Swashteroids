@@ -1,10 +1,10 @@
 import Swash
 
-final class BulletCollisionNode: Node {
+final class PlasmaTorpedoCollisionNode: Node {
     required init() {
         super.init()
         components = [
-            BulletComponent.name: nil_component,
+            PlasmaTorpedoComponent.name: nil_component,
             CollisionComponent.name: nil_component,
             PositionComponent.name: nil_component,
         ]

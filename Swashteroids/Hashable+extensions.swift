@@ -1,12 +1,12 @@
 import Foundation
 
-public extension Hashable where Self: AnyObject {
+extension Hashable where Self: AnyObject {
     func hash(into hasher: inout Hasher) {
         hasher.combine(ObjectIdentifier(self))
     }
 }
 
-public extension Equatable where Self: AnyObject {
+extension Equatable where Self: AnyObject {
     static func ==(lhs: Self, rhs: Self) -> Bool {
         return lhs === rhs
     }

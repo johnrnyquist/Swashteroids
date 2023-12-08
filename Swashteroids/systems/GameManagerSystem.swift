@@ -9,7 +9,7 @@ import Swash
 /// Determines if a ship needs to be made.
 final class GameManagerSystem: System {
     private var size: CGSize
-    private weak var creator: EntityCreator!
+    private weak var creator: Creator!
     private weak var asteroids: NodeList!
     private weak var bullets: NodeList!
     private weak var gameNodes: NodeList!
@@ -17,26 +17,28 @@ final class GameManagerSystem: System {
 	private weak var scene: SKScene!
 
 	
-	init(creator: EntityCreator, size: CGSize, scene: SKScene) {
+	init(creator: Creator, size: CGSize, scene: SKScene) {
+        print("GameManagerSystem", #function)
         self.creator = creator
         self.size = size
 		self.scene = scene
     }
 
     override public func addToEngine(engine: Engine) {
-        gameNodes = engine.getNodeList(nodeClassType: GameStateNode.self)
+        print(self, #function)
+        gameNodes = engine.getNodeList(nodeClassType: AppStateNode.self)
         ships = engine.getNodeList(nodeClassType: ShipNode.self)
         asteroids = engine.getNodeList(nodeClassType: AsteroidCollisionNode.self)
-        bullets = engine.getNodeList(nodeClassType: BulletCollisionNode.self)
+        bullets = engine.getNodeList(nodeClassType: PlasmaTorpedoCollisionNode.self)
     }
 
     override public func update(time: TimeInterval) {
         guard let gameNode = gameNodes.head,
-              let gameStateComponent = gameNode[GameStateComponent.self] else {
+              let appStateComponent = gameNode[AppStateComponent.self] else {
             return
         }
-        if ships.empty, gameStateComponent.playing {
-            if gameStateComponent.ships > 0 {
+        if ships.empty, appStateComponent.playing {
+            if appStateComponent.ships > 0 {
                 let newSpaceshipPosition = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
                 var clearToAddSpaceship = true
                 var asteroid = asteroids.head
@@ -51,13 +53,13 @@ final class GameManagerSystem: System {
                     asteroid = asteroid?.next
                 }
                 if clearToAddSpaceship {
-					creator.createShip()
-                    creator.createGunSupplier()
+					creator.createShip(appStateComponent.shipControlsState)
+                    creator.createPlasmaTorpedoesPowerUp(level: appStateComponent.level == 0 ? 1 : appStateComponent.level) //HACK
                 }
-            } else if gameStateComponent.playing {
-                gameStateComponent.playing = false
-				creator.removeButtons() //HACK
-				creator.removeShowHideButtons()
+            } else if appStateComponent.playing {
+                appStateComponent.playing = false
+				creator.removeShipControlButtons()
+				creator.removeToggleButtonsButton()
                 creator.createGameOver()
             }
         }
@@ -67,11 +69,11 @@ final class GameManagerSystem: System {
                 let shipNode = ships.head,
                 let spaceShipPosition = shipNode[PositionComponent.self] 
             else { return }
-            gameStateComponent.level += 1
+            appStateComponent.level += 1
 			scene.run(SKAction.playSoundFileNamed("braam-6150.wav", waitForCompletion: false))
 
 
-			let levelText = SKLabelNode(text: "Level \(gameStateComponent.level)")
+			let levelText = SKLabelNode(text: "Level \(appStateComponent.level)")
 			scene.addChild(levelText)
 			levelText.horizontalAlignmentMode = .center
 			levelText.fontName = "Futura Condensed Medium"
@@ -87,7 +89,7 @@ final class GameManagerSystem: System {
 				levelText.removeFromParent()
 			}
 
-            let asteroidCount = 0 + gameStateComponent.level
+            let asteroidCount = 0 + appStateComponent.level
 			
             for _ in 0..<asteroidCount {
                 // check not on top of ship

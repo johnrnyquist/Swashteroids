@@ -1,12 +1,11 @@
 import Foundation
 import Swash
 
+final class FiringSystem: ListIteratingSystem {
+    private weak var creator: Creator?
+    private weak var torpedoes: NodeList!
 
-final class FiringControlsSystem: ListIteratingSystem {
-    private weak var creator: EntityCreator?
-    private weak var bullets: NodeList!
-
-    init(creator: EntityCreator) {
+    init(creator: Creator) {
         self.creator = creator
         super.init(nodeClass: GunControlNode.self)
         nodeUpdateFunction = updateNode
@@ -14,29 +13,24 @@ final class FiringControlsSystem: ListIteratingSystem {
 
     override public func addToEngine(engine: Engine) {
         super.addToEngine(engine: engine)
-        bullets = engine.getNodeList(nodeClassType: BulletCollisionNode.self)
+        torpedoes = engine.getNodeList(nodeClassType: PlasmaTorpedoCollisionNode.self)
     }
 
     private func updateNode(node: Node, time: TimeInterval) {
         guard let motion = node[MotionComponent.self],
               let position = node[PositionComponent.self],
-              let gun = node[GunComponent.self],
-			  let input = node[InputComponent.self]
-//				,
-//              bullets.numNodes < 5
+              let gun = node[GunComponent.self]
         else { return }
-        gun.shooting = input.triggerIsDown
         gun.timeSinceLastShot += time
-        if gun.shooting, gun.timeSinceLastShot >= gun.minimumShotInterval {
-           if input.triggerIsDown {
-                creator?.createUserBullet(gun, position, motion)
-            }
+        if gun.timeSinceLastShot >= gun.minimumShotInterval {
+            creator?.createUserTorpedo(gun, position, motion)
             gun.timeSinceLastShot = 0
         }
     }
 
     override public func removeFromEngine(engine: Engine) {
         creator = nil
-        bullets = nil
+        torpedoes = nil
     }
 }
+

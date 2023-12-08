@@ -24,7 +24,7 @@ final class RenderSystem: System {
     private func addToDisplay(_ node: Node) {
         guard
             let component = node[DisplayComponent.self],
-            let sprite = component.displayObject
+            let sprite = component.sknode
         else { return }
         scene.addChild(sprite)
     }
@@ -32,7 +32,7 @@ final class RenderSystem: System {
     private func removeFromDisplay(_ node: Node) {
         guard
             let component = node[DisplayComponent.self],
-            let sprite = component.displayObject
+            let sprite = component.sknode
         else { return }
         sprite.removeFromParent()
     }
@@ -41,7 +41,7 @@ final class RenderSystem: System {
         var renderNode = nodes?.head
         while renderNode != nil {
             let displayDisplayComponent = renderNode?[DisplayComponent.self]
-            let sprite = displayDisplayComponent?.displayObject
+            let sprite = displayDisplayComponent?.sknode
             let positionComponent = renderNode?[PositionComponent.self]
             if let positionComponent = positionComponent {
                 sprite?.position = positionComponent.position

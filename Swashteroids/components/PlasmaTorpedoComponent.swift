@@ -1,7 +1,7 @@
 import Foundation
 import Swash
 
-final class BulletComponent: Component {
+final class PlasmaTorpedoComponent: Component {
     var lifeRemaining: TimeInterval = 0.0
 
     init(lifeRemaining: TimeInterval) {

@@ -1,24 +1,23 @@
 import SpriteKit
 import Swash
 
-
 final class CollisionSystem: System {
-    private weak var creator: EntityCreator!
+    private weak var creator: Creator!
     private weak var gameStateNodes: NodeList!
     private weak var ships: NodeList!
     private weak var asteroids: NodeList!
     private weak var bullets: NodeList!
     private weak var gunSuppliers: NodeList!
 
-    init(_ creator: EntityCreator) {
+    init(_ creator: Creator) {
         self.creator = creator
     }
 
     override public func addToEngine(engine: Engine) {
-        gameStateNodes = engine.getNodeList(nodeClassType: GameStateNode.self)
+        gameStateNodes = engine.getNodeList(nodeClassType: AppStateNode.self)
         ships = engine.getNodeList(nodeClassType: ShipCollisionNode.self)
         asteroids = engine.getNodeList(nodeClassType: AsteroidCollisionNode.self)
-        bullets = engine.getNodeList(nodeClassType: BulletCollisionNode.self)
+        bullets = engine.getNodeList(nodeClassType: PlasmaTorpedoCollisionNode.self)
         gunSuppliers = engine.getNodeList(nodeClassType: GunSupplierNode.self)
     }
 
@@ -30,25 +29,24 @@ final class CollisionSystem: System {
         shipAsteroidCollisionCheck()
     }
 
-    private func splitAsteroid(asteroidCollision: CollisionComponent, asteroidPosition: PositionComponent, asteroidCollisionNode: Node?) {
+    private func splitAsteroid(asteroidCollision: CollisionComponent, asteroidPosition: PositionComponent, asteroidCollisionNode: Node?, splits: Int = 2) {
         guard let asteroidCollisionNode else { return }
         if (asteroidCollision.radius > LARGE_ASTEROID_RADIUS / 4) {
-            creator.createAsteroid(radius: asteroidCollision.radius / 2,
-                                   x: asteroidPosition.position.x + Double.random(in: -5...5),
-                                   y: asteroidPosition.position.y + Double.random(in: -5...5))
-            creator.createAsteroid(radius: asteroidCollision.radius / 2,
-                                   x: asteroidPosition.position.x + Double.random(in: -5...5),
-                                   y: asteroidPosition.position.y + Double.random(in: -5...5))
+            for _ in 1...splits {
+                creator.createAsteroid(radius: asteroidCollision.radius / 2,
+                                       x: asteroidPosition.position.x + Double.random(in: -5...5),
+                                       y: asteroidPosition.position.y + Double.random(in: -5...5))
+            }
         }
-        //HACK
         let spriteNode = SKNode()
-        let emitter = SKEmitterNode(fileNamed: "shipExplosion.sks")!
-        spriteNode.addChild(emitter)
-        asteroidCollisionNode.entity!
-                              .remove(componentClass: DisplayComponent.self)
-                              .remove(componentClass: CollisionComponent.self)
-                              .add(component: DisplayComponent(displayObject: spriteNode))
-                              .add(component: DeathThroesComponent(countdown: 0.2))
+        if let emitter = SKEmitterNode(fileNamed: "shipExplosion.sks") {
+            spriteNode.addChild(emitter)
+            asteroidCollisionNode.entity?
+                                 .remove(componentClass: DisplayComponent.self)
+                                 .remove(componentClass: CollisionComponent.self)
+                                 .add(component: DisplayComponent(sknode: spriteNode))
+                                 .add(component: DeathThroesComponent(countdown: 0.2))
+        }
     }
 
     func shipGunCollisionCheck() {
@@ -60,8 +58,7 @@ final class CollisionSystem: System {
                 let shipPosition = shipCollisionNode?[PositionComponent.self],
                 let gunSupplierCollision = gunSupplierNode?[CollisionComponent.self],
                 let shipCollision = shipCollisionNode?[CollisionComponent.self],
-                let displayComponent = gunSupplierNode?[DisplayComponent.self],
-                let sprite = displayComponent.displayObject
+                let sprite = gunSupplierNode?[DisplayComponent.self]?.sprite
             else { gunSupplierNode = gunSupplierNode?.next; continue }
             let distanceToShip = distance(gunSupplierPosition.position, shipPosition.position)
             if (distanceToShip <= gunSupplierCollision.radius + shipCollision.radius) {
@@ -73,7 +70,7 @@ final class CollisionSystem: System {
                                   .add(component: GunComponent(offsetX: 21,
                                                                offsetY: 0,
                                                                minimumShotInterval: 0.25,
-                                                               bulletLifetime: 2))
+                                                               torpedoLifetime: 2))
             }
             gunSupplierNode = gunSupplierNode?.next
         }
@@ -99,8 +96,8 @@ final class CollisionSystem: System {
                                   asteroidPosition: asteroidPosition,
                                   asteroidCollisionNode: asteroidNode)
                     if let gameStateNode = gameStateNodes.head,
-                       let gameStateComponent = gameStateNode[GameStateComponent.self] {
-                        gameStateComponent.hits += 1
+                       let appStateComponent = gameStateNode[AppStateComponent.self] {
+                        appStateComponent.score += 1
                     }
                     break
                 }
@@ -134,7 +131,7 @@ final class CollisionSystem: System {
                     // A ship in its death throes can still hit an asteroid. 
                     if shipComponent.entity?
                                     .has(componentClassName: DeathThroesComponent.name) == false { //HACK not sure I like this check
-                        let spriteNode = SKSpriteNode(texture: createShipTexture(color: .red))
+                        let spriteNode = SwashteroidsSpriteNode(texture: createShipTexture(color: .red))
                         let fade = SKAction.fadeOut(withDuration: 3.0) //HACK it feels like this should be done differently
                         let emitter = SKEmitterNode(fileNamed: "shipExplosion.sks")!
                         let bang = SKAction.playSoundFileNamed("bangLarge.wav", waitForCompletion: false)
@@ -143,17 +140,17 @@ final class CollisionSystem: System {
                         spriteNode.addChild(emitter)
                         spriteNode.run(fade)
                         shipComponent.entity?
-							.remove(componentClass: InputComponent.self)
-							.remove(componentClass: GunControlsComponent.self)
-							.remove(componentClass: GunComponent.self)
-							.remove(componentClass: MotionControlsComponent.self)
-							.remove(componentClass: DisplayComponent.self)
-							.remove(componentClass: HyperSpaceComponent.self)
-							.add(component: DisplayComponent(displayObject: spriteNode))
-							.add(component: DeathThroesComponent(countdown: 3.0))
-							.add(component: AudioComponent())
+                                     //TODO: need to disconnect ship controls
+                                     .remove(componentClass: InputComponent.self)
+                                     .remove(componentClass: GunComponent.self)
+                                     .remove(componentClass: MotionControlsComponent.self)
+                                     .remove(componentClass: DisplayComponent.self)
+                                     .remove(componentClass: HyperSpaceEngineComponent.self)
+                                     .add(component: DisplayComponent(sknode: spriteNode))
+                                     .add(component: DeathThroesComponent(countdown: 3.0))
+                                     .add(component: AudioComponent())
                         if let gameNode = gameStateNodes.head,
-                           let component = gameNode[GameStateComponent.self] {
+                           let component = gameNode[AppStateComponent.self] {
                             component.ships -= 1
                         }
                     }
@@ -169,8 +166,12 @@ final class CollisionSystem: System {
     }
 
     func distance(_ from: CGPoint, _ to: CGPoint) -> Double {
-        sqrt((from.x - to.x) * (from.x - to.x) + (from.y - to.y) * (from.y - to.y))
+        hypot(from.x - to.x, from.y - to.y)
     }
+
+//    func distance(_ from: CGPoint, _ to: CGPoint) -> Double {
+//        sqrt((from.x - to.x) * (from.x - to.x) + (from.y - to.y) * (from.y - to.y))
+//    }
 
     override public func removeFromEngine(engine: Engine) {
         creator = nil

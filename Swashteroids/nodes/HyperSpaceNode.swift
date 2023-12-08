@@ -4,9 +4,10 @@ final class HyperSpaceNode: Node {
 	required init() {
 		super.init()
 		components = [
-			HyperSpaceComponent.name: nil_component,
+			HyperSpaceJumpComponent.name: nil_component,
+			HyperSpaceEngineComponent.name: nil_component,
 			PositionComponent.name: nil_component,
-			InputComponent.name: nil_component
+			DisplayComponent.name: nil_component,
 		]
 	}
 }

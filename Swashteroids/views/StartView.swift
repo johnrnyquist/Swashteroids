@@ -1,32 +1,23 @@
 import SpriteKit
-import Swash
+// NO SWASH NEEDED FOR VIEWS
 
+class StartView: SwashteroidsSpriteNode {
 
-class WaitForStartView: SKSpriteNode {
-
-	let buttons: SKSpriteNode
-	let nobuttons: SKSpriteNode
-	let title: SKSpriteNode
+	let buttons: SwashteroidsSpriteNode
+	let nobuttons: SwashteroidsSpriteNode
+	let title: SwashteroidsSpriteNode
 	let versionInfo: SKLabelNode
 
-	let buttonsInfo: SKNode
-	let quadrants: SKNode
-
 	init(scene: SKScene) {
-		let nbscene = SKScene(fileNamed: "NoButtons.sks")!
-		quadrants = nbscene.childNode(withName: "quadrants")!
-		let bscene = SKScene(fileNamed: "ButtonsInfo.sks")!
-		buttonsInfo = bscene.childNode(withName: "buttonsInfo")!
 		versionInfo = SKLabelNode(text: "Nyquist Art + Logic, LLC v\(appVersion) (build \(appBuild))")
-		title = SKSpriteNode(imageNamed: "title")
-		nobuttons = SKSpriteNode(imageNamed: "nobuttons")
-		buttons = SKSpriteNode(imageNamed: "buttons")
+		title = SwashteroidsSpriteNode(imageNamed: "title")
+		nobuttons = SwashteroidsSpriteNode(imageNamed: "nobuttons")
+		buttons = SwashteroidsSpriteNode(imageNamed: "buttons")
 
 		super.init(texture: nil, color: .clear, size: scene.size)
 
-		name = "wait"
 		anchorPoint = .zero
-		zPosition = Layers.wait.rawValue
+		zPosition = Layers.top.rawValue
 
 		title.color = .white
 		title.colorBlendFactor = 1.0
@@ -55,51 +46,20 @@ class WaitForStartView: SKSpriteNode {
 
 		nobuttons.anchorPoint = .zero
 		nobuttons.name = "nobuttons"
-		nobuttons.alpha = 0.6
+		nobuttons.alpha = 0.2
 		nobuttons.position = CGPoint(x: 10, y: 50)
 
 		buttons.anchorPoint = .zero
 		buttons.name = "buttons"
-		buttons.alpha = 0.6
+		buttons.alpha = 0.2
 		buttons.position = CGPoint(x: scene.size.width - buttons.size.width, y: 50)
 
-		quadrants.removeFromParent()
-		quadrants.alpha = 0
-
-		buttonsInfo.removeFromParent()
-		buttonsInfo.alpha = 0
 
 		addChild(buttons)
 		addChild(nobuttons)
-		addChild(quadrants)
 		addChild(title)
 		addChild(versionInfo)
-		addChild(buttonsInfo)
     }
-
-	func hideQuadrants() {
-		quadrants.removeFromParent()
-	}
-
-	func showQuadrants() {
-		quadrants.alpha = 1
-		buttons.removeFromParent()
-		nobuttons.removeFromParent()
-		title.removeFromParent()
-		versionInfo.removeFromParent()
-	}
-
-	func hideButtonsInfo() {
-		buttonsInfo.removeFromParent()
-	}
-
-	func showButtonsInfo() {
-		buttonsInfo.alpha = 1
-		buttons.removeFromParent()
-		nobuttons.removeFromParent()
-		title.removeFromParent()
-		versionInfo.removeFromParent()
-	}
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

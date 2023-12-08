@@ -3,16 +3,16 @@ import Swash
 
 
 final class BulletAgeSystem: ListIteratingSystem {
-    private weak var creator: EntityCreator!
+    private weak var creator: Creator!
 
-    init(creator: EntityCreator) {
+    init(creator: Creator) {
         self.creator = creator
         super.init(nodeClass: BulletAgeNode.self)
         nodeUpdateFunction = updateNode
     }
 
 	func updateNode(node: Node, time: TimeInterval) {
-        guard let bulletComponent = node[BulletComponent.self]
+        guard let bulletComponent = node[PlasmaTorpedoComponent.self]
         else { return }
         bulletComponent.lifeRemaining -= time
         if bulletComponent.lifeRemaining <= 0,

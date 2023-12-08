@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "showHideButtonsOn.png",
+      "filename" : "toggleButtonsOn.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "showHideButtonsOn@2x.png",
+      "filename" : "toggleButtonsOn@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "showHideButtonsOn@3x.png",
+      "filename" : "toggleButtonsOn@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

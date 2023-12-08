@@ -1,7 +1,6 @@
 import Foundation
 import Swash
 
-
 final class MotionComponent: Component {
     var velocity = CGPoint()
     var angularVelocity: Double
@@ -12,4 +11,33 @@ final class MotionComponent: Component {
         self.angularVelocity = angularVelocity
         self.damping = damping
     }
+}
+
+//_TODO: This class needs to be reworked_
+final class MotionControlsComponent: Component {
+    var accelerationRate: Double = 0
+    var rotationRate: Double = 0
+
+    init(left: UInt32, right: UInt32, accelerate: UInt32, accelerationRate: Double, rotationRate: Double) {
+        self.accelerationRate = accelerationRate
+        self.rotationRate = rotationRate
+    }
+}
+
+class FlipComponent: Component {
+    static let instance = FlipComponent()
+}
+
+class LeftComponent: Component {
+    static let instance = LeftComponent()
+    let amount = 0.35
+}
+
+class RightComponent: Component {
+    static let instance = RightComponent()
+    let amount = -0.35
+}
+
+class ThrustComponent: Component {
+    static let instance = ThrustComponent()
 }

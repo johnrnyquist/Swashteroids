@@ -11,12 +11,13 @@ final class ShipEngineSystem: ListIteratingSystem {
     private func updateNode(node: Node, time: TimeInterval) {
         guard
             let engineComponent = node[WarpDriveComponent.self],
-            let displayComponent = node[DisplayComponent.self]
+            let sprite = node[DisplayComponent.self]?.sprite
         else { return }
+        //TODO: I'm not crazy about the flag and the child node access here
         if engineComponent.isThrusting {
-            displayComponent.displayObject?.childNode(withName: "//nacelles")?.isHidden = false
+            sprite.childNode(withName: "//nacelles")?.isHidden = false
         } else {
-            displayComponent.displayObject?.childNode(withName: "//nacelles")?.isHidden = true
+            sprite.childNode(withName: "//nacelles")?.isHidden = true
         }
     }
 }

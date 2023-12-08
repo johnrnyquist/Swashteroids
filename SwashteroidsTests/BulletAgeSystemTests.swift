@@ -11,19 +11,19 @@ import Swash
 import SpriteKit
 
 final class BulletAgeSystemTests: XCTestCase {
-	var component: BulletComponent!
+	var component: PlasmaTorpedoComponent!
 	var node: BulletAgeNode!
 	var system: BulletAgeSystem!
 	var creator: MockCreator!
 	var entity = Entity(name: "bullet")
 
 	override func setUpWithError() throws {
-		component = BulletComponent(lifeRemaining: 1)
+		component = PlasmaTorpedoComponent(lifeRemaining: 1)
 		entity.add(component: component)
-		creator = MockCreator(engine: Engine(), input: InputComponent(), scene: MockScene(), size: CGSize(width: 1024, height: 768))
+		creator = MockCreator(engine: Engine(), inputComponent: InputComponent(), scene: MockScene(), size: CGSize(width: 1024, height: 768))
 		node = BulletAgeNode() // nodes created by engine
 		node.entity = entity   // done by engine
-		node.components[BulletComponent.name] = component
+		node.components[PlasmaTorpedoComponent.name] = component
 		system = BulletAgeSystem(creator: creator)
 	}
 
@@ -47,7 +47,7 @@ final class BulletAgeSystemTests: XCTestCase {
 		XCTAssertFalse(creator.destroyEntityCalled)
 	}
 }
-class MockCreator: EntityCreator {
+class MockCreator: Creator {
 	var destroyEntityCalled = false
 	override func destroyEntity(_ entity: Entity) {
 		destroyEntityCalled = true

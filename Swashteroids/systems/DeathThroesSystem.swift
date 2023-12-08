@@ -3,9 +3,9 @@ import Swash
 
 
 final class DeathThroesSystem: ListIteratingSystem {
-    private weak var creator: EntityCreator!
+    private weak var creator: Creator!
 
-    init(creator: EntityCreator) {
+    init(creator: Creator) {
         self.creator = creator
         super.init(nodeClass: DeathThroesNode.self)
         nodeUpdateFunction = updateNode

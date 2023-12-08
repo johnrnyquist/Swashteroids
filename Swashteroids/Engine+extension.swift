@@ -1,21 +1,23 @@
-//
-//  Engine+extension.swift
-//  Swashteroids
-//
-//  Created by John Nyquist on 11/18/23.
-//
-
 import Swash
 
-
 extension Engine {
-	public var ship: Entity? {
-		get { self.getEntity(named: "ship") }
-	}
-	public var wait: Entity? {
-		get { self.getEntity(named: "wait") }
-	}
-	public var gameOver: Entity? {
-		get { self.getEntity(named: "gameOver") }
-	}
+    var ship: Entity? {
+        get { getEntity(named: .ship) }
+    }
+    var gameOver: Entity? {
+        get { getEntity(named: .gameOver) }
+    }
+    var hud: Entity? {
+        get { getEntity(named: .hud) }
+    }
+    
+    func removeEntities(named names: [EntityName]) {
+        for name in names {
+            if let entity = getEntity(named: name) {
+                removeEntity(entity: entity)
+            } else {
+                print("WARNING: engine did not contain \(name) entity!")
+            }
+        }
+    }
 }

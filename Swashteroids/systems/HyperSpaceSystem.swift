@@ -1,36 +1,42 @@
-//
-//  HyperSpaceSystem.swift
-//  Swashteroids
-//
-//  Created by John Nyquist on 11/15/23.
-//
-
 import Swash
 import SpriteKit
 
 final class HyperSpaceSystem: ListIteratingSystem {
-	private var sound = SKAction.playSoundFileNamed("hyperspace.wav", waitForCompletion: false)
-	private weak var scene: SKScene!
+    private var sound = SKAction.playSoundFileNamed("hyperspace.wav", waitForCompletion: false)
+    private weak var scene: GameScene!
 
-	init(scene: SKScene) {
-		self.scene = scene
-		super.init(nodeClass: HyperSpaceNode.self)
-		nodeUpdateFunction = updateNode
-	}
+    init(scene: GameScene) {
+        self.scene = scene
+        super.init(nodeClass: HyperSpaceNode.self)
+        nodeUpdateFunction = updateNode
+    }
 
-	private func updateNode(node: Node, time: TimeInterval) {
-		guard let position = node[PositionComponent.self],
-			  let hyperSpace = node[HyperSpaceComponent.self],
-			  let input = node[InputComponent.self]
-		else { return }
-		input.hyperSpaceIsDown = false
-		position.position.x += hyperSpace.x
-		position.position.y += hyperSpace.y
-		node.entity?.remove(componentClass: HyperSpaceComponent.self)
-		scene.run(sound) // This probably should be elsewhere
-	}
+    private func updateNode(node: Node, time: TimeInterval) {
+        guard let position = node[PositionComponent.self],
+              let hyperSpace = node[HyperSpaceJumpComponent.self],
+              let sprite = node[DisplayComponent.self]?.sprite
+        else { return }
+        position.position.x = hyperSpace.x
+        position.position.y = hyperSpace.y
+        node.entity?.remove(componentClass: HyperSpaceJumpComponent.self)
+        scene.run(sound)
+        doHyperSpaceEffect(on: sprite)
+    }
 
-	override public func removeFromEngine(engine: Engine) {
-		scene = nil
-	}
+    override public func removeFromEngine(engine: Engine) {
+        scene = nil
+    }
+
+    private func doHyperSpaceEffect(on sprite: SwashteroidsSpriteNode) {
+        let colorize = SKAction.colorize(with: .yellow, colorBlendFactor: 1.0, duration: 0.25)
+        let wait = SKAction.wait(forDuration: 0.5)
+        let uncolorize = SKAction.colorize(withColorBlendFactor: 0.0, duration: 0.25)
+        let sequence = SKAction.sequence([colorize, wait, uncolorize])
+        let emitter = SKEmitterNode(fileNamed: "hyperspace.sks")!
+        sprite.addChild(emitter)
+        sprite.run(sequence) {
+            emitter.removeFromParent()
+        }
+    }
 }
+

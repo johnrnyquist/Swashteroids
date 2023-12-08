@@ -2,7 +2,7 @@ import Foundation
 import Swash
 
 
-final public class HudSystem: ListIteratingSystem {
+final class HudSystem: ListIteratingSystem {
     init() {
         super.init(nodeClass: HudNode.self)
         nodeUpdateFunction = updateFunction
@@ -10,11 +10,11 @@ final public class HudSystem: ListIteratingSystem {
 
     private func updateFunction(_ hudNode: Node, _ time: TimeInterval) {
         guard let hudComponent = hudNode[HudComponent.self],
-              let gameStateComponent = hudNode[GameStateComponent.self]
+              let appStateComponent = hudNode[AppStateComponent.self]
         else { return }
-        hudComponent.hudView.setNumShips(gameStateComponent.ships)
-        hudComponent.hudView.setScore(gameStateComponent.hits)
-        hudComponent.hudView.setLevel(gameStateComponent.level)
+        hudComponent.hudView.setNumShips(appStateComponent.ships)
+        hudComponent.hudView.setScore(appStateComponent.score)
+        hudComponent.hudView.setLevel(appStateComponent.level)
     }
 }
 

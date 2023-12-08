@@ -4,19 +4,19 @@ import Swash
 
 final class GameOverSystem: System {
 	private weak var engine: Engine?
-	private weak var creator: EntityCreator?
+	private weak var creator: Creator?
 	private weak var gameOverNodes: NodeList?
 	private weak var gameNodes: NodeList?
 	private weak var asteroids: NodeList?
 
-	init(_ creator: EntityCreator) {
+	init(_ creator: Creator) {
 		self.creator = creator
 	}
 
 	override public func addToEngine(engine: Engine) {
 		self.engine = engine
 		gameOverNodes = engine.getNodeList(nodeClassType: GameOverNode.self)
-		gameNodes = engine.getNodeList(nodeClassType: GameStateNode.self)
+		gameNodes = engine.getNodeList(nodeClassType: AppStateNode.self)
 		asteroids = engine.getNodeList(nodeClassType: AsteroidCollisionNode.self)
 	}
 
@@ -24,7 +24,7 @@ final class GameOverSystem: System {
 		guard let gameOverNode = gameOverNodes?.head,
 			  let input = gameOverNode[InputComponent.self],
 			  let gameNode = gameNodes?.head,
-			  let gameStateComponent = gameNode[GameStateComponent.self]
+			  let appStateComponent = gameNode[AppStateComponent.self]
 		else { return }
 		if input.tapped {
 			// Clear any existing asteroids
@@ -36,13 +36,13 @@ final class GameOverSystem: System {
 			input.tapped = false
 			if let engine {
 				engine.removeEntity(entity: gameOverNode.entity!)
-				engine.removeEntity(entity: engine.getEntity(named: "hud")!)
-				if let gun = engine.getEntity(named: "gunSupplier") {
+				engine.removeEntity(entity: engine.getEntity(named: .hud)!)
+				if let gun = engine.getEntity(named: .plasmaTorpedoesPowerUp) {
 					engine.removeEntity(entity: gun)
 				}
 			}
-			gameStateComponent.playing = false
-			creator?.createWaitForTap(gameState: gameStateComponent)
+			appStateComponent.playing = false
+			//TODO: Transition to START
 		}
 	}
 

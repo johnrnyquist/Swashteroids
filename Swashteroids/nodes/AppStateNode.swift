@@ -1,10 +1,10 @@
 import Swash
 
-final class GameStateNode: Node {
+final class AppStateNode: Node {
     required init() {
         super.init()
         components = [
-            GameStateComponent.name: nil_component,
+            AppStateComponent.name: nil_component,
         ]
     }
 }

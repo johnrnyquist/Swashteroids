@@ -8,7 +8,7 @@
 import SpriteKit
 
 
-class GameOVerView: SKSpriteNode {
+class GameOVerView: SwashteroidsSpriteNode {
 	lazy private var gameOver: SKLabelNode = {
 		let gameOver = SKLabelNode(text: "Game Over")
 		gameOver.fontName = "Badloc ICG"
@@ -24,7 +24,7 @@ class GameOVerView: SKSpriteNode {
 		name = "gameOver"
 		anchorPoint = .zero
 		addChild(gameOver)
-		zPosition = Layers.wait.rawValue
+		zPosition = Layers.top.rawValue
 	}
 
 	required init?(coder aDecoder: NSCoder) {
