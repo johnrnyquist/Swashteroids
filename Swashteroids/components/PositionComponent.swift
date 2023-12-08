@@ -15,11 +15,11 @@ import Swash
 final class PositionComponent: Component {
     var position: CGPoint
     var rotation: Double
-    var zPosition: Layers
+    var layer: Layer
 
-    init(x: Double, y: Double, z: Layers, rotation: Double = 0.0) {
+    init(x: Double, y: Double, z: Layer, rotation: Double = 0.0) {
         position = CGPoint(x: x, y: y)
         self.rotation = rotation
-        zPosition = z
+        layer = z
     }
 }

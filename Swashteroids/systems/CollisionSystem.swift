@@ -13,7 +13,7 @@ import Swash
 
 final class CollisionSystem: System {
     private weak var creator: Creator!
-    private weak var gameStateNodes: NodeList!
+    private weak var appStateNodes: NodeList!
     private weak var ships: NodeList!
     private weak var asteroids: NodeList!
     private weak var bullets: NodeList!
@@ -24,7 +24,7 @@ final class CollisionSystem: System {
     }
 
     override public func addToEngine(engine: Engine) {
-        gameStateNodes = engine.getNodeList(nodeClassType: AppStateNode.self)
+        appStateNodes = engine.getNodeList(nodeClassType: AppStateNode.self)
         ships = engine.getNodeList(nodeClassType: ShipCollisionNode.self)
         asteroids = engine.getNodeList(nodeClassType: AsteroidCollisionNode.self)
         bullets = engine.getNodeList(nodeClassType: PlasmaTorpedoCollisionNode.self)
@@ -74,7 +74,7 @@ final class CollisionSystem: System {
             if (distanceToShip <= gunSupplierCollision.radius + shipCollision.radius) {
                 let bang = SKAction.playSoundFileNamed("fire.wav", waitForCompletion: false)
                 sprite.scene?.run(bang)
-                creator.destroyEntity(gunSupplierNode!.entity!)
+                creator.removeEntity(gunSupplierNode!.entity!)
                 gunSupplierNode = gunSupplierNode?.next
                 shipCollisionNode?.entity?
                                   .add(component: GunComponent(offsetX: 21, offsetY: 0,
@@ -100,11 +100,11 @@ final class CollisionSystem: System {
                 if (distance(asteroidPosition.position, bulletPosition.position) <= asteroidCollision.radius) {
                     let bang = SKAction.playSoundFileNamed("bangLarge.wav", waitForCompletion: false)
                     audio.addSoundAction(bang, withKey: asteroidNode!.entity!.name)
-                    creator.destroyEntity(bulletNode!.entity!)
+                    creator.removeEntity(bulletNode!.entity!)
                     splitAsteroid(asteroidCollision: asteroidCollision,
                                   asteroidPosition: asteroidPosition,
                                   asteroidCollisionNode: asteroidNode)
-                    if let gameStateNode = gameStateNodes.head,
+                    if let gameStateNode = appStateNodes.head,
                        let appStateComponent = gameStateNode[AppStateComponent.self] {
                         appStateComponent.score += 1
                     }
@@ -122,13 +122,12 @@ final class CollisionSystem: System {
             var asteroidCollisionNode = asteroids.head
             while asteroidCollisionNode != nil {
                 guard
-                    let shipComponent = shipCollisionNode?[ShipComponent.self],
+                    let ship = shipCollisionNode?[ShipComponent.self].entity as? ShipEntity,
                     let asteroidPosition = asteroidCollisionNode?[PositionComponent.self],
                     let shipPosition = shipCollisionNode?[PositionComponent.self],
                     let asteroidCollision = asteroidCollisionNode?[CollisionComponent.self],
                     let shipCollision = shipCollisionNode?[CollisionComponent.self],
-                    let audio = shipCollisionNode?[AudioComponent.self],
-                    let asteroidName = asteroidCollisionNode?.entity?.name
+                    let audio = shipCollisionNode?[AudioComponent.self]
                 else { asteroidCollisionNode = asteroidCollisionNode?.next; continue }
                 let distanceToShip = distance(asteroidPosition.position, shipPosition.position)
                 if (distanceToShip <= asteroidCollision.radius + shipCollision.radius) {
@@ -139,28 +138,10 @@ final class CollisionSystem: System {
                     }
                     // If a ship hits an asteroid, it enters its death throes. Removing its ability to move or shoot.
                     // A ship in its death throes can still hit an asteroid. 
-                    if shipComponent.entity?
-                                    .has(componentClassName: DeathThroesComponent.name) == false { //HACK not sure I like this check
-                        let spriteNode = SwashteroidsSpriteNode(texture: createShipTexture(color: .red))
-                        let fade = SKAction.fadeOut(withDuration: 3.0) //HACK it feels like this should be done differently
-                        let emitter = SKEmitterNode(fileNamed: "shipExplosion.sks")!
-                        let bang = SKAction.playSoundFileNamed("bangLarge.wav", waitForCompletion: false)
-                        audio.addSoundAction(bang, withKey: asteroidName)
-                        audio.removeSoundAction("thrust")
-                        spriteNode.addChild(emitter)
-                        spriteNode.run(fade)
-                        shipComponent.entity?
-                                     //TODO: need to disconnect ship controls
-                                     .remove(componentClass: InputComponent.self)
-                                     .remove(componentClass: GunComponent.self)
-                                     .remove(componentClass: MotionControlsComponent.self)
-                                     .remove(componentClass: DisplayComponent.self)
-                                     .remove(componentClass: HyperSpaceEngineComponent.self)
-                                     .add(component: DisplayComponent(sknode: spriteNode))
-                                     .add(component: DeathThroesComponent(countdown: 3.0))
-                                     .add(component: AudioComponent())
-                        if let gameNode = gameStateNodes.head,
-                           let component = gameNode[AppStateComponent.self] {
+                    if ship.has(componentClassName: DeathThroesComponent.name) == false { //HACK not sure I like this check
+                        ship.destroy(audio)
+                        if let appState = appStateNodes.head,
+                           let component = appState[AppStateComponent.self] {
                             component.ships -= 1
                         }
                     }
@@ -185,7 +166,7 @@ final class CollisionSystem: System {
 
     override public func removeFromEngine(engine: Engine) {
         creator = nil
-        gameStateNodes = nil
+        appStateNodes = nil
         ships = nil
         asteroids = nil
         bullets = nil

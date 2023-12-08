@@ -17,6 +17,7 @@ extension Creator {
         engine.removeEntities(named: quadrants)
     }
 
+    /// Instead of visible buttons, the player will be able to touch quadrants on the screen to control the ship.
     func createShipControlQuadrants() {
         let noButtonsInfoArt = SKScene(fileNamed: "NoButtonsInfo.sks")!
         let q1Sprite = noButtonsInfoArt.childNode(withName: "//q1") as! SwashteroidsSpriteNode
@@ -27,7 +28,23 @@ extension Creator {
         q2Sprite.removeFromParent()
         q3Sprite.removeFromParent()
         q4Sprite.removeFromParent()
+        // Create the entities
         let q1Entity = Entity(name: .q1)
+        let q2Entity = Entity(name: .q2)
+        let q3Entity = Entity(name: .q3)
+        let q4Entity = Entity(name: .q4)
+        // Assign entities to sprites
+        q1Sprite.entity = q1Entity
+        q2Sprite.entity = q2Entity
+        q3Sprite.entity = q3Entity
+        q4Sprite.entity = q4Entity
+        // Add entities to engine
+        engine.replaceEntity(entity: q1Entity)
+        engine.replaceEntity(entity: q2Entity)
+        engine.replaceEntity(entity: q3Entity)
+        engine.replaceEntity(entity: q4Entity)
+        // Configure the entities
+        q1Entity
                 .add(component: DisplayComponent(sknode: q1Sprite))
                 .add(component: PositionComponent(x: q1Sprite.x, y: q1Sprite.y, z: .bottom, rotation: 0))
                 .add(component: TouchableComponent())
@@ -35,7 +52,7 @@ extension Creator {
                     touchDown: { [unowned self] sprite in
                         generator.impactOccurred()
                         sprite.alpha = 0.6
-                        self.engine.ship?.add(component: FlipComponent.instance)
+                        engine.ship?.add(component: FlipComponent.instance)
                     },
                     touchUp: { sprite in sprite.alpha = 0.2 },
                     touchUpOutside: { sprite in sprite.alpha = 0.2 },
@@ -43,8 +60,7 @@ extension Creator {
                         if over { sprite.alpha = 0.6 } else { sprite.alpha = 0.2 }
                     }
                 ))
-        q1Sprite.entity = q1Entity
-        let q2Entity = Entity(name: .q2)
+        q2Entity
                 .add(component: DisplayComponent(sknode: q2Sprite))
                 .add(component: PositionComponent(x: q2Sprite.x, y: q2Sprite.y, z: .bottom, rotation: 0))
                 .add(component: TouchableComponent())
@@ -52,7 +68,7 @@ extension Creator {
                     touchDown: { [unowned self] sprite in
                         generator.impactOccurred()
                         sprite.alpha = 0.6
-                        self.engine.ship?.add(component: HyperSpaceJumpComponent())
+                        engine.ship?.add(component: HyperSpaceJumpComponent())
                     },
                     touchUp: { sprite in sprite.alpha = 0.2 },
                     touchUpOutside: { sprite in sprite.alpha = 0.2 },
@@ -60,8 +76,7 @@ extension Creator {
                         if over { sprite.alpha = 0.6 } else { sprite.alpha = 0.2 }
                     }
                 ))
-        q2Sprite.entity = q2Entity
-        let q3Entity = Entity(name: .q3)
+        q3Entity
                 .add(component: DisplayComponent(sknode: q3Sprite))
                 .add(component: PositionComponent(x: q3Sprite.x, y: q3Sprite.y, z: .bottom, rotation: 0))
                 .add(component: TouchableComponent())
@@ -69,42 +84,41 @@ extension Creator {
                     touchDown: { sprite in
                         if let ship = self.engine.ship {
                             ship.add(component: ApplyThrustComponent.instance)
-                            (ship.get(componentClassName: WarpDriveComponent.name) as? WarpDriveComponent)?.isThrusting = true //HACK
-                            (ship.get(componentClassName: RepeatingAudioComponent.name) as? RepeatingAudioComponent)?.state = .shouldBegin //HACK
+                            ship.warpDrive?.isThrusting = true //HACK
+                            ship.repeatingAudio?.state = .shouldBegin //HACK
                         }
                     },
                     touchUp: { sprite in
                         if let ship = self.engine.ship {
                             ship.remove(componentClass: ApplyThrustComponent.self)
-                            (ship.get(componentClassName: WarpDriveComponent.name) as? WarpDriveComponent)?.isThrusting = false //HACK
-                            (ship.get(componentClassName: RepeatingAudioComponent.name) as? RepeatingAudioComponent)?.state = .shouldStop //HACK
+                            ship.warpDrive?.isThrusting = false //HACK
+                            ship.repeatingAudio?.state = .shouldStop //HACK
                         }
                     },
                     touchUpOutside: { sprite in
                         if let ship = self.engine.ship {
                             ship.remove(componentClass: ApplyThrustComponent.self)
-                            (ship.get(componentClassName: WarpDriveComponent.name) as? WarpDriveComponent)?.isThrusting = false //HACK
-                            (ship.get(componentClassName: RepeatingAudioComponent.name) as? RepeatingAudioComponent)?.state = .shouldStop //HACK
+                            ship.warpDrive?.isThrusting = false //HACK
+                            ship.repeatingAudio?.state = .shouldStop //HACK
                         }
                     },
                     touchMoved: { sprite, over in
                         if over {
                             if let ship = self.engine.ship {
                                 ship.add(component: ApplyThrustComponent.instance)
-                                (ship.get(componentClassName: WarpDriveComponent.name) as? WarpDriveComponent)?.isThrusting = true //HACK
-                                (ship.get(componentClassName: RepeatingAudioComponent.name) as? RepeatingAudioComponent)?.state = .shouldBegin //HACK
+                                ship.warpDrive?.isThrusting = true //HACK
+                                ship.repeatingAudio?.state = .shouldBegin //HACK
                             }
                         } else {
                             if let ship = self.engine.ship {
                                 ship.remove(componentClass: ApplyThrustComponent.self)
-                                (ship.get(componentClassName: WarpDriveComponent.name) as? WarpDriveComponent)?.isThrusting = false //HACK
-                                (ship.get(componentClassName: RepeatingAudioComponent.name) as? RepeatingAudioComponent)?.state = .shouldStop //HACK
+                                ship.warpDrive?.isThrusting = false //HACK
+                                ship.repeatingAudio?.state = .shouldStop //HACK
                             }
                         }
                     }
                 ))
-        q3Sprite.entity = q3Entity
-        let q4Entity = Entity(name: .q4)
+        q4Entity
                 .add(component: DisplayComponent(sknode: q4Sprite))
                 .add(component: PositionComponent(x: q4Sprite.x, y: q4Sprite.y, z: .bottom, rotation: 0))
                 .add(component: TouchableComponent())
@@ -134,10 +148,5 @@ extension Creator {
                         }
                     }
                 ))
-        q4Sprite.entity = q4Entity
-        engine.replaceEntity(entity: q1Entity)
-        engine.replaceEntity(entity: q2Entity)
-        engine.replaceEntity(entity: q3Entity)
-        engine.replaceEntity(entity: q4Entity)
     }
 }

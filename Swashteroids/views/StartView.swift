@@ -27,7 +27,7 @@ class StartView: SwashteroidsSpriteNode {
 		super.init(texture: nil, color: .clear, size: scene.size)
 
 		anchorPoint = .zero
-		zPosition = Layers.top.rawValue
+		zPosition = Layer.top.rawValue
 
 		title.color = .white
 		title.colorBlendFactor = 1.0

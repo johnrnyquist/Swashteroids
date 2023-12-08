@@ -26,7 +26,7 @@ class GameOverView: SwashteroidsSpriteNode {
         name = "gameOver"
         anchorPoint = .zero
         addChild(gameOver)
-        zPosition = Layers.top.rawValue
+        zPosition = Layer.top.rawValue
     }
 
     required init?(coder aDecoder: NSCoder) {

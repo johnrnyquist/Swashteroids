@@ -27,7 +27,7 @@ final class BulletAgeSystem: ListIteratingSystem {
         bulletComponent.lifeRemaining -= time
         if bulletComponent.lifeRemaining <= 0,
            let entity = node.entity {
-            creator.destroyEntity(entity)
+            creator.removeEntity(entity)
         }
     }
 

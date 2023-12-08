@@ -32,7 +32,7 @@ enum Toggle {
 }
 
 // zPosition for layers
-enum Layers: Double {
+enum Layer: Double {
     case bottom
     case asteroids
     case bullets

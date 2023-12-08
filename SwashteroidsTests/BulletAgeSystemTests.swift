@@ -54,7 +54,7 @@ final class BulletAgeSystemTests: XCTestCase {
 class MockCreator: Creator {
     var destroyEntityCalled = false
 
-    override func destroyEntity(_ entity: Entity) {
+    override func removeEntity(_ entity: Entity) {
         destroyEntityCalled = true
     }
 }

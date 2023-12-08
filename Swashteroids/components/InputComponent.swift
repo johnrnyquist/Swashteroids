@@ -11,6 +11,8 @@
 import Swash
 import SpriteKit
 
+/// This class is a singleton, and is used to track the state of the input.
+/// I made it a component to pass along to systems.
 final class InputComponent: Component {
     static let instance = InputComponent()
     var leftIsDown: (down: Bool, amount: Double) = (false, 0.0)

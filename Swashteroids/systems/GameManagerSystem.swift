@@ -79,7 +79,7 @@ final class GameManagerSystem: System {
                 let spaceShipPosition = shipNode[PositionComponent.self]
             else { return }
             appStateComponent.level += 1
-            //TODO: This level text and animation should be elsewhere.
+            // TODO: This level text and animation should be elsewhere.
             announceLevel(appStateComponent: appStateComponent)
             //
             let asteroidCount = 0 + appStateComponent.level

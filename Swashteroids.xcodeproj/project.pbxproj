@@ -115,7 +115,6 @@
 		8DD26DC92B22D7E300DA5BC3 /* AccelerometerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD26DC82B22D7E300DA5BC3 /* AccelerometerNode.swift */; };
 		8DD26DCB2B22D80600DA5BC3 /* AccelerometerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD26DCA2B22D80600DA5BC3 /* AccelerometerComponent.swift */; };
 		93139265D59A74E99D27A0CF /* Creator+SetUpGameOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931393BFA7122C52736144FB /* Creator+SetUpGameOver.swift */; };
-		931392A72F550D08153829B2 /* HudEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931390CE0425A854FD0B8DE1 /* HudEntity.swift */; };
 		931393799C3434FBF3FC0CCD /* InputComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931396DD35CCD39E8E4EDB16 /* InputComponent.swift */; };
 		931397073B11911E75B9BFA0 /* Creator+ShipControlQuadrants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931395F838B2866767296F25 /* Creator+ShipControlQuadrants.swift */; };
 		931397BD1834CFFC21464D3F /* Creator+SetUpPlaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139DF99E2237817263DF63 /* Creator+SetUpPlaying.swift */; };
@@ -258,7 +257,6 @@
 		8DB409EB2B1D3C6F008DE4EB /* TransitionAppStateComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionAppStateComponent.swift; sourceTree = "<group>"; };
 		8DD26DC82B22D7E300DA5BC3 /* AccelerometerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccelerometerNode.swift; sourceTree = "<group>"; };
 		8DD26DCA2B22D80600DA5BC3 /* AccelerometerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccelerometerComponent.swift; sourceTree = "<group>"; };
-		931390CE0425A854FD0B8DE1 /* HudEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudEntity.swift; sourceTree = "<group>"; };
 		931392CF258F1370304A48B7 /* Creator+ShipControlButtons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Creator+ShipControlButtons.swift"; sourceTree = "<group>"; };
 		93139349F91910D60271C8DA /* Creator+SetUpStart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Creator+SetUpStart.swift"; sourceTree = "<group>"; };
 		931393BFA7122C52736144FB /* Creator+SetUpGameOver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Creator+SetUpGameOver.swift"; sourceTree = "<group>"; };
@@ -439,7 +437,6 @@
 			isa = PBXGroup;
 			children = (
 				8D41E21E2B1FA2D00031AF54 /* Entity+extension.swift */,
-				931390CE0425A854FD0B8DE1 /* HudEntity.swift */,
 				8D23C18A2B02C59D00F7D878 /* Creator.swift */,
 				93139349F91910D60271C8DA /* Creator+SetUpStart.swift */,
 				931398E70F42335F03D272DD /* Creator+SetUpInfoViews.swift */,
@@ -739,7 +736,6 @@
 				8D23C1A92B02C59D00F7D878 /* ShipEngineNode.swift in Sources */,
 				8DB409EC2B1D3C6F008DE4EB /* TransitionAppStateComponent.swift in Sources */,
 				8D23C1D32B02C59D00F7D878 /* Creator.swift in Sources */,
-				931392A72F550D08153829B2 /* HudEntity.swift in Sources */,
 				931393799C3434FBF3FC0CCD /* InputComponent.swift in Sources */,
 				93139920B1CB722DC9509E80 /* TransitionAppStateSystem.swift in Sources */,
 				9313996B7589CCA869842E12 /* TouchComponents.swift in Sources */,

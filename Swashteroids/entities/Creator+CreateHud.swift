@@ -13,9 +13,26 @@ import SpriteKit
 
 extension Creator {
     func createHud(gameState: AppStateComponent) {
-        // Here we create a subclass of entity
-        let hudView = HudView()
-        let hudEntity = HudEntity(name: .hud, view: hudView, gameState: gameState)
-        engine.replaceEntity(entity: hudEntity)
+        let hudEntity = HudEntity(name: .hud, gameState: gameState)
+        do {
+            try engine.addEntity(entity: hudEntity)
+        }
+        catch SwashError.entityNameAlreadyInUse(let message) {
+            fatalError(message)
+        }
+        catch {
+            fatalError("Unexpected error: \(error).")
+        }
+    }
+}
+
+final class HudEntity: Entity {
+    init(name: String, gameState: AppStateComponent) {
+        super.init(name: name)
+        let view = HudView()
+        add(component: HudComponent(hudView: view))
+        add(component: DisplayComponent(sknode: view))
+        add(component: PositionComponent(x: 0, y: 0, z: .hud, rotation: 0))
+        add(component: gameState)
     }
 }

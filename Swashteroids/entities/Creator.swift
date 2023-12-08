@@ -30,7 +30,7 @@ class Creator {
         self.appStateEntity = appStateEntity
     }
 
-    func destroyEntity(_ entity: Entity) {
+    func removeEntity(_ entity: Entity) {
         engine.removeEntity(entity: entity)
     }
 }

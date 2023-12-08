@@ -19,7 +19,7 @@ extension Creator {
         let gameOverNode = gameOverNodes.head
         var asteroid = asteroids.head
         while asteroid != nil {
-            destroyEntity(asteroid!.entity!)
+            removeEntity(asteroid!.entity!)
             asteroid = asteroid?.next
         }
         if let hud = engine.hud,

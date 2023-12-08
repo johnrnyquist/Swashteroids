@@ -12,9 +12,11 @@
 import Swash
 import Foundation
 
+/// Holds the jump coordinates.
 final class HyperSpaceJumpComponent: Component {
 	let x = Double.random(in: 0...1024)
 	let y = Double.random(in: 0...1024)
 }
 
+/// You need an engine to make a jump.
 final class HyperSpaceEngineComponent: Component {}

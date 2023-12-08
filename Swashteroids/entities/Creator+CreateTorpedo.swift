@@ -30,7 +30,7 @@ extension Creator {
                                                                        .x + cos * gunComponent.offsetFromParent
                                                                                               .y + parentPosition.position
                                                                                                                  .y,
-                                                  z: Layers.bullets,
+                                                  z: Layer.bullets,
                                                   rotation: 0))
                 .add(component: CollisionComponent(radius: 0))
                 .add(component: MotionComponent(velocityX: cos * 220 + parentMotion.velocity.x,

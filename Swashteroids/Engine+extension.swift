@@ -11,8 +11,8 @@
 import Swash
 
 extension Engine {
-    var ship: Entity? {
-        get { getEntity(named: .ship) }
+    var ship: ShipEntity? {
+        get { getEntity(named: .ship) as? ShipEntity }
     }
     var gameOver: Entity? {
         get { getEntity(named: .gameOver) }

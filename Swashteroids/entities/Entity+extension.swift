@@ -11,8 +11,11 @@
 import Swash
 
 extension Entity {
-	var sprite: SwashteroidsSpriteNode? {
-		let component = get(componentClassName: DisplayComponent.name) as? DisplayComponent
-		return component?.sprite
-	}
+    var sprite: SwashteroidsSpriteNode? {
+        let component = get(componentClassName: DisplayComponent.name) as? DisplayComponent
+        return component?.sprite
+    }
+    subscript(componentName: ComponentClassName) -> Component? {
+        self.get(componentClassName: componentName)
+    }
 }

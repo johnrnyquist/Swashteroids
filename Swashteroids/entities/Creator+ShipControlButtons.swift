@@ -155,24 +155,24 @@ extension Creator {
                       sprite.alpha = 0.6
                       if let ship = self.engine.ship {
                           ship.add(component: ApplyThrustComponent.instance)
-                          (ship.get(componentClassName: WarpDriveComponent.name) as? WarpDriveComponent)?.isThrusting = true //HACK
-                          (ship.get(componentClassName: RepeatingAudioComponent.name) as? RepeatingAudioComponent)?.state = .shouldBegin //HACK
+                          ship.warpDrive?.isThrusting = true //HACK
+                          ship.repeatingAudio?.state = .shouldBegin //HACK
                       }
                   },
                   touchUp: { sprite in
                       sprite.alpha = 0.2
                       if let ship = self.engine.ship {
                           ship.remove(componentClass: ApplyThrustComponent.self)
-                          (ship.get(componentClassName: WarpDriveComponent.name) as? WarpDriveComponent)?.isThrusting = false //HACK
-                          (ship.get(componentClassName: RepeatingAudioComponent.name) as? RepeatingAudioComponent)?.state = .shouldStop //HACK
+                          ship.warpDrive?.isThrusting = false //HACK
+                          ship.repeatingAudio?.state = .shouldStop //HACK
                       }
                   },
                   touchUpOutside: { sprite in
                       sprite.alpha = 0.2
                       if let ship = self.engine.ship {
                           ship.remove(componentClass: ApplyThrustComponent.self)
-                          (ship.get(componentClassName: WarpDriveComponent.name) as? WarpDriveComponent)?.isThrusting = false //HACK
-                          (ship.get(componentClassName: RepeatingAudioComponent.name) as? RepeatingAudioComponent)?.state = .shouldStop //HACK
+                          ship.warpDrive?.isThrusting = false //HACK
+                          ship.repeatingAudio?.state = .shouldStop //HACK
                       }
                   },
                   touchMoved: { sprite, over in
@@ -180,15 +180,15 @@ extension Creator {
                           sprite.alpha = 0.6
                           if let ship = self.engine.ship {
                               ship.add(component: ApplyThrustComponent.instance)
-                              (ship.get(componentClassName: WarpDriveComponent.name) as? WarpDriveComponent)?.isThrusting = true //HACK
-                              (ship.get(componentClassName: RepeatingAudioComponent.name) as? RepeatingAudioComponent)?.state = .shouldBegin //HACK
+                              ship.warpDrive?.isThrusting = true //HACK
+                              ship.repeatingAudio?.state = .shouldBegin //HACK
                           }
                       } else {
                           sprite.alpha = 0.2
                           if let ship = self.engine.ship {
                               ship.remove(componentClass: ApplyThrustComponent.self)
-                              (ship.get(componentClassName: WarpDriveComponent.name) as? WarpDriveComponent)?.isThrusting = false //HACK
-                              (ship.get(componentClassName: RepeatingAudioComponent.name) as? RepeatingAudioComponent)?.state = .shouldStop //HACK
+                              ship.warpDrive?.isThrusting = false //HACK
+                              ship.repeatingAudio?.state = .shouldStop //HACK
                           }
                       }
                   }

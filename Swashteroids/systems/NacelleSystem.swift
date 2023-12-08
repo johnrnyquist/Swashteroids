@@ -20,11 +20,11 @@ final class NacelleSystem: ListIteratingSystem {
 
     private func updateNode(node: Node, time: TimeInterval) {
         guard
-            let engineComponent = node[WarpDriveComponent.self],
+            let warpDrive = node[WarpDriveComponent.self],
             let sprite = node[DisplayComponent.self]?.sprite
         else { return }
-        //TODO: I'm not crazy about the flag and the child node access here
-        if engineComponent.isThrusting {
+        // TODO: I'm not crazy about the flag and the child node access here
+        if warpDrive.isThrusting {
             sprite.childNode(withName: "//nacelles")?.isHidden = false
         } else {
             sprite.childNode(withName: "//nacelles")?.isHidden = true

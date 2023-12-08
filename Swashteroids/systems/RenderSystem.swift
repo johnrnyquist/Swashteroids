@@ -56,7 +56,7 @@ final class RenderSystem: System {
             if let positionComponent = positionComponent {
                 sprite?.position = positionComponent.position
                 sprite?.zRotation = positionComponent.rotation * Double.pi / 180
-                sprite?.zPosition = positionComponent.zPosition.rawValue
+                sprite?.zPosition = positionComponent.layer.rawValue
             }
             renderNode = renderNode!.next
         }
