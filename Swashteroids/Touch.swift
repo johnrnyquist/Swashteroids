@@ -12,6 +12,7 @@ import Foundation
 import Swash
 import UIKit.UITouch
 
+/// This is not currently in use. It's intent is for use with the InputComponent.
 struct Touch: Identifiable, Equatable, Hashable {
     let id: Int
     let time: TimeInterval

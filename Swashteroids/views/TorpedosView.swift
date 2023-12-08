@@ -9,9 +9,7 @@
 //
 
 import SpriteKit
-import Swash
 
-// GunSupplierView
 class PlasmaTorpedoesPowerUpView: SwashteroidsSpriteNode, Animatable {
     var time: TimeInterval = 0
     var dir = -1.0

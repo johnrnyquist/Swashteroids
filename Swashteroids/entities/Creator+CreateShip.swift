@@ -35,7 +35,7 @@ class ShipEntity: Entity {
         let shipSprite = SwashteroidsSpriteNode(texture: createShipTexture())
         shipSprite.name = name
         shipSprite.zPosition = Layer.ship.rawValue
-        let nacellesSprite = SwashteroidsSpriteNode(texture: createEngineTexture())
+        let nacellesSprite = SwashteroidsSpriteNode(texture: createNacelleTexture())
         nacellesSprite.zPosition = shipSprite.zPosition + 0.1
         nacellesSprite.isHidden = true
         nacellesSprite.name = "nacelles"
@@ -81,7 +81,7 @@ class ShipEntity: Entity {
     /// this should be the same one. The reason I am passing it in is that I prefer Systems generally avoid
     /// knowing about or using Entities. Since the audio came from the system, this method is more like an extension 
     /// to the system calling it. 
-    func destroy(audio: AudioComponent) {
+    func destroy(with audio: AudioComponent) {
         // Sound effects
         audio.removeSoundAction("thrust")
         let bang = SKAction.playSoundFileNamed("bangLarge.wav", waitForCompletion: false)

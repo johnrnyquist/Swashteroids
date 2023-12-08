@@ -10,7 +10,6 @@
 
 import SpriteKit
 
-
 class HudView: SKNode {
     private var score: SKLabelNode!
     private var ships: SKLabelNode!
@@ -54,7 +53,7 @@ class HudView: SKNode {
         let tf = SKLabelNode()
         tf.horizontalAlignmentMode = .left
         tf.fontName = "Futura Condensed Medium"
-		tf.fontColor = .hudText
+        tf.fontColor = .hudText
         tf.fontSize = 48
         return tf
     }

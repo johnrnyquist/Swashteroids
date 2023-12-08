@@ -122,7 +122,7 @@ final class CollisionSystem: System {
             var asteroidCollisionNode = asteroids.head
             while asteroidCollisionNode != nil {
                 guard
-                    let ship = shipCollisionNode?[ShipComponent.self].entity as? ShipEntity,
+                    let ship = shipCollisionNode?.entity as? ShipEntity,
                     let asteroidPosition = asteroidCollisionNode?[PositionComponent.self],
                     let shipPosition = shipCollisionNode?[PositionComponent.self],
                     let asteroidCollision = asteroidCollisionNode?[CollisionComponent.self],
@@ -139,7 +139,7 @@ final class CollisionSystem: System {
                     // If a ship hits an asteroid, it enters its death throes. Removing its ability to move or shoot.
                     // A ship in its death throes can still hit an asteroid. 
                     if ship.has(componentClassName: DeathThroesComponent.name) == false { //HACK not sure I like this check
-                        ship.destroy(audio)
+                        ship.destroy(with: audio)
                         if let appState = appStateNodes.head,
                            let component = appState[AppStateComponent.self] {
                             component.ships -= 1

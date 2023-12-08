@@ -14,9 +14,9 @@ final class ShipCollisionNode: Node {
     required init() {
         super.init()
         components = [
+            ShipComponent.name: nil_component,
             CollisionComponent.name: nil_component,
             PositionComponent.name: nil_component,
-            ShipComponent.name: nil_component,
             MotionComponent.name: nil_component,
             AudioComponent.name: nil_component,
         ]

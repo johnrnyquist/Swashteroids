@@ -9,8 +9,6 @@
 //
 
 import SpriteKit
-import Swash
-
 
 extension SKNode {
     var x: Double {

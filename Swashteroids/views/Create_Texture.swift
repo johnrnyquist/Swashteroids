@@ -9,32 +9,15 @@
 //
 
 import SpriteKit
-import UIKit
-import Swash
-
 
 let LINE_WIDTH: Double = 2
-
-func createGunSupplierTexture(radius: Double, color: UIColor) -> SKTexture {
-    let size = CGSize(width: radius * 2, height: radius * 2)
-    let renderer = UIGraphicsImageRenderer(size: size)
-    let controller = renderer.image { ctx in
-        ctx.cgContext.setStrokeColor(color.cgColor)
-        ctx.cgContext.setFillColor(color.cgColor)
-        ctx.cgContext.setLineWidth(0)
-        ctx.cgContext.move(to: CGPoint(x: 0, y: 0))
-        ctx.cgContext.strokeEllipse(in: CGRect(origin: .zero, size: size))
-        ctx.cgContext.fillEllipse(in: CGRect(origin: .zero, size: size))
-    }
-    return SKTexture(image: controller)
-}
 
 func createBulletTexture(color: UIColor) -> SKTexture {
     let rect = CGRect(x: 0, y: 0, width: 7, height: 7)
     let size = CGSize(width: 5, height: 5)
     let renderer = UIGraphicsImageRenderer(size: size)
     let controller = renderer.image { ctx in
-		ctx.cgContext.setStrokeColor(UIColor.clear.cgColor)
+        ctx.cgContext.setStrokeColor(UIColor.clear.cgColor)
         ctx.cgContext.setFillColor(color.cgColor)
         ctx.cgContext.setLineWidth(0)
         ctx.cgContext.move(to: CGPoint(x: 0, y: 0))
@@ -44,50 +27,7 @@ func createBulletTexture(color: UIColor) -> SKTexture {
     return SKTexture(image: controller)
 }
 
-func createButtonTexture(color: UIColor, text: String) -> SKTexture {
-	let size = CGSize(width: 120, height: 120)
-	let renderer = UIGraphicsImageRenderer(size: size)
-	let controller = renderer.image { ctx in
-		ctx.cgContext.setStrokeColor(color.cgColor)
-		ctx.cgContext.setFillColor(color.cgColor)
-		ctx.cgContext.setLineWidth(0)
-		ctx.cgContext.move(to: CGPoint(x: 0, y: 0))
-		ctx.cgContext.strokeEllipse(in: CGRect(origin: .zero, size: size))
-		ctx.cgContext.fillEllipse(in: CGRect(origin: .zero, size: size))
-
-		// Create a label and render it to an image
-		let label = SKLabelNode(text: " \(text) ")
-		label.horizontalAlignmentMode = .center
-		label.fontName = "Helvetica Bold"
-		label.fontColor = .black
-		label.alpha = 0.3
-		label.fontSize = 18/UIScreen.main.scale
-		label.position = CGPoint(x: size.width / 2, y: size.height / 2 - 16/UIScreen.main.scale)
-		let view = SKView()
-		let labelTexture = view.texture(from: label)
-		let labelImage = UIImage(cgImage: labelTexture!.cgImage())
-
-		// Draw the label image onto the button image
-		labelImage.draw(at: CGPoint(x: (size.width - labelImage.size.width) / 2, y: (size.height - labelImage.size.height) / 2))
-	}
-	return SKTexture(image: controller)
-}
-
-
-func createEnemyShipTexture(color: UIColor) -> SKTexture {
-    let renderer = UIGraphicsImageRenderer(size: CGSize(width: 51, height: 42))
-    let ship = renderer.image { ctx in
-        // triangle ship
-        ctx.cgContext.move(to: CGPoint(x: 51, y: 21))
-        ctx.cgContext.addLine(to: CGPoint(x: 0, y: 42))
-        ctx.cgContext.addLine(to: CGPoint(x: 9, y: 21))
-        ctx.cgContext.addLine(to: CGPoint(x: 0, y: 0))
-        ctx.cgContext.addLine(to: CGPoint(x: 51, y: 21))
-    }
-    return SKTexture(image: ship)
-}
-
-func createEngineTexture(color: UIColor = .nacelles) -> SKTexture {
+func createNacelleTexture(color: UIColor = .nacelles) -> SKTexture {
     let renderer = UIGraphicsImageRenderer(size: CGSize(width: 51, height: 42))
     let ship = renderer.image { ctx in
         ctx.cgContext.addRect(CGRect(x: 23, y: 10, width: 2, height: -4))
@@ -169,7 +109,7 @@ func createAsteroidTexture(radius: Double, color: UIColor) -> SKTexture {
     let renderer = UIGraphicsImageRenderer(size: CGSize(width: radius * 2, height: radius * 2))
     let asteroid = renderer.image { ctx in
         ctx.cgContext.translateBy(x: radius, y: radius) // move to center
-		ctx.cgContext.setStrokeColor(color.cgColor)
+        ctx.cgContext.setStrokeColor(color.cgColor)
         ctx.cgContext.setLineWidth(LINE_WIDTH)
         var angle = 0.0
         ctx.cgContext.move(to: CGPoint(x: radius, y: 0.0))
