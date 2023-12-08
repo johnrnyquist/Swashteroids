@@ -345,7 +345,7 @@ class Creator {
         let toState: ShipControlsState = state == .on ? .hidingButtons : .showingButtons
         toggleButtonsEntity.add(component: ButtonBehaviorComponent(
             touchDown: { [unowned self] sprite in
-                engine?.hud?.add(component: ChangeShipControlsStateComponent(to: toState))
+                engine.hud?.add(component: ChangeShipControlsStateComponent(to: toState))
             },
             touchUp: { sprite in sprite.alpha = 0.2 },
             touchUpOutside: { sprite in sprite.alpha = 0.2 },
@@ -596,7 +596,7 @@ class Creator {
             destroyEntity(asteroid!.entity!)
             asteroid = asteroid?.next
         }
-        if let engine, let hud = engine.hud,
+        if let hud = engine.hud,
            let gameOverNode, let entity = gameOverNode.entity {
             engine.removeEntity(entity: entity)
             engine.removeEntity(entity: hud)

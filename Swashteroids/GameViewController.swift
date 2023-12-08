@@ -10,7 +10,7 @@
 
 import UIKit
 import SpriteKit
-import CoreMotion
+//import CoreMotion
 
 final class GameViewController: UIViewController {
     override func viewDidLoad() {
