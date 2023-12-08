@@ -31,6 +31,8 @@ extension Creator {
                 engine.removeEntity(entity: powerUp)
             }
         }
+        removeShipControlButtons() //HACK
+        removeShipControlQuadrants() //HACK
     }
 
     func setUpGameOver() {
