@@ -1,12 +1,23 @@
-import SpriteKit
+//
+// https://github.com/johnrnyquist/Swashteroids
+//
+// Download Swashteroids from the App Store:
+// https://apps.apple.com/us/app/swashteroids/id6472061502
+//
+// Made with Swash, give it a try!
+// https://github.com/johnrnyquist/Swash
+//
 
+import SpriteKit
 import CoreMotion
 
 final class GameScene: SKScene {
+    private var orientation = 1.0
+    // set externally before didMove(to:)
     var game: Swashteroids!
     var motionManager: CMMotionManager?
-    var orientation = 1.0
-
+    var inputComponent: InputComponent!
+	
     override func didMove(to view: SKView) {
         print(self, #function)
         super.didMove(to: view)
@@ -15,8 +26,8 @@ final class GameScene: SKScene {
                                                selector: #selector(orientationChanged),
                                                name: UIDevice.orientationDidChangeNotification, object: nil)
         orientation = UIDevice.current.orientation == .landscapeRight ? -1.0 : 1.0
-		motionManager = CMMotionManager()
-		motionManager?.startAccelerometerUpdates()
+        motionManager = CMMotionManager()
+        motionManager?.startAccelerometerUpdates()
         game.start()
     }
 
@@ -30,74 +41,66 @@ final class GameScene: SKScene {
         guard let data = motionManager?.accelerometerData else { return }
         switch data.acceleration.y * orientation {
             case let y where y > 0.05:
-				undo_right()
-				do_left(data.acceleration.y*orientation)
+                undo_right()
+                do_left(data.acceleration.y * orientation)
             case let y where y < -0.05:
-				undo_left()
-				do_right(data.acceleration.y*orientation)
+                undo_left()
+                do_right(data.acceleration.y * orientation)
             case -0.05...0.05:
-				undo_left()
-				undo_right()
+                undo_left()
+                undo_right()
             default:
                 break
         }
     }
 
     func do_left(_ amount: Double = 0.35) {
-        game.inputComponent.leftIsDown = (true, amount)
+        inputComponent.leftIsDown = (true, amount)
+    }
+
+    func undo_left() {
+        inputComponent.leftIsDown = (false, 0.0)
     }
 
     func do_right(_ amount: Double = -0.35) {
-        game.inputComponent.rightIsDown = (true, amount)
-    }
-    func undo_left() {
-        game.inputComponent.leftIsDown = (false, 0.0)
+        inputComponent.rightIsDown = (true, amount)
     }
 
     func undo_right() {
-        game.inputComponent.rightIsDown = (false, 0.0)
+        inputComponent.rightIsDown = (false, 0.0)
     }
 
     //MARK:- TOUCHES -------------------------
-
-    func touchDown(atPoint location: CGPoint, touch: UITouch) {
-        game.inputComponent.handleTouchDowns(nodes: nodes(at: location), touch: touch, location: location)
-    }
-
-    func touchUp(atPoint location: CGPoint, touch: UITouch) {
-        game.inputComponent.handleTouchUps(nodes: nodes(at: location), touch: touch, location: location)
-    }
-
-    func touchMoved(toPoint location: CGPoint, touch: UITouch) {
-        let p = touch.location(in: self) - touch.previousLocation(in: self)
-        let d = max(abs(p.x), abs(p.y))
-        guard d > 1 else { return }
-        game.inputComponent.handleTouchMoveds(nodes: nodes(at: location), touch: touch, location: location)
-    }
-
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         for touch in touches {
-            touchDown(atPoint: touch.location(in: self), touch: touch)
+            let location = touch.location(in: self)
+            inputComponent.handleTouchDowns(nodes: nodes(at: location), touch: touch, location: location)
         }
     }
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
-            touchUp(atPoint: touch.location(in: self), touch: touch)
+            let location = touch.location(in: self)
+            inputComponent.handleTouchUps(nodes: nodes(at: location), touch: touch, location: location)
         }
     }
 
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
-            touchMoved(toPoint: touch.location(in: self), touch: touch)
+            let location = touch.location(in: self)
+            let p = touch.location(in: self) - touch.previousLocation(in: self)
+            let d = max(abs(p.x), abs(p.y))
+            guard d > 1 else { return }
+            inputComponent.handleTouchMoveds(nodes: nodes(at: location), touch: touch, location: location)
         }
     }
 
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         print(self, #function)
         for touch in touches {
-            touchUp(atPoint: touch.location(in: self), touch: touch)
+            let location = touch.location(in: self)
+            inputComponent.handleTouchUps(nodes: nodes(at: location), touch: touch, location: location)
         }
     }
 

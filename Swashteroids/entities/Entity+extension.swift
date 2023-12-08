@@ -10,10 +10,9 @@
 
 import Swash
 
-final class HudComponent: Component {
-    let hudView: HudView
-
-    init(hudView: HudView) {
-        self.hudView = hudView
-    }
+extension Entity {
+	var sprite: SwashteroidsSpriteNode? {
+		let component = get(componentClassName: DisplayComponent.name) as? DisplayComponent
+		return component?.sprite
+	}
 }

@@ -1,9 +1,13 @@
 //
-//  HyperSpaceComponent.swift
-//  Swashteroids
+// https://github.com/johnrnyquist/Swashteroids
 //
-//  Created by John Nyquist on 11/15/23.
+// Download Swashteroids from the App Store:
+// https://apps.apple.com/us/app/swashteroids/id6472061502
 //
+// Made with Swash, give it a try!
+// https://github.com/johnrnyquist/Swash
+//
+
 
 import Swash
 import Foundation

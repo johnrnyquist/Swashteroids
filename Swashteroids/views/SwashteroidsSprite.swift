@@ -8,12 +8,11 @@
 // https://github.com/johnrnyquist/Swash
 //
 
+import SpriteKit
 import Swash
 
-final class HudComponent: Component {
-    let hudView: HudView
-
-    init(hudView: HudView) {
-        self.hudView = hudView
-    }
+// Is this to much of a cheat?
+class SwashteroidsSpriteNode: SKSpriteNode {
+	weak var entity: Entity?
 }
+

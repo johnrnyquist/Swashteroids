@@ -1,23 +1,34 @@
+//
+// https://github.com/johnrnyquist/Swashteroids
+//
+// Download Swashteroids from the App Store:
+// https://apps.apple.com/us/app/swashteroids/id6472061502
+//
+// Made with Swash, give it a try!
+// https://github.com/johnrnyquist/Swash
+//
+
 import UIKit
 import SpriteKit
 import CoreMotion
 
 final class GameViewController: UIViewController {
-    var game: Swashteroids!
-
     override func viewDidLoad() {
         print(self, #function)
         super.viewDidLoad()
         let skview = createView()
+        view = skview
         let scene = createScene(size: skview.frame.size)
         skview.presentScene(scene)
-        view = skview
     }
 
     func createScene(size: CGSize) -> SKScene {
         let scene = GameScene(size: size)
-        game = Swashteroids(scene: scene, inputComponent: InputComponent.instance)
+        let game = Swashteroids(scene: scene, inputComponent: InputComponent.instance)
         scene.game = game
+        scene.name = "gameScene"
+        scene.anchorPoint = .zero
+        scene.inputComponent = InputComponent.instance
         scene.scaleMode = .aspectFit
         return scene
     }

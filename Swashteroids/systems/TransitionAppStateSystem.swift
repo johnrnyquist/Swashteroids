@@ -1,18 +1,27 @@
 //
+// https://github.com/johnrnyquist/Swashteroids
+//
+// Download Swashteroids from the App Store:
+// https://apps.apple.com/us/app/swashteroids/id6472061502
+//
+// Made with Swash, give it a try!
+// https://github.com/johnrnyquist/Swash
+//
+
+//
 // Created by John Nyquist on 12/3/23.
 //
 
 import Foundation
 import Swash
 
-
 enum AppState {
-	case initialize
-	case start
-	case over
-	case playing
-	case infoButtons
-	case infoNoButtons
+    case initialize
+    case start
+    case over
+    case playing
+    case infoButtons
+    case infoNoButtons
 }
 
 final class TransitionAppStateSystem: ListIteratingSystem {
@@ -25,10 +34,9 @@ final class TransitionAppStateSystem: ListIteratingSystem {
     }
 
     func updateNode(node: Node, time: TimeInterval) {
-		guard let transition = node[TransitionAppStateComponent.self],
-			  let appState = node[AppStateComponent.self] else { return }
-
-		if let from = transition.from {
+        guard let transition = node[TransitionAppStateComponent.self],
+              let appState = node[AppStateComponent.self] else { return }
+        if let from = transition.from {
             switch from {
                 case .initialize:
                     break
@@ -41,14 +49,10 @@ final class TransitionAppStateSystem: ListIteratingSystem {
                     break
                 case .infoButtons:
                     creator?.tearDownInfoButtons()
-					appState.shipControlsState = .showingButtons
-					creator?.engine.ship?.remove(componentClass: AccelerometerComponent.self)
+                    appState.shipControlsState = .showingButtons
                 case .infoNoButtons:
                     creator?.tearDownInfoNoButtons()
-					appState.shipControlsState = .hidingButtons
-					creator?.engine.ship?.add(component: AccelerometerComponent())
-
-
+                    appState.shipControlsState = .hidingButtons
             }
         }
         switch transition.to {
@@ -60,9 +64,9 @@ final class TransitionAppStateSystem: ListIteratingSystem {
                 break
             case .playing:
                 if transition.from == .infoNoButtons {
-                     creator?.setUpPlaying(with: .hidingButtons)
+                    creator?.setUpPlaying(with: .hidingButtons)
                 } else if transition.from == .infoButtons {
-                     creator?.setUpPlaying(with: .showingButtons)
+                    creator?.setUpPlaying(with: .showingButtons)
                 }
             case .infoButtons:
                 creator?.setUpButtonsInfoView()

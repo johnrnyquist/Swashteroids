@@ -1,22 +1,16 @@
+//
+// https://github.com/johnrnyquist/Swashteroids
+//
+// Download Swashteroids from the App Store:
+// https://apps.apple.com/us/app/swashteroids/id6472061502
+//
+// Made with Swash, give it a try!
+// https://github.com/johnrnyquist/Swash
+//
+
 import Swash
 
 class TouchableComponent: Component {}
-
-//class TouchDownActionComponent: Component {
-//    var action: () -> ()
-//
-//    init(_ action: @escaping () -> ()) {
-//        self.action = action
-//    }
-//}
-//
-//class TouchUpActionComponent: Component {
-//    var action: () -> ()
-//
-//    init(_ action: @escaping () -> ()) {
-//        self.action = action
-//    }
-//}
 
 class ButtonBehaviorComponent: Component {
     var touchDown: ((SwashteroidsSpriteNode) -> ())?
@@ -24,9 +18,9 @@ class ButtonBehaviorComponent: Component {
     var touchUpOutside: ((SwashteroidsSpriteNode) -> ())?
     var touchMoved: ((SwashteroidsSpriteNode, Bool) -> ())?
 
-    init(touchDown: ((SwashteroidsSpriteNode) -> ())? = nil, 
-         touchUp: ((SwashteroidsSpriteNode) -> ())? = nil, 
-         touchUpOutside: ((SwashteroidsSpriteNode) -> ())? = nil, 
+    init(touchDown: ((SwashteroidsSpriteNode) -> ())? = nil,
+         touchUp: ((SwashteroidsSpriteNode) -> ())? = nil,
+         touchUpOutside: ((SwashteroidsSpriteNode) -> ())? = nil,
          touchMoved: ((SwashteroidsSpriteNode, Bool) -> ())? = nil) {
         self.touchDown = touchDown
         self.touchUp = touchUp

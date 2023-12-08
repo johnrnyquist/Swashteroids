@@ -1,9 +1,18 @@
+//
+// https://github.com/johnrnyquist/Swashteroids
+//
+// Download Swashteroids from the App Store:
+// https://apps.apple.com/us/app/swashteroids/id6472061502
+//
+// Made with Swash, give it a try!
+// https://github.com/johnrnyquist/Swash
+//
+
 import Swash
 
 final class Swashteroids {
     var ship: Entity? { engine.ship }
     var creator: Creator
-    var inputComponent: InputComponent
     private var scene: GameScene
     private var engine: Engine
     private var tickProvider: FrameTickProvider
@@ -11,7 +20,6 @@ final class Swashteroids {
     init(scene: GameScene, inputComponent: InputComponent) {
         print("Swashteroids", #function)
         self.scene = scene
-        self.inputComponent = inputComponent
         engine = Engine()
         let appStateComponent = AppStateComponent()
         let appStateEntity = Entity(name: .appState)
@@ -25,9 +33,6 @@ final class Swashteroids {
         try? engine.addEntity(entity: inputEntity)
         engine
             // preupdate
-            //                .addSystem(system: InputMappingSystem(), priority: .preUpdate)
-            //                .addSystem(system: TouchDownSystem(scene: scene), priority: .preUpdate)
-            //                .addSystem(system: TouchUpSystem(), priority: .preUpdate)
                 .addSystem(system: GameManagerSystem(creator: creator, size: scene.size, scene: scene), priority: .preUpdate)
                 .addSystem(system: TransitionAppStateSystem(creator: creator), priority: .preUpdate)
                 .addSystem(system: ShipControlsSystem(scene: scene), priority: .preUpdate)

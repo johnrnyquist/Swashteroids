@@ -1,3 +1,13 @@
+//
+// https://github.com/johnrnyquist/Swashteroids
+//
+// Download Swashteroids from the App Store:
+// https://apps.apple.com/us/app/swashteroids/id6472061502
+//
+// Made with Swash, give it a try!
+// https://github.com/johnrnyquist/Swash
+//
+
 import Foundation
 import Swash
 import SpriteKit
@@ -76,7 +86,6 @@ final class ThrustSystem: ListIteratingSystem {
         guard let position = node[PositionComponent.self],
               let motion = node[MotionComponent.self],
               let control = node[MotionControlsComponent.self],
-              let warpDrive = node[WarpDriveComponent.self],
               let audio = node[AudioComponent.self]
         else { return }
         let thrustOnce = SKAction.playSoundFileNamed("thrust.wav", waitForCompletion: true)

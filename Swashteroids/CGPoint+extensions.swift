@@ -1,4 +1,14 @@
-import func Foundation.sqrt
+//
+// https://github.com/johnrnyquist/Swashteroids
+//
+// Download Swashteroids from the App Store:
+// https://apps.apple.com/us/app/swashteroids/id6472061502
+//
+// Made with Swash, give it a try!
+// https://github.com/johnrnyquist/Swash
+//
+
+import func Foundation.hypot
 import struct Foundation.CGPoint
 
 extension CGPoint {
@@ -15,8 +25,6 @@ extension CGPoint {
     }
 
     func distance(p: CGPoint) -> Double {
-        let dx = x - p.x
-        let dy = y - p.y
-        return sqrt(dx * dx + dy * dy)
+        hypot(x - p.x, y - p.y)
     }
 }

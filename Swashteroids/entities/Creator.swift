@@ -1,20 +1,27 @@
+//
+// https://github.com/johnrnyquist/Swashteroids
+//
+// Download Swashteroids from the App Store:
+// https://apps.apple.com/us/app/swashteroids/id6472061502
+//
+// Made with Swash, give it a try!
+// https://github.com/johnrnyquist/Swash
+//
+
 import SpriteKit
 import Swash
 
-class TriggerDownComponent: Component {
-    static let instance = TriggerDownComponent()
-}
 
 /// Creator is a bunch of convenience methods that create and configure entities, then adds them to its engine.
 class Creator {
-    var engine: Engine!
-    private weak var appStateEntity: Entity!
-    private weak var inputComponent: InputComponent!
-    private weak var scene: SKScene!
-    private var size: CGSize
+    private let generator = UIImpactFeedbackGenerator(style: .heavy)
+    private var appStateEntity: Entity!
+    private var engine: Engine
+    private var inputComponent: InputComponent
     private var numAsteroids = 0
     private var numTorpedoes = 0
-    private let generator = UIImpactFeedbackGenerator(style: .heavy)
+    private var scene: SKScene
+    private var size: CGSize
 
     init(engine: Engine, appStateEntity: Entity, inputComponent: InputComponent, scene: SKScene, size: CGSize) {
         print("Creator", #function)
@@ -75,9 +82,9 @@ class Creator {
         noButtonsSprite.entity = noButtons
         buttonsSprite.entity = withButtons
         // add entities to engine
-        try? engine?.addEntity(entity: startEntity)
-        try? engine?.addEntity(entity: noButtons)
-        try? engine?.addEntity(entity: withButtons)
+        engine.replaceEntity(entity: startEntity)
+        engine.replaceEntity(entity: noButtons)
+        engine.replaceEntity(entity: withButtons)
     }
 
     func tearDownStart() {
