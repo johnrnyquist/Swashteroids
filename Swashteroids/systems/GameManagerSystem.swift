@@ -54,13 +54,13 @@ final class GameManagerSystem: System {
                 }
                 if clearToAddSpaceship {
 					creator.createShip(appStateComponent.shipControlsState)
-                    creator.createPlasmaTorpedoesPowerUp(level: appStateComponent.level == 0 ? 1 : appStateComponent.level) //HACK
+                    creator.createPlasmaTorpedoesPowerUp(level: appStateComponent.level == 0 ? 1 : appStateComponent.level)
                 }
             } else if appStateComponent.playing {
                 appStateComponent.playing = false
 				creator.removeShipControlButtons()
 				creator.removeToggleButtonsButton()
-                creator.createGameOver()
+                creator.setUpGameOver()
             }
         }
         if asteroids.empty, bullets.empty, !ships.empty {

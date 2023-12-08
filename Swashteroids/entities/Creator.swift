@@ -245,7 +245,6 @@ class Creator {
 
     func createShipControlButtons() {
         print(self, #function)
-        
         // flip
         let flipButton = SwashteroidsSpriteNode(imageNamed: "flip")
         flipButton.alpha = 0.2
@@ -311,7 +310,6 @@ class Creator {
 
     func createToggleButton(_ state: Toggle) {
         print(self, #function)
-        
         let name = state == .on ? "toggleButtonsOn" : "toggleButtonsOff"
         let sprite = SwashteroidsSpriteNode(imageNamed: name)
         sprite.name = name
@@ -340,7 +338,6 @@ class Creator {
 
     func enableShipControls() {
         print(self, #function)
-        
         guard let flip = engine.getEntity(named: .flipButton),
               let hyperspace = engine.getEntity(named: .hyperSpaceButton),
               let left = engine.getEntity(named: .leftButton),
@@ -448,7 +445,6 @@ class Creator {
 
     func setUpPlaying(with state: ShipControlsState) {
         print(self, #function)
-        
         guard let appStateComponent = engine.getEntity(named: .appState)?
                                             .get(componentClassName: AppStateComponent.name) as? AppStateComponent else {
             print("WARNING: appStateComponent not found in engine")
@@ -466,10 +462,8 @@ class Creator {
         }
     }
 
-    @discardableResult
-    func createPlasmaTorpedoesPowerUp(radius: Double = 7, x: Double = 512, y: Double = 484, level: Int) -> Entity {
+    func createPlasmaTorpedoesPowerUp(radius: Double = 7, x: Double = 512, y: Double = 484, level: Int) {
         print(self, #function)
-        
         let r1 = Int.random(in: 75...(level * 130)) * [-1, 1].randomElement()!
         let r2 = Int.random(in: 75...(level * 100)) * level * [-1, 1].randomElement()!
         let centerX = Double(512 + r1)
@@ -492,7 +486,6 @@ class Creator {
                 .add(component: AnimationComponent(animation: sprite))
                 .add(component: MotionComponent(velocityX: 0, velocityY: 0, angularVelocity: 100))
         engine.replaceEntity(entity: entity)
-        return entity
     }
 
     @discardableResult
@@ -500,14 +493,13 @@ class Creator {
         // Here we create a subclass of entity
         let hudView = HudView()
         let hudEntity = HudEntity(name: .hud, view: hudView, gameState: gameState)
-        try! engine.addEntity(entity: hudEntity)
+        engine.replaceEntity(entity: hudEntity)
         return hudEntity
     }
 
     @discardableResult
     func createShip(_ state: ShipControlsState) -> Entity {
         print(self, #function, state)
-        
         let shipSprite = SwashteroidsSpriteNode(texture: createShipTexture())
         let ship = Entity()
         ship.name = "ship"
@@ -530,9 +522,8 @@ class Creator {
                 .add(component: CollisionComponent(radius: 25))
                 .add(component: DisplayComponent(sknode: shipSprite))
                 .add(component: MotionControlsComponent(left: 1, right: 2, accelerate: 4, accelerationRate: 90, rotationRate: 100))
-				.add(component: inputComponent)
-				.add(component: AccelerometerComponent())
-
+                .add(component: inputComponent)
+                .add(component: AccelerometerComponent())
         switch state {
             case .hidingButtons:
                 ship.add(component: AccelerometerComponent())
@@ -546,7 +537,6 @@ class Creator {
     @discardableResult
     func createUserTorpedo(_ gunComponent: GunComponent, _ parentPosition: PositionComponent, _ parentMotion: MotionComponent) -> Entity {
         print(self, #function)
-        
         let cos = cos(parentPosition.rotation * Double.pi / 180)
         let sin = sin(parentPosition.rotation * Double.pi / 180)
         let sprite = SwashteroidsSpriteNode(texture: createBulletTexture(color: .plasmaTorpedo))
@@ -576,23 +566,43 @@ class Creator {
         return entity
     }
 
-    @discardableResult
-    func createGameOver() -> Entity? {
+    func tearDownOver() {
+        // Clear any existing asteroids
+        let asteroids = engine.getNodeList(nodeClassType: AsteroidCollisionNode.self)
+        let gameOverNodes = engine.getNodeList(nodeClassType: GameOverNode.self)
+        let gameOverNode = gameOverNodes.head
+        var asteroid = asteroids.head
+        while asteroid != nil {
+            destroyEntity(asteroid!.entity!)
+            asteroid = asteroid?.next
+        }
+        if let engine, let hud = engine.hud,
+           let gameOverNode, let entity = gameOverNode.entity {
+            engine.removeEntity(entity: entity)
+            engine.removeEntity(entity: hud)
+            if let powerUp = engine.getEntity(named: .plasmaTorpedoesPowerUp) {
+                engine.removeEntity(entity: powerUp)
+            }
+        }
+    }
+
+    func setUpGameOver() {
         print(self, #function)
-        
-        let gameOverView = GameOVerView(size: size)
+        let gameOverView = GameOverView(size: size)
         let gameOverEntity = Entity(name: .gameOver)
                 .add(component: GameOverComponent())
                 .add(component: DisplayComponent(sknode: gameOverView))
                 .add(component: PositionComponent(x: 0, y: 0, z: .top, rotation: 0))
-                .add(component: inputComponent)
-        do {
-            try engine?.addEntity(entity: gameOverEntity)
-        }
-        catch {
-            print(error)
-        }
-        return gameOverEntity
+                .add(component: TouchableComponent())
+                .add(component: appStateEntity.get(componentClassName: AppStateComponent.name) as! AppStateComponent)
+                .add(component: ButtonBehaviorComponent(
+                    touchDown: { [unowned self] sprite in
+                        generator.impactOccurred()
+                        appStateEntity
+                                .add(component: TransitionAppStateComponent(to: .start, from: .over))
+                    }))
+        gameOverView.entity = gameOverEntity
+        engine.replaceEntity(entity: gameOverEntity)
     }
 
     func removeToggleButtonsButton() {
@@ -604,7 +614,6 @@ class Creator {
     @discardableResult
     func createAsteroid(radius: Double, x: Double, y: Double, color: UIColor = .asteroid) -> Entity {
         print(self, #function)
-        
         let sprite = SwashteroidsSpriteNode(texture: createAsteroidTexture(radius: radius, color: color))
         let entity = Entity()
         numAsteroids += 1
@@ -634,7 +643,6 @@ class Creator {
 
     func destroyEntity(_ entity: Entity) {
         print(self, #function)
-        
         engine.removeEntity(entity: entity)
     }
 }

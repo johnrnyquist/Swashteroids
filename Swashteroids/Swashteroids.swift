@@ -31,7 +31,7 @@ final class Swashteroids {
                 .addSystem(system: GameManagerSystem(creator: creator, size: scene.size, scene: scene), priority: .preUpdate)
                 .addSystem(system: TransitionAppStateSystem(creator: creator), priority: .preUpdate)
                 .addSystem(system: ShipControlsSystem(scene: scene), priority: .preUpdate)
-                .addSystem(system: GameOverSystem(creator), priority: .preUpdate)
+                .addSystem(system: GameOverSystem(), priority: .preUpdate)
                 // move
                 .addSystem(system: AccelerometerSystem(), priority: .move)
                 .addSystem(system: FlipSystem(), priority: .move)

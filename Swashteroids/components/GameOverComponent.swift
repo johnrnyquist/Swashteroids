@@ -1,4 +1,3 @@
 import Swash
 
-final class GameOverComponent: Component {
-}
+final class GameOverComponent: Component {}

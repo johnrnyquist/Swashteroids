@@ -35,6 +35,7 @@ final class TransitionAppStateSystem: ListIteratingSystem {
                 case .start:
                     creator?.tearDownStart()
                 case .over:
+                    creator?.tearDownOver()
                     break
                 case .playing:
                     break
@@ -42,8 +43,6 @@ final class TransitionAppStateSystem: ListIteratingSystem {
                     creator?.tearDownInfoButtons()
 					appState.shipControlsState = .showingButtons
 					creator?.engine.ship?.remove(componentClass: AccelerometerComponent.self)
-
-
                 case .infoNoButtons:
                     creator?.tearDownInfoNoButtons()
 					appState.shipControlsState = .hidingButtons
