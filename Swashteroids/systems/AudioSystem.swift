@@ -25,15 +25,12 @@ final class AudioSystem: ListIteratingSystem {
         else { return }
         for (soundKey, soundAction) in audioComponent.playlist {
             if scene.action(forKey: soundKey) != nil {
-                print("Already playing \(soundKey)")
                 continue
             }
-            print("Playing \(soundKey)")
             scene.run(soundAction, withKey: soundKey)
         }
         audioComponent.playlist.removeAll()
         for soundKey in audioComponent.keysToRemove {
-            print("Removing \(soundKey)")
             scene.removeAction(forKey: soundKey)
         }
     }

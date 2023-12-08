@@ -112,7 +112,6 @@
 		8D9DEF682B059F2800064B01 /* HyperSpaceSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9DEF672B059F2800064B01 /* HyperSpaceSystem.swift */; };
 		8DA97A962B23581100E7495A /* Int+SystemPriorities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA97A952B23581100E7495A /* Int+SystemPriorities.swift */; };
 		8DB409EC2B1D3C6F008DE4EB /* TransitionAppStateComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB409EB2B1D3C6F008DE4EB /* TransitionAppStateComponent.swift */; };
-		8DC2359A2B1D0276003EEC80 /* InputMappingSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC235992B1D0276003EEC80 /* InputMappingSystem.swift */; };
 		8DD26DC92B22D7E300DA5BC3 /* AccelerometerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD26DC82B22D7E300DA5BC3 /* AccelerometerNode.swift */; };
 		8DD26DCB2B22D80600DA5BC3 /* AccelerometerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD26DCA2B22D80600DA5BC3 /* AccelerometerComponent.swift */; };
 		93139265D59A74E99D27A0CF /* Creator+SetUpGameOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931393BFA7122C52736144FB /* Creator+SetUpGameOver.swift */; };
@@ -257,7 +256,6 @@
 		8D9DEF672B059F2800064B01 /* HyperSpaceSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyperSpaceSystem.swift; sourceTree = "<group>"; };
 		8DA97A952B23581100E7495A /* Int+SystemPriorities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+SystemPriorities.swift"; sourceTree = "<group>"; };
 		8DB409EB2B1D3C6F008DE4EB /* TransitionAppStateComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionAppStateComponent.swift; sourceTree = "<group>"; };
-		8DC235992B1D0276003EEC80 /* InputMappingSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputMappingSystem.swift; sourceTree = "<group>"; };
 		8DD26DC82B22D7E300DA5BC3 /* AccelerometerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccelerometerNode.swift; sourceTree = "<group>"; };
 		8DD26DCA2B22D80600DA5BC3 /* AccelerometerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccelerometerComponent.swift; sourceTree = "<group>"; };
 		931390CE0425A854FD0B8DE1 /* HudEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudEntity.swift; sourceTree = "<group>"; };
@@ -525,7 +523,6 @@
 				9313941564944F14B4041467 /* GameOverSystem.swift */,
 				8D23C1842B02C59C00F7D878 /* HudSystem.swift */,
 				8D9DEF672B059F2800064B01 /* HyperSpaceSystem.swift */,
-				8DC235992B1D0276003EEC80 /* InputMappingSystem.swift */,
 				8D23C1812B02C59C00F7D878 /* MotionControlsSystems.swift */,
 				8D23C1872B02C59C00F7D878 /* MovementSystem.swift */,
 				8D41E2162B1E66EE0031AF54 /* ShipControlsSystem.swift */,
@@ -731,7 +728,6 @@
 				8D9DEF642B059E3800064B01 /* HyperSpaceJumpComponent.swift in Sources */,
 				8D9DEF662B059EC400064B01 /* HyperSpaceNode.swift in Sources */,
 				8D23C1C12B02C59D00F7D878 /* StartComponent.swift in Sources */,
-				8DC2359A2B1D0276003EEC80 /* InputMappingSystem.swift in Sources */,
 				8D23C1362B02C4CA00F7D878 /* AppDelegate.swift in Sources */,
 				8D23C1E22B02C59D00F7D878 /* TorpedosView.swift in Sources */,
 				8D23C1DF2B02C59D00F7D878 /* Create_Texture.swift in Sources */,

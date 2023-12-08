@@ -21,7 +21,7 @@ final class GameManagerSystem: System {
     private weak var creator: Creator!
     private weak var asteroids: NodeList!
     private weak var bullets: NodeList!
-    private weak var gameNodes: NodeList!
+    private weak var appStates: NodeList!
     private weak var ships: NodeList!
     private weak var scene: SKScene!
 
@@ -32,15 +32,15 @@ final class GameManagerSystem: System {
     }
 
     override public func addToEngine(engine: Engine) {
-        gameNodes = engine.getNodeList(nodeClassType: AppStateNode.self)
+        appStates = engine.getNodeList(nodeClassType: AppStateNode.self)
         ships = engine.getNodeList(nodeClassType: ShipNode.self)
         asteroids = engine.getNodeList(nodeClassType: AsteroidCollisionNode.self)
         bullets = engine.getNodeList(nodeClassType: PlasmaTorpedoCollisionNode.self)
     }
 
     override public func update(time: TimeInterval) {
-        guard let gameNode = gameNodes.head,
-              let appStateComponent = gameNode[AppStateComponent.self] else {
+        guard let appStateNode = appStates.head,
+              let appStateComponent = appStateNode[AppStateComponent.self] else {
             return
         }
         if ships.empty,
@@ -79,22 +79,9 @@ final class GameManagerSystem: System {
                 let spaceShipPosition = shipNode[PositionComponent.self]
             else { return }
             appStateComponent.level += 1
-            scene.run(SKAction.playSoundFileNamed("braam-6150.wav", waitForCompletion: false))
-            let levelText = SKLabelNode(text: "Level \(appStateComponent.level)")
-            scene.addChild(levelText)
-            levelText.horizontalAlignmentMode = .center
-            levelText.fontName = "Futura Condensed Medium"
-            levelText.fontColor = .hudText
-            levelText.fontSize = 64
-            levelText.position = CGPoint(x: size.width / 2, y: size.height / 2 * 1.2)
-            let zoomInAction = SKAction.scale(to: 2.0, duration: 0.5)
-            zoomInAction.timingMode = .easeIn
-            let waitAction = SKAction.wait(forDuration: 1.0)
-            let fade = SKAction.fadeOut(withDuration: 0.25)
-            let sequence = SKAction.sequence([zoomInAction, waitAction, fade])
-            levelText.run(sequence) {
-                levelText.removeFromParent()
-            }
+            //TODO: This level text and animation should be elsewhere.
+            announceLevel(appStateComponent: appStateComponent)
+            //
             let asteroidCount = 0 + appStateComponent.level
             for _ in 0..<asteroidCount {
                 // check not on top of ship
@@ -121,9 +108,28 @@ final class GameManagerSystem: System {
         }
     }
 
+    private func announceLevel(appStateComponent: AppStateComponent) {
+        scene.run(SKAction.playSoundFileNamed("braam-6150.wav", waitForCompletion: false))
+        let levelText = SKLabelNode(text: "Level \(appStateComponent.level)")
+        scene.addChild(levelText)
+        levelText.horizontalAlignmentMode = .center
+        levelText.fontName = "Futura Condensed Medium"
+        levelText.fontColor = .hudText
+        levelText.fontSize = 64
+        levelText.position = CGPoint(x: size.width / 2, y: size.height / 2 * 1.2)
+        let zoomInAction = SKAction.scale(to: 2.0, duration: 0.5)
+        zoomInAction.timingMode = .easeIn
+        let waitAction = SKAction.wait(forDuration: 1.0)
+        let fade = SKAction.fadeOut(withDuration: 0.25)
+        let sequence = SKAction.sequence([zoomInAction, waitAction, fade])
+        levelText.run(sequence) {
+            levelText.removeFromParent()
+        }
+    }
+
     override public func removeFromEngine(engine: Engine) {
         creator = nil
-        gameNodes = nil
+        appStates = nil
         ships = nil
         asteroids = nil
         bullets = nil

@@ -35,7 +35,6 @@ extension Creator {
                     }))
         viewSprite.entity = viewEntity
         engine.replaceEntity(entity: viewEntity)
-        createToggleButton(.off)
     }
 
 
@@ -62,6 +61,5 @@ extension Creator {
                 }))
         viewSprite.entity = viewEntity
         engine.replaceEntity(entity: viewEntity)
-        createToggleButton(.on)
     }
 }

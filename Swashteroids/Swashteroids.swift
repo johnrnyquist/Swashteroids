@@ -55,9 +55,9 @@ final class Swashteroids {
                 .addSystem(system: HyperSpaceSystem(scene: scene), priority: .update)
                 .addSystem(system: NacelleSystem(), priority: .update)
                 // render
-                .addSystem(system: RenderSystem(container: scene), priority: .render)
                 .addSystem(system: AudioSystem(scene: scene), priority: .render)
                 .addSystem(system: RepeatingAudioSystem(scene: scene), priority: .render)
+                .addSystem(system: RenderSystem(container: scene), priority: .render)
     }
 
     func start() {
