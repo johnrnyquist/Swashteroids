@@ -164,7 +164,11 @@ class Creator {
                 .add(component: PositionComponent(x: q1Sprite.x, y: q1Sprite.y, z: .bottom, rotation: 0))
                 .add(component: TouchableComponent())
                 .add(component: ButtonBehaviorComponent(
-                    touchDown: { sprite in sprite.alpha = 0.6; self.engine.ship?.add(component: FlipComponent.instance) },
+                    touchDown: { [unowned self] sprite in
+                        generator.impactOccurred()
+                        sprite.alpha = 0.6
+                        self.engine.ship?.add(component: FlipComponent.instance)
+                    },
                     touchUp: { sprite in sprite.alpha = 0.2 },
                     touchUpOutside: { sprite in sprite.alpha = 0.2 },
                     touchMoved: { sprite, over in
@@ -177,7 +181,11 @@ class Creator {
                 .add(component: PositionComponent(x: q2Sprite.x, y: q2Sprite.y, z: .bottom, rotation: 0))
                 .add(component: TouchableComponent())
                 .add(component: ButtonBehaviorComponent(
-                    touchDown: { sprite in sprite.alpha = 0.6; self.engine.ship?.add(component: HyperSpaceJumpComponent()) },
+                    touchDown: { [unowned self] sprite in
+                        generator.impactOccurred()
+                        sprite.alpha = 0.6
+                        self.engine.ship?.add(component: HyperSpaceJumpComponent())
+                    },
                     touchUp: { sprite in sprite.alpha = 0.2 },
                     touchUpOutside: { sprite in sprite.alpha = 0.2 },
                     touchMoved: { sprite, over in
@@ -190,7 +198,8 @@ class Creator {
                 .add(component: PositionComponent(x: q3Sprite.x, y: q3Sprite.y, z: .bottom, rotation: 0))
                 .add(component: TouchableComponent())
                 .add(component: ButtonBehaviorComponent(
-                    touchDown: { sprite in
+                    touchDown: { [unowned self] sprite in
+                        generator.impactOccurred()
                         sprite.alpha = 0.6
                         self.engine.ship?.add(component: ThrustComponent.instance)
                         (self.engine.ship?.get(componentClassName: WarpDriveComponent.name) as? WarpDriveComponent)?.isThrusting = true //HACK
@@ -223,7 +232,11 @@ class Creator {
                 .add(component: PositionComponent(x: q4Sprite.x, y: q4Sprite.y, z: .bottom, rotation: 0))
                 .add(component: TouchableComponent())
                 .add(component: ButtonBehaviorComponent(
-                    touchDown: { sprite in sprite.alpha = 0.6; self.engine.ship?.add(component: TriggerDownComponent.instance) },
+                    touchDown: { [unowned self] sprite in
+                        generator.impactOccurred()
+                        sprite.alpha = 0.6
+                        self.engine.ship?.add(component: TriggerDownComponent.instance)
+                    },
                     touchUp: { sprite in sprite.alpha = 0.2; self.engine.ship?.remove(componentClass: TriggerDownComponent.self) },
                     touchUpOutside: { sprite in sprite.alpha = 0.2; self.engine.ship?.remove(componentClass: TriggerDownComponent.self) },
                     touchMoved: { sprite, over in
