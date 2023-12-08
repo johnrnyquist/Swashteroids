@@ -15,15 +15,6 @@
 import Foundation
 import Swash
 
-enum AppState {
-    case initialize
-    case start
-    case over
-    case playing
-    case infoButtons
-    case infoNoButtons
-}
-
 final class TransitionAppStateSystem: ListIteratingSystem {
     weak var creator: Creator?
 
@@ -42,8 +33,8 @@ final class TransitionAppStateSystem: ListIteratingSystem {
                     break
                 case .start:
                     creator?.tearDownStart()
-                case .over:
-                    creator?.tearDownOver()
+                case .gameOver:
+                    creator?.tearDownGameOver()
                     break
                 case .playing:
                     break
@@ -60,7 +51,7 @@ final class TransitionAppStateSystem: ListIteratingSystem {
                 creator?.setUpStart()
             case .start:
                 creator?.setUpStart()
-            case .over:
+            case .gameOver:
                 break
             case .playing:
                 if transition.from == .infoNoButtons {

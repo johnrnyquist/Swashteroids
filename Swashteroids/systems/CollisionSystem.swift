@@ -77,8 +77,7 @@ final class CollisionSystem: System {
                 creator.destroyEntity(gunSupplierNode!.entity!)
                 gunSupplierNode = gunSupplierNode?.next
                 shipCollisionNode?.entity?
-                                  .add(component: GunComponent(offsetX: 21,
-                                                               offsetY: 0,
+                                  .add(component: GunComponent(offsetX: 21, offsetY: 0,
                                                                minimumShotInterval: 0.25,
                                                                torpedoLifetime: 2))
             }
@@ -100,7 +99,7 @@ final class CollisionSystem: System {
                 else { asteroidNode = asteroidNode?.next; continue } // or return? }
                 if (distance(asteroidPosition.position, bulletPosition.position) <= asteroidCollision.radius) {
                     let bang = SKAction.playSoundFileNamed("bangLarge.wav", waitForCompletion: false)
-                    audio.addSoundAction(bang, withKey: "asteroid")
+                    audio.addSoundAction(bang, withKey: asteroidNode!.entity!.name)
                     creator.destroyEntity(bulletNode!.entity!)
                     splitAsteroid(asteroidCollision: asteroidCollision,
                                   asteroidPosition: asteroidPosition,

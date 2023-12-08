@@ -11,25 +11,46 @@
 import SpriteKit
 import Swash
 
-
 final class AudioComponent: Component {
-    var toPlay: [String: SKAction] = [:]
-    var toRemove: [String] = []
+    var playlist: [String: SKAction] = [:]
+    var keysToRemove: [String] = []
 
     override init() {
         super.init()
     }
 
-    convenience init(_ play: String) {
+    convenience init(_ play: SKAction, withKey key: String) {
+        print("AudioComponent.init(\(key)")
         self.init()
-        addSoundAction(SKAction.playSoundFileNamed(play, waitForCompletion: true), withKey: play)
+        addSoundAction(play, withKey: key)
     }
 
-    func addSoundAction(_ action: SKAction, withKey: String) {
-        toPlay[withKey] = action
+    convenience init(fileNamed name: String, withKey key: String) {
+        print("AudioComponent.init(\(name)")
+        self.init()
+        addSoundAction(SKAction.playSoundFileNamed(name, waitForCompletion: true), withKey: key)
     }
 
-    func removeSoundAction(_ action: String) {
-        toRemove.append(action)
+    func addSoundAction(_ action: SKAction, withKey key: String) {
+        print("AudioComponent.addSoundAction(\(key))")
+        playlist[key] = action
+    }
+
+    func removeSoundAction(_ key: String) {
+        print("AudioComponent.removeSoundAction(\(key))")
+        keysToRemove.append(key)
+    }
+}
+
+
+final class RepeatingAudioComponent: Component {
+    var sound: SKAction
+    var key: String
+    var state: RepeatingSoundState = .notPlaying
+
+    init(_ play: SKAction, withKey key: String) {
+        self.sound = play
+        self.key = key
+        super.init()
     }
 }

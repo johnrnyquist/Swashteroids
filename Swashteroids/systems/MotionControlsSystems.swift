@@ -85,16 +85,11 @@ final class ThrustSystem: ListIteratingSystem {
     private func updateNode(node: Node, time: TimeInterval) {
         guard let position = node[PositionComponent.self],
               let motion = node[MotionComponent.self],
-              let control = node[MotionControlsComponent.self],
-              let audio = node[AudioComponent.self]
+              let control = node[MotionControlsComponent.self]
         else { return }
-        let thrustOnce = SKAction.playSoundFileNamed("thrust.wav", waitForCompletion: true)
-        let thrust = SKAction.repeatForever(thrustOnce)
-        audio.addSoundAction(thrust, withKey: "thrust")
         let rot = position.rotation * Double.pi / 180.0
         motion.velocity.x += cos(rot) * control.accelerationRate * time
         motion.velocity.y += sin(rot) * control.accelerationRate * time
-//        audio.removeSoundAction("thrust")
     }
 }
 

@@ -48,6 +48,6 @@ class RightComponent: Component {
     let amount = -0.35
 }
 
-class ThrustComponent: Component {
-    static let instance = ThrustComponent()
+class ApplyThrustComponent: Component {
+    static let instance = ApplyThrustComponent()
 }

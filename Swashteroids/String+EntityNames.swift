@@ -10,29 +10,6 @@
 
 import Swash
 
-let LARGE_ASTEROID_RADIUS = 54.0
-
-enum ShipControlsState {
-    case showingButtons
-    case hidingButtons
-}
-
-enum Toggle {
-    case on
-    case off
-}
-
-// zPosition for layers
-enum Layers: Double {
-    case bottom
-    case asteroids
-    case bullets
-    case ship
-    case hud
-    case buttons
-    case top
-}
-
 // Entity Names
 extension String {
     // Ship controls
@@ -62,15 +39,3 @@ extension String {
     static let toggleButton: EntityName = "toggleButtonEntity"
     static let ship: EntityName = "ship"
 }
-
-// System Priorities
-extension Int {
-    static let preUpdate = 1
-    static let update = 2
-    static let move = 3
-    static let resolveCollisions = 4
-    static let stateMachines = 5
-    static let animate = 6
-    static let render = 7
-}
-

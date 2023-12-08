@@ -18,7 +18,6 @@ final class Swashteroids {
     private var tickProvider: FrameTickProvider
 
     init(scene: GameScene, inputComponent: InputComponent) {
-        print("Swashteroids", #function)
         self.scene = scene
         engine = Engine()
         let appStateComponent = AppStateComponent()
@@ -54,14 +53,14 @@ final class Swashteroids {
                 .addSystem(system: DeathThroesSystem(creator: creator), priority: .update)
                 .addSystem(system: FiringSystem(creator: creator), priority: .update)
                 .addSystem(system: HyperSpaceSystem(scene: scene), priority: .update)
-                .addSystem(system: ShipEngineSystem(), priority: .update)
+                .addSystem(system: NacelleSystem(), priority: .update)
                 // render
                 .addSystem(system: RenderSystem(container: scene), priority: .render)
                 .addSystem(system: AudioSystem(scene: scene), priority: .render)
+                .addSystem(system: RepeatingAudioSystem(scene: scene), priority: .render)
     }
 
     func start() {
-        print(self, #function)
         tickProvider.add(Listener(engine.update)) // Then engine listens for ticks
         tickProvider.start()
     }
@@ -78,7 +77,7 @@ extension Swashteroids {
     }
 
     func enableShipControlButtons() {
-        creator.enableShipControls()
+        creator.enableShipControlButtons()
     }
 
     func createShipControlButtons() {

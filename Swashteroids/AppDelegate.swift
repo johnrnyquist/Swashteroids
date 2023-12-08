@@ -23,7 +23,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let hyperspace = SKAction.playSoundFileNamed("hyperspace.wav", waitForCompletion: false)
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        print(self, #function)
         return true
     }
 

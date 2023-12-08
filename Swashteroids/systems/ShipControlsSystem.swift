@@ -40,7 +40,7 @@ final class ShipControlsSystem: ListIteratingSystem {
                 scene.motionManager = nil
                 scene.game.createShipControlButtons()
                 scene.game.enableShipControlButtons()
-                scene.game.creator.removeToggleButtonsButton()
+                scene.game.creator.removeToggleButton()
                 scene.game.creator.createToggleButton(.on)
             case .hidingButtons:
                 scene.game.ship?.add(component: AccelerometerComponent())   
@@ -48,7 +48,7 @@ final class ShipControlsSystem: ListIteratingSystem {
                 scene.motionManager = CMMotionManager()
                 scene.motionManager?.startAccelerometerUpdates()
                 scene.game.removeShipControlButtons()
-                scene.game.creator.removeToggleButtonsButton()
+                scene.game.creator.removeToggleButton()
                 scene.game.creator.createToggleButton(.off)
         }
     }

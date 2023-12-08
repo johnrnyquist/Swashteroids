@@ -11,7 +11,6 @@
 import SpriteKit
 import Swash
 
-
 final class AudioSystem: ListIteratingSystem {
     private weak var scene: SKScene!
 
@@ -21,20 +20,58 @@ final class AudioSystem: ListIteratingSystem {
         nodeUpdateFunction = updateNode
     }
 
-	func updateNode(node: Node, time: TimeInterval) {
+    func updateNode(node: Node, time: TimeInterval) {
         guard let audioComponent = node[AudioComponent.self]
         else { return }
-        for (key, soundAction) in audioComponent.toPlay {
-            scene.run(soundAction, withKey: key)
+        for (soundKey, soundAction) in audioComponent.playlist {
+            if scene.action(forKey: soundKey) != nil {
+                print("Already playing \(soundKey)")
+                continue
+            }
+            print("Playing \(soundKey)")
+            scene.run(soundAction, withKey: soundKey)
         }
-        audioComponent.toPlay.removeAll()
-        for soundAction in audioComponent.toRemove {
-            scene.removeAction(forKey: soundAction)
+        audioComponent.playlist.removeAll()
+        for soundKey in audioComponent.keysToRemove {
+            print("Removing \(soundKey)")
+            scene.removeAction(forKey: soundKey)
         }
-        audioComponent.toRemove.removeAll()
     }
-    
-	override public func removeFromEngine(engine: Engine) {
+
+    override public func removeFromEngine(engine: Engine) {
+        scene = nil
+    }
+}
+
+final class RepeatingAudioSystem: ListIteratingSystem {
+    private weak var scene: SKScene!
+
+    init(scene: SKScene) {
+        self.scene = scene
+        super.init(nodeClass: RepeatingAudioNode.self)
+        nodeUpdateFunction = updateNode
+    }
+
+    func updateNode(node: Node, time: TimeInterval) {
+        guard let audio = node[RepeatingAudioComponent.self]
+        else { return }
+        switch audio.state {
+            case .shouldBegin:
+                if scene.action(forKey: audio.key) != nil {
+                    audio.state = .playing
+                } else {
+                    let repeatForever = SKAction.repeatForever(audio.sound)
+                    scene.run(repeatForever, withKey: audio.key)
+                    audio.state = .playing
+                }
+            case .shouldStop:
+                scene.removeAction(forKey: audio.key)
+            case .notPlaying, .playing:
+                break
+        }
+    }
+
+    override public func removeFromEngine(engine: Engine) {
         scene = nil
     }
 }

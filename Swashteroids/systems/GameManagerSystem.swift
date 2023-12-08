@@ -12,7 +12,6 @@ import Foundation
 import SpriteKit
 import Swash
 
-
 /// Detects if there are no ships, if game is playing, if there are no asteroids, no bullets.
 /// Determines when to go to next level.
 /// Creates the level.
@@ -24,18 +23,15 @@ final class GameManagerSystem: System {
     private weak var bullets: NodeList!
     private weak var gameNodes: NodeList!
     private weak var ships: NodeList!
-	private weak var scene: SKScene!
+    private weak var scene: SKScene!
 
-	
-	init(creator: Creator, size: CGSize, scene: SKScene) {
-        print("GameManagerSystem", #function)
+    init(creator: Creator, size: CGSize, scene: SKScene) {
         self.creator = creator
         self.size = size
-		self.scene = scene
+        self.scene = scene
     }
 
     override public func addToEngine(engine: Engine) {
-        print(self, #function)
         gameNodes = engine.getNodeList(nodeClassType: AppStateNode.self)
         ships = engine.getNodeList(nodeClassType: ShipNode.self)
         asteroids = engine.getNodeList(nodeClassType: AsteroidCollisionNode.self)
@@ -47,7 +43,8 @@ final class GameManagerSystem: System {
               let appStateComponent = gameNode[AppStateComponent.self] else {
             return
         }
-        if ships.empty, appStateComponent.playing {
+        if ships.empty,
+           appStateComponent.playing {
             if appStateComponent.ships > 0 {
                 let newSpaceshipPosition = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
                 var clearToAddSpaceship = true
@@ -63,44 +60,42 @@ final class GameManagerSystem: System {
                     asteroid = asteroid?.next
                 }
                 if clearToAddSpaceship {
-					creator.createShip(appStateComponent.shipControlsState)
+                    creator.createShip(appStateComponent.shipControlsState)
                     creator.createPlasmaTorpedoesPowerUp(level: appStateComponent.level == 0 ? 1 : appStateComponent.level)
                 }
             } else if appStateComponent.playing {
                 appStateComponent.playing = false
-				creator.removeShipControlButtons()
-				creator.removeToggleButtonsButton()
+                creator.removeShipControlButtons()
+                creator.removeToggleButton()
                 creator.setUpGameOver()
             }
         }
-        if asteroids.empty, bullets.empty, !ships.empty {
+        if asteroids.empty,
+           bullets.empty,
+           !ships.empty {
             // next level
             guard
                 let shipNode = ships.head,
-                let spaceShipPosition = shipNode[PositionComponent.self] 
+                let spaceShipPosition = shipNode[PositionComponent.self]
             else { return }
             appStateComponent.level += 1
-			scene.run(SKAction.playSoundFileNamed("braam-6150.wav", waitForCompletion: false))
-
-
-			let levelText = SKLabelNode(text: "Level \(appStateComponent.level)")
-			scene.addChild(levelText)
-			levelText.horizontalAlignmentMode = .center
-			levelText.fontName = "Futura Condensed Medium"
-			levelText.fontColor = .hudText
-			levelText.fontSize = 64
-			levelText.position = CGPoint(x: size.width/2, y: size.height/2 * 1.2)
-			let zoomInAction = SKAction.scale(to: 2.0, duration: 0.5)
-			zoomInAction.timingMode = .easeIn
-			let waitAction = SKAction.wait(forDuration: 1.0)
-			let fade = SKAction.fadeOut(withDuration: 0.25)
-			let sequence = SKAction.sequence([zoomInAction, waitAction, fade])
-			levelText.run(sequence) {
-				levelText.removeFromParent()
-			}
-
+            scene.run(SKAction.playSoundFileNamed("braam-6150.wav", waitForCompletion: false))
+            let levelText = SKLabelNode(text: "Level \(appStateComponent.level)")
+            scene.addChild(levelText)
+            levelText.horizontalAlignmentMode = .center
+            levelText.fontName = "Futura Condensed Medium"
+            levelText.fontColor = .hudText
+            levelText.fontSize = 64
+            levelText.position = CGPoint(x: size.width / 2, y: size.height / 2 * 1.2)
+            let zoomInAction = SKAction.scale(to: 2.0, duration: 0.5)
+            zoomInAction.timingMode = .easeIn
+            let waitAction = SKAction.wait(forDuration: 1.0)
+            let fade = SKAction.fadeOut(withDuration: 0.25)
+            let sequence = SKAction.sequence([zoomInAction, waitAction, fade])
+            levelText.run(sequence) {
+                levelText.removeFromParent()
+            }
             let asteroidCount = 0 + appStateComponent.level
-			
             for _ in 0..<asteroidCount {
                 // check not on top of ship
                 var position: CGPoint
@@ -127,12 +122,10 @@ final class GameManagerSystem: System {
     }
 
     override public func removeFromEngine(engine: Engine) {
-		creator = nil
+        creator = nil
         gameNodes = nil
         ships = nil
         asteroids = nil
         bullets = nil
     }
 }
-
-

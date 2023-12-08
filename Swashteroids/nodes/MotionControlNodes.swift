@@ -47,11 +47,11 @@ final class ThrustNode: Node {
         super.init()
         components = [
             PositionComponent.name: nil_component,
-            ThrustComponent.name: nil_component,
+            ApplyThrustComponent.name: nil_component,
             MotionComponent.name: nil_component,
             MotionControlsComponent.name: nil_component,
             WarpDriveComponent.name: nil_component,
-            AudioComponent.name: nil_component,
+            InputComponent.name: nil_component,
         ]
     }
 }

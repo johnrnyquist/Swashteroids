@@ -10,11 +10,9 @@
 
 import UIKit
 import SpriteKit
-//import CoreMotion
 
 final class GameViewController: UIViewController {
     override func viewDidLoad() {
-        print(self, #function)
         super.viewDidLoad()
         let skview = createView()
         view = skview

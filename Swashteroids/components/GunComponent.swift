@@ -13,11 +13,9 @@ import Swash
 
 // GunComponent
 final class GunComponent: Component {
-//    var shooting = false
-    var offsetFromParent: CGPoint
-    var timeSinceLastShot: TimeInterval = 0
-    var minimumShotInterval: TimeInterval = 0
-    var torpedoLifetime: TimeInterval = 0
+    var offsetFromParent =  CGPoint(x: 21, y: 0)
+    var minimumShotInterval: TimeInterval = 0.25
+    var torpedoLifetime: TimeInterval = 2
 
     init(offsetX: Double, offsetY: Double, minimumShotInterval: TimeInterval, torpedoLifetime: TimeInterval) {
         offsetFromParent = CGPoint(x: offsetX, y: offsetY)

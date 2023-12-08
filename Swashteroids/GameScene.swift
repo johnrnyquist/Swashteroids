@@ -19,7 +19,6 @@ final class GameScene: SKScene {
     var inputComponent: InputComponent!
 	
     override func didMove(to view: SKView) {
-        print(self, #function)
         super.didMove(to: view)
         backgroundColor = .background
         NotificationCenter.default.addObserver(self,
@@ -97,7 +96,6 @@ final class GameScene: SKScene {
     }
 
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print(self, #function)
         for touch in touches {
             let location = touch.location(in: self)
             inputComponent.handleTouchUps(nodes: nodes(at: location), touch: touch, location: location)
