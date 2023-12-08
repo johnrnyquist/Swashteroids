@@ -127,7 +127,8 @@ final class CollisionSystem: System {
                     let shipPosition = shipCollisionNode?[PositionComponent.self],
                     let asteroidCollision = asteroidCollisionNode?[CollisionComponent.self],
                     let shipCollision = shipCollisionNode?[CollisionComponent.self],
-                    let audio = shipCollisionNode?[AudioComponent.self]
+                    let audio = shipCollisionNode?[AudioComponent.self],
+                    let asteroidName = asteroidCollisionNode?.entity?.name
                 else { asteroidCollisionNode = asteroidCollisionNode?.next; continue }
                 let distanceToShip = distance(asteroidPosition.position, shipPosition.position)
                 if (distanceToShip <= asteroidCollision.radius + shipCollision.radius) {
@@ -144,7 +145,7 @@ final class CollisionSystem: System {
                         let fade = SKAction.fadeOut(withDuration: 3.0) //HACK it feels like this should be done differently
                         let emitter = SKEmitterNode(fileNamed: "shipExplosion.sks")!
                         let bang = SKAction.playSoundFileNamed("bangLarge.wav", waitForCompletion: false)
-                        audio.addSoundAction(bang, withKey: "asteroid")
+                        audio.addSoundAction(bang, withKey: asteroidName)
                         audio.removeSoundAction("thrust")
                         spriteNode.addChild(emitter)
                         spriteNode.run(fade)

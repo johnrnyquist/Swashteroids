@@ -20,24 +20,20 @@ final class AudioComponent: Component {
     }
 
     convenience init(_ play: SKAction, withKey key: String) {
-        print("AudioComponent.init(\(key)")
         self.init()
         addSoundAction(play, withKey: key)
     }
 
     convenience init(fileNamed name: String, withKey key: String) {
-        print("AudioComponent.init(\(name)")
         self.init()
         addSoundAction(SKAction.playSoundFileNamed(name, waitForCompletion: true), withKey: key)
     }
 
     func addSoundAction(_ action: SKAction, withKey key: String) {
-        print("AudioComponent.addSoundAction(\(key))")
         playlist[key] = action
     }
 
     func removeSoundAction(_ key: String) {
-        print("AudioComponent.removeSoundAction(\(key))")
         keysToRemove.append(key)
     }
 }
@@ -48,8 +44,8 @@ final class RepeatingAudioComponent: Component {
     var key: String
     var state: RepeatingSoundState = .notPlaying
 
-    init(_ play: SKAction, withKey key: String) {
-        self.sound = play
+    init(_ sound: SKAction, withKey key: String) {
+        self.sound = sound
         self.key = key
         super.init()
     }

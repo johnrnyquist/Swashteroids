@@ -66,41 +66,40 @@ extension Creator {
                 .add(component: PositionComponent(x: q3Sprite.x, y: q3Sprite.y, z: .bottom, rotation: 0))
                 .add(component: TouchableComponent())
                 .add(component: ButtonBehaviorComponent(
-                    touchDown: { [unowned self] sprite in
-                        generator.impactOccurred()
-                        sprite.alpha = 0.6
-                        self.engine.ship?.add(component: ApplyThrustComponent.instance)
-                        (self.engine
-                             .ship?
-                             .get(componentClassName: WarpDriveComponent.name) as? WarpDriveComponent)?.isThrusting = true //HACK
+                    touchDown: { sprite in
+                        if let ship = self.engine.ship {
+                            ship.add(component: ApplyThrustComponent.instance)
+                            (ship.get(componentClassName: WarpDriveComponent.name) as? WarpDriveComponent)?.isThrusting = true //HACK
+                            (ship.get(componentClassName: RepeatingAudioComponent.name) as? RepeatingAudioComponent)?.state = .shouldBegin //HACK
+                        }
                     },
                     touchUp: { sprite in
-                        sprite.alpha = 0.2
-                        self.engine.ship?.remove(componentClass: ApplyThrustComponent.self)
-                        (self.engine
-                             .ship?
-                             .get(componentClassName: WarpDriveComponent.name) as? WarpDriveComponent)?.isThrusting = false //HACK
+                        if let ship = self.engine.ship {
+                            ship.remove(componentClass: ApplyThrustComponent.self)
+                            (ship.get(componentClassName: WarpDriveComponent.name) as? WarpDriveComponent)?.isThrusting = false //HACK
+                            (ship.get(componentClassName: RepeatingAudioComponent.name) as? RepeatingAudioComponent)?.state = .shouldStop //HACK
+                        }
                     },
                     touchUpOutside: { sprite in
-                        sprite.alpha = 0.2
-                        self.engine.ship?.remove(componentClass: ApplyThrustComponent.self)
-                        (self.engine
-                             .ship?
-                             .get(componentClassName: WarpDriveComponent.name) as? WarpDriveComponent)?.isThrusting = false //HACK
+                        if let ship = self.engine.ship {
+                            ship.remove(componentClass: ApplyThrustComponent.self)
+                            (ship.get(componentClassName: WarpDriveComponent.name) as? WarpDriveComponent)?.isThrusting = false //HACK
+                            (ship.get(componentClassName: RepeatingAudioComponent.name) as? RepeatingAudioComponent)?.state = .shouldStop //HACK
+                        }
                     },
                     touchMoved: { sprite, over in
                         if over {
-                            sprite.alpha = 0.6
-                            self.engine.ship?.add(component: ApplyThrustComponent.instance)
-                            (self.engine
-                                 .ship?
-                                 .get(componentClassName: WarpDriveComponent.name) as? WarpDriveComponent)?.isThrusting = true //HACK
+                            if let ship = self.engine.ship {
+                                ship.add(component: ApplyThrustComponent.instance)
+                                (ship.get(componentClassName: WarpDriveComponent.name) as? WarpDriveComponent)?.isThrusting = true //HACK
+                                (ship.get(componentClassName: RepeatingAudioComponent.name) as? RepeatingAudioComponent)?.state = .shouldBegin //HACK
+                            }
                         } else {
-                            sprite.alpha = 0.2
-                            self.engine.ship?.remove(componentClass: ApplyThrustComponent.self)
-                            (self.engine
-                                 .ship?
-                                 .get(componentClassName: WarpDriveComponent.name) as? WarpDriveComponent)?.isThrusting = false //HACK
+                            if let ship = self.engine.ship {
+                                ship.remove(componentClass: ApplyThrustComponent.self)
+                                (ship.get(componentClassName: WarpDriveComponent.name) as? WarpDriveComponent)?.isThrusting = false //HACK
+                                (ship.get(componentClassName: RepeatingAudioComponent.name) as? RepeatingAudioComponent)?.state = .shouldStop //HACK
+                            }
                         }
                     }
                 ))
