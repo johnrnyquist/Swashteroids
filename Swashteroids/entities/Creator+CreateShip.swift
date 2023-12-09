@@ -13,7 +13,7 @@ import SpriteKit
 
 
 extension Creator {
-	func createShip(_ state: ShipControlsState) {
+	func createShip(_ state: AppStateComponent) {
 		let ship = ShipEntity(name: .ship, state: state, input: inputComponent)
         do {
             try engine.addEntity(entity: ship)
@@ -30,7 +30,7 @@ extension Creator {
 /// I prefer to keep Entities as simple as possible, but this is a special case since
 /// the ship is the player’s avatar, it is the most important entity in the game.
 class ShipEntity: Entity {
-    init(name: String, state: ShipControlsState, input: InputComponent) {
+    init(name: String, state: AppStateComponent, input: InputComponent) {
         super.init(name: name)
         let shipSprite = SwashteroidsSpriteNode(texture: createShipTexture())
         shipSprite.name = name
@@ -56,7 +56,8 @@ class ShipEntity: Entity {
         add(component: MotionControlsComponent(left: 1, right: 2, accelerate: 4, accelerationRate: 90, rotationRate: 100))
         add(component: input)
         add(component: AccelerometerComponent())
-        switch state {
+        add(component: ChangeShipControlsStateComponent(to: state.shipControlsState))
+        switch state.shipControlsState {
             case .hidingButtons:
                 add(component: AccelerometerComponent())
             case .showingButtons:

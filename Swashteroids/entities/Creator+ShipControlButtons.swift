@@ -96,7 +96,11 @@ extension Creator {
         // Set up the ship control buttons
         flip.add(component: TouchableComponent())
             .add(component: ButtonBehaviorComponent(
-                touchDown: { sprite in sprite.alpha = 0.6; self.engine.ship?.add(component: FlipComponent.instance) },
+                touchDown: { [unowned self] sprite in
+                    sprite.alpha = 0.6
+                    generator.impactOccurred()
+                    self.engine.ship?.add(component: FlipComponent.instance)
+                },
                 touchUp: { sprite in sprite.alpha = 0.2 },
                 touchUpOutside: { sprite in sprite.alpha = 0.2 },
                 touchMoved: { sprite, over in
@@ -105,8 +109,10 @@ extension Creator {
             ))
         hyperspace.add(component: TouchableComponent())
                   .add(component: ButtonBehaviorComponent(
-                      touchDown: { sprite in
-                          sprite.alpha = 0.6; self.engine.ship?.add(component: HyperSpaceJumpComponent())
+                      touchDown: { [unowned self] sprite in
+                          sprite.alpha = 0.6
+                          generator.impactOccurred()
+                          engine.ship?.add(component: HyperSpaceJumpComponent())
                       },
                       touchUp: { sprite in sprite.alpha = 0.2 },
                       touchUpOutside: { sprite in sprite.alpha = 0.2 },
@@ -116,7 +122,11 @@ extension Creator {
                   ))
         left.add(component: TouchableComponent())
             .add(component: ButtonBehaviorComponent(
-                touchDown: { sprite in sprite.alpha = 0.6; self.engine.ship?.add(component: LeftComponent.instance) },
+                touchDown: { [unowned self] sprite in
+                    sprite.alpha = 0.6
+                    generator.impactOccurred()
+                    self.engine.ship?.add(component: LeftComponent.instance)
+                },
                 touchUp: { sprite in sprite.alpha = 0.2; self.engine.ship?.remove(componentClass: LeftComponent.self) },
                 touchUpOutside: { sprite in
                     sprite.alpha = 0.2; self.engine.ship?.remove(componentClass: LeftComponent.self)
@@ -131,8 +141,9 @@ extension Creator {
             ))
         right.add(component: TouchableComponent())
              .add(component: ButtonBehaviorComponent(
-                 touchDown: { sprite in
+                 touchDown: { [unowned self] sprite in
                      sprite.alpha = 0.6
+                     generator.impactOccurred()
                      self.engine.ship?.add(component: RightComponent.instance)
                  },
                  touchUp: { sprite in
@@ -151,8 +162,9 @@ extension Creator {
              ))
         thrust.add(component: TouchableComponent())
               .add(component: ButtonBehaviorComponent(
-                  touchDown: { sprite in
+                  touchDown: { [unowned self] sprite in
                       sprite.alpha = 0.6
+                      generator.impactOccurred()
                       if let ship = self.engine.ship {
                           ship.add(component: ApplyThrustComponent.instance)
                           ship.warpDrive?.isThrusting = true //HACK
@@ -195,9 +207,10 @@ extension Creator {
               ))
         fire.add(component: TouchableComponent())
             .add(component: ButtonBehaviorComponent(
-                touchDown: { sprite in
+                touchDown: {[unowned self] sprite in
                     sprite.alpha = 0.6
-                    self.engine.ship?.add(component: TriggerDownComponent.instance)
+                    generator.impactOccurred()
+                    engine.ship?.add(component: TriggerDownComponent.instance)
                 },
                 touchUp: { sprite in
                     sprite.alpha = 0.2

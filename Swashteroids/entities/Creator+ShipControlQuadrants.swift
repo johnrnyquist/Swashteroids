@@ -81,7 +81,8 @@ extension Creator {
                 .add(component: PositionComponent(x: q3Sprite.x, y: q3Sprite.y, z: .bottom, rotation: 0))
                 .add(component: TouchableComponent())
                 .add(component: ButtonBehaviorComponent(
-                    touchDown: { sprite in
+                    touchDown: { [unowned self] sprite in
+                        generator.impactOccurred()
                         if let ship = self.engine.ship {
                             ship.add(component: ApplyThrustComponent.instance)
                             ship.warpDrive?.isThrusting = true //HACK

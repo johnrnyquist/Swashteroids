@@ -40,12 +40,12 @@ final class GameManagerSystem: System {
 
     override public func update(time: TimeInterval) {
         guard let appStateNode = appStates.head,
-              let appStateComponent = appStateNode[AppStateComponent.self] else {
+              let appState = appStateNode[AppStateComponent.self] else {
             return
         }
         if ships.empty,
-           appStateComponent.playing {
-            if appStateComponent.ships > 0 {
+           appState.playing {
+            if appState.ships > 0 {
                 let newSpaceshipPosition = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
                 var clearToAddSpaceship = true
                 var asteroid = asteroids.head
@@ -60,11 +60,11 @@ final class GameManagerSystem: System {
                     asteroid = asteroid?.next
                 }
                 if clearToAddSpaceship {
-                    creator.createShip(appStateComponent.shipControlsState)
-                    creator.createPlasmaTorpedoesPowerUp(level: appStateComponent.level == 0 ? 1 : appStateComponent.level)
+                    creator.createShip(appState)
+                    creator.createPlasmaTorpedoesPowerUp(level: appState.level == 0 ? 1 : appState.level)
                 }
-            } else if appStateComponent.playing {
-                appStateComponent.playing = false
+            } else if appState.playing {
+                appState.playing = false
                 creator.removeShipControlButtons()
                 creator.removeToggleButton()
                 creator.setUpGameOver()
@@ -78,11 +78,11 @@ final class GameManagerSystem: System {
                 let shipNode = ships.head,
                 let spaceShipPosition = shipNode[PositionComponent.self]
             else { return }
-            appStateComponent.level += 1
+            appState.level += 1
             // TODO: This level text and animation should be elsewhere.
-            announceLevel(appStateComponent: appStateComponent)
+            announceLevel(appStateComponent: appState)
             //
-            let asteroidCount = 0 + appStateComponent.level
+            let asteroidCount = 0 + appState.level
             for _ in 0..<asteroidCount {
                 // check not on top of ship
                 var position: CGPoint

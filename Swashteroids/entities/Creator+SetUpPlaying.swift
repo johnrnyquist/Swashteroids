@@ -12,6 +12,7 @@ import Swash
 import SpriteKit
 
 extension Creator {
+	/// Called only from TransitionAppStateSystem.
     func setUpPlaying(with state: ShipControlsState) {
         guard let appStateComponent = engine.getEntity(named: .appState)?
                                             .get(componentClassName: AppStateComponent.name) as? AppStateComponent else {
