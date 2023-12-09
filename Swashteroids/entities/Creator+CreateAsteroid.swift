@@ -27,7 +27,6 @@ extension Creator {
                 .add(component: CollisionComponent(radius: radius))
                 .add(component: AsteroidComponent())
                 .add(component: DisplayComponent(sknode: sprite))
-                .add(component: AudioComponent())
         try! engine.addEntity(entity: entity)
     }
 

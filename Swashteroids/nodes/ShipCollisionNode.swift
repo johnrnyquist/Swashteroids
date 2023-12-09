@@ -18,7 +18,6 @@ final class ShipCollisionNode: Node {
             CollisionComponent.name: nil_component,
             PositionComponent.name: nil_component,
             MotionComponent.name: nil_component,
-            AudioComponent.name: nil_component,
         ]
     }
 }

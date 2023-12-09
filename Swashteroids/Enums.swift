@@ -26,9 +26,9 @@ enum ShipControlsState {
     case hidingButtons
 }
 
-enum Toggle {
-    case on
-    case off
+enum Toggle: String {
+    case on = "On"
+    case off = "Off"
 }
 
 // zPosition for layers

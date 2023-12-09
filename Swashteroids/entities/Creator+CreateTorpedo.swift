@@ -19,8 +19,9 @@ extension Creator {
         let sparkEmitter = SKEmitterNode(fileNamed: "plasmaTorpedo.sks")!
         sparkEmitter.emissionAngle = parentPosition.rotation * Double.pi / 180 + Double.pi
         sprite.addChild(sparkEmitter)
+        let name = "bullet_\(numTorpedoes)"
         numTorpedoes += 1
-        let entity = Entity(name: "bullet_\(numTorpedoes)")
+        let entity = Entity(name: name)
                 .add(component: PlasmaTorpedoComponent(lifeRemaining: gunComponent.torpedoLifetime))
                 .add(component: PositionComponent(x: cos * gunComponent.offsetFromParent
                                                                        .x - sin * gunComponent.offsetFromParent
@@ -38,7 +39,7 @@ extension Creator {
                                                 angularVelocity: 0 + parentMotion.angularVelocity,
                                                 damping: 0 + parentMotion.damping))
                 .add(component: DisplayComponent(sknode: sprite))
-        entity.add(component: AudioComponent(fileNamed: "fire.wav", withKey: entity.name))
+        .add(component: AudioComponent(fileNamed: "fire.wav", withKey: name))
         sprite.name = entity.name
         engine.replaceEntity(entity: entity)
     }

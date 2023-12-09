@@ -17,19 +17,13 @@ class HudView: SKNode {
 
     init(gameSize: CGSize) {
         super.init()
-        score = createLabel()
-        score.horizontalAlignmentMode = .center
-        score.x = gameSize.width / 2
-        score.y = gameSize.height - score.frame.size.height - 20
+        let textY = gameSize.height - 65
+        let textXPadding = 12.0
+        score = createLabel(x:gameSize.width / 2, y: textY, alignment: .center)
         addChild(score)
-        ships = createLabel()
-        ships.x = 12
-        ships.y = 700
+        ships = createLabel(x: textXPadding, y: textY, alignment: .left)
         addChild(ships)
-        level = createLabel()
-        level.horizontalAlignmentMode = .right
-        level.y = 700
-        level.x = 1012
+        level = createLabel(x: gameSize.width - textXPadding, y: textY, alignment: .right)
         addChild(level)
     }
 
@@ -49,12 +43,15 @@ class HudView: SKNode {
         level.text = "LEVEL: \(value)"
     }
 
-    private func createLabel() -> SKLabelNode {
+    private func createLabel(text: String = "", x: Double = 0.0, y: Double = 0.0, alignment: SKLabelHorizontalAlignmentMode = .center) -> SKLabelNode {
         let tf = SKLabelNode()
         tf.horizontalAlignmentMode = .left
         tf.fontName = "Futura Condensed Medium"
         tf.fontColor = .hudText
         tf.fontSize = 48
+        tf.horizontalAlignmentMode = alignment
+        tf.x = x
+        tf.y = y
         return tf
     }
 }

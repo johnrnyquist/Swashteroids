@@ -37,7 +37,8 @@ extension Creator {
 				(engine.getEntity(named: .appState)?[AppStateComponent.name] as? AppStateComponent)?.shipControlsState = toState //HACK
                 engine.hud?.add(component: ChangeShipControlsStateComponent(to: toState))
                 toggleEntity
-                        .add(component: AudioComponent(fileNamed: "toggle.wav", withKey: "toggle"))
+                        .add(component: AudioComponent(fileNamed: "toggle.wav", 
+                                                       withKey: "toggle\(toggleState.rawValue)"))
             },
             touchUp: { sprite in sprite.alpha = 0.2 },
             touchUpOutside: { sprite in sprite.alpha = 0.2 },

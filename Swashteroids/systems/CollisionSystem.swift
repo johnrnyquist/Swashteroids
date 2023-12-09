@@ -54,6 +54,8 @@ final class CollisionSystem: System {
             asteroidCollisionNode.entity?
                                  .remove(componentClass: DisplayComponent.self)
                                  .remove(componentClass: CollisionComponent.self)
+                                 .add(component: AudioComponent(fileNamed: "bangLarge.wav",
+                                                                withKey: asteroidCollisionNode.entity!.name))
                                  .add(component: DisplayComponent(sknode: spriteNode))
                                  .add(component: DeathThroesComponent(countdown: 0.2))
         }
@@ -67,13 +69,11 @@ final class CollisionSystem: System {
                 let gunSupplierPosition = gunSupplierNode?[PositionComponent.self],
                 let shipPosition = shipCollisionNode?[PositionComponent.self],
                 let gunSupplierCollision = gunSupplierNode?[CollisionComponent.self],
-                let shipCollision = shipCollisionNode?[CollisionComponent.self],
-                let audio = shipCollisionNode?[AudioComponent.self]
+                let shipCollision = shipCollisionNode?[CollisionComponent.self]
             else { gunSupplierNode = gunSupplierNode?.next; continue }
             let distanceToShip = distance(gunSupplierPosition.position, shipPosition.position)
             if (distanceToShip <= gunSupplierCollision.radius + shipCollision.radius) {
-                //TODO: This should be a power-up sound
-                audio.addSoundAction("fire.wav", withKey: "fire.wav")
+                //TODO: This should have a power-up sound
                 creator.removeEntity(gunSupplierNode!.entity!)
                 gunSupplierNode = gunSupplierNode?.next
                 shipCollisionNode?.entity?
@@ -92,13 +92,11 @@ final class CollisionSystem: System {
             asteroidNode = asteroids?.head
             while asteroidNode != nil {
                 guard
-                    let audio = asteroidNode?[AudioComponent.self],
                     let asteroidPosition = asteroidNode?[PositionComponent.self],
                     let bulletPosition = bulletNode?[PositionComponent.self],
                     let asteroidCollision = asteroidNode?[CollisionComponent.self]
                 else { asteroidNode = asteroidNode?.next; continue } // or return? }
                 if (distance(asteroidPosition.position, bulletPosition.position) <= asteroidCollision.radius) {
-                    audio.addSoundAction("bangLarge.wav", withKey: asteroidNode!.entity!.name)
                     creator.removeEntity(bulletNode!.entity!)
                     splitAsteroid(asteroidCollision: asteroidCollision,
                                   asteroidPosition: asteroidPosition,
@@ -125,8 +123,7 @@ final class CollisionSystem: System {
                     let asteroidPosition = asteroidCollisionNode?[PositionComponent.self],
                     let shipPosition = shipCollisionNode?[PositionComponent.self],
                     let asteroidCollision = asteroidCollisionNode?[CollisionComponent.self],
-                    let shipCollision = shipCollisionNode?[CollisionComponent.self],
-                    let audio = shipCollisionNode?[AudioComponent.self]
+                    let shipCollision = shipCollisionNode?[CollisionComponent.self]
                 else { asteroidCollisionNode = asteroidCollisionNode?.next; continue }
                 let distanceToShip = distance(asteroidPosition.position, shipPosition.position)
                 if (distanceToShip <= asteroidCollision.radius + shipCollision.radius) {
@@ -138,7 +135,7 @@ final class CollisionSystem: System {
                     // If a ship hits an asteroid, it enters its death throes. Removing its ability to move or shoot.
                     // A ship in its death throes can still hit an asteroid. 
                     if ship.has(componentClassName: DeathThroesComponent.name) == false { //HACK not sure I like this check
-                        ship.destroy(with: audio)
+                        ship.destroy()
                         if let appState = appStateNodes.head,
                            let component = appState[AppStateComponent.self] {
                             component.ships -= 1
@@ -162,7 +159,6 @@ final class CollisionSystem: System {
 //    func distance(_ from: CGPoint, _ to: CGPoint) -> Double {
 //        sqrt((from.x - to.x) * (from.x - to.x) + (from.y - to.y) * (from.y - to.y))
 //    }
-
     override public func removeFromEngine(engine: Engine) {
         creator = nil
         appStateNodes = nil
