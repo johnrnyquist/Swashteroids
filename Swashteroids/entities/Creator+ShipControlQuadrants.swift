@@ -52,7 +52,7 @@ extension Creator {
                     touchDown: { [unowned self] sprite in
                         generator.impactOccurred()
                         sprite.alpha = 0.6
-                        engine.ship?.add(component: FlipComponent.instance)
+                        engine.ship?.add(component: FlipComponent.shared)
                     },
                     touchUp: { sprite in sprite.alpha = 0.2 },
                     touchUpOutside: { sprite in sprite.alpha = 0.2 },
@@ -84,7 +84,7 @@ extension Creator {
                     touchDown: { [unowned self] sprite in
                         generator.impactOccurred()
                         if let ship = self.engine.ship {
-                            ship.add(component: ApplyThrustComponent.instance)
+                            ship.add(component: ApplyThrustComponent.shared)
                             ship.warpDrive?.isThrusting = true //HACK
                             ship.repeatingAudio?.state = .shouldBegin //HACK
                         }
@@ -106,7 +106,7 @@ extension Creator {
                     touchMoved: { sprite, over in
                         if over {
                             if let ship = self.engine.ship {
-                                ship.add(component: ApplyThrustComponent.instance)
+                                ship.add(component: ApplyThrustComponent.shared)
                                 ship.warpDrive?.isThrusting = true //HACK
                                 ship.repeatingAudio?.state = .shouldBegin //HACK
                             }
@@ -127,7 +127,7 @@ extension Creator {
                     touchDown: { [unowned self] sprite in
                         generator.impactOccurred()
                         sprite.alpha = 0.6
-                        self.engine.ship?.add(component: TriggerDownComponent.instance)
+                        self.engine.ship?.add(component: TriggerDownComponent.shared)
                     },
                     touchUp: { sprite in
                         sprite.alpha = 0.2; self.engine
@@ -141,7 +141,7 @@ extension Creator {
                     },
                     touchMoved: { sprite, over in
                         if over {
-                            sprite.alpha = 0.6; self.engine.ship?.add(component: TriggerDownComponent.instance)
+                            sprite.alpha = 0.6; self.engine.ship?.add(component: TriggerDownComponent.shared)
                         } else {
                             sprite.alpha = 0.2; self.engine
                                                     .ship?

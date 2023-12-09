@@ -51,7 +51,7 @@ extension Creator {
                     },
                     touchUp: { [unowned self] sprite in
                         sprite.alpha = 0.2
-                        appStateEntity.add(component: TransitionAppStateComponent(to: .infoNoButtons, from: .start))
+                        engine.appState?.add(component: TransitionAppStateComponent(to: .infoNoButtons, from: .start))
                     },
                     touchUpOutside: { sprite in
                         sprite.alpha = 0.2
@@ -71,7 +71,7 @@ extension Creator {
                     },
                     touchUp: { [unowned self] sprite in
                         sprite.alpha = 0.2
-                        appStateEntity.add(component: TransitionAppStateComponent(to: .infoButtons, from: .start))
+                        engine.appState?.add(component: TransitionAppStateComponent(to: .infoButtons, from: .start))
                     },
                     touchUpOutside: { sprite in
                         sprite.alpha = 0.2

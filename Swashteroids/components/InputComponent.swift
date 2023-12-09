@@ -11,14 +11,21 @@
 import Swash
 import SpriteKit
 
-/// This class is a singleton, and is used to track the state of the input.
+/// This class is used to track the state of the input.
+/// It breaks the rules of Swash by having logic in a component.
 /// I made it a component to pass along to systems.
 final class InputComponent: Component {
-    static let instance = InputComponent()
+    static let shared = InputComponent()
+
+    private override init() {}
+
+    var touchDowns: [UITouch: Entity] = [:]
+    //
+    // These are used to capture the accelerometer data and up/down state.
+    // I'm using a tuple instead of an enum with an associated value for simplicity.
+    // TODO: Try changing to enum with associated value.
     var leftIsDown: (down: Bool, amount: Double) = (false, 0.0)
     var rightIsDown: (down: Bool, amount: Double) = (false, 0.0)
-    var thrustIsDown = false
-    var touchDowns: [UITouch: Entity] = [:]
 
     func handleTouchDowns(nodes: [SKNode], touch: UITouch, location: CGPoint) {
         guard let originalEntity: Entity =

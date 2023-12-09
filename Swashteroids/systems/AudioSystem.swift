@@ -27,9 +27,10 @@ final class AudioSystem: ListIteratingSystem {
             if scene.action(forKey: soundKey) != nil {
                 continue
             }
+            print("playing \(soundKey)")
             scene.run(soundAction, withKey: soundKey)
         }
-        audioComponent.playlist.removeAll()
+        audioComponent.clearPlaylist()
         for soundKey in audioComponent.keysToRemove {
             scene.removeAction(forKey: soundKey)
         }
@@ -40,38 +41,6 @@ final class AudioSystem: ListIteratingSystem {
     }
 }
 
-final class RepeatingAudioSystem: ListIteratingSystem {
-    private weak var scene: SKScene!
-
-    init(scene: SKScene) {
-        self.scene = scene
-        super.init(nodeClass: RepeatingAudioNode.self)
-        nodeUpdateFunction = updateNode
-    }
-
-    func updateNode(node: Node, time: TimeInterval) {
-        guard let audio = node[RepeatingAudioComponent.self]
-        else { return }
-        switch audio.state {
-            case .shouldBegin:
-                if scene.action(forKey: audio.key) != nil {
-                    audio.state = .playing
-                } else {
-                    let repeatForever = SKAction.repeatForever(audio.sound)
-                    scene.run(repeatForever, withKey: audio.key)
-                    audio.state = .playing
-                }
-            case .shouldStop:
-                scene.removeAction(forKey: audio.key)
-            case .notPlaying, .playing:
-                break
-        }
-    }
-
-    override public func removeFromEngine(engine: Engine) {
-        scene = nil
-    }
-}
 
 
 

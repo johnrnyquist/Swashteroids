@@ -22,11 +22,10 @@ final class GameViewController: UIViewController {
 
     func createScene(size: CGSize) -> SKScene {
         let scene = GameScene(size: size)
-        let game = Swashteroids(scene: scene, inputComponent: InputComponent.instance)
+        let game = Swashteroids(scene: scene)
         scene.game = game
         scene.name = "gameScene"
         scene.anchorPoint = .zero
-        scene.inputComponent = InputComponent.instance
         scene.scaleMode = .aspectFit
         return scene
     }

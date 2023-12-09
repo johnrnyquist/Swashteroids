@@ -29,7 +29,7 @@ extension Creator {
 final class HudEntity: Entity {
     init(name: String, gameState: AppStateComponent) {
         super.init(name: name)
-        let view = HudView()
+        let view = HudView(gameSize: gameState.size)
         add(component: HudComponent(hudView: view))
         add(component: DisplayComponent(sknode: view))
         add(component: PositionComponent(x: 0, y: 0, z: .hud, rotation: 0))

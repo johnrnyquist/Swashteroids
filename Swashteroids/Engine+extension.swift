@@ -12,13 +12,19 @@ import Swash
 
 extension Engine {
     var ship: ShipEntity? {
-        get { getEntity(named: .ship) as? ShipEntity }
+        getEntity(named: .ship) as? ShipEntity
     }
     var gameOver: Entity? {
-        get { getEntity(named: .gameOver) }
+        getEntity(named: .gameOver)
     }
     var hud: Entity? {
-        get { getEntity(named: .hud) }
+        getEntity(named: .hud)
+    }
+    var appState: Entity? {
+        getEntity(named: .appState)
+    }
+    var input: Entity? {
+        getEntity(named: .input)
     }
 
     func removeEntities(named names: [EntityName]) {

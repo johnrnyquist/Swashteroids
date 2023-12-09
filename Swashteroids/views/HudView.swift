@@ -15,12 +15,12 @@ class HudView: SKNode {
     private var ships: SKLabelNode!
     private var level: SKLabelNode!
 
-    override init() {
+    init(gameSize: CGSize) {
         super.init()
         score = createLabel()
         score.horizontalAlignmentMode = .center
-        score.x = 512
-        score.y = 700
+        score.x = gameSize.width / 2
+        score.y = gameSize.height - score.frame.size.height - 20
         addChild(score)
         ships = createLabel()
         ships.x = 12

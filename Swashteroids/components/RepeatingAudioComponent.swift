@@ -9,15 +9,17 @@
 //
 
 import Swash
+import SpriteKit
 
-// Not using at the moment
-final class StartNode: Node {
-    required init() {
+final class RepeatingAudioComponent: Component {
+    var sound: SKAction
+    var key: String
+    var state: RepeatingSoundState = .notPlaying
+
+    init(_ sound: SKAction, withKey key: String) {
+        self.sound = sound
+        self.key = key
         super.init()
-        components = [
-            StartComponent.name: nil_component,
-			DisplayComponent.name: nil_component,
-            InputComponent.name: nil_component
-        ]
     }
 }
+

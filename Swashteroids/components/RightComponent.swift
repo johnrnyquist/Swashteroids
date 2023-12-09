@@ -10,9 +10,13 @@
 
 import Swash
 
-class TriggerDownComponent: Component {
+/// Used by the rotate right button and in the RightSystem.
+class RightComponent: Component {
     /// If something is just a flag that I use frequently, I make it a shared instance. 
-    static let shared = TriggerDownComponent()
+    static let shared = RightComponent()
 
     private override init() {}
+
+    let amount = -0.35
 }
+

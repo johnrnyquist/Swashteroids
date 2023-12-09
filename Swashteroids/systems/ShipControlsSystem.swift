@@ -31,8 +31,6 @@ final class ShipControlsSystem: ListIteratingSystem {
     }
 
     func do_toggleButtons(_ to: ShipControlsState) {
-        let playSound = SKAction.playSoundFileNamed("toggle.wav", waitForCompletion: false)
-        scene.run(playSound)
         switch to {
             case .showingButtons:
                 scene.game.ship?.remove(componentClass: AccelerometerComponent.self)

@@ -99,7 +99,7 @@ extension Creator {
                 touchDown: { [unowned self] sprite in
                     sprite.alpha = 0.6
                     generator.impactOccurred()
-                    self.engine.ship?.add(component: FlipComponent.instance)
+                    self.engine.ship?.add(component: FlipComponent.shared)
                 },
                 touchUp: { sprite in sprite.alpha = 0.2 },
                 touchUpOutside: { sprite in sprite.alpha = 0.2 },
@@ -125,7 +125,7 @@ extension Creator {
                 touchDown: { [unowned self] sprite in
                     sprite.alpha = 0.6
                     generator.impactOccurred()
-                    self.engine.ship?.add(component: LeftComponent.instance)
+                    self.engine.ship?.add(component: LeftComponent.shared)
                 },
                 touchUp: { sprite in sprite.alpha = 0.2; self.engine.ship?.remove(componentClass: LeftComponent.self) },
                 touchUpOutside: { sprite in
@@ -133,7 +133,7 @@ extension Creator {
                 },
                 touchMoved: { sprite, over in
                     if over {
-                        sprite.alpha = 0.6; self.engine.ship?.add(component: LeftComponent.instance)
+                        sprite.alpha = 0.6; self.engine.ship?.add(component: LeftComponent.shared)
                     } else {
                         sprite.alpha = 0.2; self.engine.ship?.remove(componentClass: LeftComponent.self)
                     }
@@ -144,7 +144,7 @@ extension Creator {
                  touchDown: { [unowned self] sprite in
                      sprite.alpha = 0.6
                      generator.impactOccurred()
-                     self.engine.ship?.add(component: RightComponent.instance)
+                     self.engine.ship?.add(component: RightComponent.shared)
                  },
                  touchUp: { sprite in
                      sprite.alpha = 0.2; self.engine.ship?.remove(componentClass: RightComponent.self)
@@ -154,7 +154,7 @@ extension Creator {
                  },
                  touchMoved: { sprite, over in
                      if over {
-                         sprite.alpha = 0.6; self.engine.ship?.add(component: RightComponent.instance)
+                         sprite.alpha = 0.6; self.engine.ship?.add(component: RightComponent.shared)
                      } else {
                          sprite.alpha = 0.2; self.engine.ship?.remove(componentClass: RightComponent.self)
                      }
@@ -166,7 +166,7 @@ extension Creator {
                       sprite.alpha = 0.6
                       generator.impactOccurred()
                       if let ship = self.engine.ship {
-                          ship.add(component: ApplyThrustComponent.instance)
+                          ship.add(component: ApplyThrustComponent.shared)
                           ship.warpDrive?.isThrusting = true //HACK
                           ship.repeatingAudio?.state = .shouldBegin //HACK
                       }
@@ -191,7 +191,7 @@ extension Creator {
                       if over {
                           sprite.alpha = 0.6
                           if let ship = self.engine.ship {
-                              ship.add(component: ApplyThrustComponent.instance)
+                              ship.add(component: ApplyThrustComponent.shared)
                               ship.warpDrive?.isThrusting = true //HACK
                               ship.repeatingAudio?.state = .shouldBegin //HACK
                           }
@@ -210,7 +210,7 @@ extension Creator {
                 touchDown: {[unowned self] sprite in
                     sprite.alpha = 0.6
                     generator.impactOccurred()
-                    engine.ship?.add(component: TriggerDownComponent.instance)
+                    engine.ship?.add(component: TriggerDownComponent.shared)
                 },
                 touchUp: { sprite in
                     sprite.alpha = 0.2
@@ -223,7 +223,7 @@ extension Creator {
                 touchMoved: { sprite, over in
                     if over {
                         sprite.alpha = 0.6
-                        self.engine.ship?.add(component: TriggerDownComponent.instance)
+                        self.engine.ship?.add(component: TriggerDownComponent.shared)
                     } else {
                         sprite.alpha = 0.2
                         self.engine.ship?.remove(componentClass: TriggerDownComponent.self)

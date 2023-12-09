@@ -10,7 +10,7 @@
 
 import Swash
 
-// Entity Names
+// Entity Names. I use a type alias to make it clear that these are entity names, even though a string is fine to use.
 extension String {
     // Ship controls
     static let leftButton: EntityName = "leftButtonEntity"
@@ -30,12 +30,13 @@ extension String {
     // Info screens
     static let buttonsInfoView: EntityName = "buttonsInfoViewEntity"
     static let noButtonsInfoView: EntityName = "noButtonsInfoViewEntity"
-    // 
+    // Misc
+    static let allSounds: EntityName = "allSoundsEntity"
     static let appState: EntityName = "appStateEntity"
-    static let hud: EntityName = "hudEntity"
     static let gameOver: EntityName = "gameOver"
-    static let inputEntity: EntityName = "inputEntity"
+    static let hud: EntityName = "hudEntity"
+    static let input: EntityName = "inputEntity"
     static let plasmaTorpedoesPowerUp: EntityName = "plasmaTorpedoesPowerUpEntity"
-    static let toggleButton: EntityName = "toggleButtonEntity"
     static let ship: EntityName = "ship"
+    static let toggleButton: EntityName = "toggleButtonEntity"
 }

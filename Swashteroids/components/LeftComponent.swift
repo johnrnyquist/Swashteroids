@@ -10,9 +10,12 @@
 
 import Swash
 
-class TriggerDownComponent: Component {
+/// Used by the thrust button and in the ThrustSystem.
+class LeftComponent: Component {
     /// If something is just a flag that I use frequently, I make it a shared instance. 
-    static let shared = TriggerDownComponent()
+    static let shared = LeftComponent()
 
     private override init() {}
+
+    let amount = 0.35
 }

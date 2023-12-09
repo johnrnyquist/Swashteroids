@@ -14,7 +14,7 @@ import SpriteKit
 
 extension Creator {
 	func createShip(_ state: AppStateComponent) {
-		let ship = ShipEntity(name: .ship, state: state, input: inputComponent)
+		let ship = ShipEntity(name: .ship, state: state)
         do {
             try engine.addEntity(entity: ship)
         }
@@ -30,7 +30,7 @@ extension Creator {
 /// I prefer to keep Entities as simple as possible, but this is a special case since
 /// the ship is the player’s avatar, it is the most important entity in the game.
 class ShipEntity: Entity {
-    init(name: String, state: AppStateComponent, input: InputComponent) {
+    init(name: String, state: AppStateComponent) {
         super.init(name: name)
         let shipSprite = SwashteroidsSpriteNode(texture: createShipTexture())
         shipSprite.name = name
@@ -47,14 +47,14 @@ class ShipEntity: Entity {
         add(component: WarpDriveComponent())
         add(component: HyperSpaceEngineComponent())
         add(component: AudioComponent())
-        add(component: RepeatingAudioComponent(thrust, withKey: "thrust"))
+        add(component: RepeatingAudioComponent(thrust, withKey: "thrustRepeating"))
         add(component: PositionComponent(x: 512, y: 384, z: .ship, rotation: 0.0))
         add(component: ShipComponent())
         add(component: MotionComponent(velocityX: 0.0, velocityY: 0.0, damping: 0.0))
         add(component: CollisionComponent(radius: 25))
         add(component: DisplayComponent(sknode: shipSprite))
         add(component: MotionControlsComponent(left: 1, right: 2, accelerate: 4, accelerationRate: 90, rotationRate: 100))
-        add(component: input)
+        add(component: InputComponent.shared) //HACK
         add(component: AccelerometerComponent())
         add(component: ChangeShipControlsStateComponent(to: state.shipControlsState))
         switch state.shipControlsState {
@@ -84,9 +84,8 @@ class ShipEntity: Entity {
     /// to the system calling it. 
     func destroy(with audio: AudioComponent) {
         // Sound effects
-        audio.removeSoundAction("thrust")
-        let bang = SKAction.playSoundFileNamed("bangLarge.wav", waitForCompletion: false)
-        audio.addSoundAction(bang, withKey: "shipExplosion")
+        audio.removeSoundAction("thrustRepeating")
+        audio.addSoundAction("bangLarge.wav", withKey: "shipExplosion")
         // Visual effects
         let spriteNode = SwashteroidsSpriteNode(texture: createShipTexture(color: .red))
         let fade = SKAction.fadeOut(withDuration: 3.0)

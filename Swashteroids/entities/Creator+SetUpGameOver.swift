@@ -42,11 +42,11 @@ extension Creator {
                 .add(component: DisplayComponent(sknode: gameOverView))
                 .add(component: PositionComponent(x: 0, y: 0, z: .top, rotation: 0))
                 .add(component: TouchableComponent())
-                .add(component: appStateEntity.get(componentClassName: AppStateComponent.name) as! AppStateComponent)
+                .add(component: engine.appState![AppStateComponent.name] as! AppStateComponent) //HACK
                 .add(component: ButtonBehaviorComponent(
                     touchDown: { [unowned self] sprite in
                         generator.impactOccurred()
-                        appStateEntity
+                        engine.appState?
                                 .add(component: TransitionAppStateComponent(to: .start, from: .gameOver))
                     }))
         gameOverView.entity = gameOverEntity

@@ -68,12 +68,12 @@ final class CollisionSystem: System {
                 let shipPosition = shipCollisionNode?[PositionComponent.self],
                 let gunSupplierCollision = gunSupplierNode?[CollisionComponent.self],
                 let shipCollision = shipCollisionNode?[CollisionComponent.self],
-                let sprite = gunSupplierNode?[DisplayComponent.self]?.sprite
+                let audio = shipCollisionNode?[AudioComponent.self]
             else { gunSupplierNode = gunSupplierNode?.next; continue }
             let distanceToShip = distance(gunSupplierPosition.position, shipPosition.position)
             if (distanceToShip <= gunSupplierCollision.radius + shipCollision.radius) {
-                let bang = SKAction.playSoundFileNamed("fire.wav", waitForCompletion: false)
-                sprite.scene?.run(bang)
+                //TODO: This should be a power-up sound
+                audio.addSoundAction("fire.wav", withKey: "fire.wav")
                 creator.removeEntity(gunSupplierNode!.entity!)
                 gunSupplierNode = gunSupplierNode?.next
                 shipCollisionNode?.entity?
@@ -98,8 +98,7 @@ final class CollisionSystem: System {
                     let asteroidCollision = asteroidNode?[CollisionComponent.self]
                 else { asteroidNode = asteroidNode?.next; continue } // or return? }
                 if (distance(asteroidPosition.position, bulletPosition.position) <= asteroidCollision.radius) {
-                    let bang = SKAction.playSoundFileNamed("bangLarge.wav", waitForCompletion: false)
-                    audio.addSoundAction(bang, withKey: asteroidNode!.entity!.name)
+                    audio.addSoundAction("bangLarge.wav", withKey: asteroidNode!.entity!.name)
                     creator.removeEntity(bulletNode!.entity!)
                     splitAsteroid(asteroidCollision: asteroidCollision,
                                   asteroidPosition: asteroidPosition,

@@ -13,11 +13,10 @@ import CoreMotion
 
 final class GameScene: SKScene {
     private var orientation = 1.0
-    // set externally before didMove(to:)
-    var game: Swashteroids!
+    var game: Swashteroids! // set externally before didMove(to:)
     var motionManager: CMMotionManager?
-    var inputComponent: InputComponent!
-	
+	var inputComponent = InputComponent.shared //HACK
+
     override func didMove(to view: SKView) {
         super.didMove(to: view)
         backgroundColor = .background
@@ -36,7 +35,7 @@ final class GameScene: SKScene {
     }
 
     override func update(_ currentTime: TimeInterval) {
-        game.dispatchTick()
+        game.dispatchTick() // This drives the game
         guard let data = motionManager?.accelerometerData else { return }
         switch data.acceleration.y * orientation {
             case let y where y > 0.05:

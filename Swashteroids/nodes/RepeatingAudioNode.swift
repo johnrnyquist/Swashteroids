@@ -10,14 +10,12 @@
 
 import Swash
 
-// Not using at the moment
-final class StartNode: Node {
+final class RepeatingAudioNode: Node {
     required init() {
         super.init()
         components = [
-            StartComponent.name: nil_component,
-			DisplayComponent.name: nil_component,
-            InputComponent.name: nil_component
+            RepeatingAudioComponent.name: nil_component,
         ]
     }
 }
+

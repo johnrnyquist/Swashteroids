@@ -51,7 +51,6 @@ final class ThrustNode: Node {
             MotionComponent.name: nil_component,
             MotionControlsComponent.name: nil_component,
             WarpDriveComponent.name: nil_component,
-            InputComponent.name: nil_component,
         ]
     }
 }

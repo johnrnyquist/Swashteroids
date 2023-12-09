@@ -11,25 +11,39 @@
 import Swash
 
 final class Swashteroids {
-    var ship: Entity? { engine.ship }
-    var creator: Creator
+    //
+    /// A SpriteKit SKScene subclass
     private var scene: GameScene
+    //
+    /// Drives the game
     private var engine: Engine
+    //
+    /// Drives the engine
     private var tickProvider: FrameTickProvider
+    //
+    /// Used to create and configure Entity instances
+    var creator: Creator
 
-    init(scene: GameScene, inputComponent: InputComponent) {
+    init(scene: GameScene) {
         self.scene = scene
         engine = Engine()
-        let appStateComponent = AppStateComponent()
+        tickProvider = FrameTickProvider()
+        creator = Creator(engine: engine, scene: scene)
+        // Add the all sounds entity
+        let allSoundsEntity = Entity(name: .allSounds)
+                .add(component: AllSoundsComponent.shared)
+        try? engine.addEntity(entity: allSoundsEntity)
+        // Add the app state entity
+        let appStateComponent = AppStateComponent(size: scene.size)
         let appStateEntity = Entity(name: .appState)
                 .add(component: appStateComponent)
                 .add(component: TransitionAppStateComponent(to: .initialize))
         try? engine.addEntity(entity: appStateEntity)
-        creator = Creator(engine: engine, appStateEntity: appStateEntity, inputComponent: inputComponent, scene: scene, size: scene.size)
-        tickProvider = FrameTickProvider()
-        let inputEntity = Entity(name: .inputEntity)
-                .add(component: inputComponent)
+        // Add the input entity
+        let inputEntity = Entity(name: .input)
+                .add(component: InputComponent.shared)
         try? engine.addEntity(entity: inputEntity)
+        // Add the systems to the engine. These are what drive the functionality of the game.
         engine
             // preupdate
                 .addSystem(system: GameManagerSystem(creator: creator, size: scene.size, scene: scene), priority: .preUpdate)
@@ -72,6 +86,9 @@ final class Swashteroids {
 
 // MARK: - Chain of Responsibility
 extension Swashteroids {
+    /// This is the player’s avatar.
+    var ship: Entity? { engine.ship }
+
     func removeShipControlButtons() {
         creator.removeShipControlButtons()
     }
