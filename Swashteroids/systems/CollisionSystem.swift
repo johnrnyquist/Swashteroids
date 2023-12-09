@@ -55,7 +55,7 @@ final class CollisionSystem: System {
                                  .remove(componentClass: DisplayComponent.self)
                                  .remove(componentClass: CollisionComponent.self)
                                  .add(component: AudioComponent(fileNamed: "bangLarge.wav",
-                                                                withKey: asteroidCollisionNode.entity!.name))
+                                                                actionKey: asteroidCollisionNode.entity!.name))
                                  .add(component: DisplayComponent(sknode: spriteNode))
                                  .add(component: DeathThroesComponent(countdown: 0.2))
         }

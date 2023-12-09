@@ -25,15 +25,13 @@ final class AudioSystem: ListIteratingSystem {
         else { return }
         for (soundKey, soundAction) in audioComponent.playlist {
             if scene.action(forKey: soundKey) != nil {
-                continue
+                continue // I never hit this, but it's here just in case
             }
-            print("playing \(soundKey)")
+            print("playing soundKey: \(soundKey) for \(node.entity?.name)")
             scene.run(soundAction, withKey: soundKey)
         }
         audioComponent.clearPlaylist()
-        for soundKey in audioComponent.keysToRemove {
-            scene.removeAction(forKey: soundKey)
-        }
+        node.entity?.remove(componentClass: AudioComponent.self)
     }
 
     override public func removeFromEngine(engine: Engine) {

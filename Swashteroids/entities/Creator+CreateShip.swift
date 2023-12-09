@@ -96,6 +96,6 @@ class ShipEntity: Entity {
         // Add components
         add(component: DisplayComponent(sknode: spriteNode))
         add(component: DeathThroesComponent(countdown: 3.0))
-        add(component: AudioComponent(fileNamed: "bangLarge.wav", withKey: "shipExplosion"))
+        add(component: AudioComponent(fileNamed: "bangLarge.wav", actionKey: "shipExplosion"))
     }
 }

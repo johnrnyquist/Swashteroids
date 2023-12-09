@@ -11,25 +11,17 @@
 import SpriteKit
 import Swash
 
+/// Entities with this compoenent will play this sounds in its playlist immediately from the AudioSystem.
 final class AudioComponent: Component {
     private(set) var playlist: [String: SKAction] = [:]
-    private(set) var keysToRemove: [String] = []
 
-    override init() {
-        super.init()
+    init(fileNamed: String, actionKey: String) {
+        playlist[actionKey] = AllSoundsComponent.shared.soundActions[fileNamed]! //HACK
     }
 
-    convenience init(fileNamed name: String, withKey key: String) {
-        self.init()
-        playlist[key] = AllSoundsComponent.shared.soundActions[name]! //HACK
-    }
-
-    func addSoundAction(_ action: String, withKey key: String) {
-        playlist[key] = AllSoundsComponent.shared.soundActions[action]! //HACK
-    }
-
-    func removeSoundAction(_ key: String) {
-        keysToRemove.append(key)
+    /// If you want to run more than one sound with this component, add the next sound with this method.
+    func addSoundAction(fileNamed: String, actionKey: String) {
+        playlist[actionKey] = AllSoundsComponent.shared.soundActions[fileNamed]! //HACK
     }
 
     func clearPlaylist() {

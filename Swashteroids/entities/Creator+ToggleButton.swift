@@ -38,7 +38,7 @@ extension Creator {
                 engine.hud?.add(component: ChangeShipControlsStateComponent(to: toState))
                 toggleEntity
                         .add(component: AudioComponent(fileNamed: "toggle.wav", 
-                                                       withKey: "toggle\(toggleState.rawValue)"))
+                                                       actionKey: "toggle\(toggleState.rawValue)"))
             },
             touchUp: { sprite in sprite.alpha = 0.2 },
             touchUpOutside: { sprite in sprite.alpha = 0.2 },
