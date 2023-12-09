@@ -12,7 +12,6 @@ import Swash
 import SpriteKit
 
 final class HyperSpaceSystem: ListIteratingSystem {
-    private var sound = SKAction.playSoundFileNamed("hyperspace.wav", waitForCompletion: false)
     private weak var scene: GameScene!
 
     init(scene: GameScene) {
@@ -29,7 +28,7 @@ final class HyperSpaceSystem: ListIteratingSystem {
         position.position.x = hyperSpace.x
         position.position.y = hyperSpace.y
         node.entity?.remove(componentClass: HyperSpaceJumpComponent.self)
-        scene.run(sound)
+        node.entity?.add(component: AudioComponent(fileNamed: "hyperspace.wav", actionKey: "hyperspace.wav"))
         doHyperSpaceEffect(on: sprite)
     }
 

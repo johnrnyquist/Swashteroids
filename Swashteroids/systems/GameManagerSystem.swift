@@ -80,6 +80,8 @@ final class GameManagerSystem: System {
             else { return }
             appState.level += 1
             // TODO: This level text and animation should be elsewhere.
+            appStateNode.entity?.add(component: AudioComponent(fileNamed: "braam-6150.wav",
+                                                               actionKey: "levelUp"))
             announceLevel(appStateComponent: appState)
             //
             let asteroidCount = 0 + appState.level
@@ -109,7 +111,6 @@ final class GameManagerSystem: System {
     }
 
     private func announceLevel(appStateComponent: AppStateComponent) {
-        scene.run(SKAction.playSoundFileNamed("braam-6150.wav", waitForCompletion: false)) //HACK
         let levelText = SKLabelNode(text: "Level \(appStateComponent.level)")
         scene.addChild(levelText)
         levelText.horizontalAlignmentMode = .center
