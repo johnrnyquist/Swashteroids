@@ -109,7 +109,7 @@ final class GameManagerSystem: System {
     }
 
     private func announceLevel(appStateComponent: AppStateComponent) {
-        scene.run(SKAction.playSoundFileNamed("braam-6150.wav", waitForCompletion: false))
+        scene.run(SKAction.playSoundFileNamed("braam-6150.wav", waitForCompletion: false)) //HACK
         let levelText = SKLabelNode(text: "Level \(appStateComponent.level)")
         scene.addChild(levelText)
         levelText.horizontalAlignmentMode = .center

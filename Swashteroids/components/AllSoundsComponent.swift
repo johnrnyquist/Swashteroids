@@ -30,6 +30,7 @@ class AllSoundsComponent: Component {
             "beat2.wav",
             "extraShip.wav",
             "fire.wav",
+            "powerup.wav",
             "saucerBig.wav",
             "saucerSmall.wav",
             "thrust.wav",

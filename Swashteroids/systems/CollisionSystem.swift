@@ -73,13 +73,15 @@ final class CollisionSystem: System {
             else { gunSupplierNode = gunSupplierNode?.next; continue }
             let distanceToShip = distance(gunSupplierPosition.position, shipPosition.position)
             if (distanceToShip <= gunSupplierCollision.radius + shipCollision.radius) {
-                //TODO: This should have a power-up sound
                 creator.removeEntity(gunSupplierNode!.entity!)
                 gunSupplierNode = gunSupplierNode?.next
                 shipCollisionNode?.entity?
                                   .add(component: GunComponent(offsetX: 21, offsetY: 0,
                                                                minimumShotInterval: 0.25,
                                                                torpedoLifetime: 2))
+                shipCollisionNode?.entity?
+                                  .add(component: AudioComponent(fileNamed: "powerup.wav",
+                                                                 actionKey: "powerup.wav"))
             }
             gunSupplierNode = gunSupplierNode?.next
         }

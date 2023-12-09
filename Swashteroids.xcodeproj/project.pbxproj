@@ -93,6 +93,7 @@
 		8D41E2192B1E7AB00031AF54 /* SwashteroidsSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D41E2182B1E7AB00031AF54 /* SwashteroidsSprite.swift */; };
 		8D41E21D2B1F988E0031AF54 /* TorpedosComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D41E21C2B1F988E0031AF54 /* TorpedosComponent.swift */; };
 		8D41E21F2B1FA2D00031AF54 /* Entity+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D41E21E2B1FA2D00031AF54 /* Entity+extension.swift */; };
+		8D4627662B251761007F01E6 /* powerup.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D4627652B251761007F01E6 /* powerup.wav */; };
 		8D59EDDE2B139088003BD073 /* Badloc ICG.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8D59EDDD2B138ED6003BD073 /* Badloc ICG.ttf */; };
 		8D688FBD2B0680D900056CD3 /* hyperspace.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D688FBC2B0680D900056CD3 /* hyperspace.wav */; };
 		8D6A0DFF2B0AB64A00F2E137 /* GameOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6A0DFE2B0AB64A00F2E137 /* GameOverView.swift */; };
@@ -243,6 +244,7 @@
 		8D41E2182B1E7AB00031AF54 /* SwashteroidsSprite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwashteroidsSprite.swift; sourceTree = "<group>"; };
 		8D41E21C2B1F988E0031AF54 /* TorpedosComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TorpedosComponent.swift; sourceTree = "<group>"; };
 		8D41E21E2B1FA2D00031AF54 /* Entity+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entity+extension.swift"; sourceTree = "<group>"; };
+		8D4627652B251761007F01E6 /* powerup.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = powerup.wav; sourceTree = "<group>"; };
 		8D59EDDD2B138ED6003BD073 /* Badloc ICG.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Badloc ICG.ttf"; sourceTree = "<group>"; };
 		8D688FBC2B0680D900056CD3 /* hyperspace.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = hyperspace.wav; sourceTree = "<group>"; };
 		8D688FBE2B068E2200056CD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -494,6 +496,7 @@
 				8D6D81622B1AC52200AD8D18 /* toggle.wav */,
 				8D23C1912B02C59D00F7D878 /* fire.wav */,
 				8D688FBC2B0680D900056CD3 /* hyperspace.wav */,
+				8D4627652B251761007F01E6 /* powerup.wav */,
 				8D23C18E2B02C59D00F7D878 /* saucerBig.wav */,
 				8D23C18D2B02C59D00F7D878 /* saucerSmall.wav */,
 				8D23C1902B02C59D00F7D878 /* thrust.wav */,
@@ -664,6 +667,7 @@
 				8D23C1432B02C4CC00F7D878 /* Assets.xcassets in Resources */,
 				8D23C1E92B02CD7E00F7D878 /* README.md in Resources */,
 				8D23C1C42B02C59D00F7D878 /* plasmaTorpedo.sks in Resources */,
+				8D4627662B251761007F01E6 /* powerup.wav in Resources */,
 				8D8A511A2B16880500A5F254 /* plasmaTorpedoesPowerUp.sks in Resources */,
 				8D23C1462B02C4CC00F7D878 /* LaunchScreen.storyboard in Resources */,
 				8D23C1DB2B02C59D00F7D878 /* bangSmall.wav in Resources */,
@@ -960,7 +964,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 28;
+				CURRENT_PROJECT_VERSION = 29;
 				DEVELOPMENT_TEAM = W8GR9TRDWE;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Swashteroids/Info.plist;
@@ -992,7 +996,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 28;
+				CURRENT_PROJECT_VERSION = 29;
 				DEVELOPMENT_TEAM = W8GR9TRDWE;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Swashteroids/Info.plist;
