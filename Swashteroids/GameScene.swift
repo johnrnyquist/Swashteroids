@@ -16,9 +16,19 @@ final class GameScene: SKScene {
     var game: Swashteroids! // set externally before didMove(to:)
     var motionManager: CMMotionManager?
 	var inputComponent = InputComponent.shared //HACK
-
+    static var sound = SKAudioNode(fileNamed: "thrust.wav") //HACK HACK HACK
+    
     override func didMove(to view: SKView) {
         super.didMove(to: view)
+        GameScene.sound.run(SKAction.changeVolume(to: 0, duration: 0))
+        let waitAction = SKAction.wait(forDuration: 0.5)
+        let addAudioNodeAction = SKAction.run { [unowned self] in
+            addChild(GameScene.sound)
+        }
+        let sequenceAction = SKAction.sequence([waitAction, addAudioNodeAction])
+        run(sequenceAction)
+        
+        
         backgroundColor = .background
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(orientationChanged),

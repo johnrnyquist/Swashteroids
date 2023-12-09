@@ -20,7 +20,7 @@ final class BulletAgeSystemTests: XCTestCase {
     override func setUpWithError() throws {
         component = PlasmaTorpedoComponent(lifeRemaining: 1)
         entity.add(component: component)
-        creator = MockCreator(engine: Engine(), inputComponent: InputComponent(), scene: MockScene(), size: CGSize(width: 1024, height: 768))
+        creator = MockCreator(engine: <#T##Engine##Swash.Engine#>, scene: <#T##SKScene##SpriteKit.SKScene#>, sound: <#T##SKAudioNode##SpriteKit.SKAudioNode#>)
         node = BulletAgeNode() // nodes created by engine
         node.entity = entity   // done by engine
         node.components[PlasmaTorpedoComponent.name] = component

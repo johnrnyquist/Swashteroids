@@ -99,7 +99,7 @@ extension Creator {
                 touchDown: { [unowned self] sprite in
                     sprite.alpha = 0.6
                     generator.impactOccurred()
-                    self.engine.ship?.add(component: FlipComponent.shared)
+                    engine.ship?.add(component: FlipComponent.shared)
                 },
                 touchUp: { sprite in sprite.alpha = 0.2 },
                 touchUpOutside: { sprite in sprite.alpha = 0.2 },

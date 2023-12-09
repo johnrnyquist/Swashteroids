@@ -20,7 +20,7 @@ class Creator {
     var scene: SKScene
     var size: CGSize
 
-    init(engine: Engine, scene: SKScene) {
+    init(engine: Engine, scene: SKScene) { //HACK: sound is a hack
         self.engine = engine
         self.size = scene.size
         self.scene = scene

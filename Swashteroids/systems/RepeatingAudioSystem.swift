@@ -25,15 +25,11 @@ final class RepeatingAudioSystem: ListIteratingSystem {
         else { return }
         switch audio.state {
             case .shouldBegin:
-                if scene.action(forKey: audio.key) != nil {
-                    audio.state = .playing
-                } else {
-                    let repeatForever = SKAction.repeatForever(audio.sound)
-                    scene.run(repeatForever, withKey: audio.key)
-                    audio.state = .playing
-                }
+                audio.state = .playing
+                audio.sound.run(SKAction.changeVolume(to: 1, duration: 0))
             case .shouldStop:
-                scene.removeAction(forKey: audio.key)
+                audio.state = .notPlaying
+                audio.sound.run(SKAction.changeVolume(to: 0, duration: 0))
             case .notPlaying, .playing:
                 break
         }

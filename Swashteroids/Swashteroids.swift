@@ -9,6 +9,7 @@
 //
 
 import Swash
+import SpriteKit
 
 final class Swashteroids {
     //
@@ -28,7 +29,7 @@ final class Swashteroids {
         self.scene = scene
         engine = Engine()
         tickProvider = FrameTickProvider()
-        creator = Creator(engine: engine, scene: scene)
+        creator = Creator(engine: engine, scene: scene) //HACK
         // Add the all sounds entity
         let allSoundsEntity = Entity(name: .allSounds)
                 .add(component: AllSoundsComponent.shared)

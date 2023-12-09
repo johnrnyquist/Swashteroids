@@ -32,13 +32,12 @@ extension Creator {
         // Add the button behavior
         let toState: ShipControlsState = toggleState == .on ? .hidingButtons : .showingButtons
         toggleEntity.add(component: ButtonBehaviorComponent(
-            touchDown: { [unowned self, unowned toggleEntity] sprite in
+            touchDown: { [unowned self] sprite in
 				generator.impactOccurred()
-				(engine.getEntity(named: .appState)?[AppStateComponent.name] as? AppStateComponent)?.shipControlsState = toState //HACK
-                engine.hud?.add(component: ChangeShipControlsStateComponent(to: toState))
-                toggleEntity
-                        .add(component: AudioComponent(fileNamed: "toggle.wav", 
-                                                       actionKey: "toggle\(toggleState.rawValue)"))
+				(engine.appState?[AppStateComponent.name] as? AppStateComponent)?.shipControlsState = toState //HACK
+                engine.hud?.add(component: ChangeShipControlsStateComponent(to: toState))                 
+                engine.hud?.add(component: AudioComponent(fileNamed: "toggle.wav",
+                                                     actionKey: "toggle\(toggleState.rawValue)"))
             },
             touchUp: { sprite in sprite.alpha = 0.2 },
             touchUpOutside: { sprite in sprite.alpha = 0.2 },

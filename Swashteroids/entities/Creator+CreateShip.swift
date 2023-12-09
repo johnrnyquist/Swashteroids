@@ -40,7 +40,6 @@ class ShipEntity: Entity {
         nacellesSprite.name = "nacelles"
         shipSprite.addChild(nacellesSprite)
         shipSprite.entity = self
-        let thrust = SKAction.playSoundFileNamed("thrust.wav", waitForCompletion: true)
         add(component: ShipComponent())
         //  add(component: GunComponent(offsetX: 21, offsetY: 0, minimumShotInterval: 0.25, bulletLifetime: 2))
         add(component: WarpDriveComponent())
@@ -54,6 +53,7 @@ class ShipEntity: Entity {
         add(component: InputComponent.shared) //HACK
         add(component: AccelerometerComponent())
         add(component: ChangeShipControlsStateComponent(to: state.shipControlsState))
+        add(component: RepeatingAudioComponent(sound: GameScene.sound)) //HACK
         switch state.shipControlsState {
             case .hidingButtons:
                 add(component: AccelerometerComponent())
@@ -64,10 +64,10 @@ class ShipEntity: Entity {
 
     // MARK: - Convenience accessors
     var warpDrive: WarpDriveComponent? {
-        self[WarpDriveComponent.name] as? WarpDriveComponent 
+        self[WarpDriveComponent.name] as? WarpDriveComponent
     }
     var repeatingAudio: RepeatingAudioComponent? {
-        self[RepeatingAudioComponent.name] as? RepeatingAudioComponent 
+        self[RepeatingAudioComponent.name] as? RepeatingAudioComponent
     }
     var audio: AudioComponent? {
         self[AudioComponent.name] as? AudioComponent
@@ -75,10 +75,6 @@ class ShipEntity: Entity {
 
     /// Since there is significant modification to the ship entity’s components, 
     /// plus visual and sound effects, I pulled them into the ShipEntity class.
-    /// - Parameter audio: Technically, I do not need to pass this in since the ship entity has an audio component and
-    /// this should be the same one. The reason I am passing it in is that I prefer Systems generally avoid
-    /// knowing about or using Entities. Since the audio came from the system, this method is more like an extension 
-    /// to the system calling it. 
     func destroy() {
         // Visual effects
         let spriteNode = SwashteroidsSpriteNode(texture: createShipTexture(color: .red))
@@ -86,6 +82,7 @@ class ShipEntity: Entity {
         let emitter = SKEmitterNode(fileNamed: "shipExplosion.sks")!
         spriteNode.addChild(emitter)
         spriteNode.run(fade)
+        repeatingAudio?.state = .shouldStop
         // Remove components
         remove(componentClass: InputComponent.self)
         remove(componentClass: GunComponent.self)
