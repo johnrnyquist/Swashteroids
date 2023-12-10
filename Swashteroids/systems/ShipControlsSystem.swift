@@ -26,10 +26,10 @@ final class ShipControlsSystem: ListIteratingSystem {
         guard let transition = node[ChangeShipControlsStateComponent.self]
         else { return }
         do_toggleButtons(transition.to)
-        
         node.entity?.remove(componentClass: ChangeShipControlsStateComponent.self)
     }
 
+    //HACK this whole method is a hack, the Law of Demeter is being violated.
     func do_toggleButtons(_ to: ShipControlsState) {
         switch to {
             case .showingButtons:
@@ -38,10 +38,17 @@ final class ShipControlsSystem: ListIteratingSystem {
                 scene.motionManager = nil
                 scene.game.createShipControlButtons()
                 scene.game.enableShipControlButtons()
+                if let ship = scene.game.ship,
+                   ship.has(componentClassName: GunComponent.name) {
+                    if let fireButton = scene.game.creator.engine.getEntity(named: .fireButton),
+                       let sprite = fireButton.sprite{
+                        sprite.alpha = 0.2
+                    }
+                }
                 scene.game.creator.removeToggleButton()
                 scene.game.creator.createToggleButton(.on)
             case .hidingButtons:
-                scene.game.ship?.add(component: AccelerometerComponent())   
+                scene.game.ship?.add(component: AccelerometerComponent())
                 scene.game.creator.createShipControlQuadrants()
                 scene.motionManager = CMMotionManager()
                 scene.motionManager?.startAccelerometerUpdates()

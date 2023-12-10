@@ -205,7 +205,7 @@ extension Creator {
                       }
                   }
               ))
-        fire.sprite?.alpha = 0.0
+        fire.sprite?.alpha = 0.0 //HACK
         fire.add(component: TouchableComponent())
             .add(component: ButtonBehaviorComponent(
                 touchDown: {[unowned self] sprite in
