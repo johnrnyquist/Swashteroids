@@ -18,23 +18,28 @@ final class CollisionSystem: System {
     private weak var asteroids: NodeList!
     private weak var bullets: NodeList!
     private weak var gunSuppliers: NodeList!
+    private weak var hyperSpacePowerUp: NodeList!
+    private weak var engine: Engine!
 
     init(_ creator: Creator) {
         self.creator = creator
     }
 
     override public func addToEngine(engine: Engine) {
+        self.engine = engine
         appStateNodes = engine.getNodeList(nodeClassType: AppStateNode.self)
         ships = engine.getNodeList(nodeClassType: ShipCollisionNode.self)
         asteroids = engine.getNodeList(nodeClassType: AsteroidCollisionNode.self)
         bullets = engine.getNodeList(nodeClassType: PlasmaTorpedoCollisionNode.self)
         gunSuppliers = engine.getNodeList(nodeClassType: GunSupplierNode.self)
+        hyperSpacePowerUp = engine.getNodeList(nodeClassType: HyperSpacePowerUpNode.self)
     }
 
     /// 
     /// - Parameter time: The time since the last update
     override public func update(time: TimeInterval) {
         shipGunCollisionCheck()
+        shipHSCollisionCheck()
         bulletAsteroidCollisionCheck()
         shipAsteroidCollisionCheck()
     }
@@ -86,10 +91,39 @@ final class CollisionSystem: System {
                 let fadeIn = SKAction.fadeAlpha(to: 1.0, duration: 0.2)
                 let fadeOut = SKAction.fadeAlpha(to: 0.2, duration: 0.2)
                 let seq = SKAction.sequence([fadeIn, fadeOut])
-                let sprite = (creator.engine.getEntity(named: .fireButton)?[DisplayComponent.name] as? DisplayComponent)?.sprite
+                let sprite = (engine.getEntity(named: .fireButton)?[DisplayComponent.name] as? DisplayComponent)?.sprite
                 sprite?.run(seq)
             }
             gunSupplierNode = gunSupplierNode?.next
+        }
+    }
+    func shipHSCollisionCheck() {
+        let shipCollisionNode = ships.head
+        var hyperSpacePowerUpNode = hyperSpacePowerUp?.head
+        while hyperSpacePowerUpNode != nil {
+            guard
+                let hyperSpacePowerUpPosition = hyperSpacePowerUpNode?[PositionComponent.self],
+                let shipPosition = shipCollisionNode?[PositionComponent.self],
+                let hyperSpacePowerUpCollision = hyperSpacePowerUpNode?[CollisionComponent.self],
+                let shipCollision = shipCollisionNode?[CollisionComponent.self]
+            else { hyperSpacePowerUpNode = hyperSpacePowerUpNode?.next; continue }
+            let distanceToShip = distance(hyperSpacePowerUpPosition.position, shipPosition.position)
+            if (distanceToShip <= hyperSpacePowerUpCollision.radius + shipCollision.radius) {
+                creator.removeEntity(hyperSpacePowerUpNode!.entity!)
+                hyperSpacePowerUpNode = hyperSpacePowerUpNode?.next
+                shipCollisionNode?.entity?
+                                  .add(component: HyperSpaceEngineComponent())
+                shipCollisionNode?.entity?
+                                  .add(component: AudioComponent(fileNamed: "powerup.wav",
+                                                                 actionKey: "powerup.wav"))
+                //HACK for immediate gratification
+                let fadeIn = SKAction.fadeAlpha(to: 1.0, duration: 0.2)
+                let fadeOut = SKAction.fadeAlpha(to: 0.2, duration: 0.2)
+                let seq = SKAction.sequence([fadeIn, fadeOut])
+                let sprite = (engine.getEntity(named: .hyperSpaceButton)?[DisplayComponent.name] as? DisplayComponent)?.sprite
+                sprite?.run(seq)
+            }
+            hyperSpacePowerUpNode = hyperSpacePowerUpNode?.next
         }
     }
 

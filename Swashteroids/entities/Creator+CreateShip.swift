@@ -43,7 +43,7 @@ class ShipEntity: Entity {
         add(component: ShipComponent())
         //  add(component: GunComponent(offsetX: 21, offsetY: 0, minimumShotInterval: 0.25, bulletLifetime: 2))
         add(component: WarpDriveComponent())
-        add(component: HyperSpaceEngineComponent())
+//        add(component: HyperSpaceEngineComponent())
         add(component: PositionComponent(x: 512, y: 384, z: .ship, rotation: 0.0))
         add(component: ShipComponent())
         add(component: MotionComponent(velocityX: 0.0, velocityY: 0.0, damping: 0.0))

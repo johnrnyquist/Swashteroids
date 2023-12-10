@@ -62,6 +62,7 @@ final class GameManagerSystem: System {
                 if clearToAddSpaceship {
                     creator.createShip(appState)
                     creator.createPlasmaTorpedoesPowerUp(level: appState.level == 0 ? 1 : appState.level)
+                    creator.createHyperSpacePowerUp(level: appState.level == 0 ? 1 : appState.level)
                 }
             } else if appState.playing {
                 appState.playing = false

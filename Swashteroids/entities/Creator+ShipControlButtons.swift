@@ -107,6 +107,7 @@ extension Creator {
                     if over { sprite.alpha = 0.6 } else { sprite.alpha = 0.2 }
                 }
             ))
+        hyperspace.sprite?.alpha = 0.0 //HACK
         hyperspace.add(component: TouchableComponent())
                   .add(component: ButtonBehaviorComponent(
                       touchDown: { [unowned self] sprite in

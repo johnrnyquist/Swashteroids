@@ -95,6 +95,7 @@
 		8D41E21F2B1FA2D00031AF54 /* Entity+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D41E21E2B1FA2D00031AF54 /* Entity+extension.swift */; };
 		8D4627662B251761007F01E6 /* powerup.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D4627652B251761007F01E6 /* powerup.wav */; };
 		8D59EDDE2B139088003BD073 /* Badloc ICG.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8D59EDDD2B138ED6003BD073 /* Badloc ICG.ttf */; };
+		8D6305472B2678A000002F57 /* hyperSpacePowerUp.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8D6305462B2678A000002F57 /* hyperSpacePowerUp.sks */; };
 		8D688FBD2B0680D900056CD3 /* hyperspace.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D688FBC2B0680D900056CD3 /* hyperspace.wav */; };
 		8D6A0DFF2B0AB64A00F2E137 /* GameOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6A0DFE2B0AB64A00F2E137 /* GameOverView.swift */; };
 		8D6A0E012B0AB82E00F2E137 /* GameOverComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6A0E002B0AB82E00F2E137 /* GameOverComponent.swift */; };
@@ -246,6 +247,7 @@
 		8D41E21E2B1FA2D00031AF54 /* Entity+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entity+extension.swift"; sourceTree = "<group>"; };
 		8D4627652B251761007F01E6 /* powerup.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = powerup.wav; sourceTree = "<group>"; };
 		8D59EDDD2B138ED6003BD073 /* Badloc ICG.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Badloc ICG.ttf"; sourceTree = "<group>"; };
+		8D6305462B2678A000002F57 /* hyperSpacePowerUp.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = hyperSpacePowerUp.sks; sourceTree = "<group>"; };
 		8D688FBC2B0680D900056CD3 /* hyperspace.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = hyperspace.wav; sourceTree = "<group>"; };
 		8D688FBE2B068E2200056CD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8D6A0DFE2B0AB64A00F2E137 /* GameOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverView.swift; sourceTree = "<group>"; };
@@ -443,6 +445,7 @@
 			isa = PBXGroup;
 			children = (
 				8D23C17A2B02C59C00F7D878 /* hyperspace.sks */,
+				8D6305462B2678A000002F57 /* hyperSpacePowerUp.sks */,
 				8D8A51192B16880500A5F254 /* plasmaTorpedoesPowerUp.sks */,
 				8D23C1782B02C59C00F7D878 /* shipExplosion.sks */,
 				8D23C1792B02C59C00F7D878 /* plasmaTorpedo.sks */,
@@ -659,6 +662,7 @@
 				8D6D81572B1A5EC200AD8D18 /* NoButtonsInfo.sks in Resources */,
 				8D23C1D82B02C59D00F7D878 /* thrust.wav in Resources */,
 				8D23C1D72B02C59D00F7D878 /* bangLarge.wav in Resources */,
+				8D6305472B2678A000002F57 /* hyperSpacePowerUp.sks in Resources */,
 				8D6D81552B1A562900AD8D18 /* braam-6150.wav in Resources */,
 				8D23C1DA2B02C59D00F7D878 /* extraShip.wav in Resources */,
 				8D23C1D62B02C59D00F7D878 /* saucerBig.wav in Resources */,
@@ -964,7 +968,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 35;
+				CURRENT_PROJECT_VERSION = 36;
 				DEVELOPMENT_TEAM = W8GR9TRDWE;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Swashteroids/Info.plist;
@@ -996,7 +1000,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 35;
+				CURRENT_PROJECT_VERSION = 36;
 				DEVELOPMENT_TEAM = W8GR9TRDWE;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Swashteroids/Info.plist;
