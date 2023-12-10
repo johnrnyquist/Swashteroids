@@ -14,8 +14,7 @@ import SpriteKit
 final class HyperSpaceSystem: ListIteratingSystem {
     private weak var scene: GameScene!
 
-    init(scene: GameScene) {
-        self.scene = scene
+    init() {
         super.init(nodeClass: HyperSpaceNode.self)
         nodeUpdateFunction = updateNode
     }

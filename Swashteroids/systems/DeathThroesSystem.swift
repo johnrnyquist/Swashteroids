@@ -11,14 +11,17 @@
 import SpriteKit
 import Swash
 
-
 final class DeathThroesSystem: ListIteratingSystem {
-    private weak var creator: Creator!
+    private weak var engine: Engine!
 
-    init(creator: Creator) {
-        self.creator = creator
+    init() {
         super.init(nodeClass: DeathThroesNode.self)
         nodeUpdateFunction = updateNode
+    }
+
+    override func addToEngine(engine: Engine) {
+        super.addToEngine(engine: engine)
+        self.engine = engine
     }
 
     func updateNode(node: Node, time: TimeInterval) {
@@ -27,12 +30,8 @@ final class DeathThroesSystem: ListIteratingSystem {
         deathComponent.countdown -= time
         if deathComponent.countdown <= 0,
            let entity = node.entity {
-            creator.removeEntity(entity)
+            engine.removeEntity(entity: entity)
         }
-    }
-
-    override public func removeFromEngine(engine: Engine) {
-        creator = nil
     }
 }
 

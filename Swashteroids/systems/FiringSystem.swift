@@ -16,7 +16,6 @@ final class FiringSystem: System {
     private weak var creator: Creator?
     private var timeSinceLastShot = 0.25
     private weak var gunControlNodes: NodeList!
-    private weak var scene: SKScene!
 
     init(creator: Creator) {
         self.creator = creator

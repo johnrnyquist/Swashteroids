@@ -12,10 +12,8 @@ import Swash
 import SpriteKit
 
 final class RepeatingAudioSystem: ListIteratingSystem {
-    private weak var scene: SKScene!
 
     init(scene: SKScene) {
-        self.scene = scene
         super.init(nodeClass: RepeatingAudioNode.self)
         nodeUpdateFunction = updateNode
     }
@@ -33,10 +31,6 @@ final class RepeatingAudioSystem: ListIteratingSystem {
             case .notPlaying, .playing:
                 break
         }
-    }
-
-    override public func removeFromEngine(engine: Engine) {
-        scene = nil
     }
 }
 

@@ -64,10 +64,10 @@ final class Swashteroids {
                 .addSystem(system: AnimationSystem(), priority: .animate)
                 .addSystem(system: HudSystem(), priority: .animate)
                 // update
-                .addSystem(system: BulletAgeSystem(creator: creator), priority: .update)
-                .addSystem(system: DeathThroesSystem(creator: creator), priority: .update)
+                .addSystem(system: BulletAgeSystem(), priority: .update)
+                .addSystem(system: DeathThroesSystem(), priority: .update)
                 .addSystem(system: FiringSystem(creator: creator), priority: .update)
-                .addSystem(system: HyperSpaceSystem(scene: scene), priority: .update)
+                .addSystem(system: HyperSpaceSystem(), priority: .update)
                 .addSystem(system: NacelleSystem(), priority: .update)
                 // render
                 .addSystem(system: AudioSystem(scene: scene), priority: .render)
