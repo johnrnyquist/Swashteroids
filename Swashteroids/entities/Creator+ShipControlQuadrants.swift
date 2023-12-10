@@ -119,6 +119,7 @@ extension Creator {
                         }
                     }
                 ))
+        q4Entity.sprite?.alpha = 0.0
         q4Entity
                 .add(component: DisplayComponent(sknode: q4Sprite))
                 .add(component: PositionComponent(x: q4Sprite.x, y: q4Sprite.y, z: .bottom, rotation: 0))

@@ -82,6 +82,12 @@ final class CollisionSystem: System {
                 shipCollisionNode?.entity?
                                   .add(component: AudioComponent(fileNamed: "powerup.wav",
                                                                  actionKey: "powerup.wav"))
+                //HACK for immediate gratification
+                let fadeIn = SKAction.fadeAlpha(to: 1.0, duration: 0.2)
+                let fadeOut = SKAction.fadeAlpha(to: 0.2, duration: 0.2)
+                let seq = SKAction.sequence([fadeIn, fadeOut])
+                let sprite = (creator.engine.getEntity(named: .fireButton)?[DisplayComponent.name] as? DisplayComponent)?.sprite
+                sprite?.run(seq)
             }
             gunSupplierNode = gunSupplierNode?.next
         }
