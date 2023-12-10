@@ -20,6 +20,10 @@ final class GameScene: SKScene {
     
     override func didMove(to view: SKView) {
         super.didMove(to: view)
+//		let border = SKSpriteNode(imageNamed: "border")
+//		border.anchorPoint = CGPoint(x: 0, y: 0)
+//		border.position = CGPoint(x: 0, y: 0)
+//		addChild(border)
         GameScene.sound.run(SKAction.changeVolume(to: 0, duration: 0))
         let waitAction = SKAction.wait(forDuration: 0.5)
         let addAudioNodeAction = SKAction.run { [unowned self] in
