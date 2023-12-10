@@ -13,10 +13,12 @@ import SpriteKit
 
 extension Creator {
     func createPlasmaTorpedoesPowerUp(radius: Double = 7, x: Double = 512, y: Double = 484, level: Int) {
+        guard engine.getEntity(named: .plasmaTorpedoesPowerUp) == nil else { return }
+        
         let r1 = Int.random(in: 75...(level * 130)) * [-1, 1].randomElement()!
-        let r2 = Int.random(in: 75...(level * 100)) * level * [-1, 1].randomElement()!
-        let centerX = Double(512 + r1)
-        let centerY = Double(384 + r2)
+        let r2 = Int.random(in: 75...(level * 100)) * [-1, 1].randomElement()!
+        let centerX = min(Double(512 + r1), 1024)
+        let centerY = min(Double(384 + r2), 768)
         let sprite = PlasmaTorpedoesPowerUpView(imageNamed: "scope")
         let emitter = SKEmitterNode(fileNamed: "plasmaTorpedoesPowerUp.sks")!
         sprite.addChild(emitter)
