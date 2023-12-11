@@ -10,26 +10,36 @@
 
 import Swash
 import SpriteKit
+import CoreMotion
 
-final class Swashteroids {
+final class Swashteroids: NSObject {
+    var motionManager: CMMotionManager?
+    var orientation = 1.0
+    var inputComponent = InputComponent.shared
     //
-    /// A SpriteKit SKScene subclass
-    private var scene: GameScene
+    /// A SpriteKit SKScene subclass to display the game
+    var scene: GameScene
+    //
+    /// Used to create and configure Entity instances
+    var creator: Creator
     //
     /// Drives the game
     private var engine: Engine
     //
     /// Drives the engine
     private var tickProvider: FrameTickProvider
-    //
-    /// Used to create and configure Entity instances
-    var creator: Creator
 
     init(scene: GameScene) {
         self.scene = scene
+        orientation = UIDevice.current.orientation == .landscapeRight ? -1.0 : 1.0
+        motionManager = CMMotionManager()
         engine = Engine()
         tickProvider = FrameTickProvider()
         creator = Creator(engine: engine, scene: scene)
+        super.init()
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(orientationChanged),
+                                               name: UIDevice.orientationDidChangeNotification, object: nil)
         // Add the all sounds entity
         let allSoundsEntity = Entity(name: .allSounds)
                 .add(component: AllSoundsComponent.shared)
@@ -49,7 +59,7 @@ final class Swashteroids {
             // preupdate
                 .addSystem(system: GameManagerSystem(creator: creator, size: scene.size, scene: scene), priority: .preUpdate)
                 .addSystem(system: TransitionAppStateSystem(creator: creator), priority: .preUpdate)
-                .addSystem(system: ShipControlsSystem(creator: creator, scene: scene), priority: .preUpdate)
+                .addSystem(system: ShipControlsSystem(creator: creator, scene: scene, game: self), priority: .preUpdate)
                 .addSystem(system: GameOverSystem(), priority: .preUpdate)
                 // move
                 .addSystem(system: AccelerometerSystem(), priority: .move)
@@ -76,6 +86,7 @@ final class Swashteroids {
     }
 
     func start() {
+        motionManager?.startAccelerometerUpdates()
         tickProvider.add(Listener(engine.update)) // Then engine listens for ticks
         tickProvider.start()
     }
@@ -83,9 +94,9 @@ final class Swashteroids {
     func dispatchTick() {
         tickProvider.dispatchTick()
     }
-}
 
-extension Swashteroids {
-    /// This is the player’s avatar.
-    var ship: Entity? { engine.ship }
+    @objc func orientationChanged(_ notification: Notification) {
+        print(#function, UIDevice.current.orientation, notification)
+        orientation = UIDevice.current.orientation == .landscapeRight ? -1.0 : 1.0
+    }
 }

@@ -17,14 +17,16 @@ final class ShipControlsSystem: ListIteratingSystem {
     private weak var creator: Creator!
     private weak var scene: GameScene!
     private weak var engine: Engine!
-    
-    init(creator: Creator, scene: GameScene) {
+    private weak var game: Swashteroids! //HACK to nil out motion manager
+
+    init(creator: Creator, scene: GameScene, game: Swashteroids) {
         self.creator = creator
         self.scene = scene
+        self.game = game
         super.init(nodeClass: ShipControlsStateNode.self)
         nodeUpdateFunction = updateNode
     }
-    
+
     override func addToEngine(engine: Engine) {
         super.addToEngine(engine: engine)
         self.engine = engine
@@ -43,20 +45,20 @@ final class ShipControlsSystem: ListIteratingSystem {
             case .showingButtons:
                 engine.ship?.remove(componentClass: AccelerometerComponent.self)
                 creator.removeShipControlQuadrants()
-                scene.motionManager = nil
+                game.motionManager = nil
                 creator.createShipControlButtons()
                 creator.enableShipControlButtons()
                 if let ship = engine.ship,
                    ship.has(componentClassName: GunComponent.name) {
                     if let fireButton = engine.getEntity(named: .fireButton),
-                       let sprite = fireButton.sprite{
+                       let sprite = fireButton.sprite {
                         sprite.alpha = 0.2
                     }
                 }
                 if let ship = engine.ship,
                    ship.has(componentClassName: HyperSpaceEngineComponent.name) {
                     if let hyperSpaceButton = engine.getEntity(named: .hyperSpaceButton),
-                       let sprite = hyperSpaceButton.sprite{
+                       let sprite = hyperSpaceButton.sprite {
                         sprite.alpha = 0.2
                     }
                 }
@@ -65,8 +67,8 @@ final class ShipControlsSystem: ListIteratingSystem {
             case .hidingButtons:
                 engine.ship?.add(component: AccelerometerComponent())
                 creator.createShipControlQuadrants()
-                scene.motionManager = CMMotionManager()
-                scene.motionManager?.startAccelerometerUpdates()
+                game.motionManager = CMMotionManager()
+                game.motionManager?.startAccelerometerUpdates()
                 creator.removeShipControlButtons()
                 creator.removeToggleButton()
                 creator.createToggleButton(.off)

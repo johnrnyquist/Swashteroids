@@ -96,6 +96,8 @@
 		8D4627662B251761007F01E6 /* powerup.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D4627652B251761007F01E6 /* powerup.wav */; };
 		8D59EDDE2B139088003BD073 /* Badloc ICG.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8D59EDDD2B138ED6003BD073 /* Badloc ICG.ttf */; };
 		8D6305472B2678A000002F57 /* hyperSpacePowerUp.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8D6305462B2678A000002F57 /* hyperSpacePowerUp.sks */; };
+		8D651D6C2B278BB30088AEEF /* Swashteroids+SKSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D651D6B2B278BB30088AEEF /* Swashteroids+SKSceneDelegate.swift */; };
+		8D651D6E2B278C1C0088AEEF /* Swashteroids+TouchDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D651D6D2B278C1C0088AEEF /* Swashteroids+TouchDelegate.swift */; };
 		8D688FBD2B0680D900056CD3 /* hyperspace.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D688FBC2B0680D900056CD3 /* hyperspace.wav */; };
 		8D6A0DFF2B0AB64A00F2E137 /* GameOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6A0DFE2B0AB64A00F2E137 /* GameOverView.swift */; };
 		8D6A0E012B0AB82E00F2E137 /* GameOverComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6A0E002B0AB82E00F2E137 /* GameOverComponent.swift */; };
@@ -248,6 +250,8 @@
 		8D4627652B251761007F01E6 /* powerup.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = powerup.wav; sourceTree = "<group>"; };
 		8D59EDDD2B138ED6003BD073 /* Badloc ICG.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Badloc ICG.ttf"; sourceTree = "<group>"; };
 		8D6305462B2678A000002F57 /* hyperSpacePowerUp.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = hyperSpacePowerUp.sks; sourceTree = "<group>"; };
+		8D651D6B2B278BB30088AEEF /* Swashteroids+SKSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Swashteroids+SKSceneDelegate.swift"; sourceTree = "<group>"; };
+		8D651D6D2B278C1C0088AEEF /* Swashteroids+TouchDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Swashteroids+TouchDelegate.swift"; sourceTree = "<group>"; };
 		8D688FBC2B0680D900056CD3 /* hyperspace.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = hyperspace.wav; sourceTree = "<group>"; };
 		8D688FBE2B068E2200056CD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8D6A0DFE2B0AB64A00F2E137 /* GameOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverView.swift; sourceTree = "<group>"; };
@@ -352,6 +356,8 @@
 				8D23C13D2B02C4CA00F7D878 /* GameViewController.swift */,
 				8D23C13B2B02C4CA00F7D878 /* GameScene.swift */,
 				8D23C14F2B02C59B00F7D878 /* Swashteroids.swift */,
+				8D651D6D2B278C1C0088AEEF /* Swashteroids+TouchDelegate.swift */,
+				8D651D6B2B278BB30088AEEF /* Swashteroids+SKSceneDelegate.swift */,
 				8D23C1502B02C59B00F7D878 /* Enums.swift */,
 				8DA97A952B23581100E7495A /* Int+SystemPriorities.swift */,
 				931394D1D0B636772EE1DFF7 /* String+EntityNames.swift */,
@@ -702,6 +708,7 @@
 				8D23C1D12B02C59D00F7D878 /* MovementSystem.swift in Sources */,
 				8D23C1BF2B02C59D00F7D878 /* HudComponent.swift in Sources */,
 				8D23C1C02B02C59D00F7D878 /* CollisionComponent.swift in Sources */,
+				8D651D6C2B278BB30088AEEF /* Swashteroids+SKSceneDelegate.swift in Sources */,
 				8D41E2112B1E64530031AF54 /* ChangeShipControlsStateComponent.swift in Sources */,
 				8D23C19D2B02C59D00F7D878 /* Swashteroids.swift in Sources */,
 				8D23C1B02B02C59D00F7D878 /* GunControlNode.swift in Sources */,
@@ -742,6 +749,7 @@
 				8D23C1B32B02C59D00F7D878 /* GameStateComponent.swift in Sources */,
 				8D23C1C22B02C59D00F7D878 /* Hashable+extensions.swift in Sources */,
 				8D23C1CA2B02C59D00F7D878 /* BulletAgeSystem.swift in Sources */,
+				8D651D6E2B278C1C0088AEEF /* Swashteroids+TouchDelegate.swift in Sources */,
 				8D23C1B62B02C59D00F7D878 /* AsteroidComponent.swift in Sources */,
 				8D23C1C72B02C59D00F7D878 /* NacelleSystem.swift in Sources */,
 				8D23C1A22B02C59D00F7D878 /* AudioNode.swift in Sources */,

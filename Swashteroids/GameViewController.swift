@@ -25,8 +25,6 @@ final class GameViewController: UIViewController {
         scene.name = "gameScene"
         scene.anchorPoint = .zero
         scene.scaleMode = .aspectFit
-        let game = Swashteroids(scene: scene)
-        scene.game = game
         return scene
     }
 
