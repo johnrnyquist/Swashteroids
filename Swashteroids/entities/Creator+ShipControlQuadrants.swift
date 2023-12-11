@@ -44,7 +44,7 @@ extension Creator {
         engine.replaceEntity(entity: q3Entity)
         engine.replaceEntity(entity: q4Entity)
         // Configure the entities
-        q1Entity
+        q2Entity
                 .add(component: DisplayComponent(sknode: q1Sprite))
                 .add(component: PositionComponent(x: q1Sprite.x, y: q1Sprite.y, z: .bottom, rotation: 0))
                 .add(component: TouchableComponent())
@@ -60,7 +60,8 @@ extension Creator {
                         if over { sprite.alpha = 0.6 } else { sprite.alpha = 0.2 }
                     }
                 ))
-        q2Entity
+        q1Entity.sprite?.alpha = 0.0
+        q1Entity
                 .add(component: DisplayComponent(sknode: q2Sprite))
                 .add(component: PositionComponent(x: q2Sprite.x, y: q2Sprite.y, z: .bottom, rotation: 0))
                 .add(component: TouchableComponent())
