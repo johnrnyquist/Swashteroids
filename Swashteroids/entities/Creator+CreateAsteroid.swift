@@ -12,7 +12,7 @@ import Swash
 import SpriteKit
 
 extension Creator {
-    func createAsteroid(radius: Double, x: Double, y: Double, color: UIColor = .asteroid) {
+    func createAsteroid(radius: Double, x: Double, y: Double, color: UIColor = .asteroid, level: Int) {
         let sprite = SwashteroidsSpriteNode(texture: createAsteroidTexture(radius: radius, color: color))
         let entity = Entity()
         numAsteroids += 1
@@ -20,21 +20,13 @@ extension Creator {
         sprite.name = entity.name
         entity
                 .add(component: PositionComponent(x: x, y: y, z: .asteroids, rotation: 0.0))
-                .add(component: MotionComponent(velocityX: Double.random(in: -82.0...82.0),
-                                                velocityY: Double.random(in: -82.0...82.0),
+                .add(component: MotionComponent(velocityX: min(Double.random(in: -82.0...82.0) * Double(level), 100.0),
+                                                velocityY: min(Double.random(in: -82.0...82.0) * Double(level), 100.0),
                                                 angularVelocity: Double.random(in: -100.0...100.0),
                                                 damping: 0))
                 .add(component: CollisionComponent(radius: radius))
                 .add(component: AsteroidComponent())
                 .add(component: DisplayComponent(sknode: sprite))
         try! engine.addEntity(entity: entity)
-    }
-
-    func createAsteroids(_ n: Int) {
-        for _ in 1...n {
-            createAsteroid(radius: LARGE_ASTEROID_RADIUS,
-                           x: Double.random(in: 0.0...1024.0),
-                           y: Double.random(in: 0...768.0))
-        }
     }
 }

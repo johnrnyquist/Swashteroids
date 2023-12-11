@@ -106,7 +106,7 @@ final class GameManagerSystem: System {
                     // Repeat until the asteroid is not on top of the ship
                 } while (position.distance(p: spaceShipPosition.position) <= 80)
                 // Create the asteroid at the calculated position
-                creator.createAsteroid(radius: LARGE_ASTEROID_RADIUS, x: position.x, y: position.y)
+                creator.createAsteroid(radius: LARGE_ASTEROID_RADIUS, x: position.x, y: position.y, level: appState.level)
             }
         }
     }
@@ -119,6 +119,7 @@ final class GameManagerSystem: System {
         levelText.fontColor = .hudText
         levelText.fontSize = 64
         levelText.position = CGPoint(x: size.width / 2, y: size.height / 2 * 1.2)
+        levelText.zPosition = Layer.top.rawValue
         let zoomInAction = SKAction.scale(to: 2.0, duration: 0.5)
         zoomInAction.timingMode = .easeIn
         let waitAction = SKAction.wait(forDuration: 1.0)

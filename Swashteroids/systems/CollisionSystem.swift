@@ -17,7 +17,7 @@ final class CollisionSystem: System {
     private weak var ships: NodeList!
     private weak var asteroids: NodeList!
     private weak var bullets: NodeList!
-    private weak var gunSuppliers: NodeList!
+    private weak var torpedoPowerUp: NodeList!
     private weak var hyperSpacePowerUp: NodeList!
     private weak var engine: Engine!
 
@@ -31,26 +31,28 @@ final class CollisionSystem: System {
         ships = engine.getNodeList(nodeClassType: ShipCollisionNode.self)
         asteroids = engine.getNodeList(nodeClassType: AsteroidCollisionNode.self)
         bullets = engine.getNodeList(nodeClassType: PlasmaTorpedoCollisionNode.self)
-        gunSuppliers = engine.getNodeList(nodeClassType: GunSupplierNode.self)
+        torpedoPowerUp = engine.getNodeList(nodeClassType: GunSupplierNode.self)
         hyperSpacePowerUp = engine.getNodeList(nodeClassType: HyperSpacePowerUpNode.self)
     }
 
     /// 
     /// - Parameter time: The time since the last update
     override public func update(time: TimeInterval) {
-        shipGunCollisionCheck()
+        shipTorpedoPowerUpCollisionCheck()
         shipHSCollisionCheck()
-        bulletAsteroidCollisionCheck()
+        torpedoAsteroidCollisionCheck()
         shipAsteroidCollisionCheck()
     }
 
-    private func splitAsteroid(asteroidCollision: CollisionComponent, asteroidPosition: PositionComponent, asteroidCollisionNode: Node?, splits: Int = 2) {
+    private func splitAsteroid(asteroidCollision: CollisionComponent, asteroidPosition: PositionComponent, 
+                               asteroidCollisionNode: Node?, splits: Int = 2, level: Int) {
         guard let asteroidCollisionNode else { return }
         if (asteroidCollision.radius > LARGE_ASTEROID_RADIUS / 4) {
             for _ in 1...splits {
                 creator.createAsteroid(radius: asteroidCollision.radius / 2,
                                        x: asteroidPosition.position.x + Double.random(in: -5...5),
-                                       y: asteroidPosition.position.y + Double.random(in: -5...5))
+                                       y: asteroidPosition.position.y + Double.random(in: -5...5),
+                                       level: level)
             }
         }
         let spriteNode = SKNode()
@@ -66,20 +68,20 @@ final class CollisionSystem: System {
         }
     }
 
-    func shipGunCollisionCheck() {
+    func shipTorpedoPowerUpCollisionCheck() {
         let shipCollisionNode = ships.head
-        var gunSupplierNode = gunSuppliers?.head
-        while gunSupplierNode != nil {
+        var torpedoPowerUpNode = torpedoPowerUp?.head
+        while torpedoPowerUpNode != nil {
             guard
-                let gunSupplierPosition = gunSupplierNode?[PositionComponent.self],
+                let gunSupplierPosition = torpedoPowerUpNode?[PositionComponent.self],
                 let shipPosition = shipCollisionNode?[PositionComponent.self],
-                let gunSupplierCollision = gunSupplierNode?[CollisionComponent.self],
+                let gunSupplierCollision = torpedoPowerUpNode?[CollisionComponent.self],
                 let shipCollision = shipCollisionNode?[CollisionComponent.self]
-            else { gunSupplierNode = gunSupplierNode?.next; continue }
+            else { torpedoPowerUpNode = torpedoPowerUpNode?.next; continue }
             let distanceToShip = distance(gunSupplierPosition.position, shipPosition.position)
             if (distanceToShip <= gunSupplierCollision.radius + shipCollision.radius) {
-                creator.removeEntity(gunSupplierNode!.entity!)
-                gunSupplierNode = gunSupplierNode?.next
+                engine.removeEntity(entity: torpedoPowerUpNode!.entity!)
+                torpedoPowerUpNode = torpedoPowerUpNode?.next
                 shipCollisionNode?.entity?
                                   .add(component: GunComponent(offsetX: 21, offsetY: 0,
                                                                minimumShotInterval: 0.25,
@@ -94,7 +96,7 @@ final class CollisionSystem: System {
                 let sprite = (engine.getEntity(named: .fireButton)?[DisplayComponent.name] as? DisplayComponent)?.sprite
                 sprite?.run(seq)
             }
-            gunSupplierNode = gunSupplierNode?.next
+            torpedoPowerUpNode = torpedoPowerUpNode?.next
         }
     }
     func shipHSCollisionCheck() {
@@ -109,7 +111,7 @@ final class CollisionSystem: System {
             else { hyperSpacePowerUpNode = hyperSpacePowerUpNode?.next; continue }
             let distanceToShip = distance(hyperSpacePowerUpPosition.position, shipPosition.position)
             if (distanceToShip <= hyperSpacePowerUpCollision.radius + shipCollision.radius) {
-                creator.removeEntity(hyperSpacePowerUpNode!.entity!)
+                engine.removeEntity(entity: hyperSpacePowerUpNode!.entity!)
                 hyperSpacePowerUpNode = hyperSpacePowerUpNode?.next
                 shipCollisionNode?.entity?
                                   .add(component: HyperSpaceEngineComponent())
@@ -127,7 +129,7 @@ final class CollisionSystem: System {
         }
     }
 
-    func bulletAsteroidCollisionCheck() {
+    func torpedoAsteroidCollisionCheck() {
         var bulletNode = bullets?.head
         var asteroidNode: Node?
         while bulletNode != nil {
@@ -139,10 +141,11 @@ final class CollisionSystem: System {
                     let asteroidCollision = asteroidNode?[CollisionComponent.self]
                 else { asteroidNode = asteroidNode?.next; continue } // or return? }
                 if (distance(asteroidPosition.position, bulletPosition.position) <= asteroidCollision.radius) {
-                    creator.removeEntity(bulletNode!.entity!)
+                    engine.removeEntity(entity: bulletNode!.entity!)
+                    let level = (appStateNodes.head?[AppStateComponent.self] as? AppStateComponent)?.level ?? 1
                     splitAsteroid(asteroidCollision: asteroidCollision,
                                   asteroidPosition: asteroidPosition,
-                                  asteroidCollisionNode: asteroidNode)
+                                  asteroidCollisionNode: asteroidNode, level: level)
                     if let gameStateNode = appStateNodes.head,
                        let appStateComponent = gameStateNode[AppStateComponent.self] {
                         appStateComponent.score += 1
@@ -183,9 +186,10 @@ final class CollisionSystem: System {
                             component.ships -= 1
                         }
                     }
+                    let level = (appStateNodes.head?[AppStateComponent.self] as? AppStateComponent)?.level ?? 1
                     splitAsteroid(asteroidCollision: asteroidCollision,
                                   asteroidPosition: asteroidPosition,
-                                  asteroidCollisionNode: asteroidCollisionNode)
+                                  asteroidCollisionNode: asteroidCollisionNode, level: level)
                     break
                 }
                 asteroidCollisionNode = asteroidCollisionNode?.next
@@ -198,16 +202,14 @@ final class CollisionSystem: System {
         hypot(from.x - to.x, from.y - to.y)
     }
 
-//    func distance(_ from: CGPoint, _ to: CGPoint) -> Double {
-//        sqrt((from.x - to.x) * (from.x - to.x) + (from.y - to.y) * (from.y - to.y))
-//    }
     override public func removeFromEngine(engine: Engine) {
         creator = nil
         appStateNodes = nil
         ships = nil
         asteroids = nil
         bullets = nil
-        gunSuppliers = nil
+        torpedoPowerUp = nil
+        hyperSpacePowerUp = nil
     }
 }
 
