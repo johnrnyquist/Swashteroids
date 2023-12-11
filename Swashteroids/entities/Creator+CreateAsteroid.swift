@@ -18,10 +18,12 @@ extension Creator {
         numAsteroids += 1
         entity.name = "asteroid_\(numAsteroids)"
         sprite.name = entity.name
+        let lvl = Double(level > 0 ? level : 1)
+        let speedModifier = lvl * 0.1 + 1.0  // 1.1, 1.2, 1.3, 1.4
         entity
                 .add(component: PositionComponent(x: x, y: y, z: .asteroids, rotation: 0.0))
-                .add(component: MotionComponent(velocityX: min(Double.random(in: -82.0...82.0) * Double(level), 100.0),
-                                                velocityY: min(Double.random(in: -82.0...82.0) * Double(level), 100.0),
+                .add(component: MotionComponent(velocityX: min(Double.random(in: -82.0...82.0) * speedModifier, 100.0),
+                                                velocityY: min(Double.random(in: -82.0...82.0) * speedModifier, 100.0),
                                                 angularVelocity: Double.random(in: -100.0...100.0),
                                                 damping: 0))
                 .add(component: CollisionComponent(radius: radius))
