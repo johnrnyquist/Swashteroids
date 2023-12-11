@@ -41,16 +41,14 @@ class ShipEntity: Entity {
         shipSprite.addChild(nacellesSprite)
         shipSprite.entity = self
         add(component: ShipComponent())
-        //  add(component: GunComponent(offsetX: 21, offsetY: 0, minimumShotInterval: 0.25, bulletLifetime: 2))
         add(component: WarpDriveComponent())
-//        add(component: HyperSpaceEngineComponent())
         add(component: PositionComponent(x: 512, y: 384, z: .ship, rotation: 0.0))
         add(component: ShipComponent())
         add(component: MotionComponent(velocityX: 0.0, velocityY: 0.0, damping: 0.0))
         add(component: CollisionComponent(radius: 25))
         add(component: DisplayComponent(sknode: shipSprite))
         add(component: MotionControlsComponent(left: 1, right: 2, accelerate: 4, accelerationRate: 90, rotationRate: 100))
-        add(component: InputComponent.shared) //HACK
+        add(component: InputComponent.shared)
         add(component: AccelerometerComponent())
         add(component: ChangeShipControlsStateComponent(to: state.shipControlsState))
         add(component: RepeatingAudioComponent(sound: GameScene.sound)) //HACK

@@ -29,7 +29,7 @@ final class Swashteroids {
         self.scene = scene
         engine = Engine()
         tickProvider = FrameTickProvider()
-        creator = Creator(engine: engine, scene: scene) //HACK
+        creator = Creator(engine: engine, scene: scene)
         // Add the all sounds entity
         let allSoundsEntity = Entity(name: .allSounds)
                 .add(component: AllSoundsComponent.shared)
@@ -49,7 +49,7 @@ final class Swashteroids {
             // preupdate
                 .addSystem(system: GameManagerSystem(creator: creator, size: scene.size, scene: scene), priority: .preUpdate)
                 .addSystem(system: TransitionAppStateSystem(creator: creator), priority: .preUpdate)
-                .addSystem(system: ShipControlsSystem(scene: scene), priority: .preUpdate)
+                .addSystem(system: ShipControlsSystem(creator: creator, scene: scene), priority: .preUpdate)
                 .addSystem(system: GameOverSystem(), priority: .preUpdate)
                 // move
                 .addSystem(system: AccelerometerSystem(), priority: .move)
@@ -85,20 +85,7 @@ final class Swashteroids {
     }
 }
 
-// MARK: - Chain of Responsibility
 extension Swashteroids {
     /// This is the player’s avatar.
     var ship: Entity? { engine.ship }
-
-    func removeShipControlButtons() {
-        creator.removeShipControlButtons()
-    }
-
-    func enableShipControlButtons() {
-        creator.enableShipControlButtons()
-    }
-
-    func createShipControlButtons() {
-        creator.createShipControlButtons()
-    }
 }

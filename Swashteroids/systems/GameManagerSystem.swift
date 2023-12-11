@@ -23,7 +23,7 @@ final class GameManagerSystem: System {
     private weak var bullets: NodeList!
     private weak var appStates: NodeList!
     private weak var ships: NodeList!
-    private weak var scene: SKScene! //HACK
+    private weak var scene: SKScene! //HACK for announceLevel()
 
     init(creator: Creator, size: CGSize, scene: SKScene) {
         self.creator = creator
@@ -111,6 +111,7 @@ final class GameManagerSystem: System {
         }
     }
 
+    /// This is a hack to get the level text to appear.
     private func announceLevel(appStateComponent: AppStateComponent) {
         let levelText = SKLabelNode(text: "Level \(appStateComponent.level)")
         scene.addChild(levelText) //HACK

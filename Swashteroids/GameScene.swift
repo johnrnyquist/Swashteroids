@@ -15,23 +15,24 @@ final class GameScene: SKScene {
     private var orientation = 1.0
     var game: Swashteroids! // set externally before didMove(to:)
     var motionManager: CMMotionManager?
-	var inputComponent = InputComponent.shared //HACK
+	var inputComponent = InputComponent.shared
     static var sound = SKAudioNode(fileNamed: "thrust.wav") //HACK HACK HACK
     
     override func didMove(to view: SKView) {
         super.didMove(to: view)
+        
 //		let border = SKSpriteNode(imageNamed: "border")
 //		border.anchorPoint = CGPoint(x: 0, y: 0)
 //		border.position = CGPoint(x: 0, y: 0)
 //		addChild(border)
+
+        //HACK to get around the SpriteKit bug where repeated sounds have a popping noise
         GameScene.sound.run(SKAction.changeVolume(to: 0, duration: 0))
-        let waitAction = SKAction.wait(forDuration: 0.5)
         let addAudioNodeAction = SKAction.run { [unowned self] in
             addChild(GameScene.sound)
         }
-        let sequenceAction = SKAction.sequence([waitAction, addAudioNodeAction])
-        run(sequenceAction)
-        
+        run(addAudioNodeAction)
+        //END_HACK
         
         backgroundColor = .background
         NotificationCenter.default.addObserver(self,

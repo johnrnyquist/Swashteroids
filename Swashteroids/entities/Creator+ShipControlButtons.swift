@@ -128,15 +128,21 @@ extension Creator {
                     generator.impactOccurred()
                     self.engine.ship?.add(component: LeftComponent.shared)
                 },
-                touchUp: { sprite in sprite.alpha = 0.2; self.engine.ship?.remove(componentClass: LeftComponent.self) },
+                touchUp: { sprite in
+                    sprite.alpha = 0.2
+                    self.engine.ship?.remove(componentClass: LeftComponent.self)
+                },
                 touchUpOutside: { sprite in
-                    sprite.alpha = 0.2; self.engine.ship?.remove(componentClass: LeftComponent.self)
+                    sprite.alpha = 0.2
+                    self.engine.ship?.remove(componentClass: LeftComponent.self)
                 },
                 touchMoved: { sprite, over in
                     if over {
-                        sprite.alpha = 0.6; self.engine.ship?.add(component: LeftComponent.shared)
+                        sprite.alpha = 0.6
+                        self.engine.ship?.add(component: LeftComponent.shared)
                     } else {
-                        sprite.alpha = 0.2; self.engine.ship?.remove(componentClass: LeftComponent.self)
+                        sprite.alpha = 0.2
+                        self.engine.ship?.remove(componentClass: LeftComponent.self)
                     }
                 }
             ))
@@ -168,24 +174,24 @@ extension Creator {
                       generator.impactOccurred()
                       if let ship = self.engine.ship {
                           ship.add(component: ApplyThrustComponent.shared)
-                          ship.warpDrive?.isThrusting = true //HACK
-                          ship.repeatingAudio?.state = .shouldBegin //HACK
+                          ship.warpDrive?.isThrusting = true
+                          ship.repeatingAudio?.state = .shouldBegin
                       }
                   },
                   touchUp: { sprite in
                       sprite.alpha = 0.2
                       if let ship = self.engine.ship {
                           ship.remove(componentClass: ApplyThrustComponent.self)
-                          ship.warpDrive?.isThrusting = false //HACK
-                          ship.repeatingAudio?.state = .shouldStop //HACK
+                          ship.warpDrive?.isThrusting = false
+                          ship.repeatingAudio?.state = .shouldStop
                       }
                   },
                   touchUpOutside: { sprite in
                       sprite.alpha = 0.2
                       if let ship = self.engine.ship {
                           ship.remove(componentClass: ApplyThrustComponent.self)
-                          ship.warpDrive?.isThrusting = false //HACK
-                          ship.repeatingAudio?.state = .shouldStop //HACK
+                          ship.warpDrive?.isThrusting = false
+                          ship.repeatingAudio?.state = .shouldStop
                       }
                   },
                   touchMoved: { sprite, over in
@@ -193,15 +199,15 @@ extension Creator {
                           sprite.alpha = 0.6
                           if let ship = self.engine.ship {
                               ship.add(component: ApplyThrustComponent.shared)
-                              ship.warpDrive?.isThrusting = true //HACK
-                              ship.repeatingAudio?.state = .shouldBegin //HACK
+                              ship.warpDrive?.isThrusting = true
+                              ship.repeatingAudio?.state = .shouldBegin
                           }
                       } else {
                           sprite.alpha = 0.2
                           if let ship = self.engine.ship {
                               ship.remove(componentClass: ApplyThrustComponent.self)
-                              ship.warpDrive?.isThrusting = false //HACK
-                              ship.repeatingAudio?.state = .shouldStop //HACK
+                              ship.warpDrive?.isThrusting = false
+                              ship.repeatingAudio?.state = .shouldStop
                           }
                       }
                   }
@@ -209,7 +215,7 @@ extension Creator {
         fire.sprite?.alpha = 0.0 //HACK
         fire.add(component: TouchableComponent())
             .add(component: ButtonBehaviorComponent(
-                touchDown: {[unowned self] sprite in
+                touchDown: { [unowned self] sprite in
                     sprite.alpha = 0.6
                     generator.impactOccurred()
                     engine.ship?.add(component: TriggerDownComponent.shared)

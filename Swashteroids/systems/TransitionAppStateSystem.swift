@@ -7,7 +7,6 @@
 // Made with Swash, give it a try!
 // https://github.com/johnrnyquist/Swash
 //
-
 //
 // Created by John Nyquist on 12/3/23.
 //
@@ -52,6 +51,8 @@ final class TransitionAppStateSystem: ListIteratingSystem {
             case .start:
                 creator?.setUpStart()
             case .gameOver:
+                creator?.removeShipControlButtons()
+                creator?.removeShipControlQuadrants()
                 break
             case .playing:
                 if transition.from == .infoNoButtons {

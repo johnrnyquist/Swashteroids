@@ -89,36 +89,36 @@ extension Creator {
                         generator.impactOccurred()
                         if let ship = self.engine.ship {
                             ship.add(component: ApplyThrustComponent.shared)
-                            ship.warpDrive?.isThrusting = true //HACK
-                            ship.repeatingAudio?.state = .shouldBegin //HACK
+                            ship.warpDrive?.isThrusting = true 
+                            ship.repeatingAudio?.state = .shouldBegin 
                         }
                     },
                     touchUp: { sprite in
                         if let ship = self.engine.ship {
                             ship.remove(componentClass: ApplyThrustComponent.self)
-                            ship.warpDrive?.isThrusting = false //HACK
-                            ship.repeatingAudio?.state = .shouldStop //HACK
+                            ship.warpDrive?.isThrusting = false 
+                            ship.repeatingAudio?.state = .shouldStop 
                         }
                     },
                     touchUpOutside: { sprite in
                         if let ship = self.engine.ship {
                             ship.remove(componentClass: ApplyThrustComponent.self)
-                            ship.warpDrive?.isThrusting = false //HACK
-                            ship.repeatingAudio?.state = .shouldStop //HACK
+                            ship.warpDrive?.isThrusting = false 
+                            ship.repeatingAudio?.state = .shouldStop 
                         }
                     },
                     touchMoved: { sprite, over in
                         if over {
                             if let ship = self.engine.ship {
                                 ship.add(component: ApplyThrustComponent.shared)
-                                ship.warpDrive?.isThrusting = true //HACK
-                                ship.repeatingAudio?.state = .shouldBegin //HACK
+                                ship.warpDrive?.isThrusting = true 
+                                ship.repeatingAudio?.state = .shouldBegin 
                             }
                         } else {
                             if let ship = self.engine.ship {
                                 ship.remove(componentClass: ApplyThrustComponent.self)
-                                ship.warpDrive?.isThrusting = false //HACK
-                                ship.repeatingAudio?.state = .shouldStop //HACK
+                                ship.warpDrive?.isThrusting = false 
+                                ship.repeatingAudio?.state = .shouldStop 
                             }
                         }
                     }

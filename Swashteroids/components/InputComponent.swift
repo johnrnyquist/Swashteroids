@@ -11,15 +11,15 @@
 import Swash
 import SpriteKit
 
-/// This class is used to track the state of the input.
-/// It breaks the rules of Swash by having logic in a component.
+/// This class is used to track the state of the buttons input.
+/// It breaks the rules of Swash by having logic in a component as the ButtonBehaviorComponent has actions.
 /// I made it a component to pass along to systems.
 final class InputComponent: Component {
     static let shared = InputComponent()
 
     private override init() {}
 
-    var touchDowns: [UITouch: Entity] = [:]
+    private var touchDowns: [UITouch: Entity] = [:]
     //
     // These are used to capture the accelerometer data and up/down state.
     // I'm using a tuple instead of an enum with an associated value for simplicity.
@@ -27,12 +27,14 @@ final class InputComponent: Component {
     var leftIsDown: (down: Bool, amount: Double) = (false, 0.0)
     var rightIsDown: (down: Bool, amount: Double) = (false, 0.0)
 
+    /// We're only interested in touches on SwashteroidsSpriteNodes 
+    /// that have an entity which has a TouchableComponent.
     func handleTouchDowns(nodes: [SKNode], touch: UITouch, location: CGPoint) {
         guard let originalEntity: Entity =
         nodes.compactMap({
             if let entity = ($0 as? SwashteroidsSpriteNode)?.entity,
                entity.has(componentClassName: TouchableComponent.name),
-               let _ = entity.get(componentClassName: ButtonBehaviorComponent.name) as? ButtonBehaviorComponent {
+               let _ = entity[ButtonBehaviorComponent.name] as? ButtonBehaviorComponent {
                 return entity
             } else {
                 return nil
@@ -40,7 +42,7 @@ final class InputComponent: Component {
         }).first
         else { return }
         if let sprite = originalEntity.sprite {
-            (originalEntity.get(componentClassName: ButtonBehaviorComponent.name) as? ButtonBehaviorComponent)?.touchDown?(
+            (originalEntity[ButtonBehaviorComponent.name] as? ButtonBehaviorComponent)?.touchDown?(
                 sprite)
         }
 //        let touch = Touch(id: touch.hash, time: touch.timestamp, location: location, tapCount: touch.tapCount, phase: touch.phase, entity: originalEntity)
@@ -53,7 +55,7 @@ final class InputComponent: Component {
             nodes.compactMap({
                 if let entity = ($0 as? SwashteroidsSpriteNode)?.entity,
                    entity.has(componentClassName: TouchableComponent.name),
-                   let _ = entity.get(componentClassName: ButtonBehaviorComponent.name) as? ButtonBehaviorComponent {
+                   let _ = entity[ButtonBehaviorComponent.name] as? ButtonBehaviorComponent {
                     return entity
                 } else {
                     return nil
@@ -61,11 +63,9 @@ final class InputComponent: Component {
             }).first
         if let sprite = originalEntity.sprite {
             if entity == originalEntity {
-                (originalEntity.get(componentClassName: ButtonBehaviorComponent.name) as? ButtonBehaviorComponent)?.touchUp?(
-                    sprite)
+                (originalEntity[ButtonBehaviorComponent.name] as? ButtonBehaviorComponent)?.touchUp?(sprite)
             } else {
-                (originalEntity.get(componentClassName: ButtonBehaviorComponent.name) as? ButtonBehaviorComponent)?.touchUpOutside?(
-                    sprite)
+                (originalEntity[ButtonBehaviorComponent.name] as? ButtonBehaviorComponent)?.touchUpOutside?(sprite)
             }
         }
         touchDowns[touch] = nil
@@ -84,9 +84,8 @@ final class InputComponent: Component {
                  })
                  .first
         if let sprite = originalEntity.sprite {
-            (originalEntity.get(componentClassName: ButtonBehaviorComponent.name) as? ButtonBehaviorComponent)?.touchMoved?(
-                sprite,
-                entity == originalEntity)
+            (originalEntity[ButtonBehaviorComponent.name] as? ButtonBehaviorComponent)?.touchMoved?(sprite,
+                                                                                                    entity == originalEntity)
         }
     }
 }

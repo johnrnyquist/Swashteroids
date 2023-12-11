@@ -14,10 +14,12 @@ import Foundation
 import CoreMotion
 
 final class ShipControlsSystem: ListIteratingSystem {
-    let scene: GameScene!
+    private weak var creator: Creator!
+    private weak var scene: GameScene!
     private weak var engine: Engine!
     
-    init(scene: GameScene) {
+    init(creator: Creator, scene: GameScene) {
+        self.creator = creator
         self.scene = scene
         super.init(nodeClass: ShipControlsStateNode.self)
         nodeUpdateFunction = updateNode
@@ -40,10 +42,10 @@ final class ShipControlsSystem: ListIteratingSystem {
         switch to {
             case .showingButtons:
                 engine.ship?.remove(componentClass: AccelerometerComponent.self)
-                scene.game.creator.removeShipControlQuadrants()
+                creator.removeShipControlQuadrants()
                 scene.motionManager = nil
-                scene.game.createShipControlButtons()
-                scene.game.enableShipControlButtons()
+                creator.createShipControlButtons()
+                creator.enableShipControlButtons()
                 if let ship = engine.ship,
                    ship.has(componentClassName: GunComponent.name) {
                     if let fireButton = engine.getEntity(named: .fireButton),
@@ -58,16 +60,16 @@ final class ShipControlsSystem: ListIteratingSystem {
                         sprite.alpha = 0.2
                     }
                 }
-                scene.game.creator.removeToggleButton()
-                scene.game.creator.createToggleButton(.on)
+                creator.removeToggleButton()
+                creator.createToggleButton(.on)
             case .hidingButtons:
                 engine.ship?.add(component: AccelerometerComponent())
-                scene.game.creator.createShipControlQuadrants()
+                creator.createShipControlQuadrants()
                 scene.motionManager = CMMotionManager()
                 scene.motionManager?.startAccelerometerUpdates()
-                scene.game.removeShipControlButtons()
-                scene.game.creator.removeToggleButton()
-                scene.game.creator.createToggleButton(.off)
+                creator.removeShipControlButtons()
+                creator.removeToggleButton()
+                creator.createToggleButton(.off)
         }
     }
 }

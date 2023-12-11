@@ -16,12 +16,12 @@ final class AudioComponent: Component {
     private(set) var playlist: [String: SKAction] = [:]
 
     init(fileNamed: String, actionKey: String) {
-        playlist[actionKey] = AllSoundsComponent.shared.soundActions[fileNamed]! //HACK
+        playlist[actionKey] = AllSoundsComponent.shared.soundActions[fileNamed]!
     }
 
     /// If you want to run more than one sound with this component, add the next sound with this method.
     func addSoundAction(fileNamed: String, actionKey: String) {
-        playlist[actionKey] = AllSoundsComponent.shared.soundActions[fileNamed]! //HACK
+        playlist[actionKey] = AllSoundsComponent.shared.soundActions[fileNamed]!
     }
 
     func clearPlaylist() {
