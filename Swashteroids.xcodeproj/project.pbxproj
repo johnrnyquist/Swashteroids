@@ -85,7 +85,8 @@
 		8D23C1E92B02CD7E00F7D878 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C1E82B02CD7E00F7D878 /* README.md */; };
 		8D23C1EB2B02CD9800F7D878 /* LICENSE.md in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C1EA2B02CD9800F7D878 /* LICENSE.md */; };
 		8D23C1EE2B02D00700F7D878 /* swashteroids.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C1ED2B02D00700F7D878 /* swashteroids.png */; };
-		8D41595A2B18F699009B1369 /* AnimationSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4159492B18E8AA009B1369 /* AnimationSystemTests.swift */; };
+		8D384D9A2B28F3F300D5564C /* BulletAgeSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D384D982B28F3F300D5564C /* BulletAgeSystemTests.swift */; };
+		8D384D9B2B28F3F300D5564C /* AnimationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D384D992B28F3F300D5564C /* AnimationTests.swift */; };
 		8D41E2112B1E64530031AF54 /* ChangeShipControlsStateComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D41E2102B1E64530031AF54 /* ChangeShipControlsStateComponent.swift */; };
 		8D41E2132B1E65950031AF54 /* ShipControlsStateNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D41E2122B1E65950031AF54 /* ShipControlsStateNode.swift */; };
 		8D41E2152B1E66820031AF54 /* TransitionAppStateNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D41E2142B1E66820031AF54 /* TransitionAppStateNode.swift */; };
@@ -103,7 +104,6 @@
 		8D6A0E012B0AB82E00F2E137 /* GameOverComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6A0E002B0AB82E00F2E137 /* GameOverComponent.swift */; };
 		8D6A0E032B0AB84B00F2E137 /* GameOverNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6A0E022B0AB84B00F2E137 /* GameOverNode.swift */; };
 		8D6AD4B42B09D2B000E258BF /* Engine+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6AD4B32B09D2B000E258BF /* Engine+extension.swift */; };
-		8D6D81522B1A25EE00AD8D18 /* BulletAgeSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6D81512B1A25EE00AD8D18 /* BulletAgeSystemTests.swift */; };
 		8D6D81552B1A562900AD8D18 /* braam-6150.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D6D81542B1A562900AD8D18 /* braam-6150.wav */; };
 		8D6D81572B1A5EC200AD8D18 /* NoButtonsInfo.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8D6D81562B1A5EC200AD8D18 /* NoButtonsInfo.sks */; };
 		8D6D81592B1A648400AD8D18 /* StartScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8D6D81582B1A648400AD8D18 /* StartScene.sks */; };
@@ -150,7 +150,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		8D4159552B18F692009B1369 /* PBXContainerItemProxy */ = {
+		8D384D932B28F30D00D5564C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8D23C12A2B02C4C900F7D878 /* Project object */;
 			proxyType = 1;
@@ -238,8 +238,10 @@
 		8D23C1E82B02CD7E00F7D878 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8D23C1EA2B02CD9800F7D878 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		8D23C1ED2B02D00700F7D878 /* swashteroids.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = swashteroids.png; sourceTree = "<group>"; };
-		8D4159492B18E8AA009B1369 /* AnimationSystemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationSystemTests.swift; sourceTree = "<group>"; };
-		8D4159512B18F692009B1369 /* SwashteroidsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwashteroidsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D384D8F2B28F30D00D5564C /* SwashteroidsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwashteroidsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D384D982B28F3F300D5564C /* BulletAgeSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BulletAgeSystemTests.swift; sourceTree = "<group>"; };
+		8D384D992B28F3F300D5564C /* AnimationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationTests.swift; sourceTree = "<group>"; };
+		8D384D9C2B28FAFD00D5564C /* Swashteroids2.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Swashteroids2.xctestplan; sourceTree = "<group>"; };
 		8D41E2102B1E64530031AF54 /* ChangeShipControlsStateComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeShipControlsStateComponent.swift; sourceTree = "<group>"; };
 		8D41E2122B1E65950031AF54 /* ShipControlsStateNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipControlsStateNode.swift; sourceTree = "<group>"; };
 		8D41E2142B1E66820031AF54 /* TransitionAppStateNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionAppStateNode.swift; sourceTree = "<group>"; };
@@ -258,8 +260,6 @@
 		8D6A0E002B0AB82E00F2E137 /* GameOverComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverComponent.swift; sourceTree = "<group>"; };
 		8D6A0E022B0AB84B00F2E137 /* GameOverNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverNode.swift; sourceTree = "<group>"; };
 		8D6AD4B32B09D2B000E258BF /* Engine+extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Engine+extension.swift"; sourceTree = "<group>"; };
-		8D6D81512B1A25EE00AD8D18 /* BulletAgeSystemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BulletAgeSystemTests.swift; sourceTree = "<group>"; };
-		8D6D81532B1A30C000AD8D18 /* SwashteroidsTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = SwashteroidsTests.xctestplan; sourceTree = "<group>"; };
 		8D6D81542B1A562900AD8D18 /* braam-6150.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "braam-6150.wav"; sourceTree = "<group>"; };
 		8D6D81562B1A5EC200AD8D18 /* NoButtonsInfo.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = NoButtonsInfo.sks; sourceTree = "<group>"; };
 		8D6D81582B1A648400AD8D18 /* StartScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = StartScene.sks; sourceTree = "<group>"; };
@@ -314,7 +314,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8D41594E2B18F692009B1369 /* Frameworks */ = {
+		8D384D8C2B28F30D00D5564C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -331,7 +331,7 @@
 				8D23C1342B02C4CA00F7D878 /* Swashteroids */,
 				8D23C1E82B02CD7E00F7D878 /* README.md */,
 				8D23C1EA2B02CD9800F7D878 /* LICENSE.md */,
-				8D4159522B18F692009B1369 /* SwashteroidsTests */,
+				8D384D902B28F30D00D5564C /* SwashteroidsTests */,
 				8D23C1332B02C4CA00F7D878 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -340,7 +340,7 @@
 			isa = PBXGroup;
 			children = (
 				8D23C1322B02C4CA00F7D878 /* Swashteroids.app */,
-				8D4159512B18F692009B1369 /* SwashteroidsTests.xctest */,
+				8D384D8F2B28F30D00D5564C /* SwashteroidsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -539,12 +539,12 @@
 			path = images;
 			sourceTree = "<group>";
 		};
-		8D4159522B18F692009B1369 /* SwashteroidsTests */ = {
+		8D384D902B28F30D00D5564C /* SwashteroidsTests */ = {
 			isa = PBXGroup;
 			children = (
-				8D4159492B18E8AA009B1369 /* AnimationSystemTests.swift */,
-				8D6D81512B1A25EE00AD8D18 /* BulletAgeSystemTests.swift */,
-				8D6D81532B1A30C000AD8D18 /* SwashteroidsTests.xctestplan */,
+				8D384D9C2B28FAFD00D5564C /* Swashteroids2.xctestplan */,
+				8D384D992B28F3F300D5564C /* AnimationTests.swift */,
+				8D384D982B28F3F300D5564C /* BulletAgeSystemTests.swift */,
 			);
 			path = SwashteroidsTests;
 			sourceTree = "<group>";
@@ -592,22 +592,22 @@
 			productReference = 8D23C1322B02C4CA00F7D878 /* Swashteroids.app */;
 			productType = "com.apple.product-type.application";
 		};
-		8D4159502B18F692009B1369 /* SwashteroidsTests */ = {
+		8D384D8E2B28F30D00D5564C /* SwashteroidsTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8D4159572B18F692009B1369 /* Build configuration list for PBXNativeTarget "SwashteroidsTests" */;
+			buildConfigurationList = 8D384D952B28F30D00D5564C /* Build configuration list for PBXNativeTarget "SwashteroidsTests" */;
 			buildPhases = (
-				8D41594D2B18F692009B1369 /* Sources */,
-				8D41594E2B18F692009B1369 /* Frameworks */,
-				8D41594F2B18F692009B1369 /* Resources */,
+				8D384D8B2B28F30D00D5564C /* Sources */,
+				8D384D8C2B28F30D00D5564C /* Frameworks */,
+				8D384D8D2B28F30D00D5564C /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				8D4159562B18F692009B1369 /* PBXTargetDependency */,
+				8D384D942B28F30D00D5564C /* PBXTargetDependency */,
 			);
 			name = SwashteroidsTests;
-			productName = SwashteroidsTests2;
-			productReference = 8D4159512B18F692009B1369 /* SwashteroidsTests.xctest */;
+			productName = SwashteroidsTests;
+			productReference = 8D384D8F2B28F30D00D5564C /* SwashteroidsTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -623,8 +623,9 @@
 					8D23C1312B02C4CA00F7D878 = {
 						CreatedOnToolsVersion = 15.0;
 					};
-					8D4159502B18F692009B1369 = {
+					8D384D8E2B28F30D00D5564C = {
 						CreatedOnToolsVersion = 15.0.1;
+						TestTargetID = 8D23C1312B02C4CA00F7D878;
 					};
 				};
 			};
@@ -645,7 +646,7 @@
 			projectRoot = "";
 			targets = (
 				8D23C1312B02C4CA00F7D878 /* Swashteroids */,
-				8D4159502B18F692009B1369 /* SwashteroidsTests */,
+				8D384D8E2B28F30D00D5564C /* SwashteroidsTests */,
 			);
 		};
 /* End PBXProject section */
@@ -687,7 +688,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8D41594F2B18F692009B1369 /* Resources */ = {
+		8D384D8D2B28F30D00D5564C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -812,22 +813,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8D41594D2B18F692009B1369 /* Sources */ = {
+		8D384D8B2B28F30D00D5564C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D6D81522B1A25EE00AD8D18 /* BulletAgeSystemTests.swift in Sources */,
-				8D41595A2B18F699009B1369 /* AnimationSystemTests.swift in Sources */,
+				8D384D9B2B28F3F300D5564C /* AnimationTests.swift in Sources */,
+				8D384D9A2B28F3F300D5564C /* BulletAgeSystemTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		8D4159562B18F692009B1369 /* PBXTargetDependency */ = {
+		8D384D942B28F30D00D5564C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8D23C1312B02C4CA00F7D878 /* Swashteroids */;
-			targetProxy = 8D4159552B18F692009B1369 /* PBXContainerItemProxy */;
+			targetProxy = 8D384D932B28F30D00D5564C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1034,37 +1035,45 @@
 			};
 			name = Release;
 		};
-		8D4159582B18F692009B1369 /* Debug */ = {
+		8D384D962B28F30D00D5564C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = W8GR9TRDWE;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = net.nyquist.SwashteroidsTests2;
+				PRODUCT_BUNDLE_IDENTIFIER = net.nyquist.SwashteroidsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Swashteroids.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Swashteroids";
 			};
 			name = Debug;
 		};
-		8D4159592B18F692009B1369 /* Release */ = {
+		8D384D972B28F30D00D5564C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = W8GR9TRDWE;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = net.nyquist.SwashteroidsTests2;
+				PRODUCT_BUNDLE_IDENTIFIER = net.nyquist.SwashteroidsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Swashteroids.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Swashteroids";
 			};
 			name = Release;
 		};
@@ -1089,11 +1098,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8D4159572B18F692009B1369 /* Build configuration list for PBXNativeTarget "SwashteroidsTests" */ = {
+		8D384D952B28F30D00D5564C /* Build configuration list for PBXNativeTarget "SwashteroidsTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				8D4159582B18F692009B1369 /* Debug */,
-				8D4159592B18F692009B1369 /* Release */,
+				8D384D962B28F30D00D5564C /* Debug */,
+				8D384D972B28F30D00D5564C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

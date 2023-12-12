@@ -8,7 +8,7 @@
 import XCTest
 @testable import Swashteroids
 
-final class AnimationSystemTests: XCTestCase {
+final class AnimationTests: XCTestCase {
     var thing: Thing!
     var component: AnimationComponent!
     var node: AnimationNode!

@@ -6,25 +6,26 @@
 //
 
 import XCTest
-@testable import Swashteroids
-import Swash
 import SpriteKit
+@testable import Swash
+@testable import Swashteroids
 
 final class BulletAgeSystemTests: XCTestCase {
     var component: PlasmaTorpedoComponent!
     var node: BulletAgeNode!
+    var entity: Entity!
     var system: BulletAgeSystem!
-    var creator: MockCreator!
-    var entity = Entity(name: "bullet")
+    var engine: MockEngine!
 
     override func setUpWithError() throws {
+        entity = Entity()
+        engine = MockEngine()
         component = PlasmaTorpedoComponent(lifeRemaining: 1)
-        entity.add(component: component)
-        creator = MockCreator(engine: <#T##Engine##Swash.Engine#>, scene: <#T##SKScene##SpriteKit.SKScene#>, sound: <#T##SKAudioNode##SpriteKit.SKAudioNode#>)
-        node = BulletAgeNode() // nodes created by engine
-        node.entity = entity   // done by engine
+        node = BulletAgeNode()
+        node.entity = entity
         node.components[PlasmaTorpedoComponent.name] = component
-        system = BulletAgeSystem(creator: creator)
+        system = BulletAgeSystem()
+        system.addToEngine(engine: engine)
     }
 
     func testNodeDoesNotContainBullet() throws {
@@ -41,20 +42,21 @@ final class BulletAgeSystemTests: XCTestCase {
     func testLifeLessThanZeroDestroysEntity() throws {
         system.updateNode(node: node, time: 1.25)
         XCTAssertEqual(component.lifeRemaining, -0.25)
-        XCTAssertTrue(creator.destroyEntityCalled)
+        XCTAssertTrue(engine.destroyEntityCalled)
     }
 
     func testLifeLessThanZeroNoEntity() throws {
+        node.entity = nil
         system.updateNode(node: node, time: 1.25)
         XCTAssertEqual(component.lifeRemaining, -0.25)
-        XCTAssertFalse(creator.destroyEntityCalled)
+        XCTAssertFalse(engine.destroyEntityCalled)
     }
 }
 
-class MockCreator: Creator {
+class MockEngine: Engine {
     var destroyEntityCalled = false
 
-    override func removeEntity(_ entity: Entity) {
+    override func removeEntity(entity: Entity) {
         destroyEntityCalled = true
     }
 }
