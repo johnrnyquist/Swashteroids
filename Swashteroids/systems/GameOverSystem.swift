@@ -20,7 +20,7 @@ final class GameOverSystem: ListIteratingSystem {
     private func updateNode(node: Node, time: TimeInterval) {
         guard let appStateComponent = node[AppStateComponent.self]
         else { return }
-        appStateComponent.playing = false
+        appStateComponent.reset()
     }
 }
 

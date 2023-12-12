@@ -37,6 +37,14 @@ final class AppStateComponent: Component {
         super.init()
     }
 
+    func reset() {
+        ships = 3
+        level = 0
+        score = 0
+        playing = false
+        shipControlsState = .showingButtons 
+    }
+
     /// Resets the ship, level, and hits.
     func resetBoard() {
         ships = 3

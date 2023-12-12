@@ -45,6 +45,7 @@ final class TransitionAppStateSystem: ListIteratingSystem {
                     appState.shipControlsState = .hidingButtons
             }
         }
+        appState.appState = transition.to
         switch transition.to {
             case .initialize:
                 creator?.setUpStart()
