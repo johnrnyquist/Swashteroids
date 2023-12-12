@@ -31,6 +31,7 @@ extension Creator {
                 engine.removeEntity(entity: powerUp)
             }
         }
+        engine.removeEntities(named: [.hyperSpacePowerUp, .plasmaTorpedoesPowerUp])
     }
 
     func setUpGameOver() {
