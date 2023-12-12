@@ -17,7 +17,7 @@ final class GunControlNode: Node {
             MotionComponent.name: nil_component,
             PositionComponent.name: nil_component,
             GunComponent.name: nil_component,
-            TriggerDownComponent.name: nil_component
+            FireDownComponent.name: nil_component
         ]
     }
 }

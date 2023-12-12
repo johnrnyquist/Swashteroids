@@ -16,7 +16,6 @@ final class AppStateComponent: Component {
     var ships = 0
     var level = 0
     var score = 0
-    var isPlaying = false
     var appState: AppState = .initialize
     var shipControlsState: ShipControlsState = .showingButtons
 
@@ -24,14 +23,12 @@ final class AppStateComponent: Component {
          ships: Int = 3,
          level: Int = 0,
          score: Int = 0,
-         playing: Bool = false,
          appState: AppState = .initialize,
          shipControlsState: ShipControlsState = .showingButtons) {
         self.size = size
         self.ships = ships
         self.level = level
         self.score = score
-        self.isPlaying = playing
         self.appState = appState
         self.shipControlsState = shipControlsState
         super.init()
@@ -41,7 +38,7 @@ final class AppStateComponent: Component {
         ships = 3
         level = 0
         score = 0
-        isPlaying = false
+        appState = .initialize
         shipControlsState = .showingButtons 
     }
 

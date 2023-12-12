@@ -10,9 +10,9 @@
 
 import Swash
 
-class TriggerDownComponent: Component {
+class FireDownComponent: Component {
     /// If something is just a flag that I use frequently, I make it a shared instance. 
-    static let shared = TriggerDownComponent()
+    static let shared = FireDownComponent()
 
     private override init() {}
 }

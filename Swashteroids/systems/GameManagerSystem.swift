@@ -40,12 +40,12 @@ final class GameManagerSystem: System {
 
     override public func update(time: TimeInterval) {
         guard let appStateNode = appStates.head,
-              let appState = appStateNode[AppStateComponent.self] else {
+              let appStateComponent = appStateNode[AppStateComponent.self] else {
             return
         }
         if ships.empty,
-           appState.playing {
-            if appState.ships > 0 {
+           appStateComponent.appState == .playing {
+            if appStateComponent.ships > 0 {
                 let newSpaceshipPosition = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
                 var clearToAddSpaceship = true
                 var asteroid = asteroids.head
@@ -60,15 +60,12 @@ final class GameManagerSystem: System {
                     asteroid = asteroid?.next
                 }
                 if clearToAddSpaceship {
-                    creator.createShip(appState)
-                    creator.createPlasmaTorpedoesPowerUp(level: appState.level == 0 ? 1 : appState.level)
-                    creator.createHyperSpacePowerUp(level: appState.level == 0 ? 1 : appState.level)
+                    creator.createShip(appStateComponent)
+                    creator.createPlasmaTorpedoesPowerUp(level: appStateComponent.level == 0 ? 1 : appStateComponent.level)
+                    creator.createHyperSpacePowerUp(level: appStateComponent.level == 0 ? 1 : appStateComponent.level)
                 }
-            } else if appState.playing {
-                appState.playing = false
-                creator.removeShipControlButtons()
-                creator.removeToggleButton()
-                creator.setUpGameOver()
+            } else if appStateComponent.appState == .playing {
+                appStateNode.entity?.add(component: TransitionAppStateComponent(to: .gameOver, from: .playing))
             }
         }
         if asteroids.empty,
@@ -79,13 +76,13 @@ final class GameManagerSystem: System {
                 let shipNode = ships.head,
                 let spaceShipPosition = shipNode[PositionComponent.self]
             else { return }
-            appState.level += 1
+            appStateComponent.level += 1
             // TODO: This level text and animation should be elsewhere.
             appStateNode.entity?.add(component: AudioComponent(fileNamed: "braam-6150.wav",
                                                                actionKey: "levelUp"))
-            announceLevel(appStateComponent: appState)
+            announceLevel(appStateComponent: appStateComponent)
             //
-            let asteroidCount = 0 + appState.level
+            let asteroidCount = 0 + appStateComponent.level
             for _ in 0..<asteroidCount {
                 // check not on top of ship
                 var position: CGPoint
@@ -106,7 +103,7 @@ final class GameManagerSystem: System {
                     // Repeat until the asteroid is not on top of the ship
                 } while (position.distance(p: spaceShipPosition.position) <= 80)
                 // Create the asteroid at the calculated position
-                creator.createAsteroid(radius: LARGE_ASTEROID_RADIUS, x: position.x, y: position.y, level: appState.level)
+                creator.createAsteroid(radius: LARGE_ASTEROID_RADIUS, x: position.x, y: position.y, level: appStateComponent.level)
             }
         }
     }

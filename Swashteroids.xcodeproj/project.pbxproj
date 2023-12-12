@@ -35,7 +35,7 @@
 		8D23C1B02B02C59D00F7D878 /* GunControlNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1632B02C59C00F7D878 /* GunControlNode.swift */; };
 		8D23C1B12B02C59D00F7D878 /* PlasmaTorpedoComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1652B02C59C00F7D878 /* PlasmaTorpedoComponent.swift */; };
 		8D23C1B22B02C59D00F7D878 /* WarpDriveComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1662B02C59C00F7D878 /* WarpDriveComponent.swift */; };
-		8D23C1B32B02C59D00F7D878 /* GameStateComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1672B02C59C00F7D878 /* GameStateComponent.swift */; };
+		8D23C1B32B02C59D00F7D878 /* AppStateComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1672B02C59C00F7D878 /* AppStateComponent.swift */; };
 		8D23C1B42B02C59D00F7D878 /* AudioComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1682B02C59C00F7D878 /* AudioComponent.swift */; };
 		8D23C1B52B02C59D00F7D878 /* AnimationComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1692B02C59C00F7D878 /* AnimationComponent.swift */; };
 		8D23C1B62B02C59D00F7D878 /* AsteroidComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C16A2B02C59C00F7D878 /* AsteroidComponent.swift */; };
@@ -128,7 +128,7 @@
 		931398712D4F259FF98C62AA /* Touch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931398B8B6C228DE4D83EF1C /* Touch.swift */; };
 		931398FFEAC38E75EF83728C /* TouchNodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139489970BEA17AF74C95E /* TouchNodes.swift */; };
 		93139920B1CB722DC9509E80 /* TransitionAppStateSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139F7B6117208071E3FE22 /* TransitionAppStateSystem.swift */; };
-		9313996AA764792E9B8670A5 /* TriggerDownComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931399840A8AC5987DF6D3D4 /* TriggerDownComponent.swift */; };
+		9313996AA764792E9B8670A5 /* FireDownComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931399840A8AC5987DF6D3D4 /* FireDownComponent.swift */; };
 		9313996B7589CCA869842E12 /* TouchComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139735B7C5C32A3DA6CB9D /* TouchComponents.swift */; };
 		93139985E9931A3012A6B150 /* Creator+ToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139E95FF431FF894CFD502 /* Creator+ToggleButton.swift */; };
 		931399C749E2BD0BE4E247A0 /* ApplyThrustComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931397D7C84D4E580EB51E4D /* ApplyThrustComponent.swift */; };
@@ -188,7 +188,7 @@
 		8D23C1632B02C59C00F7D878 /* GunControlNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GunControlNode.swift; sourceTree = "<group>"; };
 		8D23C1652B02C59C00F7D878 /* PlasmaTorpedoComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlasmaTorpedoComponent.swift; sourceTree = "<group>"; };
 		8D23C1662B02C59C00F7D878 /* WarpDriveComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WarpDriveComponent.swift; sourceTree = "<group>"; };
-		8D23C1672B02C59C00F7D878 /* GameStateComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameStateComponent.swift; sourceTree = "<group>"; };
+		8D23C1672B02C59C00F7D878 /* AppStateComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppStateComponent.swift; sourceTree = "<group>"; };
 		8D23C1682B02C59C00F7D878 /* AudioComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioComponent.swift; sourceTree = "<group>"; };
 		8D23C1692B02C59C00F7D878 /* AnimationComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationComponent.swift; sourceTree = "<group>"; };
 		8D23C16A2B02C59C00F7D878 /* AsteroidComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsteroidComponent.swift; sourceTree = "<group>"; };
@@ -290,7 +290,7 @@
 		931397F86C674AD22210D173 /* Creator+CreateHud.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Creator+CreateHud.swift"; sourceTree = "<group>"; };
 		931398B8B6C228DE4D83EF1C /* Touch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Touch.swift; sourceTree = "<group>"; };
 		931398E70F42335F03D272DD /* Creator+SetUpInfoViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Creator+SetUpInfoViews.swift"; sourceTree = "<group>"; };
-		931399840A8AC5987DF6D3D4 /* TriggerDownComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TriggerDownComponent.swift; sourceTree = "<group>"; };
+		931399840A8AC5987DF6D3D4 /* FireDownComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireDownComponent.swift; sourceTree = "<group>"; };
 		931399A8022AF1B7FCC53B49 /* RepeatingAudioComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatingAudioComponent.swift; sourceTree = "<group>"; };
 		93139A62ACBE6CDFC10158E7 /* MotionControlsComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MotionControlsComponent.swift; sourceTree = "<group>"; };
 		93139A85D4D955B243719D63 /* RepeatingAudioSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatingAudioSystem.swift; sourceTree = "<group>"; };
@@ -421,7 +421,7 @@
 				8D23C16D2B02C59C00F7D878 /* DeathThroesComponent.swift */,
 				8D23C1702B02C59C00F7D878 /* DisplayComponent.swift */,
 				8D6A0E002B0AB82E00F2E137 /* GameOverComponent.swift */,
-				8D23C1672B02C59C00F7D878 /* GameStateComponent.swift */,
+				8D23C1672B02C59C00F7D878 /* AppStateComponent.swift */,
 				8D23C16F2B02C59C00F7D878 /* GunComponent.swift */,
 				8D23C1732B02C59C00F7D878 /* HudComponent.swift */,
 				8D9DEF632B059E3800064B01 /* HyperSpaceJumpComponent.swift */,
@@ -434,7 +434,7 @@
 				8D41E21C2B1F988E0031AF54 /* TorpedosComponent.swift */,
 				93139735B7C5C32A3DA6CB9D /* TouchComponents.swift */,
 				8DB409EB2B1D3C6F008DE4EB /* TransitionAppStateComponent.swift */,
-				931399840A8AC5987DF6D3D4 /* TriggerDownComponent.swift */,
+				931399840A8AC5987DF6D3D4 /* FireDownComponent.swift */,
 				8D23C1662B02C59C00F7D878 /* WarpDriveComponent.swift */,
 				9313979ABDA67BAEA7682AC7 /* AllSoundsComponent.swift */,
 				93139A62ACBE6CDFC10158E7 /* MotionControlsComponent.swift */,
@@ -747,7 +747,7 @@
 				8D23C1CE2B02C59D00F7D878 /* HudSystem.swift in Sources */,
 				8D23C1B52B02C59D00F7D878 /* AnimationComponent.swift in Sources */,
 				8D23C1C92B02C59D00F7D878 /* FiringSystem.swift in Sources */,
-				8D23C1B32B02C59D00F7D878 /* GameStateComponent.swift in Sources */,
+				8D23C1B32B02C59D00F7D878 /* AppStateComponent.swift in Sources */,
 				8D23C1C22B02C59D00F7D878 /* Hashable+extensions.swift in Sources */,
 				8D23C1CA2B02C59D00F7D878 /* BulletAgeSystem.swift in Sources */,
 				8D651D6E2B278C1C0088AEEF /* Swashteroids+TouchDelegate.swift in Sources */,
@@ -785,7 +785,7 @@
 				9313996B7589CCA869842E12 /* TouchComponents.swift in Sources */,
 				931398FFEAC38E75EF83728C /* TouchNodes.swift in Sources */,
 				931398712D4F259FF98C62AA /* Touch.swift in Sources */,
-				9313996AA764792E9B8670A5 /* TriggerDownComponent.swift in Sources */,
+				9313996AA764792E9B8670A5 /* FireDownComponent.swift in Sources */,
 				8DA97A962B23581100E7495A /* Int+SystemPriorities.swift in Sources */,
 				93139F0DDF5880C3EAFA8A5D /* Creator+SetUpStart.swift in Sources */,
 				93139F3F4BF404579411D473 /* Creator+SetUpInfoViews.swift in Sources */,

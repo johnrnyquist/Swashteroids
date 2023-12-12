@@ -38,7 +38,7 @@ final class FiringSystem: System {
         guard let motion = node[MotionComponent.self],
               let position = node[PositionComponent.self],
               let gun = node[GunComponent.self],
-              let _ = node[TriggerDownComponent.self]
+              let _ = node[FireDownComponent.self]
         else { return }
         if timeSinceLastShot >= gun.minimumShotInterval {
             creator?.createPlasmaTorpedo(gun, position, motion)

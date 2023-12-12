@@ -25,48 +25,47 @@ final class TransitionAppStateSystem: ListIteratingSystem {
 
     func updateNode(node: Node, time: TimeInterval) {
         guard let transition = node[TransitionAppStateComponent.self],
-              let appState = node[AppStateComponent.self] else { return }
+              let appStateComponent = node[AppStateComponent.self] else { return }
         if let from = transition.from {
             switch from {
                 case .initialize:
                     break
                 case .start:
-                    creator?.tearDownStart()
+                    creator?.transitionFromStart()
                 case .gameOver:
-                    creator?.tearDownGameOver()
+                    creator?.transitionFromGameOverScreen()
                     break
                 case .playing:
+                    creator?.transitionFromPlayingScreen()
                     break
                 case .infoButtons:
-                    creator?.tearDownInfoButtons()
-                    appState.shipControlsState = .showingButtons
+                    creator?.tranistionFromButtonsInfoScreen()
+                    appStateComponent.shipControlsState = .showingButtons
                 case .infoNoButtons:
-                    creator?.tearDownInfoNoButtons()
-                    appState.shipControlsState = .hidingButtons
+                    creator?.transitionFromNoButtonsInfoScreen()
+                    appStateComponent.shipControlsState = .hidingButtons
             }
         }
-        appState.appState = transition.to
+        appStateComponent.appState = transition.to
         switch transition.to {
             case .initialize:
-                creator?.setUpStart()
+                creator?.transitionToStartScreen()
             case .start:
-                creator?.setUpStart()
+                creator?.transitionToStartScreen()
             case .gameOver:
-                creator?.removeShipControlButtons()
-                creator?.removeShipControlQuadrants()
+                creator?.transitionToGameOverScreen()
                 break
             case .playing:
                 if transition.from == .infoNoButtons {
-                    creator?.setUpPlaying(with: .hidingButtons)
+                    creator?.transitionToPlayingScreen(with: .hidingButtons)
                 } else if transition.from == .infoButtons {
-                    creator?.setUpPlaying(with: .showingButtons)
+                    creator?.transitionToPlayingScreen(with: .showingButtons)
                 }
             case .infoButtons:
-                creator?.setUpButtonsInfoView()
+                creator?.transitionToButtonsInfoScreen()
             case .infoNoButtons:
-                creator?.setUpNoButtonsInfoView()
+                creator?.transitionToNoButtonsInfoScreen()
         }
         node.entity?.remove(componentClass: TransitionAppStateComponent.self)
     }
 }
-

@@ -13,11 +13,11 @@ import SpriteKit
 
 extension Creator {
     //MARK: - No buttons state
-	func tearDownInfoNoButtons() {
+	func transitionFromNoButtonsInfoScreen() {
 		engine.removeEntities(named: [.noButtonsInfoView])
 	}
 
-	func setUpNoButtonsInfoView() {
+	func transitionToNoButtonsInfoScreen() {
         let noButtonsInfoArt = SKScene(fileNamed: "NoButtonsInfo.sks")!
         guard let viewSprite = noButtonsInfoArt.childNode(withName: "quadrants") as? SwashteroidsSpriteNode else {
             print("Could not load 'quadrants' as SwashteroidsSpriteNode")
@@ -39,11 +39,11 @@ extension Creator {
 
 
     //MARK: - Buttons showing state
-	func tearDownInfoButtons() {
+	func tranistionFromButtonsInfoScreen() {
 		engine.removeEntities(named: [.buttonsInfoView])
 	}
 
-    func setUpButtonsInfoView() {
+    func transitionToButtonsInfoScreen() {
         let buttonsInfoArt = SKScene(fileNamed: "ButtonsInfo.sks")!
         guard let viewSprite = buttonsInfoArt.childNode(withName: "buttonsInfo") as? SwashteroidsSpriteNode else {
             print("Could not load 'buttonsInfo' as SwashteroidsSpriteNode")

@@ -34,7 +34,7 @@
             parallelizable = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8D4159502B18F692009B1369"
+               BlueprintIdentifier = "8D384D8E2B28F30D00D5564C"
                BuildableName = "SwashteroidsTests.xctest"
                BlueprintName = "SwashteroidsTests"
                ReferencedContainer = "container:Swashteroids.xcodeproj">
@@ -45,7 +45,7 @@
             parallelizable = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8D4159502B18F692009B1369"
+               BlueprintIdentifier = "8D384D8E2B28F30D00D5564C"
                BuildableName = "SwashteroidsTests.xctest"
                BlueprintName = "SwashteroidsTests"
                ReferencedContainer = "container:Swashteroids.xcodeproj">

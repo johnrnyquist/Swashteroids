@@ -12,7 +12,7 @@ import Swash
 import SpriteKit
 
 extension Creator {
-    func tearDownGameOver() {
+    func transitionFromGameOverScreen() {
         // Clear any existing asteroids
         let asteroids = engine.getNodeList(nodeClassType: AsteroidCollisionNode.self)
         let gameOverNodes = engine.getNodeList(nodeClassType: GameOverNode.self)
@@ -31,12 +31,10 @@ extension Creator {
                 engine.removeEntity(entity: powerUp)
             }
         }
-        removeShipControlButtons() //HACK
-        removeShipControlQuadrants() //HACK
         engine.removeEntities(named: [.hyperSpacePowerUp, .plasmaTorpedoesPowerUp])
     }
 
-    func setUpGameOver() {
+    func transitionToGameOverScreen() {
         let gameOverView = GameOverView(size: size)
         let gameOverEntity = Entity(name: .gameOver)
                 .add(component: GameOverComponent())

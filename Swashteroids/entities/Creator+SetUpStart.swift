@@ -12,12 +12,12 @@ import Swash
 import SpriteKit
 
 extension Creator {
-    func tearDownStart() {
+    func transitionFromStart() {
         engine.removeEntities(named: [.noButtons, .withButtons, .start])
     }
 
     /// The start screen is not an entity, but composed of entities.  It is the first screen the user sees.
-    func setUpStart() {
+    func transitionToStartScreen() {
         // create the sprites
         let startView = StartView(scene: scene)
         let noButtonsSprite = startView.childNode(withName: "//nobuttons")! as! SwashteroidsSpriteNode

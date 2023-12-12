@@ -44,41 +44,34 @@ extension Creator {
         engine.replaceEntity(entity: q3Entity)
         engine.replaceEntity(entity: q4Entity)
         // Configure the entities
-        q2Entity
+        q1Entity
                 .add(component: DisplayComponent(sknode: q1Sprite))
                 .add(component: PositionComponent(x: q1Sprite.x, y: q1Sprite.y, z: .bottom, rotation: 0))
                 .add(component: TouchableComponent())
                 .add(component: ButtonBehaviorComponent(
                     touchDown: { [unowned self] sprite in
                         generator.impactOccurred()
-                        sprite.alpha = 0.6
-                        engine.ship?.add(component: FlipComponent.shared)
+                        if let ship = self.engine.ship,
+                           ship.has(componentClassName: HyperSpaceEngineComponent.name) {
+                            engine.ship?.add(component: HyperSpaceJumpComponent())
+                        }
                     },
-                    touchUp: { sprite in sprite.alpha = 0.2 },
-                    touchUpOutside: { sprite in sprite.alpha = 0.2 },
-                    touchMoved: { sprite, over in
-                        if over { sprite.alpha = 0.6 } else { sprite.alpha = 0.2 }
-                    }
+                    touchUp: { _ in },
+                    touchUpOutside: { _ in },
+                    touchMoved: { _, _ in }
                 ))
-        q1Entity.sprite?.alpha = 0.0
-        q1Entity
+        q2Entity
                 .add(component: DisplayComponent(sknode: q2Sprite))
                 .add(component: PositionComponent(x: q2Sprite.x, y: q2Sprite.y, z: .bottom, rotation: 0))
                 .add(component: TouchableComponent())
                 .add(component: ButtonBehaviorComponent(
                     touchDown: { [unowned self] sprite in
                         generator.impactOccurred()
-                        sprite.alpha = 0.6
-                        if let ship = self.engine.ship,
-                        ship.has(componentClassName: HyperSpaceEngineComponent.name){
-                            engine.ship?.add(component: HyperSpaceJumpComponent())
-                        }
+                        engine.ship?.add(component: FlipComponent.shared)
                     },
-                    touchUp: { sprite in sprite.alpha = 0.2 },
-                    touchUpOutside: { sprite in sprite.alpha = 0.2 },
-                    touchMoved: { sprite, over in
-                        if over { sprite.alpha = 0.6 } else { sprite.alpha = 0.2 }
-                    }
+                    touchUp: { _ in },
+                    touchUpOutside: { _ in },
+                    touchMoved: { _, _ in }
                 ))
         q3Entity
                 .add(component: DisplayComponent(sknode: q3Sprite))
@@ -89,41 +82,40 @@ extension Creator {
                         generator.impactOccurred()
                         if let ship = self.engine.ship {
                             ship.add(component: ApplyThrustComponent.shared)
-                            ship.warpDrive?.isThrusting = true 
-                            ship.repeatingAudio?.state = .shouldBegin 
+                            ship.warpDrive?.isThrusting = true
+                            ship.repeatingAudio?.state = .shouldBegin
                         }
                     },
                     touchUp: { sprite in
                         if let ship = self.engine.ship {
                             ship.remove(componentClass: ApplyThrustComponent.self)
-                            ship.warpDrive?.isThrusting = false 
-                            ship.repeatingAudio?.state = .shouldStop 
+                            ship.warpDrive?.isThrusting = false
+                            ship.repeatingAudio?.state = .shouldStop
                         }
                     },
                     touchUpOutside: { sprite in
                         if let ship = self.engine.ship {
                             ship.remove(componentClass: ApplyThrustComponent.self)
-                            ship.warpDrive?.isThrusting = false 
-                            ship.repeatingAudio?.state = .shouldStop 
+                            ship.warpDrive?.isThrusting = false
+                            ship.repeatingAudio?.state = .shouldStop
                         }
                     },
                     touchMoved: { sprite, over in
                         if over {
                             if let ship = self.engine.ship {
                                 ship.add(component: ApplyThrustComponent.shared)
-                                ship.warpDrive?.isThrusting = true 
-                                ship.repeatingAudio?.state = .shouldBegin 
+                                ship.warpDrive?.isThrusting = true
+                                ship.repeatingAudio?.state = .shouldBegin
                             }
                         } else {
                             if let ship = self.engine.ship {
                                 ship.remove(componentClass: ApplyThrustComponent.self)
-                                ship.warpDrive?.isThrusting = false 
-                                ship.repeatingAudio?.state = .shouldStop 
+                                ship.warpDrive?.isThrusting = false
+                                ship.repeatingAudio?.state = .shouldStop
                             }
                         }
                     }
                 ))
-        q4Entity.sprite?.alpha = 0.0
         q4Entity
                 .add(component: DisplayComponent(sknode: q4Sprite))
                 .add(component: PositionComponent(x: q4Sprite.x, y: q4Sprite.y, z: .bottom, rotation: 0))
@@ -131,26 +123,19 @@ extension Creator {
                 .add(component: ButtonBehaviorComponent(
                     touchDown: { [unowned self] sprite in
                         generator.impactOccurred()
-                        sprite.alpha = 0.6
-                        self.engine.ship?.add(component: TriggerDownComponent.shared)
+                        self.engine.ship?.add(component: FireDownComponent.shared)
                     },
                     touchUp: { sprite in
-                        sprite.alpha = 0.2; self.engine
-                                                .ship?
-                                                .remove(componentClass: TriggerDownComponent.self)
+                        self.engine.ship?.remove(componentClass: FireDownComponent.self)
                     },
                     touchUpOutside: { sprite in
-                        sprite.alpha = 0.2; self.engine
-                                                .ship?
-                                                .remove(componentClass: TriggerDownComponent.self)
+                        self.engine.ship?.remove(componentClass: FireDownComponent.self)
                     },
                     touchMoved: { sprite, over in
                         if over {
-                            sprite.alpha = 0.6; self.engine.ship?.add(component: TriggerDownComponent.shared)
+                            self.engine.ship?.add(component: FireDownComponent.shared)
                         } else {
-                            sprite.alpha = 0.2; self.engine
-                                                    .ship?
-                                                    .remove(componentClass: TriggerDownComponent.self)
+                            self.engine.ship?.remove(componentClass: FireDownComponent.self)
                         }
                     }
                 ))

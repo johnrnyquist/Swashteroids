@@ -60,7 +60,7 @@ extension Creator {
         thrustButton.entity = thrustButtonEntity
         engine.replaceEntity(entity: thrustButtonEntity)
         // fire
-        let fireButton = SwashteroidsSpriteNode(imageNamed: "trigger")
+        let fireButton = SwashteroidsSpriteNode(imageNamed: "fire")
         fireButton.alpha = 0.2
         let firex = -thrustButton.size.width - 30 + thrustx
         let firey = lefty
@@ -82,6 +82,7 @@ extension Creator {
     }
 
     /// Since buttons are used inertly on the info screen, we need to enable them for gameplay.
+    /// Technically, I could have just added Touchable here and had the ButtonBehaviorComponent done initially.
     func enableShipControlButtons() {
         guard let flip = engine.getEntity(named: .flipButton),
               let hyperspace = engine.getEntity(named: .hyperSpaceButton),
@@ -218,23 +219,23 @@ extension Creator {
                 touchDown: { [unowned self] sprite in
                     sprite.alpha = 0.6
                     generator.impactOccurred()
-                    engine.ship?.add(component: TriggerDownComponent.shared)
+                    engine.ship?.add(component: FireDownComponent.shared)
                 },
                 touchUp: { sprite in
                     sprite.alpha = 0.2
-                    self.engine.ship?.remove(componentClass: TriggerDownComponent.self)
+                    self.engine.ship?.remove(componentClass: FireDownComponent.self)
                 },
                 touchUpOutside: { sprite in
                     sprite.alpha = 0.2
-                    self.engine.ship?.remove(componentClass: TriggerDownComponent.self)
+                    self.engine.ship?.remove(componentClass: FireDownComponent.self)
                 },
                 touchMoved: { sprite, over in
                     if over {
                         sprite.alpha = 0.6
-                        self.engine.ship?.add(component: TriggerDownComponent.shared)
+                        self.engine.ship?.add(component: FireDownComponent.shared)
                     } else {
                         sprite.alpha = 0.2
-                        self.engine.ship?.remove(componentClass: TriggerDownComponent.self)
+                        self.engine.ship?.remove(componentClass: FireDownComponent.self)
                     }
                 }
             ))
