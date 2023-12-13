@@ -84,7 +84,6 @@
 		8D23C1E72B02C81D00F7D878 /* Double+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1E52B02C81D00F7D878 /* Double+extensions.swift */; };
 		8D23C1E92B02CD7E00F7D878 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C1E82B02CD7E00F7D878 /* README.md */; };
 		8D23C1EB2B02CD9800F7D878 /* LICENSE.md in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C1EA2B02CD9800F7D878 /* LICENSE.md */; };
-		8D23C1EE2B02D00700F7D878 /* swashteroids.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C1ED2B02D00700F7D878 /* swashteroids.png */; };
 		8D384D9A2B28F3F300D5564C /* BulletAgeSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D384D982B28F3F300D5564C /* BulletAgeSystemTests.swift */; };
 		8D384D9B2B28F3F300D5564C /* AnimationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D384D992B28F3F300D5564C /* AnimationTests.swift */; };
 		8D41E2112B1E64530031AF54 /* ChangeShipControlsStateComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D41E2102B1E64530031AF54 /* ChangeShipControlsStateComponent.swift */; };
@@ -116,6 +115,7 @@
 		8D9DEF682B059F2800064B01 /* HyperspaceSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9DEF672B059F2800064B01 /* HyperspaceSystem.swift */; };
 		8DA97A962B23581100E7495A /* Int+SystemPriorities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA97A952B23581100E7495A /* Int+SystemPriorities.swift */; };
 		8DB409EC2B1D3C6F008DE4EB /* TransitionAppStateComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB409EB2B1D3C6F008DE4EB /* TransitionAppStateComponent.swift */; };
+		8DBAC8C52B2A1F420017C87E /* swashteroids.png in Resources */ = {isa = PBXBuildFile; fileRef = 8DBAC8C42B2A1F420017C87E /* swashteroids.png */; };
 		8DD26DC92B22D7E300DA5BC3 /* AccelerometerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD26DC82B22D7E300DA5BC3 /* AccelerometerNode.swift */; };
 		8DD26DCB2B22D80600DA5BC3 /* AccelerometerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD26DCA2B22D80600DA5BC3 /* AccelerometerComponent.swift */; };
 		93139265D59A74E99D27A0CF /* Transition+GameOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931393BFA7122C52736144FB /* Transition+GameOver.swift */; };
@@ -238,7 +238,6 @@
 		8D23C1E52B02C81D00F7D878 /* Double+extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Double+extensions.swift"; sourceTree = "<group>"; };
 		8D23C1E82B02CD7E00F7D878 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8D23C1EA2B02CD9800F7D878 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
-		8D23C1ED2B02D00700F7D878 /* swashteroids.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = swashteroids.png; sourceTree = "<group>"; };
 		8D384D8F2B28F30D00D5564C /* SwashteroidsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwashteroidsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D384D982B28F3F300D5564C /* BulletAgeSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BulletAgeSystemTests.swift; sourceTree = "<group>"; };
 		8D384D992B28F3F300D5564C /* AnimationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationTests.swift; sourceTree = "<group>"; };
@@ -273,6 +272,7 @@
 		8D9DEF672B059F2800064B01 /* HyperspaceSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyperspaceSystem.swift; sourceTree = "<group>"; };
 		8DA97A952B23581100E7495A /* Int+SystemPriorities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+SystemPriorities.swift"; sourceTree = "<group>"; };
 		8DB409EB2B1D3C6F008DE4EB /* TransitionAppStateComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionAppStateComponent.swift; sourceTree = "<group>"; };
+		8DBAC8C42B2A1F420017C87E /* swashteroids.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = swashteroids.png; sourceTree = "<group>"; };
 		8DD26DC82B22D7E300DA5BC3 /* AccelerometerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccelerometerNode.swift; sourceTree = "<group>"; };
 		8DD26DCA2B22D80600DA5BC3 /* AccelerometerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccelerometerComponent.swift; sourceTree = "<group>"; };
 		931392817415F62A631B78BE /* Transition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transition.swift; sourceTree = "<group>"; };
@@ -537,7 +537,7 @@
 		8D23C1EC2B02CFAD00F7D878 /* images */ = {
 			isa = PBXGroup;
 			children = (
-				8D23C1ED2B02D00700F7D878 /* swashteroids.png */,
+				8DBAC8C42B2A1F420017C87E /* swashteroids.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
@@ -661,7 +661,7 @@
 			files = (
 				8D59EDDE2B139088003BD073 /* Badloc ICG.ttf in Resources */,
 				8D23C1DE2B02C59D00F7D878 /* beat1.wav in Resources */,
-				8D23C1EE2B02D00700F7D878 /* swashteroids.png in Resources */,
+				8DBAC8C52B2A1F420017C87E /* swashteroids.png in Resources */,
 				8D6D815F2B1A7A9E00AD8D18 /* ButtonsInfo.sks in Resources */,
 				8D23C1D92B02C59D00F7D878 /* fire.wav in Resources */,
 				8D23C1C52B02C59D00F7D878 /* hyperspace.sks in Resources */,
