@@ -35,12 +35,13 @@ final class Swashteroids: NSObject {
 
     init(scene: GameScene) {
         self.scene = scene
-        orientation = UIDevice.current.orientation == .landscapeRight ? -1.0 : 1.0
         engine = Engine()
         tickProvider = FrameTickProvider()
         creator = Creator(engine: engine, size: scene.size, generator: generator)
         transtition = Transition(engine: engine, creator: creator, generator: generator)
+        orientation = UIDevice.current.orientation == .landscapeRight ? -1.0 : 1.0
         super.init()
+        //
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(orientationChanged),
                                                name: UIDevice.orientationDidChangeNotification, object: nil)

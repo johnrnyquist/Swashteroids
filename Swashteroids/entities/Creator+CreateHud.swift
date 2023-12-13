@@ -16,11 +16,9 @@ extension Creator {
         let hudEntity = HudEntity(name: .hud, gameState: gameState)
         do {
             try engine.addEntity(entity: hudEntity)
-        }
-        catch SwashError.entityNameAlreadyInUse(let message) {
+        } catch SwashError.entityNameAlreadyInUse(let message) {
             fatalError(message)
-        }
-        catch {
+        } catch {
             fatalError("Unexpected error: \(error).")
         }
     }

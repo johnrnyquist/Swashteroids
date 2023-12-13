@@ -16,11 +16,9 @@ extension Creator {
         let ship = ShipEntity(name: .ship, state: state)
         do {
             try engine.addEntity(entity: ship)
-        }
-        catch SwashError.entityNameAlreadyInUse(let message) {
+        } catch SwashError.entityNameAlreadyInUse(let message) {
             fatalError(message)
-        }
-        catch {
+        } catch {
             fatalError("Unexpected error: \(error).")
         }
     }

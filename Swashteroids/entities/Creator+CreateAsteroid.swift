@@ -29,6 +29,13 @@ extension Creator {
                 .add(component: CollisionComponent(radius: radius))
                 .add(component: AsteroidComponent())
                 .add(component: DisplayComponent(sknode: sprite))
-        try! engine.addEntity(entity: entity)
+        
+        do {
+            try engine.addEntity(entity: entity)
+        } catch SwashError.entityNameAlreadyInUse(let message) {
+            fatalError(message)
+        } catch {
+            fatalError("Unexpected error: \(error).")
+        }
     }
 }

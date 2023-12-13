@@ -39,8 +39,14 @@ extension Creator {
                                                 angularVelocity: 0 + parentMotion.angularVelocity,
                                                 damping: 0 + parentMotion.damping))
                 .add(component: DisplayComponent(sknode: sprite))
-        .add(component: AudioComponent(fileNamed: "fire.wav", actionKey: name))
+                .add(component: AudioComponent(fileNamed: "fire.wav", actionKey: name))
         sprite.name = entity.name
-        engine.replaceEntity(entity: entity)
+        do {
+            try engine.addEntity(entity: entity)
+        } catch SwashError.entityNameAlreadyInUse(let message) {
+            fatalError(message)
+        } catch {
+            fatalError("Unexpected error: \(error).")
+        }
     }
 }
