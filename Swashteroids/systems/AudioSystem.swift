@@ -27,7 +27,6 @@ final class AudioSystem: ListIteratingSystem {
             if scene.action(forKey: soundKey) != nil {
                 continue // I never hit this, but it's here just in case
             }
-            print("playing soundKey: \(soundKey) for \(node.entity?.name)")
             scene.run(soundAction, withKey: soundKey)
         }
         audioComponent.clearPlaylist()

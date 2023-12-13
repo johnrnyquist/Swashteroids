@@ -12,7 +12,7 @@ import Swash
 import SpriteKit
 
 extension Creator {
-    func createAsteroid(radius: Double, x: Double, y: Double, color: UIColor = .asteroid, level: Int) {
+    func createAsteroid(radius: Double, x: Double, y: Double, level: Int, color: UIColor = .asteroid) {
         let sprite = SwashteroidsSpriteNode(texture: createAsteroidTexture(radius: radius, color: color))
         let entity = Entity()
         numAsteroids += 1

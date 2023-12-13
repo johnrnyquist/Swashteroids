@@ -108,7 +108,7 @@ extension Creator {
                     if over { sprite.alpha = 0.6 } else { sprite.alpha = 0.2 }
                 }
             ))
-        hyperspace.sprite?.alpha = 0.0 //HACK
+        hyperspace.sprite?.alpha = 0.0 //HACK to hide this button until you get the power-up
         hyperspace.add(component: TouchableComponent())
                   .add(component: ButtonBehaviorComponent(
                       touchDown: { [unowned self] sprite in
@@ -213,7 +213,7 @@ extension Creator {
                       }
                   }
               ))
-        fire.sprite?.alpha = 0.0 //HACK
+        fire.sprite?.alpha = 0.0 //HACK to hide this button until you get the power-up
         fire.add(component: TouchableComponent())
             .add(component: ButtonBehaviorComponent(
                 touchDown: { [unowned self] sprite in

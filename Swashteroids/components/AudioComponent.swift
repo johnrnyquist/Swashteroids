@@ -11,7 +11,7 @@
 import SpriteKit
 import Swash
 
-/// Entities with this compoenent will play this sounds in its playlist immediately from the AudioSystem.
+/// Entities with this component will play this sounds in its playlist immediately from the AudioSystem.
 final class AudioComponent: Component {
     private(set) var playlist: [String: SKAction] = [:]
 

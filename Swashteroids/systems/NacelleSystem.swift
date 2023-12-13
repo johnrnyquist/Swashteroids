@@ -23,7 +23,7 @@ final class NacelleSystem: ListIteratingSystem {
             let warpDrive = node[WarpDriveComponent.self],
             let sprite = node[DisplayComponent.self]?.sprite
         else { return }
-        // TODO: I'm not crazy about the flag and the child node access here
+        //HACK I'm not crazy about the flag and the child node access here
         if warpDrive.isThrusting {
             sprite.childNode(withName: "//nacelles")?.isHidden = false
         } else {

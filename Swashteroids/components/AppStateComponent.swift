@@ -13,7 +13,7 @@ import Foundation
 
 final class AppStateComponent: Component {
     var size: CGSize
-    var ships = 0
+    var numShips = 0
     var level = 0
     var score = 0
     var appState: AppState = .initialize
@@ -26,7 +26,7 @@ final class AppStateComponent: Component {
          appState: AppState = .initialize,
          shipControlsState: ShipControlsState = .showingButtons) {
         self.size = size
-        self.ships = ships
+        self.numShips = ships
         self.level = level
         self.score = score
         self.appState = appState
@@ -35,7 +35,7 @@ final class AppStateComponent: Component {
     }
 
     func reset() {
-        ships = 3
+        numShips = 3
         level = 0
         score = 0
         appState = .initialize
@@ -44,7 +44,7 @@ final class AppStateComponent: Component {
 
     /// Resets the ship, level, and hits.
     func resetBoard() {
-        ships = 3
+        numShips = 3
         level = 0
         score = 0
     }

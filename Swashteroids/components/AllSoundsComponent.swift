@@ -12,7 +12,7 @@ import Swash
 import SpriteKit
 
 class AllSoundsComponent: Component {
-    static let shared = AllSoundsComponent() //HACK: I'm doing this to cheat
+    static let shared = AllSoundsComponent() //HACK I'm doing this to cheat
     
     var soundActions: [String: SKAction] = [:]
 

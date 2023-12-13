@@ -95,6 +95,7 @@ final class CollisionSystem: System {
                 let seq = SKAction.sequence([fadeIn, fadeOut])
                 let sprite = (engine.getEntity(named: .fireButton)?[DisplayComponent.name] as? DisplayComponent)?.sprite
                 sprite?.run(seq)
+                //END_HACK
             }
             torpedoPowerUpNode = torpedoPowerUpNode?.next
         }
@@ -124,6 +125,7 @@ final class CollisionSystem: System {
                 let seq = SKAction.sequence([fadeIn, fadeOut])
                 let sprite = (engine.getEntity(named: .hyperSpaceButton)?[DisplayComponent.name] as? DisplayComponent)?.sprite
                 sprite?.run(seq)
+                //END_HACK
             }
             hyperSpacePowerUpNode = hyperSpacePowerUpNode?.next
         }
@@ -183,7 +185,7 @@ final class CollisionSystem: System {
                         ship.destroy()
                         if let appState = appStateNodes.head,
                            let component = appState[AppStateComponent.self] {
-                            component.ships -= 1
+                            component.numShips -= 1
                         }
                     }
                     let level = (appStateNodes.head?[AppStateComponent.self] as? AppStateComponent)?.level ?? 1

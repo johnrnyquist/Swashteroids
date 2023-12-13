@@ -69,8 +69,8 @@ class ShipEntity: Entity {
         self[AudioComponent.name] as? AudioComponent
     }
 
-    /// Since there is significant modification to the ship entity’s components, 
-    /// plus visual and sound effects, I pulled them into the ShipEntity class.
+    /// Removes and adds components to the ship entity to put in a destroyed state.
+    /// Also adds a flaming particle emitter to the ship sprite.
     func destroy() {
         // Visual effects
         let spriteNode = SwashteroidsSpriteNode(texture: createShipTexture(color: .red))
@@ -80,12 +80,12 @@ class ShipEntity: Entity {
         spriteNode.run(fade)
         repeatingAudio?.state = .shouldStop
         // Remove components
-        remove(componentClass: InputComponent.self)
-        remove(componentClass: GunComponent.self)
-        remove(componentClass: MotionControlsComponent.self)
-        remove(componentClass: DisplayComponent.self)
-        remove(componentClass: HyperSpaceEngineComponent.self)
         remove(componentClass: AudioComponent.self)
+        remove(componentClass: DisplayComponent.self)
+        remove(componentClass: GunComponent.self)
+        remove(componentClass: HyperSpaceEngineComponent.self)
+        remove(componentClass: InputComponent.self)
+        remove(componentClass: MotionControlsComponent.self)
         // Add components
         add(component: DisplayComponent(sknode: spriteNode))
         add(component: DeathThroesComponent(countdown: 3.0))

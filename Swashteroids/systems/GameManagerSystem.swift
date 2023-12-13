@@ -12,18 +12,28 @@ import Foundation
 import SpriteKit
 import Swash
 
-/// Detects if there are no ships, if game is playing, if there are no asteroids, no bullets.
-/// Determines when to go to next level.
-/// Creates the level.
-/// Determines if a ship needs to be made.
+/**
+Detects if there are no ships, if game is playing, if there are no asteroids, no bullets.
+Determines when to go to next level.
+Creates the level.
+Determines if a ship needs to be made.
+Has too many responsibilities.
+ */
 final class GameManagerSystem: System {
     private var size: CGSize
     private weak var creator: Creator!
     private weak var asteroids: NodeList!
-    private weak var bullets: NodeList!
+    private weak var torpedoes: NodeList!
     private weak var appStates: NodeList!
     private weak var ships: NodeList!
-    private weak var scene: SKScene! //HACK for announceLevel()
+    private weak var scene: SKScene!
+    private let spaceshipClearanceRadius: CGFloat = 50
+    private let minimumAsteroidDistance: CGFloat = 80
+    private let spaceshipPositionRatio: CGFloat = 0.5
+    private let levelUpSound = "braam-6150.wav"
+    private let minimumLevel = 1
+    private let hudTextFontName = "Futura Condensed Medium"
+    private let hudTextFontSize: CGFloat = 64
 
     init(creator: Creator, size: CGSize, scene: SKScene) {
         self.creator = creator
@@ -31,93 +41,128 @@ final class GameManagerSystem: System {
         self.scene = scene
     }
 
-    override public func addToEngine(engine: Engine) {
+    // MARK: - System Overrides
+    override func addToEngine(engine: Engine) {
         appStates = engine.getNodeList(nodeClassType: AppStateNode.self)
         ships = engine.getNodeList(nodeClassType: ShipNode.self)
         asteroids = engine.getNodeList(nodeClassType: AsteroidCollisionNode.self)
-        bullets = engine.getNodeList(nodeClassType: PlasmaTorpedoCollisionNode.self)
+        torpedoes = engine.getNodeList(nodeClassType: PlasmaTorpedoCollisionNode.self)
     }
 
-    override public func update(time: TimeInterval) {
-        guard let appStateNode = appStates.head,
-              let appStateComponent = appStateNode[AppStateComponent.self] else {
-            return
-        }
+    override func update(time: TimeInterval) {
+        guard let currentStateNode = appStates.head,
+              let appStateComponent = currentStateNode[AppStateComponent.self] else { return }
+        handleGameState(appStateComponent: appStateComponent, currentStateNode: currentStateNode)
+    }
+
+    override func removeFromEngine(engine: Engine) {
+        creator = nil
+        appStates = nil
+        ships = nil
+        asteroids = nil
+        torpedoes = nil
+    }
+
+    // MARK: - Game Logic
+    private func handleGameState(appStateComponent: AppStateComponent, currentStateNode: Node) {
+		// No ships in the NodeList, but we're still playing.
         if ships.empty,
            appStateComponent.appState == .playing {
-            if appStateComponent.ships > 0 {
-                let newSpaceshipPosition = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
-                var clearToAddSpaceship = true
-                var asteroid = asteroids.head
-                while asteroid != nil {
-                    guard let positionComponent = asteroid?[PositionComponent.self],
-                          let collisionComponent = asteroid?[CollisionComponent.self]
-                    else { continue }
-                    if positionComponent.position.distance(from: newSpaceshipPosition) <= collisionComponent.radius + 50 {
-                        clearToAddSpaceship = false
-                        break
-                    }
-                    asteroid = asteroid?.next
-                }
-                if clearToAddSpaceship {
-                    creator.createShip(appStateComponent)
-                    creator.createPlasmaTorpedoesPowerUp(level: appStateComponent.level == 0 ? 1 : appStateComponent.level)
-                    creator.createHyperSpacePowerUp(level: appStateComponent.level == 0 ? 1 : appStateComponent.level)
-                }
-            } else if appStateComponent.appState == .playing {
-                appStateNode.entity?.add(component: TransitionAppStateComponent(to: .gameOver, from: .playing))
-            }
+            handlePlayingState(appStateComponent: appStateComponent, currentStateNode: currentStateNode)
         }
+		// No asteroids or torpedoes but we have a ship, so start a new level.
         if asteroids.empty,
-           bullets.empty,
+           torpedoes.empty,
            !ships.empty {
-            // next level
-            guard
-                let shipNode = ships.head,
-                let spaceShipPosition = shipNode[PositionComponent.self]
-            else { return }
-            appStateComponent.level += 1
-            // TODO: This level text and animation should be elsewhere.
-            appStateNode.entity?.add(component: AudioComponent(fileNamed: "braam-6150.wav",
-                                                               actionKey: "levelUp"))
-            announceLevel(appStateComponent: appStateComponent)
-            //
-            let asteroidCount = 0 + appStateComponent.level
-            for _ in 0..<asteroidCount {
-                // check not on top of ship
-                var position: CGPoint
-                repeat {
-                    // Randomly decide if the asteroid will be created along the vertical or horizontal bounds
-                    let isVertical = Bool.random()
-                    // Randomly decide if the asteroid will be created along the positive or negative bound
-                    let isPositive = Bool.random()
-                    if isVertical {
-                        // If isVertical is true, create the asteroid along the top or bottom bound
-                        let y = isPositive ? Double(size.height) : 0.0
-                        position = CGPoint(x: Double.random(in: 0.0...1.0) * size.width, y: y)
-                    } else {
-                        // If isVertical is false, create the asteroid along the left or right bound
-                        let x = isPositive ? Double(size.width) : 0.0
-                        position = CGPoint(x: x, y: Double.random(in: 0.0...1.0) * size.height)
-                    }
-                    // Repeat until the asteroid is not on top of the ship
-                } while (position.distance(from: spaceShipPosition.position) <= 80)
-                // Create the asteroid at the calculated position
-                creator.createAsteroid(radius: LARGE_ASTEROID_RADIUS, x: position.x, y: position.y, level: appStateComponent.level)
-            }
+            goToNextLevel(appStateComponent: appStateComponent, currentStateNode: currentStateNode)
         }
     }
 
-    /// This is a hack to get the level text to appear.
+    private func handlePlayingState(appStateComponent: AppStateComponent, currentStateNode: Node) {
+		// If we have any ships left, make another and some power-ups
+        if appStateComponent.numShips > 0 {
+            let newSpaceshipPosition = CGPoint(x: size.width * spaceshipPositionRatio,
+                                               y: size.height * spaceshipPositionRatio)
+            if isClearToAddSpaceship(at: newSpaceshipPosition) {
+                creator.createShip(appStateComponent)
+                let level = max(appStateComponent.level, minimumLevel)
+                createPowerUps(level: level)
+            }
+        } else { // GAME OVER!
+            currentStateNode.entity?.add(component: TransitionAppStateComponent(to: .gameOver, from: .playing))
+        }
+    }
+
+    private func goToNextLevel(appStateComponent: AppStateComponent, currentStateNode: Node) {
+        guard let shipNode = ships.head,
+              let spaceShipPosition = shipNode[PositionComponent.self] else { return }
+        appStateComponent.level += 1
+        currentStateNode.entity?.add(component: AudioComponent(fileNamed: levelUpSound, actionKey: "levelUp"))
+        announceLevel(appStateComponent: appStateComponent)
+        createAsteroids(count: appStateComponent.level, avoiding: spaceShipPosition.position, level: appStateComponent.level)
+    }
+
+    private func isClearToAddSpaceship(at position: CGPoint) -> Bool {
+        var asteroid = asteroids.head
+        while let currentAsteroid = asteroid {
+            guard let positionComponent = currentAsteroid[PositionComponent.self],
+                  let collisionComponent = currentAsteroid[CollisionComponent.self] else {
+                asteroid = currentAsteroid.next
+                continue
+            }
+            if positionComponent.position.distance(from: position) <= collisionComponent.radius + spaceshipClearanceRadius {
+                return false
+            }
+            asteroid = currentAsteroid.next
+        }
+        return true
+    }
+
+    private func createPowerUps(level: Int) {
+        creator.createPlasmaTorpedoesPowerUp(level: level)
+        creator.createHyperSpacePowerUp(level: level)
+    }
+
+    private func createAsteroids(count: Int, avoiding positionToAvoid: CGPoint, level: Int) {
+        for _ in 0..<count {
+            var position: CGPoint
+            repeat {
+                position = randomPosition()
+            } while (position.distance(from: positionToAvoid) <= minimumAsteroidDistance)
+            creator.createAsteroid(radius: LARGE_ASTEROID_RADIUS, x: position.x, y: position.y, level: level)
+        }
+    }
+
+    private func randomPosition() -> CGPoint {
+        let isVertical = Bool.random()
+        let isPositive = Bool.random()
+        if isVertical {
+            let y = isPositive ? Double(size.height) : 0.0
+            return CGPoint(x: Double.random(in: 0.0...1.0) * size.width, y: y)
+        } else {
+            let x = isPositive ? Double(size.width) : 0.0
+            return CGPoint(x: x, y: Double.random(in: 0.0...1.0) * size.height)
+        }
+    }
+
     private func announceLevel(appStateComponent: AppStateComponent) {
         let levelText = SKLabelNode(text: "Level \(appStateComponent.level)")
-        scene.addChild(levelText) //HACK
+        configureLevelText(levelText)
+        scene.addChild(levelText)
+        animateLevelText(levelText)
+    }
+
+    // MARK: - HUD Helpers
+    private func configureLevelText(_ levelText: SKLabelNode) {
         levelText.horizontalAlignmentMode = .center
-        levelText.fontName = "Futura Condensed Medium"
+        levelText.fontName = hudTextFontName
         levelText.fontColor = .hudText
-        levelText.fontSize = 64
+        levelText.fontSize = hudTextFontSize
         levelText.position = CGPoint(x: size.width / 2, y: size.height / 2 * 1.2)
         levelText.zPosition = Layer.top.rawValue
+    }
+
+    private func animateLevelText(_ levelText: SKLabelNode) {
         let zoomInAction = SKAction.scale(to: 2.0, duration: 0.5)
         zoomInAction.timingMode = .easeIn
         let waitAction = SKAction.wait(forDuration: 1.0)
@@ -126,13 +171,5 @@ final class GameManagerSystem: System {
         levelText.run(sequence) {
             levelText.removeFromParent()
         }
-    }
-
-    override public func removeFromEngine(engine: Engine) {
-        creator = nil
-        appStates = nil
-        ships = nil
-        asteroids = nil
-        bullets = nil
     }
 }
