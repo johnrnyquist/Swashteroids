@@ -24,7 +24,7 @@ extension CGPoint {
         return sum
     }
 
-    func distance(p: CGPoint) -> Double {
-        hypot(x - p.x, y - p.y)
+    func distance(from other: CGPoint) -> Double {
+        hypot(x - other.x, y - other.y)
     }
 }

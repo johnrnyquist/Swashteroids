@@ -78,7 +78,7 @@ final class CollisionSystem: System {
                 let gunSupplierCollision = torpedoPowerUpNode?[CollisionComponent.self],
                 let shipCollision = shipCollisionNode?[CollisionComponent.self]
             else { torpedoPowerUpNode = torpedoPowerUpNode?.next; continue }
-            let distanceToShip = distance(gunSupplierPosition.position, shipPosition.position)
+            let distanceToShip = gunSupplierPosition.position.distance(from: shipPosition.position)
             if (distanceToShip <= gunSupplierCollision.radius + shipCollision.radius) {
                 engine.removeEntity(entity: torpedoPowerUpNode!.entity!)
                 torpedoPowerUpNode = torpedoPowerUpNode?.next
@@ -109,7 +109,7 @@ final class CollisionSystem: System {
                 let hyperSpacePowerUpCollision = hyperSpacePowerUpNode?[CollisionComponent.self],
                 let shipCollision = shipCollisionNode?[CollisionComponent.self]
             else { hyperSpacePowerUpNode = hyperSpacePowerUpNode?.next; continue }
-            let distanceToShip = distance(hyperSpacePowerUpPosition.position, shipPosition.position)
+            let distanceToShip = hyperSpacePowerUpPosition.position.distance(from: shipPosition.position)
             if (distanceToShip <= hyperSpacePowerUpCollision.radius + shipCollision.radius) {
                 engine.removeEntity(entity: hyperSpacePowerUpNode!.entity!)
                 hyperSpacePowerUpNode = hyperSpacePowerUpNode?.next
@@ -140,7 +140,7 @@ final class CollisionSystem: System {
                     let bulletPosition = bulletNode?[PositionComponent.self],
                     let asteroidCollision = asteroidNode?[CollisionComponent.self]
                 else { asteroidNode = asteroidNode?.next; continue } // or return? }
-                if (distance(asteroidPosition.position, bulletPosition.position) <= asteroidCollision.radius) {
+                if (asteroidPosition.position.distance(from: bulletPosition.position) <= asteroidCollision.radius) {
                     engine.removeEntity(entity: bulletNode!.entity!)
                     let level = (appStateNodes.head?[AppStateComponent.self] as? AppStateComponent)?.level ?? 1
                     splitAsteroid(asteroidCollision: asteroidCollision,
@@ -170,7 +170,7 @@ final class CollisionSystem: System {
                     let asteroidCollision = asteroidCollisionNode?[CollisionComponent.self],
                     let shipCollision = shipCollisionNode?[CollisionComponent.self]
                 else { asteroidCollisionNode = asteroidCollisionNode?.next; continue }
-                let distanceToShip = distance(asteroidPosition.position, shipPosition.position)
+                let distanceToShip = asteroidPosition.position.distance(from: shipPosition.position)
                 if (distanceToShip <= asteroidCollision.radius + shipCollision.radius) {
                     if let asteroidMotion = asteroidCollisionNode?[MotionComponent.self],
                        let shipMotion = shipCollisionNode?[MotionComponent.self] {
@@ -197,11 +197,7 @@ final class CollisionSystem: System {
             shipCollisionNode = shipCollisionNode?.next
         }
     }
-
-    func distance(_ from: CGPoint, _ to: CGPoint) -> Double {
-        hypot(from.x - to.x, from.y - to.y)
-    }
-
+    
     override public func removeFromEngine(engine: Engine) {
         creator = nil
         appStateNodes = nil

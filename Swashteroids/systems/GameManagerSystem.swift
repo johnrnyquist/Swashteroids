@@ -53,7 +53,7 @@ final class GameManagerSystem: System {
                     guard let positionComponent = asteroid?[PositionComponent.self],
                           let collisionComponent = asteroid?[CollisionComponent.self]
                     else { continue }
-                    if positionComponent.position.distance(p: newSpaceshipPosition) <= collisionComponent.radius + 50 {
+                    if positionComponent.position.distance(from: newSpaceshipPosition) <= collisionComponent.radius + 50 {
                         clearToAddSpaceship = false
                         break
                     }
@@ -101,7 +101,7 @@ final class GameManagerSystem: System {
                         position = CGPoint(x: x, y: Double.random(in: 0.0...1.0) * size.height)
                     }
                     // Repeat until the asteroid is not on top of the ship
-                } while (position.distance(p: spaceShipPosition.position) <= 80)
+                } while (position.distance(from: spaceShipPosition.position) <= 80)
                 // Create the asteroid at the calculated position
                 creator.createAsteroid(radius: LARGE_ASTEROID_RADIUS, x: position.x, y: position.y, level: appStateComponent.level)
             }
