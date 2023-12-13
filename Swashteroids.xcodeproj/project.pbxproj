@@ -118,13 +118,14 @@
 		8DB409EC2B1D3C6F008DE4EB /* TransitionAppStateComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB409EB2B1D3C6F008DE4EB /* TransitionAppStateComponent.swift */; };
 		8DD26DC92B22D7E300DA5BC3 /* AccelerometerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD26DC82B22D7E300DA5BC3 /* AccelerometerNode.swift */; };
 		8DD26DCB2B22D80600DA5BC3 /* AccelerometerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD26DCA2B22D80600DA5BC3 /* AccelerometerComponent.swift */; };
-		93139265D59A74E99D27A0CF /* Creator+SetUpGameOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931393BFA7122C52736144FB /* Creator+SetUpGameOver.swift */; };
+		93139265D59A74E99D27A0CF /* Transition+GameOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931393BFA7122C52736144FB /* Transition+GameOver.swift */; };
 		931392BC342CBC595CB879B5 /* FlipComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139EB3AE52346EF745211F /* FlipComponent.swift */; };
 		931393799C3434FBF3FC0CCD /* InputComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931396DD35CCD39E8E4EDB16 /* InputComponent.swift */; };
 		931397073B11911E75B9BFA0 /* Creator+ShipControlQuadrants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931395F838B2866767296F25 /* Creator+ShipControlQuadrants.swift */; };
 		931397757ABDD3E731FEB69F /* RepeatingAudioSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139A85D4D955B243719D63 /* RepeatingAudioSystem.swift */; };
-		931397BD1834CFFC21464D3F /* Creator+SetUpPlaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139DF99E2237817263DF63 /* Creator+SetUpPlaying.swift */; };
+		931397BD1834CFFC21464D3F /* Transition+Playing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139DF99E2237817263DF63 /* Transition+Playing.swift */; };
 		93139837E8C25570F6134663 /* RepeatingAudioNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313961CB4F5B39D06FE5B0F /* RepeatingAudioNode.swift */; };
+		93139859AA4017DC2A83652F /* Transition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931392817415F62A631B78BE /* Transition.swift */; };
 		931398712D4F259FF98C62AA /* Touch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931398B8B6C228DE4D83EF1C /* Touch.swift */; };
 		931398FFEAC38E75EF83728C /* TouchNodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139489970BEA17AF74C95E /* TouchNodes.swift */; };
 		93139920B1CB722DC9509E80 /* TransitionAppStateSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139F7B6117208071E3FE22 /* TransitionAppStateSystem.swift */; };
@@ -142,8 +143,8 @@
 		93139DB6913344090273397D /* String+EntityNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931394D1D0B636772EE1DFF7 /* String+EntityNames.swift */; };
 		93139E3F25213600B5CECC6D /* RightComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139323EC193D378DF26BB7 /* RightComponent.swift */; };
 		93139E5DCD4193CB19DDB025 /* Creator+CreatePowerUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139C73A66D8863A166745D /* Creator+CreatePowerUp.swift */; };
-		93139F0DDF5880C3EAFA8A5D /* Creator+SetUpStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139349F91910D60271C8DA /* Creator+SetUpStart.swift */; };
-		93139F3F4BF404579411D473 /* Creator+SetUpInfoViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931398E70F42335F03D272DD /* Creator+SetUpInfoViews.swift */; };
+		93139F0DDF5880C3EAFA8A5D /* Transition+Start.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139349F91910D60271C8DA /* Transition+Start.swift */; };
+		93139F3F4BF404579411D473 /* Transition+InfoViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931398E70F42335F03D272DD /* Transition+InfoViews.swift */; };
 		93139F4C2D7C76E0668F0B1C /* AllSoundsComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313979ABDA67BAEA7682AC7 /* AllSoundsComponent.swift */; };
 		93139F78DDEA725367C42BFD /* Creator+CreateAsteroid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139EE51DF4C3AE1D381E57 /* Creator+CreateAsteroid.swift */; };
 		93139F81F995E10AEE533513 /* LeftComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139BC38DC2F4BF7B9F869A /* LeftComponent.swift */; };
@@ -274,10 +275,11 @@
 		8DB409EB2B1D3C6F008DE4EB /* TransitionAppStateComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionAppStateComponent.swift; sourceTree = "<group>"; };
 		8DD26DC82B22D7E300DA5BC3 /* AccelerometerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccelerometerNode.swift; sourceTree = "<group>"; };
 		8DD26DCA2B22D80600DA5BC3 /* AccelerometerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccelerometerComponent.swift; sourceTree = "<group>"; };
+		931392817415F62A631B78BE /* Transition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transition.swift; sourceTree = "<group>"; };
 		931392CF258F1370304A48B7 /* Creator+ShipControlButtons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Creator+ShipControlButtons.swift"; sourceTree = "<group>"; };
 		93139323EC193D378DF26BB7 /* RightComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightComponent.swift; sourceTree = "<group>"; };
-		93139349F91910D60271C8DA /* Creator+SetUpStart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Creator+SetUpStart.swift"; sourceTree = "<group>"; };
-		931393BFA7122C52736144FB /* Creator+SetUpGameOver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Creator+SetUpGameOver.swift"; sourceTree = "<group>"; };
+		93139349F91910D60271C8DA /* Transition+Start.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Transition+Start.swift"; sourceTree = "<group>"; };
+		931393BFA7122C52736144FB /* Transition+GameOver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Transition+GameOver.swift"; sourceTree = "<group>"; };
 		9313941564944F14B4041467 /* GameOverSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverSystem.swift; sourceTree = "<group>"; };
 		93139489970BEA17AF74C95E /* TouchNodes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchNodes.swift; sourceTree = "<group>"; };
 		931394D1D0B636772EE1DFF7 /* String+EntityNames.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+EntityNames.swift"; sourceTree = "<group>"; };
@@ -289,7 +291,7 @@
 		931397D7C84D4E580EB51E4D /* ApplyThrustComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplyThrustComponent.swift; sourceTree = "<group>"; };
 		931397F86C674AD22210D173 /* Creator+CreateHud.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Creator+CreateHud.swift"; sourceTree = "<group>"; };
 		931398B8B6C228DE4D83EF1C /* Touch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Touch.swift; sourceTree = "<group>"; };
-		931398E70F42335F03D272DD /* Creator+SetUpInfoViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Creator+SetUpInfoViews.swift"; sourceTree = "<group>"; };
+		931398E70F42335F03D272DD /* Transition+InfoViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Transition+InfoViews.swift"; sourceTree = "<group>"; };
 		931399840A8AC5987DF6D3D4 /* FireDownComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireDownComponent.swift; sourceTree = "<group>"; };
 		931399A8022AF1B7FCC53B49 /* RepeatingAudioComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatingAudioComponent.swift; sourceTree = "<group>"; };
 		93139A62ACBE6CDFC10158E7 /* MotionControlsComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MotionControlsComponent.swift; sourceTree = "<group>"; };
@@ -297,7 +299,7 @@
 		93139A97E15CCF640A73EC56 /* Creator+CreateTorpedo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Creator+CreateTorpedo.swift"; sourceTree = "<group>"; };
 		93139BC38DC2F4BF7B9F869A /* LeftComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftComponent.swift; sourceTree = "<group>"; };
 		93139C73A66D8863A166745D /* Creator+CreatePowerUp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Creator+CreatePowerUp.swift"; sourceTree = "<group>"; };
-		93139DF99E2237817263DF63 /* Creator+SetUpPlaying.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Creator+SetUpPlaying.swift"; sourceTree = "<group>"; };
+		93139DF99E2237817263DF63 /* Transition+Playing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Transition+Playing.swift"; sourceTree = "<group>"; };
 		93139E95FF431FF894CFD502 /* Creator+ToggleButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Creator+ToggleButton.swift"; sourceTree = "<group>"; };
 		93139EB3AE52346EF745211F /* FlipComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlipComponent.swift; sourceTree = "<group>"; };
 		93139EE51DF4C3AE1D381E57 /* Creator+CreateAsteroid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Creator+CreateAsteroid.swift"; sourceTree = "<group>"; };
@@ -476,18 +478,19 @@
 			children = (
 				8D41E21E2B1FA2D00031AF54 /* Entity+extension.swift */,
 				8D23C18A2B02C59D00F7D878 /* Creator.swift */,
-				93139349F91910D60271C8DA /* Creator+SetUpStart.swift */,
-				931398E70F42335F03D272DD /* Creator+SetUpInfoViews.swift */,
+				93139349F91910D60271C8DA /* Transition+Start.swift */,
+				931398E70F42335F03D272DD /* Transition+InfoViews.swift */,
 				931395F838B2866767296F25 /* Creator+ShipControlQuadrants.swift */,
 				931392CF258F1370304A48B7 /* Creator+ShipControlButtons.swift */,
-				931393BFA7122C52736144FB /* Creator+SetUpGameOver.swift */,
+				931393BFA7122C52736144FB /* Transition+GameOver.swift */,
 				93139EE51DF4C3AE1D381E57 /* Creator+CreateAsteroid.swift */,
 				93139F43221229D3FBAC46D9 /* Creator+CreateShip.swift */,
 				93139A97E15CCF640A73EC56 /* Creator+CreateTorpedo.swift */,
 				93139C73A66D8863A166745D /* Creator+CreatePowerUp.swift */,
 				93139E95FF431FF894CFD502 /* Creator+ToggleButton.swift */,
-				93139DF99E2237817263DF63 /* Creator+SetUpPlaying.swift */,
+				93139DF99E2237817263DF63 /* Transition+Playing.swift */,
 				931397F86C674AD22210D173 /* Creator+CreateHud.swift */,
+				931392817415F62A631B78BE /* Transition.swift */,
 			);
 			path = entities;
 			sourceTree = "<group>";
@@ -787,17 +790,17 @@
 				931398712D4F259FF98C62AA /* Touch.swift in Sources */,
 				9313996AA764792E9B8670A5 /* FireDownComponent.swift in Sources */,
 				8DA97A962B23581100E7495A /* Int+SystemPriorities.swift in Sources */,
-				93139F0DDF5880C3EAFA8A5D /* Creator+SetUpStart.swift in Sources */,
-				93139F3F4BF404579411D473 /* Creator+SetUpInfoViews.swift in Sources */,
+				93139F0DDF5880C3EAFA8A5D /* Transition+Start.swift in Sources */,
+				93139F3F4BF404579411D473 /* Transition+InfoViews.swift in Sources */,
 				931397073B11911E75B9BFA0 /* Creator+ShipControlQuadrants.swift in Sources */,
 				93139C71990002FF2B995C07 /* Creator+ShipControlButtons.swift in Sources */,
-				93139265D59A74E99D27A0CF /* Creator+SetUpGameOver.swift in Sources */,
+				93139265D59A74E99D27A0CF /* Transition+GameOver.swift in Sources */,
 				93139F78DDEA725367C42BFD /* Creator+CreateAsteroid.swift in Sources */,
 				93139CB863A15BF4B1274D41 /* Creator+CreateShip.swift in Sources */,
 				93139C6BCF2ED1CDD8504B1C /* Creator+CreateTorpedo.swift in Sources */,
 				93139E5DCD4193CB19DDB025 /* Creator+CreatePowerUp.swift in Sources */,
 				93139985E9931A3012A6B150 /* Creator+ToggleButton.swift in Sources */,
-				931397BD1834CFFC21464D3F /* Creator+SetUpPlaying.swift in Sources */,
+				931397BD1834CFFC21464D3F /* Transition+Playing.swift in Sources */,
 				93139A8885E51A1D11E5F1D6 /* Creator+CreateHud.swift in Sources */,
 				93139DB6913344090273397D /* String+EntityNames.swift in Sources */,
 				931399FC0563308E45F415FF /* GameOverSystem.swift in Sources */,
@@ -810,6 +813,7 @@
 				93139837E8C25570F6134663 /* RepeatingAudioNode.swift in Sources */,
 				93139BB63DB9036243796001 /* RepeatingAudioComponent.swift in Sources */,
 				931397757ABDD3E731FEB69F /* RepeatingAudioSystem.swift in Sources */,
+				93139859AA4017DC2A83652F /* Transition.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -977,7 +981,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 42;
 				DEVELOPMENT_TEAM = W8GR9TRDWE;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Swashteroids/Info.plist;
@@ -1009,7 +1013,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 42;
 				DEVELOPMENT_TEAM = W8GR9TRDWE;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Swashteroids/Info.plist;

@@ -13,7 +13,8 @@ import SpriteKit
 import CoreMotion
 
 final class Swashteroids: NSObject {
-    var motionManager: CMMotionManager?
+    let generator = UIImpactFeedbackGenerator(style: .heavy)
+    let motionManager = CMMotionManager()
     var orientation = 1.0
     var inputComponent = InputComponent.shared
     //
@@ -22,6 +23,9 @@ final class Swashteroids: NSObject {
     //
     /// Used to create and configure Entity instances
     var creator: Creator
+    //
+    /// Used to transition between game states
+    var transtition: Transition
     //
     /// Drives the game
     private var engine: Engine
@@ -32,10 +36,10 @@ final class Swashteroids: NSObject {
     init(scene: GameScene) {
         self.scene = scene
         orientation = UIDevice.current.orientation == .landscapeRight ? -1.0 : 1.0
-        motionManager = CMMotionManager()
         engine = Engine()
         tickProvider = FrameTickProvider()
-        creator = Creator(engine: engine, scene: scene)
+        creator = Creator(engine: engine, size: scene.size, generator: generator)
+        transtition = Transition(engine: engine, creator: creator, generator: generator)
         super.init()
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(orientationChanged),
@@ -58,7 +62,7 @@ final class Swashteroids: NSObject {
         engine
             // preupdate
                 .addSystem(system: GameManagerSystem(creator: creator, size: scene.size, scene: scene), priority: .preUpdate)
-                .addSystem(system: TransitionAppStateSystem(creator: creator), priority: .preUpdate)
+                .addSystem(system: TransitionAppStateSystem(transition: transtition), priority: .preUpdate)
                 .addSystem(system: ShipControlsSystem(creator: creator, scene: scene, game: self), priority: .preUpdate)
                 .addSystem(system: GameOverSystem(), priority: .preUpdate)
                 // move
@@ -86,7 +90,7 @@ final class Swashteroids: NSObject {
     }
 
     func start() {
-        motionManager?.startAccelerometerUpdates()
+        motionManager.startAccelerometerUpdates()
         tickProvider.add(Listener(engine.update)) // Then engine listens for ticks
         tickProvider.start()
     }

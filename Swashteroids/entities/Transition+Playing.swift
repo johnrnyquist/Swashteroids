@@ -11,27 +11,27 @@
 import Swash
 import SpriteKit
 
-extension Creator {
-    func transitionFromPlayingScreen() {
-        removeToggleButton()
-        removeShipControlButtons()
-        removeShipControlQuadrants()
+extension Transition {
+    func fromPlayingScreen() {
+        creator.removeToggleButton()
+        creator.removeShipControlButtons()
+        creator.removeShipControlQuadrants()
     }
         
-    func transitionToPlayingScreen(with state: ShipControlsState) {
+    func toPlayingScreen(with state: ShipControlsState) {
         guard let appStateComponent = engine.getEntity(named: .appState)?
                                             .get(componentClassName: AppStateComponent.name) as? AppStateComponent else {
             print("WARNING: appStateComponent not found in engine")
             return
         }
         appStateComponent.resetBoard()
-        createHud(gameState: appStateComponent)
+        creator.createHud(gameState: appStateComponent)
         if state == .hidingButtons {
-            createToggleButton(.off)
-            createShipControlQuadrants()
+            creator.createToggleButton(.off)
+            creator.createShipControlQuadrants()
         } else {
-            createToggleButton(.on)
-            enableShipControlButtons()
+            creator.createToggleButton(.on)
+            creator.enableShipControlButtons()
         }
     }
 }

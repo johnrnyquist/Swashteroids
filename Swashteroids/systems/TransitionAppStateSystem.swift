@@ -15,56 +15,56 @@ import Foundation
 import Swash
 
 final class TransitionAppStateSystem: ListIteratingSystem {
-    weak var creator: Creator?
+    weak var transition: Transition?
 
-    init(creator: Creator) {
-        self.creator = creator
+    init(transition: Transition) {
+        self.transition = transition
         super.init(nodeClass: TransitionAppStateNode.self)
         nodeUpdateFunction = updateNode
     }
 
     func updateNode(node: Node, time: TimeInterval) {
-        guard let transition = node[TransitionAppStateComponent.self],
+        guard let transitionComponent = node[TransitionAppStateComponent.self],
               let appStateComponent = node[AppStateComponent.self] else { return }
-        if let from = transition.from {
+        if let from = transitionComponent.from {
             switch from {
                 case .initialize:
                     break
                 case .start:
-                    creator?.transitionFromStart()
+                    transition?.fromStart()
                 case .gameOver:
-                    creator?.transitionFromGameOverScreen()
+                    transition?.fromGameOverScreen()
                     break
                 case .playing:
-                    creator?.transitionFromPlayingScreen()
+                    transition?.fromPlayingScreen()
                     break
                 case .infoButtons:
-                    creator?.tranistionFromButtonsInfoScreen()
+                    transition?.fromButtonsInfoScreen()
                     appStateComponent.shipControlsState = .showingButtons
                 case .infoNoButtons:
-                    creator?.transitionFromNoButtonsInfoScreen()
+                    transition?.fromNoButtonsInfoScreen()
                     appStateComponent.shipControlsState = .hidingButtons
             }
         }
-        appStateComponent.appState = transition.to
-        switch transition.to {
+        appStateComponent.appState = transitionComponent.to
+        switch transitionComponent.to {
             case .initialize:
-                creator?.transitionToStartScreen()
+                transition?.toStartScreen()
             case .start:
-                creator?.transitionToStartScreen()
+                transition?.toStartScreen()
             case .gameOver:
-                creator?.transitionToGameOverScreen()
+                transition?.toGameOverScreen()
                 break
             case .playing:
-                if transition.from == .infoNoButtons {
-                    creator?.transitionToPlayingScreen(with: .hidingButtons)
-                } else if transition.from == .infoButtons {
-                    creator?.transitionToPlayingScreen(with: .showingButtons)
+                if transitionComponent.from == .infoNoButtons {
+                    transition?.toPlayingScreen(with: .hidingButtons)
+                } else if transitionComponent.from == .infoButtons {
+                    transition?.toPlayingScreen(with: .showingButtons)
                 }
             case .infoButtons:
-                creator?.transitionToButtonsInfoScreen()
+                transition?.toButtonsInfoScreen()
             case .infoNoButtons:
-                creator?.transitionToNoButtonsInfoScreen()
+                transition?.toNoButtonsInfoScreen()
         }
         node.entity?.remove(componentClass: TransitionAppStateComponent.self)
     }

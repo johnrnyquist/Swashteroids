@@ -22,7 +22,7 @@ extension Creator {
         let sprite = SwashteroidsSpriteNode(imageNamed: name)
         sprite.name = name
         sprite.alpha = 0.2
-        let x = scene.size.width / 2
+        let x = size.width / 2
         let y = 90.0
         let toggleEntity = Entity(name: .toggleButton)
                 .add(component: PositionComponent(x: x, y: y, z: .buttons))

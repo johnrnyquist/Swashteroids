@@ -16,13 +16,13 @@ final class StartView: SwashteroidsSpriteNode {
     let title: SwashteroidsSpriteNode
     let versionInfo: SKLabelNode
 
-    init(scene: SKScene) {
+    init(gameSize: CGSize) {
         versionInfo = SKLabelNode(text: "Nyquist Art + Logic, LLC v\(appVersion) (build \(appBuild))")
         title = SwashteroidsSpriteNode(imageNamed: "title")
         noButtons = SwashteroidsSpriteNode(imageNamed: "nobuttons")
         buttons = SwashteroidsSpriteNode(imageNamed: "buttons")
 		
-		super.init(texture: nil, color: .clear, size: scene.size)
+		super.init(texture: nil, color: .clear, size: gameSize)
 		anchorPoint = .zero
 		zPosition = Layer.top.rawValue
 		title.color = .white
@@ -53,7 +53,7 @@ final class StartView: SwashteroidsSpriteNode {
 		let moveFromRight = SKAction.move(to: CGPoint(x: 1024 - rightRocks.size.width, y: 768), duration: 0.25)
 		let group = SKAction.group([moveFromLeft, moveFromRight])
 
-        let destination = CGPoint(x: title.position.x, y: scene.size.height - title.size.height * 2)
+        let destination = CGPoint(x: title.position.x, y: gameSize.height - title.size.height * 2)
         let bounceUpAction = SKAction.moveBy(x: 0, y: 10, duration: 0.07)
         let bounceDownAction = SKAction.moveBy(x: 0, y: -10, duration: 0.07)
         let moveAction = SKAction.move(to: destination, duration: 1.0)
@@ -88,7 +88,7 @@ final class StartView: SwashteroidsSpriteNode {
         buttons.anchorPoint = .zero
         buttons.name = "buttons"
         buttons.alpha = 0.2
-        buttons.position = CGPoint(x: scene.size.width - buttons.size.width, y: 50)
+        buttons.position = CGPoint(x: gameSize.width - buttons.size.width, y: 50)
     }
 
     required init?(coder aDecoder: NSCoder) {

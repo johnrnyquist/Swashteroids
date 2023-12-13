@@ -11,13 +11,13 @@
 import Swash
 import SpriteKit
 
-extension Creator {
+extension Transition {
     //MARK: - No buttons state
-	func transitionFromNoButtonsInfoScreen() {
+	func fromNoButtonsInfoScreen() {
 		engine.removeEntities(named: [.noButtonsInfoView])
 	}
 
-	func transitionToNoButtonsInfoScreen() {
+	func toNoButtonsInfoScreen() {
         let noButtonsInfoArt = SKScene(fileNamed: "NoButtonsInfo.sks")!
         guard let viewSprite = noButtonsInfoArt.childNode(withName: "quadrants") as? SwashteroidsSpriteNode else {
             print("Could not load 'quadrants' as SwashteroidsSpriteNode")
@@ -39,18 +39,18 @@ extension Creator {
 
 
     //MARK: - Buttons showing state
-	func tranistionFromButtonsInfoScreen() {
+	func fromButtonsInfoScreen() {
 		engine.removeEntities(named: [.buttonsInfoView])
 	}
 
-    func transitionToButtonsInfoScreen() {
+    func toButtonsInfoScreen() {
         let buttonsInfoArt = SKScene(fileNamed: "ButtonsInfo.sks")!
         guard let viewSprite = buttonsInfoArt.childNode(withName: "buttonsInfo") as? SwashteroidsSpriteNode else {
             print("Could not load 'buttonsInfo' as SwashteroidsSpriteNode")
             return
         }
         viewSprite.removeFromParent()
-        createShipControlButtons()
+        creator.createShipControlButtons()
         let viewEntity = Entity(name: .buttonsInfoView)
                 .add(component: DisplayComponent(sknode: viewSprite))
                 .add(component: PositionComponent(x: 0, y: 0, z: .buttons, rotation: 0))

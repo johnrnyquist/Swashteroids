@@ -11,15 +11,16 @@
 import Swash
 import SpriteKit
 
-extension Creator {
-    func transitionFromGameOverScreen() {
+
+extension Transition {
+    func fromGameOverScreen() {
         // Clear any existing asteroids
         let asteroids = engine.getNodeList(nodeClassType: AsteroidCollisionNode.self)
         let gameOverNodes = engine.getNodeList(nodeClassType: GameOverNode.self)
         let gameOverNode = gameOverNodes.head
         var asteroid = asteroids.head
         while asteroid != nil {
-            removeEntity(asteroid!.entity!)
+            engine.removeEntity(entity: asteroid!.entity!)
             asteroid = asteroid?.next
         }
         if let hud = engine.hud,
@@ -34,7 +35,7 @@ extension Creator {
         engine.removeEntities(named: [.hyperSpacePowerUp, .plasmaTorpedoesPowerUp])
     }
 
-    func transitionToGameOverScreen() {
+    func toGameOverScreen() {
         let gameOverView = GameOverView(size: size)
         let gameOverEntity = Entity(name: .gameOver)
                 .add(component: GameOverComponent())
@@ -46,7 +47,7 @@ extension Creator {
                     touchDown: { [unowned self] sprite in
                         generator.impactOccurred()
                         engine.appState?
-                                .add(component: TransitionAppStateComponent(to: .start, from: .gameOver))
+                              .add(component: TransitionAppStateComponent(to: .start, from: .gameOver))
                     }))
         gameOverView.entity = gameOverEntity
         engine.replaceEntity(entity: gameOverEntity)

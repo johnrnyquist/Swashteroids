@@ -45,7 +45,6 @@ final class ShipControlsSystem: ListIteratingSystem {
             case .showingButtons:
                 engine.ship?.remove(componentClass: AccelerometerComponent.self)
                 creator.removeShipControlQuadrants()
-                game.motionManager = nil
                 creator.createShipControlButtons()
                 creator.enableShipControlButtons()
                 if let ship = engine.ship,
@@ -67,8 +66,6 @@ final class ShipControlsSystem: ListIteratingSystem {
             case .hidingButtons:
                 engine.ship?.add(component: AccelerometerComponent())
                 creator.createShipControlQuadrants()
-                game.motionManager = CMMotionManager()
-                game.motionManager?.startAccelerometerUpdates()
                 creator.removeShipControlButtons()
                 creator.removeToggleButton()
                 creator.createToggleButton(.off)

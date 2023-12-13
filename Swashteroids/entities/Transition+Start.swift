@@ -11,15 +11,15 @@
 import Swash
 import SpriteKit
 
-extension Creator {
-    func transitionFromStart() {
+extension Transition {
+    func fromStart() {
         engine.removeEntities(named: [.noButtons, .withButtons, .start])
     }
 
     /// The start screen is not an entity, but composed of entities.  It is the first screen the user sees.
-    func transitionToStartScreen() {
+    func toStartScreen() {
         // create the sprites
-        let startView = StartView(scene: scene)
+        let startView = StartView(gameSize: size)
         let noButtonsSprite = startView.childNode(withName: "//nobuttons")! as! SwashteroidsSpriteNode
         let buttonsSprite = startView.childNode(withName: "//buttons")! as! SwashteroidsSpriteNode
         noButtonsSprite.removeFromParent()
