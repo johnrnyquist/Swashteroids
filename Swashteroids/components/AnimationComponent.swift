@@ -13,15 +13,15 @@ import Swash
 
 
 final class AnimationComponent: Component {
-    var animation: Animatable
+    var animation: Animate
 
-    init(animation: Animatable) {
+    init(animation: Animate) {
         self.animation = animation
         super.init()
     }
 }
 
-protocol Animatable {
+protocol Animate {
     func animate(_ time: TimeInterval)
 }
 

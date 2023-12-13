@@ -20,14 +20,6 @@ final class GameViewController: UIViewController {
         skview.presentScene(scene)
     }
 
-    func createScene(size: CGSize) -> SKScene {
-        let scene = GameScene(size: size)
-        scene.name = "gameScene"
-        scene.anchorPoint = .zero
-        scene.scaleMode = .aspectFit
-        return scene
-    }
-
     func createView() -> SKView {
         let skview = SKView(frame: CGRect(x: 0, y: 0, width: 1024, height: 768))
         skview.showsPhysics = false
@@ -36,6 +28,14 @@ final class GameViewController: UIViewController {
         skview.isMultipleTouchEnabled = true
         skview.isUserInteractionEnabled = true
         return skview
+    }
+
+    func createScene(size: CGSize) -> SKScene {
+        let scene = GameScene(size: size)
+        scene.name = "gameScene"
+        scene.anchorPoint = .zero
+        scene.scaleMode = .aspectFit
+        return scene
     }
 
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {

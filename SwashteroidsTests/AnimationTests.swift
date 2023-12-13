@@ -31,7 +31,7 @@ final class AnimationTests: XCTestCase {
     }
 }
 
-class Thing: Animatable {
+class Thing: Animate {
     var counter = 0
 
     func animate(_ time: TimeInterval) {
