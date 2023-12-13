@@ -21,13 +21,13 @@ final class GunSupplierNode: Node {
         ]
     }
 }
-final class HyperSpacePowerUpNode: Node {
+final class HyperspacePowerUpNode: Node {
     required init() {
         super.init()
         components = [
             CollisionComponent.name: nil_component,
             PositionComponent.name: nil_component,
-            HyperSpacePowerUpComponent.name: nil_component,
+            HyperspacePowerUpComponent.name: nil_component,
             DisplayComponent.name: nil_component,
         ]
     }

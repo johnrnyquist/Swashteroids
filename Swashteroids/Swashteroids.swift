@@ -81,7 +81,7 @@ final class Swashteroids: NSObject {
                 .addSystem(system: BulletAgeSystem(), priority: .update)
                 .addSystem(system: DeathThroesSystem(), priority: .update)
                 .addSystem(system: FiringSystem(creator: creator), priority: .update)
-                .addSystem(system: HyperSpaceSystem(), priority: .update)
+                .addSystem(system: HyperspaceSystem(), priority: .update)
                 .addSystem(system: NacelleSystem(), priority: .update)
                 // render
                 .addSystem(system: AudioSystem(scene: scene), priority: .render)

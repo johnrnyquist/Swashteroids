@@ -13,7 +13,7 @@ import SpriteKit
 
 extension Creator {
     func removeShipControlButtons() {
-        let shipControls: [EntityName] = [.leftButton, .rightButton, .thrustButton, .fireButton, .flipButton, .hyperSpaceButton]
+        let shipControls: [EntityName] = [.leftButton, .rightButton, .thrustButton, .fireButton, .flipButton, .hyperspaceButton]
         engine.removeEntities(named: shipControls)
     }
 
@@ -69,23 +69,23 @@ extension Creator {
                 .add(component: DisplayComponent(sknode: fireButton))
         fireButton.entity = fireButtonEntity
         engine.replaceEntity(entity: fireButtonEntity)
-        // hyperSpace
-        let hyperSpaceButton = SwashteroidsSpriteNode(imageNamed: "hyperspace")
-        hyperSpaceButton.alpha = 0.2
-        let hyperSpacex = 1024 - thrustButton.size.width / 2 - 30
-        let hyperSpacey = hyperSpaceButton.size.height + 120
-        let hyperSpaceButtonEntity = Entity(name: .hyperSpaceButton)
-                .add(component: PositionComponent(x: hyperSpacex, y: hyperSpacey, z: .buttons, rotation: 0.0))
-                .add(component: DisplayComponent(sknode: hyperSpaceButton))
-        hyperSpaceButton.entity = hyperSpaceButtonEntity
-        engine.replaceEntity(entity: hyperSpaceButtonEntity)
+        // hyperspace
+        let hyperspaceButton = SwashteroidsSpriteNode(imageNamed: "hyperspace")
+        hyperspaceButton.alpha = 0.2
+        let hyperspaceX = 1024 - thrustButton.size.width / 2 - 30
+        let hyperspaceY = hyperspaceButton.size.height + 120
+        let hyperspaceButtonEntity = Entity(name: .hyperspaceButton)
+                .add(component: PositionComponent(x: hyperspaceX, y: hyperspaceY, z: .buttons, rotation: 0.0))
+                .add(component: DisplayComponent(sknode: hyperspaceButton))
+        hyperspaceButton.entity = hyperspaceButtonEntity
+        engine.replaceEntity(entity: hyperspaceButtonEntity)
     }
 
     /// Since buttons are used inertly on the info screen, we need to enable them for gameplay.
     /// Technically, I could have just added Touchable here and had the ButtonBehaviorComponent done initially.
     func enableShipControlButtons() {
         guard let flip = engine.getEntity(named: .flipButton),
-              let hyperspace = engine.getEntity(named: .hyperSpaceButton),
+              let hyperspace = engine.getEntity(named: .hyperspaceButton),
               let left = engine.getEntity(named: .leftButton),
               let right = engine.getEntity(named: .rightButton),
               let thrust = engine.getEntity(named: .thrustButton),
@@ -114,7 +114,7 @@ extension Creator {
                       touchDown: { [unowned self] sprite in
                           sprite.alpha = 0.6
                           generator.impactOccurred()
-                          engine.ship?.add(component: HyperSpaceJumpComponent())
+                          engine.ship?.add(component: HyperspaceJumpComponent())
                       },
                       touchUp: { sprite in sprite.alpha = 0.2 },
                       touchUpOutside: { sprite in sprite.alpha = 0.2 },

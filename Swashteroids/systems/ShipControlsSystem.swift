@@ -55,9 +55,9 @@ final class ShipControlsSystem: ListIteratingSystem {
                     }
                 }
                 if let ship = engine.ship,
-                   ship.has(componentClassName: HyperSpaceEngineComponent.name) {
-                    if let hyperSpaceButton = engine.getEntity(named: .hyperSpaceButton),
-                       let sprite = hyperSpaceButton.sprite {
+                   ship.has(componentClassName: HyperspaceEngineComponent.name) {
+                    if let hyperspaceButton = engine.getEntity(named: .hyperspaceButton),
+                       let sprite = hyperspaceButton.sprite {
                         sprite.alpha = 0.2
                     }
                 }

@@ -32,7 +32,7 @@ extension Transition {
                 engine.removeEntity(entity: powerUp)
             }
         }
-        engine.removeEntities(named: [.hyperSpacePowerUp, .plasmaTorpedoesPowerUp])
+        engine.removeEntities(named: [.hyperspacePowerUp, .plasmaTorpedoesPowerUp])
     }
 
     func toGameOverScreen() {

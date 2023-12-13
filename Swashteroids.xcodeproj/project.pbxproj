@@ -111,9 +111,9 @@
 		8D6D81612B1AB09500AD8D18 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6D81602B1AB09500AD8D18 /* AudioPlayer.swift */; };
 		8D6D81632B1AC52200AD8D18 /* toggle.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D6D81622B1AC52200AD8D18 /* toggle.wav */; };
 		8D8A511A2B16880500A5F254 /* plasmaTorpedoesPowerUp.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8D8A51192B16880500A5F254 /* plasmaTorpedoesPowerUp.sks */; };
-		8D9DEF642B059E3800064B01 /* HyperSpaceJumpComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9DEF632B059E3800064B01 /* HyperSpaceJumpComponent.swift */; };
-		8D9DEF662B059EC400064B01 /* HyperSpaceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9DEF652B059EC400064B01 /* HyperSpaceNode.swift */; };
-		8D9DEF682B059F2800064B01 /* HyperSpaceSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9DEF672B059F2800064B01 /* HyperSpaceSystem.swift */; };
+		8D9DEF642B059E3800064B01 /* HyperspaceJumpComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9DEF632B059E3800064B01 /* HyperspaceJumpComponent.swift */; };
+		8D9DEF662B059EC400064B01 /* HyperspaceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9DEF652B059EC400064B01 /* HyperspaceNode.swift */; };
+		8D9DEF682B059F2800064B01 /* HyperspaceSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9DEF672B059F2800064B01 /* HyperspaceSystem.swift */; };
 		8DA97A962B23581100E7495A /* Int+SystemPriorities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA97A952B23581100E7495A /* Int+SystemPriorities.swift */; };
 		8DB409EC2B1D3C6F008DE4EB /* TransitionAppStateComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB409EB2B1D3C6F008DE4EB /* TransitionAppStateComponent.swift */; };
 		8DD26DC92B22D7E300DA5BC3 /* AccelerometerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD26DC82B22D7E300DA5BC3 /* AccelerometerNode.swift */; };
@@ -268,9 +268,9 @@
 		8D6D81602B1AB09500AD8D18 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 		8D6D81622B1AC52200AD8D18 /* toggle.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = toggle.wav; sourceTree = "<group>"; };
 		8D8A51192B16880500A5F254 /* plasmaTorpedoesPowerUp.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = plasmaTorpedoesPowerUp.sks; sourceTree = "<group>"; };
-		8D9DEF632B059E3800064B01 /* HyperSpaceJumpComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyperSpaceJumpComponent.swift; sourceTree = "<group>"; };
-		8D9DEF652B059EC400064B01 /* HyperSpaceNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyperSpaceNode.swift; sourceTree = "<group>"; };
-		8D9DEF672B059F2800064B01 /* HyperSpaceSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyperSpaceSystem.swift; sourceTree = "<group>"; };
+		8D9DEF632B059E3800064B01 /* HyperspaceJumpComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyperspaceJumpComponent.swift; sourceTree = "<group>"; };
+		8D9DEF652B059EC400064B01 /* HyperspaceNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyperspaceNode.swift; sourceTree = "<group>"; };
+		8D9DEF672B059F2800064B01 /* HyperspaceSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyperspaceSystem.swift; sourceTree = "<group>"; };
 		8DA97A952B23581100E7495A /* Int+SystemPriorities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+SystemPriorities.swift"; sourceTree = "<group>"; };
 		8DB409EB2B1D3C6F008DE4EB /* TransitionAppStateComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionAppStateComponent.swift; sourceTree = "<group>"; };
 		8DD26DC82B22D7E300DA5BC3 /* AccelerometerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccelerometerNode.swift; sourceTree = "<group>"; };
@@ -394,7 +394,7 @@
 				8D23C1632B02C59C00F7D878 /* GunControlNode.swift */,
 				8D23C15B2B02C59C00F7D878 /* GunSupplierNode.swift */,
 				8D23C15E2B02C59C00F7D878 /* HudNode.swift */,
-				8D9DEF652B059EC400064B01 /* HyperSpaceNode.swift */,
+				8D9DEF652B059EC400064B01 /* HyperspaceNode.swift */,
 				8D23C15F2B02C59C00F7D878 /* MotionControlNodes.swift */,
 				8D23C1602B02C59C00F7D878 /* MovementNode.swift */,
 				8D23C15D2B02C59C00F7D878 /* PlasmaTorpedoCollisionNode.swift */,
@@ -426,7 +426,7 @@
 				8D23C1672B02C59C00F7D878 /* AppStateComponent.swift */,
 				8D23C16F2B02C59C00F7D878 /* GunComponent.swift */,
 				8D23C1732B02C59C00F7D878 /* HudComponent.swift */,
-				8D9DEF632B059E3800064B01 /* HyperSpaceJumpComponent.swift */,
+				8D9DEF632B059E3800064B01 /* HyperspaceJumpComponent.swift */,
 				931396DD35CCD39E8E4EDB16 /* InputComponent.swift */,
 				8D23C16C2B02C59C00F7D878 /* MotionComponent.swift */,
 				8D23C1652B02C59C00F7D878 /* PlasmaTorpedoComponent.swift */,
@@ -561,7 +561,7 @@
 				8D23C1832B02C59C00F7D878 /* DeathThroesSystem.swift */,
 				9313941564944F14B4041467 /* GameOverSystem.swift */,
 				8D23C1842B02C59C00F7D878 /* HudSystem.swift */,
-				8D9DEF672B059F2800064B01 /* HyperSpaceSystem.swift */,
+				8D9DEF672B059F2800064B01 /* HyperspaceSystem.swift */,
 				8D23C1812B02C59C00F7D878 /* MotionControlsSystems.swift */,
 				8D23C1872B02C59C00F7D878 /* MovementSystem.swift */,
 				8D41E2162B1E66EE0031AF54 /* ShipControlsSystem.swift */,
@@ -766,11 +766,11 @@
 				8D23C1CB2B02C59D00F7D878 /* MotionControlsSystems.swift in Sources */,
 				8DD26DC92B22D7E300DA5BC3 /* AccelerometerNode.swift in Sources */,
 				8D23C1E72B02C81D00F7D878 /* Double+extensions.swift in Sources */,
-				8D9DEF682B059F2800064B01 /* HyperSpaceSystem.swift in Sources */,
+				8D9DEF682B059F2800064B01 /* HyperspaceSystem.swift in Sources */,
 				8D23C1BB2B02C59D00F7D878 /* GunComponent.swift in Sources */,
 				8D6A0E032B0AB84B00F2E137 /* GameOverNode.swift in Sources */,
-				8D9DEF642B059E3800064B01 /* HyperSpaceJumpComponent.swift in Sources */,
-				8D9DEF662B059EC400064B01 /* HyperSpaceNode.swift in Sources */,
+				8D9DEF642B059E3800064B01 /* HyperspaceJumpComponent.swift in Sources */,
+				8D9DEF662B059EC400064B01 /* HyperspaceNode.swift in Sources */,
 				8D23C1C12B02C59D00F7D878 /* StartComponent.swift in Sources */,
 				8D23C1362B02C4CA00F7D878 /* AppDelegate.swift in Sources */,
 				8D23C1E22B02C59D00F7D878 /* TorpedosView.swift in Sources */,

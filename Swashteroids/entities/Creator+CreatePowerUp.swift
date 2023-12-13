@@ -33,19 +33,19 @@ extension Creator {
         engine.replaceEntity(entity: entity)
     }
 
-    func createHyperSpacePowerUp(radius: Double = 7, level: Int) {
-        guard engine.getEntity(named: .hyperSpacePowerUp) == nil else { return }
-        let sprite = HyperSpacePowerUpView(imageNamed: "hyperSpacePowerUp")
-        let emitter = SKEmitterNode(fileNamed: "hyperSpacePowerUp.sks")!
+    func createHyperspacePowerUp(radius: Double = 7, level: Int) {
+        guard engine.getEntity(named: .hyperspacePowerUp) == nil else { return }
+        let sprite = HyperspacePowerUpView(imageNamed: "hyperspacePowerUp")
+        let emitter = SKEmitterNode(fileNamed: "hyperspacePowerUp.sks")!
         sprite.addChild(emitter)
-        let entity = Entity(name: .hyperSpacePowerUp)
+        let entity = Entity(name: .hyperspacePowerUp)
         sprite.name = entity.name
-		sprite.color = .hyperSpace
+		sprite.color = .hyperspace
         sprite.colorBlendFactor = 1.0
         let positionComponent = createRandomPosition(level: Double(level), layer: .asteroids)
         let motionComponent = createRandomMotion(level: Double(level))
         entity
-                .add(component: HyperSpacePowerUpComponent())
+                .add(component: HyperspacePowerUpComponent())
                 .add(component: positionComponent)
                 .add(component: motionComponent)
                 .add(component: CollisionComponent(radius: radius))

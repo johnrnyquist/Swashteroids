@@ -120,7 +120,7 @@ final class GameManagerSystem: System {
 
     private func createPowerUps(level: Int) {
         creator.createPlasmaTorpedoesPowerUp(level: level)
-        creator.createHyperSpacePowerUp(level: level)
+        creator.createHyperspacePowerUp(level: level)
     }
 
     private func createAsteroids(count: Int, avoiding positionToAvoid: CGPoint, level: Int) {

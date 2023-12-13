@@ -83,7 +83,7 @@ class ShipEntity: Entity {
         remove(componentClass: AudioComponent.self)
         remove(componentClass: DisplayComponent.self)
         remove(componentClass: GunComponent.self)
-        remove(componentClass: HyperSpaceEngineComponent.self)
+        remove(componentClass: HyperspaceEngineComponent.self)
         remove(componentClass: InputComponent.self)
         remove(componentClass: MotionControlsComponent.self)
         // Add components

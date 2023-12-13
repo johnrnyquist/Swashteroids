@@ -27,7 +27,7 @@ class PlasmaTorpedoesPowerUpView: SwashteroidsSpriteNode, Animate {
 }
 
 
-class HyperSpacePowerUpView: SwashteroidsSpriteNode, Animate {
+class HyperspacePowerUpView: SwashteroidsSpriteNode, Animate {
 	var time: TimeInterval = 0
 	var dir = -1.0
 

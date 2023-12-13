@@ -11,5 +11,5 @@
 import Swash
 
 class GunPowerUpComponent: Component {}
-class HyperSpacePowerUpComponent: Component {}
+class HyperspacePowerUpComponent: Component {}
 

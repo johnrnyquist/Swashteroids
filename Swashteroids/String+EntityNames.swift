@@ -18,7 +18,7 @@ extension String {
     static let thrustButton: EntityName = "thrustButtonEntity"
     static let fireButton: EntityName = "fireButtonEntity"
     static let flipButton: EntityName = "flipButtonEntity"
-    static let hyperSpaceButton: EntityName = "hyperSpaceButtonEntity"
+    static let hyperspaceButton: EntityName = "hyperspaceButtonEntity"
     static let q1: EntityName = "q1Entity"
     static let q2: EntityName = "q2Entity"
     static let q3: EntityName = "q3Entity"
@@ -37,7 +37,7 @@ extension String {
     static let hud: EntityName = "hudEntity"
     static let input: EntityName = "inputEntity"
     static let plasmaTorpedoesPowerUp: EntityName = "plasmaTorpedoesPowerUpEntity"
-    static let hyperSpacePowerUp: EntityName = "hyperSpacePowerUpEntity"
+    static let hyperspacePowerUp: EntityName = "hyperspacePowerUpEntity"
     static let ship: EntityName = "ship"
     static let toggleButton: EntityName = "toggleButtonEntity"
 }

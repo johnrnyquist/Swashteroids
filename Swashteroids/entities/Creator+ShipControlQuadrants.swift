@@ -52,8 +52,8 @@ extension Creator {
                     touchDown: { [unowned self] sprite in
                         generator.impactOccurred()
                         if let ship = self.engine.ship,
-                           ship.has(componentClassName: HyperSpaceEngineComponent.name) {
-                            engine.ship?.add(component: HyperSpaceJumpComponent())
+                           ship.has(componentClassName: HyperspaceEngineComponent.name) {
+                            engine.ship?.add(component: HyperspaceJumpComponent())
                         }
                     },
                     touchUp: { _ in },

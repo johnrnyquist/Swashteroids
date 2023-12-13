@@ -11,6 +11,7 @@
 import SpriteKit
 import Swash
 
+/// This class is an argument for switching to the SpriteKit physics engine.
 final class CollisionSystem: System {
     private weak var creator: Creator!
     private weak var appStateNodes: NodeList!
@@ -18,7 +19,7 @@ final class CollisionSystem: System {
     private weak var asteroids: NodeList!
     private weak var bullets: NodeList!
     private weak var torpedoPowerUp: NodeList!
-    private weak var hyperSpacePowerUp: NodeList!
+    private weak var hyperspacePowerUp: NodeList!
     private weak var engine: Engine!
 
     init(_ creator: Creator) {
@@ -32,7 +33,7 @@ final class CollisionSystem: System {
         asteroids = engine.getNodeList(nodeClassType: AsteroidCollisionNode.self)
         bullets = engine.getNodeList(nodeClassType: PlasmaTorpedoCollisionNode.self)
         torpedoPowerUp = engine.getNodeList(nodeClassType: GunSupplierNode.self)
-        hyperSpacePowerUp = engine.getNodeList(nodeClassType: HyperSpacePowerUpNode.self)
+        hyperspacePowerUp = engine.getNodeList(nodeClassType: HyperspacePowerUpNode.self)
     }
 
     /// 
@@ -102,20 +103,20 @@ final class CollisionSystem: System {
     }
     func shipHSCollisionCheck() {
         let shipCollisionNode = ships.head
-        var hyperSpacePowerUpNode = hyperSpacePowerUp?.head
-        while hyperSpacePowerUpNode != nil {
+        var hyperspacePowerUpNode = hyperspacePowerUp?.head
+        while hyperspacePowerUpNode != nil {
             guard
-                let hyperSpacePowerUpPosition = hyperSpacePowerUpNode?[PositionComponent.self],
+                let hyperspacePowerUpPosition = hyperspacePowerUpNode?[PositionComponent.self],
                 let shipPosition = shipCollisionNode?[PositionComponent.self],
-                let hyperSpacePowerUpCollision = hyperSpacePowerUpNode?[CollisionComponent.self],
+                let hyperspacePowerUpCollision = hyperspacePowerUpNode?[CollisionComponent.self],
                 let shipCollision = shipCollisionNode?[CollisionComponent.self]
-            else { hyperSpacePowerUpNode = hyperSpacePowerUpNode?.next; continue }
-            let distanceToShip = hyperSpacePowerUpPosition.position.distance(from: shipPosition.position)
-            if (distanceToShip <= hyperSpacePowerUpCollision.radius + shipCollision.radius) {
-                engine.removeEntity(entity: hyperSpacePowerUpNode!.entity!)
-                hyperSpacePowerUpNode = hyperSpacePowerUpNode?.next
+            else { hyperspacePowerUpNode = hyperspacePowerUpNode?.next; continue }
+            let distanceToShip = hyperspacePowerUpPosition.position.distance(from: shipPosition.position)
+            if (distanceToShip <= hyperspacePowerUpCollision.radius + shipCollision.radius) {
+                engine.removeEntity(entity: hyperspacePowerUpNode!.entity!)
+                hyperspacePowerUpNode = hyperspacePowerUpNode?.next
                 shipCollisionNode?.entity?
-                                  .add(component: HyperSpaceEngineComponent())
+                                  .add(component: HyperspaceEngineComponent())
                 shipCollisionNode?.entity?
                                   .add(component: AudioComponent(fileNamed: "powerup.wav",
                                                                  actionKey: "powerup.wav"))
@@ -123,11 +124,11 @@ final class CollisionSystem: System {
                 let fadeIn = SKAction.fadeAlpha(to: 1.0, duration: 0.2)
                 let fadeOut = SKAction.fadeAlpha(to: 0.2, duration: 0.2)
                 let seq = SKAction.sequence([fadeIn, fadeOut])
-                let sprite = (engine.getEntity(named: .hyperSpaceButton)?[DisplayComponent.name] as? DisplayComponent)?.sprite
+                let sprite = (engine.getEntity(named: .hyperspaceButton)?[DisplayComponent.name] as? DisplayComponent)?.sprite
                 sprite?.run(seq)
                 //END_HACK
             }
-            hyperSpacePowerUpNode = hyperSpacePowerUpNode?.next
+            hyperspacePowerUpNode = hyperspacePowerUpNode?.next
         }
     }
 
@@ -207,7 +208,7 @@ final class CollisionSystem: System {
         asteroids = nil
         bullets = nil
         torpedoPowerUp = nil
-        hyperSpacePowerUp = nil
+        hyperspacePowerUp = nil
     }
 }
 
