@@ -20,7 +20,7 @@ extension Transition {
 	func toNoButtonsInfoScreen() {
         let noButtonsInfoArt = SKScene(fileNamed: "NoButtonsInfo.sks")!
         guard let viewSprite = noButtonsInfoArt.childNode(withName: "quadrants") as? SwashSpriteNode else {
-            print("Could not load 'quadrants' as SwashteroidsSpriteNode")
+            print("Could not load 'quadrants' as SwashSpriteNode")
             return
         }
         viewSprite.removeFromParent()
@@ -46,7 +46,7 @@ extension Transition {
     func toButtonsInfoScreen() {
         let buttonsInfoArt = SKScene(fileNamed: "ButtonsInfo.sks")!
         guard let viewSprite = buttonsInfoArt.childNode(withName: "buttonsInfo") as? SwashSpriteNode else {
-            print("Could not load 'buttonsInfo' as SwashteroidsSpriteNode")
+            print("Could not load 'buttonsInfo' as SwashSpriteNode")
             return
         }
         viewSprite.removeFromParent()

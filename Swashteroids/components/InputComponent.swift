@@ -27,7 +27,7 @@ final class InputComponent: Component {
     var leftIsDown: (down: Bool, amount: Double) = (false, 0.0)
     var rightIsDown: (down: Bool, amount: Double) = (false, 0.0)
 
-    /// We're only interested in touches on SwashteroidsSpriteNodes 
+    /// We're only interested in touches on SwashSpriteNodes
     /// that have an entity which has a TouchableComponent.
     func handleTouchDowns(nodes: [SKNode], touch: UITouch, location: CGPoint) {
         guard let originalEntity: Entity =
