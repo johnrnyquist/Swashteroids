@@ -19,7 +19,7 @@ extension Creator {
 
     func createToggleButton(_ toggleState: Toggle) {
         let name = toggleState == .on ? "toggleButtonsOn" : "toggleButtonsOff"
-        let sprite = SwashteroidsSpriteNode(imageNamed: name)
+        let sprite = SwashSpriteNode(imageNamed: name)
         sprite.name = name
         sprite.alpha = 0.2
         let x = size.width / 2

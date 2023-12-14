@@ -35,7 +35,7 @@ final class HyperspaceSystem: ListIteratingSystem {
         scene = nil
     }
 
-    private func doHyperspaceEffect(on sprite: SwashteroidsSpriteNode) {
+    private func doHyperspaceEffect(on sprite: SwashSpriteNode) {
         let colorize = SKAction.colorize(with: .yellow, colorBlendFactor: 1.0, duration: 0.25)
         let wait = SKAction.wait(forDuration: 0.5)
         let uncolorize = SKAction.colorize(withColorBlendFactor: 0.0, duration: 0.25)

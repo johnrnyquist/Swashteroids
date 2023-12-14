@@ -19,7 +19,7 @@ extension Creator {
 
     func createShipControlButtons() {
         // flip
-        let flipButton = SwashteroidsSpriteNode(imageNamed: "flip")
+        let flipButton = SwashSpriteNode(imageNamed: "flip")
         flipButton.alpha = 0.2
         let flipx = flipButton.size.width / 2 + 30
         let flipy = flipButton.size.height + 120
@@ -29,7 +29,7 @@ extension Creator {
         flipButton.entity = flipButtonEntity
         engine.replaceEntity(entity: flipButtonEntity)
         // left
-        let leftButton = SwashteroidsSpriteNode(imageNamed: "left")
+        let leftButton = SwashSpriteNode(imageNamed: "left")
         leftButton.alpha = 0.2
         let leftx = leftButton.size.width / 2 + 30
         let lefty = leftButton.size.height / 2 + 30
@@ -39,7 +39,7 @@ extension Creator {
         leftButton.entity = leftButtonEntity
         engine.replaceEntity(entity: leftButtonEntity)
         // right
-        let rightButton = SwashteroidsSpriteNode(imageNamed: "left")
+        let rightButton = SwashSpriteNode(imageNamed: "left")
         rightButton.alpha = 0.2
         rightButton.xScale = -1.0
         let rightx = rightButton.size.width + 30 + leftx
@@ -50,7 +50,7 @@ extension Creator {
         engine.replaceEntity(entity: rightButtonEntity)
         rightButton.entity = rightButtonEntity
         // thrust
-        let thrustButton = SwashteroidsSpriteNode(imageNamed: "thrust")
+        let thrustButton = SwashSpriteNode(imageNamed: "thrust")
         thrustButton.alpha = 0.2
         let thrustx = 1024 - thrustButton.size.width / 2 - 30
         let thrusty = lefty
@@ -60,7 +60,7 @@ extension Creator {
         thrustButton.entity = thrustButtonEntity
         engine.replaceEntity(entity: thrustButtonEntity)
         // fire
-        let fireButton = SwashteroidsSpriteNode(imageNamed: "fire")
+        let fireButton = SwashSpriteNode(imageNamed: "fire")
         fireButton.alpha = 0.2
         let firex = -thrustButton.size.width - 30 + thrustx
         let firey = lefty
@@ -70,7 +70,7 @@ extension Creator {
         fireButton.entity = fireButtonEntity
         engine.replaceEntity(entity: fireButtonEntity)
         // hyperspace
-        let hyperspaceButton = SwashteroidsSpriteNode(imageNamed: "hyperspace")
+        let hyperspaceButton = SwashSpriteNode(imageNamed: "hyperspace")
         hyperspaceButton.alpha = 0.2
         let hyperspaceX = 1024 - thrustButton.size.width / 2 - 30
         let hyperspaceY = hyperspaceButton.size.height + 120

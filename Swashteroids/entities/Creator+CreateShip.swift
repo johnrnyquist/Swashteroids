@@ -29,10 +29,10 @@ extension Creator {
 class ShipEntity: Entity {
     init(name: String, state: AppStateComponent) {
         super.init(name: name)
-        let shipSprite = SwashteroidsSpriteNode(texture: createShipTexture())
+        let shipSprite = SwashSpriteNode(texture: createShipTexture())
         shipSprite.name = name
         shipSprite.zPosition = Layer.ship.rawValue
-        let nacellesSprite = SwashteroidsSpriteNode(texture: createNacelleTexture())
+        let nacellesSprite = SwashSpriteNode(texture: createNacelleTexture())
         nacellesSprite.zPosition = shipSprite.zPosition + 0.1
         nacellesSprite.isHidden = true
         nacellesSprite.name = "nacelles"
@@ -73,7 +73,7 @@ class ShipEntity: Entity {
     /// Also adds a flaming particle emitter to the ship sprite.
     func destroy() {
         // Visual effects
-        let spriteNode = SwashteroidsSpriteNode(texture: createShipTexture(color: .red))
+        let spriteNode = SwashSpriteNode(texture: createShipTexture(color: .red))
         let fade = SKAction.fadeOut(withDuration: 3.0)
         let emitter = SKEmitterNode(fileNamed: "shipExplosion.sks")!
         spriteNode.addChild(emitter)

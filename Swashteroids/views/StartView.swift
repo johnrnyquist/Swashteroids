@@ -10,17 +10,17 @@
 
 import SpriteKit
 
-final class StartView: SwashteroidsSpriteNode {
-    let buttons: SwashteroidsSpriteNode
-    let noButtons: SwashteroidsSpriteNode
-    let title: SwashteroidsSpriteNode
+final class StartView: SwashSpriteNode {
+    let buttons: SwashSpriteNode
+    let noButtons: SwashSpriteNode
+    let title: SwashSpriteNode
     let versionInfo: SKLabelNode
 
     init(gameSize: CGSize) {
         versionInfo = SKLabelNode(text: "Nyquist Art + Logic, LLC v\(appVersion) (build \(appBuild))")
-        title = SwashteroidsSpriteNode(imageNamed: "title")
-        noButtons = SwashteroidsSpriteNode(imageNamed: "nobuttons")
-        buttons = SwashteroidsSpriteNode(imageNamed: "buttons")
+        title = SwashSpriteNode(imageNamed: "title")
+        noButtons = SwashSpriteNode(imageNamed: "nobuttons")
+        buttons = SwashSpriteNode(imageNamed: "buttons")
 		
 		super.init(texture: nil, color: .clear, size: gameSize)
 		anchorPoint = .zero

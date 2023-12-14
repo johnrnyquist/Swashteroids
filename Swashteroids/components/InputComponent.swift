@@ -32,7 +32,7 @@ final class InputComponent: Component {
     func handleTouchDowns(nodes: [SKNode], touch: UITouch, location: CGPoint) {
         guard let originalEntity: Entity =
         nodes.compactMap({
-            if let entity = ($0 as? SwashteroidsSpriteNode)?.entity,
+            if let entity = ($0 as? SwashSpriteNode)?.entity,
                entity.has(componentClassName: TouchableComponent.name),
                let _ = entity[ButtonBehaviorComponent.name] as? ButtonBehaviorComponent {
                 return entity
@@ -53,7 +53,7 @@ final class InputComponent: Component {
         guard let originalEntity = touchDowns[touch] else { return }
         let entity: Entity? =
             nodes.compactMap({
-                if let entity = ($0 as? SwashteroidsSpriteNode)?.entity,
+                if let entity = ($0 as? SwashSpriteNode)?.entity,
                    entity.has(componentClassName: TouchableComponent.name),
                    let _ = entity[ButtonBehaviorComponent.name] as? ButtonBehaviorComponent {
                     return entity
@@ -75,7 +75,7 @@ final class InputComponent: Component {
         guard let originalEntity = touchDowns[touch] else { return }
         let entity: Entity? =
             nodes.compactMap({
-                     if let entity = ($0 as? SwashteroidsSpriteNode)?.entity,
+                     if let entity = ($0 as? SwashSpriteNode)?.entity,
                         entity.has(componentClassName: TouchableComponent.name) {
                          return entity
                      } else {

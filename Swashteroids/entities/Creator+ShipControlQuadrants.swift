@@ -20,10 +20,10 @@ extension Creator {
     /// Instead of visible buttons, the player will be able to touch quadrants on the screen to control the ship.
     func createShipControlQuadrants() {
         let noButtonsInfoArt = SKScene(fileNamed: "NoButtonsInfo.sks")!
-        let q1Sprite = noButtonsInfoArt.childNode(withName: "//q1") as! SwashteroidsSpriteNode
-        let q2Sprite = noButtonsInfoArt.childNode(withName: "//q2") as! SwashteroidsSpriteNode
-        let q3Sprite = noButtonsInfoArt.childNode(withName: "//q3") as! SwashteroidsSpriteNode
-        let q4Sprite = noButtonsInfoArt.childNode(withName: "//q4") as! SwashteroidsSpriteNode
+        let q1Sprite = noButtonsInfoArt.childNode(withName: "//q1") as! SwashSpriteNode
+        let q2Sprite = noButtonsInfoArt.childNode(withName: "//q2") as! SwashSpriteNode
+        let q3Sprite = noButtonsInfoArt.childNode(withName: "//q3") as! SwashSpriteNode
+        let q4Sprite = noButtonsInfoArt.childNode(withName: "//q4") as! SwashSpriteNode
         q1Sprite.removeFromParent()
         q2Sprite.removeFromParent()
         q3Sprite.removeFromParent()

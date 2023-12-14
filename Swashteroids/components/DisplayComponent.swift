@@ -21,6 +21,6 @@ final class DisplayComponent: Component {
     
     // There are several types that could be displayed, i.e. SKSpriteNode, SKShapeNode, SKLabelNode, etc 
     // so I chose the root type. A downside is down casting. Here are a couple computed properties.
-    var sprite: SwashteroidsSpriteNode? { sknode as? SwashteroidsSpriteNode}
+    var sprite: SwashSpriteNode? { sknode as? SwashSpriteNode}
     var label: SKLabelNode? { sknode as? SKLabelNode}
 }

@@ -13,15 +13,15 @@ import Swash
 class TouchableComponent: Component {}
 
 class ButtonBehaviorComponent: Component {
-    var touchDown: ((SwashteroidsSpriteNode) -> ())?
-    var touchUp: ((SwashteroidsSpriteNode) -> ())?
-    var touchUpOutside: ((SwashteroidsSpriteNode) -> ())?
-    var touchMoved: ((SwashteroidsSpriteNode, Bool) -> ())?
+    var touchDown: ((SwashSpriteNode) -> ())?
+    var touchUp: ((SwashSpriteNode) -> ())?
+    var touchUpOutside: ((SwashSpriteNode) -> ())?
+    var touchMoved: ((SwashSpriteNode, Bool) -> ())?
 
-    init(touchDown: ((SwashteroidsSpriteNode) -> ())? = nil,
-         touchUp: ((SwashteroidsSpriteNode) -> ())? = nil,
-         touchUpOutside: ((SwashteroidsSpriteNode) -> ())? = nil,
-         touchMoved: ((SwashteroidsSpriteNode, Bool) -> ())? = nil) {
+    init(touchDown: ((SwashSpriteNode) -> ())? = nil,
+         touchUp: ((SwashSpriteNode) -> ())? = nil,
+         touchUpOutside: ((SwashSpriteNode) -> ())? = nil,
+         touchMoved: ((SwashSpriteNode, Bool) -> ())? = nil) {
         self.touchDown = touchDown
         self.touchUp = touchUp
         self.touchUpOutside = touchUpOutside

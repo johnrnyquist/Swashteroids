@@ -10,7 +10,7 @@
 
 import SpriteKit
 
-class GameOverView: SwashteroidsSpriteNode {
+class GameOverView: SwashSpriteNode {
     lazy private var gameOver: SKLabelNode = {
         let gameOver = SKLabelNode(text: "Game Over")
         gameOver.fontName = "Badloc ICG"
