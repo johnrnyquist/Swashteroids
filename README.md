@@ -5,7 +5,7 @@ _An example using the Swash framework_
 
 [Swashteroids](https://apps.apple.com/us/app/swashteroids/id6472061502) is a game I made with the ECS framework [Swash](https://github.com/johnrnyquist/Swash) along with some SpriteKit. Get it in the App Store!
 
-Here's a [video](https://www.youtube.com/watch?v=WM2IAM2pBCY) of the gameplay.
+Here's a [video](https://www.youtube.com/watch?v=gP2bKw4NAHw) of the gameplay.
 
 
 #### Developer
