@@ -26,7 +26,7 @@ final class Swashteroids: NSObject {
     /// Used to create and configure Entity instances
     var creator: Creator
     /// Used to transition between game states
-    var transtition: Transition
+    var transition: Transition
     /// Drives the game
     private var engine: Engine
     /// Drives the engine
@@ -37,14 +37,17 @@ final class Swashteroids: NSObject {
         engine = Engine()
         tickProvider = FrameTickProvider()
         creator = Creator(engine: engine, size: scene.size, generator: generator)
-        transtition = Transition(engine: engine, creator: creator, generator: generator)
+        transition = Transition(engine: engine, creator: creator, generator: generator)
         orientation = UIDevice.current.orientation == .landscapeRight ? -1.0 : 1.0
         super.init()
-        //
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(orientationChanged),
                                                name: UIDevice.orientationDidChangeNotification, object: nil)
-        // Add the all sounds entity
+        createInitialEntities(scene: scene)
+        createSystems(scene: scene)
+    }
+
+    private func createInitialEntities(scene: GameScene) { // Add the all sounds entity
         let allSoundsEntity = Entity(name: .allSounds)
                 .add(component: AllSoundsComponent.shared)
         try? engine.addEntity(entity: allSoundsEntity)
@@ -58,13 +61,15 @@ final class Swashteroids: NSObject {
         let inputEntity = Entity(name: .input)
                 .add(component: InputComponent.shared)
         try? engine.addEntity(entity: inputEntity)
-        // Add the systems to the engine. These are what drive the functionality of the game.
+    }
+
+    private func createSystems(scene: GameScene) {
         engine
             // preupdate
                 .addSystem(system: GameManagerSystem(creator: creator, size: scene.size, scene: scene), priority: .preUpdate)
                 .addSystem(system: GameOverSystem(), priority: .preUpdate)
                 .addSystem(system: ShipControlsSystem(creator: creator, scene: scene, game: self), priority: .preUpdate)
-                .addSystem(system: TransitionAppStateSystem(transition: transtition), priority: .preUpdate)
+                .addSystem(system: TransitionAppStateSystem(transition: transition), priority: .preUpdate)
                 // move
                 .addSystem(system: AccelerometerSystem(), priority: .move)
                 .addSystem(system: FlipSystem(), priority: .move)

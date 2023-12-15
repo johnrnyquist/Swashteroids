@@ -15,7 +15,6 @@ protocol TouchDelegate {
 }
 
 extension Swashteroids: TouchDelegate {
-    //MARK:- TOUCHES -------------------------
     func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let location = touch.location(in: scene)
