@@ -62,16 +62,16 @@ final class Swashteroids: NSObject {
         engine
             // preupdate
                 .addSystem(system: GameManagerSystem(creator: creator, size: scene.size, scene: scene), priority: .preUpdate)
-                .addSystem(system: TransitionAppStateSystem(transition: transtition), priority: .preUpdate)
-                .addSystem(system: ShipControlsSystem(creator: creator, scene: scene, game: self), priority: .preUpdate)
                 .addSystem(system: GameOverSystem(), priority: .preUpdate)
+                .addSystem(system: ShipControlsSystem(creator: creator, scene: scene, game: self), priority: .preUpdate)
+                .addSystem(system: TransitionAppStateSystem(transition: transtition), priority: .preUpdate)
                 // move
                 .addSystem(system: AccelerometerSystem(), priority: .move)
                 .addSystem(system: FlipSystem(), priority: .move)
-                .addSystem(system: ThrustSystem(), priority: .move)
                 .addSystem(system: LeftSystem(), priority: .move)
-                .addSystem(system: RightSystem(), priority: .move)
                 .addSystem(system: MovementSystem(size: scene.size), priority: .move)
+                .addSystem(system: RightSystem(), priority: .move)
+                .addSystem(system: ThrustSystem(), priority: .move)
                 // resolve collisions
                 .addSystem(system: CollisionSystem(creator), priority: .resolveCollisions)
                 // animate
