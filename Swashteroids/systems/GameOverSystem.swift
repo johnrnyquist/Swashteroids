@@ -17,7 +17,7 @@ final class GameOverSystem: ListIteratingSystem {
         nodeUpdateFunction = updateNode
     }
 
-    private func updateNode(node: Node, time: TimeInterval) {
+    func updateNode(node: Node, time: TimeInterval) {
         guard let appStateComponent = node[AppStateComponent.self]
         else { return }
         appStateComponent.reset()

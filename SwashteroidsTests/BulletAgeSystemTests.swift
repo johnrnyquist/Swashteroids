@@ -28,24 +28,30 @@ final class BulletAgeSystemTests: XCTestCase {
         system.addToEngine(engine: engine)
     }
 
-    func testNodeDoesNotContainBullet() throws {
+    func test_Init() throws {
+        system = BulletAgeSystem()
+        XCTAssertTrue(system.nodeClass == BulletAgeNode.self)
+        XCTAssertNotNil(system.nodeUpdateFunction)
+    }
+
+    func test_NodeDoesNotContainBullet() throws {
         node.components = [:]
         system.updateNode(node: node, time: 1)
         XCTAssertEqual(component.lifeRemaining, 1)
     }
 
-    func testLifeIsDecrementedByTime() throws {
+    func test_LifeIsDecrementedByTime() throws {
         system.updateNode(node: node, time: 0.25)
         XCTAssertEqual(component.lifeRemaining, 0.75)
     }
 
-    func testLifeLessThanZeroDestroysEntity() throws {
+    func test_LifeLessThanZeroDestroysEntity() throws {
         system.updateNode(node: node, time: 1.25)
         XCTAssertEqual(component.lifeRemaining, -0.25)
         XCTAssertTrue(engine.destroyEntityCalled)
     }
 
-    func testLifeLessThanZeroNoEntity() throws {
+    func test_LifeLessThanZeroNoEntity() throws {
         node.entity = nil
         system.updateNode(node: node, time: 1.25)
         XCTAssertEqual(component.lifeRemaining, -0.25)
@@ -59,7 +65,4 @@ class MockEngine: Engine {
     override func removeEntity(entity: Entity) {
         destroyEntityCalled = true
     }
-}
-
-class MockScene: SKScene {
 }

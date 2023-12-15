@@ -11,7 +11,6 @@
 import UIKit
 import SpriteKit
 
-@main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 

@@ -12,8 +12,6 @@ import Swash
 import SpriteKit
 
 final class HyperspaceSystem: ListIteratingSystem {
-    private weak var scene: GameScene!
-
     init() {
         super.init(nodeClass: HyperspaceNode.self)
         nodeUpdateFunction = updateNode
@@ -24,15 +22,11 @@ final class HyperspaceSystem: ListIteratingSystem {
               let hyperspace = node[HyperspaceJumpComponent.self],
               let sprite = node[DisplayComponent.self]?.sprite
         else { return }
-        position.position.x = hyperspace.x
-        position.position.y = hyperspace.y
+        position.x = hyperspace.x
+        position.y = hyperspace.y
         node.entity?.remove(componentClass: HyperspaceJumpComponent.self)
         node.entity?.add(component: AudioComponent(fileNamed: "hyperspace.wav", actionKey: "hyperspace.wav"))
         doHyperspaceEffect(on: sprite)
-    }
-
-    override public func removeFromEngine(engine: Engine) {
-        scene = nil
     }
 
     private func doHyperspaceEffect(on sprite: SwashSpriteNode) {

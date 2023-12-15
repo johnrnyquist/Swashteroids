@@ -13,8 +13,8 @@ import Swash
 
 
 final class RenderSystem: System {
-    private weak var scene: SKScene!
-    private weak var nodes: NodeList?
+    weak var scene: SKScene!
+    weak var nodes: NodeList?
 
     init(container: SKScene) {
         scene = container

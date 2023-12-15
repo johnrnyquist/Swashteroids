@@ -7,26 +7,32 @@
 
 import XCTest
 @testable import Swashteroids
+@testable import Swash
 
 final class AnimationTests: XCTestCase {
-    var thing: Thing!
-    var component: AnimationComponent!
-    var node: AnimationNode!
     var system: AnimationSystem!
+    var node: AnimationNode!
+    var component: AnimationComponent!
+    var thing: Thing!
 
     override func setUpWithError() throws {
         thing = Thing()
+        // The AnimationComponent takes something that conforms to the Animate protocol
         component = AnimationComponent(animation: thing)
-        node = AnimationNode() // nodes created by engine
+        // Nodes are normally created by the engine
+        node = AnimationNode()
         node.components[AnimationComponent.name] = component
         system = AnimationSystem()
     }
 
-    override func tearDownWithError() throws {
+    func test_Init() throws {
+        system = AnimationSystem()
+        XCTAssertTrue(system.nodeClass == AnimationNode.self)
+        XCTAssertNotNil(system.nodeUpdateFunction)
     }
 
-    func testUpdateNode() throws {
-        system.updateNode(node: node, time: 1)
+    func test_UpdateNode() throws {
+        system.updateNode(node: node, time: 1) // normally called by engine
         XCTAssertEqual(thing.counter, 1)
     }
 }

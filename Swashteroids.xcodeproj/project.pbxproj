@@ -116,6 +116,10 @@
 		8D9DEF682B059F2800064B01 /* HyperspaceSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9DEF672B059F2800064B01 /* HyperspaceSystem.swift */; };
 		8DA97A962B23581100E7495A /* Int+SystemPriorities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA97A952B23581100E7495A /* Int+SystemPriorities.swift */; };
 		8DB409EC2B1D3C6F008DE4EB /* TransitionAppStateComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB409EB2B1D3C6F008DE4EB /* TransitionAppStateComponent.swift */; };
+		8DB99F522B2BE7D700C3593A /* TestingAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB99F512B2BE7D700C3593A /* TestingAppDelegate.swift */; };
+		8DB99F542B2BE81800C3593A /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB99F532B2BE81800C3593A /* main.swift */; };
+		8DB99F572B2BE9EE00C3593A /* RenderSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB99F562B2BE9EE00C3593A /* RenderSystemTests.swift */; };
+		8DB99F592B2BF2A700C3593A /* GameOverSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB99F582B2BF2A700C3593A /* GameOverSystemTests.swift */; };
 		8DD26DC92B22D7E300DA5BC3 /* AccelerometerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD26DC82B22D7E300DA5BC3 /* AccelerometerNode.swift */; };
 		8DD26DCB2B22D80600DA5BC3 /* AccelerometerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD26DCA2B22D80600DA5BC3 /* AccelerometerComponent.swift */; };
 		93139265D59A74E99D27A0CF /* Transition+GameOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931393BFA7122C52736144FB /* Transition+GameOver.swift */; };
@@ -127,6 +131,7 @@
 		93139837E8C25570F6134663 /* RepeatingAudioNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313961CB4F5B39D06FE5B0F /* RepeatingAudioNode.swift */; };
 		93139859AA4017DC2A83652F /* Transition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931392817415F62A631B78BE /* Transition.swift */; };
 		931398712D4F259FF98C62AA /* Touch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931398B8B6C228DE4D83EF1C /* Touch.swift */; };
+		931398B1CA8906CC519B170B /* HyperspaceEngineComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139BD2BE63CAC32979ABA3 /* HyperspaceEngineComponent.swift */; };
 		931398FFEAC38E75EF83728C /* TouchNodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139489970BEA17AF74C95E /* TouchNodes.swift */; };
 		93139920B1CB722DC9509E80 /* TransitionAppStateSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139F7B6117208071E3FE22 /* TransitionAppStateSystem.swift */; };
 		9313996AA764792E9B8670A5 /* FireDownComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931399840A8AC5987DF6D3D4 /* FireDownComponent.swift */; };
@@ -137,6 +142,7 @@
 		931399FEBA1404DE9F734910 /* MotionControlsComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139A62ACBE6CDFC10158E7 /* MotionControlsComponent.swift */; };
 		93139A8885E51A1D11E5F1D6 /* Creator+CreateHud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931397F86C674AD22210D173 /* Creator+CreateHud.swift */; };
 		93139BB63DB9036243796001 /* RepeatingAudioComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931399A8022AF1B7FCC53B49 /* RepeatingAudioComponent.swift */; };
+		93139BC5661C918BD0158277 /* HyperspaceSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313964664F31540DA9D0416 /* HyperspaceSystemTests.swift */; };
 		93139C6BCF2ED1CDD8504B1C /* Creator+CreateTorpedo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139A97E15CCF640A73EC56 /* Creator+CreateTorpedo.swift */; };
 		93139C71990002FF2B995C07 /* Creator+ShipControlButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931392CF258F1370304A48B7 /* Creator+ShipControlButtons.swift */; };
 		93139CB863A15BF4B1274D41 /* Creator+CreateShip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139F43221229D3FBAC46D9 /* Creator+CreateShip.swift */; };
@@ -242,7 +248,6 @@
 		8D384D8F2B28F30D00D5564C /* SwashteroidsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwashteroidsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D384D982B28F3F300D5564C /* BulletAgeSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BulletAgeSystemTests.swift; sourceTree = "<group>"; };
 		8D384D992B28F3F300D5564C /* AnimationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationTests.swift; sourceTree = "<group>"; };
-		8D384D9C2B28FAFD00D5564C /* Swashteroids2.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Swashteroids2.xctestplan; sourceTree = "<group>"; };
 		8D41E2102B1E64530031AF54 /* ChangeShipControlsStateComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeShipControlsStateComponent.swift; sourceTree = "<group>"; };
 		8D41E2122B1E65950031AF54 /* ShipControlsStateNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipControlsStateNode.swift; sourceTree = "<group>"; };
 		8D41E2142B1E66820031AF54 /* TransitionAppStateNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionAppStateNode.swift; sourceTree = "<group>"; };
@@ -273,6 +278,11 @@
 		8D9DEF672B059F2800064B01 /* HyperspaceSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyperspaceSystem.swift; sourceTree = "<group>"; };
 		8DA97A952B23581100E7495A /* Int+SystemPriorities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+SystemPriorities.swift"; sourceTree = "<group>"; };
 		8DB409EB2B1D3C6F008DE4EB /* TransitionAppStateComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionAppStateComponent.swift; sourceTree = "<group>"; };
+		8DB99F512B2BE7D700C3593A /* TestingAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingAppDelegate.swift; sourceTree = "<group>"; };
+		8DB99F532B2BE81800C3593A /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		8DB99F552B2BE92B00C3593A /* Swashteroids.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = Swashteroids.xctestplan; path = SwashteroidsTests/Swashteroids.xctestplan; sourceTree = "<group>"; };
+		8DB99F562B2BE9EE00C3593A /* RenderSystemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderSystemTests.swift; sourceTree = "<group>"; };
+		8DB99F582B2BF2A700C3593A /* GameOverSystemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverSystemTests.swift; sourceTree = "<group>"; };
 		8DD26DC82B22D7E300DA5BC3 /* AccelerometerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccelerometerNode.swift; sourceTree = "<group>"; };
 		8DD26DCA2B22D80600DA5BC3 /* AccelerometerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccelerometerComponent.swift; sourceTree = "<group>"; };
 		931392817415F62A631B78BE /* Transition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transition.swift; sourceTree = "<group>"; };
@@ -285,6 +295,7 @@
 		931394D1D0B636772EE1DFF7 /* String+EntityNames.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+EntityNames.swift"; sourceTree = "<group>"; };
 		931395F838B2866767296F25 /* Creator+ShipControlQuadrants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Creator+ShipControlQuadrants.swift"; sourceTree = "<group>"; };
 		9313961CB4F5B39D06FE5B0F /* RepeatingAudioNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatingAudioNode.swift; sourceTree = "<group>"; };
+		9313964664F31540DA9D0416 /* HyperspaceSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HyperspaceSystemTests.swift; sourceTree = "<group>"; };
 		931396DD35CCD39E8E4EDB16 /* InputComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputComponent.swift; sourceTree = "<group>"; };
 		93139735B7C5C32A3DA6CB9D /* TouchComponents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchComponents.swift; sourceTree = "<group>"; };
 		9313979ABDA67BAEA7682AC7 /* AllSoundsComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllSoundsComponent.swift; sourceTree = "<group>"; };
@@ -298,6 +309,7 @@
 		93139A85D4D955B243719D63 /* RepeatingAudioSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatingAudioSystem.swift; sourceTree = "<group>"; };
 		93139A97E15CCF640A73EC56 /* Creator+CreateTorpedo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Creator+CreateTorpedo.swift"; sourceTree = "<group>"; };
 		93139BC38DC2F4BF7B9F869A /* LeftComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftComponent.swift; sourceTree = "<group>"; };
+		93139BD2BE63CAC32979ABA3 /* HyperspaceEngineComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HyperspaceEngineComponent.swift; sourceTree = "<group>"; };
 		93139C73A66D8863A166745D /* Creator+CreatePowerUp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Creator+CreatePowerUp.swift"; sourceTree = "<group>"; };
 		93139DF99E2237817263DF63 /* Transition+Playing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Transition+Playing.swift"; sourceTree = "<group>"; };
 		93139E95FF431FF894CFD502 /* Creator+ToggleButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Creator+ToggleButton.swift"; sourceTree = "<group>"; };
@@ -329,6 +341,7 @@
 		8D23C1292B02C4C900F7D878 = {
 			isa = PBXGroup;
 			children = (
+				8DB99F552B2BE92B00C3593A /* Swashteroids.xctestplan */,
 				8D23C1EC2B02CFAD00F7D878 /* images */,
 				8D23C1342B02C4CA00F7D878 /* Swashteroids */,
 				8D23C1E82B02CD7E00F7D878 /* README.md */,
@@ -354,6 +367,7 @@
 				8D23C1422B02C4CC00F7D878 /* Assets.xcassets */,
 				8D23C13F2B02C4CA00F7D878 /* Main.storyboard */,
 				8D23C1442B02C4CC00F7D878 /* LaunchScreen.storyboard */,
+				8DB99F532B2BE81800C3593A /* main.swift */,
 				8D23C1352B02C4CA00F7D878 /* AppDelegate.swift */,
 				8D23C13D2B02C4CA00F7D878 /* GameViewController.swift */,
 				8D23C13B2B02C4CA00F7D878 /* GameScene.swift */,
@@ -445,6 +459,7 @@
 				93139323EC193D378DF26BB7 /* RightComponent.swift */,
 				931397D7C84D4E580EB51E4D /* ApplyThrustComponent.swift */,
 				931399A8022AF1B7FCC53B49 /* RepeatingAudioComponent.swift */,
+				93139BD2BE63CAC32979ABA3 /* HyperspaceEngineComponent.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -545,9 +560,12 @@
 		8D384D902B28F30D00D5564C /* SwashteroidsTests */ = {
 			isa = PBXGroup;
 			children = (
-				8D384D9C2B28FAFD00D5564C /* Swashteroids2.xctestplan */,
+				8DB99F512B2BE7D700C3593A /* TestingAppDelegate.swift */,
 				8D384D992B28F3F300D5564C /* AnimationTests.swift */,
 				8D384D982B28F3F300D5564C /* BulletAgeSystemTests.swift */,
+				9313964664F31540DA9D0416 /* HyperspaceSystemTests.swift */,
+				8DB99F562B2BE9EE00C3593A /* RenderSystemTests.swift */,
+				8DB99F582B2BF2A700C3593A /* GameOverSystemTests.swift */,
 			);
 			path = SwashteroidsTests;
 			sourceTree = "<group>";
@@ -785,6 +803,7 @@
 				8D23C1D32B02C59D00F7D878 /* Creator.swift in Sources */,
 				931393799C3434FBF3FC0CCD /* InputComponent.swift in Sources */,
 				93139920B1CB722DC9509E80 /* TransitionAppStateSystem.swift in Sources */,
+				8DB99F542B2BE81800C3593A /* main.swift in Sources */,
 				9313996B7589CCA869842E12 /* TouchComponents.swift in Sources */,
 				931398FFEAC38E75EF83728C /* TouchNodes.swift in Sources */,
 				931398712D4F259FF98C62AA /* Touch.swift in Sources */,
@@ -814,6 +833,7 @@
 				93139BB63DB9036243796001 /* RepeatingAudioComponent.swift in Sources */,
 				931397757ABDD3E731FEB69F /* RepeatingAudioSystem.swift in Sources */,
 				93139859AA4017DC2A83652F /* Transition.swift in Sources */,
+				931398B1CA8906CC519B170B /* HyperspaceEngineComponent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -822,7 +842,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D384D9B2B28F3F300D5564C /* AnimationTests.swift in Sources */,
+				8DB99F522B2BE7D700C3593A /* TestingAppDelegate.swift in Sources */,
+				8DB99F572B2BE9EE00C3593A /* RenderSystemTests.swift in Sources */,
 				8D384D9A2B28F3F300D5564C /* BulletAgeSystemTests.swift in Sources */,
+				8DB99F592B2BF2A700C3593A /* GameOverSystemTests.swift in Sources */,
+				93139BC5661C918BD0158277 /* HyperspaceSystemTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -981,7 +1005,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 43;
+				CURRENT_PROJECT_VERSION = 44;
 				DEVELOPMENT_TEAM = W8GR9TRDWE;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Swashteroids/Info.plist;
@@ -1013,7 +1037,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 43;
+				CURRENT_PROJECT_VERSION = 44;
 				DEVELOPMENT_TEAM = W8GR9TRDWE;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Swashteroids/Info.plist;

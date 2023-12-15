@@ -51,8 +51,8 @@ final class CollisionSystem: System {
         if (asteroidCollision.radius > LARGE_ASTEROID_RADIUS / 4) {
             for _ in 1...splits {
                 creator.createAsteroid(radius: asteroidCollision.radius / 2,
-                                       x: asteroidPosition.position.x + Double.random(in: -5...5),
-                                       y: asteroidPosition.position.y + Double.random(in: -5...5),
+                                       x: asteroidPosition.x + Double.random(in: -5...5),
+                                       y: asteroidPosition.y + Double.random(in: -5...5),
                                        level: level)
             }
         }
