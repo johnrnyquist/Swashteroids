@@ -33,6 +33,9 @@ extension Transition {
             }
         }
         engine.removeEntities(named: [.hyperspacePowerUp, .plasmaTorpedoesPowerUp])
+        if let appState = engine.appState?[AppStateComponent.name] as? AppStateComponent {
+            appState.reset()
+        }
     }
 
     func toGameOverScreen() {

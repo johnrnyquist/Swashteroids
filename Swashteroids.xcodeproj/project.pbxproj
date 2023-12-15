@@ -120,6 +120,7 @@
 		8DB99F542B2BE81800C3593A /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB99F532B2BE81800C3593A /* main.swift */; };
 		8DB99F572B2BE9EE00C3593A /* RenderSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB99F562B2BE9EE00C3593A /* RenderSystemTests.swift */; };
 		8DB99F592B2BF2A700C3593A /* GameOverSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB99F582B2BF2A700C3593A /* GameOverSystemTests.swift */; };
+		8DB99F5B2B2C9B4500C3593A /* TransitionSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB99F5A2B2C9B4500C3593A /* TransitionSystemTests.swift */; };
 		8DD26DC92B22D7E300DA5BC3 /* AccelerometerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD26DC82B22D7E300DA5BC3 /* AccelerometerNode.swift */; };
 		8DD26DCB2B22D80600DA5BC3 /* AccelerometerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD26DCA2B22D80600DA5BC3 /* AccelerometerComponent.swift */; };
 		93139265D59A74E99D27A0CF /* Transition+GameOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931393BFA7122C52736144FB /* Transition+GameOver.swift */; };
@@ -283,6 +284,7 @@
 		8DB99F552B2BE92B00C3593A /* Swashteroids.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = Swashteroids.xctestplan; path = SwashteroidsTests/Swashteroids.xctestplan; sourceTree = "<group>"; };
 		8DB99F562B2BE9EE00C3593A /* RenderSystemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderSystemTests.swift; sourceTree = "<group>"; };
 		8DB99F582B2BF2A700C3593A /* GameOverSystemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverSystemTests.swift; sourceTree = "<group>"; };
+		8DB99F5A2B2C9B4500C3593A /* TransitionSystemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionSystemTests.swift; sourceTree = "<group>"; };
 		8DD26DC82B22D7E300DA5BC3 /* AccelerometerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccelerometerNode.swift; sourceTree = "<group>"; };
 		8DD26DCA2B22D80600DA5BC3 /* AccelerometerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccelerometerComponent.swift; sourceTree = "<group>"; };
 		931392817415F62A631B78BE /* Transition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transition.swift; sourceTree = "<group>"; };
@@ -566,6 +568,7 @@
 				9313964664F31540DA9D0416 /* HyperspaceSystemTests.swift */,
 				8DB99F562B2BE9EE00C3593A /* RenderSystemTests.swift */,
 				8DB99F582B2BF2A700C3593A /* GameOverSystemTests.swift */,
+				8DB99F5A2B2C9B4500C3593A /* TransitionSystemTests.swift */,
 			);
 			path = SwashteroidsTests;
 			sourceTree = "<group>";
@@ -842,6 +845,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D384D9B2B28F3F300D5564C /* AnimationTests.swift in Sources */,
+				8DB99F5B2B2C9B4500C3593A /* TransitionSystemTests.swift in Sources */,
 				8DB99F522B2BE7D700C3593A /* TestingAppDelegate.swift in Sources */,
 				8DB99F572B2BE9EE00C3593A /* RenderSystemTests.swift in Sources */,
 				8D384D9A2B28F3F300D5564C /* BulletAgeSystemTests.swift in Sources */,
@@ -1022,7 +1026,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = net.nyquist.Swashteroids;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1054,7 +1058,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = net.nyquist.Swashteroids;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

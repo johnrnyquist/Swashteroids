@@ -38,8 +38,8 @@ final class GameOverSystemTests: XCTestCase {
         node.components[AppStateComponent.name] = appState
         let system = GameOverSystem()
         system.updateNode(node: node, time: 1)
-        XCTAssertEqual(appState.appState, .initialize)
-        XCTAssertEqual(appState.level, 0)
-        XCTAssertEqual(appState.score, 0)
+        XCTAssertEqual(appState.appState, .gameOver)
+        XCTAssertEqual(appState.level, 1)
+        XCTAssertEqual(appState.score, 2)
     }
 }
