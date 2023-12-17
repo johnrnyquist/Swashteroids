@@ -21,7 +21,7 @@ final class MovementSystem: ListIteratingSystem {
         nodeUpdateFunction = updateNode
     }
 
-    private func updateNode(node: Node, time: TimeInterval) {
+    func updateNode(node: Node, time: TimeInterval) {
         guard let position = node[PositionComponent.self],
               let motion = node[MotionComponent.self]
         else { return }
@@ -40,9 +40,9 @@ final class MovementSystem: ListIteratingSystem {
             position.y -= size.height
         }
         position.rotation += motion.angularVelocity * time
-        if (motion.damping > 0) {
-            let xDamp: Double = abs(cos(position.rotation) * motion.damping * time)
-            let yDamp: Double = abs(cos(position.rotation) * motion.damping * time)
+        if (motion.dampening > 0) {
+            let xDamp: Double = abs(cos(position.rotation) * motion.dampening * time)
+            let yDamp: Double = abs(cos(position.rotation) * motion.dampening * time)
             if (motion.velocity.x > xDamp) {
                 motion.velocity.x -= xDamp
             } else if (motion.velocity.x < -xDamp) {

@@ -14,12 +14,12 @@ import Swash
 final class MotionComponent: Component {
     var velocity = CGPoint()
     var angularVelocity: Double
-    var damping: Double
+    var dampening: Double
 
-    init(velocityX: Double, velocityY: Double, angularVelocity: Double = 0.0, damping: Double = 50) {
+	init(velocityX: Double, velocityY: Double, angularVelocity: Double = 0.0, dampening: Double = 0.0) {
         velocity = CGPoint(x: velocityX, y: velocityY)
         self.angularVelocity = angularVelocity
-        self.damping = damping
+        self.dampening = dampening
     }
 }
 

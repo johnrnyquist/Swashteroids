@@ -37,7 +37,7 @@ extension Creator {
                 .add(component: MotionComponent(velocityX: cos * 220 + parentMotion.velocity.x,
                                                 velocityY: sin * 220 + parentMotion.velocity.y,
                                                 angularVelocity: 0 + parentMotion.angularVelocity,
-                                                damping: 0 + parentMotion.damping))
+                                                dampening: 0 + parentMotion.dampening))
                 .add(component: DisplayComponent(sknode: sprite))
                 .add(component: AudioComponent(fileNamed: "fire.wav", actionKey: name))
         sprite.name = entity.name

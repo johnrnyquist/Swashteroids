@@ -42,7 +42,7 @@ class ShipEntity: Entity {
         add(component: WarpDriveComponent())
         add(component: PositionComponent(x: state.size.width/2, y: state.size.height/2, z: .ship, rotation: 0.0))
         add(component: ShipComponent())
-        add(component: MotionComponent(velocityX: 0.0, velocityY: 0.0, damping: 0.0))
+        add(component: MotionComponent(velocityX: 0.0, velocityY: 0.0, dampening: 0.0))
         add(component: CollisionComponent(radius: 25))
         add(component: DisplayComponent(sknode: shipSprite))
         add(component: MotionControlsComponent(left: 1, right: 2, accelerate: 4, accelerationRate: 90, rotationRate: 100))

@@ -66,6 +66,6 @@ extension Creator {
         let velocityX = Double.random(in: -10.0...10.0) * Double(level)
         let velocityY = Double.random(in: -10.0...10.0) * Double(level)
         let angularVelocity = Double.random(in: -100.0...100.0)
-        return MotionComponent(velocityX: velocityX, velocityY: velocityY, angularVelocity: angularVelocity, damping: 0)
+        return MotionComponent(velocityX: velocityX, velocityY: velocityY, angularVelocity: angularVelocity, dampening: 0)
     }
 }
