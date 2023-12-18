@@ -13,7 +13,6 @@ import Swash
 let LARGE_ASTEROID_RADIUS = 54.0
 
 enum AppState {
-    case initialize
     case start
     case infoButtons
     case infoNoButtons

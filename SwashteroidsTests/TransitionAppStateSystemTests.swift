@@ -35,17 +35,7 @@ final class TransitionAppStateSystemTests: XCTestCase {
         XCTAssertTrue(system.nodeClass == TransitionAppStateNode.self)
         XCTAssertNotNil(system.nodeUpdateFunction)
     }
-
-    func test_UpdateNodeFromInitialize() throws {
-        let node = TransitionAppStateNode()
-        let appStateComponent = AppStateComponent(size: size, appState: .initialize)
-        let transitionComponent = TransitionAppStateComponent(to: .start, from: .initialize)
-        node.components[AppStateComponent.name] = appStateComponent
-        node.components[TransitionAppStateComponent.name] = transitionComponent
-        system.updateNode(node: node, time: 1)
-        XCTAssertEqual(appStateComponent.appState, .start)
-    }
-
+    
     func test_UpdateNodeFromStartToInfoNoButtons() throws {
         let node = TransitionAppStateNode()
         let appStateComponent = AppStateComponent(size: size, appState: .start, shipControlsState: .hidingButtons)
@@ -97,7 +87,7 @@ final class TransitionAppStateSystemTests: XCTestCase {
     }
 
     func test_UpdateNodeFromPlayingWithButtonsToGameOver() throws {
-        let appStateComponent = AppStateComponent(size: size, appState: .playing)
+        let appStateComponent = AppStateComponent(size: size, appState: .playing, shipControlsState: .showingButtons)
         let appStateEntity = Entity(name: "appStateEntity")
                 .add(component: appStateComponent)
         do {

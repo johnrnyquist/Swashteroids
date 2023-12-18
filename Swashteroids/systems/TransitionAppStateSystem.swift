@@ -28,8 +28,6 @@ final class TransitionAppStateSystem: ListIteratingSystem {
               let appStateComponent = node[AppStateComponent.self] else { return }
         if let from = transitionComponent.from {
             switch from {
-                case .initialize:
-                    break
                 case .start:
                     transition?.fromStartScreen()
                 case .gameOver:
@@ -48,8 +46,6 @@ final class TransitionAppStateSystem: ListIteratingSystem {
         }
         appStateComponent.appState = transitionComponent.to
         switch transitionComponent.to {
-            case .initialize:
-                transition?.toStartScreen()
             case .start:
                 transition?.toStartScreen()
             case .gameOver:

@@ -16,15 +16,15 @@ final class AppStateComponent: Component {
     var numShips = 0
     var level = 0
     var score = 0
-    var appState: AppState = .initialize
-    var shipControlsState: ShipControlsState = .showingButtons
+    var appState: AppState
+    var shipControlsState: ShipControlsState
 
     init(size: CGSize,
          ships: Int = 3,
          level: Int = 0,
          score: Int = 0,
-         appState: AppState = .initialize,
-         shipControlsState: ShipControlsState = .showingButtons) {
+         appState: AppState,
+         shipControlsState: ShipControlsState) {
         self.size = size
         self.numShips = ships
         self.level = level
@@ -38,7 +38,7 @@ final class AppStateComponent: Component {
         numShips = 3
         level = 0
         score = 0
-        appState = .initialize
+        appState = .start
         shipControlsState = .showingButtons 
     }
 

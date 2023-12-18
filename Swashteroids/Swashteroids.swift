@@ -52,10 +52,10 @@ final class Swashteroids: NSObject {
                 .add(component: AllSoundsComponent.shared)
         try? engine.addEntity(entity: allSoundsEntity)
         // Add the app state entity
-        let appStateComponent = AppStateComponent(size: scene.size)
+        let appStateComponent = AppStateComponent(size: scene.size, appState: .start, shipControlsState: .showingButtons)
         let appStateEntity = Entity(name: .appState)
                 .add(component: appStateComponent)
-                .add(component: TransitionAppStateComponent(to: .initialize))
+                .add(component: TransitionAppStateComponent(to: .start))
         try? engine.addEntity(entity: appStateEntity)
         // Add the input entity
         let inputEntity = Entity(name: .input)
