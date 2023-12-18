@@ -20,7 +20,6 @@ final class TransitionTests: XCTestCase {
     var transition: Transition!
     var size: CGSize!
     var engine: Engine!
-    var generator: UIImpactFeedbackGenerator!
     var creator: MockCreator!
     var appStateComponent: AppStateComponent!
     var appStateEntity: Entity!
@@ -41,10 +40,8 @@ final class TransitionTests: XCTestCase {
         } catch {
             XCTFail("Failed to add appStateEntity")
         }
-        generator = UIImpactFeedbackGenerator(style: .heavy)
         creator = MockCreator()
         transition = MockTransition(engine: engine,
-                                    generator: generator,
                                     hudManager: creator,
                                     toggleButtonsManager: creator,
                                     shipControlQuadrantsManager: creator,
@@ -58,7 +55,7 @@ final class TransitionTests: XCTestCase {
             XCTAssertNotNil(engine.getEntity(named: entityName))
         }
     }
-    
+
     func test_FromStartScreen() {
         transition.fromStartScreen()
         for entityName: EntityName in [.start, .noButtons, .withButtons] {
@@ -130,6 +127,16 @@ final class TransitionTests: XCTestCase {
     }
 }
 
+fileprivate class MockTransition: Transition {
+    init(engine: Engine, hudManager: MockCreator, toggleButtonsManager: MockCreator, shipControlQuadrantsManager: MockCreator, shipControlButtonsManager: MockCreator) {
+        super.init(engine: engine, creator: Creator(engine: Engine(), size: .zero))
+        self.hudManager = hudManager
+        self.toggleButtonsManager = toggleButtonsManager
+        self.shipControlQuadrantsManager = shipControlQuadrantsManager
+        self.shipControlButtonsManager = shipControlButtonsManager
+    }
+}
+
 class MockCreator: HudManager, ToggleButtonManager, ShipControlQuadrantsManager, ShipControlButtonsManager {
     var createHudCalled = false
     var createToggleButtonCalled = false
@@ -170,15 +177,5 @@ class MockCreator: HudManager, ToggleButtonManager, ShipControlQuadrantsManager,
 
     func createShipControlButtons() {
         createShipControlButtonsCalled = true
-    }
-}
-
-fileprivate class MockTransition: Transition {
-    init(engine: Engine, generator: UIImpactFeedbackGenerator, hudManager: MockCreator, toggleButtonsManager: MockCreator, shipControlQuadrantsManager: MockCreator, shipControlButtonsManager: MockCreator) {
-        super.init(engine: engine, creator: Creator(engine: Engine(), size: .zero, generator: generator), generator: generator)
-        self.hudManager = hudManager
-        self.toggleButtonsManager = toggleButtonsManager
-        self.shipControlQuadrantsManager = shipControlQuadrantsManager
-        self.shipControlButtonsManager = shipControlButtonsManager
     }
 }

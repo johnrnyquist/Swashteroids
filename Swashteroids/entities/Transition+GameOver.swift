@@ -41,7 +41,7 @@ extension Transition {
                 .add(component: appStateComponent)
                 .add(component: ButtonBehaviorComponent(
                     touchDown: { [unowned self] sprite in
-                        generator.impactOccurred()
+                        generator?.impactOccurred()
                         engine.appState?
                               .add(component: TransitionAppStateComponent(to: .start, from: .gameOver))
                     }))

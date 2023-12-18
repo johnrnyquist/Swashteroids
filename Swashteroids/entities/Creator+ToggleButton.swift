@@ -38,7 +38,7 @@ extension Creator: ToggleButtonManager {
         let toState: ShipControlsState = toggleState == .on ? .hidingButtons : .showingButtons
         toggleEntity.add(component: ButtonBehaviorComponent(
             touchDown: { [unowned self] sprite in
-				generator.impactOccurred()
+				generator?.impactOccurred()
 				(engine.appState?[AppStateComponent.name] as? AppStateComponent)?.shipControlsState = toState //HACK
                 engine.hud?.add(component: ChangeShipControlsStateComponent(to: toState))                 
                 engine.hud?.add(component: AudioComponent(fileNamed: "toggle.wav",

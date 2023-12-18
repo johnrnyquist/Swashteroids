@@ -47,7 +47,7 @@ extension Transition {
                 .add(component: TouchableComponent())
                 .add(component: ButtonBehaviorComponent(
                     touchDown: { [unowned self] sprite in
-                        generator.impactOccurred(); sprite.alpha = 0.6
+                        generator?.impactOccurred(); sprite.alpha = 0.6
                     },
                     touchUp: { [unowned self] sprite in
                         sprite.alpha = 0.2
@@ -66,7 +66,7 @@ extension Transition {
                 .add(component: TouchableComponent())
                 .add(component: ButtonBehaviorComponent(
                     touchDown: { [unowned self] sprite in
-                        generator.impactOccurred()
+                        generator?.impactOccurred()
                         sprite.alpha = 0.6
                     },
                     touchUp: { [unowned self] sprite in

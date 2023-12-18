@@ -19,9 +19,8 @@ final class TransitionAppStateSystemTests: XCTestCase {
     override func setUpWithError() throws {
         size = CGSize(width: 1024.0, height: 768.0)
         engine = Engine()
-        let generator = UIImpactFeedbackGenerator(style: .heavy)
-        let creator = Creator(engine: engine, size: size, generator: generator)
-        transition = Transition(engine: engine, creator: creator, generator: generator)
+        let creator = Creator(engine: engine, size: size)
+        transition = Transition(engine: engine, creator: creator)
         system = TransitionAppStateSystem(transition: transition)
     }
 

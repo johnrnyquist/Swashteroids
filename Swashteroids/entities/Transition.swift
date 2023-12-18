@@ -17,7 +17,7 @@ class Transition {
     var shipControlQuadrantsManager: ShipControlQuadrantsManager
     var shipControlButtonsManager: ShipControlButtonsManager
     var engine: Engine
-    var generator: UIImpactFeedbackGenerator
+    var generator: UIImpactFeedbackGenerator?
     var size: CGSize {
         if let appStateComponent = engine.appState?[AppStateComponent.name] as? AppStateComponent {
             return appStateComponent.size
@@ -26,7 +26,7 @@ class Transition {
         }
     }
 
-    init(engine: Engine, creator: Creator, generator: UIImpactFeedbackGenerator) {
+    init(engine: Engine, creator: Creator, generator: UIImpactFeedbackGenerator? = nil) {
         self.engine = engine
         self.generator = generator
         hudManager = creator

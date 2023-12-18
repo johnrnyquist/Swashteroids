@@ -15,11 +15,11 @@ import Swash
 class Creator {
     var engine: Engine
     var size: CGSize
-    var generator: UIImpactFeedbackGenerator
+    var generator: UIImpactFeedbackGenerator?
     var numAsteroids = 0
     var numTorpedoes = 0
 
-    init(engine: Engine, size: CGSize, generator: UIImpactFeedbackGenerator) {
+    init(engine: Engine, size: CGSize, generator: UIImpactFeedbackGenerator? = nil) {
         self.engine = engine
         self.size = size
         self.generator = generator

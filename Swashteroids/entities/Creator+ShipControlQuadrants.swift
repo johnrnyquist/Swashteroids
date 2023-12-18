@@ -55,7 +55,7 @@ extension Creator: ShipControlQuadrantsManager {
                 .add(component: TouchableComponent())
                 .add(component: ButtonBehaviorComponent(
                     touchDown: { [unowned self] sprite in
-                        generator.impactOccurred()
+                        generator?.impactOccurred()
                         if let ship = self.engine.ship,
                            ship.has(componentClassName: HyperspaceEngineComponent.name) {
                             engine.ship?.add(component: HyperspaceJumpComponent())
@@ -71,7 +71,7 @@ extension Creator: ShipControlQuadrantsManager {
                 .add(component: TouchableComponent())
                 .add(component: ButtonBehaviorComponent(
                     touchDown: { [unowned self] sprite in
-                        generator.impactOccurred()
+                        generator?.impactOccurred()
                         engine.ship?.add(component: FlipComponent.shared)
                     },
                     touchUp: { _ in },
@@ -84,7 +84,7 @@ extension Creator: ShipControlQuadrantsManager {
                 .add(component: TouchableComponent())
                 .add(component: ButtonBehaviorComponent(
                     touchDown: { [unowned self] sprite in
-                        generator.impactOccurred()
+                        generator?.impactOccurred()
                         if let ship = self.engine.ship {
                             ship.add(component: ApplyThrustComponent.shared)
                             ship.warpDrive?.isThrusting = true
@@ -127,7 +127,7 @@ extension Creator: ShipControlQuadrantsManager {
                 .add(component: TouchableComponent())
                 .add(component: ButtonBehaviorComponent(
                     touchDown: { [unowned self] sprite in
-                        generator.impactOccurred()
+                        generator?.impactOccurred()
                         self.engine.ship?.add(component: FireDownComponent.shared)
                     },
                     touchUp: { sprite in

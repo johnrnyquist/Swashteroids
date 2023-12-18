@@ -105,7 +105,7 @@ extension Creator: ShipControlButtonsManager {
             .add(component: ButtonBehaviorComponent(
                 touchDown: { [unowned self] sprite in
                     sprite.alpha = 0.6
-                    generator.impactOccurred()
+                    generator?.impactOccurred()
                     engine.ship?.add(component: FlipComponent.shared)
                 },
                 touchUp: { sprite in sprite.alpha = 0.2 },
@@ -119,7 +119,7 @@ extension Creator: ShipControlButtonsManager {
                   .add(component: ButtonBehaviorComponent(
                       touchDown: { [unowned self] sprite in
                           sprite.alpha = 0.6
-                          generator.impactOccurred()
+                          generator?.impactOccurred()
                           engine.ship?.add(component: HyperspaceJumpComponent())
                       },
                       touchUp: { sprite in sprite.alpha = 0.2 },
@@ -132,7 +132,7 @@ extension Creator: ShipControlButtonsManager {
             .add(component: ButtonBehaviorComponent(
                 touchDown: { [unowned self] sprite in
                     sprite.alpha = 0.6
-                    generator.impactOccurred()
+                    generator?.impactOccurred()
                     self.engine.ship?.add(component: LeftComponent.shared)
                 },
                 touchUp: { sprite in
@@ -157,7 +157,7 @@ extension Creator: ShipControlButtonsManager {
              .add(component: ButtonBehaviorComponent(
                  touchDown: { [unowned self] sprite in
                      sprite.alpha = 0.6
-                     generator.impactOccurred()
+                     generator?.impactOccurred()
                      self.engine.ship?.add(component: RightComponent.shared)
                  },
                  touchUp: { sprite in
@@ -178,7 +178,7 @@ extension Creator: ShipControlButtonsManager {
               .add(component: ButtonBehaviorComponent(
                   touchDown: { [unowned self] sprite in
                       sprite.alpha = 0.6
-                      generator.impactOccurred()
+                      generator?.impactOccurred()
                       if let ship = self.engine.ship {
                           ship.add(component: ApplyThrustComponent.shared)
                           ship.warpDrive?.isThrusting = true
@@ -224,7 +224,7 @@ extension Creator: ShipControlButtonsManager {
             .add(component: ButtonBehaviorComponent(
                 touchDown: { [unowned self] sprite in
                     sprite.alpha = 0.6
-                    generator.impactOccurred()
+                    generator?.impactOccurred()
                     engine.ship?.add(component: FireDownComponent.shared)
                 },
                 touchUp: { sprite in
