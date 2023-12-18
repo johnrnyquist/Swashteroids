@@ -16,6 +16,10 @@ final class HyperspaceSystemTests: XCTestCase {
     override func setUpWithError() throws {
         system = HyperspaceSystem()
     }
+    
+    override func tearDownWithError() throws {
+        system = nil
+    }
 
     func test_Init() throws {
         system = HyperspaceSystem()

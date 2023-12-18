@@ -25,6 +25,13 @@ final class AnimationTests: XCTestCase {
         system = AnimationSystem()
     }
 
+    override func tearDownWithError() throws { 
+        system = nil
+        node = nil
+        component = nil
+        thing = nil
+    }
+
     func test_Init() throws {
         system = AnimationSystem()
         XCTAssertTrue(system.nodeClass == AnimationNode.self)

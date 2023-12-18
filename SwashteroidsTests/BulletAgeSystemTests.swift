@@ -28,6 +28,14 @@ final class BulletAgeSystemTests: XCTestCase {
         system.addToEngine(engine: engine)
     }
 
+    override func tearDownWithError() throws { 
+        component = nil
+        node = nil
+        entity = nil
+        system = nil
+        engine = nil
+    }
+
     func test_Init() throws {
         system = BulletAgeSystem()
         XCTAssertTrue(system.nodeClass == BulletAgeNode.self)

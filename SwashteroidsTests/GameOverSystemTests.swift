@@ -10,16 +10,18 @@ import XCTest
 @testable import Swash
 
 final class GameOverSystemTests: XCTestCase {
+    var system: GameOverSystem!
+
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        system = GameOverSystem()
     }
 
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        system = nil
     }
 
     func test_Init() throws {
-        let system = GameOverSystem()
+        system = GameOverSystem()
         XCTAssertTrue(system.nodeClass == GameOverNode.self)
         XCTAssertNotNil(system.nodeUpdateFunction)
     }
@@ -36,7 +38,7 @@ final class GameOverSystemTests: XCTestCase {
         let node = GameOverNode()
         node.components[GameOverComponent.name] = gameOver
         node.components[AppStateComponent.name] = appState
-        let system = GameOverSystem()
+        system = GameOverSystem()
         system.updateNode(node: node, time: 1)
         XCTAssertEqual(appState.appState, .gameOver)
         XCTAssertEqual(appState.level, 1)

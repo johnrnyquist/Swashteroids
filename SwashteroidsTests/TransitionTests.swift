@@ -48,6 +48,15 @@ final class TransitionTests: XCTestCase {
 									shipControlButtonsManager: creator)
 	}
 
+	override func tearDownWithError() throws { 
+		size = nil
+		engine = nil
+		appStateComponent = nil
+		appStateEntity = nil
+		creator = nil
+		transition = nil
+	}
+
 	//TODO: This test is a little light.
 	func test_ToStartScreen() {
 		transition.toStartScreen()
