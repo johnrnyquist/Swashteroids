@@ -16,36 +16,29 @@ extension Transition {
     func fromGameOverScreen() {
         // Clear any existing asteroids
         let asteroids = engine.getNodeList(nodeClassType: AsteroidCollisionNode.self)
-        let gameOverNodes = engine.getNodeList(nodeClassType: GameOverNode.self)
-        let gameOverNode = gameOverNodes.head
         var asteroid = asteroids.head
         while asteroid != nil {
             engine.removeEntity(entity: asteroid!.entity!)
             asteroid = asteroid?.next
         }
-        if let hud = engine.hud,
-           let gameOverNode,
-           let entity = gameOverNode.entity {
-            engine.removeEntity(entity: entity)
-            engine.removeEntity(entity: hud)
-            if let powerUp = engine.getEntity(named: .plasmaTorpedoesPowerUp) {
-                engine.removeEntity(entity: powerUp)
-            }
-        }
-        engine.removeEntities(named: [.hyperspacePowerUp, .plasmaTorpedoesPowerUp])
+        engine.removeEntities(named: [.hud, .gameOver, .hyperspacePowerUp, .plasmaTorpedoesPowerUp])
         if let appState = engine.appState?[AppStateComponent.name] as? AppStateComponent {
             appState.reset()
         }
     }
 
     func toGameOverScreen() {
+        guard let appStateComponent = engine.appState?[AppStateComponent.name] as? AppStateComponent else {
+            print("WARNING: engine did not contain AppStateComponent!")
+            return
+        }
         let gameOverView = GameOverView(size: size)
         let gameOverEntity = Entity(name: .gameOver)
                 .add(component: GameOverComponent())
                 .add(component: DisplayComponent(sknode: gameOverView))
                 .add(component: PositionComponent(x: 0, y: 0, z: .top, rotation: 0))
                 .add(component: TouchableComponent())
-                .add(component: engine.appState![AppStateComponent.name] as! AppStateComponent) //HACK
+                .add(component: appStateComponent)
                 .add(component: ButtonBehaviorComponent(
                     touchDown: { [unowned self] sprite in
                         generator.impactOccurred()
@@ -53,6 +46,10 @@ extension Transition {
                               .add(component: TransitionAppStateComponent(to: .start, from: .gameOver))
                     }))
         gameOverView.entity = gameOverEntity
-        engine.replaceEntity(entity: gameOverEntity)
+        do {
+            try engine.addEntity(entity: gameOverEntity)
+        } catch {
+            print("WARNING: engine already contained \(gameOverEntity.name) entity!")
+        }
     }
 }

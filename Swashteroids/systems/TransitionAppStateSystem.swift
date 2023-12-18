@@ -31,7 +31,7 @@ final class TransitionAppStateSystem: ListIteratingSystem {
                 case .initialize:
                     break
                 case .start:
-                    transition?.fromStart()
+                    transition?.fromStartScreen()
                 case .gameOver:
                     transition?.fromGameOverScreen()
                     break

@@ -13,11 +13,11 @@ import SpriteKit
 
 extension Transition {
     func fromPlayingScreen() {
-        creator.removeToggleButton()
-        creator.removeShipControlButtons()
-        creator.removeShipControlQuadrants()
+        toggleButtonsManager.removeToggleButton()
+        shipControlButtonsManager.removeShipControlButtons()
+        shipControlQuadrantsManager.removeShipControlQuadrants()
     }
-        
+
     func toPlayingScreen(with state: ShipControlsState) {
         guard let appStateComponent = engine.getEntity(named: .appState)?
                                             .get(componentClassName: AppStateComponent.name) as? AppStateComponent else {
@@ -25,13 +25,13 @@ extension Transition {
             return
         }
         appStateComponent.resetBoard()
-        creator.createHud(gameState: appStateComponent)
+        hudManager.createHud(gameState: appStateComponent)
         if state == .hidingButtons {
-            creator.createToggleButton(.off)
-            creator.createShipControlQuadrants()
+            toggleButtonsManager.createToggleButton(.off)
+            shipControlQuadrantsManager.createShipControlQuadrants()
         } else {
-            creator.createToggleButton(.on)
-            creator.enableShipControlButtons()
+            toggleButtonsManager.createToggleButton(.on)
+            shipControlButtonsManager.enableShipControlButtons()
         }
     }
 }

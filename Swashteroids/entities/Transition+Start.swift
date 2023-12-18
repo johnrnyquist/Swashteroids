@@ -12,7 +12,7 @@ import Swash
 import SpriteKit
 
 extension Transition {
-    func fromStart() {
+    func fromStartScreen() {
         engine.removeEntities(named: [.noButtons, .withButtons, .start])
     }
 

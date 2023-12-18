@@ -50,7 +50,7 @@ extension Transition {
             return
         }
         viewSprite.removeFromParent()
-        creator.createShipControlButtons()
+        shipControlButtonsManager.createShipControlButtons()
         let viewEntity = Entity(name: .buttonsInfoView)
                 .add(component: DisplayComponent(sknode: viewSprite))
                 .add(component: PositionComponent(x: 0, y: 0, z: .buttons, rotation: 0))

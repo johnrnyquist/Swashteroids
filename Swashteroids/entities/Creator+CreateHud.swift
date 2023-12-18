@@ -11,7 +11,11 @@
 import Swash
 import SpriteKit
 
-extension Creator {
+protocol HudManager {
+    func createHud(gameState: AppStateComponent)
+}
+
+extension Creator: HudManager {
     func createHud(gameState: AppStateComponent) {
         let hudEntity = HudEntity(name: .hud, gameState: gameState)
         do {

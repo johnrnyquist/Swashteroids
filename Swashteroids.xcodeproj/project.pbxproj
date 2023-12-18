@@ -10,7 +10,6 @@
 		8D23C1362B02C4CA00F7D878 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1352B02C4CA00F7D878 /* AppDelegate.swift */; };
 		8D23C13C2B02C4CA00F7D878 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C13B2B02C4CA00F7D878 /* GameScene.swift */; };
 		8D23C13E2B02C4CA00F7D878 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C13D2B02C4CA00F7D878 /* GameViewController.swift */; };
-		8D23C1412B02C4CA00F7D878 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C13F2B02C4CA00F7D878 /* Main.storyboard */; };
 		8D23C1432B02C4CC00F7D878 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C1422B02C4CC00F7D878 /* Assets.xcassets */; };
 		8D23C1462B02C4CC00F7D878 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C1442B02C4CC00F7D878 /* LaunchScreen.storyboard */; };
 		8D23C14E2B02C4E800F7D878 /* Swash in Frameworks */ = {isa = PBXBuildFile; productRef = 8D23C14D2B02C4E800F7D878 /* Swash */; };
@@ -120,7 +119,7 @@
 		8DB99F542B2BE81800C3593A /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB99F532B2BE81800C3593A /* main.swift */; };
 		8DB99F572B2BE9EE00C3593A /* RenderSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB99F562B2BE9EE00C3593A /* RenderSystemTests.swift */; };
 		8DB99F592B2BF2A700C3593A /* GameOverSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB99F582B2BF2A700C3593A /* GameOverSystemTests.swift */; };
-		8DB99F5B2B2C9B4500C3593A /* TransitionSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB99F5A2B2C9B4500C3593A /* TransitionSystemTests.swift */; };
+		8DB99F5B2B2C9B4500C3593A /* TransitionAppStateSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB99F5A2B2C9B4500C3593A /* TransitionAppStateSystemTests.swift */; };
 		8DB99F7B2B2E8BE400C3593A /* MovementSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931399F9256FB8B5F9EBA4E4 /* MovementSystemTests.swift */; };
 		8DD26DC92B22D7E300DA5BC3 /* AccelerometerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD26DC82B22D7E300DA5BC3 /* AccelerometerNode.swift */; };
 		8DD26DCB2B22D80600DA5BC3 /* AccelerometerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD26DCA2B22D80600DA5BC3 /* AccelerometerComponent.swift */; };
@@ -139,6 +138,7 @@
 		9313996AA764792E9B8670A5 /* FireDownComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931399840A8AC5987DF6D3D4 /* FireDownComponent.swift */; };
 		9313996B7589CCA869842E12 /* TouchComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139735B7C5C32A3DA6CB9D /* TouchComponents.swift */; };
 		93139985E9931A3012A6B150 /* Creator+ToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139E95FF431FF894CFD502 /* Creator+ToggleButton.swift */; };
+		93139999C782AFD3B2ACD018 /* TransitionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139D4336E12C89FC8BE06B /* TransitionTests.swift */; };
 		931399C749E2BD0BE4E247A0 /* ApplyThrustComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931397D7C84D4E580EB51E4D /* ApplyThrustComponent.swift */; };
 		931399FC0563308E45F415FF /* GameOverSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313941564944F14B4041467 /* GameOverSystem.swift */; };
 		931399FEBA1404DE9F734910 /* MotionControlsComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139A62ACBE6CDFC10158E7 /* MotionControlsComponent.swift */; };
@@ -173,7 +173,6 @@
 		8D23C1352B02C4CA00F7D878 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8D23C13B2B02C4CA00F7D878 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		8D23C13D2B02C4CA00F7D878 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
-		8D23C1402B02C4CA00F7D878 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8D23C1422B02C4CC00F7D878 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8D23C1452B02C4CC00F7D878 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8D23C14F2B02C59B00F7D878 /* Swashteroids.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Swashteroids.swift; sourceTree = "<group>"; };
@@ -285,7 +284,7 @@
 		8DB99F552B2BE92B00C3593A /* Swashteroids.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = Swashteroids.xctestplan; path = SwashteroidsTests/Swashteroids.xctestplan; sourceTree = "<group>"; };
 		8DB99F562B2BE9EE00C3593A /* RenderSystemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderSystemTests.swift; sourceTree = "<group>"; };
 		8DB99F582B2BF2A700C3593A /* GameOverSystemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverSystemTests.swift; sourceTree = "<group>"; };
-		8DB99F5A2B2C9B4500C3593A /* TransitionSystemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionSystemTests.swift; sourceTree = "<group>"; };
+		8DB99F5A2B2C9B4500C3593A /* TransitionAppStateSystemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionAppStateSystemTests.swift; sourceTree = "<group>"; };
 		8DB99F762B2D363E00C3593A /* Swashteroids.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Swashteroids.entitlements; sourceTree = "<group>"; };
 		8DD26DC82B22D7E300DA5BC3 /* AccelerometerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccelerometerNode.swift; sourceTree = "<group>"; };
 		8DD26DCA2B22D80600DA5BC3 /* AccelerometerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccelerometerComponent.swift; sourceTree = "<group>"; };
@@ -316,6 +315,7 @@
 		93139BC38DC2F4BF7B9F869A /* LeftComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftComponent.swift; sourceTree = "<group>"; };
 		93139BD2BE63CAC32979ABA3 /* HyperspaceEngineComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HyperspaceEngineComponent.swift; sourceTree = "<group>"; };
 		93139C73A66D8863A166745D /* Creator+CreatePowerUp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Creator+CreatePowerUp.swift"; sourceTree = "<group>"; };
+		93139D4336E12C89FC8BE06B /* TransitionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionTests.swift; sourceTree = "<group>"; };
 		93139DF99E2237817263DF63 /* Transition+Playing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Transition+Playing.swift"; sourceTree = "<group>"; };
 		93139E95FF431FF894CFD502 /* Creator+ToggleButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Creator+ToggleButton.swift"; sourceTree = "<group>"; };
 		93139EB3AE52346EF745211F /* FlipComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlipComponent.swift; sourceTree = "<group>"; };
@@ -371,7 +371,6 @@
 				8DB99F762B2D363E00C3593A /* Swashteroids.entitlements */,
 				8D688FBE2B068E2200056CD3 /* Info.plist */,
 				8D23C1422B02C4CC00F7D878 /* Assets.xcassets */,
-				8D23C13F2B02C4CA00F7D878 /* Main.storyboard */,
 				8D23C1442B02C4CC00F7D878 /* LaunchScreen.storyboard */,
 				8DB99F532B2BE81800C3593A /* main.swift */,
 				8D23C1352B02C4CA00F7D878 /* AppDelegate.swift */,
@@ -497,21 +496,21 @@
 		8D23C1892B02C59D00F7D878 /* entities */ = {
 			isa = PBXGroup;
 			children = (
-				8D41E21E2B1FA2D00031AF54 /* Entity+extension.swift */,
 				8D23C18A2B02C59D00F7D878 /* Creator.swift */,
-				93139349F91910D60271C8DA /* Transition+Start.swift */,
-				931398E70F42335F03D272DD /* Transition+InfoViews.swift */,
-				931395F838B2866767296F25 /* Creator+ShipControlQuadrants.swift */,
-				931392CF258F1370304A48B7 /* Creator+ShipControlButtons.swift */,
-				931393BFA7122C52736144FB /* Transition+GameOver.swift */,
 				93139EE51DF4C3AE1D381E57 /* Creator+CreateAsteroid.swift */,
+				931397F86C674AD22210D173 /* Creator+CreateHud.swift */,
+				93139C73A66D8863A166745D /* Creator+CreatePowerUp.swift */,
 				93139F43221229D3FBAC46D9 /* Creator+CreateShip.swift */,
 				93139A97E15CCF640A73EC56 /* Creator+CreateTorpedo.swift */,
-				93139C73A66D8863A166745D /* Creator+CreatePowerUp.swift */,
+				931392CF258F1370304A48B7 /* Creator+ShipControlButtons.swift */,
+				931395F838B2866767296F25 /* Creator+ShipControlQuadrants.swift */,
 				93139E95FF431FF894CFD502 /* Creator+ToggleButton.swift */,
-				93139DF99E2237817263DF63 /* Transition+Playing.swift */,
-				931397F86C674AD22210D173 /* Creator+CreateHud.swift */,
+				8D41E21E2B1FA2D00031AF54 /* Entity+extension.swift */,
 				931392817415F62A631B78BE /* Transition.swift */,
+				931393BFA7122C52736144FB /* Transition+GameOver.swift */,
+				931398E70F42335F03D272DD /* Transition+InfoViews.swift */,
+				93139DF99E2237817263DF63 /* Transition+Playing.swift */,
+				93139349F91910D60271C8DA /* Transition+Start.swift */,
 			);
 			path = entities;
 			sourceTree = "<group>";
@@ -572,8 +571,9 @@
 				9313964664F31540DA9D0416 /* HyperspaceSystemTests.swift */,
 				8DB99F562B2BE9EE00C3593A /* RenderSystemTests.swift */,
 				8DB99F582B2BF2A700C3593A /* GameOverSystemTests.swift */,
-				8DB99F5A2B2C9B4500C3593A /* TransitionSystemTests.swift */,
+				8DB99F5A2B2C9B4500C3593A /* TransitionAppStateSystemTests.swift */,
 				931399F9256FB8B5F9EBA4E4 /* MovementSystemTests.swift */,
+				93139D4336E12C89FC8BE06B /* TransitionTests.swift */,
 			);
 			path = SwashteroidsTests;
 			sourceTree = "<group>";
@@ -691,7 +691,6 @@
 				8D6D815F2B1A7A9E00AD8D18 /* ButtonsInfo.sks in Resources */,
 				8D23C1D92B02C59D00F7D878 /* fire.wav in Resources */,
 				8D23C1C52B02C59D00F7D878 /* hyperspace.sks in Resources */,
-				8D23C1412B02C4CA00F7D878 /* Main.storyboard in Resources */,
 				8D23C1DC2B02C59D00F7D878 /* bangMedium.wav in Resources */,
 				8D23C1C32B02C59D00F7D878 /* shipExplosion.sks in Resources */,
 				8D6D81592B1A648400AD8D18 /* StartScene.sks in Resources */,
@@ -850,13 +849,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D384D9B2B28F3F300D5564C /* AnimationTests.swift in Sources */,
-				8DB99F5B2B2C9B4500C3593A /* TransitionSystemTests.swift in Sources */,
+				8DB99F5B2B2C9B4500C3593A /* TransitionAppStateSystemTests.swift in Sources */,
 				8DB99F522B2BE7D700C3593A /* TestingAppDelegate.swift in Sources */,
 				8DB99F572B2BE9EE00C3593A /* RenderSystemTests.swift in Sources */,
 				8D384D9A2B28F3F300D5564C /* BulletAgeSystemTests.swift in Sources */,
 				8DB99F592B2BF2A700C3593A /* GameOverSystemTests.swift in Sources */,
 				93139BC5661C918BD0158277 /* HyperspaceSystemTests.swift in Sources */,
 				8DB99F7B2B2E8BE400C3593A /* MovementSystemTests.swift in Sources */,
+				93139999C782AFD3B2ACD018 /* TransitionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -871,14 +871,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		8D23C13F2B02C4CA00F7D878 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				8D23C1402B02C4CA00F7D878 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		8D23C1442B02C4CC00F7D878 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1023,8 +1015,8 @@
 				INFOPLIST_KEY_CFBundleDisplayName = Swashteroids;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -1056,8 +1048,8 @@
 				INFOPLIST_KEY_CFBundleDisplayName = Swashteroids;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";

@@ -11,7 +11,12 @@
 import Swash
 import SpriteKit
 
-extension Creator {
+protocol ShipControlQuadrantsManager {
+    func removeShipControlQuadrants()
+    func createShipControlQuadrants()
+}
+
+extension Creator: ShipControlQuadrantsManager {
     func removeShipControlQuadrants() {
         let quadrants: [EntityName] = [.q1, .q2, .q3, .q4]
         engine.removeEntities(named: quadrants)
