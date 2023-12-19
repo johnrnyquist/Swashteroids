@@ -14,7 +14,7 @@ import CoreMotion
 
 final class Swashteroids: NSObject {
     /// For haptic feedback
-    let generator = UIImpactFeedbackGenerator(style: .heavy)
+    private let generator = UIImpactFeedbackGenerator(style: .heavy)
     /// For accelerometer
     let motionManager = CMMotionManager()
     /// For rotation of the device
@@ -24,9 +24,9 @@ final class Swashteroids: NSObject {
     /// A SpriteKit SKScene subclass to display the game
     var scene: GameScene
     /// Used to create and configure Entity instances
-    var creator: Creator
+    private var creator: Creator
     /// Used to transition between game states
-    var transition: Transition
+    private var transition: Transition
     /// Drives the game
     private var engine: Engine
     /// Drives the engine
