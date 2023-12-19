@@ -38,7 +38,7 @@ final class TransitionAppStateSystemTests: XCTestCase {
     
     func test_UpdateNodeFromStartToInfoNoButtons() throws {
         let node = TransitionAppStateNode()
-        let appStateComponent = AppStateComponent(size: size, appState: .start, shipControlsState: .hidingButtons)
+        let appStateComponent = AppStateComponent(size: size, ships: 0, level: 0, score: 0, appState: .start, shipControlsState: .hidingButtons)
         let transitionComponent = TransitionAppStateComponent(to: .infoNoButtons, from: .start)
         node.components[AppStateComponent.name] = appStateComponent
         node.components[TransitionAppStateComponent.name] = transitionComponent
@@ -48,7 +48,7 @@ final class TransitionAppStateSystemTests: XCTestCase {
 
     func test_UpdateNodeFromStartToInfoButtons() throws {
         let node = TransitionAppStateNode()
-        let appStateComponent = AppStateComponent(size: size, appState: .start, shipControlsState: .showingButtons)
+        let appStateComponent = AppStateComponent(size: size, ships: 0, level: 0, score: 0, appState: .start, shipControlsState: .showingButtons)
         let transitionComponent = TransitionAppStateComponent(to: .infoButtons, from: .start)
         node.components[AppStateComponent.name] = appStateComponent
         node.components[TransitionAppStateComponent.name] = transitionComponent
@@ -58,7 +58,7 @@ final class TransitionAppStateSystemTests: XCTestCase {
 
     func test_UpdateNodeFromInfoButtonsToPlaying() throws {
         let node = TransitionAppStateNode()
-        let appStateComponent = AppStateComponent(size: size, appState: .infoButtons, shipControlsState: .showingButtons)
+        let appStateComponent = AppStateComponent(size: size, ships: 0, level: 0, score: 0, appState: .infoButtons, shipControlsState: .showingButtons)
         let transitionComponent = TransitionAppStateComponent(to: .playing, from: .infoButtons)
         node.components[AppStateComponent.name] = appStateComponent
         node.components[TransitionAppStateComponent.name] = transitionComponent
@@ -68,7 +68,7 @@ final class TransitionAppStateSystemTests: XCTestCase {
 
     func test_UpdateNodeFromGameOverToStart() throws {
         let node = TransitionAppStateNode()
-        let appStateComponent = AppStateComponent(size: size, appState: .gameOver, shipControlsState: .showingButtons)
+        let appStateComponent = AppStateComponent(size: size, ships: 0, level: 0, score: 0, appState: .gameOver, shipControlsState: .showingButtons)
         let transitionComponent = TransitionAppStateComponent(to: .start, from: .gameOver)
         node.components[AppStateComponent.name] = appStateComponent
         node.components[TransitionAppStateComponent.name] = transitionComponent
@@ -78,7 +78,7 @@ final class TransitionAppStateSystemTests: XCTestCase {
 
     func test_UpdateNodeFromInfoNoButtonsToPlaying() throws {
         let node = TransitionAppStateNode()
-        let appStateComponent = AppStateComponent(size: size, appState: .infoNoButtons, shipControlsState: .hidingButtons)
+        let appStateComponent = AppStateComponent(size: size, ships: 0, level: 0, score: 0, appState: .infoNoButtons, shipControlsState: .hidingButtons)
         let transitionComponent = TransitionAppStateComponent(to: .playing, from: .infoNoButtons)
         node.components[AppStateComponent.name] = appStateComponent
         node.components[TransitionAppStateComponent.name] = transitionComponent
@@ -87,7 +87,7 @@ final class TransitionAppStateSystemTests: XCTestCase {
     }
 
     func test_UpdateNodeFromPlayingWithButtonsToGameOver() throws {
-        let appStateComponent = AppStateComponent(size: size, appState: .playing, shipControlsState: .showingButtons)
+        let appStateComponent = AppStateComponent(size: size, ships: 0, level: 0, score: 0, appState: .playing, shipControlsState: .showingButtons)
         let appStateEntity = Entity(name: "appStateEntity")
                 .add(component: appStateComponent)
         do {

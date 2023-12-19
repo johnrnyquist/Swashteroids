@@ -33,7 +33,6 @@ final class AnimationTests: XCTestCase {
     }
 
     func test_Init() throws {
-        system = AnimationSystem()
         XCTAssertTrue(system.nodeClass == AnimationNode.self)
         XCTAssertNotNil(system.nodeUpdateFunction)
     }

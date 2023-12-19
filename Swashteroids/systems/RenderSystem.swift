@@ -51,7 +51,7 @@ final class RenderSystem: System {
         var renderNode = nodes?.head
         while renderNode != nil {
             let displayDisplayComponent = renderNode?[DisplayComponent.self]
-            let sprite = displayDisplayComponent?.sknode
+            let sprite = displayDisplayComponent?.sprite
             let positionComponent = renderNode?[PositionComponent.self]
             if let positionComponent = positionComponent {
                 sprite?.position = positionComponent.position

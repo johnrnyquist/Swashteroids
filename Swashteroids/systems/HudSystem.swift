@@ -15,10 +15,10 @@ import Swash
 final class HudSystem: ListIteratingSystem {
     init() {
         super.init(nodeClass: HudNode.self)
-        nodeUpdateFunction = updateFunction
+        nodeUpdateFunction = updateNode
     }
 
-    private func updateFunction(_ hudNode: Node, _ time: TimeInterval) {
+    func updateNode(_ hudNode: Node, _ time: TimeInterval) {
         guard let hudComponent = hudNode[HudComponent.self],
               let appStateComponent = hudNode[AppStateComponent.self]
         else { return }

@@ -139,6 +139,7 @@
 		9313996B7589CCA869842E12 /* TouchComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139735B7C5C32A3DA6CB9D /* TouchComponents.swift */; };
 		93139985E9931A3012A6B150 /* Creator+ToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139E95FF431FF894CFD502 /* Creator+ToggleButton.swift */; };
 		93139999C782AFD3B2ACD018 /* TransitionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139D4336E12C89FC8BE06B /* TransitionTests.swift */; };
+		931399BCC437F101AA0DA3CB /* HudSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139949CD856130C98A8834 /* HudSystemTests.swift */; };
 		931399C749E2BD0BE4E247A0 /* ApplyThrustComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931397D7C84D4E580EB51E4D /* ApplyThrustComponent.swift */; };
 		931399FC0563308E45F415FF /* GameOverSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313941564944F14B4041467 /* GameOverSystem.swift */; };
 		931399FEBA1404DE9F734910 /* MotionControlsComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139A62ACBE6CDFC10158E7 /* MotionControlsComponent.swift */; };
@@ -306,6 +307,7 @@
 		931397F86C674AD22210D173 /* Creator+CreateHud.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Creator+CreateHud.swift"; sourceTree = "<group>"; };
 		931398B8B6C228DE4D83EF1C /* Touch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Touch.swift; sourceTree = "<group>"; };
 		931398E70F42335F03D272DD /* Transition+InfoViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Transition+InfoViews.swift"; sourceTree = "<group>"; };
+		93139949CD856130C98A8834 /* HudSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudSystemTests.swift; sourceTree = "<group>"; };
 		931399840A8AC5987DF6D3D4 /* FireDownComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireDownComponent.swift; sourceTree = "<group>"; };
 		931399A8022AF1B7FCC53B49 /* RepeatingAudioComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatingAudioComponent.swift; sourceTree = "<group>"; };
 		931399F9256FB8B5F9EBA4E4 /* MovementSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovementSystemTests.swift; sourceTree = "<group>"; };
@@ -568,12 +570,13 @@
 				8DB99F512B2BE7D700C3593A /* TestingAppDelegate.swift */,
 				8D384D992B28F3F300D5564C /* AnimationTests.swift */,
 				8D384D982B28F3F300D5564C /* BulletAgeSystemTests.swift */,
-				9313964664F31540DA9D0416 /* HyperspaceSystemTests.swift */,
-				8DB99F562B2BE9EE00C3593A /* RenderSystemTests.swift */,
 				8DB99F582B2BF2A700C3593A /* GameOverSystemTests.swift */,
-				8DB99F5A2B2C9B4500C3593A /* TransitionAppStateSystemTests.swift */,
+				9313964664F31540DA9D0416 /* HyperspaceSystemTests.swift */,
 				931399F9256FB8B5F9EBA4E4 /* MovementSystemTests.swift */,
+				8DB99F562B2BE9EE00C3593A /* RenderSystemTests.swift */,
+				8DB99F5A2B2C9B4500C3593A /* TransitionAppStateSystemTests.swift */,
 				93139D4336E12C89FC8BE06B /* TransitionTests.swift */,
+				93139949CD856130C98A8834 /* HudSystemTests.swift */,
 			);
 			path = SwashteroidsTests;
 			sourceTree = "<group>";
@@ -857,6 +860,7 @@
 				93139BC5661C918BD0158277 /* HyperspaceSystemTests.swift in Sources */,
 				8DB99F7B2B2E8BE400C3593A /* MovementSystemTests.swift in Sources */,
 				93139999C782AFD3B2ACD018 /* TransitionTests.swift in Sources */,
+				931399BCC437F101AA0DA3CB /* HudSystemTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

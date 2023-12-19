@@ -13,16 +13,16 @@ import Foundation
 
 final class AppStateComponent: Component {
     var size: CGSize
-    var numShips = 0
-    var level = 0
-    var score = 0
+    var numShips: Int
+    var level: Int
+    var score: Int
     var appState: AppState
     var shipControlsState: ShipControlsState
 
     init(size: CGSize,
-         ships: Int = 3,
-         level: Int = 0,
-         score: Int = 0,
+         ships: Int,
+         level: Int,
+         score: Int,
          appState: AppState,
          shipControlsState: ShipControlsState) {
         self.size = size

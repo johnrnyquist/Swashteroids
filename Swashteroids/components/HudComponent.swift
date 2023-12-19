@@ -10,6 +10,7 @@
 
 import Swash
 
+/// This is really a special DisplayComponent.
 final class HudComponent: Component {
     let hudView: HudView
 

@@ -10,21 +10,22 @@
 
 import SpriteKit
 
+/// HudView is not visual, it's an SKNode, its children are.
 class HudView: SKNode {
-    private var score: SKLabelNode!
-    private var ships: SKLabelNode!
-    private var level: SKLabelNode!
+    private var levelLabel: SKLabelNode!
+    private var scoreLabel: SKLabelNode!
+    private var shipsLabel: SKLabelNode!
 
     init(gameSize: CGSize) {
         super.init()
         let textY = gameSize.height - 65
         let textXPadding = 12.0
-        score = createLabel(x:gameSize.width / 2, y: textY, alignment: .center)
-        addChild(score)
-        ships = createLabel(x: textXPadding, y: textY, alignment: .left)
-        addChild(ships)
-        level = createLabel(x: gameSize.width - textXPadding, y: textY, alignment: .right)
-        addChild(level)
+        levelLabel = createLabel(x: gameSize.width - textXPadding, y: textY, alignment: .right)
+        scoreLabel = createLabel(x: gameSize.width / 2, y: textY, alignment: .center)
+        shipsLabel = createLabel(x: textXPadding, y: textY, alignment: .left)
+        addChild(levelLabel)
+        addChild(scoreLabel)
+        addChild(shipsLabel)
     }
 
     required init?(coder: NSCoder) {
@@ -32,27 +33,39 @@ class HudView: SKNode {
     }
 
     func setScore(_ value: Int) {
-        score.text = "SCORE: \(value)"
+        scoreLabel.text = "SCORE: \(value)"
     }
 
     func setNumShips(_ value: Int) {
-        ships.text = "SHIPS: \(value)"
+        shipsLabel.text = "SHIPS: \(value)"
     }
 
     func setLevel(_ value: Int) {
-        level.text = "LEVEL: \(value)"
+        levelLabel.text = "LEVEL: \(value)"
+    }
+
+    func getScoreText() -> String {
+        scoreLabel.text ?? ""
+    }
+
+    func getNumShipsText() -> String {
+        shipsLabel.text ?? ""
+    }
+
+    func getLevelText() -> String {
+        levelLabel.text ?? ""
     }
 
     private func createLabel(text: String = "", x: Double = 0.0, y: Double = 0.0, alignment: SKLabelHorizontalAlignmentMode = .center) -> SKLabelNode {
-        let tf = SKLabelNode()
-        tf.horizontalAlignmentMode = .left
-        tf.fontName = "Futura Condensed Medium"
-        tf.fontColor = .hudText
-        tf.fontSize = 48
-        tf.horizontalAlignmentMode = alignment
-        tf.x = x
-        tf.y = y
-        return tf
+        let label = SKLabelNode()
+        label.horizontalAlignmentMode = .left
+        label.fontName = "Futura Condensed Medium"
+        label.fontColor = .hudText
+        label.fontSize = 48
+        label.horizontalAlignmentMode = alignment
+        label.x = x
+        label.y = y
+        return label
     }
 }
 

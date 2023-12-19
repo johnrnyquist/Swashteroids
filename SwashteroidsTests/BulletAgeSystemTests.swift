@@ -37,7 +37,6 @@ final class BulletAgeSystemTests: XCTestCase {
     }
 
     func test_Init() throws {
-        system = BulletAgeSystem()
         XCTAssertTrue(system.nodeClass == BulletAgeNode.self)
         XCTAssertNotNil(system.nodeUpdateFunction)
     }

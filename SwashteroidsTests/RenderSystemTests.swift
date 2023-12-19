@@ -27,8 +27,23 @@ final class RenderSystemTests: XCTestCase {
         engine = nil
     }
 
-    func test_Init() {
+    func test_Init() throws {
         XCTAssertNotNil(system.scene)
+    }
+    
+    func test_Update() {
+        let sprite = SwashSpriteNode()
+        let display = DisplayComponent(sknode: sprite)
+        let position = PositionComponent(x: 1, y: 2, z: .ship)
+        let entity = Entity()
+                .add(component: display)
+                .add(component: position)
+        try? engine.addEntity(entity: entity)
+        sprite.entity = entity
+        engine.addSystem(system: system, priority: 1)
+        system.update(time: 1)
+        XCTAssertTrue(sprite.position.x == 1)
+        XCTAssertTrue(sprite.position.y == 2)
     }
 
     func test_AddToSystem() {

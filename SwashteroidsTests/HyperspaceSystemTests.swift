@@ -22,7 +22,6 @@ final class HyperspaceSystemTests: XCTestCase {
     }
 
     func test_Init() throws {
-        system = HyperspaceSystem()
         XCTAssertTrue(system.nodeClass == HyperspaceNode.self)
         XCTAssertNotNil(system.nodeUpdateFunction)
     }

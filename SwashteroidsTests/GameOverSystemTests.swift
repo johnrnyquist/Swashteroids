@@ -21,7 +21,6 @@ final class GameOverSystemTests: XCTestCase {
     }
 
     func test_Init() throws {
-        system = GameOverSystem()
         XCTAssertTrue(system.nodeClass == GameOverNode.self)
         XCTAssertNotNil(system.nodeUpdateFunction)
     }
