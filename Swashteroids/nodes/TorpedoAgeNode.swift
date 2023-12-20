@@ -10,7 +10,7 @@
 
 import Swash
 
-final class BulletAgeNode: Node {
+final class TorpedoAgeNode: Node {
     required init() {
         super.init()
         components = [

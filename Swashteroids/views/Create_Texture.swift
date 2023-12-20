@@ -12,7 +12,7 @@ import SpriteKit
 
 let LINE_WIDTH: Double = 2
 
-func createBulletTexture(color: UIColor) -> SKTexture {
+func createTorpedoTexture(color: UIColor) -> SKTexture {
     let rect = CGRect(x: 0, y: 0, width: 7, height: 7)
     let size = CGSize(width: 5, height: 5)
     let renderer = UIGraphicsImageRenderer(size: size)

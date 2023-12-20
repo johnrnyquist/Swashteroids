@@ -13,7 +13,7 @@ import SpriteKit
 import Swash
 
 /**
-Detects if there are no ships, if game is playing, if there are no asteroids, no bullets.
+Detects if there are no ships, if game is playing, if there are no asteroids, no torpedoes.
 Determines when to go to next level.
 Creates the level.
 Determines if a ship needs to be made.

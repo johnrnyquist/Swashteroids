@@ -10,21 +10,21 @@ import SpriteKit
 @testable import Swash
 @testable import Swashteroids
 
-final class BulletAgeSystemTests: XCTestCase {
+final class TorpedoAgeSystemTests: XCTestCase {
     var component: PlasmaTorpedoComponent!
-    var node: BulletAgeNode!
+    var node: TorpedoAgeNode!
     var entity: Entity!
-    var system: BulletAgeSystem!
+    var system: TorpedoAgeSystem!
     var engine: MockEngine!
 
     override func setUpWithError() throws {
         entity = Entity()
         engine = MockEngine()
         component = PlasmaTorpedoComponent(lifeRemaining: 1)
-        node = BulletAgeNode()
+        node = TorpedoAgeNode()
         node.entity = entity
         node.components[PlasmaTorpedoComponent.name] = component
-        system = BulletAgeSystem()
+        system = TorpedoAgeSystem()
         system.addToEngine(engine: engine)
     }
 
@@ -37,7 +37,7 @@ final class BulletAgeSystemTests: XCTestCase {
     }
 
     func test_Init() throws {
-        XCTAssertTrue(system.nodeClass == BulletAgeNode.self)
+        XCTAssertTrue(system.nodeClass == TorpedoAgeNode.self)
         XCTAssertNotNil(system.nodeUpdateFunction)
     }
 

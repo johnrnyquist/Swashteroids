@@ -34,7 +34,7 @@ enum Toggle: String {
 enum Layer: Double {
     case bottom
     case asteroids
-    case bullets
+    case torpedoes
     case ship
     case hud
     case buttons

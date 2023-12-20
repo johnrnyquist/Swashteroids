@@ -12,11 +12,11 @@ import Foundation
 import Swash
 
 
-final class BulletAgeSystem: ListIteratingSystem {
+final class TorpedoAgeSystem: ListIteratingSystem {
     private weak var engine: Engine!
     
     init() {
-        super.init(nodeClass: BulletAgeNode.self)
+        super.init(nodeClass: TorpedoAgeNode.self)
         nodeUpdateFunction = updateNode
     }
 
@@ -26,10 +26,10 @@ final class BulletAgeSystem: ListIteratingSystem {
     }
 
     func updateNode(node: Node, time: TimeInterval) {
-        guard let bulletComponent = node[PlasmaTorpedoComponent.self]
+        guard let torpedoComponent = node[PlasmaTorpedoComponent.self]
         else { return }
-        bulletComponent.lifeRemaining -= time
-        if bulletComponent.lifeRemaining <= 0,
+        torpedoComponent.lifeRemaining -= time
+        if torpedoComponent.lifeRemaining <= 0,
            let entity = node.entity {
             engine.removeEntity(entity: entity)
         }
