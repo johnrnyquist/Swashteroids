@@ -24,16 +24,6 @@ extension Creator: ShipControlButtonsManager {
     }
 
     func createShipControlButtons() {
-        // flip
-        let flipButton = SwashSpriteNode(imageNamed: "flip")
-        flipButton.alpha = 0.2
-        let flipx = flipButton.size.width / 2 + 30
-        let flipy = flipButton.size.height + 120
-        let flipButtonEntity = Entity(name: .flipButton)
-                .add(component: PositionComponent(x: flipx, y: flipy, z: .buttons, rotation: 0.0))
-                .add(component: DisplayComponent(sknode: flipButton))
-        flipButton.entity = flipButtonEntity
-        engine.replaceEntity(entity: flipButtonEntity)
         // left
         let leftButton = SwashSpriteNode(imageNamed: "left")
         leftButton.alpha = 0.2
@@ -78,13 +68,24 @@ extension Creator: ShipControlButtonsManager {
         // hyperspace
         let hyperspaceButton = SwashSpriteNode(imageNamed: "hyperspace")
         hyperspaceButton.alpha = 0.2
-        let hyperspaceX = 1024 - thrustButton.size.width / 2 - 30
+        let hyperspaceX = hyperspaceButton.size.width / 2 + 30
         let hyperspaceY = hyperspaceButton.size.height + 120
         let hyperspaceButtonEntity = Entity(name: .hyperspaceButton)
                 .add(component: PositionComponent(x: hyperspaceX, y: hyperspaceY, z: .buttons, rotation: 0.0))
                 .add(component: DisplayComponent(sknode: hyperspaceButton))
         hyperspaceButton.entity = hyperspaceButtonEntity
         engine.replaceEntity(entity: hyperspaceButtonEntity)
+		// flip
+		let flipButton = SwashSpriteNode(imageNamed: "flip")
+		flipButton.alpha = 0.2
+		let flipx = 1024 - thrustButton.size.width / 2 - 30
+		let flipy = flipButton.size.height + 120
+		let flipButtonEntity = Entity(name: .flipButton)
+			.add(component: PositionComponent(x: flipx, y: flipy, z: .buttons, rotation: 0.0))
+			.add(component: DisplayComponent(sknode: flipButton))
+		flipButton.entity = flipButtonEntity
+		engine.replaceEntity(entity: flipButtonEntity)
+
     }
 
     /// Since buttons are used inertly on the info screen, we need to enable them for gameplay.

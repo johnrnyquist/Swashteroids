@@ -50,34 +50,34 @@ extension Creator: ShipControlQuadrantsManager {
         engine.replaceEntity(entity: q4Entity)
         // Configure the entities
         q1Entity
-                .add(component: DisplayComponent(sknode: q1Sprite))
-                .add(component: PositionComponent(x: q1Sprite.x, y: q1Sprite.y, z: .bottom, rotation: 0))
-                .add(component: TouchableComponent())
-                .add(component: ButtonBehaviorComponent(
-                    touchDown: { [unowned self] sprite in
-                        generator?.impactOccurred()
-                        engine.ship?.add(component: FlipComponent.shared)
-                    },
-                    touchUp: { _ in },
-                    touchUpOutside: { _ in },
-                    touchMoved: { _, _ in }
-                ))
+			.add(component: DisplayComponent(sknode: q2Sprite))
+			.add(component: PositionComponent(x: q2Sprite.x, y: q2Sprite.y, z: .bottom, rotation: 0))
+			.add(component: TouchableComponent())
+			.add(component: ButtonBehaviorComponent(
+				touchDown: { [unowned self] sprite in
+					generator?.impactOccurred()
+					if let ship = self.engine.ship,
+					   ship.has(componentClassName: HyperspaceEngineComponent.name) {
+						engine.ship?.add(component: HyperspaceJumpComponent())
+					}
+				},
+				touchUp: { _ in },
+				touchUpOutside: { _ in },
+				touchMoved: { _, _ in }
+			))
         q2Entity
-                .add(component: DisplayComponent(sknode: q2Sprite))
-                .add(component: PositionComponent(x: q2Sprite.x, y: q2Sprite.y, z: .bottom, rotation: 0))
-                .add(component: TouchableComponent())
-                .add(component: ButtonBehaviorComponent(
-                    touchDown: { [unowned self] sprite in
-                        generator?.impactOccurred()
-                        if let ship = self.engine.ship,
-                           ship.has(componentClassName: HyperspaceEngineComponent.name) {
-                            engine.ship?.add(component: HyperspaceJumpComponent())
-                        }
-                    },
-                    touchUp: { _ in },
-                    touchUpOutside: { _ in },
-                    touchMoved: { _, _ in }
-                ))
+			.add(component: DisplayComponent(sknode: q1Sprite))
+			.add(component: PositionComponent(x: q1Sprite.x, y: q1Sprite.y, z: .bottom, rotation: 0))
+			.add(component: TouchableComponent())
+			.add(component: ButtonBehaviorComponent(
+				touchDown: { [unowned self] sprite in
+					generator?.impactOccurred()
+					engine.ship?.add(component: FlipComponent.shared)
+				},
+				touchUp: { _ in },
+				touchUpOutside: { _ in },
+				touchMoved: { _, _ in }
+			))
         q3Entity
                 .add(component: DisplayComponent(sknode: q3Sprite))
                 .add(component: PositionComponent(x: q3Sprite.x, y: q3Sprite.y, z: .bottom, rotation: 0))
