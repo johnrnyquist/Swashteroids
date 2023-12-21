@@ -56,10 +56,7 @@ extension Creator: ShipControlQuadrantsManager {
                 .add(component: ButtonBehaviorComponent(
                     touchDown: { [unowned self] sprite in
                         generator?.impactOccurred()
-                        if let ship = self.engine.ship,
-                           ship.has(componentClassName: HyperspaceEngineComponent.name) {
-                            engine.ship?.add(component: HyperspaceJumpComponent())
-                        }
+                        engine.ship?.add(component: FlipComponent.shared)
                     },
                     touchUp: { _ in },
                     touchUpOutside: { _ in },
@@ -72,7 +69,10 @@ extension Creator: ShipControlQuadrantsManager {
                 .add(component: ButtonBehaviorComponent(
                     touchDown: { [unowned self] sprite in
                         generator?.impactOccurred()
-                        engine.ship?.add(component: FlipComponent.shared)
+                        if let ship = self.engine.ship,
+                           ship.has(componentClassName: HyperspaceEngineComponent.name) {
+                            engine.ship?.add(component: HyperspaceJumpComponent())
+                        }
                     },
                     touchUp: { _ in },
                     touchUpOutside: { _ in },
