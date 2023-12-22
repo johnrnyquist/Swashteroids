@@ -21,24 +21,27 @@ Has too many responsibilities.
  */
 final class GameManagerSystem: System {
     private var size: CGSize
+    private weak var scene: SKScene!
     private weak var creator: Creator!
     private weak var asteroids: NodeList!
     private weak var torpedoes: NodeList!
     private weak var appStates: NodeList!
     private weak var ships: NodeList!
-    private weak var scene: SKScene!
-    private let spaceshipClearanceRadius: CGFloat = 50 * SCALE_FACTOR
-    private let minimumAsteroidDistance: CGFloat = 80 * SCALE_FACTOR
     private let spaceshipPositionRatio: CGFloat = 0.5
     private let levelUpSound = "braam-6150.wav"
     private let minimumLevel = 1
     private let hudTextFontName = "Futura Condensed Medium"
-    private let hudTextFontSize: CGFloat = 64 * SCALE_FACTOR
+    private var hudTextFontSize: CGFloat = 64
+    private var spaceshipClearanceRadius: CGFloat = 50
+    private var minimumAsteroidDistance: CGFloat = 80
 
-    init(creator: Creator, size: CGSize, scene: SKScene) {
+    init(creator: Creator, size: CGSize, scene: SKScene, scaleManager: ScaleManaging = ScaleManager.shared) {
         self.creator = creator
         self.size = size
         self.scene = scene
+        spaceshipClearanceRadius *= scaleManager.SCALE_FACTOR
+        minimumAsteroidDistance *= scaleManager.SCALE_FACTOR
+        hudTextFontSize *= scaleManager.SCALE_FACTOR
     }
 
     // MARK: - System Overrides
@@ -65,12 +68,12 @@ final class GameManagerSystem: System {
 
     // MARK: - Game Logic
     private func handleGameState(appStateComponent: AppStateComponent, currentStateNode: Node) {
-		// No ships in the NodeList, but we're still playing.
+        // No ships in the NodeList, but we're still playing.
         if ships.empty,
            appStateComponent.appState == .playing {
             handlePlayingState(appStateComponent: appStateComponent, currentStateNode: currentStateNode)
         }
-		// No asteroids or torpedoes but we have a ship, so start a new level.
+        // No asteroids or torpedoes but we have a ship, so start a new level.
         if asteroids.empty,
            torpedoes.empty,
            !ships.empty {
@@ -79,7 +82,7 @@ final class GameManagerSystem: System {
     }
 
     private func handlePlayingState(appStateComponent: AppStateComponent, currentStateNode: Node) {
-		// If we have any ships left, make another and some power-ups
+        // If we have any ships left, make another and some power-ups
         if appStateComponent.numShips > 0 {
             let newSpaceshipPosition = CGPoint(x: size.width * spaceshipPositionRatio,
                                                y: size.height * spaceshipPositionRatio)

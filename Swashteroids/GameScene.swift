@@ -17,19 +17,10 @@ final class GameScene: SKScene {
 
     override func didMove(to view: SKView) {
         super.didMove(to: view)
-//		self.size = view.bounds.size
-        
-        print(size)
-        SCALE_FACTOR = min(min(size.width/WIDTH, 1.0), min(size.height/HEIGHT, 1.0))
-        print(SCALE_FACTOR)
         
         let game = Swashteroids(scene: self)
         delegate = game
         touchDelegate = game
-//		let border = SKSpriteNode(imageNamed: "border")
-//		border.anchorPoint = CGPoint(x: 0, y: 0)
-//		border.position = CGPoint(x: 0, y: 0)
-//		addChild(border)
         //HACK to get around the SpriteKit bug where repeated sounds have a popping noise
         GameScene.sound.run(SKAction.changeVolume(to: 0, duration: 0))
         let addAudioNodeAction = SKAction.run { [unowned self] in

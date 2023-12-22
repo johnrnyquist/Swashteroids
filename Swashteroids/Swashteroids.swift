@@ -8,12 +8,6 @@
 // https://github.com/johnrnyquist/Swash
 //
 
-// EVIL GLOBALS
-var SCALE_FACTOR = 1.0
-let WIDTH = 1024.0
-let HEIGHT = 768.0
-
-
 import Swash
 import SpriteKit
 import CoreMotion
@@ -58,7 +52,12 @@ final class Swashteroids: NSObject {
                 .add(component: AllSoundsComponent.shared)
         try? engine.addEntity(entity: allSoundsEntity)
         // Add the app state entity
-        let appStateComponent = AppStateComponent(size: scene.size, ships: 3, level: 0, score: 0, appState: .start, shipControlsState: .showingButtons)
+        let appStateComponent = AppStateComponent(size: scene.size,
+                                                  ships: 3,
+                                                  level: 0,
+                                                  score: 0,
+                                                  appState: .start,
+                                                  shipControlsState: .showingButtons)
         let appStateEntity = Entity(name: .appState)
                 .add(component: appStateComponent)
                 .add(component: TransitionAppStateComponent(to: .start))

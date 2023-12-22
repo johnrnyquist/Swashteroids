@@ -16,21 +16,20 @@ final class GameViewController: UIViewController {
 	var gameScene: GameScene!
 
 	override func loadView() {
-		print(#function)
+        print(#function)
 		skView = SKView()
 		skView.showsPhysics = false
 		skView.ignoresSiblingOrder = true // true is more optimized rendering, but must set zPosition
 		skView.isUserInteractionEnabled = true
 		skView.isMultipleTouchEnabled = true
 		skView.isUserInteractionEnabled = true
-		self.view = skView
+		view = skView
 	}
 
 	override func viewDidLoad() {
-		print(#function)
-		super.viewDidLoad()
-		
-		let screenSize = UIScreen.main.bounds
+        print(#function)
+
+        let screenSize = UIScreen.main.bounds
 		let screenWidth = screenSize.width
 		let screenHeight = screenSize.height
 
@@ -41,13 +40,6 @@ final class GameViewController: UIViewController {
 
 		skView.presentScene(gameScene)
 	}
-
-//	override func viewWillLayoutSubviews() {
-//		print(#function)
-//		super.viewWillLayoutSubviews()
-//		gameScene.size = skView.bounds.size
-//		skView.presentScene(gameScene)
-//	}
 
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         if UIDevice.current.userInterfaceIdiom == .phone {

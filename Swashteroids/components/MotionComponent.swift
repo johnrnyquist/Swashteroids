@@ -16,8 +16,8 @@ final class MotionComponent: Component {
     var angularVelocity: Double
     var dampening: Double
 
-	init(velocityX: Double, velocityY: Double, angularVelocity: Double = 0.0, dampening: Double = 0.0) {
-        velocity = CGPoint(x: velocityX * SCALE_FACTOR, y: velocityY * SCALE_FACTOR)
+    init(velocityX: Double, velocityY: Double, angularVelocity: Double = 0.0, dampening: Double = 0.0, scaleManager: ScaleManaging = ScaleManager.shared) {
+        velocity = CGPoint(x: velocityX * scaleManager.SCALE_FACTOR, y: velocityY * scaleManager.SCALE_FACTOR)
         self.angularVelocity = angularVelocity
         self.dampening = dampening
     }

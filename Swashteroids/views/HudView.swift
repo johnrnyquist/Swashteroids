@@ -16,10 +16,10 @@ class HudView: SKNode {
     private var scoreLabel: SKLabelNode!
     private var shipsLabel: SKLabelNode!
 
-    init(gameSize: CGSize) {
+    init(gameSize: CGSize, scaleManager: ScaleManaging = ScaleManager.shared) {
         super.init()
-        let textY = gameSize.height - 65 * SCALE_FACTOR
-        let textXPadding = 12.0 * SCALE_FACTOR
+        let textY = gameSize.height - 65 * scaleManager.SCALE_FACTOR
+        let textXPadding = 12.0 * scaleManager.SCALE_FACTOR
         levelLabel = createLabel(x: gameSize.width - textXPadding, y: textY, alignment: .right)
         scoreLabel = createLabel(x: gameSize.width / 2, y: textY, alignment: .center)
         shipsLabel = createLabel(x: textXPadding, y: textY, alignment: .left)
@@ -56,12 +56,14 @@ class HudView: SKNode {
         levelLabel.text ?? ""
     }
 
-    private func createLabel(text: String = "", x: Double = 0.0, y: Double = 0.0, alignment: SKLabelHorizontalAlignmentMode = .center) -> SKLabelNode {
+    private func createLabel(text: String = "", x: Double = 0.0, y: Double = 0.0, 
+                             alignment: SKLabelHorizontalAlignmentMode = .center, 
+                             scaleManager: ScaleManaging = ScaleManager.shared) -> SKLabelNode {
         let label = SKLabelNode()
         label.horizontalAlignmentMode = .left
         label.fontName = "Futura Condensed Medium"
         label.fontColor = .hudText
-        label.fontSize = 48 * SCALE_FACTOR
+        label.fontSize = 48 * scaleManager.SCALE_FACTOR
         label.horizontalAlignmentMode = alignment
         label.x = x
         label.y = y

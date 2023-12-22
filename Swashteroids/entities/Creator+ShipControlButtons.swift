@@ -27,10 +27,10 @@ extension Creator: ShipControlButtonsManager {
         // left
         let leftButton = SwashSpriteNode(imageNamed: "left")
         leftButton.alpha = 0.2
-        let leftx = leftButton.size.width / 2 + 30 * SCALE_FACTOR
-        let lefty = leftButton.size.height / 2 + 30 * SCALE_FACTOR
+        let leftX = leftButton.size.width / 2 + buttonPaddingLeft
+        let leftY = leftButton.size.height / 2 + firstRowButtonPaddingY
         let leftButtonEntity = Entity(name: .leftButton)
-                .add(component: PositionComponent(x: leftx, y: lefty, z: .buttons, rotation: 0.0))
+                .add(component: PositionComponent(x: leftX, y: leftY, z: .buttons, rotation: 0.0))
                 .add(component: DisplayComponent(sknode: leftButton))
         leftButton.entity = leftButtonEntity
         engine.replaceEntity(entity: leftButtonEntity)
@@ -38,38 +38,38 @@ extension Creator: ShipControlButtonsManager {
         let rightButton = SwashSpriteNode(imageNamed: "left")
         rightButton.alpha = 0.2
         rightButton.xScale *= -1.0
-        let rightx = rightButton.size.width + 30 * SCALE_FACTOR + leftx
-        let righty = lefty
+        let rightX = rightButton.size.width + buttonPadding + leftX
+        let rightY = leftY
         let rightButtonEntity = Entity(name: .rightButton)
-                .add(component: PositionComponent(x: rightx, y: righty, z: .buttons, rotation: 0.0))
+                .add(component: PositionComponent(x: rightX, y: rightY, z: .buttons, rotation: 0.0))
                 .add(component: DisplayComponent(sknode: rightButton))
         engine.replaceEntity(entity: rightButtonEntity)
         rightButton.entity = rightButtonEntity
         // thrust
         let thrustButton = SwashSpriteNode(imageNamed: "thrust")
         thrustButton.alpha = 0.2
-        let thrustx = size.width - thrustButton.size.width / 2 - 30 * SCALE_FACTOR
-        let thrusty = lefty
+        let thrustX = size.width - thrustButton.size.width / 2 - buttonPaddingRight
+        let thrustY = leftY
         let thrustButtonEntity = Entity(name: .thrustButton)
-                .add(component: PositionComponent(x: thrustx, y: thrusty, z: .buttons, rotation: 0.0))
+                .add(component: PositionComponent(x: thrustX, y: thrustY, z: .buttons, rotation: 0.0))
                 .add(component: DisplayComponent(sknode: thrustButton))
         thrustButton.entity = thrustButtonEntity
         engine.replaceEntity(entity: thrustButtonEntity)
         // fire
         let fireButton = SwashSpriteNode(imageNamed: "fire")
         fireButton.alpha = 0.2
-        let firex = -thrustButton.size.width - 30 * SCALE_FACTOR + thrustx
-        let firey = lefty
+        let fireX = -thrustButton.size.width - buttonPadding + thrustX
+        let fireY = leftY
         let fireButtonEntity = Entity(name: .fireButton)
-                .add(component: PositionComponent(x: firex, y: firey, z: .buttons, rotation: 0.0))
+                .add(component: PositionComponent(x: fireX, y: fireY, z: .buttons, rotation: 0.0))
                 .add(component: DisplayComponent(sknode: fireButton))
         fireButton.entity = fireButtonEntity
         engine.replaceEntity(entity: fireButtonEntity)
         // hyperspace
         let hyperspaceButton = SwashSpriteNode(imageNamed: "hyperspace")
         hyperspaceButton.alpha = 0.2
-        let hyperspaceX = hyperspaceButton.size.width / 2 + 30 * SCALE_FACTOR
-        let hyperspaceY = hyperspaceButton.size.height + 120 * SCALE_FACTOR
+        let hyperspaceX = leftX
+        let hyperspaceY = hyperspaceButton.size.height + secondRowButtonPaddingY + buttonPadding
         let hyperspaceButtonEntity = Entity(name: .hyperspaceButton)
                 .add(component: PositionComponent(x: hyperspaceX, y: hyperspaceY, z: .buttons, rotation: 0.0))
                 .add(component: DisplayComponent(sknode: hyperspaceButton))
@@ -78,10 +78,10 @@ extension Creator: ShipControlButtonsManager {
         // flip
         let flipButton = SwashSpriteNode(imageNamed: "flip")
         flipButton.alpha = 0.2
-        let flipx = size.width - thrustButton.size.width / 2 - 30 * SCALE_FACTOR
-        let flipy = flipButton.size.height + 120 * SCALE_FACTOR
+        let flipX = thrustX
+        let flipY = hyperspaceY
         let flipButtonEntity = Entity(name: .flipButton)
-                .add(component: PositionComponent(x: flipx, y: flipy, z: .buttons, rotation: 0.0))
+                .add(component: PositionComponent(x: flipX, y: flipY, z: .buttons, rotation: 0.0))
                 .add(component: DisplayComponent(sknode: flipButton))
         flipButton.entity = flipButtonEntity
         engine.replaceEntity(entity: flipButtonEntity)

@@ -26,7 +26,7 @@ extension Creator {
                                                 velocityY: min(Double.random(in: -82.0...82.0) * speedModifier, 100.0),
                                                 angularVelocity: Double.random(in: -100.0...100.0),
                                                 dampening: 0))
-                .add(component: CollisionComponent(radius: radius * SCALE_FACTOR))
+                .add(component: CollisionComponent(radius: radius))
                 .add(component: AsteroidComponent())
                 .add(component: DisplayComponent(sknode: sprite))
         

@@ -11,14 +11,20 @@
 import UIKit
 import SpriteKit
 
+
+
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-		window = UIWindow(frame: UIScreen.main.bounds)
-		window?.rootViewController = GameViewController()
-		window?.makeKeyAndVisible()
-        return true
+        window = UIWindow(frame: UIScreen.main.bounds)
+        if let window {
+            window.rootViewController = GameViewController()
+            window.makeKeyAndVisible()
+            return true
+        } else {
+            return false
+        }
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

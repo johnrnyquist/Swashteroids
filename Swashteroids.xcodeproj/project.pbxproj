@@ -110,6 +110,7 @@
 		8D6D81612B1AB09500AD8D18 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6D81602B1AB09500AD8D18 /* AudioPlayer.swift */; };
 		8D6D81632B1AC52200AD8D18 /* toggle.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D6D81622B1AC52200AD8D18 /* toggle.wav */; };
 		8D714E2E2B3535DC009E1586 /* SKSpriteNode+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D714E2D2B3535DC009E1586 /* SKSpriteNode+extensions.swift */; };
+		8D71C0472B3603CF004D6D0C /* ScaleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139DE0BD2F73AFFAEDE2DA /* ScaleManager.swift */; };
 		8D8A511A2B16880500A5F254 /* plasmaTorpedoesPowerUp.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8D8A51192B16880500A5F254 /* plasmaTorpedoesPowerUp.sks */; };
 		8D9DEF642B059E3800064B01 /* HyperspaceJumpComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9DEF632B059E3800064B01 /* HyperspaceJumpComponent.swift */; };
 		8D9DEF662B059EC400064B01 /* HyperspaceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9DEF652B059EC400064B01 /* HyperspaceNode.swift */; };
@@ -320,6 +321,7 @@
 		93139BD2BE63CAC32979ABA3 /* HyperspaceEngineComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HyperspaceEngineComponent.swift; sourceTree = "<group>"; };
 		93139C73A66D8863A166745D /* Creator+CreatePowerUp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Creator+CreatePowerUp.swift"; sourceTree = "<group>"; };
 		93139D4336E12C89FC8BE06B /* TransitionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionTests.swift; sourceTree = "<group>"; };
+		93139DE0BD2F73AFFAEDE2DA /* ScaleManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScaleManager.swift; sourceTree = "<group>"; };
 		93139DF99E2237817263DF63 /* Transition+Playing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Transition+Playing.swift"; sourceTree = "<group>"; };
 		93139E95FF431FF894CFD502 /* Creator+ToggleButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Creator+ToggleButton.swift"; sourceTree = "<group>"; };
 		93139EB3AE52346EF745211F /* FlipComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlipComponent.swift; sourceTree = "<group>"; };
@@ -400,6 +402,7 @@
 				8D23C18C2B02C59D00F7D878 /* sounds */,
 				8D23C1972B02C59D00F7D878 /* views */,
 				8D59EDDD2B138ED6003BD073 /* Badloc ICG.ttf */,
+				93139DE0BD2F73AFFAEDE2DA /* ScaleManager.swift */,
 			);
 			path = Swashteroids;
 			sourceTree = "<group>";
@@ -776,6 +779,7 @@
 				8D6A0E012B0AB82E00F2E137 /* GameOverComponent.swift in Sources */,
 				8D23C1A42B02C59D00F7D878 /* DeathThroesNode.swift in Sources */,
 				8D23C1A82B02C59D00F7D878 /* GunSupplierNode.swift in Sources */,
+				8D71C0472B3603CF004D6D0C /* ScaleManager.swift in Sources */,
 				8D23C1B42B02C59D00F7D878 /* AudioComponent.swift in Sources */,
 				8D23C1A62B02C59D00F7D878 /* StartNode.swift in Sources */,
 				8D23C1CE2B02C59D00F7D878 /* HudSystem.swift in Sources */,

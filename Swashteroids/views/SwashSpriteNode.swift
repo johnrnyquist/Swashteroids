@@ -15,9 +15,18 @@ import Swash
 class SwashSpriteNode: SKSpriteNode {
     weak var entity: Entity?
 
+    func setup(scaleManager: ScaleManaging = ScaleManager.shared) {
+        scale = scaleManager.SCALE_FACTOR
+    }
+
     override init(texture: SKTexture?, color: UIColor, size: CGSize) {
         super.init(texture: texture, color: color, size: size)
-        scale = SCALE_FACTOR
+        setup()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setup()
     }
 
     convenience init(texture: SKTexture?, size: CGSize) {
@@ -42,11 +51,6 @@ class SwashSpriteNode: SKSpriteNode {
 
     convenience init(color: UIColor, size: CGSize) {
         self.init(texture: nil, color: color, size: size)
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-		scale = SCALE_FACTOR
     }
 }
 

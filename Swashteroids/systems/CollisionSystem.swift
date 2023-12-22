@@ -22,10 +22,12 @@ final class CollisionSystem: System {
     private weak var hyperspacePowerUp: NodeList!
     private weak var engine: Engine!
     private var size: CGSize
+    let scaleManager: ScaleManaging
 
-    init(_ creator: Creator, size: CGSize) {
+    init(_ creator: Creator, size: CGSize, scaleManager: ScaleManaging = ScaleManager.shared) {
         self.creator = creator
         self.size = size
+        self.scaleManager = scaleManager
     }
 
     override public func addToEngine(engine: Engine) {
@@ -47,12 +49,12 @@ final class CollisionSystem: System {
         shipAsteroidCollisionCheck()
     }
 
-    private func splitAsteroid(asteroidCollision: CollisionComponent, asteroidPosition: PositionComponent, 
+    private func splitAsteroid(asteroidCollision: CollisionComponent, asteroidPosition: PositionComponent,
                                asteroidCollisionNode: Node?, splits: Int = 2, level: Int) {
         guard let asteroidCollisionNode else { return }
-        if (asteroidCollision.radius > LARGE_ASTEROID_RADIUS*SCALE_FACTOR / 4) {
+        if (asteroidCollision.radius > LARGE_ASTEROID_RADIUS * scaleManager.SCALE_FACTOR / 4) {
             for _ in 1...splits {
-				creator.createAsteroid(radius: asteroidCollision.radius * 1.0/SCALE_FACTOR / 2,
+                creator.createAsteroid(radius: asteroidCollision.radius * 1.0 / scaleManager.SCALE_FACTOR / 2.0,
                                        x: asteroidPosition.x + Double.random(in: -5...5),
                                        y: asteroidPosition.y + Double.random(in: -5...5),
                                        level: level)
@@ -103,6 +105,7 @@ final class CollisionSystem: System {
             torpedoPowerUpNode = torpedoPowerUpNode?.next
         }
     }
+
     func shipHSCollisionCheck() {
         let shipCollisionNode = ships.head
         var hyperspacePowerUpNode = hyperspacePowerUp?.head
@@ -202,7 +205,7 @@ final class CollisionSystem: System {
             shipCollisionNode = shipCollisionNode?.next
         }
     }
-    
+
     override public func removeFromEngine(engine: Engine) {
         creator = nil
         appStateNodes = nil
