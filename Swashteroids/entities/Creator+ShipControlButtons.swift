@@ -69,7 +69,7 @@ extension Creator: ShipControlButtonsManager {
         let hyperspaceButton = SwashSpriteNode(imageNamed: "hyperspace")
         hyperspaceButton.alpha = 0.2
         let hyperspaceX = leftX
-        let hyperspaceY = hyperspaceButton.size.height + secondRowButtonPaddingY + buttonPadding
+        let hyperspaceY = leftY + hyperspaceButton.size.height + buttonPadding
         let hyperspaceButtonEntity = Entity(name: .hyperspaceButton)
                 .add(component: PositionComponent(x: hyperspaceX, y: hyperspaceY, z: .buttons, rotation: 0.0))
                 .add(component: DisplayComponent(sknode: hyperspaceButton))

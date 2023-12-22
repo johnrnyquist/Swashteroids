@@ -25,6 +25,13 @@ class GameOverView: SwashSpriteNode {
         super.init(texture: nil, color: .clear, size: size)
         name = "gameOverView"
         addChild(gameOver)
+		let swash = SwashSpriteNode(imageNamed: "swash")
+        swash.anchorPoint = CGPoint(x: 0.5, y: 1)
+		swash.scale *= 2.0
+        swash.alpha = 0.5
+		swash.y = gameOver.y - 30
+		addChild(swash)
+
         zPosition = Layer.top.rawValue
     }
 

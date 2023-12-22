@@ -16,11 +16,9 @@ final class StartView: SwashSpriteNode {
     let title: SKSpriteNode
     let versionInfo: SKLabelNode
     var versionInfoFontSize = 21.0
-    var buttonsYPosition = 50.0
 
     init(gameSize: CGSize, scaleManager: ScaleManaging = ScaleManager.shared) {
         versionInfoFontSize *= scaleManager.SCALE_FACTOR
-        buttonsYPosition *= scaleManager.SCALE_FACTOR
         // Initialize StartView constants
         versionInfo = SKLabelNode(text: "Nyquist Art + Logic, LLC v\(appVersion) (build \(appBuild))")
         title = SwashSpriteNode(imageNamed: "title")
@@ -37,9 +35,11 @@ final class StartView: SwashSpriteNode {
         title.position = CGPoint(x: size.width / 2, y: size.height / 2)
         // Configure rocks
         let leftRocks = SwashSpriteNode(imageNamed: "rocks_left")
+        leftRocks.scale *= 1.25
         leftRocks.anchorPoint = CGPoint(x: 0, y: 1)
         leftRocks.position = CGPoint(x: -leftRocks.frame.width, y: size.height)
         let rightRocks = SwashSpriteNode(imageNamed: "rocks_right")
+        rightRocks.scale *= 1.25
         rightRocks.anchorPoint = CGPoint(x: 0, y: 1)
         rightRocks.position = CGPoint(x: size.width + rightRocks.frame.width, y: size.height)
         // Configure ship
@@ -73,14 +73,18 @@ final class StartView: SwashSpriteNode {
         versionInfo.alpha = 0
         versionInfo.horizontalAlignmentMode = .center
         // Configure buttons
-        noButtons.anchorPoint = .zero
-        noButtons.name = "nobuttons"
-        noButtons.alpha = 0.2
-        noButtons.position = CGPoint(x: 10, y: buttonsYPosition)
-        buttons.anchorPoint = .zero
-        buttons.name = "buttons"
-        buttons.alpha = 0.2
-        buttons.position = CGPoint(x: gameSize.width - buttons.size.width, y: buttonsYPosition)
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+           let window = appDelegate.window {
+            noButtons.anchorPoint = .zero
+            noButtons.name = "nobuttons"
+            noButtons.alpha = 0.2
+            noButtons.position = CGPoint(x: max(window.safeAreaInsets.left, 10), y: max(window.safeAreaInsets.bottom, 10))
+            buttons.anchorPoint = .zero
+            buttons.name = "buttons"
+            buttons.alpha = 0.2
+            buttons.position = CGPoint(x: gameSize.width - buttons.size.width - max(window.safeAreaInsets.right, 10),
+                                       y: max(window.safeAreaInsets.bottom, 10))
+        }
         // Add children
         addChild(leftRocks)
         addChild(rightRocks)

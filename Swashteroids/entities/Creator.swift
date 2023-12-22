@@ -23,7 +23,6 @@ class Creator {
     var buttonPaddingLeft = 30.0
     var buttonPaddingRight = 30.0
     var firstRowButtonPaddingY = 30.0
-    var secondRowButtonPaddingY = 120.0
 
     init(engine: Engine, size: CGSize, generator: UIImpactFeedbackGenerator? = nil, scaleManager: ScaleManaging = ScaleManager.shared) {
         self.scaleManager = scaleManager
@@ -31,15 +30,14 @@ class Creator {
         buttonPaddingLeft *= scaleManager.SCALE_FACTOR
         buttonPaddingRight *= scaleManager.SCALE_FACTOR
         firstRowButtonPaddingY *= scaleManager.SCALE_FACTOR
-        secondRowButtonPaddingY *= scaleManager.SCALE_FACTOR
         self.engine = engine
         self.size = size
         self.generator = generator
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
            let window = appDelegate.window {
-            buttonPaddingLeft += window.safeAreaInsets.left
-            buttonPaddingRight += window.safeAreaInsets.right
-            firstRowButtonPaddingY += window.safeAreaInsets.bottom
+            buttonPaddingLeft += max(window.safeAreaInsets.left, 10)
+            buttonPaddingRight += max(window.safeAreaInsets.right, 10)
+            firstRowButtonPaddingY += max(window.safeAreaInsets.bottom, 10)
         }
     }
 

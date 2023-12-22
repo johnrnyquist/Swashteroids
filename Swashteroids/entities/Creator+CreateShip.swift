@@ -32,7 +32,7 @@ class ShipEntity: Entity {
         let shipSprite = SwashSpriteNode(texture: createShipTexture())
         shipSprite.name = name
         shipSprite.zPosition = Layer.ship.rawValue
-        let nacellesSprite = SwashSpriteNode(texture: createNacelleTexture())
+        let nacellesSprite = SKSpriteNode(texture: createNacelleTexture())
         nacellesSprite.zPosition = shipSprite.zPosition + 0.1
         nacellesSprite.isHidden = true
         nacellesSprite.name = "nacelles"
