@@ -10,7 +10,7 @@
 		8D23C1362B02C4CA00F7D878 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1352B02C4CA00F7D878 /* AppDelegate.swift */; };
 		8D23C13C2B02C4CA00F7D878 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C13B2B02C4CA00F7D878 /* GameScene.swift */; };
 		8D23C13E2B02C4CA00F7D878 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C13D2B02C4CA00F7D878 /* GameViewController.swift */; };
-		8D23C1432B02C4CC00F7D878 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C1422B02C4CC00F7D878 /* Assets.xcassets */; };
+		8D23C1432B02C4CC00F7D878 /* SwashteroidsAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C1422B02C4CC00F7D878 /* SwashteroidsAssets.xcassets */; };
 		8D23C1462B02C4CC00F7D878 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C1442B02C4CC00F7D878 /* LaunchScreen.storyboard */; };
 		8D23C14E2B02C4E800F7D878 /* Swash in Frameworks */ = {isa = PBXBuildFile; productRef = 8D23C14D2B02C4E800F7D878 /* Swash */; };
 		8D23C19D2B02C59D00F7D878 /* Swashteroids.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C14F2B02C59B00F7D878 /* Swashteroids.swift */; };
@@ -175,7 +175,7 @@
 		8D23C1352B02C4CA00F7D878 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8D23C13B2B02C4CA00F7D878 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		8D23C13D2B02C4CA00F7D878 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
-		8D23C1422B02C4CC00F7D878 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8D23C1422B02C4CC00F7D878 /* SwashteroidsAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = SwashteroidsAssets.xcassets; sourceTree = "<group>"; };
 		8D23C1452B02C4CC00F7D878 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8D23C14F2B02C59B00F7D878 /* Swashteroids.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Swashteroids.swift; sourceTree = "<group>"; };
 		8D23C1502B02C59B00F7D878 /* Enums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
@@ -374,7 +374,7 @@
 			children = (
 				8DB99F762B2D363E00C3593A /* Swashteroids.entitlements */,
 				8D688FBE2B068E2200056CD3 /* Info.plist */,
-				8D23C1422B02C4CC00F7D878 /* Assets.xcassets */,
+				8D23C1422B02C4CC00F7D878 /* SwashteroidsAssets.xcassets */,
 				8D23C1442B02C4CC00F7D878 /* LaunchScreen.storyboard */,
 				8DB99F532B2BE81800C3593A /* main.swift */,
 				8D23C1352B02C4CA00F7D878 /* AppDelegate.swift */,
@@ -709,7 +709,7 @@
 				8D23C1D62B02C59D00F7D878 /* saucerBig.wav in Resources */,
 				8D688FBD2B0680D900056CD3 /* hyperspace.wav in Resources */,
 				8D23C1EB2B02CD9800F7D878 /* LICENSE.md in Resources */,
-				8D23C1432B02C4CC00F7D878 /* Assets.xcassets in Resources */,
+				8D23C1432B02C4CC00F7D878 /* SwashteroidsAssets.xcassets in Resources */,
 				8D23C1E92B02CD7E00F7D878 /* README.md in Resources */,
 				8D23C1C42B02C59D00F7D878 /* plasmaTorpedo.sks in Resources */,
 				8D4627662B251761007F01E6 /* powerup.wav in Resources */,
