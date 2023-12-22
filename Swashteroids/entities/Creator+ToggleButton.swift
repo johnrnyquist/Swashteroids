@@ -28,7 +28,7 @@ extension Creator: ToggleButtonManager {
         sprite.name = name
         sprite.alpha = 0.2
         let x = size.width / 2
-        let y = 90.0
+        let y = 90.0 * SCALE_FACTOR
         let toggleEntity = Entity(name: .toggleButton)
                 .add(component: PositionComponent(x: x, y: y, z: .buttons))
                 .add(component: DisplayComponent(sknode: sprite))

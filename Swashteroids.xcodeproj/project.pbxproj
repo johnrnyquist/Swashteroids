@@ -109,6 +109,7 @@
 		8D6D815F2B1A7A9E00AD8D18 /* ButtonsInfo.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8D6D815E2B1A7A9E00AD8D18 /* ButtonsInfo.sks */; };
 		8D6D81612B1AB09500AD8D18 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6D81602B1AB09500AD8D18 /* AudioPlayer.swift */; };
 		8D6D81632B1AC52200AD8D18 /* toggle.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D6D81622B1AC52200AD8D18 /* toggle.wav */; };
+		8D714E2E2B3535DC009E1586 /* SKSpriteNode+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D714E2D2B3535DC009E1586 /* SKSpriteNode+extensions.swift */; };
 		8D8A511A2B16880500A5F254 /* plasmaTorpedoesPowerUp.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8D8A51192B16880500A5F254 /* plasmaTorpedoesPowerUp.sks */; };
 		8D9DEF642B059E3800064B01 /* HyperspaceJumpComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9DEF632B059E3800064B01 /* HyperspaceJumpComponent.swift */; };
 		8D9DEF662B059EC400064B01 /* HyperspaceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9DEF652B059EC400064B01 /* HyperspaceNode.swift */; };
@@ -274,6 +275,7 @@
 		8D6D815E2B1A7A9E00AD8D18 /* ButtonsInfo.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ButtonsInfo.sks; sourceTree = "<group>"; };
 		8D6D81602B1AB09500AD8D18 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 		8D6D81622B1AC52200AD8D18 /* toggle.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = toggle.wav; sourceTree = "<group>"; };
+		8D714E2D2B3535DC009E1586 /* SKSpriteNode+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SKSpriteNode+extensions.swift"; sourceTree = "<group>"; };
 		8D8A51192B16880500A5F254 /* plasmaTorpedoesPowerUp.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = plasmaTorpedoesPowerUp.sks; sourceTree = "<group>"; };
 		8D9DEF632B059E3800064B01 /* HyperspaceJumpComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyperspaceJumpComponent.swift; sourceTree = "<group>"; };
 		8D9DEF652B059EC400064B01 /* HyperspaceNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyperspaceNode.swift; sourceTree = "<group>"; };
@@ -383,6 +385,7 @@
 				8D651D6B2B278BB30088AEEF /* Swashteroids+SKSceneDelegate.swift */,
 				8D23C1502B02C59B00F7D878 /* Enums.swift */,
 				8DA97A952B23581100E7495A /* Int+SystemPriorities.swift */,
+				8D714E2D2B3535DC009E1586 /* SKSpriteNode+extensions.swift */,
 				931394D1D0B636772EE1DFF7 /* String+EntityNames.swift */,
 				8D6AD4B32B09D2B000E258BF /* Engine+extension.swift */,
 				8D23C1E42B02C81D00F7D878 /* CGPoint+extensions.swift */,
@@ -795,6 +798,7 @@
 				8DD26DC92B22D7E300DA5BC3 /* AccelerometerNode.swift in Sources */,
 				8D23C1E72B02C81D00F7D878 /* Double+extensions.swift in Sources */,
 				8D9DEF682B059F2800064B01 /* HyperspaceSystem.swift in Sources */,
+				8D714E2E2B3535DC009E1586 /* SKSpriteNode+extensions.swift in Sources */,
 				8D23C1BB2B02C59D00F7D878 /* GunComponent.swift in Sources */,
 				8D6A0E032B0AB84B00F2E137 /* GameOverNode.swift in Sources */,
 				8D9DEF642B059E3800064B01 /* HyperspaceJumpComponent.swift in Sources */,
@@ -1024,7 +1028,6 @@
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationLandscapeRight;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1057,7 +1060,6 @@
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationLandscapeRight;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -34,8 +34,8 @@ extension Creator {
                                                   z: Layer.torpedoes,
                                                   rotation: 0))
                 .add(component: CollisionComponent(radius: 0))
-                .add(component: MotionComponent(velocityX: cos * 220 + parentMotion.velocity.x,
-                                                velocityY: sin * 220 + parentMotion.velocity.y,
+				.add(component: MotionComponent(velocityX: cos * 220 + parentMotion.velocity.x * 1.0/SCALE_FACTOR,
+												velocityY: sin * 220 + parentMotion.velocity.y * 1.0/SCALE_FACTOR,
                                                 angularVelocity: 0 + parentMotion.angularVelocity,
                                                 dampening: 0 + parentMotion.dampening))
                 .add(component: DisplayComponent(sknode: sprite))

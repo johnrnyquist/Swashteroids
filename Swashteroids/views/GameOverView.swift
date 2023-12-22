@@ -11,20 +11,19 @@
 import SpriteKit
 
 class GameOverView: SwashSpriteNode {
-    lazy private var gameOver: SKLabelNode = {
+	private var gameOver: SKLabelNode = {
         let gameOver = SKLabelNode(text: "Game Over")
+		gameOver.name = "gameOverLabel"
         gameOver.fontName = "Badloc ICG"
         gameOver.fontColor = .waitText
         gameOver.fontSize = 96
         gameOver.horizontalAlignmentMode = .center
-        gameOver.position = CGPoint(x: size.width / 2, y: size.height * 0.55)
         return gameOver
     }()
 
     init(size: CGSize) {
         super.init(texture: nil, color: .clear, size: size)
-        name = "gameOver"
-        anchorPoint = .zero
+        name = "gameOverView"
         addChild(gameOver)
         zPosition = Layer.top.rawValue
     }

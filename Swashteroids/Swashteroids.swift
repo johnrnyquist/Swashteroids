@@ -8,6 +8,12 @@
 // https://github.com/johnrnyquist/Swash
 //
 
+// EVIL GLOBALS
+var SCALE_FACTOR = 1.0
+let WIDTH = 1024.0
+let HEIGHT = 768.0
+
+
 import Swash
 import SpriteKit
 import CoreMotion
@@ -78,7 +84,7 @@ final class Swashteroids: NSObject {
                 .addSystem(system: RightSystem(), priority: .move)
                 .addSystem(system: ThrustSystem(), priority: .move)
                 // resolve collisions
-                .addSystem(system: CollisionSystem(creator), priority: .resolveCollisions)
+                .addSystem(system: CollisionSystem(creator, size: scene.size), priority: .resolveCollisions)
                 // animate
                 .addSystem(system: AnimationSystem(), priority: .animate)
                 .addSystem(system: HudSystem(), priority: .animate)

@@ -22,62 +22,75 @@ extension Creator: ShipControlQuadrantsManager {
         engine.removeEntities(named: quadrants)
     }
 
+    func createQuadrantSprite(quadrant: Int, entity: Entity) -> SwashSpriteNode {
+        let position: CGPoint
+        switch quadrant {
+            case 1:
+                position = CGPoint(x: 0, y: size.height / 2)
+            case 2:
+                position = CGPoint(x: size.width / 2, y: size.height / 2)
+            case 3:
+                position = CGPoint(x: 0, y: 0)
+            case 4:
+                position = CGPoint(x: size.width / 2, y: 0)
+            default:
+                position = .zero
+        }
+        let quadrantSprite = SwashSpriteNode(color: .black, size: CGSize(width: size.width / 2, height: size.height / 2))
+        quadrantSprite.anchorPoint = CGPoint(x: 0, y: 0)
+        quadrantSprite.position = position
+        quadrantSprite.scale = 1.0
+        quadrantSprite.entity = entity
+        return quadrantSprite
+    }
+
     /// Instead of visible buttons, the player will be able to touch quadrants on the screen to control the ship.
     func createShipControlQuadrants() {
-        let noButtonsInfoArt = SKScene(fileNamed: "NoButtonsInfo.sks")!
-        let q1Sprite = noButtonsInfoArt.childNode(withName: "//q1") as! SwashSpriteNode
-        let q2Sprite = noButtonsInfoArt.childNode(withName: "//q2") as! SwashSpriteNode
-        let q3Sprite = noButtonsInfoArt.childNode(withName: "//q3") as! SwashSpriteNode
-        let q4Sprite = noButtonsInfoArt.childNode(withName: "//q4") as! SwashSpriteNode
-        q1Sprite.removeFromParent()
-        q2Sprite.removeFromParent()
-        q3Sprite.removeFromParent()
-        q4Sprite.removeFromParent()
         // Create the entities
         let q1Entity = Entity(name: .q1)
         let q2Entity = Entity(name: .q2)
         let q3Entity = Entity(name: .q3)
         let q4Entity = Entity(name: .q4)
-        // Assign entities to sprites
-        q1Sprite.entity = q1Entity
-        q2Sprite.entity = q2Entity
-        q3Sprite.entity = q3Entity
-        q4Sprite.entity = q4Entity
-        // Add entities to engine
+        // Create the sprites, with associated entities
+        let q1Sprite = createQuadrantSprite(quadrant: 1, entity:q1Entity)
+        let q2Sprite = createQuadrantSprite(quadrant: 2, entity:q2Entity)
+        let q3Sprite = createQuadrantSprite(quadrant: 3, entity:q3Entity)
+        let q4Sprite = createQuadrantSprite(quadrant: 4, entity:q4Entity)
+        // Add the entities to the engine
         engine.replaceEntity(entity: q1Entity)
         engine.replaceEntity(entity: q2Entity)
         engine.replaceEntity(entity: q3Entity)
         engine.replaceEntity(entity: q4Entity)
         // Configure the entities
         q1Entity
-			.add(component: DisplayComponent(sknode: q2Sprite))
-			.add(component: PositionComponent(x: q2Sprite.x, y: q2Sprite.y, z: .bottom, rotation: 0))
-			.add(component: TouchableComponent())
-			.add(component: ButtonBehaviorComponent(
-				touchDown: { [unowned self] sprite in
-					generator?.impactOccurred()
-					if let ship = self.engine.ship,
-					   ship.has(componentClassName: HyperspaceEngineComponent.name) {
-						engine.ship?.add(component: HyperspaceJumpComponent())
-					}
-				},
-				touchUp: { _ in },
-				touchUpOutside: { _ in },
-				touchMoved: { _, _ in }
-			))
+                .add(component: DisplayComponent(sknode: q1Sprite))
+                .add(component: PositionComponent(x: q1Sprite.x, y: q1Sprite.y, z: .bottom, rotation: 0))
+                .add(component: TouchableComponent())
+                .add(component: ButtonBehaviorComponent(
+                    touchDown: { [unowned self] sprite in
+                        generator?.impactOccurred()
+                        if let ship = self.engine.ship,
+                           ship.has(componentClassName: HyperspaceEngineComponent.name) {
+                            engine.ship?.add(component: HyperspaceJumpComponent(size: size))
+                        }
+                    },
+                    touchUp: { _ in },
+                    touchUpOutside: { _ in },
+                    touchMoved: { _, _ in }
+                ))
         q2Entity
-			.add(component: DisplayComponent(sknode: q1Sprite))
-			.add(component: PositionComponent(x: q1Sprite.x, y: q1Sprite.y, z: .bottom, rotation: 0))
-			.add(component: TouchableComponent())
-			.add(component: ButtonBehaviorComponent(
-				touchDown: { [unowned self] sprite in
-					generator?.impactOccurred()
-					engine.ship?.add(component: FlipComponent.shared)
-				},
-				touchUp: { _ in },
-				touchUpOutside: { _ in },
-				touchMoved: { _, _ in }
-			))
+                .add(component: DisplayComponent(sknode: q2Sprite))
+                .add(component: PositionComponent(x: q2Sprite.x, y: q2Sprite.y, z: .bottom, rotation: 0))
+                .add(component: TouchableComponent())
+                .add(component: ButtonBehaviorComponent(
+                    touchDown: { [unowned self] sprite in
+                        generator?.impactOccurred()
+                        engine.ship?.add(component: FlipComponent.shared)
+                    },
+                    touchUp: { _ in },
+                    touchUpOutside: { _ in },
+                    touchMoved: { _, _ in }
+                ))
         q3Entity
                 .add(component: DisplayComponent(sknode: q3Sprite))
                 .add(component: PositionComponent(x: q3Sprite.x, y: q3Sprite.y, z: .bottom, rotation: 0))

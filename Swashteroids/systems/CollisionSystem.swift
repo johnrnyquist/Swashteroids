@@ -21,9 +21,11 @@ final class CollisionSystem: System {
     private weak var torpedoPowerUp: NodeList!
     private weak var hyperspacePowerUp: NodeList!
     private weak var engine: Engine!
+    private var size: CGSize
 
-    init(_ creator: Creator) {
+    init(_ creator: Creator, size: CGSize) {
         self.creator = creator
+        self.size = size
     }
 
     override public func addToEngine(engine: Engine) {
@@ -48,9 +50,9 @@ final class CollisionSystem: System {
     private func splitAsteroid(asteroidCollision: CollisionComponent, asteroidPosition: PositionComponent, 
                                asteroidCollisionNode: Node?, splits: Int = 2, level: Int) {
         guard let asteroidCollisionNode else { return }
-        if (asteroidCollision.radius > LARGE_ASTEROID_RADIUS / 4) {
+        if (asteroidCollision.radius > LARGE_ASTEROID_RADIUS*SCALE_FACTOR / 4) {
             for _ in 1...splits {
-                creator.createAsteroid(radius: asteroidCollision.radius / 2,
+				creator.createAsteroid(radius: asteroidCollision.radius * 1.0/SCALE_FACTOR / 2,
                                        x: asteroidPosition.x + Double.random(in: -5...5),
                                        y: asteroidPosition.y + Double.random(in: -5...5),
                                        level: level)

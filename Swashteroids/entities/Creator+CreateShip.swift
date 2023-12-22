@@ -13,7 +13,7 @@ import SpriteKit
 
 extension Creator {
     func createShip(_ state: AppStateComponent) {
-        let ship = ShipEntity(name: .ship, state: state)
+        let ship = ShipEntity(name: .ship, state: state, size: size)
         do {
             try engine.addEntity(entity: ship)
         } catch SwashError.entityNameAlreadyInUse(let message) {
@@ -27,7 +27,7 @@ extension Creator {
 /// I prefer to keep Entities as simple as possible, but this is a special case since
 /// the ship is the player’s avatar, it is the most important entity in the game.
 class ShipEntity: Entity {
-    init(name: String, state: AppStateComponent) {
+    init(name: String, state: AppStateComponent, size: CGSize) {
         super.init(name: name)
         let shipSprite = SwashSpriteNode(texture: createShipTexture())
         shipSprite.name = name
@@ -43,7 +43,7 @@ class ShipEntity: Entity {
         add(component: PositionComponent(x: state.size.width/2, y: state.size.height/2, z: .ship, rotation: 0.0))
         add(component: ShipComponent())
         add(component: MotionComponent(velocityX: 0.0, velocityY: 0.0, dampening: 0.0))
-        add(component: CollisionComponent(radius: 25))
+        add(component: CollisionComponent(radius: 25 * SCALE_FACTOR))
         add(component: DisplayComponent(sknode: shipSprite))
         add(component: MotionControlsComponent(left: 1, right: 2, accelerate: 4, accelerationRate: 90, rotationRate: 100))
         add(component: InputComponent.shared)

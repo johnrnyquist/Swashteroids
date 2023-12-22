@@ -27,7 +27,7 @@ extension Creator {
                 .add(component: GunPowerUpComponent())
                 .add(component: positionComponent)
                 .add(component: motionComponent)
-                .add(component: CollisionComponent(radius: radius))
+                .add(component: CollisionComponent(radius: radius * SCALE_FACTOR))
                 .add(component: DisplayComponent(sknode: sprite))
                 .add(component: AnimationComponent(animation: sprite))
         engine.replaceEntity(entity: entity)
@@ -48,7 +48,7 @@ extension Creator {
                 .add(component: HyperspacePowerUpComponent())
                 .add(component: positionComponent)
                 .add(component: motionComponent)
-                .add(component: CollisionComponent(radius: radius))
+                .add(component: CollisionComponent(radius: radius * SCALE_FACTOR))
                 .add(component: DisplayComponent(sknode: sprite))
                 .add(component: AnimationComponent(animation: sprite))
         engine.replaceEntity(entity: entity)
@@ -57,8 +57,8 @@ extension Creator {
     private func createRandomPosition(level: Double, layer: Layer) -> PositionComponent {
         let r1 = Double.random(in: 75.0...(level * 130)) * [-1, 1].randomElement()!
         let r2 = Double.random(in: 75.0...(level * 100)) * [-1, 1].randomElement()!
-        let centerX = min(size.width / 2.0 + r1, 1024)
-        let centerY = min(size.height / 2.0 + r2, 768)
+		let centerX = min(size.width / 2.0 + r1, size.width)
+		let centerY = min(size.height / 2.0 + r2, size.height)
         return PositionComponent(x: centerX, y: centerY, z: layer, rotation: 0.0)
     }
 

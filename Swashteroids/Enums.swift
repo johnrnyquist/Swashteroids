@@ -10,7 +10,7 @@
 
 import Swash
 
-let LARGE_ASTEROID_RADIUS = 54.0
+var LARGE_ASTEROID_RADIUS = 54.0
 
 enum AppState {
     case start

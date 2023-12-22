@@ -12,31 +12,42 @@ import UIKit
 import SpriteKit
 
 final class GameViewController: UIViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        let skview = createView()
-        view = skview
-        let scene = createScene(size: skview.frame.size)
-        skview.presentScene(scene)
-    }
+	var skView: SKView!
+	var gameScene: GameScene!
 
-    func createView() -> SKView {
-        let skview = SKView(frame: CGRect(x: 0, y: 0, width: 1024, height: 768))
-        skview.showsPhysics = false
-        skview.ignoresSiblingOrder = true // true is more optimized rendering, but must set zPosition
-        skview.isUserInteractionEnabled = true
-        skview.isMultipleTouchEnabled = true
-        skview.isUserInteractionEnabled = true
-        return skview
-    }
+	override func loadView() {
+		print(#function)
+		skView = SKView()
+		skView.showsPhysics = false
+		skView.ignoresSiblingOrder = true // true is more optimized rendering, but must set zPosition
+		skView.isUserInteractionEnabled = true
+		skView.isMultipleTouchEnabled = true
+		skView.isUserInteractionEnabled = true
+		self.view = skView
+	}
 
-    func createScene(size: CGSize) -> SKScene {
-        let scene = GameScene(size: size)
-        scene.name = "gameScene"
-        scene.anchorPoint = .zero
-        scene.scaleMode = .aspectFit
-        return scene
-    }
+	override func viewDidLoad() {
+		print(#function)
+		super.viewDidLoad()
+		
+		let screenSize = UIScreen.main.bounds
+		let screenWidth = screenSize.width
+		let screenHeight = screenSize.height
+
+		gameScene = GameScene(size: CGSize(width: screenWidth, height: screenHeight))
+		gameScene.name = "gameScene"
+		gameScene.anchorPoint = .zero
+		gameScene.scaleMode = .aspectFit
+
+		skView.presentScene(gameScene)
+	}
+
+//	override func viewWillLayoutSubviews() {
+//		print(#function)
+//		super.viewWillLayoutSubviews()
+//		gameScene.size = skView.bounds.size
+//		skView.presentScene(gameScene)
+//	}
 
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         if UIDevice.current.userInterfaceIdiom == .phone {

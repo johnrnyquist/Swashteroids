@@ -23,10 +23,11 @@ extension Transition {
             print("Could not load 'quadrants' as SwashSpriteNode")
             return
         }
+		viewSprite.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         viewSprite.removeFromParent()
         let viewEntity = Entity(name: .noButtonsInfoView)
                 .add(component: DisplayComponent(sknode: viewSprite))
-                .add(component: PositionComponent(x: 0, y: 0, z: .buttons, rotation: 0))
+				.add(component: PositionComponent(x: size.width/2, y: size.height/2, z: .buttons, rotation: 0))
                 .add(component: TouchableComponent())
                 .add(component: ButtonBehaviorComponent(
                     touchDown: { [unowned self] sprite in
@@ -44,16 +45,18 @@ extension Transition {
 	}
 
     func toButtonsInfoScreen() {
-        let buttonsInfoArt = SKScene(fileNamed: "ButtonsInfo.sks")!
-        guard let viewSprite = buttonsInfoArt.childNode(withName: "buttonsInfo") as? SwashSpriteNode else {
-            print("Could not load 'buttonsInfo' as SwashSpriteNode")
-            return
-        }
-        viewSprite.removeFromParent()
-        shipControlButtonsManager.createShipControlButtons()
+		let viewSprite = SwashSpriteNode(imageNamed: "infoButtons")
+		viewSprite.scale = 1.0
+		let screenSize = UIScreen.main.bounds.size
+		let scaleX = screenSize.width / viewSprite.size.width
+		let scaleY = screenSize.height / viewSprite.size.height
+		let scale = min(scaleX, scaleY)
+		viewSprite.scale = scale
+		print(viewSprite.scale)
+
         let viewEntity = Entity(name: .buttonsInfoView)
                 .add(component: DisplayComponent(sknode: viewSprite))
-                .add(component: PositionComponent(x: 0, y: 0, z: .buttons, rotation: 0))
+				.add(component: PositionComponent(x: size.width/2, y: size.height/2, z: .buttons, rotation: 0))
                 .add(component: TouchableComponent())
                 .add(component: ButtonBehaviorComponent(touchDown: { [unowned self] sprite in
                     generator?.impactOccurred()

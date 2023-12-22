@@ -27,13 +27,13 @@ final class GameManagerSystem: System {
     private weak var appStates: NodeList!
     private weak var ships: NodeList!
     private weak var scene: SKScene!
-    private let spaceshipClearanceRadius: CGFloat = 50
-    private let minimumAsteroidDistance: CGFloat = 80
+    private let spaceshipClearanceRadius: CGFloat = 50 * SCALE_FACTOR
+    private let minimumAsteroidDistance: CGFloat = 80 * SCALE_FACTOR
     private let spaceshipPositionRatio: CGFloat = 0.5
     private let levelUpSound = "braam-6150.wav"
     private let minimumLevel = 1
     private let hudTextFontName = "Futura Condensed Medium"
-    private let hudTextFontSize: CGFloat = 64
+    private let hudTextFontSize: CGFloat = 64 * SCALE_FACTOR
 
     init(creator: Creator, size: CGSize, scene: SKScene) {
         self.creator = creator

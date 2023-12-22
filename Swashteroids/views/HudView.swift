@@ -18,8 +18,8 @@ class HudView: SKNode {
 
     init(gameSize: CGSize) {
         super.init()
-        let textY = gameSize.height - 65
-        let textXPadding = 12.0
+        let textY = gameSize.height - 65 * SCALE_FACTOR
+        let textXPadding = 12.0 * SCALE_FACTOR
         levelLabel = createLabel(x: gameSize.width - textXPadding, y: textY, alignment: .right)
         scoreLabel = createLabel(x: gameSize.width / 2, y: textY, alignment: .center)
         shipsLabel = createLabel(x: textXPadding, y: textY, alignment: .left)
@@ -61,7 +61,7 @@ class HudView: SKNode {
         label.horizontalAlignmentMode = .left
         label.fontName = "Futura Condensed Medium"
         label.fontColor = .hudText
-        label.fontSize = 48
+        label.fontSize = 48 * SCALE_FACTOR
         label.horizontalAlignmentMode = alignment
         label.x = x
         label.y = y
