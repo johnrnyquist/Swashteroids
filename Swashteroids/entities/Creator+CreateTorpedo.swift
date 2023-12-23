@@ -11,7 +11,11 @@
 import Swash
 import SpriteKit
 
-extension Creator {
+protocol TorpedoCreator {
+    func createPlasmaTorpedo(_ gunComponent: GunComponent, _ parentPosition: PositionComponent, _ parentMotion: MotionComponent)
+}
+
+extension Creator: TorpedoCreator {
     func createPlasmaTorpedo(_ gunComponent: GunComponent, _ parentPosition: PositionComponent, _ parentMotion: MotionComponent) {
         let cos = cos(parentPosition.rotation * Double.pi / 180)
         let sin = sin(parentPosition.rotation * Double.pi / 180)
@@ -34,8 +38,8 @@ extension Creator {
                                                   z: Layer.torpedoes,
                                                   rotation: 0))
                 .add(component: CollisionComponent(radius: 0))
-				.add(component: MotionComponent(velocityX: cos * 220 + parentMotion.velocity.x * 1.0/scaleManager.SCALE_FACTOR,
-												velocityY: sin * 220 + parentMotion.velocity.y * 1.0/scaleManager.SCALE_FACTOR,
+                .add(component: MotionComponent(velocityX: cos * 220 + parentMotion.velocity.x * 1.0 / scaleManager.SCALE_FACTOR,
+                                                velocityY: sin * 220 + parentMotion.velocity.y * 1.0 / scaleManager.SCALE_FACTOR,
                                                 angularVelocity: 0 + parentMotion.angularVelocity,
                                                 dampening: 0 + parentMotion.dampening))
                 .add(component: DisplayComponent(sknode: sprite))

@@ -11,7 +11,22 @@
 import Swash
 import SpriteKit
 
-extension Creator {
+protocol PowerUpCreator: AnyObject {
+    func createHyperspacePowerUp(level: Int)
+    func createHyperspacePowerUp(radius: Double, level: Int)
+    func createPlasmaTorpedoesPowerUp(level: Int)
+    func createPlasmaTorpedoesPowerUp(radius: Double, level: Int)
+}
+
+extension Creator: PowerUpCreator {
+    func createHyperspacePowerUp(level: Int) {
+        createHyperspacePowerUp(radius: 7, level: level)
+    }
+
+    func createPlasmaTorpedoesPowerUp(level: Int) {
+        createPlasmaTorpedoesPowerUp(radius: 7, level: level)
+    }
+
     func createPlasmaTorpedoesPowerUp(radius: Double = 7, level: Int) {
         guard engine.getEntity(named: .plasmaTorpedoesPowerUp) == nil else { return }
         let sprite = PlasmaTorpedoesPowerUpView(imageNamed: "scope")
@@ -40,7 +55,7 @@ extension Creator {
         sprite.addChild(emitter)
         let entity = Entity(name: .hyperspacePowerUp)
         sprite.name = entity.name
-		sprite.color = .hyperspace
+        sprite.color = .hyperspace
         sprite.colorBlendFactor = 1.0
         let positionComponent = createRandomPosition(level: Double(level), layer: .asteroids)
         let motionComponent = createRandomMotion(level: Double(level))
@@ -57,8 +72,8 @@ extension Creator {
     private func createRandomPosition(level: Double, layer: Layer) -> PositionComponent {
         let r1 = Double.random(in: 75.0...(level * 130)) * [-1, 1].randomElement()!
         let r2 = Double.random(in: 75.0...(level * 100)) * [-1, 1].randomElement()!
-		let centerX = min(size.width / 2.0 + r1, size.width)
-		let centerY = min(size.height / 2.0 + r2, size.height)
+        let centerX = min(size.width / 2.0 + r1, size.width)
+        let centerY = min(size.height / 2.0 + r2, size.height)
         return PositionComponent(x: centerX, y: centerY, z: layer, rotation: 0.0)
     }
 

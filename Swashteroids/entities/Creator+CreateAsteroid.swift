@@ -11,9 +11,9 @@
 import Swash
 import SpriteKit
 
-extension Creator {
-    func createAsteroid(radius: Double, x: Double, y: Double, level: Int, color: UIColor = .asteroid) {
-        let sprite = SwashSpriteNode(texture: createAsteroidTexture(radius: radius, color: color))
+extension Creator: AsteroidCreator {
+    func createAsteroid(radius: Double, x: Double, y: Double, level: Int) {
+        let sprite = SwashSpriteNode(texture: createAsteroidTexture(radius: radius, color: .asteroid))
         let entity = Entity()
         numAsteroids += 1
         entity.name = "asteroid_\(numAsteroids)"

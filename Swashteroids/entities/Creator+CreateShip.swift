@@ -11,7 +11,11 @@
 import Swash
 import SpriteKit
 
-extension Creator {
+protocol ShipCreator: AnyObject {
+    func createShip(_ state: AppStateComponent)
+}
+
+extension Creator: ShipCreator {
     func createShip(_ state: AppStateComponent) {
         let ship = ShipEntity(name: .ship, state: state, size: size)
         do {
@@ -40,7 +44,7 @@ class ShipEntity: Entity {
         shipSprite.entity = self
         add(component: ShipComponent())
         add(component: WarpDriveComponent())
-        add(component: PositionComponent(x: state.size.width/2, y: state.size.height/2, z: .ship, rotation: 0.0))
+        add(component: PositionComponent(x: state.size.width / 2, y: state.size.height / 2, z: .ship, rotation: 0.0))
         add(component: ShipComponent())
         add(component: MotionComponent(velocityX: 0.0, velocityY: 0.0, dampening: 0.0))
         add(component: CollisionComponent(radius: 25))

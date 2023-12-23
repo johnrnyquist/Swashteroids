@@ -26,7 +26,9 @@ class Transition {
         }
     }
 
-    init(engine: Engine, creator: Creator, generator: UIImpactFeedbackGenerator? = nil) {
+    init(engine: Engine,
+         creator: HudManager & ToggleButtonManager & ShipControlQuadrantsManager & ShipControlButtonsManager,
+         generator: UIImpactFeedbackGenerator? = nil) {
         self.engine = engine
         self.generator = generator
         hudManager = creator

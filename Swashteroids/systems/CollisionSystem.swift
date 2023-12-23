@@ -11,9 +11,13 @@
 import SpriteKit
 import Swash
 
+protocol AsteroidCreator: AnyObject {
+    func createAsteroid(radius: Double, x: Double, y: Double, level: Int)
+}
+
 /// This class is an argument for switching to the SpriteKit physics engine.
 final class CollisionSystem: System {
-    private weak var creator: Creator!
+    private weak var creator: AsteroidCreator!
     private weak var appStateNodes: NodeList!
     private weak var ships: NodeList!
     private weak var asteroids: NodeList!
@@ -24,7 +28,7 @@ final class CollisionSystem: System {
     private var size: CGSize
     let scaleManager: ScaleManaging
 
-    init(_ creator: Creator, size: CGSize, scaleManager: ScaleManaging = ScaleManager.shared) {
+    init(_ creator: AsteroidCreator, size: CGSize, scaleManager: ScaleManaging = ScaleManager.shared) {
         self.creator = creator
         self.size = size
         self.scaleManager = scaleManager
@@ -207,7 +211,6 @@ final class CollisionSystem: System {
     }
 
     override public func removeFromEngine(engine: Engine) {
-        creator = nil
         appStateNodes = nil
         ships = nil
         asteroids = nil
