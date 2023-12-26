@@ -34,12 +34,12 @@ struct PauseAlert: View {
     var restart: () -> Void
     var resume: () -> Void
     var body: some View {
-        VStack {
+        VStack(spacing: 10) {
             ButtonView(label: "Home", action: home)
 //            ButtonView(label: "Restart", action: restart)
             ButtonView(label: "Resume", action: resume)
         }
-                .frame(width: 200, height: 200)
+                .frame(width: 200, height: 160)
                 .background(Color.black)
                 .cornerRadius(20)
                 .overlay(
