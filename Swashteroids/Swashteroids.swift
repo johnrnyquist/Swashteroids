@@ -30,13 +30,17 @@ final class Swashteroids: NSObject {
     /// Drives the game
     private var engine: Engine
     /// Drives the engine
-    private var tickProvider: FrameTickProvider
+    private var tickProvider: FrameTickProvider?
+    private var tickEngineListener: Listener
+    var alertPresenter: AlertPresenter
 
-    init(scene: GameScene) {
+    init(scene: GameScene, alertPresenter: AlertPresenter) {
+        print(#function)
         self.scene = scene
+        self.alertPresenter = alertPresenter
         engine = Engine()
-        tickProvider = FrameTickProvider()
-        creator = Creator(engine: engine, size: scene.size, generator: generator)
+        tickEngineListener = Listener(engine.update)
+        creator = Creator(engine: engine, size: scene.size, generator: generator, alertPresenter: alertPresenter)
         transition = Transition(engine: engine, creator: creator, generator: generator)
         orientation = UIDevice.current.orientation == .landscapeRight ? -1.0 : 1.0
         super.init()
@@ -100,13 +104,23 @@ final class Swashteroids: NSObject {
     }
 
     func start() {
+        print(#function)
         motionManager.startAccelerometerUpdates()
-        tickProvider.add(Listener(engine.update)) // Then engine listens for ticks
-        tickProvider.start()
+        tickProvider = FrameTickProvider()
+        tickProvider?.add(tickEngineListener) // Then engine listens for ticks
+        tickProvider?.start()
+    }
+
+    func stop() {
+        print(#function)
+        tickProvider?.stop()
+        tickProvider?.remove(tickEngineListener)
+        tickProvider = nil
+        motionManager.stopAccelerometerUpdates()
     }
 
     func dispatchTick() {
-        tickProvider.dispatchTick()
+        tickProvider?.dispatchTick()
     }
 
     @objc func orientationChanged(_ notification: Notification) {

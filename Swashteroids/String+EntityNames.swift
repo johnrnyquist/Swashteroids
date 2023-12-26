@@ -40,4 +40,5 @@ extension String {
     static let hyperspacePowerUp: EntityName = "hyperspacePowerUpEntity"
     static let ship: EntityName = "ship"
     static let toggleButton: EntityName = "toggleButtonEntity"
+    static let pauseButton: EntityName = "pauseButtonEntity"
 }

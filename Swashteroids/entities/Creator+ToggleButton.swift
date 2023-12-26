@@ -39,7 +39,7 @@ extension Creator: ToggleButtonManager {
         toggleEntity.add(component: ButtonBehaviorComponent(
             touchDown: { [unowned self] sprite in
 				generator?.impactOccurred()
-				(engine.appState?[AppStateComponent.name] as? AppStateComponent)?.shipControlsState = toState //HACK
+				(engine.appState?[AppStateComponent.name] as? AppStateComponent)?.shipControlsState = toState //HACK remove? Add TransitionAppStateComponent?
                 engine.hud?.add(component: ChangeShipControlsStateComponent(to: toState))                 
                 engine.hud?.add(component: AudioComponent(fileNamed: "toggle.wav",
                                                      actionKey: "toggle\(toggleState.rawValue)"))

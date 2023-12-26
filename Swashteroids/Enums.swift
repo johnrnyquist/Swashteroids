@@ -18,6 +18,7 @@ enum AppState {
     case infoNoButtons
     case playing
     case gameOver
+//    case paused
 }
 
 enum ShipControlsState {

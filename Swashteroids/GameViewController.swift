@@ -10,13 +10,18 @@
 
 import UIKit
 import SpriteKit
+import SwiftUI
 
-final class GameViewController: UIViewController {
+protocol AlertPresenter {
+	func showAlertButtonTapped()
+}
+
+final class GameViewController: UIViewController, AlertPresenter {
 	var skView: SKView!
 	var gameScene: GameScene!
 
 	override func loadView() {
-        print(#function)
+		print(#function)
 		skView = SKView()
 		skView.showsPhysics = false
 		skView.ignoresSiblingOrder = true // true is more optimized rendering, but must set zPosition
@@ -27,18 +32,29 @@ final class GameViewController: UIViewController {
 	}
 
 	override func viewDidLoad() {
-        print(#function)
-
+		print(#function)
         let screenSize = UIScreen.main.bounds
 		let screenWidth = screenSize.width
 		let screenHeight = screenSize.height
 
 		gameScene = GameScene(size: CGSize(width: screenWidth, height: screenHeight))
+		gameScene.alertPresenter = self
 		gameScene.name = "gameScene"
 		gameScene.anchorPoint = .zero
 		gameScene.scaleMode = .aspectFit
 
 		skView.presentScene(gameScene)
+	}
+
+	@IBAction func showAlertButtonTapped() {
+		gameScene.game.stop()
+		let alertView = PauseAlert(home: {}, replay: {}, resume: { [weak self] in
+			self?.dismiss(animated: true, completion: { self?.gameScene.game.start() })
+		})
+		let hostingController = UIHostingController(rootView: alertView)
+		hostingController.modalPresentationStyle = .overCurrentContext
+		hostingController.view.backgroundColor = UIColor(white: 1, alpha: 0.0)
+		present(hostingController, animated: true, completion: nil)
 	}
 
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {

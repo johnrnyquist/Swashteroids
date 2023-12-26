@@ -8,16 +8,16 @@
 // https://github.com/johnrnyquist/Swash
 //
 
-
 import SpriteKit
 
 extension SKSpriteNode {
-
-	var scale: CGFloat {
-		get { xScale }
-		set {
-			xScale = newValue
-			yScale = newValue
-		}
-	}
+    var width: CGFloat { size.width }
+    var height: CGFloat { size.height }
+    var scale: CGFloat {
+        get { xScale }
+        set {
+            xScale = newValue
+            yScale = newValue
+        }
+    }
 }

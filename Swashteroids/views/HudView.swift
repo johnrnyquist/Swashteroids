@@ -15,17 +15,25 @@ class HudView: SKNode {
     private var levelLabel: SKLabelNode!
     private var scoreLabel: SKLabelNode!
     private var shipsLabel: SKLabelNode!
+    var pauseButton: SwashSpriteNode!
 
     init(gameSize: CGSize, scaleManager: ScaleManaging = ScaleManager.shared) {
         super.init()
         let textY = gameSize.height - 65 * scaleManager.SCALE_FACTOR
         let textXPadding = 12.0 * scaleManager.SCALE_FACTOR
-        levelLabel = createLabel(x: gameSize.width - textXPadding, y: textY, alignment: .right)
         scoreLabel = createLabel(x: gameSize.width / 2, y: textY, alignment: .center)
         shipsLabel = createLabel(x: textXPadding, y: textY, alignment: .left)
+        pauseButton = SwashSpriteNode(imageNamed: "pause")
+        pauseButton.anchorPoint = CGPoint(x: 1.0, y: 0.0)
+        pauseButton.zPosition = Layer.buttons.rawValue
+        pauseButton.x = gameSize.width - textXPadding
+        pauseButton.y = textY
+        pauseButton.scale = 0.25 //HACK
+        levelLabel = createLabel(x: gameSize.width - textXPadding - pauseButton.width - 20.0, y: textY, alignment: .right)
         addChild(levelLabel)
         addChild(scoreLabel)
         addChild(shipsLabel)
+        addChild(pauseButton)
     }
 
     required init?(coder: NSCoder) {
@@ -56,8 +64,8 @@ class HudView: SKNode {
         levelLabel.text ?? ""
     }
 
-    private func createLabel(text: String = "", x: Double = 0.0, y: Double = 0.0, 
-                             alignment: SKLabelHorizontalAlignmentMode = .center, 
+    private func createLabel(text: String = "", x: Double = 0.0, y: Double = 0.0,
+                             alignment: SKLabelHorizontalAlignmentMode = .center,
                              scaleManager: ScaleManaging = ScaleManager.shared) -> SKLabelNode {
         let label = SKLabelNode()
         label.horizontalAlignmentMode = .left

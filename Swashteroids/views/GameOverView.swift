@@ -11,27 +11,28 @@
 import SpriteKit
 
 class GameOverView: SwashSpriteNode {
-	private var gameOver: SKLabelNode = {
+    private var gameOver: SKLabelNode = {
         let gameOver = SKLabelNode(text: "Game Over")
-		gameOver.name = "gameOverLabel"
+        gameOver.name = "gameOverLabel"
         gameOver.fontName = "Badloc ICG"
         gameOver.fontColor = .waitText
-        gameOver.fontSize = 96
         gameOver.horizontalAlignmentMode = .center
         return gameOver
     }()
+    let scaleManager: ScaleManaging
 
-    init(size: CGSize) {
+    init(size: CGSize, scaleManager: ScaleManaging = ScaleManager.shared) {
+        self.scaleManager = scaleManager
         super.init(texture: nil, color: .clear, size: size)
         name = "gameOverView"
         addChild(gameOver)
-		let swash = SwashSpriteNode(imageNamed: "swash")
+        gameOver.fontSize = 200.0 * scaleManager.SCALE_FACTOR
+        let swash = SwashSpriteNode(imageNamed: "swash")
         swash.anchorPoint = CGPoint(x: 0.5, y: 1)
-		swash.scale *= 2.0
-        swash.alpha = 0.5
-		swash.y = gameOver.y - 30
-		addChild(swash)
-
+        swash.scale *= 2.0
+        swash.alpha = 0.2
+        swash.y = gameOver.y - 30
+        addChild(swash)
         zPosition = Layer.top.rawValue
     }
 

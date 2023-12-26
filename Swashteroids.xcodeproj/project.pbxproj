@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8D19AF472B3A11F400671E82 /* PauseAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D19AF462B3A11F400671E82 /* PauseAlert.swift */; };
 		8D23C1362B02C4CA00F7D878 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1352B02C4CA00F7D878 /* AppDelegate.swift */; };
 		8D23C13C2B02C4CA00F7D878 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C13B2B02C4CA00F7D878 /* GameScene.swift */; };
 		8D23C13E2B02C4CA00F7D878 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C13D2B02C4CA00F7D878 /* GameViewController.swift */; };
@@ -172,6 +173,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8D19AF462B3A11F400671E82 /* PauseAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseAlert.swift; sourceTree = "<group>"; };
 		8D23C1322B02C4CA00F7D878 /* Swashteroids.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swashteroids.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D23C1352B02C4CA00F7D878 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8D23C13B2B02C4CA00F7D878 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -381,6 +383,7 @@
 				8DB99F532B2BE81800C3593A /* main.swift */,
 				8D23C1352B02C4CA00F7D878 /* AppDelegate.swift */,
 				8D23C13D2B02C4CA00F7D878 /* GameViewController.swift */,
+				8D19AF462B3A11F400671E82 /* PauseAlert.swift */,
 				8D23C13B2B02C4CA00F7D878 /* GameScene.swift */,
 				8D23C14F2B02C59B00F7D878 /* Swashteroids.swift */,
 				8D651D6D2B278C1C0088AEEF /* Swashteroids+TouchDelegate.swift */,
@@ -760,6 +763,7 @@
 				8D23C19F2B02C59D00F7D878 /* ShipCollisionNode.swift in Sources */,
 				8D23C1C62B02C59D00F7D878 /* CollisionSystem.swift in Sources */,
 				8D41E2192B1E7AB00031AF54 /* SwashSpriteNode.swift in Sources */,
+				8D19AF472B3A11F400671E82 /* PauseAlert.swift in Sources */,
 				8D41E2132B1E65950031AF54 /* ShipControlsStateNode.swift in Sources */,
 				8D23C1A32B02C59D00F7D878 /* TorpedoAgeNode.swift in Sources */,
 				8D23C1AE2B02C59D00F7D878 /* AsteroidCollisionNode.swift in Sources */,
