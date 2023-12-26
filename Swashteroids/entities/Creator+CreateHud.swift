@@ -21,12 +21,12 @@ extension Creator: HudManager, AlertPresenter {
         let pauseButton = hudEntity.view.pauseButton!
         pauseButton.removeFromParent()
         let position = PositionComponent(x: pauseButton.x, y: pauseButton.y, z: .hud, rotation: 0)
-        let pause = Entity(name: "pause") //HACK
+        let pause = Entity(name: .pauseButton) //HACK
                 .add(component: position)
                 .add(component: DisplayComponent(sknode: pauseButton))
                 .add(component: TouchableComponent())
                 .add(component: ButtonBehaviorComponent { node in
-                    self.alertPresenter?.showAlertButtonTapped()
+                    self.alertPresenter?.showPauseAlert()
                 })
         pauseButton.entity = pause
         do {
@@ -39,8 +39,8 @@ extension Creator: HudManager, AlertPresenter {
         }
     }
 
-    func showAlertButtonTapped() {
-        alertPresenter?.showAlertButtonTapped()
+    func showPauseAlert() {
+        alertPresenter?.showPauseAlert()
     }
 }
 

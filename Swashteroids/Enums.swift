@@ -12,15 +12,16 @@ import Swash
 
 var LARGE_ASTEROID_RADIUS = 54.0
 
+// TODO: Is this AppState or GameState? Start, playing, gameover, paused all seem like game states. infoButtons and infoNoButtons seem like app states.
 enum AppState {
     case start
     case infoButtons
     case infoNoButtons
     case playing
     case gameOver
-//    case paused
 }
 
+/// The state of the ship controls. Either showing or hiding. 
 enum ShipControlsState {
     case showingButtons
     case hidingButtons

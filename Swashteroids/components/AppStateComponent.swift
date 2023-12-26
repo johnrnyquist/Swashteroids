@@ -35,9 +35,7 @@ final class AppStateComponent: Component {
     }
 
     func reset() {
-        numShips = 3
-        level = 0
-        score = 0
+        resetBoard()
         appState = .start
         shipControlsState = .showingButtons 
     }

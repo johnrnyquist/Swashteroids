@@ -25,22 +25,22 @@ final class TransitionAppStateSystem: ListIteratingSystem {
 
     func updateNode(node: Node, time: TimeInterval) {
         guard let transitionComponent = node[TransitionAppStateComponent.self],
-              let appStateComponent = node[AppStateComponent.self] else { return }
-        if let from = transitionComponent.from {
-            switch from {
-                case .start:
-                    transition?.fromStartScreen()
-                case .gameOver:
-                    transition?.fromGameOverScreen()
-                case .playing:
-                    transition?.fromPlayingScreen()
-                case .infoButtons:
-                    transition?.fromButtonsInfoScreen()
-                    appStateComponent.shipControlsState = .showingButtons
-                case .infoNoButtons:
-                    transition?.fromNoButtonsInfoScreen()
-                    appStateComponent.shipControlsState = .hidingButtons
-            }
+              let appStateComponent = node[AppStateComponent.self]
+        else { return }
+        let from = transitionComponent.from != nil ? transitionComponent.from! : appStateComponent.appState
+        switch from {
+            case .start:
+                transition?.fromStartScreen()
+            case .gameOver:
+                transition?.fromGameOverScreen()
+            case .playing:
+                transition?.fromPlayingScreen()
+            case .infoButtons:
+                transition?.fromButtonsInfoScreen()
+                appStateComponent.shipControlsState = .showingButtons
+            case .infoNoButtons:
+                transition?.fromNoButtonsInfoScreen()
+                appStateComponent.shipControlsState = .hidingButtons
         }
         appStateComponent.appState = transitionComponent.to
         switch transitionComponent.to {
