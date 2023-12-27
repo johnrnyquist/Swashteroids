@@ -90,7 +90,6 @@ extension Creator: ShipControlButtonsManager {
     /// Since buttons are used inertly on the info screen, we need to enable them for gameplay.
     /// Technically, I could have just added Touchable here and had the ButtonBehaviorComponent done initially.
     func enableShipControlButtons() {
-        print(#function)
         guard let flip = engine.getEntity(named: .flipButton),
               let hyperspace = engine.getEntity(named: .hyperspaceButton),
               let left = engine.getEntity(named: .leftButton),

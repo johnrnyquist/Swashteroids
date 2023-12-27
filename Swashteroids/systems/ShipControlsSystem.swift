@@ -11,7 +11,6 @@
 import Swash
 import SpriteKit
 import Foundation
-import CoreMotion
 
 final class ShipControlsSystem: ListIteratingSystem {
     private weak var creator: Creator!

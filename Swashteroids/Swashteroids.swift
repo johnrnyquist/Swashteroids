@@ -13,29 +13,19 @@ import SpriteKit
 import CoreMotion
 
 final class Swashteroids: NSObject {
-    /// For haptic feedback
     private let generator = UIImpactFeedbackGenerator(style: .heavy)
-    /// For accelerometer
     let motionManager = CMMotionManager()
-    /// For rotation of the device
     var orientation = 1.0
-    /// For capturing input 
     var inputComponent = InputComponent.shared
-    /// A SpriteKit SKScene subclass to display the game
     var scene: GameScene
-    /// Used to create and configure Entity instances
     private var creator: Creator
-    /// Used to transition between game states
     private var transition: Transition
-    /// Drives the game
     private var engine: Engine
-    /// Drives the engine
     private var tickProvider: FrameTickProvider?
     private var tickEngineListener: Listener
     var alertPresenter: AlertPresenter
 
     init(scene: GameScene, alertPresenter: AlertPresenter) {
-        print(#function)
         self.scene = scene
         self.alertPresenter = alertPresenter
         engine = Engine()
@@ -104,7 +94,6 @@ final class Swashteroids: NSObject {
     }
 
     func start() {
-        print(#function)
         motionManager.startAccelerometerUpdates()
         tickProvider = FrameTickProvider()
         tickProvider?.add(tickEngineListener) // Then engine listens for ticks
@@ -112,7 +101,6 @@ final class Swashteroids: NSObject {
     }
 
     func stop() {
-        print(#function)
         tickProvider?.stop()
         tickProvider?.remove(tickEngineListener)
         tickProvider = nil

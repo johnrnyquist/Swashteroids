@@ -23,7 +23,6 @@ final class GameViewController: UIViewController, AlertPresenter {
     var alertPresenter: AlertPresenter!
 
     override func loadView() {
-        print(#function)
         skView = SKView()
         skView.showsPhysics = false
         skView.ignoresSiblingOrder = true // true is more optimized rendering, but must set zPosition
@@ -34,12 +33,10 @@ final class GameViewController: UIViewController, AlertPresenter {
     }
 
     override func viewDidLoad() {
-        print(#function)
         startNewGame()
     }
     
     func startNewGame() {
-        print(#function)
         let screenSize = UIScreen.main.bounds
         let screenWidth = screenSize.width
         let screenHeight = screenSize.height

@@ -9,14 +9,12 @@
 //
 
 import SpriteKit
-import CoreMotion
 
 final class GameScene: SKScene {
     static var sound = SKAudioNode(fileNamed: "thrust.wav") //HACK HACK HACK
     var touchDelegate: TouchDelegate?
     
     override func didMove(to view: SKView) {
-        print(#function)
         super.didMove(to: view)
        //HACK to get around the SpriteKit bug where repeated sounds have a popping noise
         GameScene.sound.run(SKAction.changeVolume(to: 0, duration: 0))
