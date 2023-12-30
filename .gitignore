@@ -2,3 +2,4 @@
 *.xcodeproj/xcuserdata/
 Badloc\ ICG.ttf
 .DS_Store
+.idea

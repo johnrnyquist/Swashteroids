@@ -1,8 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Swashteroids Release" type="AppleRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Swashteroids" TARGET_NAME="Swashteroids" CONFIG_NAME="Release" IS_LOCATION_SIMULATION_SUPPORTED="true" SCHEME_NAME="Swashteroids Release" IS_LOCATION_SIMULATION_ALLOWED="true" APPLICATION_LANGUAGE="IDELaunchSchemeLanguageUseSystemLanguage" APPLICATION_REGION="" RUN_TARGET_PROJECT_NAME="Swashteroids" RUN_TARGET_NAME="Swashteroids" MAKE_ACTIVE="TRUE" SHOULD_DEBUG_EXTENSIONS="false">
-    <embedded_app_extension_list />
-    <method v="2">
-      <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-    </method>
-  </configuration>
-</component>
