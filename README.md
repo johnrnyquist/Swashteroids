@@ -1,4 +1,4 @@
-![Swashteroids](images/swashteroids2.png)
+![Swashteroids](images/swashteroids_2_1.png)
 
 # Swashteroids
 _An example using the Swash framework_
