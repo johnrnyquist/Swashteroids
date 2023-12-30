@@ -28,7 +28,6 @@ final class GameViewController: UIViewController, AlertPresenter {
         skView.ignoresSiblingOrder = true // true is more optimized rendering, but must set zPosition
         skView.isUserInteractionEnabled = true
         skView.isMultipleTouchEnabled = true
-        skView.isUserInteractionEnabled = true
         view = skView
     }
 

@@ -11,7 +11,7 @@ import SpriteKit
 extension Swashteroids: SKSceneDelegate {
     func update(_ currentTime: TimeInterval, for scene: SKScene) {
         dispatchTick() // This drives the game
-        guard let data = motionManager.accelerometerData else { return }
+        guard let data = motionManager?.accelerometerData else { return }
         switch data.acceleration.y * orientation {
             case let y where y > 0.05:
                 undo_right()

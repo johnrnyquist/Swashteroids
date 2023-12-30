@@ -14,7 +14,7 @@ import CoreMotion
 
 final class Swashteroids: NSObject {
     private let generator = UIImpactFeedbackGenerator(style: .heavy)
-    let motionManager = CMMotionManager()
+    let motionManager: CMMotionManager? = CMMotionManager()
     var orientation = 1.0
     var inputComponent = InputComponent.shared
     var scene: GameScene
@@ -94,7 +94,7 @@ final class Swashteroids: NSObject {
     }
 
     func start() {
-        motionManager.startAccelerometerUpdates()
+        motionManager?.startAccelerometerUpdates()
         tickProvider = FrameTickProvider()
         tickProvider?.add(tickEngineListener) // Then engine listens for ticks
         tickProvider?.start()
@@ -104,7 +104,7 @@ final class Swashteroids: NSObject {
         tickProvider?.stop()
         tickProvider?.remove(tickEngineListener)
         tickProvider = nil
-        motionManager.stopAccelerometerUpdates()
+        motionManager?.stopAccelerometerUpdates()
     }
 
     func dispatchTick() {
