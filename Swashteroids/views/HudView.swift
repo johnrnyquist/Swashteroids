@@ -19,8 +19,16 @@ class HudView: SKNode {
 
     init(gameSize: CGSize, scaleManager: ScaleManaging = ScaleManager.shared) {
         super.init()
-        let textY = gameSize.height - 65 * scaleManager.SCALE_FACTOR
-        let textXPadding = 12.0 * scaleManager.SCALE_FACTOR
+
+        var textY = gameSize.height - 65 * scaleManager.SCALE_FACTOR
+        var textXPadding = 12.0 * scaleManager.SCALE_FACTOR
+
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+           let window = appDelegate.window {
+            textXPadding += window.safeAreaInsets.left
+            textY += window.safeAreaInsets.top
+        }
+
         scoreLabel = createLabel(x: gameSize.width / 2, y: textY, alignment: .center)
         shipsLabel = createLabel(x: textXPadding, y: textY, alignment: .left)
         pauseButton = SwashSpriteNode(imageNamed: "pause")

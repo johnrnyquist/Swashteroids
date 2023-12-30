@@ -26,10 +26,10 @@ class GameOverView: SwashSpriteNode {
         super.init(texture: nil, color: .clear, size: size)
         name = "gameOverView"
         addChild(gameOver)
-        gameOver.fontSize = 200.0 * scaleManager.SCALE_FACTOR
-        let swash = SwashSpriteNode(imageNamed: "swash")
+        gameOver.fontSize = 150.0
+        let swash = SKSpriteNode(imageNamed: "swash")
         swash.anchorPoint = CGPoint(x: 0.5, y: 1)
-        swash.scale *= 2.0
+        swash.scale = scaleManager.SCALE_FACTOR == 1.0 ? 0.8 : 1.0
         swash.alpha = 0.2
         swash.y = gameOver.y - 30
         addChild(swash)
