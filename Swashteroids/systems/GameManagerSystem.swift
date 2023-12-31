@@ -106,7 +106,7 @@ final class GameManagerSystem: System {
         appStateComponent.level += 1
         currentStateNode.entity?.add(component: AudioComponent(fileNamed: levelUpSound, actionKey: "levelUp"))
         announceLevel(appStateComponent: appStateComponent)
-        createAsteroids(count: appStateComponent.level + 10, avoiding: spaceShipPosition.position, level: appStateComponent.level)
+        createAsteroids(count: appStateComponent.level, avoiding: spaceShipPosition.position, level: appStateComponent.level)
     }
 
     private func isClearToAddSpaceship(at position: CGPoint) -> Bool {
