@@ -13,11 +13,11 @@ import Swash
 import SpriteKit
 
 final class FiringSystem: System {
-    private weak var creator: Creator?
-    private var timeSinceLastShot = 0.25
+    var timeSinceLastShot = 0.25
+    private weak var creator: TorpedoCreator?
     private weak var gunControlNodes: NodeList!
 
-    init(creator: Creator) {
+    init(creator: TorpedoCreator) {
         self.creator = creator
     }
 
@@ -44,10 +44,6 @@ final class FiringSystem: System {
             creator?.createPlasmaTorpedo(gun, position, motion)
             timeSinceLastShot = 0
         }
-    }
-
-    override public func removeFromEngine(engine: Engine) {
-        creator = nil
     }
 }
 

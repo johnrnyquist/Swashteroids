@@ -133,69 +133,68 @@ final class TransitionTests: XCTestCase {
         }
         XCTAssertNotNil(display.sknode)
     }
-}
 
-class MockAlertPresenter: AlertPresenter {
-    func showPauseAlert() {}
-}
+    class MockAlertPresenter: AlertPresenter {
+        func showPauseAlert() {}
+    }
 
-fileprivate class MockTransition: Transition {
-    init(engine: Engine,
-         hudManager: MockCreator,
-         toggleButtonsManager: MockCreator,
-         shipControlQuadrantsManager: MockCreator,
-         shipControlButtonsManager: MockCreator) {
-        super.init(engine: engine,
-                   creator: Creator(engine: Engine(),
-                                    size: .zero,
-                                    alertPresenter: MockAlertPresenter()))
-        self.hudManager = hudManager
-        self.toggleButtonsManager = toggleButtonsManager
-        self.shipControlQuadrantsManager = shipControlQuadrantsManager
-        self.shipControlButtonsManager = shipControlButtonsManager
+    fileprivate class MockTransition: Transition {
+        init(engine: Engine,
+             hudManager: MockCreator,
+             toggleButtonsManager: MockCreator,
+             shipControlQuadrantsManager: MockCreator,
+             shipControlButtonsManager: MockCreator) {
+            super.init(engine: engine,
+                       creator: Creator(engine: Engine(),
+                                        size: .zero,
+                                        alertPresenter: MockAlertPresenter()))
+            self.hudManager = hudManager
+            self.toggleButtonsManager = toggleButtonsManager
+            self.shipControlQuadrantsManager = shipControlQuadrantsManager
+            self.shipControlButtonsManager = shipControlButtonsManager
+        }
+    }
+
+    class MockCreator: HudManager, ToggleButtonManager, ShipControlQuadrantsManager, ShipControlButtonsManager {
+        var createHudCalled = false
+        var createToggleButtonCalled = false
+        var removeToggleButtonCalled = false
+        var createShipControlQuadrantsCalled = false
+        var removeShipControlQuadrantsCalled = false
+        var enableShipControlButtonsCalled = false
+        var removeShipControlButtonsCalled = false
+        var createShipControlButtonsCalled = false
+
+        func createHud(gameState: AppStateComponent) {
+            createHudCalled = true
+        }
+
+        func createToggleButton(_ state: Toggle) {
+            createToggleButtonCalled = true
+        }
+
+        func removeToggleButton() {
+            removeToggleButtonCalled = true
+        }
+
+        func createShipControlQuadrants() {
+            createShipControlQuadrantsCalled = true
+        }
+
+        func removeShipControlQuadrants() {
+            removeShipControlQuadrantsCalled = true
+        }
+
+        func enableShipControlButtons() {
+            enableShipControlButtonsCalled = true
+        }
+
+        func removeShipControlButtons() {
+            removeShipControlButtonsCalled = true
+        }
+
+        func createShipControlButtons() {
+            createShipControlButtonsCalled = true
+        }
     }
 }
-
-class MockCreator: HudManager, ToggleButtonManager, ShipControlQuadrantsManager, ShipControlButtonsManager {
-    var createHudCalled = false
-    var createToggleButtonCalled = false
-    var removeToggleButtonCalled = false
-    var createShipControlQuadrantsCalled = false
-    var removeShipControlQuadrantsCalled = false
-    var enableShipControlButtonsCalled = false
-    var removeShipControlButtonsCalled = false
-    var createShipControlButtonsCalled = false
-
-    func createHud(gameState: AppStateComponent) {
-        createHudCalled = true
-    }
-
-    func createToggleButton(_ state: Toggle) {
-        createToggleButtonCalled = true
-    }
-
-    func removeToggleButton() {
-        removeToggleButtonCalled = true
-    }
-
-    func createShipControlQuadrants() {
-        createShipControlQuadrantsCalled = true
-    }
-
-    func removeShipControlQuadrants() {
-        removeShipControlQuadrantsCalled = true
-    }
-
-    func enableShipControlButtons() {
-        enableShipControlButtonsCalled = true
-    }
-
-    func removeShipControlButtons() {
-        removeShipControlButtonsCalled = true
-    }
-
-    func createShipControlButtons() {
-        createShipControlButtonsCalled = true
-    }
-}
-

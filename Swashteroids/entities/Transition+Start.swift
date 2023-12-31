@@ -39,11 +39,11 @@ extension Transition {
         // configure the entities
         startEntity
                 .add(component: DisplayComponent(sknode: startView))
-                .add(component: PositionComponent(x: 0, y: 0, z: .top, rotation: 0))
+                .add(component: PositionComponent(x: 0, y: 0, z: .top, rotationDegrees: 0))
         // the button to tap if you want to play with no buttons on the screen
         noButtons
                 .add(component: DisplayComponent(sknode: noButtonsSprite))
-                .add(component: PositionComponent(x: noButtonsSprite.x, y: noButtonsSprite.y, z: Layer.top, rotation: 0))
+                .add(component: PositionComponent(x: noButtonsSprite.x, y: noButtonsSprite.y, z: Layer.top, rotationDegrees: 0))
                 .add(component: TouchableComponent())
                 .add(component: ButtonBehaviorComponent(
                     touchDown: { [unowned self] sprite in
@@ -62,7 +62,7 @@ extension Transition {
         // the button to tap if you want to play with buttons on the screen
         withButtons
                 .add(component: DisplayComponent(sknode: buttonsSprite))
-                .add(component: PositionComponent(x: buttonsSprite.x, y: buttonsSprite.y, z: Layer.top, rotation: 0))
+                .add(component: PositionComponent(x: buttonsSprite.x, y: buttonsSprite.y, z: Layer.top, rotationDegrees: 0))
                 .add(component: TouchableComponent())
                 .add(component: ButtonBehaviorComponent(
                     touchDown: { [unowned self] sprite in

@@ -44,7 +44,7 @@ class ShipEntity: Entity {
         shipSprite.entity = self
         add(component: ShipComponent())
         add(component: WarpDriveComponent())
-        add(component: PositionComponent(x: state.size.width / 2, y: state.size.height / 2, z: .ship, rotation: 0.0))
+        add(component: PositionComponent(x: state.size.width / 2, y: state.size.height / 2, z: .ship, rotationDegrees: 0.0))
         add(component: ShipComponent())
         add(component: MotionComponent(velocityX: 0.0, velocityY: 0.0, dampening: 0.0))
         add(component: CollisionComponent(radius: 25))

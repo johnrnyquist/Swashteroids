@@ -64,7 +64,7 @@ extension Creator: ShipControlQuadrantsManager {
         // Configure the entities
         q1Entity
                 .add(component: DisplayComponent(sknode: q1Sprite))
-                .add(component: PositionComponent(x: q1Sprite.x, y: q1Sprite.y, z: .bottom, rotation: 0))
+                .add(component: PositionComponent(x: q1Sprite.x, y: q1Sprite.y, z: .bottom, rotationDegrees: 0))
                 .add(component: TouchableComponent())
                 .add(component: ButtonBehaviorComponent(
                     touchDown: { [unowned self] sprite in
@@ -80,7 +80,7 @@ extension Creator: ShipControlQuadrantsManager {
                 ))
         q2Entity
                 .add(component: DisplayComponent(sknode: q2Sprite))
-                .add(component: PositionComponent(x: q2Sprite.x, y: q2Sprite.y, z: .bottom, rotation: 0))
+                .add(component: PositionComponent(x: q2Sprite.x, y: q2Sprite.y, z: .bottom, rotationDegrees: 0))
                 .add(component: TouchableComponent())
                 .add(component: ButtonBehaviorComponent(
                     touchDown: { [unowned self] sprite in
@@ -93,7 +93,7 @@ extension Creator: ShipControlQuadrantsManager {
                 ))
         q3Entity
                 .add(component: DisplayComponent(sknode: q3Sprite))
-                .add(component: PositionComponent(x: q3Sprite.x, y: q3Sprite.y, z: .bottom, rotation: 0))
+                .add(component: PositionComponent(x: q3Sprite.x, y: q3Sprite.y, z: .bottom, rotationDegrees: 0))
                 .add(component: TouchableComponent())
                 .add(component: ButtonBehaviorComponent(
                     touchDown: { [unowned self] sprite in
@@ -136,7 +136,7 @@ extension Creator: ShipControlQuadrantsManager {
                 ))
         q4Entity
                 .add(component: DisplayComponent(sknode: q4Sprite))
-                .add(component: PositionComponent(x: q4Sprite.x, y: q4Sprite.y, z: .bottom, rotation: 0))
+                .add(component: PositionComponent(x: q4Sprite.x, y: q4Sprite.y, z: .bottom, rotationDegrees: 0))
                 .add(component: TouchableComponent())
                 .add(component: ButtonBehaviorComponent(
                     touchDown: { [unowned self] sprite in

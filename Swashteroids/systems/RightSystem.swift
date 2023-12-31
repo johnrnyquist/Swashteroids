@@ -12,18 +12,17 @@ import Foundation
 import Swash
 import SpriteKit
 
-final class AccelerometerSystem: ListIteratingSystem {
+final class RightSystem: ListIteratingSystem {
     init() {
-        super.init(nodeClass: AccelerometerNode.self)
+        super.init(nodeClass: RightNode.self)
         nodeUpdateFunction = updateNode
     }
 
     private func updateNode(node: Node, time: TimeInterval) {
-        guard let input = node[InputComponent.self],
-              input.rotate.isDown,
-              let position = node[PositionComponent.self],
-              let control = node[MotionControlsComponent.self]
+        guard let position = node[PositionComponent.self],
+              let control = node[MotionControlsComponent.self],
+              let right = node[RightComponent.self]
         else { return }
-        position.rotationDegrees += control.rotationRate * (input.rotate.amount * 0.05)
+        position.rotationDegrees += control.rotationRate * right.amount
     }
 }

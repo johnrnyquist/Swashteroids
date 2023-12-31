@@ -74,7 +74,7 @@ extension Creator: PowerUpCreator {
         let r2 = Double.random(in: 75.0...(level * 100)) * [-1, 1].randomElement()!
         let centerX = min(size.width / 2.0 + r1, size.width)
         let centerY = min(size.height / 2.0 + r2, size.height)
-        return PositionComponent(x: centerX, y: centerY, z: layer, rotation: 0.0)
+        return PositionComponent(x: centerX, y: centerY, z: layer, rotationDegrees: 0.0)
     }
 
     private func createRandomMotion(level: Double) -> MotionComponent {

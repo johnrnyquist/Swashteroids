@@ -36,7 +36,7 @@ extension Transition {
         let gameOverEntity = Entity(name: .gameOver)
                 .add(component: GameOverComponent())
                 .add(component: DisplayComponent(sknode: gameOverView))
-				.add(component: PositionComponent(x: size.width/2, y: size.height/2, z: .top, rotation: 0))
+				.add(component: PositionComponent(x: size.width/2, y: size.height/2, z: .top, rotationDegrees: 0))
                 .add(component: TouchableComponent())
                 .add(component: appStateComponent)
                 .add(component: ButtonBehaviorComponent(

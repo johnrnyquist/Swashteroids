@@ -12,7 +12,7 @@ import Foundation
 import Swash
 
 
-final class NacelleSystem: ListIteratingSystem {
+final class NacellesSystem: ListIteratingSystem {
     init() {
         super.init(nodeClass: ShipEngineNode.self)
         nodeUpdateFunction = updateNode

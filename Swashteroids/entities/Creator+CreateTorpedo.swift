@@ -11,17 +11,17 @@
 import Swash
 import SpriteKit
 
-protocol TorpedoCreator {
+protocol TorpedoCreator: AnyObject {
     func createPlasmaTorpedo(_ gunComponent: GunComponent, _ parentPosition: PositionComponent, _ parentMotion: MotionComponent)
 }
 
 extension Creator: TorpedoCreator {
     func createPlasmaTorpedo(_ gunComponent: GunComponent, _ parentPosition: PositionComponent, _ parentMotion: MotionComponent) {
-        let cos = cos(parentPosition.rotation * Double.pi / 180)
-        let sin = sin(parentPosition.rotation * Double.pi / 180)
+        let cos = cos(parentPosition.rotationRadians)
+        let sin = sin(parentPosition.rotationRadians)
         let sprite = SwashSpriteNode(texture: createTorpedoTexture(color: .plasmaTorpedo))
         let sparkEmitter = SKEmitterNode(fileNamed: "plasmaTorpedo.sks")!
-        sparkEmitter.emissionAngle = parentPosition.rotation * Double.pi / 180 + Double.pi
+        sparkEmitter.emissionAngle = parentPosition.rotationRadians + Double.pi
         sprite.addChild(sparkEmitter)
         let name = "torpedo_\(numTorpedoes)"
         numTorpedoes += 1
@@ -36,7 +36,7 @@ extension Creator: TorpedoCreator {
                                                                                               .y + parentPosition.position
                                                                                                                  .y,
                                                   z: Layer.torpedoes,
-                                                  rotation: 0))
+                                                  rotationDegrees: 0))
                 .add(component: CollisionComponent(radius: 0))
                 .add(component: MotionComponent(velocityX: cos * 220 + parentMotion.velocity.x * 1.0 / scaleManager.SCALE_FACTOR,
                                                 velocityY: sin * 220 + parentMotion.velocity.y * 1.0 / scaleManager.SCALE_FACTOR,

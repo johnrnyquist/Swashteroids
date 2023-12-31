@@ -39,10 +39,10 @@ final class MovementSystem: ListIteratingSystem {
         if (position.y > size.height) {
             position.y -= size.height
         }
-        position.rotation += motion.angularVelocity * time
+        position.rotationDegrees += motion.angularVelocity * time
         if (motion.dampening > 0) {
-            let xDamp: Double = abs(cos(position.rotation) * motion.dampening * time)
-            let yDamp: Double = abs(cos(position.rotation) * motion.dampening * time)
+            let xDamp: Double = abs(cos(position.rotationDegrees) * motion.dampening * time)
+            let yDamp: Double = abs(cos(position.rotationDegrees) * motion.dampening * time)
             if (motion.velocity.x > xDamp) {
                 motion.velocity.x -= xDamp
             } else if (motion.velocity.x < -xDamp) {

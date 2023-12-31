@@ -17,5 +17,5 @@ class LeftComponent: Component {
 
     private override init() {}
 
-    let amount = 0.35
+    let amount = 0.0175
 }

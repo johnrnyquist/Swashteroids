@@ -21,12 +21,16 @@ final class PositionComponent: Component {
         set { position = CGPoint(x: x, y: newValue) }
     }
     var position: CGPoint
-    var rotation: Double
+    var rotationDegrees: Double
+    var rotationRadians: Double {
+        get { rotationDegrees * Double.pi / 180.0 }
+        set { rotationDegrees = newValue * 180.0 / Double.pi }
+    }
     var layer: Layer
 
-    init(x: Double, y: Double, z: Layer, rotation: Double = 0.0) {
+    init(x: Double, y: Double, z: Layer, rotationDegrees: Double = 0.0) {
         position = CGPoint(x: x, y: y)
-        self.rotation = rotation
+        self.rotationDegrees = rotationDegrees
         layer = z
     }
 }

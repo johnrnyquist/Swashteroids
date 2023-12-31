@@ -66,12 +66,13 @@ final class TorpedoAgeSystemTests: XCTestCase {
         XCTAssertEqual(component.lifeRemaining, -0.25)
         XCTAssertFalse(engine.destroyEntityCalled)
     }
-}
 
-class MockEngine: Engine {
-    var destroyEntityCalled = false
+    class MockEngine: Engine {
+        var destroyEntityCalled = false
 
-    override func removeEntity(entity: Entity) {
-        destroyEntityCalled = true
+        override func removeEntity(entity: Entity) {
+            destroyEntityCalled = true
+        }
     }
 }
+

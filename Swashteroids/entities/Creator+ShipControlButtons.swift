@@ -30,7 +30,7 @@ extension Creator: ShipControlButtonsManager {
         let leftX = leftButton.size.width / 2 + buttonPaddingLeft
         let leftY = leftButton.size.height / 2 + firstRowButtonPaddingY
         let leftButtonEntity = Entity(name: .leftButton)
-                .add(component: PositionComponent(x: leftX, y: leftY, z: .buttons, rotation: 0.0))
+                .add(component: PositionComponent(x: leftX, y: leftY, z: .buttons, rotationDegrees: 0.0))
                 .add(component: DisplayComponent(sknode: leftButton))
         leftButton.entity = leftButtonEntity
         engine.replaceEntity(entity: leftButtonEntity)
@@ -41,7 +41,7 @@ extension Creator: ShipControlButtonsManager {
         let rightX = rightButton.size.width + buttonPadding + leftX
         let rightY = leftY
         let rightButtonEntity = Entity(name: .rightButton)
-                .add(component: PositionComponent(x: rightX, y: rightY, z: .buttons, rotation: 0.0))
+                .add(component: PositionComponent(x: rightX, y: rightY, z: .buttons, rotationDegrees: 0.0))
                 .add(component: DisplayComponent(sknode: rightButton))
         engine.replaceEntity(entity: rightButtonEntity)
         rightButton.entity = rightButtonEntity
@@ -51,7 +51,7 @@ extension Creator: ShipControlButtonsManager {
         let thrustX = size.width - thrustButton.size.width / 2 - buttonPaddingRight
         let thrustY = leftY
         let thrustButtonEntity = Entity(name: .thrustButton)
-                .add(component: PositionComponent(x: thrustX, y: thrustY, z: .buttons, rotation: 0.0))
+                .add(component: PositionComponent(x: thrustX, y: thrustY, z: .buttons, rotationDegrees: 0.0))
                 .add(component: DisplayComponent(sknode: thrustButton))
         thrustButton.entity = thrustButtonEntity
         engine.replaceEntity(entity: thrustButtonEntity)
@@ -61,7 +61,7 @@ extension Creator: ShipControlButtonsManager {
         let fireX = -thrustButton.size.width - buttonPadding + thrustX
         let fireY = leftY
         let fireButtonEntity = Entity(name: .fireButton)
-                .add(component: PositionComponent(x: fireX, y: fireY, z: .buttons, rotation: 0.0))
+                .add(component: PositionComponent(x: fireX, y: fireY, z: .buttons, rotationDegrees: 0.0))
                 .add(component: DisplayComponent(sknode: fireButton))
         fireButton.entity = fireButtonEntity
         engine.replaceEntity(entity: fireButtonEntity)
@@ -71,7 +71,7 @@ extension Creator: ShipControlButtonsManager {
         let flipX = leftX
         let flipY = leftY + flipButton.size.height + buttonPadding
         let flipButtonEntity = Entity(name: .flipButton)
-                .add(component: PositionComponent(x: flipX, y: flipY, z: .buttons, rotation: 0.0))
+                .add(component: PositionComponent(x: flipX, y: flipY, z: .buttons, rotationDegrees: 0.0))
                 .add(component: DisplayComponent(sknode: flipButton))
         flipButton.entity = flipButtonEntity
         engine.replaceEntity(entity: flipButtonEntity)
@@ -81,7 +81,7 @@ extension Creator: ShipControlButtonsManager {
         let hyperspaceX = thrustX
         let hyperspaceY = flipY
         let hyperspaceButtonEntity = Entity(name: .hyperspaceButton)
-                .add(component: PositionComponent(x: hyperspaceX, y: hyperspaceY, z: .buttons, rotation: 0.0))
+                .add(component: PositionComponent(x: hyperspaceX, y: hyperspaceY, z: .buttons, rotationDegrees: 0.0))
                 .add(component: DisplayComponent(sknode: hyperspaceButton))
         hyperspaceButton.entity = hyperspaceButtonEntity
         engine.replaceEntity(entity: hyperspaceButtonEntity)

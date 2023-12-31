@@ -33,7 +33,7 @@ final class AccelerometerSystemTests: XCTestCase {
         let accelerometer = AccelerometerComponent()
         let input = InputComponent.shared
         input.rotate = (true, 1.0)
-        let position = PositionComponent(x: 0, y: 0, z: .ship, rotation: 0.0)
+        let position = PositionComponent(x: 0, y: 0, z: .ship, rotationDegrees: 0.0)
         let motionControls = MotionControlsComponent(accelerationRate: 1.0,
                                                      rotationRate: 1.0,
                                                      scaleManager: MockScaleManager())
@@ -46,7 +46,7 @@ final class AccelerometerSystemTests: XCTestCase {
         } else {
             system.nodeUpdateFunction!(node, 1)
         }
-        XCTAssertEqual(position.rotation, 0.05)
+        XCTAssertEqual(position.rotationDegrees, 0.05)
     }
     
     func test_RotateIsNotDown() throws {
@@ -54,7 +54,7 @@ final class AccelerometerSystemTests: XCTestCase {
         let accelerometer = AccelerometerComponent()
         let input = InputComponent.shared
         input.rotate = (false, 0.0)
-        let position = PositionComponent(x: 0, y: 0, z: .ship, rotation: 0.0)
+        let position = PositionComponent(x: 0, y: 0, z: .ship, rotationDegrees: 0.0)
         let motionControls = MotionControlsComponent(accelerationRate: 1.0,
                                                      rotationRate: 1.0,
                                                      scaleManager: MockScaleManager())
@@ -67,7 +67,7 @@ final class AccelerometerSystemTests: XCTestCase {
         } else {
             system.nodeUpdateFunction!(node, 1)
         }
-        XCTAssertEqual(position.rotation, 0.0)
+        XCTAssertEqual(position.rotationDegrees, 0.0)
     }
     
     class MockScaleManager: ScaleManaging {

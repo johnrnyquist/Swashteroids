@@ -31,10 +31,6 @@ final class MovementSystemTests: XCTestCase {
         XCTAssertNotNil(system.nodeUpdateFunction)
     }
 
-    class MockScaleManager: ScaleManaging {
-        var SCALE_FACTOR: CGFloat { 0.5 }
-    }
-
     func test_UpdatePosition() throws {
         let node = MovementNode()
         let positionComponent = PositionComponent(x: 0, y: 0, z: .ship)
@@ -117,7 +113,7 @@ final class MovementSystemTests: XCTestCase {
         node.components[PositionComponent.name] = positionComponent
         node.components[MotionComponent.name] = motionComponent
         system.updateNode(node: node, time: 1)
-        XCTAssertEqual(positionComponent.rotation, 1.0)
+        XCTAssertEqual(positionComponent.rotationDegrees, 1.0)
     }
 
     func test_DampeningAffectsXandY() throws {
@@ -133,7 +129,7 @@ final class MovementSystemTests: XCTestCase {
         XCTAssertLessThan(motionComponent.velocity.y, 2.0)
         XCTAssertLessThan(positionComponent.x, 2.0)
         XCTAssertLessThan(positionComponent.y, 2.0)
-        XCTAssertEqual(positionComponent.rotation, 2.0)
+        XCTAssertEqual(positionComponent.rotationDegrees, 2.0)
     }
 
     func test_NegVelocityDampeningAffectsXandY() throws {
@@ -152,7 +148,11 @@ final class MovementSystemTests: XCTestCase {
         XCTAssertLessThan(motionComponent.velocity.y, 2.0)
         XCTAssertGreaterThan(positionComponent.x, size.width - Double(numUpdates) * time)
         XCTAssertGreaterThan(positionComponent.y, size.height - Double(numUpdates) * time)
-        XCTAssertEqual(positionComponent.rotation, 2.0)
+        XCTAssertEqual(positionComponent.rotationDegrees, 2.0)
+    }
+
+    class MockScaleManager: ScaleManaging {
+        var SCALE_FACTOR: CGFloat { 0.5 }
     }
 }
 
