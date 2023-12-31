@@ -94,6 +94,8 @@
 		8D41E21D2B1F988E0031AF54 /* TorpedosComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D41E21C2B1F988E0031AF54 /* TorpedosComponent.swift */; };
 		8D41E21F2B1FA2D00031AF54 /* Entity+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D41E21E2B1FA2D00031AF54 /* Entity+extension.swift */; };
 		8D4627662B251761007F01E6 /* powerup.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D4627652B251761007F01E6 /* powerup.wav */; };
+		8D512A992B41B47D00C30AC7 /* AccelerometerSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D512A982B41B47D00C30AC7 /* AccelerometerSystemTests.swift */; };
+		8D512A9D2B41C15600C30AC7 /* AccelerometerSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D512A9A2B41C12000C30AC7 /* AccelerometerSystem.swift */; };
 		8D59EDDE2B139088003BD073 /* Badloc ICG.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8D59EDDD2B138ED6003BD073 /* Badloc ICG.ttf */; };
 		8D6305472B2678A000002F57 /* hyperspacePowerUp.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8D6305462B2678A000002F57 /* hyperspacePowerUp.sks */; };
 		8D651D6C2B278BB30088AEEF /* Swashteroids+SKSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D651D6B2B278BB30088AEEF /* Swashteroids+SKSceneDelegate.swift */; };
@@ -261,6 +263,8 @@
 		8D41E21C2B1F988E0031AF54 /* TorpedosComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TorpedosComponent.swift; sourceTree = "<group>"; };
 		8D41E21E2B1FA2D00031AF54 /* Entity+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entity+extension.swift"; sourceTree = "<group>"; };
 		8D4627652B251761007F01E6 /* powerup.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = powerup.wav; sourceTree = "<group>"; };
+		8D512A982B41B47D00C30AC7 /* AccelerometerSystemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccelerometerSystemTests.swift; sourceTree = "<group>"; };
+		8D512A9A2B41C12000C30AC7 /* AccelerometerSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccelerometerSystem.swift; sourceTree = "<group>"; };
 		8D59EDDD2B138ED6003BD073 /* Badloc ICG.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Badloc ICG.ttf"; sourceTree = "<group>"; };
 		8D6305462B2678A000002F57 /* hyperspacePowerUp.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = hyperspacePowerUp.sks; sourceTree = "<group>"; };
 		8D651D6B2B278BB30088AEEF /* Swashteroids+SKSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Swashteroids+SKSceneDelegate.swift"; sourceTree = "<group>"; };
@@ -586,6 +590,7 @@
 				8DB99F5A2B2C9B4500C3593A /* TransitionAppStateSystemTests.swift */,
 				93139D4336E12C89FC8BE06B /* TransitionTests.swift */,
 				93139949CD856130C98A8834 /* HudSystemTests.swift */,
+				8D512A982B41B47D00C30AC7 /* AccelerometerSystemTests.swift */,
 			);
 			path = SwashteroidsTests;
 			sourceTree = "<group>";
@@ -601,6 +606,7 @@
 				8D23C1842B02C59C00F7D878 /* HudSystem.swift */,
 				8D9DEF672B059F2800064B01 /* HyperspaceSystem.swift */,
 				8D23C1812B02C59C00F7D878 /* MotionControlsSystems.swift */,
+				8D512A9A2B41C12000C30AC7 /* AccelerometerSystem.swift */,
 				8D23C1872B02C59C00F7D878 /* MovementSystem.swift */,
 				8D41E2162B1E66EE0031AF54 /* ShipControlsSystem.swift */,
 				8D23C17D2B02C59C00F7D878 /* NacelleSystem.swift */,
@@ -818,6 +824,7 @@
 				8D23C1AA2B02C59D00F7D878 /* PlasmaTorpedoCollisionNode.swift in Sources */,
 				8D41E21F2B1FA2D00031AF54 /* Entity+extension.swift in Sources */,
 				8DD26DCB2B22D80600DA5BC3 /* AccelerometerComponent.swift in Sources */,
+				8D512A9D2B41C15600C30AC7 /* AccelerometerSystem.swift in Sources */,
 				8D23C1AC2B02C59D00F7D878 /* MotionControlNodes.swift in Sources */,
 				8D23C1A92B02C59D00F7D878 /* ShipEngineNode.swift in Sources */,
 				8DB409EC2B1D3C6F008DE4EB /* TransitionAppStateComponent.swift in Sources */,
@@ -872,6 +879,7 @@
 				93139BC5661C918BD0158277 /* HyperspaceSystemTests.swift in Sources */,
 				8DB99F7B2B2E8BE400C3593A /* MovementSystemTests.swift in Sources */,
 				93139999C782AFD3B2ACD018 /* TransitionTests.swift in Sources */,
+				8D512A992B41B47D00C30AC7 /* AccelerometerSystemTests.swift in Sources */,
 				931399BCC437F101AA0DA3CB /* HudSystemTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1024,7 +1032,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Swashteroids/Swashteroids.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 51;
+				CURRENT_PROJECT_VERSION = 52;
 				DEVELOPMENT_TEAM = W8GR9TRDWE;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Swashteroids/Info.plist;
@@ -1056,7 +1064,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Swashteroids/Swashteroids.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 51;
+				CURRENT_PROJECT_VERSION = 52;
 				DEVELOPMENT_TEAM = W8GR9TRDWE;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Swashteroids/Info.plist;

@@ -7,9 +7,6 @@
 // Made with Swash, give it a try!
 // https://github.com/johnrnyquist/Swash
 //
-//
-// Created by John Nyquist on 12/3/23.
-//
 
 import Foundation
 import Swash

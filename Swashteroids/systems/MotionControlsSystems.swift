@@ -12,40 +12,6 @@ import Foundation
 import Swash
 import SpriteKit
 
-final class AccelerometerSystem: ListIteratingSystem {
-    init() {
-        super.init(nodeClass: AccelerometerNode.self)
-        nodeUpdateFunction = updateNode
-    }
-
-    private func updateNode(node: Node, time: TimeInterval) {
-        guard let input = node[InputComponent.self],
-              let position = node[PositionComponent.self],
-              let control = node[MotionControlsComponent.self]
-        else { return }
-        if input.leftIsDown.down {
-            position.rotation += control.rotationRate * (input.leftIsDown.amount * 0.05)
-        }
-        if input.rightIsDown.down {
-            position.rotation += control.rotationRate * (input.rightIsDown.amount * 0.05)
-        }
-    }
-}
-
-final class FlipSystem: ListIteratingSystem {
-    init() {
-        super.init(nodeClass: FlipNode.self)
-        nodeUpdateFunction = updateNode
-    }
-
-    private func updateNode(node: Node, time: TimeInterval) {
-        guard let position = node[PositionComponent.self],
-              let _ = node[FlipComponent.self] else { return }
-        position.rotation += 180
-        node.entity?.remove(componentClass: FlipComponent.self)
-    }
-}
-
 final class LeftSystem: ListIteratingSystem {
     init() {
         super.init(nodeClass: LeftNode.self)
@@ -90,6 +56,20 @@ final class ThrustSystem: ListIteratingSystem {
         let rot = position.rotation * Double.pi / 180.0
         motion.velocity.x += cos(rot) * control.accelerationRate * time
         motion.velocity.y += sin(rot) * control.accelerationRate * time
+    }
+}
+
+final class FlipSystem: ListIteratingSystem {
+    init() {
+        super.init(nodeClass: FlipNode.self)
+        nodeUpdateFunction = updateNode
+    }
+
+    private func updateNode(node: Node, time: TimeInterval) {
+        guard let position = node[PositionComponent.self],
+              let _ = node[FlipComponent.self] else { return }
+        position.rotation += 180
+        node.entity?.remove(componentClass: FlipComponent.self)
     }
 }
 

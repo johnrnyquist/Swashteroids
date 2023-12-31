@@ -15,13 +15,14 @@ protocol ScaleManaging {
 }
 
 class ScaleManager: ScaleManaging {
-    static let shared = ScaleManager()
-    private(set) var SCALE_FACTOR: CGFloat
+    static let shared: ScaleManaging = ScaleManager()
+    var SCALE_FACTOR: CGFloat
 
-    private init() {
+    private init(width: CGFloat = UIScreen.main.bounds.size.width, 
+                 height: CGFloat = UIScreen.main.bounds.size.height) {
         let designWidth = 1024.0
         let designHeight = 768.0
-        SCALE_FACTOR = min(min(UIScreen.main.bounds.size.width / designWidth, 1.0),
-                           min(UIScreen.main.bounds.size.height / designHeight, 1.0))
+        SCALE_FACTOR = min(min(width / designWidth, 1.0),
+                           min(height / designHeight, 1.0))
     }
 }

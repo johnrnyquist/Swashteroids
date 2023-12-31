@@ -1,8 +1,11 @@
 //
-//  Swashteroids+SKSceneDelegate.swift
-//  Swashteroids
+// https://github.com/johnrnyquist/Swashteroids
 //
-//  Created by John Nyquist on 12/11/23.
+// Download Swashteroids from the App Store:
+// https://apps.apple.com/us/app/swashteroids/id6472061502
+//
+// Made with Swash, give it a try!
+// https://github.com/johnrnyquist/Swash
 //
 
 import Swash
@@ -14,32 +17,25 @@ extension Swashteroids: SKSceneDelegate {
         guard let data = motionManager?.accelerometerData else { return }
         switch data.acceleration.y * orientation {
             case let y where y > 0.05:
-                undo_right()
-                do_left(data.acceleration.y * orientation)
+                rotateLeft(by: data.acceleration.y * orientation)
             case let y where y < -0.05:
-                undo_left()
-                do_right(data.acceleration.y * orientation)
+                rotateRight(by: data.acceleration.y * orientation)
             case -0.05...0.05:
-                undo_left()
-                undo_right()
+                clearRotate()
             default:
                 break
         }
     }
 
-    func do_left(_ amount: Double = 0.35) {
-        inputComponent.leftIsDown = (true, amount)
+    func rotateLeft(by amount: Double) {
+        inputComponent.rotate = (true, amount)
     }
 
-    func undo_left() {
-        inputComponent.leftIsDown = (false, 0.0)
+    func rotateRight(by amount: Double) {
+        inputComponent.rotate = (true, amount)
     }
 
-    func do_right(_ amount: Double = -0.35) {
-        inputComponent.rightIsDown = (true, amount)
-    }
-
-    func undo_right() {
-        inputComponent.rightIsDown = (false, 0.0)
+    func clearRotate() {
+        inputComponent.rotate = (false, 0.0)
     }
 }

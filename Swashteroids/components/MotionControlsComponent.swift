@@ -14,7 +14,10 @@ final class MotionControlsComponent: Component {
     var accelerationRate: Double = 0
     var rotationRate: Double = 0
 
-    init(left: UInt32, right: UInt32, accelerate: UInt32, accelerationRate: Double, rotationRate: Double, scaleManager: ScaleManaging = ScaleManager.shared) {
+    init(accelerationRate: Double, 
+         rotationRate: Double, 
+         scaleManager: ScaleManaging = ScaleManager.shared) 
+    {
         self.accelerationRate = accelerationRate * scaleManager.SCALE_FACTOR
         self.rotationRate = rotationRate
     }

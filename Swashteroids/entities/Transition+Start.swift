@@ -20,8 +20,8 @@ extension Transition {
     func toStartScreen() {
         // create the sprites
         let startView = StartView(gameSize: size)
-        let noButtonsSprite = startView.childNode(withName: "//nobuttons")! as! SwashSpriteNode
-        let buttonsSprite = startView.childNode(withName: "//buttons")! as! SwashSpriteNode
+        let noButtonsSprite = startView.noButtons
+        let buttonsSprite = startView.buttons
         noButtonsSprite.removeFromParent()
         buttonsSprite.removeFromParent()
         // create the entities

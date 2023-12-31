@@ -1,12 +1,14 @@
 //
-//  TransitionSystemTests.swift
-//  SwashteroidsTests
+// https://github.com/johnrnyquist/Swashteroids
 //
-//  Created by John Nyquist on 12/15/23.
+// Download Swashteroids from the App Store:
+// https://apps.apple.com/us/app/swashteroids/id6472061502
+//
+// Made with Swash, give it a try!
+// https://github.com/johnrnyquist/Swash
 //
 
 import XCTest
-import SpriteKit
 @testable import Swash
 @testable import Swashteroids
 
@@ -19,7 +21,7 @@ final class TransitionAppStateSystemTests: XCTestCase {
     override func setUpWithError() throws {
         size = CGSize(width: 1024.0, height: 768.0)
         engine = Engine()
-        let creator = Creator(engine: engine, size: size)
+        let creator = Creator(engine: engine, size: size, alertPresenter: MockAlertPresenter())
         transition = Transition(engine: engine, creator: creator)
         system = TransitionAppStateSystem(transition: transition)
     }
@@ -68,8 +70,14 @@ final class TransitionAppStateSystemTests: XCTestCase {
 
     func test_UpdateNodeFromGameOverToStart() throws {
         let node = TransitionAppStateNode()
-        let appStateComponent = AppStateComponent(size: size, ships: 0, level: 0, score: 0, appState: .gameOver, shipControlsState: .showingButtons)
-        let transitionComponent = TransitionAppStateComponent(to: .start, from: .gameOver)
+        let appStateComponent = AppStateComponent(size: size, 
+                                                  ships: 0, 
+                                                  level: 0, 
+                                                  score: 0, 
+                                                  appState: .gameOver, 
+                                                  shipControlsState: .showingButtons)
+        let transitionComponent = TransitionAppStateComponent(to: .start, 
+                                                              from: .gameOver)
         node.components[AppStateComponent.name] = appStateComponent
         node.components[TransitionAppStateComponent.name] = transitionComponent
         system.updateNode(node: node, time: 1)

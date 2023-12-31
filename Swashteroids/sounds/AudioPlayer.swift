@@ -1,8 +1,11 @@
 //
-//  AudioPlayer.swift
-//  Swashteroids
+// https://github.com/johnrnyquist/Swashteroids
 //
-//  Created by John Nyquist on 12/1/23.
+// Download Swashteroids from the App Store:
+// https://apps.apple.com/us/app/swashteroids/id6472061502
+//
+// Made with Swash, give it a try!
+// https://github.com/johnrnyquist/Swash
 //
 
 import Foundation

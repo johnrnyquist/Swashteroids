@@ -9,7 +9,6 @@
 //
 
 import XCTest
-import SpriteKit
 @testable import Swash
 @testable import Swashteroids
 
@@ -32,59 +31,83 @@ final class MovementSystemTests: XCTestCase {
         XCTAssertNotNil(system.nodeUpdateFunction)
     }
 
-    func test_UpdateNode() throws {
+    class MockScaleManager: ScaleManaging {
+        var SCALE_FACTOR: CGFloat { 0.5 }
+    }
+
+    func test_UpdatePosition() throws {
         let node = MovementNode()
         let positionComponent = PositionComponent(x: 0, y: 0, z: .ship)
-        let motionComponent = MotionComponent(velocityX: 1, velocityY: 2, angularVelocity: 0, dampening: 0)
+        let motionComponent = MotionComponent(velocityX: 1.0, 
+                                              velocityY: 2.0, 
+                                              angularVelocity: 0.0, 
+                                              dampening: 0.0,
+                                              scaleManager: MockScaleManager())
         node.components[PositionComponent.name] = positionComponent
         node.components[MotionComponent.name] = motionComponent
         system.updateNode(node: node, time: 1)
-        XCTAssertEqual(positionComponent.x, 1.0)
-        XCTAssertEqual(positionComponent.y, 2.0)
+        XCTAssertEqual(positionComponent.x, 0.5)  
+        XCTAssertEqual(positionComponent.y, 1.0)  
     }
 
     func test_UpdateNodeWrapBoundsXLeft() throws {
         let node = MovementNode()
         let positionComponent = PositionComponent(x: 0.0, y: 0.0, z: .ship)
-        let motionComponent = MotionComponent(velocityX: -1.0, velocityY: 0.0, angularVelocity: 0.0, dampening: 0.0)
+        let motionComponent = MotionComponent(velocityX: -1.0, 
+                                              velocityY: 0.0, 
+                                              angularVelocity: 0.0, 
+                                              dampening: 0.0,
+                                              scaleManager: MockScaleManager())
         node.components[PositionComponent.name] = positionComponent
         node.components[MotionComponent.name] = motionComponent
         system.updateNode(node: node, time: 1)
-        XCTAssertEqual(positionComponent.x, 1023.0)
+        XCTAssertEqual(positionComponent.x, 1023.5)
         XCTAssertEqual(positionComponent.y, 0.0)
     }
 
     func test_UpdateNodeWrapBoundsYDown() throws {
         let node = MovementNode()
         let positionComponent = PositionComponent(x: 0.0, y: 0.0, z: .ship)
-        let motionComponent = MotionComponent(velocityX: 0.0, velocityY: -1.0, angularVelocity: 0.0, dampening: 0.0)
+        let motionComponent = MotionComponent(velocityX: 0.0, 
+                                              velocityY: -1.0, 
+                                              angularVelocity: 0.0, 
+                                              dampening: 0.0,
+                                              scaleManager: MockScaleManager())
         node.components[PositionComponent.name] = positionComponent
         node.components[MotionComponent.name] = motionComponent
         system.updateNode(node: node, time: 1)
         XCTAssertEqual(positionComponent.x, 0.0)
-        XCTAssertEqual(positionComponent.y, 767.0)
+        XCTAssertEqual(positionComponent.y, 767.5) 
     }
 
     func test_UpdateNodeWrapBoundsXRight() throws {
         let node = MovementNode()
         let positionComponent = PositionComponent(x: size.width, y: 0.0, z: .ship)
-        let motionComponent = MotionComponent(velocityX: 1.0, velocityY: 0.0, angularVelocity: 0.0, dampening: 0.0)
+        let motionComponent = MotionComponent(velocityX: 1.0, 
+                                              velocityY: 0.0, 
+                                              angularVelocity: 0.0, 
+                                              dampening: 0.0,
+                                              scaleManager: MockScaleManager())
         node.components[PositionComponent.name] = positionComponent
         node.components[MotionComponent.name] = motionComponent
         system.updateNode(node: node, time: 1)
-        XCTAssertEqual(positionComponent.x, 1.0)
+        XCTAssertEqual(positionComponent.x, 0.5) 
         XCTAssertEqual(positionComponent.y, 0.0)
     }
 
     func test_UpdateNodeWrapBoundsYUp() throws {
         let node = MovementNode()
         let positionComponent = PositionComponent(x: 0.0, y: size.height, z: .ship)
-        let motionComponent = MotionComponent(velocityX: 0.0, velocityY: 1.0, angularVelocity: 0.0, dampening: 0.0)
+        let motionComponent = MotionComponent(velocityX: 0.0, 
+                                              velocityY: 1.0, 
+                                              angularVelocity: 0.0, 
+                                              dampening: 0.0, 
+                                              scaleManager: MockScaleManager())
         node.components[PositionComponent.name] = positionComponent
         node.components[MotionComponent.name] = motionComponent
         system.updateNode(node: node, time: 1)
         XCTAssertEqual(positionComponent.x, 0.0)
-        XCTAssertEqual(positionComponent.y, 1.0)
+        XCTAssertEqual(positionComponent.y, 0.5) 
     }
 
     func test_Rotation() throws {
@@ -132,3 +155,4 @@ final class MovementSystemTests: XCTestCase {
         XCTAssertEqual(positionComponent.rotation, 2.0)
     }
 }
+

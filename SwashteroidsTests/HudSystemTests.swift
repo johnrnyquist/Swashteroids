@@ -9,7 +9,6 @@
 //
 
 import XCTest
-import SpriteKit
 @testable import Swash
 @testable import Swashteroids
 

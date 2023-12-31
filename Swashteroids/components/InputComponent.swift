@@ -21,11 +21,9 @@ final class InputComponent: Component {
 
     private var touchDowns: [UITouch: Entity] = [:]
     //
-    // These are used to capture the accelerometer data and up/down state.
+    // Used to capture the accelerometer data and up/down state.
     // I'm using a tuple instead of an enum with an associated value for simplicity.
-    // TODO: Try changing to enum with associated value.
-    var leftIsDown: (down: Bool, amount: Double) = (false, 0.0)
-    var rightIsDown: (down: Bool, amount: Double) = (false, 0.0)
+    var rotate: (isDown: Bool, amount: Double) = (false, 0.0)
 
     /// We're only interested in touches on SwashSpriteNodes
     /// that have an entity which has a TouchableComponent.

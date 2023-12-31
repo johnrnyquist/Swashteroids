@@ -1,12 +1,14 @@
 //
 // https://github.com/johnrnyquist/Swashteroids
 //
-// Swashteroids was made with Swash, give it a try!
+// Download Swashteroids from the App Store:
+// https://apps.apple.com/us/app/swashteroids/id6472061502
+//
+// Made with Swash, give it a try!
 // https://github.com/johnrnyquist/Swash
 //
 
 import XCTest
-import SpriteKit
 @testable import Swash
 @testable import Swashteroids
 
@@ -31,7 +33,7 @@ final class HyperspaceSystemTests: XCTestCase {
         let node = HyperspaceNode()
         node.entity = entity
         let hyperEngine = HyperspaceEngineComponent()
-        let hyperJump = HyperspaceJumpComponent()
+        let hyperJump = HyperspaceJumpComponent(size: .zero)
         let position = PositionComponent(x: 0, y: 0, z: .ship)
         let display = DisplayComponent(sknode: SwashSpriteNode())
         entity.add(component: hyperEngine)
