@@ -35,14 +35,14 @@ final class GameManagerSystemTests: XCTestCase {
                                        size: CGSize(width: 1024, height: 768),
                                        scene: scene,
                                        scaleManager: MockScaleManager())
-        engine.addSystem(system: system, priority: 1)
-        let asteroid = Entity(name: "asteroid")
+        engine.add(system: system, priority: 1)
+        let asteroid = Entity(named: "asteroid")
                 .add(component: AsteroidComponent())
                 .add(component: CollisionComponent(radius: LARGE_ASTEROID_RADIUS,
                                                    scaleManager: MockScaleManager()))
                 .add(component: PositionComponent(x: 0, y: 0, z: .asteroids))
                 .add(component: MotionComponent(velocityX: 0, velocityY: 0))
-        try? engine.addEntity(entity: asteroid)
+        try? engine.add(entity: asteroid)
         let suggestedShipLocation = CGPoint(x: 100, y: 100)
         let result = system.isClearToAddSpaceship(at: suggestedShipLocation)
         XCTAssertTrue(result)
@@ -53,14 +53,14 @@ final class GameManagerSystemTests: XCTestCase {
                                        size: CGSize(width: 1024, height: 768),
                                        scene: scene,
                                        scaleManager: MockScaleManager())
-        engine.addSystem(system: system, priority: 1)
-        let asteroid = Entity(name: "asteroid")
+        engine.add(system: system, priority: 1)
+        let asteroid = Entity(named: "asteroid")
                 .add(component: AsteroidComponent())
                 .add(component: CollisionComponent(radius: LARGE_ASTEROID_RADIUS,
                                                    scaleManager: MockScaleManager()))
                 .add(component: PositionComponent(x: 0, y: 0, z: .asteroids))
                 .add(component: MotionComponent(velocityX: 0, velocityY: 0))
-        try? engine.addEntity(entity: asteroid)
+        try? engine.add(entity: asteroid)
         let suggestedShipLocation = CGPoint(x: 0, y: 0)
         let result = system.isClearToAddSpaceship(at: suggestedShipLocation)
         XCTAssertFalse(result)
@@ -71,7 +71,7 @@ final class GameManagerSystemTests: XCTestCase {
                                        size: CGSize(width: 1024, height: 768),
                                        scene: scene,
                                        scaleManager: MockScaleManager())
-        engine.addSystem(system: system, priority: 1)
+        engine.add(system: system, priority: 1)
         system.createPowerUps(level: 1)
         XCTAssertTrue(creator.createHyperspacePowerUpLevelCalled)
         XCTAssertTrue(creator.createPlasmaTorpedoesPowerUpLevelCalled)
@@ -82,7 +82,7 @@ final class GameManagerSystemTests: XCTestCase {
                                        size: CGSize(width: 1024, height: 768),
                                        scene: scene,
                                        scaleManager: MockScaleManager())
-        engine.addSystem(system: system, priority: 1)
+        engine.add(system: system, priority: 1)
         system.createAsteroids(count: 2, avoiding: .zero, level: 1)
         XCTAssertEqual(creator.createAsteroidCalled, 2)
     }
@@ -92,11 +92,11 @@ final class GameManagerSystemTests: XCTestCase {
                                                          size: CGSize(width: 1024, height: 768),
                                                          scene: scene,
                                                          scaleManager: MockScaleManager())
-        let shipEntity = Entity(name: .ship)
+        let shipEntity = Entity(named: .ship)
                 .add(component: PositionComponent(x: 0, y: 0, z: .ship))
                 .add(component: ShipComponent())
-        try? engine.addEntity(entity: shipEntity)
-        engine.addSystem(system: system, priority: 1)
+        try? engine.add(entity: shipEntity)
+        engine.add(system: system, priority: 1)
         let appStateComponent = AppStateComponent(size: .zero,
                                                   ships: 1,
                                                   level: 1,
@@ -188,7 +188,7 @@ final class GameManagerSystemTests: XCTestCase {
                                                   appState: .playing,
                                                   shipControlsState: .showingButtons)
         let node = AppStateNode()
-        let entity = Entity(name: "currentState")
+        let entity = Entity(named: "currentState")
         node.entity = entity
         system.handlePlayingState(appStateComponent: appStateComponent, currentStateNode: node)
         XCTAssertNotNil(entity.get(componentClassName: TransitionAppStateComponent.name))
@@ -199,7 +199,7 @@ final class GameManagerSystemTests: XCTestCase {
                                                            size: CGSize(width: 1024, height: 768),
                                                            scene: scene,
                                                            scaleManager: MockScaleManager())
-        engine.addSystem(system: system, priority: 1)
+        engine.add(system: system, priority: 1)
         // need to look at this function's logic
         system.handleGameState(appStateComponent: AppStateComponent(size: .zero,
                                                                     ships: 1,
@@ -225,12 +225,12 @@ final class GameManagerSystemTests: XCTestCase {
                                                            size: CGSize(width: 1024, height: 768),
                                                            scene: scene,
                                                            scaleManager: MockScaleManager())
-        engine.addSystem(system: system, priority: 1)
-        let shipEntity = Entity(name: .ship)
+        engine.add(system: system, priority: 1)
+        let shipEntity = Entity(named: .ship)
                 .add(component: PositionComponent(x: 0, y: 0, z: .ship))
                 .add(component: ShipComponent())
-        try? engine.addEntity(entity: shipEntity)
-        engine.addSystem(system: system, priority: 1)
+        try? engine.add(entity: shipEntity)
+        engine.add(system: system, priority: 1)
         //
         system.handleGameState(appStateComponent: AppStateComponent(size: .zero,
                                                                     ships: 1,

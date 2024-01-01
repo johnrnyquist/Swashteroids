@@ -19,7 +19,7 @@ extension Creator: ShipCreator {
     func createShip(_ state: AppStateComponent) {
         let ship = ShipEntity(name: .ship, state: state, size: size)
         do {
-            try engine.addEntity(entity: ship)
+            try engine.add(entity: ship)
         } catch SwashError.entityNameAlreadyInUse(let message) {
             fatalError(message)
         } catch {
@@ -32,7 +32,7 @@ extension Creator: ShipCreator {
 /// the ship is the player’s avatar, it is the most important entity in the game.
 class ShipEntity: Entity {
     init(name: String, state: AppStateComponent, size: CGSize) {
-        super.init(name: name)
+        super.init(named: name)
         let shipSprite = SwashSpriteNode(texture: createShipTexture())
         shipSprite.name = name
         shipSprite.zPosition = .ship

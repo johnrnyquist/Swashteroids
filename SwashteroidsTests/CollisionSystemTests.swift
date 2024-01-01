@@ -15,13 +15,16 @@ import XCTest
 
 class CollisionSystemTests: XCTestCase {
     var creator: MockAsteroidCreator!
+    var engine: Engine!
 
     override func setUpWithError() throws {
         creator = MockAsteroidCreator()
+        engine = Engine()
     }
 
     override func tearDownWithError() throws {
         creator = nil
+        engine = nil
     }
 
     func test_Update() {
@@ -89,7 +92,32 @@ class CollisionSystemTests: XCTestCase {
     }
 
     func test_ShipTorpedoPowerUpCollisionCheck() {
-        XCTFail("Need to write tests for \(#function)!")
+        let system = CollisionSystem(creator: creator,
+                                     size: .zero,
+                                     scaleManager: MockScaleManager())
+        engine.add(system: system, priority: 1)
+        // create an entity that conforms to ShipCollisionNode
+        let ship = Entity(named: .ship)
+                .add(component: ShipComponent())
+                .add(component: CollisionComponent(radius: 10, scaleManager: MockScaleManager()))
+                .add(component: PositionComponent(x: 0, y: 0, z: 0))
+                .add(component: MotionComponent(velocityX: 0, velocityY: 0))
+        try? engine.add(entity: ship)
+        // create an entity that conforms to GunSupplierNode
+        let torpedoPowerUp = Entity(named: "torpedoPowerUp")
+                .add(component: GunPowerUpComponent())
+                .add(component: CollisionComponent(radius: 10, scaleManager: MockScaleManager()))
+                .add(component: PositionComponent(x: 0, y: 0, z: 0))
+                .add(component: DisplayComponent(sknode: SKNode()))
+        try? engine.add(entity: torpedoPowerUp)
+        // add a ShipCollisionNode
+        let shipCollisionNode = ShipCollisionNode()
+        shipCollisionNode.entity = ship
+        // add a GunSupplierNode
+        let torpedoPowerUpNode = GunSupplierNode()
+        torpedoPowerUpNode.entity = torpedoPowerUp
+        system.shipTorpedoPowerUpCollisionCheck(shipCollisionNode: shipCollisionNode, 
+                                                torpedoPowerUpNode: torpedoPowerUpNode)
     }
 
     func test_ShipHSCollisionCheck() {
@@ -103,7 +131,7 @@ class CollisionSystemTests: XCTestCase {
     func test_ShipAsteroidCollisionCheck() {
         XCTFail("Need to write tests for \(#function)!")
     }
-    
+
     class MockAsteroidCreator: AsteroidCreator {
         var createAsteroidCalled = 0
 

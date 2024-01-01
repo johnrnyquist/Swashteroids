@@ -33,7 +33,7 @@ final class FlipSystemTests: XCTestCase {
         let initialRotation = 10.0
         let position = PositionComponent(x: 0, y: 0, z: .ship, rotationDegrees: initialRotation)
         let flip = FlipComponent.shared
-        let entity = Entity(name: .flipButton)
+        let entity = Entity(named: .flipButton)
                 .add(component: flip)
         node.entity = entity
         node.components[PositionComponent.name] = position

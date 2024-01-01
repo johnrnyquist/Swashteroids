@@ -25,7 +25,7 @@ extension Transition {
         }
 		viewSprite.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         viewSprite.removeFromParent()
-        let viewEntity = Entity(name: .noButtonsInfoView)
+        let viewEntity = Entity(named: .noButtonsInfoView)
                 .add(component: DisplayComponent(sknode: viewSprite))
 				.add(component: PositionComponent(x: size.width/2, y: size.height/2, z: .buttons, rotationDegrees: 0))
                 .add(component: TouchableComponent())
@@ -35,7 +35,7 @@ extension Transition {
                         engine.appState?.add(component: TransitionAppStateComponent(to: .playing, from: .infoNoButtons))
                     }))
         viewSprite.entity = viewEntity
-        engine.replaceEntity(entity: viewEntity)
+        engine.replace(entity: viewEntity)
     }
 
 
@@ -54,7 +54,7 @@ extension Transition {
 		viewSprite.scale = scale
 		print(viewSprite.scale)
 
-        let viewEntity = Entity(name: .buttonsInfoView)
+        let viewEntity = Entity(named: .buttonsInfoView)
                 .add(component: DisplayComponent(sknode: viewSprite))
 				.add(component: PositionComponent(x: size.width/2, y: size.height/2, z: .buttons, rotationDegrees: 0))
                 .add(component: TouchableComponent())
@@ -63,6 +63,6 @@ extension Transition {
                     engine.appState?.add(component: TransitionAppStateComponent(to: .playing, from: .infoButtons))
                 }))
         viewSprite.entity = viewEntity
-        engine.replaceEntity(entity: viewEntity)
+        engine.replace(entity: viewEntity)
     }
 }

@@ -41,9 +41,9 @@ final class RenderSystemTests: XCTestCase {
         let entity = Entity()
                 .add(component: display)
                 .add(component: position)
-        try? engine.addEntity(entity: entity)
+        try? engine.add(entity: entity)
         sprite.entity = entity
-        engine.addSystem(system: system, priority: 1)
+        engine.add(system: system, priority: 1)
         system.update(time: 1)
         XCTAssertTrue(sprite.position.x == 1)
         XCTAssertTrue(sprite.position.y == 2)
@@ -69,13 +69,13 @@ final class RenderSystemTests: XCTestCase {
         entity
                 .add(component: display)
                 .add(component: position)
-        try? engine.addEntity(entity: entity)
-        engine.addSystem(system: system, priority: 1)
+        try? engine.add(entity: entity)
+        engine.add(system: system, priority: 1)
         XCTAssertTrue(scene.children.count == 1)
     }
 
     func test_RemoveFromDisplay() {
-        engine.addSystem(system: system, priority: 1)
+        engine.add(system: system, priority: 1)
         let entity = Entity()
         let sprite = SwashSpriteNode()
         let display = DisplayComponent(sknode: sprite)
@@ -83,13 +83,13 @@ final class RenderSystemTests: XCTestCase {
         entity
                 .add(component: display)
                 .add(component: position)
-        try? engine.addEntity(entity: entity)
-        engine.removeEntity(entity: entity)
+        try? engine.add(entity: entity)
+        engine.remove(entity: entity)
         XCTAssertTrue(scene.children.count == 0)
     }
     
     func test_RemoveFromEngine() {
-        engine.addSystem(system: system, priority: 1)
+        engine.add(system: system, priority: 1)
         engine.removeSystem(system: system)
         XCTAssertNil(system.nodes)
         XCTAssertNil(system.scene)

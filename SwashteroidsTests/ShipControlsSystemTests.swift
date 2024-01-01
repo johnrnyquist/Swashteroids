@@ -56,7 +56,7 @@ final class ShipControlsSystemTests: XCTestCase {
 
     func test_DoToggleButtons_ToShowingButtons_NoGunNoHyperspace() {
         let system = ShipControlsSystem(creator: creator)
-        engine.addSystem(system: system, priority: 1)
+        engine.add(system: system, priority: 1)
         let appStateComponent = AppStateComponent(size: .zero,
                                                   ships: 0,
                                                   level: 0,
@@ -66,7 +66,7 @@ final class ShipControlsSystemTests: XCTestCase {
         //TODO: do_toggleButtons requires the ShipEntity type as it uses engine.ship. 
         let ship = ShipEntity(name: .ship, state: appStateComponent, size: .zero)
                 .add(component: AccelerometerComponent())
-        try? engine.addEntity(entity: ship)
+        try? engine.add(entity: ship)
         //                
         system.do_toggleButtons(.showingButtons)
         XCTAssertTrue(creator.removeShipControlQuadrantsCalled)
@@ -79,7 +79,7 @@ final class ShipControlsSystemTests: XCTestCase {
 
     func test_DoToggleButtons_ToShowingButtons_HasGun() {
         let system = ShipControlsSystem(creator: creator)
-        engine.addSystem(system: system, priority: 1)
+        engine.add(system: system, priority: 1)
         let appStateComponent = AppStateComponent(size: .zero,
                                                   ships: 0,
                                                   level: 0,
@@ -90,10 +90,10 @@ final class ShipControlsSystemTests: XCTestCase {
         let ship = ShipEntity(name: .ship, state: appStateComponent, size: .zero)
                 .add(component: AccelerometerComponent())
                 .add(component: GunComponent(offsetX: 0, offsetY: 0, minimumShotInterval: 0, torpedoLifetime: 0))
-        try? engine.addEntity(entity: ship)
-        let fireButton = Entity(name: .fireButton)
+        try? engine.add(entity: ship)
+        let fireButton = Entity(named: .fireButton)
                 .add(component: DisplayComponent(sknode: SwashSpriteNode()))
-        try? engine.addEntity(entity: fireButton)
+        try? engine.add(entity: fireButton)
         //                
         system.do_toggleButtons(.showingButtons)
         XCTAssertTrue(creator.removeShipControlQuadrantsCalled)
@@ -107,7 +107,7 @@ final class ShipControlsSystemTests: XCTestCase {
 
     func test_DoToggleButtons_ToShowingButtons_HasHyperspace() {
         let system = ShipControlsSystem(creator: creator)
-        engine.addSystem(system: system, priority: 1)
+        engine.add(system: system, priority: 1)
         let appStateComponent = AppStateComponent(size: .zero,
                                                   ships: 0,
                                                   level: 0,
@@ -118,10 +118,10 @@ final class ShipControlsSystemTests: XCTestCase {
         let ship = ShipEntity(name: .ship, state: appStateComponent, size: .zero)
                 .add(component: AccelerometerComponent())
                 .add(component: HyperspaceEngineComponent())
-        try? engine.addEntity(entity: ship)
-        let hyperspaceButton = Entity(name: .hyperspaceButton)
+        try? engine.add(entity: ship)
+        let hyperspaceButton = Entity(named: .hyperspaceButton)
                 .add(component: DisplayComponent(sknode: SwashSpriteNode()))
-        try? engine.addEntity(entity: hyperspaceButton)
+        try? engine.add(entity: hyperspaceButton)
         //                
         system.do_toggleButtons(.showingButtons)
         XCTAssertTrue(creator.removeShipControlQuadrantsCalled)
@@ -135,12 +135,12 @@ final class ShipControlsSystemTests: XCTestCase {
 
     func test_DoToggleButtons_ToHidingButtons() {
         let system = ShipControlsSystem(creator: creator)
-        engine.addSystem(system: system, priority: 1)
+        engine.add(system: system, priority: 1)
         let ship = Entity()
                 .add(component: AccelerometerComponent())
                 .add(component: GunComponent(offsetX: 0, offsetY: 0, minimumShotInterval: 0, torpedoLifetime: 0))
                 .add(component: HyperspaceEngineComponent())
-        try? engine.addEntity(entity: ship)
+        try? engine.add(entity: ship)
         //                
         system.do_toggleButtons(.hidingButtons)
         XCTAssertTrue(creator.createShipControlQuadrantsCalled)

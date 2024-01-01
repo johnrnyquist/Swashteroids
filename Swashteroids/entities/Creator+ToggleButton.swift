@@ -19,7 +19,7 @@ protocol ToggleButtonManager: AnyObject {
 extension Creator: ToggleButtonManager {
     func removeToggleButton() {
         guard let entity = engine.getEntity(named: .toggleButton) else { return }
-        engine.removeEntity(entity: entity)
+        engine.remove(entity: entity)
     }
 
     func createToggleButton(_ toggleState: Toggle) {
@@ -29,7 +29,7 @@ extension Creator: ToggleButtonManager {
         sprite.alpha = 0.2
         let x = size.width / 2
         let y = 90.0 * scaleManager.SCALE_FACTOR
-        let toggleEntity = Entity(name: .toggleButton)
+        let toggleEntity = Entity(named: .toggleButton)
                 .add(component: PositionComponent(x: x, y: y, z: .buttons))
                 .add(component: DisplayComponent(sknode: sprite))
                 .add(component: TouchableComponent())
@@ -50,6 +50,6 @@ extension Creator: ToggleButtonManager {
                 if over { sprite.alpha = 0.6 } else { sprite.alpha = 0.2 }
             }
         ))
-        engine.replaceEntity(entity: toggleEntity)
+        engine.replace(entity: toggleEntity)
     }
 }

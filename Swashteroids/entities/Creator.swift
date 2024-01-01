@@ -47,6 +47,6 @@ class Creator {
     }
 
     func removeEntity(_ entity: Entity) {
-        engine.removeEntity(entity: entity)
+        engine.remove(entity: entity)
     }
 }

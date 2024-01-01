@@ -31,7 +31,7 @@ extension Creator: AsteroidCreator {
                 .add(component: DisplayComponent(sknode: sprite))
         
         do {
-            try engine.addEntity(entity: entity)
+            try engine.add(entity: entity)
         } catch SwashError.entityNameAlreadyInUse(let message) {
             fatalError(message)
         } catch {

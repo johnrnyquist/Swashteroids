@@ -21,7 +21,7 @@ class FiringSystemTests: XCTestCase {
         creator = MockTorpedoCreator()
         system = FiringSystem(creator: creator)
         engine = Engine()
-        engine.addSystem(system: system, priority: 1)
+        engine.add(system: system, priority: 1)
     }
 
     override func tearDownWithError() throws {
@@ -45,7 +45,7 @@ class FiringSystemTests: XCTestCase {
                 .add(component: position)
                 .add(component: gun)
                 .add(component: fireDown)
-        try? engine.addEntity(entity: entity)
+        try? engine.add(entity: entity)
         system.update(time: time)
         XCTAssertTrue(creator.fired)
         XCTAssertEqual(system.timeSinceLastShot, 0.0)
@@ -69,7 +69,7 @@ class FiringSystemTests: XCTestCase {
                 .add(component: position)
                 .add(component: gun)
                 .add(component: fireDown)
-        try? engine.addEntity(entity: entity)
+        try? engine.add(entity: entity)
         //
         system.update(time: time)
         XCTAssertFalse(creator.fired)

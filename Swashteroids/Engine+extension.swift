@@ -30,7 +30,7 @@ extension Engine {
     func removeEntities(named names: [EntityName]) {
         for name in names {
             if let entity = getEntity(named: name) {
-                removeEntity(entity: entity)
+                remove(entity: entity)
             } else {
                 print("WARNING: engine did not contain \(name) entity!")
             }

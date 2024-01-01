@@ -42,9 +42,9 @@ final class Swashteroids: NSObject {
     }
 
     private func createInitialEntities(scene: GameScene) { // Add the all sounds entity
-        let allSoundsEntity = Entity(name: .allSounds)
+        let allSoundsEntity = Entity(named: .allSounds)
                 .add(component: AllSoundsComponent.shared)
-        try? engine.addEntity(entity: allSoundsEntity)
+        try? engine.add(entity: allSoundsEntity)
         // Add the app state entity
         let appStateComponent = AppStateComponent(size: scene.size,
                                                   ships: 3,
@@ -52,45 +52,45 @@ final class Swashteroids: NSObject {
                                                   score: 0,
                                                   appState: .start,
                                                   shipControlsState: .showingButtons)
-        let appStateEntity = Entity(name: .appState)
+        let appStateEntity = Entity(named: .appState)
                 .add(component: appStateComponent)
                 .add(component: TransitionAppStateComponent(to: .start))
-        try? engine.addEntity(entity: appStateEntity)
+        try? engine.add(entity: appStateEntity)
         // Add the input entity
-        let inputEntity = Entity(name: .input)
+        let inputEntity = Entity(named: .input)
                 .add(component: InputComponent.shared)
-        try? engine.addEntity(entity: inputEntity)
+        try? engine.add(entity: inputEntity)
     }
 
     private func createSystems(scene: GameScene) {
         engine
             // preupdate
-                .addSystem(system: GameManagerSystem(creator: creator, size: scene.size, scene: scene), priority: .preUpdate)
-                .addSystem(system: GameOverSystem(), priority: .preUpdate)
-                .addSystem(system: ShipControlsSystem(creator: creator), priority: .preUpdate)
-                .addSystem(system: TransitionAppStateSystem(transition: transition), priority: .preUpdate)
+                .add(system: GameManagerSystem(creator: creator, size: scene.size, scene: scene), priority: .preUpdate)
+                .add(system: GameOverSystem(), priority: .preUpdate)
+                .add(system: ShipControlsSystem(creator: creator), priority: .preUpdate)
+                .add(system: TransitionAppStateSystem(transition: transition), priority: .preUpdate)
                 // move
-                .addSystem(system: AccelerometerSystem(), priority: .move)
-                .addSystem(system: FlipSystem(), priority: .move)
-                .addSystem(system: LeftSystem(), priority: .move)
-                .addSystem(system: MovementSystem(size: scene.size), priority: .move)
-                .addSystem(system: RightSystem(), priority: .move)
-                .addSystem(system: ThrustSystem(), priority: .move)
+                .add(system: AccelerometerSystem(), priority: .move)
+                .add(system: FlipSystem(), priority: .move)
+                .add(system: LeftSystem(), priority: .move)
+                .add(system: MovementSystem(size: scene.size), priority: .move)
+                .add(system: RightSystem(), priority: .move)
+                .add(system: ThrustSystem(), priority: .move)
                 // resolve collisions
-                .addSystem(system: CollisionSystem(creator: creator, size: scene.size), priority: .resolveCollisions)
+                .add(system: CollisionSystem(creator: creator, size: scene.size), priority: .resolveCollisions)
                 // animate
-                .addSystem(system: AnimationSystem(), priority: .animate)
-                .addSystem(system: HudSystem(), priority: .animate)
+                .add(system: AnimationSystem(), priority: .animate)
+                .add(system: HudSystem(), priority: .animate)
                 // update
-                .addSystem(system: TorpedoAgeSystem(), priority: .update)
-                .addSystem(system: DeathThroesSystem(), priority: .update)
-                .addSystem(system: FiringSystem(creator: creator), priority: .update)
-                .addSystem(system: HyperspaceSystem(), priority: .update)
-                .addSystem(system: NacellesSystem(), priority: .update)
+                .add(system: TorpedoAgeSystem(), priority: .update)
+                .add(system: DeathThroesSystem(), priority: .update)
+                .add(system: FiringSystem(creator: creator), priority: .update)
+                .add(system: HyperspaceSystem(), priority: .update)
+                .add(system: NacellesSystem(), priority: .update)
                 // render
-                .addSystem(system: AudioSystem(scene: scene), priority: .render)
-                .addSystem(system: RepeatingAudioSystem(scene: scene), priority: .render)
-                .addSystem(system: RenderSystem(container: scene), priority: .render)
+                .add(system: AudioSystem(scene: scene), priority: .render)
+                .add(system: RepeatingAudioSystem(scene: scene), priority: .render)
+                .add(system: RenderSystem(container: scene), priority: .render)
     }
 
     func start() {

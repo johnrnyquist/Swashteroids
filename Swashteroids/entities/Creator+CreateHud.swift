@@ -21,7 +21,7 @@ extension Creator: HudManager, AlertPresenting {
         let pauseButton = hudEntity.view.pauseButton!
         pauseButton.removeFromParent()
         let position = PositionComponent(x: pauseButton.x, y: pauseButton.y, z: .hud, rotationDegrees: 0)
-        let pause = Entity(name: .pauseButton) //HACK
+        let pause = Entity(named: .pauseButton) //HACK
                 .add(component: position)
                 .add(component: DisplayComponent(sknode: pauseButton))
                 .add(component: TouchableComponent())
@@ -30,8 +30,8 @@ extension Creator: HudManager, AlertPresenting {
                 })
         pauseButton.entity = pause
         do {
-            try engine.addEntity(entity: hudEntity)
-            try engine.addEntity(entity: pause)
+            try engine.add(entity: hudEntity)
+            try engine.add(entity: pause)
         } catch SwashError.entityNameAlreadyInUse(let message) {
             fatalError(message)
         } catch {
@@ -49,7 +49,7 @@ final class HudEntity: Entity {
 
     init(name: String, gameState: AppStateComponent) {
         view = HudView(gameSize: gameState.size)
-        super.init(name: name)
+        super.init(named: name)
         add(component: HudComponent(hudView: view))
         add(component: DisplayComponent(sknode: view))
         add(component: PositionComponent(x: 0, y: 0, z: .hud, rotationDegrees: 0))

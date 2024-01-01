@@ -32,7 +32,7 @@ extension Creator: PowerUpCreator {
         let sprite = PlasmaTorpedoesPowerUpView(imageNamed: "scope")
         let emitter = SKEmitterNode(fileNamed: "plasmaTorpedoesPowerUp.sks")!
         sprite.addChild(emitter)
-        let entity = Entity(name: .plasmaTorpedoesPowerUp)
+        let entity = Entity(named: .plasmaTorpedoesPowerUp)
         sprite.name = entity.name
         sprite.color = .plasmaTorpedo
         sprite.colorBlendFactor = 1.0
@@ -45,7 +45,7 @@ extension Creator: PowerUpCreator {
                 .add(component: CollisionComponent(radius: radius))
                 .add(component: DisplayComponent(sknode: sprite))
                 .add(component: AnimationComponent(animation: sprite))
-        engine.replaceEntity(entity: entity)
+        engine.replace(entity: entity)
     }
 
     func createHyperspacePowerUp(level: Int, radius: Double = POWER_UP_RADIUS) {
@@ -53,7 +53,7 @@ extension Creator: PowerUpCreator {
         let sprite = HyperspacePowerUpView(imageNamed: "hyperspacePowerUp")
         let emitter = SKEmitterNode(fileNamed: "hyperspacePowerUp.sks")!
         sprite.addChild(emitter)
-        let entity = Entity(name: .hyperspacePowerUp)
+        let entity = Entity(named: .hyperspacePowerUp)
         sprite.name = entity.name
         sprite.color = .hyperspace
         sprite.colorBlendFactor = 1.0
@@ -66,7 +66,7 @@ extension Creator: PowerUpCreator {
                 .add(component: CollisionComponent(radius: radius))
                 .add(component: DisplayComponent(sknode: sprite))
                 .add(component: AnimationComponent(animation: sprite))
-        engine.replaceEntity(entity: entity)
+        engine.replace(entity: entity)
     }
 
     private func createRandomPosition(level: Double, layer: Layer) -> PositionComponent {

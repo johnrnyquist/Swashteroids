@@ -47,20 +47,20 @@ extension Creator: ShipControlQuadrantsManager {
     /// Instead of visible buttons, the player will be able to touch quadrants on the screen to control the ship.
     func createShipControlQuadrants() {
         // Create the entities
-        let q1Entity = Entity(name: .q1)
-        let q2Entity = Entity(name: .q2)
-        let q3Entity = Entity(name: .q3)
-        let q4Entity = Entity(name: .q4)
+        let q1Entity = Entity(named: .q1)
+        let q2Entity = Entity(named: .q2)
+        let q3Entity = Entity(named: .q3)
+        let q4Entity = Entity(named: .q4)
         // Create the sprites, with associated entities
         let q1Sprite = createQuadrantSprite(quadrant: 1, entity:q1Entity)
         let q2Sprite = createQuadrantSprite(quadrant: 2, entity:q2Entity)
         let q3Sprite = createQuadrantSprite(quadrant: 3, entity:q3Entity)
         let q4Sprite = createQuadrantSprite(quadrant: 4, entity:q4Entity)
         // Add the entities to the engine
-        engine.replaceEntity(entity: q1Entity)
-        engine.replaceEntity(entity: q2Entity)
-        engine.replaceEntity(entity: q3Entity)
-        engine.replaceEntity(entity: q4Entity)
+        engine.replace(entity: q1Entity)
+        engine.replace(entity: q2Entity)
+        engine.replace(entity: q3Entity)
+        engine.replace(entity: q4Entity)
         // Configure the entities
         q1Entity
                 .add(component: DisplayComponent(sknode: q1Sprite))

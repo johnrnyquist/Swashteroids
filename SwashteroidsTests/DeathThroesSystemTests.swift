@@ -45,10 +45,10 @@ class DeathThroesSystemTests: XCTestCase {
         let deathThroes = DeathThroesComponent(countdown: 1.0)
         let node = DeathThroesNode()
         node.components[DeathThroesComponent.name] = deathThroes
-        let entity = Entity(name: "deathThroesEntity")
+        let entity = Entity(named: "deathThroesEntity")
                 .add(component: deathThroes)
         node.entity = entity
-        try? engine.addEntity(entity: entity)
+        try? engine.add(entity: entity)
         if system.nodeUpdateFunction == nil {
             XCTFail("nodeUpdateFunction is nil")
         } else {

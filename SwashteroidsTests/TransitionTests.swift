@@ -32,10 +32,10 @@ final class TransitionTests: XCTestCase {
                                               score: 5,
                                               appState: .infoButtons,
                                               shipControlsState: .hidingButtons)
-        appStateEntity = Entity(name: "appStateEntity")
+        appStateEntity = Entity(named: "appStateEntity")
                 .add(component: appStateComponent)
         do {
-            try engine.addEntity(entity: appStateEntity)
+            try engine.add(entity: appStateEntity)
         } catch {
             XCTFail("Failed to add appStateEntity")
         }

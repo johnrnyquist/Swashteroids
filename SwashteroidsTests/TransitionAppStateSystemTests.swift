@@ -121,10 +121,10 @@ final class TransitionAppStateSystemTests: XCTestCase {
                                                   score: 0,
                                                   appState: .playing,
                                                   shipControlsState: .showingButtons)
-        let appStateEntity = Entity(name: "appStateEntity")
+        let appStateEntity = Entity(named: "appStateEntity")
                 .add(component: appStateComponent)
         do {
-            try engine.addEntity(entity: appStateEntity)
+            try engine.add(entity: appStateEntity)
         } catch {
             XCTFail("Failed to add appStateEntity")
         }

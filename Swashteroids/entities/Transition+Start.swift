@@ -25,17 +25,17 @@ extension Transition {
         noButtonsSprite.removeFromParent()
         buttonsSprite.removeFromParent()
         // create the entities
-        let startEntity = Entity(name: .start)
-        let withButtons = Entity(name: .withButtons)
-        let noButtons = Entity(name: .noButtons)
+        let startEntity = Entity(named: .start)
+        let withButtons = Entity(named: .withButtons)
+        let noButtons = Entity(named: .noButtons)
         // assign entities to sprites
         startView.entity = startEntity
         noButtonsSprite.entity = noButtons
         buttonsSprite.entity = withButtons
         // add entities to engine
-        engine.replaceEntity(entity: startEntity)
-        engine.replaceEntity(entity: noButtons)
-        engine.replaceEntity(entity: withButtons)
+        engine.replace(entity: startEntity)
+        engine.replace(entity: noButtons)
+        engine.replace(entity: withButtons)
         // configure the entities
         startEntity
                 .add(component: DisplayComponent(sknode: startView))

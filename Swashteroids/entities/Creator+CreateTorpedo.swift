@@ -25,7 +25,7 @@ extension Creator: TorpedoCreator {
         sprite.addChild(sparkEmitter)
         let name = "torpedo_\(numTorpedoes)"
         numTorpedoes += 1
-        let entity = Entity(name: name)
+        let entity = Entity(named: name)
                 .add(component: PlasmaTorpedoComponent(lifeRemaining: gunComponent.torpedoLifetime))
                 .add(component: PositionComponent(x: cos * gunComponent.offsetFromParent
                                                                        .x - sin * gunComponent.offsetFromParent
@@ -46,7 +46,7 @@ extension Creator: TorpedoCreator {
                 .add(component: AudioComponent(fileNamed: "fire.wav", actionKey: name))
         sprite.name = entity.name
         do {
-            try engine.addEntity(entity: entity)
+            try engine.add(entity: entity)
         } catch SwashError.entityNameAlreadyInUse(let message) {
             fatalError(message)
         } catch {

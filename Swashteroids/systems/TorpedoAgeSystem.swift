@@ -31,7 +31,7 @@ final class TorpedoAgeSystem: ListIteratingSystem {
         torpedoComponent.lifeRemaining -= time
         if torpedoComponent.lifeRemaining <= 0,
            let entity = node.entity {
-            engine.removeEntity(entity: entity)
+            engine.remove(entity: entity)
         }
     }
 }

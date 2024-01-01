@@ -30,7 +30,7 @@ final class DeathThroesSystem: ListIteratingSystem {
         deathComponent.countdown -= time
         if deathComponent.countdown <= 0,
            let entity = node.entity {
-            engine.removeEntity(entity: entity)
+            engine.remove(entity: entity)
         }
     }
 }

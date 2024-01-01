@@ -47,7 +47,7 @@ class CollisionSystem: System {
     /// 
     /// - Parameter time: The time since the last update
     override public func update(time: TimeInterval) {
-        shipTorpedoPowerUpCollisionCheck()
+        shipTorpedoPowerUpCollisionCheck(shipCollisionNode: ships.head, torpedoPowerUpNode: torpedoPowerUp.head)
         shipHSCollisionCheck()
         torpedoAsteroidCollisionCheck()
         shipAsteroidCollisionCheck()
@@ -77,20 +77,19 @@ class CollisionSystem: System {
         }
     }
 
-    func shipTorpedoPowerUpCollisionCheck() {
-        let shipCollisionNode = ships.head
-        var torpedoPowerUpNode = torpedoPowerUp?.head
-        while torpedoPowerUpNode != nil {
+    func shipTorpedoPowerUpCollisionCheck(shipCollisionNode: Node?, torpedoPowerUpNode: Node?) {
+        var torpedoPowerUpNode = torpedoPowerUpNode // make mutable copy
+        while let currentPowerUp = torpedoPowerUpNode {
             guard
-                let gunSupplierPosition = torpedoPowerUpNode?[PositionComponent.self],
+                let gunSupplierPosition = currentPowerUp[PositionComponent.self],
                 let shipPosition = shipCollisionNode?[PositionComponent.self],
-                let gunSupplierCollision = torpedoPowerUpNode?[CollisionComponent.self],
+                let gunSupplierCollision = currentPowerUp[CollisionComponent.self],
                 let shipCollision = shipCollisionNode?[CollisionComponent.self]
-            else { torpedoPowerUpNode = torpedoPowerUpNode?.next; continue }
+            else { torpedoPowerUpNode = currentPowerUp.next; continue }
             let distanceToShip = gunSupplierPosition.position.distance(from: shipPosition.position)
             if (distanceToShip <= gunSupplierCollision.radius + shipCollision.radius) {
-                engine.removeEntity(entity: torpedoPowerUpNode!.entity!)
-                torpedoPowerUpNode = torpedoPowerUpNode?.next
+                engine.remove(entity: currentPowerUp.entity!)
+                torpedoPowerUpNode = currentPowerUp.next
                 shipCollisionNode?.entity?
                                   .add(component: GunComponent(offsetX: 21, offsetY: 0,
                                                                minimumShotInterval: 0.25,
@@ -106,7 +105,7 @@ class CollisionSystem: System {
                 sprite?.run(seq)
                 //END_HACK
             }
-            torpedoPowerUpNode = torpedoPowerUpNode?.next
+            torpedoPowerUpNode = currentPowerUp.next
         }
     }
 
@@ -122,7 +121,7 @@ class CollisionSystem: System {
             else { hyperspacePowerUpNode = hyperspacePowerUpNode?.next; continue }
             let distanceToShip = hyperspacePowerUpPosition.position.distance(from: shipPosition.position)
             if (distanceToShip <= hyperspacePowerUpCollision.radius + shipCollision.radius) {
-                engine.removeEntity(entity: hyperspacePowerUpNode!.entity!)
+                engine.remove(entity: hyperspacePowerUpNode!.entity!)
                 hyperspacePowerUpNode = hyperspacePowerUpNode?.next
                 shipCollisionNode?.entity?
                                   .add(component: HyperspaceEngineComponent())
@@ -153,7 +152,7 @@ class CollisionSystem: System {
                     let asteroidCollision = asteroidNode?[CollisionComponent.self]
                 else { asteroidNode = asteroidNode?.next; continue } // or return? }
                 if (asteroidPosition.position.distance(from: torpedoPosition.position) <= asteroidCollision.radius) {
-                    engine.removeEntity(entity: torpedoNode!.entity!)
+                    engine.remove(entity: torpedoNode!.entity!)
                     let level = (appStateNodes.head?[AppStateComponent.self] as? AppStateComponent)?.level ?? 1
                     splitAsteroid(collisionComponent: asteroidCollision,
                                   positionComponent: asteroidPosition,

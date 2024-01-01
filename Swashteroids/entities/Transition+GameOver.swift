@@ -18,7 +18,7 @@ extension Transition {
         let asteroids = engine.getNodeList(nodeClassType: AsteroidCollisionNode.self)
         var asteroid = asteroids.head
         while asteroid != nil {
-            engine.removeEntity(entity: asteroid!.entity!)
+            engine.remove(entity: asteroid!.entity!)
             asteroid = asteroid?.next
         }
         engine.removeEntities(named: [.hud, .gameOver, .hyperspacePowerUp, .plasmaTorpedoesPowerUp])
@@ -33,7 +33,7 @@ extension Transition {
             return
         }
         let gameOverView = GameOverView(size: size)
-        let gameOverEntity = Entity(name: .gameOver)
+        let gameOverEntity = Entity(named: .gameOver)
                 .add(component: GameOverComponent())
                 .add(component: DisplayComponent(sknode: gameOverView))
 				.add(component: PositionComponent(x: size.width/2, y: size.height/2, z: .top, rotationDegrees: 0))
@@ -47,7 +47,7 @@ extension Transition {
                     }))
         gameOverView.entity = gameOverEntity
         do {
-            try engine.addEntity(entity: gameOverEntity)
+            try engine.add(entity: gameOverEntity)
         } catch {
             print("WARNING: engine already contained \(gameOverEntity.name) entity!")
         }
