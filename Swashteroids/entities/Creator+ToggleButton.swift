@@ -11,7 +11,7 @@
 import Swash
 import SpriteKit
 
-protocol ToggleButtonManager {
+protocol ToggleButtonManager: AnyObject {
     func removeToggleButton()
     func createToggleButton(_ toggleState: Toggle)
 }

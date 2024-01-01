@@ -11,7 +11,7 @@
 import Swash
 import SpriteKit
 
-protocol ShipControlQuadrantsManager {
+protocol ShipControlQuadrantsManager: AnyObject {
     func removeShipControlQuadrants()
     func createShipControlQuadrants()
 }

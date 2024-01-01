@@ -12,16 +12,12 @@ import Swash
 import SpriteKit
 import Foundation
 
-final class ShipControlsSystem: ListIteratingSystem {
-    private weak var creator: Creator!
-    private weak var scene: GameScene!
+class ShipControlsSystem: ListIteratingSystem {
+    private weak var creator: (ShipControlQuadrantsManager & ShipControlButtonsManager & ToggleButtonManager)!
     private weak var engine: Engine!
-    private weak var game: Swashteroids! //HACK to nil out motion manager
 
-    init(creator: Creator, scene: GameScene, game: Swashteroids) {
+    init(creator: ShipControlQuadrantsManager & ShipControlButtonsManager & ToggleButtonManager) {
         self.creator = creator
-        self.scene = scene
-        self.game = game
         super.init(nodeClass: ShipControlsStateNode.self)
         nodeUpdateFunction = updateNode
     }
@@ -46,6 +42,7 @@ final class ShipControlsSystem: ListIteratingSystem {
                 creator.removeShipControlQuadrants()
                 creator.createShipControlButtons()
                 creator.enableShipControlButtons()
+                // HACK alpha for fire and hyperspace is set to 0.0 in Creator+ShipControlButtonsManager.swift
                 if let ship = engine.ship,
                    ship.has(componentClassName: GunComponent.name) {
                     if let fireButton = engine.getEntity(named: .fireButton),

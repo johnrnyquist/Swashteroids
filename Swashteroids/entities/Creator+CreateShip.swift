@@ -37,7 +37,7 @@ class ShipEntity: Entity {
         shipSprite.name = name
         shipSprite.zPosition = .ship
         let nacellesSprite = SKSpriteNode(texture: createNacelleTexture())
-        nacellesSprite.zPosition = shipSprite.zPosition + 0.1
+        nacellesSprite.zPosition = shipSprite.zPosition + 0.1 //HACK
         nacellesSprite.isHidden = true
         nacellesSprite.name = "nacelles"
         shipSprite.addChild(nacellesSprite)

@@ -154,6 +154,7 @@
 		931399FEBA1404DE9F734910 /* MotionControlsComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139A62ACBE6CDFC10158E7 /* MotionControlsComponent.swift */; };
 		93139A8885E51A1D11E5F1D6 /* Creator+CreateHud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931397F86C674AD22210D173 /* Creator+CreateHud.swift */; };
 		93139A9EC82B1613E385C4DF /* CGFloat+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139AFE6A68E0D9B149BA93 /* CGFloat+extensions.swift */; };
+		93139AF6101463528E309EA7 /* ShipControlsSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139C4A1DEEA1037E802D8E /* ShipControlsSystemTests.swift */; };
 		93139BB63DB9036243796001 /* RepeatingAudioComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931399A8022AF1B7FCC53B49 /* RepeatingAudioComponent.swift */; };
 		93139BC5661C918BD0158277 /* HyperspaceSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313964664F31540DA9D0416 /* HyperspaceSystemTests.swift */; };
 		93139BD1EDA3D1E9AEA9C1D4 /* ThrustSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931390DB9E3BECA50B2D05CF /* ThrustSystem.swift */; };
@@ -350,6 +351,7 @@
 		93139BC38DC2F4BF7B9F869A /* LeftComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftComponent.swift; sourceTree = "<group>"; };
 		93139BD2BE63CAC32979ABA3 /* HyperspaceEngineComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HyperspaceEngineComponent.swift; sourceTree = "<group>"; };
 		93139C3D0D48098244988F2F /* FlipSystemTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlipSystemTest.swift; sourceTree = "<group>"; };
+		93139C4A1DEEA1037E802D8E /* ShipControlsSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipControlsSystemTests.swift; sourceTree = "<group>"; };
 		93139C5C73E05D316598047C /* NacelleSystemTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NacelleSystemTest.swift; sourceTree = "<group>"; };
 		93139C73A66D8863A166745D /* Creator+CreatePowerUp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Creator+CreatePowerUp.swift"; sourceTree = "<group>"; };
 		93139CC64C9CFC7E61D7DCFE /* FlipNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlipNode.swift; sourceTree = "<group>"; };
@@ -633,6 +635,7 @@
 				931397AEAB4946A616156BF7 /* DeathThroesSystemTests.swift */,
 				93139DE76BF1939914D55E38 /* FiringSystemTests.swift */,
 				93139A6D529EF901F7F45FFD /* GameManagerSystemTests.swift */,
+				93139C4A1DEEA1037E802D8E /* ShipControlsSystemTests.swift */,
 			);
 			path = SwashteroidsTests;
 			sourceTree = "<group>";
@@ -941,6 +944,7 @@
 				93139113FFD9F17E28DA721A /* DeathThroesSystemTests.swift in Sources */,
 				931394AC921BF3C3D7CABD13 /* FiringSystemTests.swift in Sources */,
 				93139D4F7B05532BC0F56A6C /* GameManagerSystemTests.swift in Sources */,
+				93139AF6101463528E309EA7 /* ShipControlsSystemTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

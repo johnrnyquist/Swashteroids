@@ -11,7 +11,7 @@
 import Swash
 import SpriteKit
 
-protocol ShipControlButtonsManager {
+protocol ShipControlButtonsManager: AnyObject {
     func removeShipControlButtons()
     func createShipControlButtons()
     func enableShipControlButtons()
