@@ -28,7 +28,7 @@ final class PositionComponent: Component {
     }
     var layer: Layer
 
-    init(x: Double, y: Double, z: Layer, rotationDegrees: Double = 0.0) {
+    init(x: Double, y: Double, z: CGFloat, rotationDegrees: Double = 0.0) {
         position = CGPoint(x: x, y: y)
         self.rotationDegrees = rotationDegrees
         layer = z

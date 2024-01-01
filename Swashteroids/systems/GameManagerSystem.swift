@@ -171,7 +171,7 @@ class GameManagerSystem: System {
         levelText.fontColor = .hudText
         levelText.fontSize = hudTextFontSize
         levelText.position = CGPoint(x: size.width / 2, y: size.height / 2 * 1.2)
-        levelText.zPosition = Layer.top.rawValue
+        levelText.zPosition = .top
     }
 
     /// Animate the level text

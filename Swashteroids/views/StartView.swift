@@ -28,7 +28,7 @@ final class StartView: SwashSpriteNode {
         super.init(texture: nil, color: .clear, size: gameSize)
         scale = 1 // clear the parent's setting
         anchorPoint = .zero
-        zPosition = Layer.top.rawValue
+        zPosition = .top
         // Configure title
         title.color = .white
         title.colorBlendFactor = 1.0

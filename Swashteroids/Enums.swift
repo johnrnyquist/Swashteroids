@@ -9,10 +9,10 @@
 //
 
 import Swash
+import Foundation
 
 var LARGE_ASTEROID_RADIUS = 54.0
 var POWER_UP_RADIUS = 7.0
-
 // TODO: Is this AppState or GameState? Start, playing, gameover, paused all seem like game states. infoButtons and infoNoButtons seem like app states.
 enum AppState {
     case start
@@ -31,17 +31,6 @@ enum ShipControlsState {
 enum Toggle: String {
     case on = "On"
     case off = "Off"
-}
-
-// zPosition for layers
-enum Layer: Double {
-    case bottom
-    case asteroids
-    case torpedoes
-    case ship
-    case hud
-    case buttons
-    case top
 }
 
 enum RepeatingSoundState {

@@ -33,7 +33,7 @@ class HudView: SKNode {
         shipsLabel = createLabel(x: textXPadding, y: textY, alignment: .left)
         pauseButton = SwashSpriteNode(imageNamed: "pause")
         pauseButton.anchorPoint = CGPoint(x: 1.0, y: 0.0)
-        pauseButton.zPosition = Layer.buttons.rawValue
+        pauseButton.zPosition = .buttons
         pauseButton.x = gameSize.width - textXPadding
         pauseButton.y = textY
         pauseButton.scale = 0.25 //HACK

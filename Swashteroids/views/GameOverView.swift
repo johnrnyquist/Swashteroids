@@ -33,7 +33,7 @@ class GameOverView: SwashSpriteNode {
         swash.alpha = 0.2
         swash.y = gameOver.y - 30
         addChild(swash)
-        zPosition = Layer.top.rawValue
+        zPosition = .top
     }
 
     required init?(coder aDecoder: NSCoder) {

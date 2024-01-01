@@ -56,7 +56,7 @@ final class RenderSystem: System {
             if let positionComponent = positionComponent {
                 sknode?.position = positionComponent.position
                 sknode?.zRotation = positionComponent.rotationDegrees * Double.pi / 180
-                sknode?.zPosition = positionComponent.layer.rawValue
+                sknode?.zPosition = positionComponent.layer
             }
             renderNode = renderNode!.next
         }
