@@ -53,19 +53,19 @@ class CollisionSystem: System {
         shipAsteroidCollisionCheck()
     }
 
-    func splitAsteroid(asteroidCollision: CollisionComponent, asteroidPosition: PositionComponent,
+    func splitAsteroid(collisionComponent: CollisionComponent, positionComponent: PositionComponent,
                        asteroidCollisionNode: Node?, splits: Int = 2, level: Int) {
         guard let asteroidCollisionNode else { return }
-        if (asteroidCollision.radius > LARGE_ASTEROID_RADIUS * scaleManager.SCALE_FACTOR / 4) {
+        if (collisionComponent.radius > LARGE_ASTEROID_RADIUS * scaleManager.SCALE_FACTOR / 4) {
             for _ in 1...splits {
-                creator.createAsteroid(radius: asteroidCollision.radius * 1.0 / scaleManager.SCALE_FACTOR / 2.0,
-                                       x: asteroidPosition.x + Double.random(in: -5...5),
-                                       y: asteroidPosition.y + Double.random(in: -5...5),
+                creator.createAsteroid(radius: collisionComponent.radius * 1.0 / scaleManager.SCALE_FACTOR / 2.0,
+                                       x: positionComponent.x + Double.random(in: -5...5),
+                                       y: positionComponent.y + Double.random(in: -5...5),
                                        level: level)
             }
         }
-        let spriteNode = SKNode()
         if let emitter = SKEmitterNode(fileNamed: "shipExplosion.sks") {
+            let spriteNode = SKNode()
             spriteNode.addChild(emitter)
             asteroidCollisionNode.entity?
                                  .remove(componentClass: DisplayComponent.self)
@@ -155,8 +155,8 @@ class CollisionSystem: System {
                 if (asteroidPosition.position.distance(from: torpedoPosition.position) <= asteroidCollision.radius) {
                     engine.removeEntity(entity: torpedoNode!.entity!)
                     let level = (appStateNodes.head?[AppStateComponent.self] as? AppStateComponent)?.level ?? 1
-                    splitAsteroid(asteroidCollision: asteroidCollision,
-                                  asteroidPosition: asteroidPosition,
+                    splitAsteroid(collisionComponent: asteroidCollision,
+                                  positionComponent: asteroidPosition,
                                   asteroidCollisionNode: asteroidNode, level: level)
                     if let gameStateNode = appStateNodes.head,
                        let appStateComponent = gameStateNode[AppStateComponent.self] {
@@ -199,8 +199,8 @@ class CollisionSystem: System {
                         }
                     }
                     let level = (appStateNodes.head?[AppStateComponent.self] as? AppStateComponent)?.level ?? 1
-                    splitAsteroid(asteroidCollision: asteroidCollision,
-                                  asteroidPosition: asteroidPosition,
+                    splitAsteroid(collisionComponent: asteroidCollision,
+                                  positionComponent: asteroidPosition,
                                   asteroidCollisionNode: asteroidCollisionNode, level: level)
                     break
                 }

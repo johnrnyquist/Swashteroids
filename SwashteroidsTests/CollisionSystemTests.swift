@@ -8,12 +8,13 @@
 // https://github.com/johnrnyquist/Swash
 //
 
+import SpriteKit
 import XCTest
 @testable import Swashteroids
 @testable import Swash
 
 class CollisionSystemTests: XCTestCase {
-    var creator: AsteroidCreator!
+    var creator: MockAsteroidCreator!
 
     override func setUpWithError() throws {
         creator = MockAsteroidCreator()
@@ -32,7 +33,7 @@ class CollisionSystemTests: XCTestCase {
         XCTAssertTrue(system.shipHSCollisionCheckCalled)
         XCTAssertTrue(system.torpedoAsteroidCollisionCheckCalled)
         XCTAssertTrue(system.shipAsteroidCollisionCheckCalled)
-        
+
         class MockCollisionSystem: CollisionSystem {
             var shipTorpedoPowerUpCollisionCheckCalled = false
             var shipHSCollisionCheckCalled = false
@@ -57,11 +58,57 @@ class CollisionSystemTests: XCTestCase {
         }
     }
 
+    func test_SplitAsteroid() {
+        let system = CollisionSystem(creator: creator,
+                                     size: .zero,
+                                     scaleManager: MockScaleManager())
+        let positionComponent = PositionComponent(x: 0, y: 0, z: .asteroids)
+        let motionComponent = MotionComponent(velocityX: 0, velocityY: 0, scaleManager: MockScaleManager())
+        let collisionComponent = CollisionComponent(radius: LARGE_ASTEROID_RADIUS + 1, scaleManager: MockScaleManager())
+        let asteroid = Entity()
+                .add(component: AsteroidComponent())
+                .add(component: positionComponent)
+                .add(component: motionComponent)
+                .add(component: collisionComponent)
+        let node = Node()
+        let sprite = SKNode()
+        node.components[DisplayComponent.name] = DisplayComponent(sknode: sprite)
+        node.components[CollisionComponent.name] = collisionComponent
+        let entity = Entity()
+        node.entity = entity
+        try? system.splitAsteroid(collisionComponent: collisionComponent,
+                                  positionComponent: positionComponent,
+                                  asteroidCollisionNode: node,
+                                  splits: 2,
+                                  level: 1)
+        XCTAssertEqual(creator.createAsteroidCalled, 2)
+        XCTAssertFalse(entity.has(componentClassName: CollisionComponent.name))
+        XCTAssertTrue(entity.has(componentClassName: AudioComponent.name))
+        XCTAssertTrue(entity.has(componentClassName: DeathThroesComponent.name))
+        XCTAssertNotEqual(entity.sprite, sprite)
+    }
+
+    func test_ShipTorpedoPowerUpCollisionCheck() {
+        XCTFail("Need to write tests for \(#function)!")
+    }
+
+    func test_ShipHSCollisionCheck() {
+        XCTFail("Need to write tests for \(#function)!")
+    }
+
+    func test_TorpedoAsteroidCollisionCheck() {
+        XCTFail("Need to write tests for \(#function)!")
+    }
+
+    func test_ShipAsteroidCollisionCheck() {
+        XCTFail("Need to write tests for \(#function)!")
+    }
+    
     class MockAsteroidCreator: AsteroidCreator {
-        var createAsteroidCalled = false
+        var createAsteroidCalled = 0
 
         func createAsteroid(radius: Double, x: Double, y: Double, level: Int) {
-            createAsteroidCalled = true
+            createAsteroidCalled += 1
         }
     }
 
