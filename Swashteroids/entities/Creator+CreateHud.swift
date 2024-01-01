@@ -15,7 +15,7 @@ protocol HudManager {
     func createHud(gameState: AppStateComponent)
 }
 
-extension Creator: HudManager, AlertPresenter {
+extension Creator: HudManager, AlertPresenting {
     func createHud(gameState: AppStateComponent) {
         let hudEntity = HudEntity(name: .hud, gameState: gameState)
         let pauseButton = hudEntity.view.pauseButton!

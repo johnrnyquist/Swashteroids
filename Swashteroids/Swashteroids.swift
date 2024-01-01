@@ -23,9 +23,9 @@ final class Swashteroids: NSObject {
     private var engine: Engine
     private var tickProvider: FrameTickProvider?
     private var tickEngineListener: Listener
-    var alertPresenter: AlertPresenter
+    var alertPresenter: AlertPresenting
 
-    init(scene: GameScene, alertPresenter: AlertPresenter) {
+    init(scene: GameScene, alertPresenter: AlertPresenting) {
         self.scene = scene
         self.alertPresenter = alertPresenter
         engine = Engine()

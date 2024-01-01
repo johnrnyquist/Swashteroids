@@ -10,7 +10,7 @@
 
 import SpriteKit
 
-class PlasmaTorpedoesPowerUpView: SwashSpriteNode, Animate {
+class PlasmaTorpedoesPowerUpView: SwashSpriteNode, Animating {
 	var time: TimeInterval = 0
 	var dir = -1.0
 
@@ -27,7 +27,7 @@ class PlasmaTorpedoesPowerUpView: SwashSpriteNode, Animate {
 }
 
 
-class HyperspacePowerUpView: SwashSpriteNode, Animate {
+class HyperspacePowerUpView: SwashSpriteNode, Animating {
 	var time: TimeInterval = 0
 	var dir = -1.0
 

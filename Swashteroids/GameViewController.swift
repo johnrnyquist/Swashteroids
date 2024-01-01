@@ -12,15 +12,15 @@ import UIKit
 import SpriteKit
 import SwiftUI
 
-protocol AlertPresenter {
+protocol AlertPresenting {
     func showPauseAlert()
 }
 
-final class GameViewController: UIViewController, AlertPresenter {
+final class GameViewController: UIViewController, AlertPresenting {
     var skView: SKView!
     var gameScene: GameScene!
     var game: Swashteroids!
-    var alertPresenter: AlertPresenter!
+    var alertPresenter: AlertPresenting!
 
     override func loadView() {
         skView = SKView()

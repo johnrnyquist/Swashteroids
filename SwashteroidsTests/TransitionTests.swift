@@ -134,7 +134,7 @@ final class TransitionTests: XCTestCase {
         XCTAssertNotNil(display.sknode)
     }
 
-    class MockAlertPresenter: AlertPresenter {
+    class MockAlertPresenter: AlertPresenting {
         func showPauseAlert() {}
     }
 

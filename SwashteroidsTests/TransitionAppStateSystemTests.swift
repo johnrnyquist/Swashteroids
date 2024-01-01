@@ -136,7 +136,7 @@ final class TransitionAppStateSystemTests: XCTestCase {
         XCTAssertEqual(appStateComponent.appState, .gameOver)
     }
 
-    class MockAlertPresenter: AlertPresenter {
+    class MockAlertPresenter: AlertPresenting {
         func showPauseAlert() {}
     }
 }

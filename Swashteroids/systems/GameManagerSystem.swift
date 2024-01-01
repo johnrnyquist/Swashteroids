@@ -19,7 +19,7 @@ Creates the level.
 Determines if a ship needs to be made.
 Has too many responsibilities.
  */
-final class GameManagerSystem: System {
+class GameManagerSystem: System {
     private var size: CGSize
     private weak var scene: SKScene!
     private weak var creator: (PowerUpCreator & ShipCreator & AsteroidCreator & TorpedoCreator)!
@@ -35,16 +35,13 @@ final class GameManagerSystem: System {
     private var spaceshipClearanceRadius: CGFloat = 50
     private var minimumAsteroidDistance: CGFloat = 80
 
-    init(creator: PowerUpCreator & ShipCreator & AsteroidCreator & TorpedoCreator, 
-         size: CGSize, scene: SKScene, 
+    init(creator: PowerUpCreator & ShipCreator & AsteroidCreator & TorpedoCreator,
+         size: CGSize,
+         scene: SKScene,
          scaleManager: ScaleManaging = ScaleManager.shared) {
         self.creator = creator
         self.size = size
         self.scene = scene
-//        spaceshipClearanceRadius *= scaleManager.SCALE_FACTOR
-//        minimumAsteroidDistance *= scaleManager.SCALE_FACTOR
-//        print("spaceshipClearanceRadius: \(spaceshipClearanceRadius)")
-//        print("minimumAsteroidDistance: \(minimumAsteroidDistance)")
         hudTextFontSize *= scaleManager.SCALE_FACTOR
     }
 
@@ -57,7 +54,7 @@ final class GameManagerSystem: System {
     }
 
     override func update(time: TimeInterval) {
-        guard let currentStateNode = appStates.head,
+        guard let currentStateNode = appStates.head as? AppStateNode,
               let appStateComponent = currentStateNode[AppStateComponent.self] else { return }
         handleGameState(appStateComponent: appStateComponent, currentStateNode: currentStateNode)
     }
@@ -71,21 +68,21 @@ final class GameManagerSystem: System {
     }
 
     // MARK: - Game Logic
-    private func handleGameState(appStateComponent: AppStateComponent, currentStateNode: Node) {
+    /// If there are no ships and is playing, handle it. 
+    /// If there are no asteroids, no torpedoes and there is a ship then you finished the level, go to the next.
+    func handleGameState(appStateComponent: AppStateComponent, currentStateNode: AppStateNode) {
         // No ships in the NodeList, but we're still playing.
-        if ships.empty,
-           appStateComponent.appState == .playing {
+        if ships.empty, appStateComponent.appState == .playing {
             handlePlayingState(appStateComponent: appStateComponent, currentStateNode: currentStateNode)
         }
         // No asteroids or torpedoes but we have a ship, so start a new level.
-        if asteroids.empty,
-           torpedoes.empty,
-           !ships.empty {
+        if asteroids.empty, torpedoes.empty, !ships.empty {
             goToNextLevel(appStateComponent: appStateComponent, currentStateNode: currentStateNode)
         }
     }
 
-    private func handlePlayingState(appStateComponent: AppStateComponent, currentStateNode: Node) {
+    /// If we have ships, make one. Otherwise, go to game over state.
+    func handlePlayingState(appStateComponent: AppStateComponent, currentStateNode: AppStateNode) {
         // If we have any ships left, make another and some power-ups
         if appStateComponent.numShips > 0 {
             let newSpaceshipPosition = CGPoint(x: size.width * spaceshipPositionRatio,
@@ -100,7 +97,8 @@ final class GameManagerSystem: System {
         }
     }
 
-    private func goToNextLevel(appStateComponent: AppStateComponent, currentStateNode: Node) {
+    /// Go to the next level, announce it, create asteroids
+    func goToNextLevel(appStateComponent: AppStateComponent, currentStateNode: AppStateNode) {
         guard let shipNode = ships.head,
               let spaceShipPosition = shipNode[PositionComponent.self] else { return }
         appStateComponent.level += 1
@@ -109,11 +107,13 @@ final class GameManagerSystem: System {
         createAsteroids(count: appStateComponent.level, avoiding: spaceShipPosition.position, level: appStateComponent.level)
     }
 
-    private func isClearToAddSpaceship(at position: CGPoint) -> Bool {
+    /// Detects if there is an asteroid too close to the new spaceship position
+    func isClearToAddSpaceship(at position: CGPoint) -> Bool {
         var asteroid = asteroids.head
         while let currentAsteroid = asteroid {
             guard let positionComponent = currentAsteroid[PositionComponent.self],
-                  let collisionComponent = currentAsteroid[CollisionComponent.self] else {
+                  let collisionComponent = currentAsteroid[CollisionComponent.self]
+            else { // we will never hit this
                 asteroid = currentAsteroid.next
                 continue
             }
@@ -125,12 +125,14 @@ final class GameManagerSystem: System {
         return true
     }
 
-    private func createPowerUps(level: Int) {
+    /// Create power-ups
+    func createPowerUps(level: Int) {
         creator.createPlasmaTorpedoesPowerUp(level: level)
         creator.createHyperspacePowerUp(level: level)
     }
 
-    private func createAsteroids(count: Int, avoiding positionToAvoid: CGPoint, level: Int) {
+    /// Create asteroids
+    func createAsteroids(count: Int, avoiding positionToAvoid: CGPoint, level: Int) {
         for _ in 0..<count {
             var position: CGPoint
             repeat {
@@ -140,7 +142,8 @@ final class GameManagerSystem: System {
         }
     }
 
-    private func randomPosition() -> CGPoint {
+    /// Create a random position on the screen
+    func randomPosition() -> CGPoint {
         let isVertical = Bool.random()
         let isPositive = Bool.random()
         if isVertical {
@@ -152,7 +155,8 @@ final class GameManagerSystem: System {
         }
     }
 
-    private func announceLevel(appStateComponent: AppStateComponent) {
+    /// Announce the level
+    func announceLevel(appStateComponent: AppStateComponent) {
         let levelText = SKLabelNode(text: "Level \(appStateComponent.level)")
         configureLevelText(levelText)
         scene.addChild(levelText)
@@ -160,7 +164,8 @@ final class GameManagerSystem: System {
     }
 
     // MARK: - HUD Helpers
-    private func configureLevelText(_ levelText: SKLabelNode) {
+    /// Configure the level text
+    func configureLevelText(_ levelText: SKLabelNode) {
         levelText.horizontalAlignmentMode = .center
         levelText.fontName = hudTextFontName
         levelText.fontColor = .hudText
@@ -169,7 +174,8 @@ final class GameManagerSystem: System {
         levelText.zPosition = Layer.top.rawValue
     }
 
-    private func animateLevelText(_ levelText: SKLabelNode) {
+    /// Animate the level text
+    func animateLevelText(_ levelText: SKLabelNode) {
         let zoomInAction = SKAction.scale(to: 2.0, duration: 0.5)
         zoomInAction.timingMode = .easeIn
         let waitAction = SKAction.wait(forDuration: 1.0)
@@ -180,3 +186,4 @@ final class GameManagerSystem: System {
         }
     }
 }
+

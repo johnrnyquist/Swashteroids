@@ -13,21 +13,21 @@ import SpriteKit
 
 protocol PowerUpCreator: AnyObject {
     func createHyperspacePowerUp(level: Int)
-    func createHyperspacePowerUp(radius: Double, level: Int)
+    func createHyperspacePowerUp(level: Int, radius: Double)
     func createPlasmaTorpedoesPowerUp(level: Int)
-    func createPlasmaTorpedoesPowerUp(radius: Double, level: Int)
+    func createPlasmaTorpedoesPowerUp(level: Int, radius: Double)
 }
 
 extension Creator: PowerUpCreator {
     func createHyperspacePowerUp(level: Int) {
-        createHyperspacePowerUp(radius: 7, level: level)
+        createHyperspacePowerUp(level: level, radius: POWER_UP_RADIUS)
     }
 
     func createPlasmaTorpedoesPowerUp(level: Int) {
-        createPlasmaTorpedoesPowerUp(radius: 7, level: level)
+        createPlasmaTorpedoesPowerUp(level: level, radius: POWER_UP_RADIUS)
     }
 
-    func createPlasmaTorpedoesPowerUp(radius: Double = 7, level: Int) {
+    func createPlasmaTorpedoesPowerUp(level: Int, radius: Double = POWER_UP_RADIUS) {
         guard engine.getEntity(named: .plasmaTorpedoesPowerUp) == nil else { return }
         let sprite = PlasmaTorpedoesPowerUpView(imageNamed: "scope")
         let emitter = SKEmitterNode(fileNamed: "plasmaTorpedoesPowerUp.sks")!
@@ -48,7 +48,7 @@ extension Creator: PowerUpCreator {
         engine.replaceEntity(entity: entity)
     }
 
-    func createHyperspacePowerUp(radius: Double = 7, level: Int) {
+    func createHyperspacePowerUp(level: Int, radius: Double = POWER_UP_RADIUS) {
         guard engine.getEntity(named: .hyperspacePowerUp) == nil else { return }
         let sprite = HyperspacePowerUpView(imageNamed: "hyperspacePowerUp")
         let emitter = SKEmitterNode(fileNamed: "hyperspacePowerUp.sks")!
