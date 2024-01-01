@@ -143,11 +143,11 @@ final class ShipControlsSystemTests: XCTestCase {
         try? engine.addEntity(entity: ship)
         //                
         system.do_toggleButtons(.hidingButtons)
-        XCTAssertTrue(creator.removeShipControlQuadrantsCalled)
-        XCTAssertTrue(creator.createShipControlButtonsCalled)
-        XCTAssertTrue(creator.enableShipControlButtonsCalled)
+        XCTAssertTrue(creator.createShipControlQuadrantsCalled)
+        XCTAssertTrue(creator.removeShipControlButtonsCalled)
         XCTAssertTrue(creator.removeToggleButtonCalled)
         XCTAssertTrue(creator.createToggleButtonCalled)
+        XCTAssertTrue(ship.has(componentClassName: AccelerometerComponent.name))    
     }
 
     class MockCreator: ShipControlQuadrantsManager, ShipControlButtonsManager, ToggleButtonManager {

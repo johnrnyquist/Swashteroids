@@ -16,7 +16,7 @@ protocol AsteroidCreator: AnyObject {
 }
 
 /// This class is an argument for switching to the SpriteKit physics engine.
-final class CollisionSystem: System {
+class CollisionSystem: System {
     private weak var creator: AsteroidCreator!
     private weak var appStateNodes: NodeList!
     private weak var ships: NodeList!
@@ -28,7 +28,7 @@ final class CollisionSystem: System {
     private var size: CGSize
     let scaleManager: ScaleManaging
 
-    init(_ creator: AsteroidCreator, size: CGSize, scaleManager: ScaleManaging = ScaleManager.shared) {
+    init(creator: AsteroidCreator, size: CGSize, scaleManager: ScaleManaging = ScaleManager.shared) {
         self.creator = creator
         self.size = size
         self.scaleManager = scaleManager
@@ -53,8 +53,8 @@ final class CollisionSystem: System {
         shipAsteroidCollisionCheck()
     }
 
-    private func splitAsteroid(asteroidCollision: CollisionComponent, asteroidPosition: PositionComponent,
-                               asteroidCollisionNode: Node?, splits: Int = 2, level: Int) {
+    func splitAsteroid(asteroidCollision: CollisionComponent, asteroidPosition: PositionComponent,
+                       asteroidCollisionNode: Node?, splits: Int = 2, level: Int) {
         guard let asteroidCollisionNode else { return }
         if (asteroidCollision.radius > LARGE_ASTEROID_RADIUS * scaleManager.SCALE_FACTOR / 4) {
             for _ in 1...splits {

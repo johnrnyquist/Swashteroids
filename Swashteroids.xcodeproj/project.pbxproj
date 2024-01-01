@@ -125,6 +125,7 @@
 		8DB99F7B2B2E8BE400C3593A /* MovementSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931399F9256FB8B5F9EBA4E4 /* MovementSystemTests.swift */; };
 		8DD26DC92B22D7E300DA5BC3 /* AccelerometerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD26DC82B22D7E300DA5BC3 /* AccelerometerNode.swift */; };
 		8DD26DCB2B22D80600DA5BC3 /* AccelerometerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD26DCA2B22D80600DA5BC3 /* AccelerometerComponent.swift */; };
+		931390FD65B5AF82D24FEB32 /* CollisionSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139BEB3AC5615963614D45 /* CollisionSystemTests.swift */; };
 		93139113FFD9F17E28DA721A /* DeathThroesSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931397AEAB4946A616156BF7 /* DeathThroesSystemTests.swift */; };
 		93139265D59A74E99D27A0CF /* Transition+GameOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931393BFA7122C52736144FB /* Transition+GameOver.swift */; };
 		9313927570EF98CB5DB23DCB /* NacelleSystemTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139C5C73E05D316598047C /* NacelleSystemTest.swift */; };
@@ -350,6 +351,7 @@
 		93139B1BA616F9CF29C1B194 /* RightSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightSystemTests.swift; sourceTree = "<group>"; };
 		93139BC38DC2F4BF7B9F869A /* LeftComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftComponent.swift; sourceTree = "<group>"; };
 		93139BD2BE63CAC32979ABA3 /* HyperspaceEngineComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HyperspaceEngineComponent.swift; sourceTree = "<group>"; };
+		93139BEB3AC5615963614D45 /* CollisionSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollisionSystemTests.swift; sourceTree = "<group>"; };
 		93139C3D0D48098244988F2F /* FlipSystemTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlipSystemTest.swift; sourceTree = "<group>"; };
 		93139C4A1DEEA1037E802D8E /* ShipControlsSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipControlsSystemTests.swift; sourceTree = "<group>"; };
 		93139C5C73E05D316598047C /* NacelleSystemTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NacelleSystemTest.swift; sourceTree = "<group>"; };
@@ -636,6 +638,7 @@
 				93139DE76BF1939914D55E38 /* FiringSystemTests.swift */,
 				93139A6D529EF901F7F45FFD /* GameManagerSystemTests.swift */,
 				93139C4A1DEEA1037E802D8E /* ShipControlsSystemTests.swift */,
+				93139BEB3AC5615963614D45 /* CollisionSystemTests.swift */,
 			);
 			path = SwashteroidsTests;
 			sourceTree = "<group>";
@@ -945,6 +948,7 @@
 				931394AC921BF3C3D7CABD13 /* FiringSystemTests.swift in Sources */,
 				93139D4F7B05532BC0F56A6C /* GameManagerSystemTests.swift in Sources */,
 				93139AF6101463528E309EA7 /* ShipControlsSystemTests.swift in Sources */,
+				931390FD65B5AF82D24FEB32 /* CollisionSystemTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

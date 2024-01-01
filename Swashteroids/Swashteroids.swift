@@ -77,7 +77,7 @@ final class Swashteroids: NSObject {
                 .addSystem(system: RightSystem(), priority: .move)
                 .addSystem(system: ThrustSystem(), priority: .move)
                 // resolve collisions
-                .addSystem(system: CollisionSystem(creator, size: scene.size), priority: .resolveCollisions)
+                .addSystem(system: CollisionSystem(creator: creator, size: scene.size), priority: .resolveCollisions)
                 // animate
                 .addSystem(system: AnimationSystem(), priority: .animate)
                 .addSystem(system: HudSystem(), priority: .animate)
