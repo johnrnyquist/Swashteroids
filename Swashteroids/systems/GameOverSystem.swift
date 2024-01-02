@@ -18,11 +18,9 @@ final class GameOverSystem: ListIteratingSystem {
     }
 
     func updateNode(node: Node, time: TimeInterval) {
-        guard let appStateComponent = node[AppStateComponent.self],
-              let gameOverComponent = node[GameOverComponent.self]
+        guard let _ = node[AppStateComponent.self],
+              let _ = node[GameOverComponent.self]
         else { return }
-        print(appStateComponent)
-        print(gameOverComponent)
     }
 }
 

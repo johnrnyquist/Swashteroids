@@ -410,6 +410,7 @@
 			isa = PBXGroup;
 			children = (
 				8D23C1422B02C4CC00F7D878 /* SwashteroidsAssets.xcassets */,
+				8DB99F532B2BE81800C3593A /* main.swift */,
 				8D23C1352B02C4CA00F7D878 /* AppDelegate.swift */,
 				93139AFE6A68E0D9B149BA93 /* CGFloat+extensions.swift */,
 				8D23C1E42B02C81D00F7D878 /* CGPoint+extensions.swift */,
@@ -420,7 +421,6 @@
 				8D23C13D2B02C4CA00F7D878 /* GameViewController.swift */,
 				8D23C1762B02C59C00F7D878 /* Hashable+extensions.swift */,
 				8DA97A952B23581100E7495A /* Int+SystemPriorities.swift */,
-				8DB99F532B2BE81800C3593A /* main.swift */,
 				93139DE0BD2F73AFFAEDE2DA /* ScaleManager.swift */,
 				8D714E2D2B3535DC009E1586 /* SKSpriteNode+extensions.swift */,
 				931394D1D0B636772EE1DFF7 /* String+EntityNames.swift */,
