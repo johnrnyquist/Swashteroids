@@ -16,8 +16,8 @@ final class ThrustNode: Node {
         components = [
             PositionComponent.name: nil_component,
             ApplyThrustComponent.name: nil_component,
-            MotionComponent.name: nil_component,
-            MotionControlsComponent.name: nil_component,
+            VelocityComponent.name: nil_component,
+            MovementRateComponent.name: nil_component,
             WarpDriveComponent.name: nil_component,
         ]
     }

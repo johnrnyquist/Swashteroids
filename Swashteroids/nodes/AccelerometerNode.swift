@@ -16,7 +16,7 @@ class AccelerometerNode: Node {
 		components = [
 			AccelerometerComponent.name: nil_component,
 			InputComponent.name: nil_component,
-			MotionControlsComponent.name: nil_component,
+			MovementRateComponent.name: nil_component,
 			PositionComponent.name: nil_component,
 		]
 	}

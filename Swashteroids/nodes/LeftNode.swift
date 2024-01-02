@@ -15,7 +15,7 @@ final class LeftNode: Node {
         super.init()
         components = [
             PositionComponent.name: nil_component,
-            MotionControlsComponent.name: nil_component,
+            MovementRateComponent.name: nil_component,
             LeftComponent.name: nil_component,
         ]
     }

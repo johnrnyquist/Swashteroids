@@ -106,7 +106,7 @@ final class TransitionTests: XCTestCase {
         transition.fromGameOverScreen()
         let asteroids = engine.getNodeList(nodeClassType: AsteroidCollisionNode.self)
         XCTAssertNil(asteroids.head)
-        for entityName: EntityName in [.hud, .gameOver, .hyperspacePowerUp, .plasmaTorpedoesPowerUp] {
+        for entityName: EntityName in [.hud, .gameOver, .hyperspacePowerUp, .torpedoPowerUp] {
             XCTAssertNil(engine.getEntity(named: entityName))
         }
         XCTAssertEqual(appStateComponent.numShips, 3)

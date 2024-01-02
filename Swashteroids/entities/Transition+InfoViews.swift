@@ -20,8 +20,7 @@ extension Transition {
 	func toNoButtonsInfoScreen() {
         let noButtonsInfoArt = SKScene(fileNamed: "NoButtonsInfo.sks")!
         guard let viewSprite = noButtonsInfoArt.childNode(withName: "quadrants") as? SwashSpriteNode else {
-            print("Could not load 'quadrants' as SwashSpriteNode")
-            return
+            fatalError("Could not load 'quadrants' as SwashSpriteNode")
         }
 		viewSprite.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         viewSprite.removeFromParent()
@@ -52,7 +51,6 @@ extension Transition {
 		let scaleY = screenSize.height / viewSprite.size.height
 		let scale = min(scaleX, scaleY)
 		viewSprite.scale = scale
-		print(viewSprite.scale)
 
         let viewEntity = Entity(named: .buttonsInfoView)
                 .add(component: DisplayComponent(sknode: viewSprite))

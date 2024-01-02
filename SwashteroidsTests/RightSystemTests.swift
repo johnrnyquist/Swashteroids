@@ -32,10 +32,10 @@ final class RightSystemTests: XCTestCase {
         let node = RightNode()
         let left = RightComponent.shared
         let position = PositionComponent(x: 0, y: 0, z: .ship, rotationDegrees: 0.0)
-        let motionControls = MotionControlsComponent(accelerationRate: 0.0,
+        let motionControls = MovementRateComponent(accelerationRate: 0.0,
                                                      rotationRate: 1.0)
         node.components[RightComponent.name] = left
-        node.components[MotionControlsComponent.name] = motionControls
+        node.components[MovementRateComponent.name] = motionControls
         node.components[PositionComponent.name] = position
         if system.nodeUpdateFunction == nil {
             XCTFail("nodeUpdateFunction is nil")

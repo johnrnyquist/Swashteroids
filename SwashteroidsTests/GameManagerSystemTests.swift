@@ -41,7 +41,7 @@ final class GameManagerSystemTests: XCTestCase {
                 .add(component: CollisionComponent(radius: LARGE_ASTEROID_RADIUS,
                                                    scaleManager: MockScaleManager()))
                 .add(component: PositionComponent(x: 0, y: 0, z: .asteroids))
-                .add(component: MotionComponent(velocityX: 0, velocityY: 0))
+                .add(component: VelocityComponent(velocityX: 0, velocityY: 0))
         try? engine.add(entity: asteroid)
         let suggestedShipLocation = CGPoint(x: 100, y: 100)
         let result = system.isClearToAddSpaceship(at: suggestedShipLocation)
@@ -59,7 +59,7 @@ final class GameManagerSystemTests: XCTestCase {
                 .add(component: CollisionComponent(radius: LARGE_ASTEROID_RADIUS,
                                                    scaleManager: MockScaleManager()))
                 .add(component: PositionComponent(x: 0, y: 0, z: .asteroids))
-                .add(component: MotionComponent(velocityX: 0, velocityY: 0))
+                .add(component: VelocityComponent(velocityX: 0, velocityY: 0))
         try? engine.add(entity: asteroid)
         let suggestedShipLocation = CGPoint(x: 0, y: 0)
         let result = system.isClearToAddSpaceship(at: suggestedShipLocation)
@@ -280,9 +280,7 @@ final class GameManagerSystemTests: XCTestCase {
             createAsteroidCalled += 1
         }
 
-        func createPlasmaTorpedo(_ gunComponent: GunComponent,
-                                 _ parentPosition: PositionComponent,
-                                 _ parentMotion: MotionComponent) {
+        func createPlasmaTorpedo(_ gunComponent: GunComponent, _ parentPosition: PositionComponent, _ parentVelocity: VelocityComponent) {
         }
     }
 }

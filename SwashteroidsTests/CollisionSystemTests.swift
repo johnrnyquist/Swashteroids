@@ -16,15 +16,57 @@ import XCTest
 class CollisionSystemTests: XCTestCase {
     var creator: MockAsteroidCreator!
     var engine: Engine!
+    var shipEntity: Entity!
+    var asteroidEntity: Entity!
+    var torpedoEntity: Entity!
+    var torpedoPowerUpEntity: Entity!
+    var hyperspacePowerUpEntity: Entity!
+    var appStateEntity: Entity!
 
     override func setUpWithError() throws {
         creator = MockAsteroidCreator()
         engine = Engine()
+        let appStateComponent = AppStateComponent(size: .zero,
+                                                  ships: 1,
+                                                  level: 1,
+                                                  score: 0,
+                                                  appState: .playing,
+                                                  shipControlsState: .showingButtons)
+        shipEntity = ShipEntity(name: .ship, state: appStateComponent)
+        asteroidEntity = Entity(named: "asteroidEntity")
+                .add(component: AsteroidComponent())
+                .add(component: CollisionComponent(radius: LARGE_ASTEROID_RADIUS, scaleManager: MockScaleManager()))
+                .add(component: PositionComponent(x: 0, y: 0, z: 0))
+                .add(component: DisplayComponent(sknode: SKNode()))
+        torpedoPowerUpEntity = Entity(named: .torpedoPowerUp)
+                .add(component: GunPowerUpComponent())
+                .add(component: CollisionComponent(radius: POWER_UP_RADIUS, scaleManager: MockScaleManager()))
+                .add(component: PositionComponent(x: 0, y: 0, z: 0))
+                .add(component: DisplayComponent(sknode: SKNode()))
+        hyperspacePowerUpEntity = Entity(named: .hyperspacePowerUp)
+                .add(component: HyperspacePowerUpComponent())
+                .add(component: CollisionComponent(radius: 10, scaleManager: MockScaleManager()))
+                .add(component: PositionComponent(x: 0, y: 0, z: 0))
+                .add(component: DisplayComponent(sknode: SKNode()))
+        torpedoEntity = Entity(named: "torpedoEnityt")
+                .add(component: GunPowerUpComponent())
+                .add(component: CollisionComponent(radius: 10, scaleManager: MockScaleManager()))
+                .add(component: PositionComponent(x: 0, y: 0, z: 0))
+                .add(component: DisplayComponent(sknode: SKNode()))
+        try? engine.add(entity: asteroidEntity)
+        try? engine.add(entity: torpedoEntity)
+        try? engine.add(entity: hyperspacePowerUpEntity)
+        try? engine.add(entity: shipEntity)
+        try? engine.add(entity: torpedoPowerUpEntity)
     }
 
     override func tearDownWithError() throws {
         creator = nil
         engine = nil
+        shipEntity = nil
+        asteroidEntity = nil
+        torpedoPowerUpEntity = nil
+        hyperspacePowerUpEntity = nil
     }
 
     func test_Update() {
@@ -32,20 +74,9 @@ class CollisionSystemTests: XCTestCase {
                                          size: .zero,
                                          scaleManager: MockScaleManager())
         engine.add(system: system, priority: 1)
-        let ship = Entity(named: .ship)
-                .add(component: ShipComponent())
-                .add(component: CollisionComponent(radius: 10, scaleManager: MockScaleManager()))
-                .add(component: PositionComponent(x: 0, y: 0, z: 0))
-                .add(component: MotionComponent(velocityX: 0, velocityY: 0))
-        try? engine.add(entity: ship)
-        let torpedoPowerUp = Entity(named: "torpedoPowerUp")
-                .add(component: GunPowerUpComponent())
-                .add(component: CollisionComponent(radius: 10, scaleManager: MockScaleManager()))
-                .add(component: PositionComponent(x: 0, y: 0, z: 0))
-                .add(component: DisplayComponent(sknode: SKNode()))
-        try? engine.add(entity: torpedoPowerUp)
-
+        // SUT
         system.update(time: 1)
+        //
         XCTAssertTrue(system.shipTorpedoPowerUpCollisionCheckCalled)
         XCTAssertTrue(system.shipHSCollisionCheckCalled)
         XCTAssertTrue(system.torpedoAsteroidCollisionCheckCalled)
@@ -61,15 +92,15 @@ class CollisionSystemTests: XCTestCase {
                 shipTorpedoPowerUpCollisionCheckCalled = true
             }
 
-            override func shipHSCollisionCheck() {
+            override func shipHSCollisionCheck(shipCollisionNode: Node?, hyperspacePowerUpNode: Node?) {
                 shipHSCollisionCheckCalled = true
             }
 
-            override func torpedoAsteroidCollisionCheck() {
+            override func torpedoAsteroidCollisionCheck(torpedoNode: Node?, asteroidNode: Node?) {
                 torpedoAsteroidCollisionCheckCalled = true
             }
 
-            override func shipAsteroidCollisionCheck() {
+            override func shipAsteroidCollisionCheck(shipCollisionNode: Node?, asteroidCollisionNode: Node?) {
                 shipAsteroidCollisionCheckCalled = true
             }
         }
@@ -79,30 +110,14 @@ class CollisionSystemTests: XCTestCase {
         let system = CollisionSystem(creator: creator,
                                      size: .zero,
                                      scaleManager: MockScaleManager())
-        let positionComponent = PositionComponent(x: 0, y: 0, z: .asteroids)
-        let motionComponent = MotionComponent(velocityX: 0, velocityY: 0, scaleManager: MockScaleManager())
-        let collisionComponent = CollisionComponent(radius: LARGE_ASTEROID_RADIUS + 1, scaleManager: MockScaleManager())
-        let asteroid = Entity()
-                .add(component: AsteroidComponent())
-                .add(component: positionComponent)
-                .add(component: motionComponent)
-                .add(component: collisionComponent)
-        let node = Node()
-        let sprite = SKNode()
-        node.components[DisplayComponent.name] = DisplayComponent(sknode: sprite)
-        node.components[CollisionComponent.name] = collisionComponent
-        let entity = Entity()
-        node.entity = entity
-        try? system.splitAsteroid(collisionComponent: collisionComponent,
-                                  positionComponent: positionComponent,
-                                  asteroidCollisionNode: node,
-                                  splits: 2,
-                                  level: 1)
+        guard let asteroidEntity else { XCTFail("asteroidEntity is nil!"); return }
+        // SUT
+        system.splitAsteroid(asteroidEntity: asteroidEntity, splits: 2, level: 1)
+        //
         XCTAssertEqual(creator.createAsteroidCalled, 2)
-        XCTAssertFalse(entity.has(componentClassName: CollisionComponent.name))
-        XCTAssertTrue(entity.has(componentClassName: AudioComponent.name))
-        XCTAssertTrue(entity.has(componentClassName: DeathThroesComponent.name))
-        XCTAssertNotEqual(entity.sprite, sprite)
+        XCTAssertFalse(asteroidEntity.has(componentClassName: CollisionComponent.name))
+        XCTAssertTrue(asteroidEntity.has(componentClassName: AudioComponent.name))
+        XCTAssertTrue(asteroidEntity.has(componentClassName: DeathThroesComponent.name))
     }
 
     func test_ShipTorpedoPowerUpCollisionCheck() {
@@ -110,40 +125,116 @@ class CollisionSystemTests: XCTestCase {
                                      size: .zero,
                                      scaleManager: MockScaleManager())
         engine.add(system: system, priority: 1)
-        // create an entity that conforms to ShipCollisionNode
-        let ship = Entity(named: .ship)
-                .add(component: ShipComponent())
-                .add(component: CollisionComponent(radius: 10, scaleManager: MockScaleManager()))
-                .add(component: PositionComponent(x: 0, y: 0, z: 0))
-                .add(component: MotionComponent(velocityX: 0, velocityY: 0))
-        try? engine.add(entity: ship)
-        // create an entity that conforms to GunSupplierNode
-        let torpedoPowerUp = Entity(named: "torpedoPowerUp")
-                .add(component: GunPowerUpComponent())
-                .add(component: CollisionComponent(radius: 10, scaleManager: MockScaleManager()))
-                .add(component: PositionComponent(x: 0, y: 0, z: 0))
-                .add(component: DisplayComponent(sknode: SKNode()))
-        try? engine.add(entity: torpedoPowerUp)
-        // add a ShipCollisionNode
         let shipCollisionNode = ShipCollisionNode()
-        shipCollisionNode.entity = ship
-        // add a GunSupplierNode
+        for component in shipEntity.components {
+            shipCollisionNode.components[component.key] = component.value
+        }
+        shipCollisionNode.entity = shipEntity
         let torpedoPowerUpNode = GunSupplierNode()
-        torpedoPowerUpNode.entity = torpedoPowerUp
+        for component in torpedoPowerUpEntity.components {
+            torpedoPowerUpNode.components[component.key] = component.value
+        }
+        torpedoPowerUpNode.entity = torpedoPowerUpEntity
+        // SUT
         system.shipTorpedoPowerUpCollisionCheck(shipCollisionNode: shipCollisionNode,
                                                 torpedoPowerUpNode: torpedoPowerUpNode)
+        //
+        XCTAssertTrue(shipEntity.has(componentClassName: GunComponent.name))
+        XCTAssertTrue(shipEntity.has(componentClassName: AudioComponent.name))
+        XCTAssertNil(engine.getEntity(named: .torpedoPowerUp))
     }
 
-    func test_ShipHSCollisionCheck() {
-        XCTFail("Need to write tests for \(#function)!")
+    func test_ShipHyperspacePowerUpCollisionCheck() {
+        let system = CollisionSystem(creator: creator,
+                                     size: .zero,
+                                     scaleManager: MockScaleManager())
+        engine.add(system: system, priority: 1)
+        let shipCollisionNode: Node = ShipCollisionNode()
+        for component in shipEntity.components {
+            shipCollisionNode.components[component.key] = component.value
+        }
+        shipCollisionNode.entity = shipEntity
+        let hsPowerUpNode: Node = GunSupplierNode()
+        for component in hyperspacePowerUpEntity.components {
+            hsPowerUpNode.components[component.key] = component.value
+        }
+        hsPowerUpNode.entity = hyperspacePowerUpEntity
+        // SUT
+        system.shipHSCollisionCheck(shipCollisionNode: shipCollisionNode,
+                                    hyperspacePowerUpNode: hsPowerUpNode)
+        //
+        XCTAssertTrue(shipEntity.has(componentClassName: HyperspaceEngineComponent.name))
+        XCTAssertTrue(shipEntity.has(componentClassName: AudioComponent.name))
+        XCTAssertNil(engine.getEntity(named: "hsPowerUp"))
     }
 
     func test_TorpedoAsteroidCollisionCheck() {
-        XCTFail("Need to write tests for \(#function)!")
+        let system = MockCollisionSystem(creator: creator,
+                                         size: .zero,
+                                         scaleManager: MockScaleManager())
+        engine.add(system: system, priority: 1)
+        let torpedoNode = GunSupplierNode()
+        for component in torpedoEntity.components {
+            torpedoNode.components[component.key] = component.value
+        }
+        torpedoNode.entity = torpedoEntity
+        let asteroidNode = AsteroidCollisionNode()
+        for component in asteroidEntity.components {
+            asteroidNode.components[component.key] = component.value
+        }
+        asteroidNode.entity = asteroidEntity
+        let appState = Entity(named: .appState)
+                .add(component: AppStateComponent(
+                    size: .zero,
+                    ships: 1,
+                    level: 1,
+                    score: 0,
+                    appState: .playing,
+                    shipControlsState: .showingButtons))
+        try? engine.add(entity: appState)
+        // SUT
+        system.torpedoAsteroidCollisionCheck(torpedoNode: torpedoNode, asteroidNode: asteroidNode)
+        //
+        XCTAssertTrue(system.splitAsteroidCalled)
+        XCTAssertNil(engine.getEntity(named: "torpedo"))
+
+        class MockCollisionSystem: CollisionSystem {
+            var splitAsteroidCalled = false
+
+            override func splitAsteroid(asteroidEntity: Entity, splits: Int = 2, level: Int) {
+                splitAsteroidCalled = true
+            }
+        }
     }
 
     func test_ShipAsteroidCollisionCheck() {
-        XCTFail("Need to write tests for \(#function)!")
+        let system = MockCollisionSystem(creator: creator,
+                                         size: .zero,
+                                         scaleManager: MockScaleManager())
+        engine.add(system: system, priority: 1)
+        let shipCollisionNode = ShipCollisionNode()
+        shipCollisionNode.entity = shipEntity
+        for component in shipEntity.components {
+            shipCollisionNode.components[component.key] = component.value
+        }
+        let asteroidCollisionNode = AsteroidCollisionNode()
+        for component in asteroidEntity.components {
+            asteroidCollisionNode.components[component.key] = component.value
+        }
+        asteroidCollisionNode.entity = asteroidEntity
+        // SUT
+        system.shipAsteroidCollisionCheck(shipCollisionNode: shipCollisionNode,
+                                          asteroidCollisionNode: asteroidCollisionNode)
+        //
+        XCTAssertTrue(system.splitAsteroidCalled)
+
+        class MockCollisionSystem: CollisionSystem {
+            var splitAsteroidCalled = false
+
+            override func splitAsteroid(asteroidEntity: Entity, splits: Int = 2, level: Int) {
+                splitAsteroidCalled = true
+            }
+        }
     }
 
     class MockAsteroidCreator: AsteroidCreator {

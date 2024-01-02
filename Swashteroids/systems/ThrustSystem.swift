@@ -20,11 +20,11 @@ final class ThrustSystem: ListIteratingSystem {
 
     private func updateNode(node: Node, time: TimeInterval) {
         guard let position = node[PositionComponent.self],
-              let motion = node[MotionComponent.self],
-              let control = node[MotionControlsComponent.self]
+              let velocity = node[VelocityComponent.self],
+              let movementRate = node[MovementRateComponent.self]
         else { return }
         let rotation = position.rotationDegrees * Double.pi / 180.0
-        motion.velocity.x += cos(rotation) * control.accelerationRate * time
-        motion.velocity.y += sin(rotation) * control.accelerationRate * time
+        velocity.linearVelocity.x += cos(rotation) * movementRate.accelerationRate * time
+        velocity.linearVelocity.y += sin(rotation) * movementRate.accelerationRate * time
     }
 }

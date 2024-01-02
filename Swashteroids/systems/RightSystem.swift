@@ -20,7 +20,7 @@ final class RightSystem: ListIteratingSystem {
 
     private func updateNode(node: Node, time: TimeInterval) {
         guard let position = node[PositionComponent.self],
-              let control = node[MotionControlsComponent.self],
+              let control = node[MovementRateComponent.self],
               let right = node[RightComponent.self]
         else { return }
         position.rotationDegrees += control.rotationRate * right.amount

@@ -32,7 +32,7 @@ class FiringSystemTests: XCTestCase {
         let time: TimeInterval = 1.0
         let minimumShotInterval = 0.0 // 1 second
         //
-        let motion = MotionComponent(velocityX: 0, velocityY: 0)
+        let motion = VelocityComponent(velocityX: 0, velocityY: 0)
         let position = PositionComponent(x: 0, y: 0, z: .ship)
         let gun = GunComponent(offsetX: 0,
                                offsetY: 0,
@@ -56,7 +56,7 @@ class FiringSystemTests: XCTestCase {
         let initialTimeSinceLastShot = system.timeSinceLastShot
         let minimumShotInterval = 1.0 // 1 second
         //
-        let motion = MotionComponent(velocityX: 0, velocityY: 0)
+        let motion = VelocityComponent(velocityX: 0, velocityY: 0)
         let position = PositionComponent(x: 0, y: 0, z: .ship)
         let gun = GunComponent(offsetX: 0,
                                offsetY: 0,
@@ -79,9 +79,7 @@ class FiringSystemTests: XCTestCase {
     class MockTorpedoCreator: TorpedoCreator {
         var fired = false
 
-        func createPlasmaTorpedo(_ gunComponent: GunComponent,
-                                 _ parentPosition: PositionComponent,
-                                 _ parentMotion: MotionComponent) {
+        func createPlasmaTorpedo(_ gunComponent: GunComponent, _ parentPosition: PositionComponent, _ parentVelocity: VelocityComponent) {
             fired = true
         }
     }

@@ -17,7 +17,7 @@ protocol ShipCreator: AnyObject {
 
 extension Creator: ShipCreator {
     func createShip(_ state: AppStateComponent) {
-        let ship = ShipEntity(name: .ship, state: state, size: size)
+        let ship = ShipEntity(name: .ship, state: state)
         do {
             try engine.add(entity: ship)
         } catch SwashError.entityNameAlreadyInUse(let message) {
@@ -31,7 +31,7 @@ extension Creator: ShipCreator {
 /// I prefer to keep Entities as simple as possible, but this is a special case since
 /// the ship is the player’s avatar, it is the most important entity in the game.
 class ShipEntity: Entity {
-    init(name: String, state: AppStateComponent, size: CGSize) {
+    init(name: String, state: AppStateComponent) {
         super.init(named: name)
         let shipSprite = SwashSpriteNode(texture: createShipTexture())
         shipSprite.name = name
@@ -46,10 +46,10 @@ class ShipEntity: Entity {
         add(component: WarpDriveComponent())
         add(component: PositionComponent(x: state.size.width / 2, y: state.size.height / 2, z: .ship, rotationDegrees: 0.0))
         add(component: ShipComponent())
-        add(component: MotionComponent(velocityX: 0.0, velocityY: 0.0, dampening: 0.0))
+        add(component: VelocityComponent(velocityX: 0.0, velocityY: 0.0, dampening: 0.0))
         add(component: CollisionComponent(radius: 25))
         add(component: DisplayComponent(sknode: shipSprite))
-        add(component: MotionControlsComponent(accelerationRate: 90, rotationRate: 100))
+        add(component: MovementRateComponent(accelerationRate: 90, rotationRate: 100))
         add(component: InputComponent.shared)
         add(component: AccelerometerComponent())
         add(component: ChangeShipControlsStateComponent(to: state.shipControlsState))
@@ -89,7 +89,7 @@ class ShipEntity: Entity {
         remove(componentClass: GunComponent.self)
         remove(componentClass: HyperspaceEngineComponent.self)
         remove(componentClass: InputComponent.self)
-        remove(componentClass: MotionControlsComponent.self)
+        remove(componentClass: MovementRateComponent.self)
         // Add components
         add(component: DisplayComponent(sknode: spriteNode))
         add(component: DeathThroesComponent(countdown: 3.0))

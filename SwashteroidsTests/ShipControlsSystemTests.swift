@@ -64,7 +64,7 @@ final class ShipControlsSystemTests: XCTestCase {
                                                   appState: .playing,
                                                   shipControlsState: .hidingButtons)
         //TODO: do_toggleButtons requires the ShipEntity type as it uses engine.ship. 
-        let ship = ShipEntity(name: .ship, state: appStateComponent, size: .zero)
+        let ship = ShipEntity(name: .ship, state: appStateComponent)
                 .add(component: AccelerometerComponent())
         try? engine.add(entity: ship)
         //                
@@ -87,7 +87,7 @@ final class ShipControlsSystemTests: XCTestCase {
                                                   appState: .playing,
                                                   shipControlsState: .showingButtons)
         //TODO: do_toggleButtons requires the ShipEntity type as it uses engine.ship. 
-        let ship = ShipEntity(name: .ship, state: appStateComponent, size: .zero)
+        let ship = ShipEntity(name: .ship, state: appStateComponent)
                 .add(component: AccelerometerComponent())
                 .add(component: GunComponent(offsetX: 0, offsetY: 0, minimumShotInterval: 0, torpedoLifetime: 0))
         try? engine.add(entity: ship)
@@ -115,7 +115,7 @@ final class ShipControlsSystemTests: XCTestCase {
                                                   appState: .playing,
                                                   shipControlsState: .showingButtons)
         //TODO: do_toggleButtons requires the ShipEntity type as it uses engine.ship. 
-        let ship = ShipEntity(name: .ship, state: appStateComponent, size: .zero)
+        let ship = ShipEntity(name: .ship, state: appStateComponent)
                 .add(component: AccelerometerComponent())
                 .add(component: HyperspaceEngineComponent())
         try? engine.add(entity: ship)

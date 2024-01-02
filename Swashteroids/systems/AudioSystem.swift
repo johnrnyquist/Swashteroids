@@ -24,7 +24,7 @@ final class AudioSystem: ListIteratingSystem {
         guard let audioComponent = node[AudioComponent.self]
         else { return }
         for (soundKey, soundAction) in audioComponent.playlist {
-            if scene.action(forKey: soundKey) != nil {
+            if let _ = scene.action(forKey: soundKey) {
                 continue // I never hit this, but it's here just in case
             }
             scene.run(soundAction, withKey: soundKey)

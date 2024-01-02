@@ -87,8 +87,6 @@ extension Creator: ShipControlButtonsManager {
         engine.replace(entity: hyperspaceButtonEntity)
     }
 
-    /// Since buttons are used inertly on the info screen, we need to enable them for gameplay.
-    /// Technically, I could have just added Touchable here and had the ButtonBehaviorComponent done initially.
     func enableShipControlButtons() {
         guard let flip = engine.getEntity(named: .flipButton),
               let hyperspace = engine.getEntity(named: .hyperspaceButton),
@@ -97,7 +95,7 @@ extension Creator: ShipControlButtonsManager {
               let thrust = engine.getEntity(named: .thrustButton),
               let fire = engine.getEntity(named: .fireButton)
         else {
-            print("WARNING: could not find all buttons in engine")
+            print(#function, #line, "WARNING: could not find all buttons in engine")
             return
         }
         // Set up the ship control buttons

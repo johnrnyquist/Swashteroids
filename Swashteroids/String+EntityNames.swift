@@ -36,7 +36,7 @@ extension String {
     static let gameOver: EntityName = "gameOver"
     static let hud: EntityName = "hudEntity"
     static let input: EntityName = "inputEntity"
-    static let plasmaTorpedoesPowerUp: EntityName = "plasmaTorpedoesPowerUpEntity"
+    static let torpedoPowerUp: EntityName = "torpedoPowerUpEntity"
     static let hyperspacePowerUp: EntityName = "hyperspacePowerUpEntity"
     static let ship: EntityName = "ship"
     static let toggleButton: EntityName = "toggleButtonEntity"

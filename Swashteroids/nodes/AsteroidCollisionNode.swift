@@ -18,7 +18,7 @@ final class AsteroidCollisionNode: Node {
             AsteroidComponent.name: nil_component,
             CollisionComponent.name: nil_component,
             PositionComponent.name: nil_component,
-            MotionComponent.name: nil_component,
+            VelocityComponent.name: nil_component,
         ]
     }
 }

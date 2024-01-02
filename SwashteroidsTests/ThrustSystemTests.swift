@@ -32,16 +32,16 @@ final class ThrustSystemTests: XCTestCase {
         let rotation = Double.pi/4.0
         let position = PositionComponent(x: 0, y: 0, z: .ship, rotationDegrees: rotation)
         let applythrust = ApplyThrustComponent.shared
-        let motion = MotionComponent(velocityX: 0.0, velocityY: 0.0)
-        let motionControls = MotionControlsComponent(accelerationRate: 10.0,
+        let motion = VelocityComponent(velocityX: 0.0, velocityY: 0.0)
+        let motionControls = MovementRateComponent(accelerationRate: 10.0,
                                                      rotationRate: 0.0,
                                                      scaleManager: MockScaleManager())
         let warpdrive = WarpDriveComponent()
         let node = ThrustNode()
         node.components[PositionComponent.name] = position
         node.components[ApplyThrustComponent.name] = applythrust
-        node.components[MotionComponent.name] = motion
-        node.components[MotionControlsComponent.name] = motionControls
+        node.components[VelocityComponent.name] = motion
+        node.components[MovementRateComponent.name] = motionControls
         node.components[WarpDriveComponent.name] = warpdrive
         node.components[PositionComponent.name] = position
         if system.nodeUpdateFunction == nil {
@@ -49,8 +49,8 @@ final class ThrustSystemTests: XCTestCase {
         } else {
             system.nodeUpdateFunction!(node, 1)
         }
-        XCTAssertEqual(motion.velocity.x, 9.999060498015504)
-        XCTAssertEqual(motion.velocity.y, 0.13707354604707475)
+        XCTAssertEqual(motion.linearVelocity.x, 9.999060498015504)
+        XCTAssertEqual(motion.linearVelocity.y, 0.13707354604707475)
     }
 
     class MockScaleManager: ScaleManaging {

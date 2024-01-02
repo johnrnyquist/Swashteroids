@@ -23,10 +23,10 @@ final class MovementSystem: ListIteratingSystem {
 
     func updateNode(node: Node, time: TimeInterval) {
         guard let position = node[PositionComponent.self],
-              let motion = node[MotionComponent.self]
+              let velocity = node[VelocityComponent.self]
         else { return }
-        position.x += motion.velocity.x * time
-        position.y += motion.velocity.y * time
+        position.x += velocity.linearVelocity.x * time
+        position.y += velocity.linearVelocity.y * time
         if (position.x < 0) {
             position.x += size.width
         }
@@ -39,23 +39,23 @@ final class MovementSystem: ListIteratingSystem {
         if (position.y > size.height) {
             position.y -= size.height
         }
-        position.rotationDegrees += motion.angularVelocity * time
-        if (motion.dampening > 0) {
-            let xDamp: Double = abs(cos(position.rotationDegrees) * motion.dampening * time)
-            let yDamp: Double = abs(cos(position.rotationDegrees) * motion.dampening * time)
-            if (motion.velocity.x > xDamp) {
-                motion.velocity.x -= xDamp
-            } else if (motion.velocity.x < -xDamp) {
-                motion.velocity.x += xDamp
+        position.rotationDegrees += velocity.angularVelocity * time
+        if (velocity.dampening > 0) {
+            let xDamp: Double = abs(cos(position.rotationDegrees) * velocity.dampening * time)
+            let yDamp: Double = abs(cos(position.rotationDegrees) * velocity.dampening * time)
+            if (velocity.linearVelocity.x > xDamp) {
+                velocity.linearVelocity.x -= xDamp
+            } else if (velocity.linearVelocity.x < -xDamp) {
+                velocity.linearVelocity.x += xDamp
             } else {
-                motion.velocity.x = 0
+                velocity.linearVelocity.x = 0
             }
-            if (motion.velocity.y > yDamp) {
-                motion.velocity.y -= yDamp
-            } else if (motion.velocity.y < -yDamp) {
-                motion.velocity.y += yDamp
+            if (velocity.linearVelocity.y > yDamp) {
+                velocity.linearVelocity.y -= yDamp
+            } else if (velocity.linearVelocity.y < -yDamp) {
+                velocity.linearVelocity.y += yDamp
             } else {
-                motion.velocity.y = 0
+                velocity.linearVelocity.y = 0
             }
         }
     }

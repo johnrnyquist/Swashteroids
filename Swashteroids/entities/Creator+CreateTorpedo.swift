@@ -12,11 +12,11 @@ import Swash
 import SpriteKit
 
 protocol TorpedoCreator: AnyObject {
-    func createPlasmaTorpedo(_ gunComponent: GunComponent, _ parentPosition: PositionComponent, _ parentMotion: MotionComponent)
+    func createPlasmaTorpedo(_ gunComponent: GunComponent, _ parentPosition: PositionComponent, _ parentVelocity: VelocityComponent)
 }
 
 extension Creator: TorpedoCreator {
-    func createPlasmaTorpedo(_ gunComponent: GunComponent, _ parentPosition: PositionComponent, _ parentMotion: MotionComponent) {
+    func createPlasmaTorpedo(_ gunComponent: GunComponent, _ parentPosition: PositionComponent, _ parentVelocity: VelocityComponent) {
         let cos = cos(parentPosition.rotationRadians)
         let sin = sin(parentPosition.rotationRadians)
         let sprite = SwashSpriteNode(texture: createTorpedoTexture(color: .plasmaTorpedo))
@@ -38,10 +38,10 @@ extension Creator: TorpedoCreator {
                                                   z: Layer.torpedoes,
                                                   rotationDegrees: 0))
                 .add(component: CollisionComponent(radius: 0))
-                .add(component: MotionComponent(velocityX: cos * 220 + parentMotion.velocity.x * 1.0 / scaleManager.SCALE_FACTOR,
-                                                velocityY: sin * 220 + parentMotion.velocity.y * 1.0 / scaleManager.SCALE_FACTOR,
-                                                angularVelocity: 0 + parentMotion.angularVelocity,
-                                                dampening: 0 + parentMotion.dampening))
+                .add(component: VelocityComponent(velocityX: cos * 220 + parentVelocity.linearVelocity.x * 1.0 / scaleManager.SCALE_FACTOR,
+                                                velocityY: sin * 220 + parentVelocity.linearVelocity.y * 1.0 / scaleManager.SCALE_FACTOR,
+                                                angularVelocity: 0 + parentVelocity.angularVelocity,
+                                                dampening: 0 + parentVelocity.dampening))
                 .add(component: DisplayComponent(sknode: sprite))
                 .add(component: AudioComponent(fileNamed: "fire.wav", actionKey: name))
         sprite.name = entity.name

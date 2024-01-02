@@ -10,7 +10,7 @@
 
 import Swash
 
-final class MotionControlsComponent: Component {
+final class MovementRateComponent: Component {
     var accelerationRate: Double = 0
     var rotationRate: Double = 0
 

@@ -22,7 +22,7 @@ final class AccelerometerSystem: ListIteratingSystem {
         guard let input = node[InputComponent.self],
               input.rotate.isDown,
               let position = node[PositionComponent.self],
-              let control = node[MotionControlsComponent.self]
+              let control = node[MovementRateComponent.self]
         else { return }
         position.rotationDegrees += control.rotationRate * (input.rotate.amount * 0.05)
     }

@@ -22,7 +22,7 @@ extension Creator: AsteroidCreator {
         let speedModifier = lvl * 0.1 + 1.0  // 1.1, 1.2, 1.3, 1.4
         entity
                 .add(component: PositionComponent(x: x, y: y, z: .asteroids, rotationDegrees: 0.0))
-                .add(component: MotionComponent(velocityX: min(Double.random(in: -82.0...82.0) * speedModifier, 100.0),
+                .add(component: VelocityComponent(velocityX: min(Double.random(in: -82.0...82.0) * speedModifier, 100.0),
                                                 velocityY: min(Double.random(in: -82.0...82.0) * speedModifier, 100.0),
                                                 angularVelocity: Double.random(in: -100.0...100.0),
                                                 dampening: 0))

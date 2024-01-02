@@ -34,12 +34,12 @@ final class AccelerometerSystemTests: XCTestCase {
         let input = InputComponent.shared
         input.rotate = (true, 1.0)
         let position = PositionComponent(x: 0, y: 0, z: .ship, rotationDegrees: 0.0)
-        let motionControls = MotionControlsComponent(accelerationRate: 1.0,
+        let motionControls = MovementRateComponent(accelerationRate: 1.0,
                                                      rotationRate: 1.0,
                                                      scaleManager: MockScaleManager())
         node.components[AccelerometerComponent.name] = accelerometer
         node.components[InputComponent.name] = input
-        node.components[MotionControlsComponent.name] = motionControls
+        node.components[MovementRateComponent.name] = motionControls
         node.components[PositionComponent.name] = position
         if system.nodeUpdateFunction == nil {
             XCTFail("nodeUpdateFunction is nil")
@@ -55,12 +55,12 @@ final class AccelerometerSystemTests: XCTestCase {
         let input = InputComponent.shared
         input.rotate = (false, 0.0)
         let position = PositionComponent(x: 0, y: 0, z: .ship, rotationDegrees: 0.0)
-        let motionControls = MotionControlsComponent(accelerationRate: 1.0,
+        let motionControls = MovementRateComponent(accelerationRate: 1.0,
                                                      rotationRate: 1.0,
                                                      scaleManager: MockScaleManager())
         node.components[AccelerometerComponent.name] = accelerometer
         node.components[InputComponent.name] = input
-        node.components[MotionControlsComponent.name] = motionControls
+        node.components[MovementRateComponent.name] = motionControls
         node.components[PositionComponent.name] = position
         if system.nodeUpdateFunction == nil {
             XCTFail("nodeUpdateFunction is nil")

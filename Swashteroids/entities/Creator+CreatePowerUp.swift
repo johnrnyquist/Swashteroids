@@ -28,20 +28,20 @@ extension Creator: PowerUpCreator {
     }
 
     func createPlasmaTorpedoesPowerUp(level: Int, radius: Double = POWER_UP_RADIUS) {
-        guard engine.getEntity(named: .plasmaTorpedoesPowerUp) == nil else { return }
+        guard engine.getEntity(named: .torpedoPowerUp) == nil else { return }
         let sprite = PlasmaTorpedoesPowerUpView(imageNamed: "scope")
         let emitter = SKEmitterNode(fileNamed: "plasmaTorpedoesPowerUp.sks")!
         sprite.addChild(emitter)
-        let entity = Entity(named: .plasmaTorpedoesPowerUp)
+        let entity = Entity(named: .torpedoPowerUp)
         sprite.name = entity.name
         sprite.color = .plasmaTorpedo
         sprite.colorBlendFactor = 1.0
         let positionComponent = createRandomPosition(level: Double(level), layer: .asteroids)
-        let motionComponent = createRandomMotion(level: Double(level))
+        let velocityComponent = createRandomVelocity(level: Double(level))
         entity
                 .add(component: GunPowerUpComponent())
                 .add(component: positionComponent)
-                .add(component: motionComponent)
+                .add(component: velocityComponent)
                 .add(component: CollisionComponent(radius: radius))
                 .add(component: DisplayComponent(sknode: sprite))
                 .add(component: AnimationComponent(animation: sprite))
@@ -58,11 +58,11 @@ extension Creator: PowerUpCreator {
         sprite.color = .hyperspace
         sprite.colorBlendFactor = 1.0
         let positionComponent = createRandomPosition(level: Double(level), layer: .asteroids)
-        let motionComponent = createRandomMotion(level: Double(level))
+        let velocityComponent = createRandomVelocity(level: Double(level))
         entity
                 .add(component: HyperspacePowerUpComponent())
                 .add(component: positionComponent)
-                .add(component: motionComponent)
+                .add(component: velocityComponent)
                 .add(component: CollisionComponent(radius: radius))
                 .add(component: DisplayComponent(sknode: sprite))
                 .add(component: AnimationComponent(animation: sprite))
@@ -77,10 +77,10 @@ extension Creator: PowerUpCreator {
         return PositionComponent(x: centerX, y: centerY, z: layer, rotationDegrees: 0.0)
     }
 
-    private func createRandomMotion(level: Double) -> MotionComponent {
+    private func createRandomVelocity(level: Double) -> VelocityComponent {
         let velocityX = Double.random(in: -10.0...10.0) * Double(level)
         let velocityY = Double.random(in: -10.0...10.0) * Double(level)
         let angularVelocity = Double.random(in: -100.0...100.0)
-        return MotionComponent(velocityX: velocityX, velocityY: velocityY, angularVelocity: angularVelocity, dampening: 0)
+        return VelocityComponent(velocityX: velocityX, velocityY: velocityY, angularVelocity: angularVelocity, dampening: 0)
     }
 }

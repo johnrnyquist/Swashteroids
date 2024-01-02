@@ -23,9 +23,9 @@ final class RenderSystem: System {
     override func addToEngine(engine: Engine) {
         nodes = engine.getNodeList(nodeClassType: RenderNode.self)
         var node = nodes?.head
-        while node != nil {
-            addToDisplay(node!)
-            node = node!.next
+        while let currentNode = node {
+            addToDisplay(currentNode)
+            node = currentNode.next
         }
         nodes?.nodeAdded.add(Listener(addToDisplay))
         nodes?.nodeRemoved.add(Listener(removeFromDisplay))
@@ -49,16 +49,16 @@ final class RenderSystem: System {
 
     override func update(time: TimeInterval) {
         var renderNode = nodes?.head
-        while renderNode != nil {
-            let displayDisplayComponent = renderNode?[DisplayComponent.self]
+        while let currentNode = renderNode {
+            let displayDisplayComponent = currentNode[DisplayComponent.self]
             let sknode = displayDisplayComponent?.sknode
-            let positionComponent = renderNode?[PositionComponent.self]
+            let positionComponent = currentNode[PositionComponent.self]
             if let positionComponent = positionComponent {
                 sknode?.position = positionComponent.position
                 sknode?.zRotation = positionComponent.rotationDegrees * Double.pi / 180
                 sknode?.zPosition = positionComponent.layer
             }
-            renderNode = renderNode!.next
+            renderNode = currentNode.next
         }
     }
 

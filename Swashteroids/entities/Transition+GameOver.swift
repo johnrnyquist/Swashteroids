@@ -17,11 +17,11 @@ extension Transition {
         // Clear any existing asteroids
         let asteroids = engine.getNodeList(nodeClassType: AsteroidCollisionNode.self)
         var asteroid = asteroids.head
-        while asteroid != nil {
-            engine.remove(entity: asteroid!.entity!)
-            asteroid = asteroid?.next
+        while let currentNode = asteroid {
+            engine.remove(entity: currentNode.entity!)
+            asteroid = currentNode.next
         }
-        engine.removeEntities(named: [.hud, .gameOver, .hyperspacePowerUp, .plasmaTorpedoesPowerUp])
+        engine.removeEntities(named: [.hud, .gameOver, .hyperspacePowerUp, .torpedoPowerUp])
         if let appState = engine.appState?[AppStateComponent.name] as? AppStateComponent {
             appState.reset()
         }
@@ -29,8 +29,7 @@ extension Transition {
 
     func toGameOverScreen() {
         guard let appStateComponent = engine.appState?[AppStateComponent.name] as? AppStateComponent else {
-            print("WARNING: engine did not contain AppStateComponent!")
-            return
+            fatalError("WARNING: engine did not contain AppStateComponent!")
         }
         let gameOverView = GameOverView(size: size)
         let gameOverEntity = Entity(named: .gameOver)
@@ -49,7 +48,7 @@ extension Transition {
         do {
             try engine.add(entity: gameOverEntity)
         } catch {
-            print("WARNING: engine already contained \(gameOverEntity.name) entity!")
+            print(#function, #line, "WARNING: engine already contained \(gameOverEntity.name) entity!")
         }
     }
 }

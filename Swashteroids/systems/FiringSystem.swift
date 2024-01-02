@@ -28,20 +28,20 @@ final class FiringSystem: System {
     override public func update(time: TimeInterval) {
         timeSinceLastShot += time
         var node = gunControlNodes.head
-        while node != nil {
-            updateNode(node: node!, time: time)
-            node = node!.next
+        while let currentNode = node {
+            updateNode(node: currentNode, time: time)
+            node = currentNode.next
         }
     }
 
     private func updateNode(node: Node, time: TimeInterval) {
-        guard let motion = node[MotionComponent.self],
+        guard let velocity = node[VelocityComponent.self],
               let position = node[PositionComponent.self],
               let gun = node[GunComponent.self],
               let _ = node[FireDownComponent.self]
         else { return }
         if timeSinceLastShot >= gun.minimumShotInterval {
-            creator?.createPlasmaTorpedo(gun, position, motion)
+            creator?.createPlasmaTorpedo(gun, position, velocity)
             timeSinceLastShot = 0
         }
     }
