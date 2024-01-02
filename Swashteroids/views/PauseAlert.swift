@@ -34,7 +34,6 @@ struct ButtonView: View {
 
 struct PauseAlert: View {
     var home: () -> Void
-    var restart: () -> Void
     var resume: () -> Void
     var body: some View {
         VStack(spacing: 10) {
@@ -54,6 +53,6 @@ struct PauseAlert: View {
 
 struct PauseAlert_Previews: PreviewProvider {
     static var previews: some View {
-        PauseAlert(home: {}, restart: {}, resume: {})
+        PauseAlert(home: {}, resume: {})
     }
 }

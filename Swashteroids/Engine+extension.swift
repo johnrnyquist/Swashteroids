@@ -32,7 +32,7 @@ extension Engine {
             if let entity = getEntity(named: name) {
                 remove(entity: entity)
             } else {
-                print(#function, #line, "WARNING: engine did not contain \(name) entity!")
+                print(#function, #line, "NOTE: engine did not contain `\(name)` entity!")
             }
         }
     }

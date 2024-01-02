@@ -60,11 +60,6 @@ final class GameViewController: UIViewController, AlertPresenting {
                     startNewGame()
                 })
             },
-            restart: { [unowned self] in
-                dismiss(animated: true, completion: { [unowned self] in 
-                    //TODO: need to implement restart
-                })
-            },
             resume: { [unowned self] in
                 dismiss(animated: true, completion: { [unowned self] in 
                     game.start()
