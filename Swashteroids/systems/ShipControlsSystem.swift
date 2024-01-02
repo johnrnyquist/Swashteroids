@@ -39,7 +39,6 @@ class ShipControlsSystem: ListIteratingSystem {
         switch to {
             case .showingButtons:
                 engine.ship?.remove(componentClass: AccelerometerComponent.self)
-//                creator.removeShipControlQuadrants()
                 creator.createShipControlButtons()
                 creator.enableShipControlButtons()
                 // HACK alpha for fire and hyperspace is set to 0.0 in Creator+ShipControlButtonsManager.swift

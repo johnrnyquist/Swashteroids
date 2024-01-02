@@ -19,14 +19,10 @@ extension Transition {
         shipControlQuadrantsManager.removeShipControlQuadrants()
     }
 
-    func toPlayingScreen(with state: ShipControlsState) {
-        guard let appStateComponent = engine.getEntity(named: .appState)?
-                                            .get(componentClassName: AppStateComponent.name) as? AppStateComponent else {
-            fatalError("WARNING: appStateComponent not found in engine")
-        }
+    func toPlayingScreen(appStateComponent: AppStateComponent) {
         appStateComponent.resetBoard()
         hudManager.createHud(gameState: appStateComponent)
-        if state == .hidingButtons {
+        if appStateComponent.shipControlsState == .hidingButtons {
             toggleButtonsManager.createToggleButton(.off)
             shipControlQuadrantsManager.createShipControlQuadrants()
         } else {

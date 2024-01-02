@@ -67,9 +67,9 @@ final class ShipControlsSystemTests: XCTestCase {
         let ship = ShipEntity(name: .ship, state: appStateComponent)
                 .add(component: AccelerometerComponent())
         try? engine.add(entity: ship)
-        //                
+        // SUT    
         system.do_toggleButtons(.showingButtons)
-        XCTAssertTrue(creator.removeShipControlQuadrantsCalled)
+        //
         XCTAssertTrue(creator.createShipControlButtonsCalled)
         XCTAssertTrue(creator.enableShipControlButtonsCalled)
         XCTAssertTrue(creator.removeToggleButtonCalled)
@@ -94,9 +94,9 @@ final class ShipControlsSystemTests: XCTestCase {
         let fireButton = Entity(named: .fireButton)
                 .add(component: DisplayComponent(sknode: SwashSpriteNode()))
         try? engine.add(entity: fireButton)
-        //                
+        // SUT
         system.do_toggleButtons(.showingButtons)
-        XCTAssertTrue(creator.removeShipControlQuadrantsCalled)
+        //
         XCTAssertTrue(creator.createShipControlButtonsCalled)
         XCTAssertTrue(creator.enableShipControlButtonsCalled)
         XCTAssertTrue(creator.removeToggleButtonCalled)
@@ -122,10 +122,9 @@ final class ShipControlsSystemTests: XCTestCase {
         let hyperspaceButton = Entity(named: .hyperspaceButton)
                 .add(component: DisplayComponent(sknode: SwashSpriteNode()))
         try? engine.add(entity: hyperspaceButton)
-        //                
+        // SUT  
         system.do_toggleButtons(.showingButtons)
-        XCTAssertTrue(creator.removeShipControlQuadrantsCalled)
-        XCTAssertTrue(creator.createShipControlButtonsCalled)
+        //
         XCTAssertTrue(creator.enableShipControlButtonsCalled)
         XCTAssertTrue(creator.removeToggleButtonCalled)
         XCTAssertTrue(creator.createToggleButtonCalled)

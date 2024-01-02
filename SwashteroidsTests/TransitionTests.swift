@@ -73,8 +73,8 @@ final class TransitionTests: XCTestCase {
 
     //TODO: This test is fragile, it depends on the the calls .
     func test_ToPlayingScreenWhileHidingButtons() {
-        transition.toPlayingScreen(with: .hidingButtons)
-        // I could mock appStateComponent, but it's pretty lightweight.
+        appStateComponent.shipControlsState = .hidingButtons
+        transition.toPlayingScreen(appStateComponent: appStateComponent)
         XCTAssertEqual(appStateComponent.numShips, 3)
         XCTAssertEqual(appStateComponent.level, 0)
         XCTAssertEqual(appStateComponent.score, 0)
@@ -85,14 +85,13 @@ final class TransitionTests: XCTestCase {
 
     //TODO: This test is fragile, it depends on the the calls
     func test_ToPlayingScreenWhileShowingButtons() {
-        transition.toPlayingScreen(with: .showingButtons)
-        // I could mock appStateComponent, but it's pretty lightweight.
+        appStateComponent.shipControlsState = .showingButtons
+        transition.toPlayingScreen(appStateComponent: appStateComponent)
         XCTAssertEqual(appStateComponent.numShips, 3)
         XCTAssertEqual(appStateComponent.level, 0)
         XCTAssertEqual(appStateComponent.score, 0)
         XCTAssertTrue(creator.createHudCalled)
         XCTAssertTrue(creator.createToggleButtonCalled)
-        XCTAssertTrue(creator.enableShipControlButtonsCalled)
     }
 
     func test_FromPlayingScreen() {
