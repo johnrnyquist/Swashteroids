@@ -31,6 +31,20 @@ class CollisionSystemTests: XCTestCase {
         let system = MockCollisionSystem(creator: creator,
                                          size: .zero,
                                          scaleManager: MockScaleManager())
+        engine.add(system: system, priority: 1)
+        let ship = Entity(named: .ship)
+                .add(component: ShipComponent())
+                .add(component: CollisionComponent(radius: 10, scaleManager: MockScaleManager()))
+                .add(component: PositionComponent(x: 0, y: 0, z: 0))
+                .add(component: MotionComponent(velocityX: 0, velocityY: 0))
+        try? engine.add(entity: ship)
+        let torpedoPowerUp = Entity(named: "torpedoPowerUp")
+                .add(component: GunPowerUpComponent())
+                .add(component: CollisionComponent(radius: 10, scaleManager: MockScaleManager()))
+                .add(component: PositionComponent(x: 0, y: 0, z: 0))
+                .add(component: DisplayComponent(sknode: SKNode()))
+        try? engine.add(entity: torpedoPowerUp)
+
         system.update(time: 1)
         XCTAssertTrue(system.shipTorpedoPowerUpCollisionCheckCalled)
         XCTAssertTrue(system.shipHSCollisionCheckCalled)
@@ -43,7 +57,7 @@ class CollisionSystemTests: XCTestCase {
             var torpedoAsteroidCollisionCheckCalled = false
             var shipAsteroidCollisionCheckCalled = false
 
-            override func shipTorpedoPowerUpCollisionCheck() {
+            override func shipTorpedoPowerUpCollisionCheck(shipCollisionNode: Node?, torpedoPowerUpNode: Node?) {
                 shipTorpedoPowerUpCollisionCheckCalled = true
             }
 
@@ -116,7 +130,7 @@ class CollisionSystemTests: XCTestCase {
         // add a GunSupplierNode
         let torpedoPowerUpNode = GunSupplierNode()
         torpedoPowerUpNode.entity = torpedoPowerUp
-        system.shipTorpedoPowerUpCollisionCheck(shipCollisionNode: shipCollisionNode, 
+        system.shipTorpedoPowerUpCollisionCheck(shipCollisionNode: shipCollisionNode,
                                                 torpedoPowerUpNode: torpedoPowerUpNode)
     }
 

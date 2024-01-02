@@ -70,7 +70,7 @@ final class TorpedoAgeSystemTests: XCTestCase {
     class MockEngine: Engine {
         var destroyEntityCalled = false
 
-        override func removeEntity(entity: Entity) {
+        override func remove(entity: Entity) {
             destroyEntityCalled = true
         }
     }
