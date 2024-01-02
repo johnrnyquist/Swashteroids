@@ -46,7 +46,7 @@ final class TransitionAppStateSystemTests: XCTestCase {
                                                   score: 0,
                                                   appState: .start,
                                                   shipControlsState: .hidingButtons)
-        let transitionComponent = TransitionAppStateComponent(to: .infoNoButtons, from: .start)
+        let transitionComponent = TransitionAppStateComponent(from: .start, to: .infoNoButtons)
         node.components[AppStateComponent.name] = appStateComponent
         node.components[TransitionAppStateComponent.name] = transitionComponent
         system.updateNode(node: node, time: 1)
@@ -61,7 +61,7 @@ final class TransitionAppStateSystemTests: XCTestCase {
                                                   score: 0,
                                                   appState: .start,
                                                   shipControlsState: .showingButtons)
-        let transitionComponent = TransitionAppStateComponent(to: .infoButtons, from: .start)
+        let transitionComponent = TransitionAppStateComponent(from: .start, to: .infoButtons)
         node.components[AppStateComponent.name] = appStateComponent
         node.components[TransitionAppStateComponent.name] = transitionComponent
         system.updateNode(node: node, time: 1)
@@ -76,7 +76,7 @@ final class TransitionAppStateSystemTests: XCTestCase {
                                                   score: 0,
                                                   appState: .infoButtons,
                                                   shipControlsState: .showingButtons)
-        let transitionComponent = TransitionAppStateComponent(to: .playing, from: .infoButtons)
+        let transitionComponent = TransitionAppStateComponent(from: .infoButtons, to: .playing)
         node.components[AppStateComponent.name] = appStateComponent
         node.components[TransitionAppStateComponent.name] = transitionComponent
         system.updateNode(node: node, time: 1)
@@ -91,8 +91,7 @@ final class TransitionAppStateSystemTests: XCTestCase {
                                                   score: 0,
                                                   appState: .gameOver,
                                                   shipControlsState: .showingButtons)
-        let transitionComponent = TransitionAppStateComponent(to: .start,
-                                                              from: .gameOver)
+        let transitionComponent = TransitionAppStateComponent(from: .gameOver, to: .start)
         node.components[AppStateComponent.name] = appStateComponent
         node.components[TransitionAppStateComponent.name] = transitionComponent
         system.updateNode(node: node, time: 1)
@@ -107,7 +106,7 @@ final class TransitionAppStateSystemTests: XCTestCase {
                                                   score: 0,
                                                   appState: .infoNoButtons,
                                                   shipControlsState: .hidingButtons)
-        let transitionComponent = TransitionAppStateComponent(to: .playing, from: .infoNoButtons)
+        let transitionComponent = TransitionAppStateComponent(from: .infoNoButtons, to: .playing)
         node.components[AppStateComponent.name] = appStateComponent
         node.components[TransitionAppStateComponent.name] = transitionComponent
         system.updateNode(node: node, time: 1)
@@ -128,7 +127,7 @@ final class TransitionAppStateSystemTests: XCTestCase {
         } catch {
             XCTFail("Failed to add appStateEntity")
         }
-        let transitionComponent = TransitionAppStateComponent(to: .gameOver, from: .playing)
+        let transitionComponent = TransitionAppStateComponent(from: .playing, to: .gameOver)
         let node = TransitionAppStateNode()
         node.components[AppStateComponent.name] = appStateComponent
         node.components[TransitionAppStateComponent.name] = transitionComponent

@@ -93,7 +93,7 @@ class GameManagerSystem: System {
                 createPowerUps(level: level)
             }
         } else { // GAME OVER!
-            currentStateNode.entity?.add(component: TransitionAppStateComponent(to: .gameOver, from: .playing))
+            currentStateNode.entity?.add(component: TransitionAppStateComponent(from: .playing, to: .gameOver))
         }
     }
 

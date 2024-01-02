@@ -42,7 +42,7 @@ extension Transition {
                     touchDown: { [unowned self] sprite in
                         generator?.impactOccurred()
                         engine.appState?
-                              .add(component: TransitionAppStateComponent(to: .start, from: .gameOver))
+                              .add(component: TransitionAppStateComponent(from: .gameOver, to: .start))
                     }))
         gameOverView.entity = gameOverEntity
         do {
