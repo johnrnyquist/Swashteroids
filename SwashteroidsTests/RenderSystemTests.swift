@@ -15,25 +15,25 @@ import SpriteKit
 
 final class RenderSystemTests: XCTestCase {
     var system: RenderSystem!
-    var scene: SKScene! // we need this because RenderSystem holds a weak reference
+    var container: MockContainer!
     var engine: Engine!
 
     override func setUpWithError() throws {
-        scene = SKScene()
-        system = RenderSystem(container: scene)
+        container = MockContainer()
+        system = RenderSystem(container: container)
         engine = Engine()
     }
 
     override func tearDownWithError() throws {
-        scene = nil
+        container = nil
         system = nil
         engine = nil
     }
 
     func test_Init() throws {
-        XCTAssertNotNil(system.scene)
+        XCTAssertNotNil(system.container)
     }
-    
+
     func test_Update() {
         let sprite = SwashSpriteNode()
         let display = DisplayComponent(sknode: sprite)
@@ -71,27 +71,35 @@ final class RenderSystemTests: XCTestCase {
                 .add(component: position)
         try? engine.add(entity: entity)
         engine.add(system: system, priority: 1)
-        XCTAssertTrue(scene.children.count == 1)
+        XCTAssertTrue(container.children.count == 1)
     }
 
     func test_RemoveFromDisplay() {
         engine.add(system: system, priority: 1)
-        let entity = Entity()
         let sprite = SwashSpriteNode()
-        let display = DisplayComponent(sknode: sprite)
-        let position = PositionComponent(x: 0, y: 0, z: .ship)
+        let entity = Entity()
         entity
-                .add(component: display)
-                .add(component: position)
+                .add(component: DisplayComponent(sknode: sprite))
+                .add(component: PositionComponent(x: 0, y: 0, z: .ship))
         try? engine.add(entity: entity)
+        XCTAssertNotNil(sprite.parent)
         engine.remove(entity: entity)
-        XCTAssertTrue(scene.children.count == 0)
+        XCTAssertNil(sprite.parent)
     }
-    
+
     func test_RemoveFromEngine() {
         engine.add(system: system, priority: 1)
-        engine.removeSystem(system: system)
+        engine.remove(system: system)
         XCTAssertNil(system.nodes)
-        XCTAssertNil(system.scene)
+        XCTAssertNil(system.container)
+    }
+
+    class MockContainer: SKNode, Container {
+        var addChildCalled = false
+
+        override func addChild(_ node: SKNode) {
+            super.addChild(_: node)
+            addChildCalled = true
+        }
     }
 }

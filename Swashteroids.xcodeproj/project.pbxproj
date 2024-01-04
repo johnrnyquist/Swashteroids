@@ -132,6 +132,7 @@
 		931393799C3434FBF3FC0CCD /* InputComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931396DD35CCD39E8E4EDB16 /* InputComponent.swift */; };
 		931394AC921BF3C3D7CABD13 /* FiringSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139DE76BF1939914D55E38 /* FiringSystemTests.swift */; };
 		93139562CC6BB542C42A3493 /* LeftNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139D029684C918FEDD3DC1 /* LeftNode.swift */; };
+		9313961BE93AEE536D58C27B /* AudioSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931390BDEBA443104F781428 /* AudioSystemTests.swift */; };
 		931396A2070DB4DA286B21D7 /* RightNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139FDF0C76049256DAE28C /* RightNode.swift */; };
 		931397073B11911E75B9BFA0 /* Creator+ShipControlQuadrants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931395F838B2866767296F25 /* Creator+ShipControlQuadrants.swift */; };
 		931397757ABDD3E731FEB69F /* RepeatingAudioSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139A85D4D955B243719D63 /* RepeatingAudioSystem.swift */; };
@@ -308,6 +309,7 @@
 		8DB99F5A2B2C9B4500C3593A /* TransitionAppStateSystemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionAppStateSystemTests.swift; sourceTree = "<group>"; };
 		8DD26DC82B22D7E300DA5BC3 /* AccelerometerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccelerometerNode.swift; sourceTree = "<group>"; };
 		8DD26DCA2B22D80600DA5BC3 /* AccelerometerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccelerometerComponent.swift; sourceTree = "<group>"; };
+		931390BDEBA443104F781428 /* AudioSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioSystemTests.swift; sourceTree = "<group>"; };
 		931390C85278CB396AD27B7B /* LeftSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftSystemTests.swift; sourceTree = "<group>"; };
 		931390D4ADEAB2D4BAFC8C1F /* FlipSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlipSystem.swift; sourceTree = "<group>"; };
 		931390DB9E3BECA50B2D05CF /* ThrustSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThrustSystem.swift; sourceTree = "<group>"; };
@@ -631,6 +633,7 @@
 				8D384D982B28F3F300D5564C /* TorpedoAgeSystemTests.swift */,
 				8DB99F5A2B2C9B4500C3593A /* TransitionAppStateSystemTests.swift */,
 				93139D4336E12C89FC8BE06B /* TransitionTests.swift */,
+				931390BDEBA443104F781428 /* AudioSystemTests.swift */,
 			);
 			path = SwashteroidsTests;
 			sourceTree = "<group>";
@@ -939,6 +942,7 @@
 				93139D4F7B05532BC0F56A6C /* GameManagerSystemTests.swift in Sources */,
 				93139AF6101463528E309EA7 /* ShipControlsSystemTests.swift in Sources */,
 				931390FD65B5AF82D24FEB32 /* CollisionSystemTests.swift in Sources */,
+				9313961BE93AEE536D58C27B /* AudioSystemTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

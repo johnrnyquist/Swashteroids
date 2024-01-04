@@ -63,9 +63,12 @@ final class Swashteroids: NSObject {
     }
 
     private func createSystems(scene: GameScene) {
+        let size = scene.size
+        let soundPlayer = scene
+        let container = scene
         engine
             // preupdate
-                .add(system: GameManagerSystem(creator: creator, size: scene.size, scene: scene), priority: .preUpdate)
+                .add(system: GameManagerSystem(creator: creator, size: size, scene: scene), priority: .preUpdate)
                 .add(system: GameOverSystem(), priority: .preUpdate)
                 .add(system: ShipControlsSystem(creator: creator), priority: .preUpdate)
                 .add(system: TransitionAppStateSystem(transition: transition), priority: .preUpdate)
@@ -73,11 +76,11 @@ final class Swashteroids: NSObject {
                 .add(system: AccelerometerSystem(), priority: .move)
                 .add(system: FlipSystem(), priority: .move)
                 .add(system: LeftSystem(), priority: .move)
-                .add(system: MovementSystem(size: scene.size), priority: .move)
+                .add(system: MovementSystem(size: size), priority: .move)
                 .add(system: RightSystem(), priority: .move)
                 .add(system: ThrustSystem(), priority: .move)
                 // resolve collisions
-                .add(system: CollisionSystem(creator: creator, size: scene.size), priority: .resolveCollisions)
+                .add(system: CollisionSystem(creator: creator, size: size), priority: .resolveCollisions)
                 // animate
                 .add(system: AnimationSystem(), priority: .animate)
                 .add(system: HudSystem(), priority: .animate)
@@ -88,9 +91,9 @@ final class Swashteroids: NSObject {
                 .add(system: HyperspaceSystem(), priority: .update)
                 .add(system: NacellesSystem(), priority: .update)
                 // render
-                .add(system: AudioSystem(scene: scene), priority: .render)
-                .add(system: RepeatingAudioSystem(scene: scene), priority: .render)
-                .add(system: RenderSystem(container: scene), priority: .render)
+                .add(system: AudioSystem(soundPlayer: soundPlayer), priority: .render)
+                .add(system: RepeatingAudioSystem(), priority: .render)
+                .add(system: RenderSystem(container: container), priority: .render)
     }
 
     func start() {

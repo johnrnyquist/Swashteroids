@@ -13,7 +13,7 @@ import SpriteKit
 
 final class RepeatingAudioSystem: ListIteratingSystem {
 
-    init(scene: SKScene) {
+    init() {
         super.init(nodeClass: RepeatingAudioNode.self)
         nodeUpdateFunction = updateNode
     }

@@ -11,13 +11,17 @@
 import SpriteKit
 import Swash
 
+protocol Container: AnyObject {
+    func addChild(_ node: SKNode)
+    var children: [SKNode] { get }
+}
 
 final class RenderSystem: System {
-    weak var scene: SKScene!
+    weak var container: Container!
     weak var nodes: NodeList?
 
-    init(container: SKScene) {
-        scene = container
+    init(container: Container) {
+        self.container = container
     }
 
     override func addToEngine(engine: Engine) {
@@ -36,7 +40,7 @@ final class RenderSystem: System {
             let component = node[DisplayComponent.self],
             let sprite = component.sknode
         else { return }
-        scene.addChild(sprite)
+        container.addChild(sprite)
     }
 
     private func removeFromDisplay(_ node: Node) {
@@ -64,6 +68,6 @@ final class RenderSystem: System {
 
     override func removeFromEngine(engine: Engine) {
         nodes = nil
-        scene = nil
+        container = nil
     }
 }

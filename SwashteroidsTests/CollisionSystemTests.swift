@@ -22,42 +22,47 @@ class CollisionSystemTests: XCTestCase {
     var torpedoPowerUpEntity: Entity!
     var hyperspacePowerUpEntity: Entity!
     var appStateEntity: Entity!
-
+    var appStateComponent: AppStateComponent!
+    
     override func setUpWithError() throws {
         creator = MockAsteroidCreator()
         engine = Engine()
-        let appStateComponent = AppStateComponent(size: .zero,
+        appStateComponent = AppStateComponent(size: .zero,
                                                   ships: 1,
                                                   level: 1,
                                                   score: 0,
                                                   appState: .playing,
                                                   shipControlsState: .showingButtons)
+        appStateEntity = Entity(named: .appState)
+                .add(component: appStateComponent)
+        try? engine.add(entity: appStateEntity)
         shipEntity = ShipEntity(name: .ship, state: appStateComponent)
+        try? engine.add(entity: shipEntity)
         asteroidEntity = Entity(named: "asteroidEntity")
                 .add(component: AsteroidComponent())
                 .add(component: CollisionComponent(radius: LARGE_ASTEROID_RADIUS, scaleManager: MockScaleManager()))
                 .add(component: PositionComponent(x: 0, y: 0, z: 0))
                 .add(component: DisplayComponent(sknode: SKNode()))
+                .add(component: VelocityComponent(velocityX: 0, velocityY: 0, dampening: 0))
+        try? engine.add(entity: asteroidEntity)
         torpedoPowerUpEntity = Entity(named: .torpedoPowerUp)
                 .add(component: GunPowerUpComponent())
                 .add(component: CollisionComponent(radius: POWER_UP_RADIUS, scaleManager: MockScaleManager()))
                 .add(component: PositionComponent(x: 0, y: 0, z: 0))
                 .add(component: DisplayComponent(sknode: SKNode()))
+        try? engine.add(entity: torpedoPowerUpEntity)
         hyperspacePowerUpEntity = Entity(named: .hyperspacePowerUp)
                 .add(component: HyperspacePowerUpComponent())
                 .add(component: CollisionComponent(radius: 10, scaleManager: MockScaleManager()))
                 .add(component: PositionComponent(x: 0, y: 0, z: 0))
                 .add(component: DisplayComponent(sknode: SKNode()))
+        try? engine.add(entity: hyperspacePowerUpEntity)
         torpedoEntity = Entity(named: "torpedoEnityt")
                 .add(component: GunPowerUpComponent())
                 .add(component: CollisionComponent(radius: 10, scaleManager: MockScaleManager()))
                 .add(component: PositionComponent(x: 0, y: 0, z: 0))
                 .add(component: DisplayComponent(sknode: SKNode()))
-        try? engine.add(entity: asteroidEntity)
         try? engine.add(entity: torpedoEntity)
-        try? engine.add(entity: hyperspacePowerUpEntity)
-        try? engine.add(entity: shipEntity)
-        try? engine.add(entity: torpedoPowerUpEntity)
     }
 
     override func tearDownWithError() throws {
@@ -227,6 +232,7 @@ class CollisionSystemTests: XCTestCase {
                                           asteroidCollisionNode: asteroidCollisionNode)
         //
         XCTAssertTrue(system.splitAsteroidCalled)
+        XCTAssertTrue(appStateComponent.numShips == 0)
 
         class MockCollisionSystem: CollisionSystem {
             var splitAsteroidCalled = false

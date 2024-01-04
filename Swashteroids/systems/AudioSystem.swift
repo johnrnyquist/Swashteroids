@@ -11,11 +11,16 @@
 import SpriteKit
 import Swash
 
-final class AudioSystem: ListIteratingSystem {
-    private weak var scene: SKScene!
+protocol SoundPlaying: AnyObject {
+    func action(forKey: String) -> SKAction?
+    func run(_ action: SKAction, withKey: String)
+}
 
-    init(scene: SKScene) {
-        self.scene = scene
+final class AudioSystem: ListIteratingSystem {
+    private var soundPlayer: SoundPlaying
+
+    init(soundPlayer: SoundPlaying) {
+        self.soundPlayer = soundPlayer
         super.init(nodeClass: AudioNode.self)
         nodeUpdateFunction = updateNode
     }
@@ -24,17 +29,13 @@ final class AudioSystem: ListIteratingSystem {
         guard let audioComponent = node[AudioComponent.self]
         else { return }
         for (soundKey, soundAction) in audioComponent.playlist {
-            if let _ = scene.action(forKey: soundKey) {
+            if let _ = soundPlayer.action(forKey: soundKey) {
                 continue // I never hit this, but it's here just in case
             }
-            scene.run(soundAction, withKey: soundKey)
+            soundPlayer.run(soundAction, withKey: soundKey)
         }
         audioComponent.clearPlaylist()
         node.entity?.remove(componentClass: AudioComponent.self)
-    }
-
-    override public func removeFromEngine(engine: Engine) {
-        scene = nil
     }
 }
 
