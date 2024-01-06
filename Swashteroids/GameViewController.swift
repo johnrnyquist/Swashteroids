@@ -19,7 +19,7 @@ protocol AlertPresenting {
 final class GameViewController: UIViewController, AlertPresenting {
     var skView: SKView!
     var gameScene: GameScene!
-    var game: Swashteroids!
+    var game: Swashteroids?
     var alertPresenter: AlertPresenting!
 
     override func loadView() {
@@ -45,15 +45,15 @@ final class GameViewController: UIViewController, AlertPresenting {
         gameScene.anchorPoint = .zero
         gameScene.scaleMode = .aspectFit
         game = Swashteroids(scene: gameScene, alertPresenter: self)
-        game.alertPresenter = self
+        game?.alertPresenter = self
         gameScene.delegate = game
         gameScene.touchDelegate = game
-        game.start()
+        game?.start()
         skView.presentScene(gameScene)
     }
 
     @IBAction func showPauseAlert() {
-        game.stop()
+        game?.stop()
         let alertView = PauseAlert(
             home: { [unowned self] in
                 dismiss(animated: true, completion: { [unowned self] in 
@@ -62,7 +62,7 @@ final class GameViewController: UIViewController, AlertPresenting {
             },
             resume: { [unowned self] in
                 dismiss(animated: true, completion: { [unowned self] in 
-                    game.start()
+                    game?.start()
                 })
             })
         let hostingController = UIHostingController(rootView: alertView)
