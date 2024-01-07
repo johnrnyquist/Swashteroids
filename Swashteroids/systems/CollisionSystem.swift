@@ -152,7 +152,7 @@ class CollisionSystem: System {
                 else { asteroidNode = currentAsteroid.next; continue } // or return? }
                 if (asteroidPosition.position.distance(from: torpedoPosition.position) <= asteroidCollision.radius) {
                     if let entity = torpedo.entity { engine.remove(entity: entity) }
-                    let level = (appStateNodes.head?[AppStateComponent.self] as? AppStateComponent)?.level ?? 1
+                    let level = appStateNodes.head?[AppStateComponent.self]?.level ?? 1
                     if let entity = asteroidNode?.entity {
                         splitAsteroid(asteroidEntity: entity, level: level)
                     }
@@ -197,7 +197,7 @@ class CollisionSystem: System {
                             component.numShips -= 1
                         }
                     }
-                    let level = (appStateNodes.head?[AppStateComponent.self] as? AppStateComponent)?.level ?? 1
+                    let level = appStateNodes.head?[AppStateComponent.self]?.level ?? 1
                     if let entity = currentAsteroid.entity {
                         splitAsteroid(asteroidEntity: entity, level: level)
                     }
