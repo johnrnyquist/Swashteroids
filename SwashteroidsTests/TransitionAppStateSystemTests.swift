@@ -21,8 +21,7 @@ final class TransitionAppStateSystemTests: XCTestCase {
     override func setUpWithError() throws {
         size = CGSize(width: 1024.0, height: 768.0)
         engine = Engine()
-        let creator = Creator(engine: engine, size: size, alertPresenter: MockAlertPresenter())
-        transition = Transition(engine: engine, creator: creator)
+        transition = Transition(engine: engine)
         system = TransitionAppStateSystem(transition: transition)
     }
 
@@ -49,7 +48,9 @@ final class TransitionAppStateSystemTests: XCTestCase {
         let transitionComponent = TransitionAppStateComponent(from: .start, to: .infoNoButtons)
         node.components[AppStateComponent.name] = appStateComponent
         node.components[TransitionAppStateComponent.name] = transitionComponent
+        // SUT
         system.updateNode(node: node, time: 1)
+        //
         XCTAssertEqual(appStateComponent.appState, .infoNoButtons)
     }
 
@@ -64,7 +65,9 @@ final class TransitionAppStateSystemTests: XCTestCase {
         let transitionComponent = TransitionAppStateComponent(from: .start, to: .infoButtons)
         node.components[AppStateComponent.name] = appStateComponent
         node.components[TransitionAppStateComponent.name] = transitionComponent
+        // SUT
         system.updateNode(node: node, time: 1)
+        //
         XCTAssertEqual(appStateComponent.appState, .infoButtons)
     }
 
@@ -79,7 +82,9 @@ final class TransitionAppStateSystemTests: XCTestCase {
         let transitionComponent = TransitionAppStateComponent(from: .infoButtons, to: .playing)
         node.components[AppStateComponent.name] = appStateComponent
         node.components[TransitionAppStateComponent.name] = transitionComponent
+        // SUT
         system.updateNode(node: node, time: 1)
+        //
         XCTAssertEqual(appStateComponent.appState, .playing)
     }
 
@@ -94,7 +99,9 @@ final class TransitionAppStateSystemTests: XCTestCase {
         let transitionComponent = TransitionAppStateComponent(from: .gameOver, to: .start)
         node.components[AppStateComponent.name] = appStateComponent
         node.components[TransitionAppStateComponent.name] = transitionComponent
+        // SUT
         system.updateNode(node: node, time: 1)
+        //
         XCTAssertEqual(appStateComponent.appState, .start)
     }
 
@@ -109,7 +116,9 @@ final class TransitionAppStateSystemTests: XCTestCase {
         let transitionComponent = TransitionAppStateComponent(from: .infoNoButtons, to: .playing)
         node.components[AppStateComponent.name] = appStateComponent
         node.components[TransitionAppStateComponent.name] = transitionComponent
+        // SUT
         system.updateNode(node: node, time: 1)
+        //
         XCTAssertEqual(appStateComponent.appState, .playing)
     }
 
@@ -131,11 +140,9 @@ final class TransitionAppStateSystemTests: XCTestCase {
         let node = TransitionAppStateNode()
         node.components[AppStateComponent.name] = appStateComponent
         node.components[TransitionAppStateComponent.name] = transitionComponent
+        // SUT
         system.updateNode(node: node, time: 1)
+        //
         XCTAssertEqual(appStateComponent.appState, .gameOver)
-    }
-
-    class MockAlertPresenter: AlertPresenting {
-        func showPauseAlert() {}
     }
 }

@@ -40,11 +40,7 @@ final class TransitionTests: XCTestCase {
             XCTFail("Failed to add appStateEntity")
         }
         creator = MockCreator()
-        transition = MockTransition(engine: engine,
-                                    hudManager: creator,
-                                    toggleButtonsManager: creator,
-                                    shipControlQuadrantsManager: creator,
-                                    shipControlButtonsManager: creator)
+        transition = Transition(engine: engine, creator: creator)
     }
 
     override func tearDownWithError() throws {
@@ -135,23 +131,6 @@ final class TransitionTests: XCTestCase {
 
     class MockAlertPresenter: AlertPresenting {
         func showPauseAlert() {}
-    }
-
-    fileprivate class MockTransition: Transition {
-        init(engine: Engine,
-             hudManager: MockCreator,
-             toggleButtonsManager: MockCreator,
-             shipControlQuadrantsManager: MockCreator,
-             shipControlButtonsManager: MockCreator) {
-            super.init(engine: engine,
-                       creator: Creator(engine: Engine(),
-                                        size: .zero,
-                                        alertPresenter: MockAlertPresenter()))
-            self.hudManager = hudManager
-            self.toggleButtonsManager = toggleButtonsManager
-            self.shipControlQuadrantsManager = shipControlQuadrantsManager
-            self.shipControlButtonsManager = shipControlButtonsManager
-        }
     }
 
     class MockCreator: HudCreator, ToggleShipControlsManager, ShipQuadrantsControlsManager, ShipButtonControlsManager {

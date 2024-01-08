@@ -14,19 +14,19 @@ import SpriteKit
 extension Transition {
     func fromPlayingScreen() {
         engine.removeEntities(named: [.pauseButton])
-        toggleButtonsManager.removeToggleButton()
-        shipControlButtonsManager.removeShipControlButtons()
-        shipControlQuadrantsManager.removeShipControlQuadrants()
+        toggleShipControlsManager?.removeToggleButton()
+        shipControlButtonsManager?.removeShipControlButtons()
+        shipControlQuadrantsManager?.removeShipControlQuadrants()
     }
 
     func toPlayingScreen(appStateComponent: AppStateComponent) {
         appStateComponent.resetBoard()
-        hudManager.createHud(gameState: appStateComponent)
+        hudCreator?.createHud(gameState: appStateComponent)
         if appStateComponent.shipControlsState == .hidingButtons {
-            toggleButtonsManager.createToggleButton(.off)
-            shipControlQuadrantsManager.createShipControlQuadrants()
+            toggleShipControlsManager?.createToggleButton(.off)
+            shipControlQuadrantsManager?.createShipControlQuadrants()
         } else {
-            toggleButtonsManager.createToggleButton(.on)
+            toggleShipControlsManager?.createToggleButton(.on)
         }
     }
 }
