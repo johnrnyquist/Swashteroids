@@ -20,7 +20,7 @@ class PlasmaTorpedoesPowerUpView: SwashSpriteNode, Animating {
 			self.time = 0
 			dir = dir == 1.0 ? -1.0 : 1.0
 		}
-		//        alpha += Double(dir * time / 2)
+//        alpha += Double(dir * time / 2)
 		//		xScale += Double(dir * time / 10)
 		//		yScale += Double(dir * time / 10)
 	}
@@ -37,7 +37,7 @@ class HyperspacePowerUpView: SwashSpriteNode, Animating {
 			self.time = 0
 			dir = dir == 1.0 ? -1.0 : 1.0
 		}
-		//        alpha += Double(dir * time / 2)
+//        alpha += Double(dir * time / 2)
 		//		xScale += Double(dir * time / 10)
 		//		yScale += Double(dir * time / 10)
 	}

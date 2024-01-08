@@ -19,7 +19,7 @@ extension Creator: TorpedoCreator {
     func createPlasmaTorpedo(_ gunComponent: GunComponent, _ parentPosition: PositionComponent, _ parentVelocity: VelocityComponent) {
         let cos = cos(parentPosition.rotationRadians)
         let sin = sin(parentPosition.rotationRadians)
-        let sprite = SwashSpriteNode(texture: createTorpedoTexture(color: .plasmaTorpedo))
+        let sprite = SwashSpriteNode(texture: createTorpedoTexture(color: .torpedo))
         let sparkEmitter = SKEmitterNode(fileNamed: "plasmaTorpedo.sks")!
         sparkEmitter.emissionAngle = parentPosition.rotationRadians + Double.pi
         sprite.addChild(sparkEmitter)

@@ -27,17 +27,27 @@ extension Creator: PowerUpCreator {
         createPlasmaTorpedoesPowerUp(level: level, radius: POWER_UP_RADIUS)
     }
 
+    private func createEmitter(colored color: UIColor, on sprite: SKSpriteNode) {
+        if let emitter = SKEmitterNode(fileNamed: "fireflies_mod.sks") {
+            let colorRamp: [UIColor] = [color]
+            let keyTimes: [NSNumber] = [1.0]
+            let colorSequence = SKKeyframeSequence(keyframeValues: colorRamp, times: keyTimes)
+            emitter.particleColorSequence = colorSequence
+            sprite.addChild(emitter)
+        }
+    }
+
     func createPlasmaTorpedoesPowerUp(level: Int, radius: Double = POWER_UP_RADIUS) {
         guard engine.getEntity(named: .torpedoPowerUp) == nil else { return }
-        let sprite = PlasmaTorpedoesPowerUpView(imageNamed: "scope")
-        let emitter = SKEmitterNode(fileNamed: "plasmaTorpedoesPowerUp.sks")!
-        sprite.addChild(emitter)
+        let sprite = PlasmaTorpedoesPowerUpView(imageNamed: "torpedoPowerUp")
+        createEmitter(colored: .powerUpTorpedo, on: sprite)
         let entity = Entity(named: .torpedoPowerUp)
         sprite.name = entity.name
-        sprite.color = .plasmaTorpedo
+        sprite.color = .powerUpTorpedo
         sprite.colorBlendFactor = 1.0
         let positionComponent = createRandomPosition(level: Double(level), layer: .asteroids)
         let velocityComponent = createRandomVelocity(level: Double(level))
+        velocityComponent.angularVelocity = 25.0
         entity
                 .add(component: GunPowerUpComponent())
                 .add(component: positionComponent)
@@ -51,14 +61,14 @@ extension Creator: PowerUpCreator {
     func createHyperspacePowerUp(level: Int, radius: Double = POWER_UP_RADIUS) {
         guard engine.getEntity(named: .hyperspacePowerUp) == nil else { return }
         let sprite = HyperspacePowerUpView(imageNamed: "hyperspacePowerUp")
-        let emitter = SKEmitterNode(fileNamed: "hyperspacePowerUp.sks")!
-        sprite.addChild(emitter)
+        createEmitter(colored: .powerUpHyperspace, on: sprite)
         let entity = Entity(named: .hyperspacePowerUp)
         sprite.name = entity.name
-        sprite.color = .hyperspace
+        sprite.color = .powerUpHyperspace
         sprite.colorBlendFactor = 1.0
         let positionComponent = createRandomPosition(level: Double(level), layer: .asteroids)
         let velocityComponent = createRandomVelocity(level: Double(level))
+        velocityComponent.angularVelocity = 25.0
         entity
                 .add(component: HyperspacePowerUpComponent())
                 .add(component: positionComponent)
@@ -80,7 +90,6 @@ extension Creator: PowerUpCreator {
     private func createRandomVelocity(level: Double) -> VelocityComponent {
         let velocityX = Double.random(in: -10.0...10.0) * Double(level)
         let velocityY = Double.random(in: -10.0...10.0) * Double(level)
-        let angularVelocity = Double.random(in: -100.0...100.0)
-        return VelocityComponent(velocityX: velocityX, velocityY: velocityY, angularVelocity: angularVelocity, dampening: 0)
+        return VelocityComponent(velocityX: velocityX, velocityY: velocityY, dampening: 0)
     }
 }

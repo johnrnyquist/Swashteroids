@@ -15,7 +15,7 @@ class GameOverView: SwashSpriteNode {
         let gameOver = SKLabelNode(text: "Game Over")
         gameOver.name = "gameOverLabel"
         gameOver.fontName = "Badloc ICG"
-        gameOver.fontColor = .waitText
+        gameOver.fontColor = .gameOverText
         gameOver.horizontalAlignmentMode = .center
         return gameOver
     }()

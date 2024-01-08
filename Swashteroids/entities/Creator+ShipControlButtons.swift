@@ -26,6 +26,8 @@ extension Creator: ShipButtonControlsManager {
     func createShipControlButtons() {
         // left
         let leftButton = SwashSpriteNode(imageNamed: "left")
+        leftButton.color = .leftButton
+        leftButton.colorBlendFactor = 1.0
         leftButton.alpha = 0.2
         let leftX = leftButton.size.width / 2 + buttonPaddingLeft
         let leftY = leftButton.size.height / 2 + firstRowButtonPaddingY
@@ -36,6 +38,8 @@ extension Creator: ShipButtonControlsManager {
         engine.replace(entity: leftButtonEntity)
         // right
         let rightButton = SwashSpriteNode(imageNamed: "left")
+        rightButton.color = .rightButton
+        rightButton.colorBlendFactor = 1.0
         rightButton.alpha = 0.2
         rightButton.xScale *= -1.0
         let rightX = rightButton.size.width + buttonPadding + leftX
@@ -47,6 +51,8 @@ extension Creator: ShipButtonControlsManager {
         rightButton.entity = rightButtonEntity
         // thrust
         let thrustButton = SwashSpriteNode(imageNamed: "thrust")
+        thrustButton.color = .thrustButton
+        thrustButton.colorBlendFactor = 1.0
         thrustButton.alpha = 0.2
         let thrustX = size.width - thrustButton.size.width / 2 - buttonPaddingRight
         let thrustY = leftY
@@ -57,6 +63,8 @@ extension Creator: ShipButtonControlsManager {
         engine.replace(entity: thrustButtonEntity)
         // fire
         let fireButton = SwashSpriteNode(imageNamed: "fire")
+        fireButton.color = .fireButton
+        fireButton.colorBlendFactor = 1.0
         fireButton.alpha = 0.2
         let fireX = -thrustButton.size.width - buttonPadding + thrustX
         let fireY = leftY
@@ -67,6 +75,8 @@ extension Creator: ShipButtonControlsManager {
         engine.replace(entity: fireButtonEntity)
         // flip
         let flipButton = SwashSpriteNode(imageNamed: "flip")
+        flipButton.color = .flipButton
+        flipButton.colorBlendFactor = 1.0
         flipButton.alpha = 0.2
         let flipX = leftX
         let flipY = leftY + flipButton.size.height + buttonPadding
@@ -77,6 +87,8 @@ extension Creator: ShipButtonControlsManager {
         engine.replace(entity: flipButtonEntity)
         // hyperspace
         let hyperspaceButton = SwashSpriteNode(imageNamed: "hyperspace")
+        hyperspaceButton.color = .hyperspaceButton
+        hyperspaceButton.colorBlendFactor = 1.0
         hyperspaceButton.alpha = 0.2
         let hyperspaceX = thrustX
         let hyperspaceY = flipY
