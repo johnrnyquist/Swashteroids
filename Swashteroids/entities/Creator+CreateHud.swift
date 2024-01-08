@@ -11,14 +11,19 @@
 import Swash
 import SpriteKit
 
-protocol HudManager {
+protocol HudCreator {
     func createHud(gameState: AppStateComponent)
 }
 
-extension Creator: HudManager, AlertPresenting {
+extension Creator: HudCreator, AlertPresenting {
     func createHud(gameState: AppStateComponent) {
-        let hudEntity = HudEntity(name: .hud, gameState: gameState)
-        let pauseButton = hudEntity.view.pauseButton!
+        let view = HudView(gameSize: gameState.size)
+        let hudEntity = Entity(named: .hud)
+                .add(component: HudComponent(hudView: view))
+                .add(component: DisplayComponent(sknode: view))
+                .add(component: PositionComponent(x: 0, y: 0, z: .hud, rotationDegrees: 0))
+                .add(component: gameState)
+        let pauseButton = view.pauseButton!
         pauseButton.removeFromParent()
         let position = PositionComponent(x: pauseButton.x, y: pauseButton.y, z: .hud, rotationDegrees: 0)
         let pause = Entity(named: .pauseButton) //HACK
@@ -44,15 +49,3 @@ extension Creator: HudManager, AlertPresenting {
     }
 }
 
-final class HudEntity: Entity {
-    var view: HudView
-
-    init(name: String, gameState: AppStateComponent) {
-        view = HudView(gameSize: gameState.size)
-        super.init(named: name)
-        add(component: HudComponent(hudView: view))
-        add(component: DisplayComponent(sknode: view))
-        add(component: PositionComponent(x: 0, y: 0, z: .hud, rotationDegrees: 0))
-        add(component: gameState)
-    }
-}

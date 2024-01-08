@@ -55,7 +55,7 @@
 		8D23C1C82B02C59D00F7D878 /* AudioSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C17E2B02C59C00F7D878 /* AudioSystem.swift */; };
 		8D23C1C92B02C59D00F7D878 /* FiringSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C17F2B02C59C00F7D878 /* FiringSystem.swift */; };
 		8D23C1CA2B02C59D00F7D878 /* TorpedoAgeSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1802B02C59C00F7D878 /* TorpedoAgeSystem.swift */; };
-		8D23C1CC2B02C59D00F7D878 /* GameManagerSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1822B02C59C00F7D878 /* GameManagerSystem.swift */; };
+		8D23C1CC2B02C59D00F7D878 /* GameplayManagerSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1822B02C59C00F7D878 /* GameplayManagerSystem.swift */; };
 		8D23C1CD2B02C59D00F7D878 /* DeathThroesSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1832B02C59C00F7D878 /* DeathThroesSystem.swift */; };
 		8D23C1CE2B02C59D00F7D878 /* HudSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1842B02C59C00F7D878 /* HudSystem.swift */; };
 		8D23C1CF2B02C59D00F7D878 /* AnimationSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1852B02C59C00F7D878 /* AnimationSystem.swift */; };
@@ -239,7 +239,7 @@
 		8D23C17E2B02C59C00F7D878 /* AudioSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioSystem.swift; sourceTree = "<group>"; };
 		8D23C17F2B02C59C00F7D878 /* FiringSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiringSystem.swift; sourceTree = "<group>"; };
 		8D23C1802B02C59C00F7D878 /* TorpedoAgeSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TorpedoAgeSystem.swift; sourceTree = "<group>"; };
-		8D23C1822B02C59C00F7D878 /* GameManagerSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameManagerSystem.swift; sourceTree = "<group>"; };
+		8D23C1822B02C59C00F7D878 /* GameplayManagerSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameplayManagerSystem.swift; sourceTree = "<group>"; };
 		8D23C1832B02C59C00F7D878 /* DeathThroesSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeathThroesSystem.swift; sourceTree = "<group>"; };
 		8D23C1842B02C59C00F7D878 /* HudSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudSystem.swift; sourceTree = "<group>"; };
 		8D23C1852B02C59C00F7D878 /* AnimationSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationSystem.swift; sourceTree = "<group>"; };
@@ -533,7 +533,7 @@
 				8D6AD48B2B099F9900E258BF /* list_iterating */,
 				8D23C17C2B02C59C00F7D878 /* CollisionSystem.swift */,
 				8D23C17F2B02C59C00F7D878 /* FiringSystem.swift */,
-				8D23C1822B02C59C00F7D878 /* GameManagerSystem.swift */,
+				8D23C1822B02C59C00F7D878 /* GameplayManagerSystem.swift */,
 				8D23C1882B02C59C00F7D878 /* RenderSystem.swift */,
 			);
 			path = systems;
@@ -864,7 +864,7 @@
 				8D23C1362B02C4CA00F7D878 /* AppDelegate.swift in Sources */,
 				8D23C1E22B02C59D00F7D878 /* TorpedosView.swift in Sources */,
 				8D23C1DF2B02C59D00F7D878 /* Create_Texture.swift in Sources */,
-				8D23C1CC2B02C59D00F7D878 /* GameManagerSystem.swift in Sources */,
+				8D23C1CC2B02C59D00F7D878 /* GameplayManagerSystem.swift in Sources */,
 				8D23C1AA2B02C59D00F7D878 /* PlasmaTorpedoCollisionNode.swift in Sources */,
 				8D41E21F2B1FA2D00031AF54 /* Entity+extension.swift in Sources */,
 				8DD26DCB2B22D80600DA5BC3 /* AccelerometerComponent.swift in Sources */,

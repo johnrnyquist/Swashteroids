@@ -19,7 +19,7 @@ Creates the level.
 Determines if a ship needs to be made.
 Has too many responsibilities.
  */
-class GameManagerSystem: System {
+class GameplayManagerSystem: System {
     private var size: CGSize
     private weak var scene: SKScene!
     private weak var creator: (PowerUpCreator & ShipCreator & AsteroidCreator & TorpedoCreator)!

@@ -11,13 +11,13 @@
 import Swash
 import SpriteKit
 
-protocol ShipControlButtonsManager: AnyObject {
+protocol ShipButtonControlsManager: AnyObject {
     func removeShipControlButtons()
     func createShipControlButtons()
     func enableShipControlButtons()
 }
 
-extension Creator: ShipControlButtonsManager {
+extension Creator: ShipButtonControlsManager {
     func removeShipControlButtons() {
         let shipControls: [EntityName] = [.leftButton, .rightButton, .thrustButton, .fireButton, .flipButton, .hyperspaceButton]
         engine.removeEntities(named: shipControls)

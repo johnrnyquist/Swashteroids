@@ -45,7 +45,6 @@ final class GameViewController: UIViewController, AlertPresenting {
         gameScene.anchorPoint = .zero
         gameScene.scaleMode = .aspectFit
         game = Swashteroids(scene: gameScene, alertPresenter: self)
-        game?.alertPresenter = self
         gameScene.delegate = game
         gameScene.touchDelegate = game
         game?.start()

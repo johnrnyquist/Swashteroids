@@ -154,7 +154,7 @@ final class TransitionTests: XCTestCase {
         }
     }
 
-    class MockCreator: HudManager, ToggleButtonManager, ShipControlQuadrantsManager, ShipControlButtonsManager {
+    class MockCreator: HudCreator, ToggleShipControlsManager, ShipQuadrantsControlsManager, ShipButtonControlsManager {
         var createHudCalled = false
         var createToggleButtonCalled = false
         var removeToggleButtonCalled = false

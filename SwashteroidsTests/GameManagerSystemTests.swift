@@ -31,7 +31,7 @@ final class GameManagerSystemTests: XCTestCase {
     }
     
     func test_IsClearToAddSpaceship() {
-        let system = GameManagerSystem(creator: creator,
+        let system = GameplayManagerSystem(creator: creator,
                                        size: CGSize(width: 1024, height: 768),
                                        scene: scene,
                                        scaleManager: MockScaleManager())
@@ -49,7 +49,7 @@ final class GameManagerSystemTests: XCTestCase {
     }
 
     func test_IsNotClearToAddSpaceship() {
-        let system = GameManagerSystem(creator: creator,
+        let system = GameplayManagerSystem(creator: creator,
                                        size: CGSize(width: 1024, height: 768),
                                        scene: scene,
                                        scaleManager: MockScaleManager())
@@ -67,7 +67,7 @@ final class GameManagerSystemTests: XCTestCase {
     }
 
     func test_CreatePowerUps() {
-        let system = GameManagerSystem(creator: creator,
+        let system = GameplayManagerSystem(creator: creator,
                                        size: CGSize(width: 1024, height: 768),
                                        scene: scene,
                                        scaleManager: MockScaleManager())
@@ -78,7 +78,7 @@ final class GameManagerSystemTests: XCTestCase {
     }
 
     func test_CreateAsteroids() {
-        let system = GameManagerSystem(creator: creator,
+        let system = GameplayManagerSystem(creator: creator,
                                        size: CGSize(width: 1024, height: 768),
                                        scene: scene,
                                        scaleManager: MockScaleManager())
@@ -108,7 +108,7 @@ final class GameManagerSystemTests: XCTestCase {
         XCTAssertTrue(system.announceLevelCalled)
         XCTAssertEqual(system.createAsteroidsCalled, 1)
 
-        class MockGameManagerSystem_GoToNextLevel: GameManagerSystem {
+        class MockGameManagerSystem_GoToNextLevel: GameplayManagerSystem {
             var announceLevelCalled = false
             var createAsteroidsCalled = 0
 
@@ -137,7 +137,7 @@ final class GameManagerSystemTests: XCTestCase {
         XCTAssertEqual(system.isClearToAddSpaceshipCalled, true)
         XCTAssertEqual(system.createPowerUpsCalled, true)
 
-        class MockGameManagerSystem_HandlePlayingState: GameManagerSystem {
+        class MockGameManagerSystem_HandlePlayingState: GameplayManagerSystem {
             var isClearToAddSpaceshipCalled = false
             var createPowerUpsCalled = false
 
@@ -166,7 +166,7 @@ final class GameManagerSystemTests: XCTestCase {
         system.handlePlayingState(appStateComponent: appStateComponent, currentStateNode: AppStateNode())
         XCTAssertEqual(system.isClearToAddSpaceshipCalled, true)
 
-        class MockGameManagerSystem_HandlePlayingState_NotClear: GameManagerSystem {
+        class MockGameManagerSystem_HandlePlayingState_NotClear: GameplayManagerSystem {
             var isClearToAddSpaceshipCalled = false
 
             override func isClearToAddSpaceship(at position: CGPoint) -> Bool {
@@ -177,7 +177,7 @@ final class GameManagerSystemTests: XCTestCase {
     }
 
     func test_HandlePlayingState_NoShips() {
-        let system = GameManagerSystem(creator: creator,
+        let system = GameplayManagerSystem(creator: creator,
                                        size: CGSize(width: 1024, height: 768),
                                        scene: scene,
                                        scaleManager: MockScaleManager())
@@ -210,7 +210,7 @@ final class GameManagerSystemTests: XCTestCase {
                                currentStateNode: AppStateNode())
         XCTAssertTrue(system.handlePlayingStateCalled)
 
-        class MockGameManagerSystem_NoShips_Playing: GameManagerSystem {
+        class MockGameManagerSystem_NoShips_Playing: GameplayManagerSystem {
             var handlePlayingStateCalled = false
 
             override func handlePlayingState(appStateComponent: AppStateComponent, currentStateNode: AppStateNode) {
@@ -241,7 +241,7 @@ final class GameManagerSystemTests: XCTestCase {
                                currentStateNode: AppStateNode())
         XCTAssertTrue(system.goToNextLevelCalled)
 
-        class MockGameManagerSystem_NoAsteroidsTorpedoes: GameManagerSystem {
+        class MockGameManagerSystem_NoAsteroidsTorpedoes: GameplayManagerSystem {
             var goToNextLevelCalled = false
 
             override func goToNextLevel(appStateComponent: AppStateComponent, currentStateNode: AppStateNode) {

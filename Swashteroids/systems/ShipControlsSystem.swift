@@ -13,10 +13,10 @@ import SpriteKit
 import Foundation
 
 class ShipControlsSystem: ListIteratingSystem {
-    private weak var creator: (ShipControlQuadrantsManager & ShipControlButtonsManager & ToggleButtonManager)!
+    private weak var creator: (ShipQuadrantsControlsManager & ShipButtonControlsManager & ToggleShipControlsManager)!
     private weak var engine: Engine!
 
-    init(creator: ShipControlQuadrantsManager & ShipControlButtonsManager & ToggleButtonManager) {
+    init(creator: ShipQuadrantsControlsManager & ShipButtonControlsManager & ToggleShipControlsManager) {
         self.creator = creator
         super.init(nodeClass: ShipControlsStateNode.self)
         nodeUpdateFunction = updateNode

@@ -31,6 +31,17 @@ extension Creator: ShipCreator {
 /// I prefer to keep Entities as simple as possible, but this is a special case since
 /// the ship is the player’s avatar, it is the most important entity in the game.
 class ShipEntity: Entity {
+    // MARK: - Convenience accessors, my main reason for making an Entity subclass
+    var warpDrive: WarpDriveComponent? {
+        self[WarpDriveComponent.name] as? WarpDriveComponent
+    }
+    var repeatingAudio: RepeatingAudioComponent? {
+        self[RepeatingAudioComponent.name] as? RepeatingAudioComponent
+    }
+    var audio: AudioComponent? {
+        self[AudioComponent.name] as? AudioComponent
+    }
+
     init(name: String, state: AppStateComponent) {
         super.init(named: name)
         let shipSprite = SwashSpriteNode(texture: createShipTexture())
@@ -45,7 +56,6 @@ class ShipEntity: Entity {
         add(component: ShipComponent())
         add(component: WarpDriveComponent())
         add(component: PositionComponent(x: state.size.width / 2, y: state.size.height / 2, z: .ship, rotationDegrees: 0.0))
-        add(component: ShipComponent())
         add(component: VelocityComponent(velocityX: 0.0, velocityY: 0.0, dampening: 0.0))
         add(component: CollisionComponent(radius: 25))
         add(component: DisplayComponent(sknode: shipSprite))
@@ -60,17 +70,6 @@ class ShipEntity: Entity {
             case .showingButtons:
                 remove(componentClass: AccelerometerComponent.self)
         }
-    }
-
-    // MARK: - Convenience accessors
-    var warpDrive: WarpDriveComponent? {
-        self[WarpDriveComponent.name] as? WarpDriveComponent
-    }
-    var repeatingAudio: RepeatingAudioComponent? {
-        self[RepeatingAudioComponent.name] as? RepeatingAudioComponent
-    }
-    var audio: AudioComponent? {
-        self[AudioComponent.name] as? AudioComponent
     }
 
     /// Removes and adds components to the ship entity to put in a destroyed state.

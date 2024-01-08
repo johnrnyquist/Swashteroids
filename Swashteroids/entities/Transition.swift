@@ -12,10 +12,10 @@ import Swash
 import SpriteKit
 
 class Transition {
-    var hudManager: HudManager
-    var toggleButtonsManager: ToggleButtonManager
-    var shipControlQuadrantsManager: ShipControlQuadrantsManager
-    var shipControlButtonsManager: ShipControlButtonsManager
+    var hudManager: HudCreator
+    var toggleButtonsManager: ToggleShipControlsManager
+    var shipControlQuadrantsManager: ShipQuadrantsControlsManager
+    var shipControlButtonsManager: ShipButtonControlsManager
     var engine: Engine
     var generator: UIImpactFeedbackGenerator?
     var size: CGSize {
@@ -27,7 +27,7 @@ class Transition {
     }
 
     init(engine: Engine,
-         creator: HudManager & ToggleButtonManager & ShipControlQuadrantsManager & ShipControlButtonsManager,
+         creator: HudCreator & ToggleShipControlsManager & ShipQuadrantsControlsManager & ShipButtonControlsManager,
          generator: UIImpactFeedbackGenerator? = nil) {
         self.engine = engine
         self.generator = generator

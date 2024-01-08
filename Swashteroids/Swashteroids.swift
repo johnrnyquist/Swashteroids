@@ -13,17 +13,17 @@ import SpriteKit
 import CoreMotion
 
 final class Swashteroids: NSObject {
-    private let generator = UIImpactFeedbackGenerator(style: .heavy)
     let motionManager: CMMotionManager? = CMMotionManager()
-    var orientation = 1.0
-    var inputComponent = InputComponent.shared
-    var scene: GameScene
+    private(set) var engine: Engine
+    private(set) var inputComponent = InputComponent.shared
+    private(set) var orientation = 1.0
+    private(set) var scene: GameScene
+    private let alertPresenter: AlertPresenting
+    private let generator = UIImpactFeedbackGenerator(style: .heavy)
     private var creator: Creator
-    private var transition: Transition
-    private var engine: Engine
-    private var tickProvider: FrameTickProvider?
     private var tickEngineListener: Listener
-    var alertPresenter: AlertPresenting
+    private var tickProvider: FrameTickProvider?
+    private var transition: Transition
 
     init(scene: GameScene, alertPresenter: AlertPresenting) {
         self.scene = scene
@@ -68,7 +68,7 @@ final class Swashteroids: NSObject {
         let container = scene
         engine
             // preupdate
-                .add(system: GameManagerSystem(creator: creator, size: size, scene: scene), priority: .preUpdate)
+                .add(system: GameplayManagerSystem(creator: creator, size: size, scene: scene), priority: .preUpdate)
                 .add(system: GameOverSystem(), priority: .preUpdate)
                 .add(system: ShipControlsSystem(creator: creator), priority: .preUpdate)
                 .add(system: TransitionAppStateSystem(transition: transition), priority: .preUpdate)

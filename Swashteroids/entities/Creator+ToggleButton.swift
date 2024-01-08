@@ -11,12 +11,12 @@
 import Swash
 import SpriteKit
 
-protocol ToggleButtonManager: AnyObject {
+protocol ToggleShipControlsManager: AnyObject {
     func removeToggleButton()
     func createToggleButton(_ toggleState: Toggle)
 }
 
-extension Creator: ToggleButtonManager {
+extension Creator: ToggleShipControlsManager {
     func removeToggleButton() {
         guard let entity = engine.getEntity(named: .toggleButton) else { return }
         engine.remove(entity: entity)
