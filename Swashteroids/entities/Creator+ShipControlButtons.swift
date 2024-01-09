@@ -11,12 +11,6 @@
 import Swash
 import SpriteKit
 
-protocol ShipButtonControlsManager: AnyObject {
-    func removeShipControlButtons()
-    func createShipControlButtons()
-    func enableShipControlButtons()
-}
-
 extension Creator: ShipButtonControlsManager {
     func removeShipControlButtons() {
         let shipControls: [EntityName] = [.leftButton, .rightButton, .thrustButton, .fireButton, .flipButton, .hyperspaceButton]

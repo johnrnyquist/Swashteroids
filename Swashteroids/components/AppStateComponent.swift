@@ -18,6 +18,8 @@ final class AppStateComponent: Component {
     var score: Int
     var appState: AppState
     var shipControlsState: ShipControlsState
+    var alienAppearanceRate: TimeInterval = 0.0
+    var alienAppearanceRateDefault: TimeInterval { Double.random(in: 20.0...120.0) }
 
     init(size: CGSize,
          ships: Int,
@@ -32,12 +34,13 @@ final class AppStateComponent: Component {
         self.appState = appState
         self.shipControlsState = shipControlsState
         super.init()
+        alienAppearanceRate = alienAppearanceRateDefault
     }
 
     func reset() {
         resetBoard()
         appState = .start
-        shipControlsState = .showingButtons 
+        shipControlsState = .showingButtons
     }
 
     /// Resets the ship, level, and hits.

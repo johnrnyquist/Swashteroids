@@ -11,13 +11,6 @@
 import Swash
 import SpriteKit
 
-protocol PowerUpCreator: AnyObject {
-    func createHyperspacePowerUp(level: Int)
-    func createHyperspacePowerUp(level: Int, radius: Double)
-    func createPlasmaTorpedoesPowerUp(level: Int)
-    func createPlasmaTorpedoesPowerUp(level: Int, radius: Double)
-}
-
 extension Creator: PowerUpCreator {
     func createHyperspacePowerUp(level: Int) {
         createHyperspacePowerUp(level: level, radius: POWER_UP_RADIUS)

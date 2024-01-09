@@ -11,11 +11,6 @@
 import Swash
 import SpriteKit
 
-protocol ShipQuadrantsControlsManager: AnyObject {
-    func removeShipControlQuadrants()
-    func createShipControlQuadrants()
-}
-
 extension Creator: ShipQuadrantsControlsManager {
     func removeShipControlQuadrants() {
         let quadrants: [EntityName] = [.q1, .q2, .q3, .q4]
@@ -52,10 +47,10 @@ extension Creator: ShipQuadrantsControlsManager {
         let q3Entity = Entity(named: .q3)
         let q4Entity = Entity(named: .q4)
         // Create the sprites, with associated entities
-        let q1Sprite = createQuadrantSprite(quadrant: 1, entity:q1Entity)
-        let q2Sprite = createQuadrantSprite(quadrant: 2, entity:q2Entity)
-        let q3Sprite = createQuadrantSprite(quadrant: 3, entity:q3Entity)
-        let q4Sprite = createQuadrantSprite(quadrant: 4, entity:q4Entity)
+        let q1Sprite = createQuadrantSprite(quadrant: 1, entity: q1Entity)
+        let q2Sprite = createQuadrantSprite(quadrant: 2, entity: q2Entity)
+        let q3Sprite = createQuadrantSprite(quadrant: 3, entity: q3Entity)
+        let q4Sprite = createQuadrantSprite(quadrant: 4, entity: q4Entity)
         // Add the entities to the engine
         engine.replace(entity: q1Entity)
         engine.replace(entity: q2Entity)

@@ -22,11 +22,12 @@ Has too many responsibilities.
 class GameplayManagerSystem: System {
     private var size: CGSize
     private weak var scene: SKScene!
-    private weak var creator: (PowerUpCreator & ShipCreator & AsteroidCreator & TorpedoCreator)!
+    private weak var creator: (PowerUpCreator & ShipCreator & AsteroidCreator & TorpedoCreator & AlienCreator)!
     private weak var asteroids: NodeList!
     private weak var torpedoes: NodeList!
     private weak var appStates: NodeList!
     private weak var ships: NodeList!
+    private weak var aliens: NodeList!
     private let spaceshipPositionRatio: CGFloat = 0.5
     private let levelUpSound = "braam-6150.wav"
     private let minimumLevel = 1
@@ -35,7 +36,7 @@ class GameplayManagerSystem: System {
     private var spaceshipClearanceRadius: CGFloat = 50
     private var minimumAsteroidDistance: CGFloat = 80
 
-    init(creator: PowerUpCreator & ShipCreator & AsteroidCreator & TorpedoCreator,
+    init(creator: PowerUpCreator & ShipCreator & AsteroidCreator & TorpedoCreator & AlienCreator,
          size: CGSize,
          scene: SKScene,
          scaleManager: ScaleManaging = ScaleManager.shared) {
@@ -51,12 +52,21 @@ class GameplayManagerSystem: System {
         ships = engine.getNodeList(nodeClassType: ShipNode.self)
         asteroids = engine.getNodeList(nodeClassType: AsteroidCollisionNode.self)
         torpedoes = engine.getNodeList(nodeClassType: PlasmaTorpedoCollisionNode.self)
+        aliens = engine.getNodeList(nodeClassType: AlienCollisionNode.self)
     }
 
     override func update(time: TimeInterval) {
         guard let currentStateNode = appStates.head as? AppStateNode,
               let entity = currentStateNode.entity,
               let appStateComponent = currentStateNode[AppStateComponent.self] else { return }
+        
+        if aliens.head == nil {
+            appStateComponent.alienAppearanceRate -= time
+            if appStateComponent.alienAppearanceRate <= 0 {
+                appStateComponent.alienAppearanceRate = appStateComponent.alienAppearanceRateDefault
+                creator.createAlien()
+            }
+        }
         handleGameState(appStateComponent: appStateComponent, entity: entity)
     }
 
@@ -73,11 +83,13 @@ class GameplayManagerSystem: System {
     /// If there are no asteroids, no torpedoes and there is a ship then you finished the level, go to the next.
     func handleGameState(appStateComponent: AppStateComponent, entity: Entity) {
         // No ships in the NodeList, but we're still playing.
-        if ships.empty, appStateComponent.appState == .playing {
+        if ships.empty,
+           appStateComponent.appState == .playing {
             handlePlayingState(appStateComponent: appStateComponent, entity: entity)
         }
         // No asteroids or torpedoes but we have a ship, so start a new level.
-        if asteroids.empty, torpedoes.empty, !ships.empty {
+        if asteroids.empty,
+           !ships.empty {
             goToNextLevel(appStateComponent: appStateComponent, entity: entity)
         }
     }
@@ -110,6 +122,7 @@ class GameplayManagerSystem: System {
 
     /// Detects if there is an asteroid too close to the new spaceship position
     func isClearToAddSpaceship(at position: CGPoint) -> Bool {
+        guard aliens.head == nil else { return false }
         var currentAsteroidNode = asteroids.head
         while let asteroid = currentAsteroidNode {
             if let positionComponent = asteroid[PositionComponent.self],
@@ -140,6 +153,7 @@ class GameplayManagerSystem: System {
         }
     }
 
+
     /// Create a random position on the screen
     func randomPosition() -> CGPoint {
         let isVertical = Bool.random()
@@ -160,8 +174,8 @@ class GameplayManagerSystem: System {
         scene.addChild(levelText)
         animateLevelText(levelText)
     }
-
     // MARK: - HUD Helpers
+
     /// Configure the level text
     func configureLevelText(_ levelText: SKLabelNode) {
         levelText.horizontalAlignmentMode = .center

@@ -15,16 +15,19 @@ final class VelocityComponent: Component {
     var linearVelocity = CGPoint()
     var angularVelocity: Double
     var dampening: Double
+    var wraps = true
 
     init(velocityX: Double,
          velocityY: Double,
          angularVelocity: Double = 0.0,
          dampening: Double = 0.0,
+         wraps: Bool = true,
          scaleManager: ScaleManaging = ScaleManager.shared) {
         linearVelocity = CGPoint(x: velocityX * scaleManager.SCALE_FACTOR,
                                  y: velocityY * scaleManager.SCALE_FACTOR)
         self.angularVelocity = angularVelocity
         self.dampening = dampening
+        self.wraps = wraps
     }
 }
 

@@ -10,21 +10,33 @@
 
 import Foundation
 import Swash
+import SpriteKit
+
+enum OwnerType {
+    case player
+    case computerOpponent
+}
 
 final class GunComponent: Component {
+    var ownerType = OwnerType.player
     var offsetFromParent =  CGPoint(x: 21, y: 0)
     var torpedoLifetime: TimeInterval = 2.0
     var minimumShotInterval: TimeInterval = 0.25
     var timeSinceLastShot: TimeInterval = 0.0
     var rotation = 0.0
+    var torpedoColor: UIColor = .torpedo
 
     init(offsetX: Double, 
          offsetY: Double, 
          minimumShotInterval: TimeInterval, 
-         torpedoLifetime: TimeInterval)  
+         torpedoLifetime: TimeInterval,
+         torpedoColor: UIColor = .torpedo,
+         ownerType: OwnerType = .player)  
     {
         offsetFromParent = CGPoint(x: offsetX, y: offsetY)
         self.minimumShotInterval = minimumShotInterval
         self.torpedoLifetime = torpedoLifetime
+        self.torpedoColor = torpedoColor
+        self.ownerType = ownerType
     }
 }

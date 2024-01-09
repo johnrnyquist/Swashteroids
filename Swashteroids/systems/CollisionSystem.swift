@@ -11,15 +11,12 @@
 import SpriteKit
 import Swash
 
-protocol AsteroidCreator: AnyObject {
-    func createAsteroid(radius: Double, x: Double, y: Double, level: Int)
-}
-
 /// This class is an argument for switching to the SpriteKit physics engine.
 class CollisionSystem: System {
     private weak var creator: (AsteroidCreator & ShipCreator)!
     private weak var appStateNodes: NodeList!
     private weak var ships: NodeList!
+    private weak var aliens: NodeList!
     private weak var asteroids: NodeList!
     private weak var torpedoes: NodeList!
     private weak var torpedoPowerUp: NodeList!
@@ -38,6 +35,7 @@ class CollisionSystem: System {
         self.engine = engine
         appStateNodes = engine.getNodeList(nodeClassType: AppStateNode.self)
         ships = engine.getNodeList(nodeClassType: ShipCollisionNode.self)
+        aliens = engine.getNodeList(nodeClassType: AlienCollisionNode.self)
         asteroids = engine.getNodeList(nodeClassType: AsteroidCollisionNode.self)
         torpedoes = engine.getNodeList(nodeClassType: PlasmaTorpedoCollisionNode.self)
         torpedoPowerUp = engine.getNodeList(nodeClassType: GunSupplierNode.self)
@@ -48,9 +46,43 @@ class CollisionSystem: System {
     /// - Parameter time: The time since the last update
     override public func update(time: TimeInterval) {
         shipTorpedoPowerUpCollisionCheck(shipCollisionNode: ships.head, torpedoPowerUpNode: torpedoPowerUp.head)
-        shipHSCollisionCheck(shipCollisionNode: ships.head, hyperspacePowerUpNode: hyperspacePowerUp.head)
-        torpedoAsteroidCollisionCheck(torpedoNode: torpedoes.head, asteroidNode: asteroids.head)
-        shipAsteroidCollisionCheck(shipCollisionNode: ships.head, asteroidCollisionNode: asteroids.head)
+        shipHyperspacePowerUpCollisionCheck(shipCollisionNode: ships.head, hyperspacePowerUpNode: hyperspacePowerUp.head)
+        torpedoAsteroidCollisionCheck(torpedoCollisionNode: torpedoes.head, asteroidCollisionNode: asteroids.head)
+        for vehicle in [ships.head, aliens.head] {
+            torpedoVehicleCollisionCheck(torpedoCollisionNode: torpedoes.head, node: vehicle)
+            vehicleAsteroidCollisionCheck(node: vehicle, asteroidCollisionNode: asteroids.head)
+        }
+        shipShipCollisionCheck(ships.head, aliens.head)
+    }
+
+    /// Assuming at most one of each... for now.
+    func shipShipCollisionCheck(_ ship: Node?, _ alien: Node?) {
+        guard let ship,
+              let alien
+        else { return }
+        guard let shipPosition = ship[PositionComponent.self],
+              let shipCollision = ship[CollisionComponent.self],
+              let shipVelocity = ship[VelocityComponent.self],
+              let alienPosition = alien[PositionComponent.self],
+              let alienCollision = alien[CollisionComponent.self],
+              let alienVelocity = alien[VelocityComponent.self],
+              let shipEntity = ship.entity,
+              let alienEntity = alien.entity,
+              shipEntity[DeathThroesComponent.self] == nil,
+              alienEntity[DeathThroesComponent.self] == nil
+        else { return }
+        if alienPosition.position.distance(from: shipPosition.position) < shipCollision.radius + alienCollision.radius {
+            shipEntity.remove(componentClass: VelocityComponent.self)
+            alienEntity.remove(componentClass: VelocityComponent.self)
+            shipEntity.add(component: alienVelocity)
+            alienEntity.add(component: shipVelocity)
+            creator.destroy(ship: shipEntity)
+            creator.destroy(ship: alienEntity)
+            if let appState = appStateNodes.head,
+               let component = appState[AppStateComponent.self] {
+                component.numShips -= 1
+            }
+        }
     }
 
     func splitAsteroid(asteroidEntity: Entity, splits: Int = 2, level: Int) {
@@ -110,7 +142,7 @@ class CollisionSystem: System {
         }
     }
 
-    func shipHSCollisionCheck(shipCollisionNode: Node?, hyperspacePowerUpNode: Node?) {
+    func shipHyperspacePowerUpCollisionCheck(shipCollisionNode: Node?, hyperspacePowerUpNode: Node?) {
         var hyperspacePowerUpNode = hyperspacePowerUpNode
         while let currentPowerUp = hyperspacePowerUpNode {
             guard
@@ -140,10 +172,10 @@ class CollisionSystem: System {
         }
     }
 
-    func torpedoAsteroidCollisionCheck(torpedoNode: Node?, asteroidNode: Node?) {
-        var torpedoNode = torpedoNode
+    func torpedoAsteroidCollisionCheck(torpedoCollisionNode: Node?, asteroidCollisionNode: Node?) {
+        var torpedoNode = torpedoCollisionNode
         while let torpedo = torpedoNode {
-            var asteroidNode = asteroidNode
+            var asteroidNode = asteroidCollisionNode
             while let currentAsteroid = asteroidNode {
                 guard
                     let asteroidPosition = currentAsteroid[PositionComponent.self],
@@ -158,7 +190,8 @@ class CollisionSystem: System {
                     }
                     //TODO: refactor the below
                     if let gameStateNode = appStateNodes.head,
-                       let appStateComponent = gameStateNode[AppStateComponent.self] {
+                       let appStateComponent = gameStateNode[AppStateComponent.self],
+                       torpedo[PlasmaTorpedoComponent.self]?.owner == .player {
                         appStateComponent.score += 100
                     }
                     break
@@ -169,29 +202,59 @@ class CollisionSystem: System {
         }
     }
 
-    func shipAsteroidCollisionCheck(shipCollisionNode: Node?, asteroidCollisionNode: Node?) {
-        var shipCollisionNode = shipCollisionNode
-        while let currentShipNode = shipCollisionNode {
+    func torpedoVehicleCollisionCheck(torpedoCollisionNode: Node?, node: Node?) {
+        var torpedoNode = torpedoCollisionNode
+        while let torpedo = torpedoNode {
+            var ship = node
+            while let currentShip = ship {
+                guard
+                    let asteroidPosition = currentShip[PositionComponent.self],
+                    let torpedoPosition = torpedo[PositionComponent.self],
+                    let asteroidCollision = currentShip[CollisionComponent.self]
+                else { ship = currentShip.next; continue } // or return? }
+                if (asteroidPosition.position.distance(from: torpedoPosition.position) <= asteroidCollision.radius) {
+                    if let entity = torpedo.entity { engine.remove(entity: entity) }
+                    if let entity = ship?.entity,
+                       entity[DeathThroesComponent.self] == nil {
+                        creator.destroy(ship: entity)
+                    }
+                    //TODO: refactor the below
+                    if let gameStateNode = appStateNodes.head,
+                       let appStateComponent = gameStateNode[AppStateComponent.self],
+                       torpedo[PlasmaTorpedoComponent.self]?.owner == .player {
+                        appStateComponent.score += 500
+                    }
+                    break
+                }
+                ship = currentShip.next
+            }
+            torpedoNode = torpedo.next
+        }
+    }
+
+    func vehicleAsteroidCollisionCheck(node: Node?, asteroidCollisionNode: Node?) {
+        var collisionNode = node
+        while let currentNode = collisionNode {
             var asteroidCollisionNode = asteroidCollisionNode
             while let currentAsteroid = asteroidCollisionNode {
                 guard
-                    let ship = currentShipNode.entity,
+                    let ship = currentNode.entity,
                     let asteroidPosition = currentAsteroid[PositionComponent.self],
-                    let shipPosition = currentShipNode[PositionComponent.self],
+                    let shipPosition = currentNode[PositionComponent.self],
                     let asteroidCollision = currentAsteroid[CollisionComponent.self],
-                    let shipCollision = currentShipNode[CollisionComponent.self]
+                    let shipCollision = currentNode[CollisionComponent.self]
                 else { asteroidCollisionNode = currentAsteroid.next; continue }
                 let distanceToShip = asteroidPosition.position.distance(from: shipPosition.position)
                 if (distanceToShip <= asteroidCollision.radius + shipCollision.radius) {
                     if let asteroidVelocity = currentAsteroid[VelocityComponent.self],
-                       let shipVelocity = currentShipNode[VelocityComponent.self] {
+                       let shipVelocity = currentNode[VelocityComponent.self] {
                         shipVelocity.linearVelocity = asteroidVelocity.linearVelocity
                         shipVelocity.angularVelocity = asteroidVelocity.angularVelocity
                     }
                     // If a ship hits an asteroid, it enters its death throes. Removing its ability to move or shoot.
                     // A ship in its death throes can still hit an asteroid. 
                     if ship.has(componentClassName: DeathThroesComponent.name) == false { //HACK not sure I like this check
-                        creator.remove(ship: ship)
+                        creator.destroy(ship: ship)
                         if let appState = appStateNodes.head,
                            let component = appState[AppStateComponent.self] {
                             component.numShips -= 1
@@ -205,7 +268,7 @@ class CollisionSystem: System {
                 }
                 asteroidCollisionNode = currentAsteroid.next
             }
-            shipCollisionNode = currentShipNode.next
+            collisionNode = currentNode.next
         }
     }
 

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8D0A0D2A2B4DE9C6007E9898 /* CreatorProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0A0D292B4DE9C6007E9898 /* CreatorProtocols.swift */; };
+		8D0A0D2C2B4DEA71007E9898 /* ManagerProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0A0D2B2B4DEA71007E9898 /* ManagerProtocols.swift */; };
 		8D23C1362B02C4CA00F7D878 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1352B02C4CA00F7D878 /* AppDelegate.swift */; };
 		8D23C13C2B02C4CA00F7D878 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C13B2B02C4CA00F7D878 /* GameScene.swift */; };
 		8D23C13E2B02C4CA00F7D878 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C13D2B02C4CA00F7D878 /* GameViewController.swift */; };
@@ -191,6 +193,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8D0A0D292B4DE9C6007E9898 /* CreatorProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatorProtocols.swift; sourceTree = "<group>"; };
+		8D0A0D2B2B4DEA71007E9898 /* ManagerProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerProtocols.swift; sourceTree = "<group>"; };
 		8D23C1322B02C4CA00F7D878 /* Swashteroids.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swashteroids.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D23C1352B02C4CA00F7D878 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8D23C13B2B02C4CA00F7D878 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -557,6 +561,8 @@
 				931398E70F42335F03D272DD /* Transition+InfoViews.swift */,
 				93139DF99E2237817263DF63 /* Transition+Playing.swift */,
 				93139349F91910D60271C8DA /* Transition+Start.swift */,
+				8D0A0D292B4DE9C6007E9898 /* CreatorProtocols.swift */,
+				8D0A0D2B2B4DEA71007E9898 /* ManagerProtocols.swift */,
 			);
 			path = entities;
 			sourceTree = "<group>";
@@ -850,6 +856,7 @@
 				8D23C1AB2B02C59D00F7D878 /* HudNode.swift in Sources */,
 				8D23C1E32B02C59D00F7D878 /* StartView.swift in Sources */,
 				8D23C13E2B02C4CA00F7D878 /* GameViewController.swift in Sources */,
+				8D0A0D2C2B4DEA71007E9898 /* ManagerProtocols.swift in Sources */,
 				8D41E21D2B1F988E0031AF54 /* TorpedosComponent.swift in Sources */,
 				8DD26DC92B22D7E300DA5BC3 /* AccelerometerNode.swift in Sources */,
 				8D23C1E72B02C81D00F7D878 /* Double+extensions.swift in Sources */,
@@ -899,6 +906,7 @@
 				93139F81F995E10AEE533513 /* LeftComponent.swift in Sources */,
 				93139E3F25213600B5CECC6D /* RightComponent.swift in Sources */,
 				931399C749E2BD0BE4E247A0 /* ApplyThrustComponent.swift in Sources */,
+				8D0A0D2A2B4DE9C6007E9898 /* CreatorProtocols.swift in Sources */,
 				93139837E8C25570F6134663 /* RepeatingAudioNode.swift in Sources */,
 				93139BB63DB9036243796001 /* RepeatingAudioComponent.swift in Sources */,
 				931397757ABDD3E731FEB69F /* RepeatingAudioSystem.swift in Sources */,
@@ -1094,7 +1102,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Swashteroids/Swashteroids.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 56;
+				CURRENT_PROJECT_VERSION = 57;
 				DEVELOPMENT_TEAM = W8GR9TRDWE;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Swashteroids/Info.plist;
@@ -1110,7 +1118,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1.3;
+				MARKETING_VERSION = 2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = net.nyquist.Swashteroids;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1126,7 +1134,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Swashteroids/Swashteroids.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 56;
+				CURRENT_PROJECT_VERSION = 57;
 				DEVELOPMENT_TEAM = W8GR9TRDWE;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Swashteroids/Info.plist;
@@ -1142,7 +1150,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1.3;
+				MARKETING_VERSION = 2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = net.nyquist.Swashteroids;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

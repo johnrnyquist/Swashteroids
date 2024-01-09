@@ -11,11 +11,6 @@
 import Swash
 import SpriteKit
 
-protocol ToggleShipControlsManager: AnyObject {
-    func removeToggleButton()
-    func createToggleButton(_ toggleState: Toggle)
-}
-
 extension Creator: ToggleShipControlsManager {
     func removeToggleButton() {
         guard let entity = engine.getEntity(named: .toggleButton) else { return }
@@ -38,11 +33,13 @@ extension Creator: ToggleShipControlsManager {
         let toState: ShipControlsState = toggleState == .on ? .hidingButtons : .showingButtons
         toggleEntity.add(component: ButtonBehaviorComponent(
             touchDown: { [unowned self] sprite in
-				generator?.impactOccurred()
-				(engine.appState?[AppStateComponent.name] as? AppStateComponent)?.shipControlsState = toState //HACK remove? Add TransitionAppStateComponent?
-                engine.hud?.add(component: ChangeShipControlsStateComponent(to: toState))                 
+                generator?.impactOccurred()
+                (engine.appState?[
+                    AppStateComponent.name
+                    ] as? AppStateComponent)?.shipControlsState = toState //HACK remove? Add TransitionAppStateComponent?
+                engine.hud?.add(component: ChangeShipControlsStateComponent(to: toState))
                 engine.hud?.add(component: AudioComponent(fileNamed: "toggle.wav",
-                                                     actionKey: "toggle\(toggleState.rawValue)"))
+                                                          actionKey: "toggle\(toggleState.rawValue)"))
             },
             touchUp: { sprite in sprite.alpha = 0.2 },
             touchUpOutside: { sprite in sprite.alpha = 0.2 },

@@ -252,10 +252,15 @@ final class GameManagerSystemTests: XCTestCase {
         var SCALE_FACTOR: CGFloat { 1.0 }
     }
 
-    class MockCreator: PowerUpCreator & ShipCreator & AsteroidCreator & TorpedoCreator {
+    class MockCreator: PowerUpCreator & ShipCreator & AsteroidCreator & TorpedoCreator & AlienCreator {
+        var createAlienCalled = false
         var createPlasmaTorpedoesPowerUpLevelCalled = false
         var createHyperspacePowerUpLevelCalled = false
         var createAsteroidCalled = 0
+
+        func createAlien() {
+            createAlienCalled = true
+        }
 
         func createHyperspacePowerUp(level: Int) {
             createHyperspacePowerUpLevelCalled = true
@@ -274,7 +279,7 @@ final class GameManagerSystemTests: XCTestCase {
         func createShip(_ state: AppStateComponent) {
         }
 
-        func remove(ship: Entity) {
+        func destroy(ship: Entity) {
         }
 
         func createAsteroid(radius: Double, x: Double, y: Double, level: Int) {

@@ -12,10 +12,12 @@ import Foundation
 import Swash
 
 final class PlasmaTorpedoComponent: Component {
+    var owner: OwnerType
     var lifeRemaining: TimeInterval = 2.0
 
-    init(lifeRemaining: TimeInterval) {
+    init(lifeRemaining: TimeInterval, owner: OwnerType) {
         self.lifeRemaining = lifeRemaining
+        self.owner = owner
         super.init()
     }
 }

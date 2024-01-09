@@ -101,15 +101,15 @@ class CollisionSystemTests: XCTestCase {
                 shipTorpedoPowerUpCollisionCheckCalled = true
             }
 
-            override func shipHSCollisionCheck(shipCollisionNode: Node?, hyperspacePowerUpNode: Node?) {
+            override func shipHyperspacePowerUpCollisionCheck(shipCollisionNode: Node?, hyperspacePowerUpNode: Node?) {
                 shipHSCollisionCheckCalled = true
             }
 
-            override func torpedoAsteroidCollisionCheck(torpedoNode: Node?, asteroidNode: Node?) {
+            override func torpedoAsteroidCollisionCheck(torpedoCollisionNode: Node?, asteroidCollisionNode: Node?) {
                 torpedoAsteroidCollisionCheckCalled = true
             }
 
-            override func shipAsteroidCollisionCheck(shipCollisionNode: Node?, asteroidCollisionNode: Node?) {
+            override func vehicleAsteroidCollisionCheck(node: Node?, asteroidCollisionNode: Node?) {
                 shipAsteroidCollisionCheckCalled = true
             }
         }
@@ -169,8 +169,8 @@ class CollisionSystemTests: XCTestCase {
         }
         hsPowerUpNode.entity = hyperspacePowerUpEntity
         // SUT
-        system.shipHSCollisionCheck(shipCollisionNode: shipCollisionNode,
-                                    hyperspacePowerUpNode: hsPowerUpNode)
+        system.shipHyperspacePowerUpCollisionCheck(shipCollisionNode: shipCollisionNode,
+                                                   hyperspacePowerUpNode: hsPowerUpNode)
         //
         XCTAssertTrue(shipEntity.has(componentClassName: HyperspaceEngineComponent.name))
         XCTAssertTrue(shipEntity.has(componentClassName: AudioComponent.name))
@@ -202,7 +202,7 @@ class CollisionSystemTests: XCTestCase {
                     shipControlsState: .showingButtons))
         try? engine.add(entity: appState)
         // SUT
-        system.torpedoAsteroidCollisionCheck(torpedoNode: torpedoNode, asteroidNode: asteroidNode)
+        system.torpedoAsteroidCollisionCheck(torpedoCollisionNode: torpedoNode, asteroidCollisionNode: asteroidNode)
         //
         XCTAssertTrue(system.splitAsteroidCalled)
         XCTAssertNil(engine.getEntity(named: "torpedo"))
@@ -232,8 +232,8 @@ class CollisionSystemTests: XCTestCase {
         }
         asteroidCollisionNode.entity = asteroidEntity
         // SUT
-        system.shipAsteroidCollisionCheck(shipCollisionNode: shipCollisionNode,
-                                          asteroidCollisionNode: asteroidCollisionNode)
+        system.vehicleAsteroidCollisionCheck(node: shipCollisionNode,
+                                             asteroidCollisionNode: asteroidCollisionNode)
         //
         XCTAssertTrue(system.splitAsteroidCalled)
         XCTAssertTrue(appStateComponent.numShips == 0)
@@ -256,7 +256,7 @@ class CollisionSystemTests: XCTestCase {
             createShipCalled = true
         }
 
-        func remove(ship: Entity) {
+        func destroy(ship: Entity) {
             removeShipCalled = true
         }
 

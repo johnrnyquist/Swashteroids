@@ -11,11 +11,6 @@
 import Swash
 import SpriteKit
 
-protocol ShipCreator: AnyObject {
-    func createShip(_ state: AppStateComponent)
-    func remove(ship: Entity)
-}
-
 extension Creator: ShipCreator {
     func createShip(_ state: AppStateComponent) {
         let ship = Entity(named: .ship)
@@ -29,6 +24,7 @@ extension Creator: ShipCreator {
         shipSprite.addChild(nacellesSprite)
         shipSprite.entity = ship
         ship.add(component: ShipComponent())
+//        ship.add(component: GunComponent(offsetX: 21, offsetY: 0, minimumShotInterval: 0.25, torpedoLifetime: 2))
         ship.add(component: WarpDriveComponent())
         ship.add(component: PositionComponent(x: state.size.width / 2, y: state.size.height / 2, z: .ship, rotationDegrees: 0.0))
         ship.add(component: VelocityComponent(velocityX: 0.0, velocityY: 0.0, dampening: 0.0))
@@ -56,9 +52,11 @@ extension Creator: ShipCreator {
 
     /// Removes and adds components to the ship entity to put in a destroyed state.
     /// Also adds a flaming particle emitter to the ship sprite.
-    func remove(ship: Entity) {
+    func destroy(ship: Entity) {
         // Visual effects
-        let spriteNode = SwashSpriteNode(texture: createShipTexture(color: .red))
+        let spriteNode = ship[DisplayComponent.self]!.sprite! //HACK
+        spriteNode.color = .red
+        spriteNode.colorBlendFactor = 1.0
         let fade = SKAction.fadeOut(withDuration: 3.0)
         let emitter = SKEmitterNode(fileNamed: "shipExplosion.sks")!
         spriteNode.addChild(emitter)
