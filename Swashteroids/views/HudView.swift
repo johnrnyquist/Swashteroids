@@ -49,7 +49,7 @@ class HudView: SKNode {
     }
 
     func setScore(_ value: Int) {
-        scoreLabel.text = "SCORE: \(value)"
+        scoreLabel.text = "SCORE: \(value.formattedWithCommas)"
     }
 
     func setNumShips(_ value: Int) {

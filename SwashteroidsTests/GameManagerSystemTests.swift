@@ -103,7 +103,7 @@ final class GameManagerSystemTests: XCTestCase {
                                                   score: 0,
                                                   appState: .playing,
                                                   shipControlsState: .showingButtons)
-        system.goToNextLevel(appStateComponent: appStateComponent, currentStateNode: AppStateNode())
+        system.goToNextLevel(appStateComponent: appStateComponent, entity: shipEntity)
         XCTAssertEqual(appStateComponent.level, 2)
         XCTAssertTrue(system.announceLevelCalled)
         XCTAssertEqual(system.createAsteroidsCalled, 1)
@@ -133,7 +133,7 @@ final class GameManagerSystemTests: XCTestCase {
                                                   score: 0,
                                                   appState: .playing,
                                                   shipControlsState: .showingButtons)
-        system.handlePlayingState(appStateComponent: appStateComponent, currentStateNode: AppStateNode())
+        system.handlePlayingState(appStateComponent: appStateComponent, entity: Entity())
         XCTAssertEqual(system.isClearToAddSpaceshipCalled, true)
         XCTAssertEqual(system.createPowerUpsCalled, true)
 
@@ -163,7 +163,7 @@ final class GameManagerSystemTests: XCTestCase {
                                                   score: 0,
                                                   appState: .playing,
                                                   shipControlsState: .showingButtons)
-        system.handlePlayingState(appStateComponent: appStateComponent, currentStateNode: AppStateNode())
+        system.handlePlayingState(appStateComponent: appStateComponent, entity: Entity())
         XCTAssertEqual(system.isClearToAddSpaceshipCalled, true)
 
         class MockGameManagerSystem_HandlePlayingState_NotClear: GameplayManagerSystem {
@@ -187,10 +187,8 @@ final class GameManagerSystemTests: XCTestCase {
                                                   score: 0,
                                                   appState: .playing,
                                                   shipControlsState: .showingButtons)
-        let node = AppStateNode()
         let entity = Entity(named: "currentState")
-        node.entity = entity
-        system.handlePlayingState(appStateComponent: appStateComponent, currentStateNode: node)
+        system.handlePlayingState(appStateComponent: appStateComponent, entity: entity)
         XCTAssertNotNil(entity.get(componentClassName: TransitionAppStateComponent.name))
     }
 
@@ -207,13 +205,13 @@ final class GameManagerSystemTests: XCTestCase {
                                                                     score: 0,
                                                                     appState: .playing,
                                                                     shipControlsState: .showingButtons),
-                               currentStateNode: AppStateNode())
+                               entity: Entity())
         XCTAssertTrue(system.handlePlayingStateCalled)
 
         class MockGameManagerSystem_NoShips_Playing: GameplayManagerSystem {
             var handlePlayingStateCalled = false
 
-            override func handlePlayingState(appStateComponent: AppStateComponent, currentStateNode: AppStateNode) {
+            override func handlePlayingState(appStateComponent: AppStateComponent, entity: Entity) {
                 handlePlayingStateCalled = true
             }
         }
@@ -238,13 +236,13 @@ final class GameManagerSystemTests: XCTestCase {
                                                                     score: 0,
                                                                     appState: .playing,
                                                                     shipControlsState: .showingButtons),
-                               currentStateNode: AppStateNode())
+                               entity: shipEntity)
         XCTAssertTrue(system.goToNextLevelCalled)
 
         class MockGameManagerSystem_NoAsteroidsTorpedoes: GameplayManagerSystem {
             var goToNextLevelCalled = false
 
-            override func goToNextLevel(appStateComponent: AppStateComponent, currentStateNode: AppStateNode) {
+            override func goToNextLevel(appStateComponent: AppStateComponent, entity: Entity) {
                 goToNextLevelCalled = true
             }
         }

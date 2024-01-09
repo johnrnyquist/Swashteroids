@@ -159,7 +159,7 @@ class CollisionSystem: System {
                     //TODO: refactor the below
                     if let gameStateNode = appStateNodes.head,
                        let appStateComponent = gameStateNode[AppStateComponent.self] {
-                        appStateComponent.score += 1
+                        appStateComponent.score += 100
                     }
                     break
                 }

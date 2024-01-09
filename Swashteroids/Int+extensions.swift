@@ -8,6 +8,8 @@
 // https://github.com/johnrnyquist/Swash
 //
 
+import Foundation
+
 // System Priorities
 extension Int {
 	static let preUpdate = 1
@@ -19,3 +21,11 @@ extension Int {
 	static let render = 7
 }
 
+// For convenience
+extension Int {
+    var formattedWithCommas: String {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        return numberFormatter.string(from: NSNumber(value: self)) ?? "0"
+    }
+}

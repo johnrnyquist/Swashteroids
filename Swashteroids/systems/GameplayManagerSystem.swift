@@ -55,8 +55,9 @@ class GameplayManagerSystem: System {
 
     override func update(time: TimeInterval) {
         guard let currentStateNode = appStates.head as? AppStateNode,
+              let entity = currentStateNode.entity,
               let appStateComponent = currentStateNode[AppStateComponent.self] else { return }
-        handleGameState(appStateComponent: appStateComponent, currentStateNode: currentStateNode)
+        handleGameState(appStateComponent: appStateComponent, entity: entity)
     }
 
     override func removeFromEngine(engine: Engine) {
@@ -70,19 +71,19 @@ class GameplayManagerSystem: System {
     // MARK: - Game Logic
     /// If there are no ships and is playing, handle it. 
     /// If there are no asteroids, no torpedoes and there is a ship then you finished the level, go to the next.
-    func handleGameState(appStateComponent: AppStateComponent, currentStateNode: AppStateNode) {
+    func handleGameState(appStateComponent: AppStateComponent, entity: Entity) {
         // No ships in the NodeList, but we're still playing.
         if ships.empty, appStateComponent.appState == .playing {
-            handlePlayingState(appStateComponent: appStateComponent, currentStateNode: currentStateNode)
+            handlePlayingState(appStateComponent: appStateComponent, entity: entity)
         }
         // No asteroids or torpedoes but we have a ship, so start a new level.
         if asteroids.empty, torpedoes.empty, !ships.empty {
-            goToNextLevel(appStateComponent: appStateComponent, currentStateNode: currentStateNode)
+            goToNextLevel(appStateComponent: appStateComponent, entity: entity)
         }
     }
 
     /// If we have ships, make one. Otherwise, go to game over state.
-    func handlePlayingState(appStateComponent: AppStateComponent, currentStateNode: AppStateNode) {
+    func handlePlayingState(appStateComponent: AppStateComponent, entity: Entity) {
         // If we have any ships left, make another and some power-ups
         if appStateComponent.numShips > 0 {
             let newSpaceshipPosition = CGPoint(x: size.width * spaceshipPositionRatio,
@@ -93,34 +94,31 @@ class GameplayManagerSystem: System {
                 createPowerUps(level: level)
             }
         } else { // GAME OVER!
-            currentStateNode.entity?.add(component: TransitionAppStateComponent(from: .playing, to: .gameOver))
+            entity.add(component: TransitionAppStateComponent(from: .playing, to: .gameOver))
         }
     }
 
     /// Go to the next level, announce it, create asteroids
-    func goToNextLevel(appStateComponent: AppStateComponent, currentStateNode: AppStateNode) {
+    func goToNextLevel(appStateComponent: AppStateComponent, entity: Entity) {
         guard let shipNode = ships.head,
               let spaceShipPosition = shipNode[PositionComponent.self] else { return }
         appStateComponent.level += 1
-        currentStateNode.entity?.add(component: AudioComponent(fileNamed: levelUpSound, actionKey: "levelUp"))
+        entity.add(component: AudioComponent(fileNamed: levelUpSound, actionKey: "levelUp"))
         announceLevel(appStateComponent: appStateComponent)
         createAsteroids(count: appStateComponent.level, avoiding: spaceShipPosition.position, level: appStateComponent.level)
     }
 
     /// Detects if there is an asteroid too close to the new spaceship position
     func isClearToAddSpaceship(at position: CGPoint) -> Bool {
-        var asteroid = asteroids.head
-        while let currentAsteroid = asteroid {
-            guard let positionComponent = currentAsteroid[PositionComponent.self],
-                  let collisionComponent = currentAsteroid[CollisionComponent.self]
-            else { // we will never hit this
-                asteroid = currentAsteroid.next
-                continue
+        var currentAsteroidNode = asteroids.head
+        while let asteroid = currentAsteroidNode {
+            if let positionComponent = asteroid[PositionComponent.self],
+               let collisionComponent = asteroid[CollisionComponent.self] {
+                if positionComponent.position.distance(from: position) <= collisionComponent.radius + spaceshipClearanceRadius {
+                    return false
+                }
             }
-            if positionComponent.position.distance(from: position) <= collisionComponent.radius + spaceshipClearanceRadius {
-                return false
-            }
-            asteroid = currentAsteroid.next
+            currentAsteroidNode = asteroid.next
         }
         return true
     }
