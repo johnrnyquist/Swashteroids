@@ -17,7 +17,7 @@ protocol AsteroidCreator: AnyObject {
 
 /// This class is an argument for switching to the SpriteKit physics engine.
 class CollisionSystem: System {
-    private weak var creator: AsteroidCreator!
+    private weak var creator: (AsteroidCreator & ShipCreator)!
     private weak var appStateNodes: NodeList!
     private weak var ships: NodeList!
     private weak var asteroids: NodeList!
@@ -28,7 +28,7 @@ class CollisionSystem: System {
     private var size: CGSize
     let scaleManager: ScaleManaging
 
-    init(creator: AsteroidCreator, size: CGSize, scaleManager: ScaleManaging = ScaleManager.shared) {
+    init(creator: AsteroidCreator & ShipCreator, size: CGSize, scaleManager: ScaleManaging = ScaleManager.shared) {
         self.creator = creator
         self.size = size
         self.scaleManager = scaleManager
@@ -54,8 +54,8 @@ class CollisionSystem: System {
     }
 
     func splitAsteroid(asteroidEntity: Entity, splits: Int = 2, level: Int) {
-        guard let collisionComponent = asteroidEntity.get(componentClassName: CollisionComponent.name) as? CollisionComponent,
-              let positionComponent = asteroidEntity.get(componentClassName: PositionComponent.name) as? PositionComponent
+        guard let collisionComponent = asteroidEntity[CollisionComponent.self],
+              let positionComponent = asteroidEntity[PositionComponent.self]
         else { return }
         if (collisionComponent.radius > LARGE_ASTEROID_RADIUS * scaleManager.SCALE_FACTOR / 4) {
             for _ in 1...splits {
@@ -171,27 +171,27 @@ class CollisionSystem: System {
 
     func shipAsteroidCollisionCheck(shipCollisionNode: Node?, asteroidCollisionNode: Node?) {
         var shipCollisionNode = shipCollisionNode
-        while let currentShip = shipCollisionNode {
+        while let currentShipNode = shipCollisionNode {
             var asteroidCollisionNode = asteroidCollisionNode
             while let currentAsteroid = asteroidCollisionNode {
                 guard
-                    let ship = currentShip.entity as? ShipEntity,
+                    let ship = currentShipNode.entity,
                     let asteroidPosition = currentAsteroid[PositionComponent.self],
-                    let shipPosition = currentShip[PositionComponent.self],
+                    let shipPosition = currentShipNode[PositionComponent.self],
                     let asteroidCollision = currentAsteroid[CollisionComponent.self],
-                    let shipCollision = currentShip[CollisionComponent.self]
+                    let shipCollision = currentShipNode[CollisionComponent.self]
                 else { asteroidCollisionNode = currentAsteroid.next; continue }
                 let distanceToShip = asteroidPosition.position.distance(from: shipPosition.position)
                 if (distanceToShip <= asteroidCollision.radius + shipCollision.radius) {
                     if let asteroidVelocity = currentAsteroid[VelocityComponent.self],
-                       let shipVelocity = currentShip[VelocityComponent.self] {
+                       let shipVelocity = currentShipNode[VelocityComponent.self] {
                         shipVelocity.linearVelocity = asteroidVelocity.linearVelocity
                         shipVelocity.angularVelocity = asteroidVelocity.angularVelocity
                     }
                     // If a ship hits an asteroid, it enters its death throes. Removing its ability to move or shoot.
                     // A ship in its death throes can still hit an asteroid. 
                     if ship.has(componentClassName: DeathThroesComponent.name) == false { //HACK not sure I like this check
-                        ship.destroy()
+                        creator.remove(ship: ship)
                         if let appState = appStateNodes.head,
                            let component = appState[AppStateComponent.self] {
                             component.numShips -= 1
@@ -205,7 +205,7 @@ class CollisionSystem: System {
                 }
                 asteroidCollisionNode = currentAsteroid.next
             }
-            shipCollisionNode = currentShip.next
+            shipCollisionNode = currentShipNode.next
         }
     }
 

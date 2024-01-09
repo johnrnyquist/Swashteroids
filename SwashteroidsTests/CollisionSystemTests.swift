@@ -23,20 +23,24 @@ class CollisionSystemTests: XCTestCase {
     var hyperspacePowerUpEntity: Entity!
     var appStateEntity: Entity!
     var appStateComponent: AppStateComponent!
-    
+
     override func setUpWithError() throws {
         creator = MockAsteroidCreator()
         engine = Engine()
         appStateComponent = AppStateComponent(size: .zero,
-                                                  ships: 1,
-                                                  level: 1,
-                                                  score: 0,
-                                                  appState: .playing,
-                                                  shipControlsState: .showingButtons)
+                                              ships: 1,
+                                              level: 1,
+                                              score: 0,
+                                              appState: .playing,
+                                              shipControlsState: .showingButtons)
         appStateEntity = Entity(named: .appState)
                 .add(component: appStateComponent)
         try? engine.add(entity: appStateEntity)
-        shipEntity = ShipEntity(name: .ship, state: appStateComponent)
+        shipEntity = Entity(named: .ship)
+                .add(component: ShipComponent())
+                .add(component: PositionComponent(x: 0, y: 0, z: .ship, rotationDegrees: 0.0))
+                .add(component: VelocityComponent(velocityX: 0.0, velocityY: 0.0, dampening: 0.0))
+                .add(component: CollisionComponent(radius: 25))
         try? engine.add(entity: shipEntity)
         asteroidEntity = Entity(named: "asteroidEntity")
                 .add(component: AsteroidComponent())
@@ -131,12 +135,12 @@ class CollisionSystemTests: XCTestCase {
                                      scaleManager: MockScaleManager())
         engine.add(system: system, priority: 1)
         let shipCollisionNode = ShipCollisionNode()
-        for component in shipEntity.components {
+        for component in shipEntity.componentClassNameInstanceMap {
             shipCollisionNode.components[component.key] = component.value
         }
         shipCollisionNode.entity = shipEntity
         let torpedoPowerUpNode = GunSupplierNode()
-        for component in torpedoPowerUpEntity.components {
+        for component in torpedoPowerUpEntity.componentClassNameInstanceMap {
             torpedoPowerUpNode.components[component.key] = component.value
         }
         torpedoPowerUpNode.entity = torpedoPowerUpEntity
@@ -155,12 +159,12 @@ class CollisionSystemTests: XCTestCase {
                                      scaleManager: MockScaleManager())
         engine.add(system: system, priority: 1)
         let shipCollisionNode: Node = ShipCollisionNode()
-        for component in shipEntity.components {
+        for component in shipEntity.componentClassNameInstanceMap {
             shipCollisionNode.components[component.key] = component.value
         }
         shipCollisionNode.entity = shipEntity
         let hsPowerUpNode: Node = GunSupplierNode()
-        for component in hyperspacePowerUpEntity.components {
+        for component in hyperspacePowerUpEntity.componentClassNameInstanceMap {
             hsPowerUpNode.components[component.key] = component.value
         }
         hsPowerUpNode.entity = hyperspacePowerUpEntity
@@ -179,12 +183,12 @@ class CollisionSystemTests: XCTestCase {
                                          scaleManager: MockScaleManager())
         engine.add(system: system, priority: 1)
         let torpedoNode = GunSupplierNode()
-        for component in torpedoEntity.components {
+        for component in torpedoEntity.componentClassNameInstanceMap {
             torpedoNode.components[component.key] = component.value
         }
         torpedoNode.entity = torpedoEntity
         let asteroidNode = AsteroidCollisionNode()
-        for component in asteroidEntity.components {
+        for component in asteroidEntity.componentClassNameInstanceMap {
             asteroidNode.components[component.key] = component.value
         }
         asteroidNode.entity = asteroidEntity
@@ -219,11 +223,11 @@ class CollisionSystemTests: XCTestCase {
         engine.add(system: system, priority: 1)
         let shipCollisionNode = ShipCollisionNode()
         shipCollisionNode.entity = shipEntity
-        for component in shipEntity.components {
+        for component in shipEntity.componentClassNameInstanceMap {
             shipCollisionNode.components[component.key] = component.value
         }
         let asteroidCollisionNode = AsteroidCollisionNode()
-        for component in asteroidEntity.components {
+        for component in asteroidEntity.componentClassNameInstanceMap {
             asteroidCollisionNode.components[component.key] = component.value
         }
         asteroidCollisionNode.entity = asteroidEntity
@@ -243,8 +247,18 @@ class CollisionSystemTests: XCTestCase {
         }
     }
 
-    class MockAsteroidCreator: AsteroidCreator {
+    class MockAsteroidCreator: AsteroidCreator & ShipCreator {
         var createAsteroidCalled = 0
+        var createShipCalled = false
+        var removeShipCalled = false
+
+        func createShip(_ state: AppStateComponent) {
+            createShipCalled = true
+        }
+
+        func remove(ship: Entity) {
+            removeShipCalled = true
+        }
 
         func createAsteroid(radius: Double, x: Double, y: Double, level: Int) {
             createAsteroidCalled += 1

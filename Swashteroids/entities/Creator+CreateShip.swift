@@ -13,11 +13,38 @@ import SpriteKit
 
 protocol ShipCreator: AnyObject {
     func createShip(_ state: AppStateComponent)
+    func remove(ship: Entity)
 }
 
 extension Creator: ShipCreator {
     func createShip(_ state: AppStateComponent) {
-        let ship = ShipEntity(name: .ship, state: state)
+        let ship = Entity(named: .ship)
+        let shipSprite = SwashSpriteNode(texture: createShipTexture())
+        shipSprite.name = .ship
+        shipSprite.zPosition = .ship
+        let nacellesSprite = SKSpriteNode(texture: createNacelleTexture())
+        nacellesSprite.zPosition = shipSprite.zPosition + 0.1 //HACK
+        nacellesSprite.isHidden = true
+        nacellesSprite.name = "nacelles"
+        shipSprite.addChild(nacellesSprite)
+        shipSprite.entity = ship
+        ship.add(component: ShipComponent())
+        ship.add(component: WarpDriveComponent())
+        ship.add(component: PositionComponent(x: state.size.width / 2, y: state.size.height / 2, z: .ship, rotationDegrees: 0.0))
+        ship.add(component: VelocityComponent(velocityX: 0.0, velocityY: 0.0, dampening: 0.0))
+        ship.add(component: CollisionComponent(radius: 25))
+        ship.add(component: DisplayComponent(sknode: shipSprite))
+        ship.add(component: MovementRateComponent(accelerationRate: 90, rotationRate: 100))
+        ship.add(component: InputComponent.shared)
+        ship.add(component: AccelerometerComponent())
+        ship.add(component: ChangeShipControlsStateComponent(to: state.shipControlsState))
+        ship.add(component: RepeatingAudioComponent(sound: GameScene.sound)) //HACK
+        switch state.shipControlsState {
+            case .hidingButtons:
+                ship.add(component: AccelerometerComponent())
+            case .showingButtons:
+                ship.remove(componentClass: AccelerometerComponent.self)
+        }
         do {
             try engine.add(entity: ship)
         } catch SwashError.entityNameAlreadyInUse(let message) {
@@ -26,72 +53,27 @@ extension Creator: ShipCreator {
             fatalError("Unexpected error: \(error).")
         }
     }
-}
-
-/// I prefer to keep Entities as simple as possible, but this is a special case since
-/// the ship is the player’s avatar, it is the most important entity in the game.
-class ShipEntity: Entity {
-    // MARK: - Convenience accessors, my main reason for making an Entity subclass
-    var warpDrive: WarpDriveComponent? {
-        self[WarpDriveComponent.name] as? WarpDriveComponent
-    }
-    var repeatingAudio: RepeatingAudioComponent? {
-        self[RepeatingAudioComponent.name] as? RepeatingAudioComponent
-    }
-    var audio: AudioComponent? {
-        self[AudioComponent.name] as? AudioComponent
-    }
-
-    init(name: String, state: AppStateComponent) {
-        super.init(named: name)
-        let shipSprite = SwashSpriteNode(texture: createShipTexture())
-        shipSprite.name = name
-        shipSprite.zPosition = .ship
-        let nacellesSprite = SKSpriteNode(texture: createNacelleTexture())
-        nacellesSprite.zPosition = shipSprite.zPosition + 0.1 //HACK
-        nacellesSprite.isHidden = true
-        nacellesSprite.name = "nacelles"
-        shipSprite.addChild(nacellesSprite)
-        shipSprite.entity = self
-        add(component: ShipComponent())
-        add(component: WarpDriveComponent())
-        add(component: PositionComponent(x: state.size.width / 2, y: state.size.height / 2, z: .ship, rotationDegrees: 0.0))
-        add(component: VelocityComponent(velocityX: 0.0, velocityY: 0.0, dampening: 0.0))
-        add(component: CollisionComponent(radius: 25))
-        add(component: DisplayComponent(sknode: shipSprite))
-        add(component: MovementRateComponent(accelerationRate: 90, rotationRate: 100))
-        add(component: InputComponent.shared)
-        add(component: AccelerometerComponent())
-        add(component: ChangeShipControlsStateComponent(to: state.shipControlsState))
-        add(component: RepeatingAudioComponent(sound: GameScene.sound)) //HACK
-        switch state.shipControlsState {
-            case .hidingButtons:
-                add(component: AccelerometerComponent())
-            case .showingButtons:
-                remove(componentClass: AccelerometerComponent.self)
-        }
-    }
 
     /// Removes and adds components to the ship entity to put in a destroyed state.
     /// Also adds a flaming particle emitter to the ship sprite.
-    func destroy() {
+    func remove(ship: Entity) {
         // Visual effects
         let spriteNode = SwashSpriteNode(texture: createShipTexture(color: .red))
         let fade = SKAction.fadeOut(withDuration: 3.0)
         let emitter = SKEmitterNode(fileNamed: "shipExplosion.sks")!
         spriteNode.addChild(emitter)
         spriteNode.run(fade)
-        repeatingAudio?.state = .shouldStop
+        ship[RepeatingAudioComponent.self]?.state = .shouldStop
         // Remove components
-        remove(componentClass: AudioComponent.self)
-        remove(componentClass: DisplayComponent.self)
-        remove(componentClass: GunComponent.self)
-        remove(componentClass: HyperspaceEngineComponent.self)
-        remove(componentClass: InputComponent.self)
-        remove(componentClass: MovementRateComponent.self)
+        ship.remove(componentClass: AudioComponent.self)
+        ship.remove(componentClass: DisplayComponent.self)
+        ship.remove(componentClass: GunComponent.self)
+        ship.remove(componentClass: HyperspaceEngineComponent.self)
+        ship.remove(componentClass: InputComponent.self)
+        ship.remove(componentClass: MovementRateComponent.self)
         // Add components
-        add(component: DisplayComponent(sknode: spriteNode))
-        add(component: DeathThroesComponent(countdown: 3.0))
-        add(component: AudioComponent(fileNamed: "bangLarge.wav", actionKey: "shipExplosion"))
+        ship.add(component: DisplayComponent(sknode: spriteNode))
+        ship.add(component: DeathThroesComponent(countdown: 3.0))
+        ship.add(component: AudioComponent(fileNamed: "bangLarge.wav", actionKey: "shipExplosion"))
     }
 }

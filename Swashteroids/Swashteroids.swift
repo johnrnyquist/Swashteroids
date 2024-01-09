@@ -39,6 +39,15 @@ final class Swashteroids: NSObject {
                                                name: UIDevice.orientationDidChangeNotification, object: nil)
         createInitialEntities(scene: scene)
         createSystems(scene: scene)
+        let sprite = SwashSpriteNode(imageNamed: "alien")
+        let alien = Entity(named: "alien")
+                .add(component: AlienComponent())
+                .add(component: PositionComponent(x: 100, y: 100, z: .asteroids))
+                .add(component: VelocityComponent(velocityX: 10, velocityY: 0))
+                .add(component: DisplayComponent(sknode: sprite))
+                .add(component: GunComponent(offsetX: 21, offsetY: 0, minimumShotInterval: 3.0, torpedoLifetime: 2))
+                .add(component: FireDownComponent.shared)
+        try? engine.add(entity: alien)
     }
 
     private func createInitialEntities(scene: GameScene) { // Add the all sounds entity

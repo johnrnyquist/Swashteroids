@@ -121,7 +121,7 @@ final class TransitionTests: XCTestCase {
         XCTAssertTrue(gameOverEntity.has(componentClassName: TouchableComponent.name))
         XCTAssertTrue(gameOverEntity.has(componentClassName: AppStateComponent.name))
         XCTAssertTrue(gameOverEntity.has(componentClassName: ButtonBehaviorComponent.name))
-        guard let display = gameOverEntity.get(componentClassName: DisplayComponent.name) as? DisplayComponent
+        guard let display = gameOverEntity[DisplayComponent.self]
         else {
             XCTFail("display was nil")
             return

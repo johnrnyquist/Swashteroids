@@ -45,15 +45,16 @@ class FiringSystemTests: XCTestCase {
                 .add(component: position)
                 .add(component: gun)
                 .add(component: fireDown)
-        try? engine.add(entity: entity)
+        try! engine.add(entity: entity)
+        // SUT
         system.update(time: time)
+        //
         XCTAssertTrue(creator.fired)
-        XCTAssertEqual(system.timeSinceLastShot, 0.0)
+        XCTAssertEqual(gun.timeSinceLastShot, 0.0)
     }
 
     func test_TooSoonToFire() {
         let time: TimeInterval = 0.1
-        let initialTimeSinceLastShot = system.timeSinceLastShot
         let minimumShotInterval = 1.0 // 1 second
         //
         let motion = VelocityComponent(velocityX: 0, velocityY: 0)
@@ -63,6 +64,7 @@ class FiringSystemTests: XCTestCase {
                                minimumShotInterval: minimumShotInterval,
                                torpedoLifetime: 0)
         let fireDown = FireDownComponent.shared
+        let initialTimeSinceLastShot = gun.timeSinceLastShot
         //
         let entity = Entity()
                 .add(component: motion)
@@ -73,7 +75,7 @@ class FiringSystemTests: XCTestCase {
         //
         system.update(time: time)
         XCTAssertFalse(creator.fired)
-        XCTAssertEqual(system.timeSinceLastShot, time + initialTimeSinceLastShot)
+        XCTAssertEqual(gun.timeSinceLastShot, time + initialTimeSinceLastShot)
     }
 
     class MockTorpedoCreator: TorpedoCreator {

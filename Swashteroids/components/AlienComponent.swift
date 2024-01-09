@@ -8,8 +8,7 @@
 // https://github.com/johnrnyquist/Swash
 //
 
+import Swash
 
-import Foundation
-
-class AlienComponent {
+class AlienComponent: Component {
 }

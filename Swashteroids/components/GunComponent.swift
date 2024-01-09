@@ -15,6 +15,8 @@ final class GunComponent: Component {
     var offsetFromParent =  CGPoint(x: 21, y: 0)
     var torpedoLifetime: TimeInterval = 2.0
     var minimumShotInterval: TimeInterval = 0.25
+    var timeSinceLastShot: TimeInterval = 0.0
+    var rotation = 0.0
 
     init(offsetX: Double, 
          offsetY: Double, 

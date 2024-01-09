@@ -46,6 +46,6 @@ final class FlipSystemTests: XCTestCase {
         XCTAssertEqual(position.rotationDegrees, initialRotation + 180.0)
         // More of an integration test here as I'm not mocking the accessing 
         // of the entity and the removal of the component.
-        XCTAssertNil(entity[FlipComponent.name])
+        XCTAssertNil(entity[FlipComponent.self])
     }
 }

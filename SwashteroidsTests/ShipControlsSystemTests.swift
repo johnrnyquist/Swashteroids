@@ -57,14 +57,8 @@ final class ShipControlsSystemTests: XCTestCase {
     func test_DoToggleButtons_ToShowingButtons_NoGunNoHyperspace() {
         let system = ShipControlsSystem(creator: creator)
         engine.add(system: system, priority: 1)
-        let appStateComponent = AppStateComponent(size: .zero,
-                                                  ships: 0,
-                                                  level: 0,
-                                                  score: 0,
-                                                  appState: .playing,
-                                                  shipControlsState: .hidingButtons)
         //TODO: do_toggleButtons requires the ShipEntity type as it uses engine.ship. 
-        let ship = ShipEntity(name: .ship, state: appStateComponent)
+        let ship = Entity(named: .ship)
                 .add(component: AccelerometerComponent())
         try? engine.add(entity: ship)
         // SUT    
@@ -80,14 +74,8 @@ final class ShipControlsSystemTests: XCTestCase {
     func test_DoToggleButtons_ToShowingButtons_HasGun() {
         let system = ShipControlsSystem(creator: creator)
         engine.add(system: system, priority: 1)
-        let appStateComponent = AppStateComponent(size: .zero,
-                                                  ships: 0,
-                                                  level: 0,
-                                                  score: 0,
-                                                  appState: .playing,
-                                                  shipControlsState: .showingButtons)
         //TODO: do_toggleButtons requires the ShipEntity type as it uses engine.ship. 
-        let ship = ShipEntity(name: .ship, state: appStateComponent)
+        let ship = Entity(named: .ship)
                 .add(component: AccelerometerComponent())
                 .add(component: GunComponent(offsetX: 0, offsetY: 0, minimumShotInterval: 0, torpedoLifetime: 0))
         try? engine.add(entity: ship)
@@ -108,14 +96,8 @@ final class ShipControlsSystemTests: XCTestCase {
     func test_DoToggleButtons_ToShowingButtons_HasHyperspace() {
         let system = ShipControlsSystem(creator: creator)
         engine.add(system: system, priority: 1)
-        let appStateComponent = AppStateComponent(size: .zero,
-                                                  ships: 0,
-                                                  level: 0,
-                                                  score: 0,
-                                                  appState: .playing,
-                                                  shipControlsState: .showingButtons)
         //TODO: do_toggleButtons requires the ShipEntity type as it uses engine.ship. 
-        let ship = ShipEntity(name: .ship, state: appStateComponent)
+        let ship = Entity(named: .ship)
                 .add(component: AccelerometerComponent())
                 .add(component: HyperspaceEngineComponent())
         try? engine.add(entity: ship)

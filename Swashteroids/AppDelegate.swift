@@ -51,7 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let entities = gameViewController.game?.engine.entities {
             for entity in entities {
                 print(entity)
-                for component in entity.getAll() {
+                for component in entity.components {
                     print("\t", component)
                 }
                 print("---")

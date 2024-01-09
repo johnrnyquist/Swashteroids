@@ -13,21 +13,21 @@ import Swash
 import SpriteKit
 
 final class FiringSystem: System {
-    var timeSinceLastShot = 0.25
     private weak var creator: TorpedoCreator?
-    private weak var gunControlNodes: NodeList!
+    private weak var gunControlNodes: NodeList?
+    private weak var engine: Engine?
 
     init(creator: TorpedoCreator) {
         self.creator = creator
     }
 
     override public func addToEngine(engine: Engine) {
+        self.engine = engine
         gunControlNodes = engine.getNodeList(nodeClassType: GunControlNode.self)
     }
 
     override public func update(time: TimeInterval) {
-        timeSinceLastShot += time
-        var node = gunControlNodes.head
+        var node = gunControlNodes?.head
         while let currentNode = node {
             updateNode(node: currentNode, time: time)
             node = currentNode.next
@@ -37,12 +37,16 @@ final class FiringSystem: System {
     private func updateNode(node: Node, time: TimeInterval) {
         guard let velocity = node[VelocityComponent.self],
               let position = node[PositionComponent.self],
-              let gun = node[GunComponent.self],
-              let _ = node[FireDownComponent.self]
+              let gun = node[GunComponent.self]
         else { return }
-        if timeSinceLastShot >= gun.minimumShotInterval {
-            creator?.createPlasmaTorpedo(gun, position, velocity)
-            timeSinceLastShot = 0
+        gun.timeSinceLastShot += time
+
+        if gun.timeSinceLastShot >= gun.minimumShotInterval {
+            let ship = engine?.ship?[PositionComponent.self]
+            
+            let pos = PositionComponent(x: position.x, y: position.y, z: .asteroids, rotationDegrees: position.rotationDegrees)
+            creator?.createPlasmaTorpedo(gun, pos, velocity)
+            gun.timeSinceLastShot = 0
         }
     }
 }

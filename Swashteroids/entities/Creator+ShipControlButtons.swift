@@ -165,24 +165,24 @@ extension Creator: ShipButtonControlsManager {
                       generator?.impactOccurred()
                       if let ship = self.engine.ship {
                           ship.add(component: ApplyThrustComponent.shared)
-                          ship.warpDrive?.isThrusting = true
-                          ship.repeatingAudio?.state = .shouldBegin
+                          ship[WarpDriveComponent.self]?.isThrusting = true
+                          ship[RepeatingAudioComponent.self]?.state = .shouldBegin
                       }
                   },
                   touchUp: { sprite in
                       sprite.alpha = 0.2
                       if let ship = self.engine.ship {
                           ship.remove(componentClass: ApplyThrustComponent.self)
-                          ship.warpDrive?.isThrusting = false
-                          ship.repeatingAudio?.state = .shouldStop
+                          ship[WarpDriveComponent.self]?.isThrusting = false
+                          ship[RepeatingAudioComponent.self]?.state = .shouldStop
                       }
                   },
                   touchUpOutside: { sprite in
                       sprite.alpha = 0.2
                       if let ship = self.engine.ship {
                           ship.remove(componentClass: ApplyThrustComponent.self)
-                          ship.warpDrive?.isThrusting = false
-                          ship.repeatingAudio?.state = .shouldStop
+                          ship[WarpDriveComponent.self]?.isThrusting = false
+                          ship[RepeatingAudioComponent.self]?.state = .shouldStop
                       }
                   },
                   touchMoved: { sprite, over in
@@ -190,15 +190,15 @@ extension Creator: ShipButtonControlsManager {
                           sprite.alpha = 0.6
                           if let ship = self.engine.ship {
                               ship.add(component: ApplyThrustComponent.shared)
-                              ship.warpDrive?.isThrusting = true
-                              ship.repeatingAudio?.state = .shouldBegin
+                              ship[WarpDriveComponent.self]?.isThrusting = true
+                              ship[RepeatingAudioComponent.self]?.state = .shouldBegin
                           }
                       } else {
                           sprite.alpha = 0.2
                           if let ship = self.engine.ship {
                               ship.remove(componentClass: ApplyThrustComponent.self)
-                              ship.warpDrive?.isThrusting = false
-                              ship.repeatingAudio?.state = .shouldStop
+                              ship[WarpDriveComponent.self]?.isThrusting = false
+                              ship[RepeatingAudioComponent.self]?.state = .shouldStop
                           }
                       }
                   }

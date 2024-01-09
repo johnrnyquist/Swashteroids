@@ -110,6 +110,7 @@
 		8D6D81632B1AC52200AD8D18 /* toggle.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D6D81622B1AC52200AD8D18 /* toggle.wav */; };
 		8D714E2E2B3535DC009E1586 /* SKSpriteNode+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D714E2D2B3535DC009E1586 /* SKSpriteNode+extensions.swift */; };
 		8D71C0472B3603CF004D6D0C /* ScaleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139DE0BD2F73AFFAEDE2DA /* ScaleManager.swift */; };
+		8D82703C2B4D85BA003A4FC0 /* AlienComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139D122048662B55407E9F /* AlienComponent.swift */; };
 		8D9DEF642B059E3800064B01 /* HyperspaceJumpComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9DEF632B059E3800064B01 /* HyperspaceJumpComponent.swift */; };
 		8D9DEF662B059EC400064B01 /* HyperspaceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9DEF652B059EC400064B01 /* HyperspaceNode.swift */; };
 		8D9DEF682B059F2800064B01 /* HyperspaceSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9DEF672B059F2800064B01 /* HyperspaceSystem.swift */; };
@@ -353,6 +354,7 @@
 		93139C73A66D8863A166745D /* Creator+CreatePowerUp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Creator+CreatePowerUp.swift"; sourceTree = "<group>"; };
 		93139CC64C9CFC7E61D7DCFE /* FlipNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlipNode.swift; sourceTree = "<group>"; };
 		93139D029684C918FEDD3DC1 /* LeftNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftNode.swift; sourceTree = "<group>"; };
+		93139D122048662B55407E9F /* AlienComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlienComponent.swift; sourceTree = "<group>"; };
 		93139D4336E12C89FC8BE06B /* TransitionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionTests.swift; sourceTree = "<group>"; };
 		93139DE0BD2F73AFFAEDE2DA /* ScaleManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScaleManager.swift; sourceTree = "<group>"; };
 		93139DE76BF1939914D55E38 /* FiringSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiringSystemTests.swift; sourceTree = "<group>"; };
@@ -478,6 +480,7 @@
 			isa = PBXGroup;
 			children = (
 				8DD26DCA2B22D80600DA5BC3 /* AccelerometerComponent.swift */,
+				93139D122048662B55407E9F /* AlienComponent.swift */,
 				9313979ABDA67BAEA7682AC7 /* AllSoundsComponent.swift */,
 				8D23C1692B02C59C00F7D878 /* AnimationComponent.swift */,
 				931397D7C84D4E580EB51E4D /* ApplyThrustComponent.swift */,
@@ -856,6 +859,7 @@
 				8D6A0E032B0AB84B00F2E137 /* GameOverNode.swift in Sources */,
 				8D9DEF642B059E3800064B01 /* HyperspaceJumpComponent.swift in Sources */,
 				8D9DEF662B059EC400064B01 /* HyperspaceNode.swift in Sources */,
+				8D82703C2B4D85BA003A4FC0 /* AlienComponent.swift in Sources */,
 				8D23C1C12B02C59D00F7D878 /* StartComponent.swift in Sources */,
 				8D23C1362B02C4CA00F7D878 /* AppDelegate.swift in Sources */,
 				8D23C1E22B02C59D00F7D878 /* PowerUpsViews.swift in Sources */,
