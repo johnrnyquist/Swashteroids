@@ -18,6 +18,7 @@ class CollisionSystemTests: XCTestCase {
     var engine: Engine!
     var shipEntity: Entity!
     var asteroidEntity: Entity!
+    var alienEntity: Entity!
     var torpedoEntity: Entity!
     var torpedoPowerUpEntity: Entity!
     var hyperspacePowerUpEntity: Entity!
@@ -42,6 +43,12 @@ class CollisionSystemTests: XCTestCase {
                 .add(component: VelocityComponent(velocityX: 0.0, velocityY: 0.0, dampening: 0.0))
                 .add(component: CollisionComponent(radius: 25))
         try? engine.add(entity: shipEntity)
+        alienEntity = Entity(named: .alien)
+                .add(component: AlienComponent())
+                .add(component: PositionComponent(x: 0, y: 0, z: .ship, rotationDegrees: 0.0))
+                .add(component: VelocityComponent(velocityX: 0.0, velocityY: 0.0, dampening: 0.0))
+                .add(component: CollisionComponent(radius: 25))
+        try? engine.add(entity: alienEntity)
         asteroidEntity = Entity(named: "asteroidEntity")
                 .add(component: AsteroidComponent())
                 .add(component: CollisionComponent(radius: LARGE_ASTEROID_RADIUS, scaleManager: MockScaleManager()))

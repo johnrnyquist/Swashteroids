@@ -54,10 +54,11 @@ class Creator {
 extension Creator: AlienCreator {
     func createAlien() {
         guard engine.getEntity(named: .ship) != nil else { return }
-        guard engine.getEntity(named: "alien") == nil else { return }
-        let sprite = SwashSpriteNode(imageNamed: "alien")
-        let alien = Entity(named: "alien")
+        guard engine.getEntity(named: .alien) == nil else { return }
+        let sprite = SwashSpriteNode(imageNamed: .alien)
+        let alien = Entity(named: .alien)
                 .add(component: AlienComponent())
+                .add(component: AudioComponent(fileNamed: "alienEntrance.wav", actionKey: "alienEntrance"))
                 .add(component: CollisionComponent(radius: 25))
                 .add(component: GunComponent(offsetX: 21,
                                              offsetY: 0,

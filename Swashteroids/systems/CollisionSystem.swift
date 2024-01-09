@@ -216,6 +216,9 @@ class CollisionSystem: System {
                     if let entity = torpedo.entity { engine.remove(entity: entity) }
                     if let entity = ship?.entity,
                        entity[DeathThroesComponent.self] == nil {
+                        if ship?[ShipComponent.self] != nil {
+                            appStateNodes.head?[AppStateComponent.self]?.numShips -= 1
+                        }
                         creator.destroy(ship: entity)
                     }
                     //TODO: refactor the below
@@ -254,11 +257,10 @@ class CollisionSystem: System {
                     // If a ship hits an asteroid, it enters its death throes. Removing its ability to move or shoot.
                     // A ship in its death throes can still hit an asteroid. 
                     if ship.has(componentClassName: DeathThroesComponent.name) == false { //HACK not sure I like this check
-                        creator.destroy(ship: ship)
-                        if let appState = appStateNodes.head,
-                           let component = appState[AppStateComponent.self] {
-                            component.numShips -= 1
+                        if ship[ShipComponent.self] != nil {
+                            appStateNodes.head?[AppStateComponent.self]?.numShips -= 1
                         }
+                        creator.destroy(ship: ship)
                     }
                     let level = appStateNodes.head?[AppStateComponent.self]?.level ?? 1
                     if let entity = currentAsteroid.entity {

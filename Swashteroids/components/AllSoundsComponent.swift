@@ -23,6 +23,7 @@ class AllSoundsComponent: Component {
 
     private func preloadSounds() {
         let soundFiles = [
+            "alienEntrance.wav",
             "bangLarge.wav",
             "bangMedium.wav",
             "bangSmall.wav",
