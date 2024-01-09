@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		8D0A0D2A2B4DE9C6007E9898 /* CreatorProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0A0D292B4DE9C6007E9898 /* CreatorProtocols.swift */; };
 		8D0A0D2C2B4DEA71007E9898 /* ManagerProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0A0D2B2B4DEA71007E9898 /* ManagerProtocols.swift */; };
+		8D0A0D2E2B4E0122007E9898 /* AlienSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0A0D2D2B4E0122007E9898 /* AlienSystem.swift */; };
+		8D0A0D302B4E016A007E9898 /* AlienNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0A0D2F2B4E016A007E9898 /* AlienNode.swift */; };
+		8D0A0D322B4E01C0007E9898 /* AlienCollisionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0A0D312B4E01C0007E9898 /* AlienCollisionNode.swift */; };
 		8D23C1362B02C4CA00F7D878 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1352B02C4CA00F7D878 /* AppDelegate.swift */; };
 		8D23C13C2B02C4CA00F7D878 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C13B2B02C4CA00F7D878 /* GameScene.swift */; };
 		8D23C13E2B02C4CA00F7D878 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C13D2B02C4CA00F7D878 /* GameViewController.swift */; };
@@ -195,6 +198,9 @@
 /* Begin PBXFileReference section */
 		8D0A0D292B4DE9C6007E9898 /* CreatorProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatorProtocols.swift; sourceTree = "<group>"; };
 		8D0A0D2B2B4DEA71007E9898 /* ManagerProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerProtocols.swift; sourceTree = "<group>"; };
+		8D0A0D2D2B4E0122007E9898 /* AlienSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlienSystem.swift; sourceTree = "<group>"; };
+		8D0A0D2F2B4E016A007E9898 /* AlienNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlienNode.swift; sourceTree = "<group>"; };
+		8D0A0D312B4E01C0007E9898 /* AlienCollisionNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlienCollisionNode.swift; sourceTree = "<group>"; };
 		8D23C1322B02C4CA00F7D878 /* Swashteroids.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swashteroids.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D23C1352B02C4CA00F7D878 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8D23C13B2B02C4CA00F7D878 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -468,6 +474,7 @@
 				9313961CB4F5B39D06FE5B0F /* RepeatingAudioNode.swift */,
 				93139FDF0C76049256DAE28C /* RightNode.swift */,
 				8D23C1522B02C59C00F7D878 /* ShipCollisionNode.swift */,
+				8D0A0D312B4E01C0007E9898 /* AlienCollisionNode.swift */,
 				8D41E2122B1E65950031AF54 /* ShipControlsStateNode.swift */,
 				8D23C15C2B02C59C00F7D878 /* ShipEngineNode.swift */,
 				8D23C1542B02C59C00F7D878 /* ShipNode.swift */,
@@ -476,6 +483,7 @@
 				8D23C1562B02C59C00F7D878 /* TorpedoAgeNode.swift */,
 				93139489970BEA17AF74C95E /* TouchNodes.swift */,
 				8D41E2142B1E66820031AF54 /* TransitionAppStateNode.swift */,
+				8D0A0D2F2B4E016A007E9898 /* AlienNode.swift */,
 			);
 			path = nodes;
 			sourceTree = "<group>";
@@ -539,6 +547,7 @@
 				8D23C17F2B02C59C00F7D878 /* FiringSystem.swift */,
 				8D23C1822B02C59C00F7D878 /* GameplayManagerSystem.swift */,
 				8D23C1882B02C59C00F7D878 /* RenderSystem.swift */,
+				8D0A0D2D2B4E0122007E9898 /* AlienSystem.swift */,
 			);
 			path = systems;
 			sourceTree = "<group>";
@@ -805,6 +814,7 @@
 				8D6AD4B42B09D2B000E258BF /* Engine+extension.swift in Sources */,
 				8D23C1D12B02C59D00F7D878 /* MovementSystem.swift in Sources */,
 				8D23C1BF2B02C59D00F7D878 /* HudComponent.swift in Sources */,
+				8D0A0D2E2B4E0122007E9898 /* AlienSystem.swift in Sources */,
 				8D23C1C02B02C59D00F7D878 /* CollisionComponent.swift in Sources */,
 				8D651D6C2B278BB30088AEEF /* Swashteroids+SKSceneDelegate.swift in Sources */,
 				8D41E2112B1E64530031AF54 /* ChangeShipControlsStateComponent.swift in Sources */,
@@ -871,6 +881,7 @@
 				8D23C1362B02C4CA00F7D878 /* AppDelegate.swift in Sources */,
 				8D23C1E22B02C59D00F7D878 /* PowerUpsViews.swift in Sources */,
 				8D23C1DF2B02C59D00F7D878 /* Create_Texture.swift in Sources */,
+				8D0A0D302B4E016A007E9898 /* AlienNode.swift in Sources */,
 				8D23C1CC2B02C59D00F7D878 /* GameplayManagerSystem.swift in Sources */,
 				8D23C1AA2B02C59D00F7D878 /* PlasmaTorpedoCollisionNode.swift in Sources */,
 				8D41E21F2B1FA2D00031AF54 /* Entity+extension.swift in Sources */,
@@ -913,6 +924,7 @@
 				93139859AA4017DC2A83652F /* Transition.swift in Sources */,
 				931398B1CA8906CC519B170B /* HyperspaceEngineComponent.swift in Sources */,
 				9313994EE65DC5F613776E1B /* PauseAlert.swift in Sources */,
+				8D0A0D322B4E01C0007E9898 /* AlienCollisionNode.swift in Sources */,
 				93139562CC6BB542C42A3493 /* LeftNode.swift in Sources */,
 				931396A2070DB4DA286B21D7 /* RightNode.swift in Sources */,
 				93139E9EAA1EF70B2FE63374 /* FlipNode.swift in Sources */,

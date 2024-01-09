@@ -10,12 +10,11 @@
 
 import Swash
 
-final class ShipCollisionNode: Node {
+class AlienNode: Node {
     required init() {
         super.init()
         components = [
-            ShipComponent.name: nil_component,
-            CollisionComponent.name: nil_component,
+            AlienComponent.name: nil_component,
             PositionComponent.name: nil_component,
             VelocityComponent.name: nil_component,
         ]
