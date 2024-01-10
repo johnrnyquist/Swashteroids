@@ -108,6 +108,7 @@
 		8D6D815F2B1A7A9E00AD8D18 /* ButtonsInfo.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8D6D815E2B1A7A9E00AD8D18 /* ButtonsInfo.sks */; };
 		8D6D81632B1AC52200AD8D18 /* toggle.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D6D81622B1AC52200AD8D18 /* toggle.wav */; };
 		8D70211B2B4EFEAE0032107A /* Creator+AlienCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D70211A2B4EFEAE0032107A /* Creator+AlienCreator.swift */; };
+		8D70211D2B4F1C960032107A /* Nodelist+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D70211C2B4F1C960032107A /* Nodelist+extensions.swift */; };
 		8D714E2E2B3535DC009E1586 /* SKSpriteNode+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D714E2D2B3535DC009E1586 /* SKSpriteNode+extensions.swift */; };
 		8D71C0472B3603CF004D6D0C /* ScaleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139DE0BD2F73AFFAEDE2DA /* ScaleManager.swift */; };
 		8D82703C2B4D85BA003A4FC0 /* AlienComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139D122048662B55407E9F /* AlienComponent.swift */; };
@@ -294,6 +295,7 @@
 		8D6D815E2B1A7A9E00AD8D18 /* ButtonsInfo.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ButtonsInfo.sks; sourceTree = "<group>"; };
 		8D6D81622B1AC52200AD8D18 /* toggle.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = toggle.wav; sourceTree = "<group>"; };
 		8D70211A2B4EFEAE0032107A /* Creator+AlienCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Creator+AlienCreator.swift"; sourceTree = "<group>"; };
+		8D70211C2B4F1C960032107A /* Nodelist+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Nodelist+extensions.swift"; sourceTree = "<group>"; };
 		8D714E2D2B3535DC009E1586 /* SKSpriteNode+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SKSpriteNode+extensions.swift"; sourceTree = "<group>"; };
 		8D9DEF632B059E3800064B01 /* HyperspaceJumpComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyperspaceJumpComponent.swift; sourceTree = "<group>"; };
 		8D9DEF652B059EC400064B01 /* HyperspaceNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyperspaceNode.swift; sourceTree = "<group>"; };
@@ -422,6 +424,7 @@
 				8D23C13B2B02C4CA00F7D878 /* GameScene.swift */,
 				8D23C13D2B02C4CA00F7D878 /* GameViewController.swift */,
 				8D23C1762B02C59C00F7D878 /* Hashable+extensions.swift */,
+				8D70211C2B4F1C960032107A /* Nodelist+extensions.swift */,
 				8DA97A952B23581100E7495A /* Int+extensions.swift */,
 				93139DE0BD2F73AFFAEDE2DA /* ScaleManager.swift */,
 				8D714E2D2B3535DC009E1586 /* SKSpriteNode+extensions.swift */,
@@ -836,6 +839,7 @@
 				8D23C1C92B02C59D00F7D878 /* FiringSystem.swift in Sources */,
 				8D23C1B32B02C59D00F7D878 /* AppStateComponent.swift in Sources */,
 				8D23C1C22B02C59D00F7D878 /* Hashable+extensions.swift in Sources */,
+				8D70211D2B4F1C960032107A /* Nodelist+extensions.swift in Sources */,
 				8D23C1CA2B02C59D00F7D878 /* TorpedoAgeSystem.swift in Sources */,
 				8D651D6E2B278C1C0088AEEF /* Swashteroids+TouchDelegate.swift in Sources */,
 				8D23C1B62B02C59D00F7D878 /* AsteroidComponent.swift in Sources */,

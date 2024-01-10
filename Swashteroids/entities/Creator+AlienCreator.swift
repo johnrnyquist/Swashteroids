@@ -41,13 +41,12 @@ extension Creator: AlienCreator {
             .add(component: AudioComponent(fileNamed: .alienEntrance, actionKey: "alienEntrance"))
             .add(component: GunComponent(offsetX: 21,
                                          offsetY: 0,
-                                         minimumShotInterval: 2,
+                                         minimumShotInterval: 1.25,
                                          torpedoLifetime: 2,
                                          torpedoColor: .white,
                                          ownerType: .computerOpponent))
             .add(component: FireDownComponent.shared)
             .add(component: DisplayComponent(sknode: sprite))
         try? engine.add(entity: alien)
-        print(engine.entities)
     }
 }

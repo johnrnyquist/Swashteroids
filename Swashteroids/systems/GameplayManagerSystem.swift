@@ -58,21 +58,15 @@ class GameplayManagerSystem: System {
         guard let currentStateNode = appStates.head as? AppStateNode,
               let entity = currentStateNode.entity,
               let appStateComponent = currentStateNode[AppStateComponent.self],
-              appStateComponent.appState == .playing
+              appStateComponent.appState == .playing //JRN: Or I could add/remove this system based on appState
         else { return }
-
-        if aliens.head == nil {
-            appStateComponent.alienAppearanceRate -= time
-            if appStateComponent.alienAppearanceRate <= 0 {
-                appStateComponent.alienAppearanceRate = appStateComponent.alienAppearanceRateDefault
-                creator.createAlien()
-                creator.createAlien()
-                creator.createAlien()
-                creator.createAlien()
-                creator.createAlien()
-                creator.createAlien()
-            }
+//        if aliens.head == nil {
+        appStateComponent.alienAppearanceRate -= time
+        if appStateComponent.alienAppearanceRate <= 0 {
+            appStateComponent.alienAppearanceRate = appStateComponent.alienAppearanceRateDefault
+            creator.createAlien()
         }
+//        }
         handleGameState(appStateComponent: appStateComponent, entity: entity)
     }
 
@@ -159,7 +153,6 @@ class GameplayManagerSystem: System {
         }
     }
 
-
     /// Create a random position on the screen
     func randomPosition() -> CGPoint {
         let isVertical = Bool.random()
@@ -180,8 +173,8 @@ class GameplayManagerSystem: System {
         scene.addChild(levelText)
         animateLevelText(levelText)
     }
-    // MARK: - HUD Helpers
 
+    // MARK: - HUD Helpers
     /// Configure the level text
     func configureLevelText(_ levelText: SKLabelNode) {
         levelText.horizontalAlignmentMode = .center

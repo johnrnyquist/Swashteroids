@@ -50,9 +50,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func save() {
         if let entities = gameViewController.game?.engine.entities {
             for entity in entities {
-                print(entity)
+                print(entity.name)
                 for component in entity.components {
-                    print("\t", component)
+                    print("\t", type(of: component).name)
                 }
                 print("---")
             }
