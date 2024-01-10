@@ -26,7 +26,7 @@ extension Creator: TorpedoCreator {
         let name = "torpedo_\(numTorpedoes)"
         numTorpedoes += 1
         let entity = Entity(named: name)
-                .add(component: PlasmaTorpedoComponent(lifeRemaining: gunComponent.torpedoLifetime,
+                .add(component: TorpedoComponent(lifeRemaining: gunComponent.torpedoLifetime,
                                                        owner: gunComponent.ownerType))
                 .add(component: PositionComponent(
                     x: cos * gunComponent.offsetFromParent.x - sin * gunComponent.offsetFromParent.y + position.x,

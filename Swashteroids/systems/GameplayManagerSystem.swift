@@ -51,7 +51,7 @@ class GameplayManagerSystem: System {
         appStates = engine.getNodeList(nodeClassType: AppStateNode.self)
         ships = engine.getNodeList(nodeClassType: ShipNode.self)
         asteroids = engine.getNodeList(nodeClassType: AsteroidCollisionNode.self)
-        torpedoes = engine.getNodeList(nodeClassType: PlasmaTorpedoCollisionNode.self)
+        torpedoes = engine.getNodeList(nodeClassType: TorpedoCollisionNode.self)
         aliens = engine.getNodeList(nodeClassType: AlienCollisionNode.self)
     }
 

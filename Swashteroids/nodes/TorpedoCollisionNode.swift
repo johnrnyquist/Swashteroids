@@ -8,13 +8,16 @@
 // https://github.com/johnrnyquist/Swash
 //
 
+
 import Swash
 
-final class TorpedoAgeNode: Node {
+final class TorpedoCollisionNode: Node {
     required init() {
         super.init()
         components = [
             TorpedoComponent.name: nil_component,
+            CollisionComponent.name: nil_component,
+            PositionComponent.name: nil_component,
         ]
     }
 }

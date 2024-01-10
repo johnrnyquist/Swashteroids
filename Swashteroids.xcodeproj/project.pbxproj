@@ -31,13 +31,13 @@
 		8D23C1A72B02C59D00F7D878 /* AnimationNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C15A2B02C59C00F7D878 /* AnimationNode.swift */; };
 		8D23C1A82B02C59D00F7D878 /* GunSupplierNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C15B2B02C59C00F7D878 /* GunSupplierNode.swift */; };
 		8D23C1A92B02C59D00F7D878 /* ShipEngineNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C15C2B02C59C00F7D878 /* ShipEngineNode.swift */; };
-		8D23C1AA2B02C59D00F7D878 /* PlasmaTorpedoCollisionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C15D2B02C59C00F7D878 /* PlasmaTorpedoCollisionNode.swift */; };
+		8D23C1AA2B02C59D00F7D878 /* TorpedoCollisionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C15D2B02C59C00F7D878 /* TorpedoCollisionNode.swift */; };
 		8D23C1AB2B02C59D00F7D878 /* HudNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C15E2B02C59C00F7D878 /* HudNode.swift */; };
 		8D23C1AD2B02C59D00F7D878 /* MovementNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1602B02C59C00F7D878 /* MovementNode.swift */; };
 		8D23C1AE2B02C59D00F7D878 /* AsteroidCollisionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1612B02C59C00F7D878 /* AsteroidCollisionNode.swift */; };
 		8D23C1AF2B02C59D00F7D878 /* AppStateNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1622B02C59C00F7D878 /* AppStateNode.swift */; };
 		8D23C1B02B02C59D00F7D878 /* GunControlNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1632B02C59C00F7D878 /* GunControlNode.swift */; };
-		8D23C1B12B02C59D00F7D878 /* PlasmaTorpedoComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1652B02C59C00F7D878 /* PlasmaTorpedoComponent.swift */; };
+		8D23C1B12B02C59D00F7D878 /* TorpedoComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1652B02C59C00F7D878 /* TorpedoComponent.swift */; };
 		8D23C1B22B02C59D00F7D878 /* WarpDriveComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1662B02C59C00F7D878 /* WarpDriveComponent.swift */; };
 		8D23C1B32B02C59D00F7D878 /* AppStateComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1672B02C59C00F7D878 /* AppStateComponent.swift */; };
 		8D23C1B42B02C59D00F7D878 /* AudioComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1682B02C59C00F7D878 /* AudioComponent.swift */; };
@@ -221,13 +221,13 @@
 		8D23C15A2B02C59C00F7D878 /* AnimationNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationNode.swift; sourceTree = "<group>"; };
 		8D23C15B2B02C59C00F7D878 /* GunSupplierNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GunSupplierNode.swift; sourceTree = "<group>"; };
 		8D23C15C2B02C59C00F7D878 /* ShipEngineNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipEngineNode.swift; sourceTree = "<group>"; };
-		8D23C15D2B02C59C00F7D878 /* PlasmaTorpedoCollisionNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlasmaTorpedoCollisionNode.swift; sourceTree = "<group>"; };
+		8D23C15D2B02C59C00F7D878 /* TorpedoCollisionNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TorpedoCollisionNode.swift; sourceTree = "<group>"; };
 		8D23C15E2B02C59C00F7D878 /* HudNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudNode.swift; sourceTree = "<group>"; };
 		8D23C1602B02C59C00F7D878 /* MovementNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovementNode.swift; sourceTree = "<group>"; };
 		8D23C1612B02C59C00F7D878 /* AsteroidCollisionNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsteroidCollisionNode.swift; sourceTree = "<group>"; };
 		8D23C1622B02C59C00F7D878 /* AppStateNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppStateNode.swift; sourceTree = "<group>"; };
 		8D23C1632B02C59C00F7D878 /* GunControlNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GunControlNode.swift; sourceTree = "<group>"; };
-		8D23C1652B02C59C00F7D878 /* PlasmaTorpedoComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlasmaTorpedoComponent.swift; sourceTree = "<group>"; };
+		8D23C1652B02C59C00F7D878 /* TorpedoComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TorpedoComponent.swift; sourceTree = "<group>"; };
 		8D23C1662B02C59C00F7D878 /* WarpDriveComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WarpDriveComponent.swift; sourceTree = "<group>"; };
 		8D23C1672B02C59C00F7D878 /* AppStateComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppStateComponent.swift; sourceTree = "<group>"; };
 		8D23C1682B02C59C00F7D878 /* AudioComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioComponent.swift; sourceTree = "<group>"; };
@@ -471,7 +471,7 @@
 				8D9DEF652B059EC400064B01 /* HyperspaceNode.swift */,
 				93139D029684C918FEDD3DC1 /* LeftNode.swift */,
 				8D23C1602B02C59C00F7D878 /* MovementNode.swift */,
-				8D23C15D2B02C59C00F7D878 /* PlasmaTorpedoCollisionNode.swift */,
+				8D23C15D2B02C59C00F7D878 /* TorpedoCollisionNode.swift */,
 				8D23C1532B02C59C00F7D878 /* RenderNode.swift */,
 				9313961CB4F5B39D06FE5B0F /* RepeatingAudioNode.swift */,
 				93139FDF0C76049256DAE28C /* RightNode.swift */,
@@ -515,7 +515,7 @@
 				931396DD35CCD39E8E4EDB16 /* InputComponent.swift */,
 				93139BC38DC2F4BF7B9F869A /* LeftComponent.swift */,
 				93139A62ACBE6CDFC10158E7 /* MovementRateComponent.swift */,
-				8D23C1652B02C59C00F7D878 /* PlasmaTorpedoComponent.swift */,
+				8D23C1652B02C59C00F7D878 /* TorpedoComponent.swift */,
 				8D23C1722B02C59C00F7D878 /* PositionComponent.swift */,
 				931399A8022AF1B7FCC53B49 /* RepeatingAudioComponent.swift */,
 				93139323EC193D378DF26BB7 /* RightComponent.swift */,
@@ -829,7 +829,7 @@
 				8D23C1CF2B02C59D00F7D878 /* AnimationSystem.swift in Sources */,
 				8D23C1CD2B02C59D00F7D878 /* DeathThroesSystem.swift in Sources */,
 				8D23C1B22B02C59D00F7D878 /* WarpDriveComponent.swift in Sources */,
-				8D23C1B12B02C59D00F7D878 /* PlasmaTorpedoComponent.swift in Sources */,
+				8D23C1B12B02C59D00F7D878 /* TorpedoComponent.swift in Sources */,
 				8D23C19F2B02C59D00F7D878 /* ShipCollisionNode.swift in Sources */,
 				8D23C1C62B02C59D00F7D878 /* CollisionSystem.swift in Sources */,
 				8D41E2192B1E7AB00031AF54 /* SwashSpriteNode.swift in Sources */,
@@ -887,7 +887,7 @@
 				8D23C1DF2B02C59D00F7D878 /* Create_Texture.swift in Sources */,
 				8D0A0D302B4E016A007E9898 /* AlienNode.swift in Sources */,
 				8D23C1CC2B02C59D00F7D878 /* GameplayManagerSystem.swift in Sources */,
-				8D23C1AA2B02C59D00F7D878 /* PlasmaTorpedoCollisionNode.swift in Sources */,
+				8D23C1AA2B02C59D00F7D878 /* TorpedoCollisionNode.swift in Sources */,
 				8D41E21F2B1FA2D00031AF54 /* Entity+extension.swift in Sources */,
 				8DD26DCB2B22D80600DA5BC3 /* AccelerometerComponent.swift in Sources */,
 				8D512A9D2B41C15600C30AC7 /* AccelerometerSystem.swift in Sources */,

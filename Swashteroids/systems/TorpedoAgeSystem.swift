@@ -26,7 +26,7 @@ final class TorpedoAgeSystem: ListIteratingSystem {
     }
 
     func updateNode(node: Node, time: TimeInterval) {
-        guard let torpedoComponent = node[PlasmaTorpedoComponent.self]
+        guard let torpedoComponent = node[TorpedoComponent.self]
         else { return }
         torpedoComponent.lifeRemaining -= time
         if torpedoComponent.lifeRemaining <= 0,

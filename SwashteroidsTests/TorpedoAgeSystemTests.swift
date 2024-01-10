@@ -13,7 +13,7 @@ import XCTest
 @testable import Swashteroids
 
 final class TorpedoAgeSystemTests: XCTestCase {
-    var component: PlasmaTorpedoComponent!
+    var component: TorpedoComponent!
     var node: TorpedoAgeNode!
     var entity: Entity!
     var system: TorpedoAgeSystem!
@@ -22,10 +22,10 @@ final class TorpedoAgeSystemTests: XCTestCase {
     override func setUpWithError() throws {
         entity = Entity()
         engine = MockEngine()
-        component = PlasmaTorpedoComponent(lifeRemaining: 1, owner: .player)
+        component = TorpedoComponent(lifeRemaining: 1, owner: .player)
         node = TorpedoAgeNode()
         node.entity = entity
-        node.components[PlasmaTorpedoComponent.name] = component
+        node.components[TorpedoComponent.name] = component
         system = TorpedoAgeSystem()
         system.addToEngine(engine: engine)
     }

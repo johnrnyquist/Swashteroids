@@ -37,7 +37,7 @@ class CollisionSystem: System {
         ships = engine.getNodeList(nodeClassType: ShipCollisionNode.self)
         aliens = engine.getNodeList(nodeClassType: AlienCollisionNode.self)
         asteroids = engine.getNodeList(nodeClassType: AsteroidCollisionNode.self)
-        torpedoes = engine.getNodeList(nodeClassType: PlasmaTorpedoCollisionNode.self)
+        torpedoes = engine.getNodeList(nodeClassType: TorpedoCollisionNode.self)
         torpedoPowerUp = engine.getNodeList(nodeClassType: GunSupplierNode.self)
         hyperspacePowerUp = engine.getNodeList(nodeClassType: HyperspacePowerUpNode.self)
     }
@@ -49,7 +49,7 @@ class CollisionSystem: System {
         shipHyperspacePowerUpCollisionCheck(shipCollisionNode: ships.head, hyperspacePowerUpNode: hyperspacePowerUp.head)
         torpedoAsteroidCollisionCheck(torpedoCollisionNode: torpedoes.head, asteroidCollisionNode: asteroids.head)
         for vehicle in [ships.head, aliens.head] {
-            torpedoVehicleCollisionCheck(torpedoCollisionNode: torpedoes.head, node: vehicle)
+            torpedoVehicleCollisionCheck(torpedoCollisionNode: torpedoes.head, vehicle: vehicle)
             vehicleAsteroidCollisionCheck(node: vehicle, asteroidCollisionNode: asteroids.head)
         }
         shipShipCollisionCheck(ships.head, aliens.head)
@@ -191,7 +191,7 @@ class CollisionSystem: System {
                     //TODO: refactor the below
                     if let gameStateNode = appStateNodes.head,
                        let appStateComponent = gameStateNode[AppStateComponent.self],
-                       torpedo[PlasmaTorpedoComponent.self]?.owner == .player {
+                       torpedo[TorpedoComponent.self]?.owner == .player {
                         appStateComponent.score += 100
                     }
                     break
@@ -202,21 +202,24 @@ class CollisionSystem: System {
         }
     }
 
-    func torpedoVehicleCollisionCheck(torpedoCollisionNode: Node?, node: Node?) {
-        var torpedoNode = torpedoCollisionNode
-        while let torpedo = torpedoNode {
-            var ship = node
-            while let currentShip = ship {
+    func torpedoVehicleCollisionCheck(torpedoCollisionNode: Node?, vehicle: Node?) {
+        var torpedoCollisionNode = torpedoCollisionNode
+        while let currentTorpedo = torpedoCollisionNode {
+            var vehicle = vehicle
+            while let currentVehicle = vehicle {
                 guard
-                    let asteroidPosition = currentShip[PositionComponent.self],
-                    let torpedoPosition = torpedo[PositionComponent.self],
-                    let asteroidCollision = currentShip[CollisionComponent.self]
-                else { ship = currentShip.next; continue } // or return? }
-                if (asteroidPosition.position.distance(from: torpedoPosition.position) <= asteroidCollision.radius) {
-                    if let entity = torpedo.entity { engine.remove(entity: entity) }
-                    if let entity = ship?.entity,
+                    let currentVehiclePosition = currentVehicle[PositionComponent.self],
+                    let torpedoPosition = currentTorpedo[PositionComponent.self],
+                    let owner = currentTorpedo[TorpedoComponent.self]?.owner,
+                    let currentVehicleCollision = currentVehicle[CollisionComponent.self],
+                    owner == .player && currentVehicle[AlienComponent.self] != nil ||
+                    owner == .computerOpponent && currentVehicle[ShipComponent.self] != nil
+                else { vehicle = currentVehicle.next; continue } // or return? }
+                if (currentVehiclePosition.position.distance(from: torpedoPosition.position) <= currentVehicleCollision.radius) {
+                    if let entity = currentTorpedo.entity { engine.remove(entity: entity) }
+                    if let entity = vehicle?.entity,
                        entity[DeathThroesComponent.self] == nil {
-                        if ship?[ShipComponent.self] != nil {
+                        if vehicle?[ShipComponent.self] != nil {
                             appStateNodes.head?[AppStateComponent.self]?.numShips -= 1
                         }
                         creator.destroy(ship: entity)
@@ -224,14 +227,14 @@ class CollisionSystem: System {
                     //TODO: refactor the below
                     if let gameStateNode = appStateNodes.head,
                        let appStateComponent = gameStateNode[AppStateComponent.self],
-                       torpedo[PlasmaTorpedoComponent.self]?.owner == .player {
+                       currentTorpedo[TorpedoComponent.self]?.owner == .player {
                         appStateComponent.score += 500
                     }
                     break
                 }
-                ship = currentShip.next
+                vehicle = currentVehicle.next
             }
-            torpedoNode = torpedo.next
+            torpedoCollisionNode = currentTorpedo.next
         }
     }
 
