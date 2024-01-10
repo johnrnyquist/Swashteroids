@@ -61,9 +61,17 @@ class AlienSystem: System {
             if let shipPosition = shipNodes?.head?[PositionComponent.self] {
                 let deltaX = alienPosition.x - shipPosition.x
                 let deltaY = alienPosition.y - shipPosition.y
-                let angleInRadians = atan2(deltaY, deltaX)
-                alienVelocity.linearVelocity = CGPoint(x: -cos(angleInRadians) * 60, y: -sin(angleInRadians) * 60)
-                alienPosition.rotationRadians = angleInRadians + CGFloat.pi
+                let targetAngleInRadians = atan2(deltaY, deltaX)
+
+                // Interpolate between the current rotation and the target rotation
+                let interpolationFactor = CGFloat(0.1) // Adjust this value to change the speed of rotation
+                let currentAngleInRadians = alienPosition.rotationRadians - CGFloat.pi
+                let angleDifference = targetAngleInRadians - currentAngleInRadians
+                let angleDifferenceNormalized = atan2(sin(angleDifference), cos(angleDifference)) // Normalize to [-pi, pi]
+                let newAngleInRadians = currentAngleInRadians + angleDifferenceNormalized * interpolationFactor
+
+                alienVelocity.linearVelocity = CGPoint(x: -cos(newAngleInRadians) * 60, y: -sin(newAngleInRadians) * 60)
+                alienPosition.rotationRadians = newAngleInRadians + CGFloat.pi
             }
         }
     }

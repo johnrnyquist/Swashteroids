@@ -13,5 +13,5 @@ import Foundation
 
 class AlienComponent: Component {
     var timeSinceLastReaction: TimeInterval = 0.0
-    var reactionTime: TimeInterval = 1
+    var reactionTime: TimeInterval = 0.025
 }
