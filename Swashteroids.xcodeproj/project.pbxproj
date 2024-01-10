@@ -128,7 +128,7 @@
 		931390FD65B5AF82D24FEB32 /* CollisionSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139BEB3AC5615963614D45 /* CollisionSystemTests.swift */; };
 		93139113FFD9F17E28DA721A /* DeathThroesSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931397AEAB4946A616156BF7 /* DeathThroesSystemTests.swift */; };
 		93139265D59A74E99D27A0CF /* Transition+GameOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931393BFA7122C52736144FB /* Transition+GameOver.swift */; };
-		9313927570EF98CB5DB23DCB /* NacelleSystemTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139C5C73E05D316598047C /* NacelleSystemTest.swift */; };
+		9313927570EF98CB5DB23DCB /* NacelleSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139C5C73E05D316598047C /* NacelleSystemTests.swift */; };
 		931392BC342CBC595CB879B5 /* FlipComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139EB3AE52346EF745211F /* FlipComponent.swift */; };
 		931393799C3434FBF3FC0CCD /* InputComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931396DD35CCD39E8E4EDB16 /* InputComponent.swift */; };
 		931394AC921BF3C3D7CABD13 /* FiringSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139DE76BF1939914D55E38 /* FiringSystemTests.swift */; };
@@ -352,7 +352,7 @@
 		93139BEB3AC5615963614D45 /* CollisionSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollisionSystemTests.swift; sourceTree = "<group>"; };
 		93139C3D0D48098244988F2F /* FlipSystemTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlipSystemTest.swift; sourceTree = "<group>"; };
 		93139C4A1DEEA1037E802D8E /* ShipControlsSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipControlsSystemTests.swift; sourceTree = "<group>"; };
-		93139C5C73E05D316598047C /* NacelleSystemTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NacelleSystemTest.swift; sourceTree = "<group>"; };
+		93139C5C73E05D316598047C /* NacelleSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NacelleSystemTests.swift; sourceTree = "<group>"; };
 		93139C73A66D8863A166745D /* Creator+PowerUpCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Creator+PowerUpCreator.swift"; sourceTree = "<group>"; };
 		93139CC64C9CFC7E61D7DCFE /* FlipNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlipNode.swift; sourceTree = "<group>"; };
 		93139D029684C918FEDD3DC1 /* LeftNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftNode.swift; sourceTree = "<group>"; };
@@ -628,7 +628,7 @@
 				9313964664F31540DA9D0416 /* HyperspaceSystemTests.swift */,
 				931390C85278CB396AD27B7B /* LeftSystemTests.swift */,
 				931399F9256FB8B5F9EBA4E4 /* MovementSystemTests.swift */,
-				93139C5C73E05D316598047C /* NacelleSystemTest.swift */,
+				93139C5C73E05D316598047C /* NacelleSystemTests.swift */,
 				8DB99F562B2BE9EE00C3593A /* RenderSystemTests.swift */,
 				93139B1BA616F9CF29C1B194 /* RightSystemTests.swift */,
 				93139C4A1DEEA1037E802D8E /* ShipControlsSystemTests.swift */,
@@ -940,7 +940,7 @@
 				93139F8A1021EE54E773A085 /* RightSystemTests.swift in Sources */,
 				93139D10A3929204EC8DF9BF /* FlipSystemTest.swift in Sources */,
 				93139EB726F6A591F339A9E1 /* ThrustSystemTests.swift in Sources */,
-				9313927570EF98CB5DB23DCB /* NacelleSystemTest.swift in Sources */,
+				9313927570EF98CB5DB23DCB /* NacelleSystemTests.swift in Sources */,
 				93139113FFD9F17E28DA721A /* DeathThroesSystemTests.swift in Sources */,
 				931394AC921BF3C3D7CABD13 /* FiringSystemTests.swift in Sources */,
 				93139D4F7B05532BC0F56A6C /* GameplayManagerSystemTests.swift in Sources */,
@@ -1098,7 +1098,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Swashteroids/Swashteroids.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 59;
+				CURRENT_PROJECT_VERSION = 60;
 				DEVELOPMENT_TEAM = W8GR9TRDWE;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Swashteroids/Info.plist;
@@ -1130,7 +1130,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Swashteroids/Swashteroids.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 59;
+				CURRENT_PROJECT_VERSION = 60;
 				DEVELOPMENT_TEAM = W8GR9TRDWE;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Swashteroids/Info.plist;

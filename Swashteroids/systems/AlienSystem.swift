@@ -71,7 +71,7 @@ class AlienSystem: System {
             targeting(position, velocity, alienComponent.targetEntity![PositionComponent.self]!.position)
         }
         //
-        // Move it off screen if player is dead, this happens once
+        // Move it off screen if player is dead, this happens ONCE
         if !playerAlive,
            alienEntity[GunComponent.self] != nil {
             alienEntity.remove(componentClass: GunComponent.self)

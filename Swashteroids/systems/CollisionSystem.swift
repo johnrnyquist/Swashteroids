@@ -67,9 +67,7 @@ class CollisionSystem: System {
               let alienCollision = alien[CollisionComponent.self],
               let alienVelocity = alien[VelocityComponent.self],
               let shipEntity = ship.entity,
-              let alienEntity = alien.entity,
-              shipEntity[DeathThroesComponent.self] == nil,
-              alienEntity[DeathThroesComponent.self] == nil
+              let alienEntity = alien.entity
         else { return }
         if alienPosition.position.distance(from: shipPosition.position) < shipCollision.radius + alienCollision.radius {
             shipEntity.remove(componentClass: VelocityComponent.self)

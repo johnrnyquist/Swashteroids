@@ -24,6 +24,7 @@ extension Creator: ShipCreator {
         shipSprite.addChild(nacellesSprite)
         shipSprite.entity = ship
         ship.add(component: ShipComponent())
+//        ship.add(component: HyperspaceEngineComponent())
 //        ship.add(component: GunComponent(offsetX: 21, offsetY: 0, minimumShotInterval: 0.25, torpedoLifetime: 2))
         ship.add(component: WarpDriveComponent())
         ship.add(component: PositionComponent(x: state.size.width / 2, y: state.size.height / 2, z: .ship, rotationDegrees: 0.0))
@@ -70,6 +71,7 @@ extension Creator: ShipCreator {
         ship.remove(componentClass: InputComponent.self)
         ship.remove(componentClass: MovementRateComponent.self)
         // Add components
+        ship[VelocityComponent.self]?.angularVelocity = Double.random(in: -100.0...100.0)
         ship.add(component: DisplayComponent(sknode: spriteNode))
         ship.add(component: DeathThroesComponent(countdown: 3.0))
         ship.add(component: AudioComponent(fileNamed: .explosion, actionKey: "shipExplosion"))

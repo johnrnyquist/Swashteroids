@@ -14,7 +14,6 @@ import Foundation
 extension Creator: AlienCreator {
     func createAlien() {
         guard engine.getEntity(named: .ship) != nil else { return }
-        guard engine.getEntity(named: .alien) == nil else { return }
         numAliens += 1
         let sprite = SwashSpriteNode(imageNamed: .alien)
         let alienComponent = AlienComponent(reactionTime: Double.random(in: 0.4...0.8))
