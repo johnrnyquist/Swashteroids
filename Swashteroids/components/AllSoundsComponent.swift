@@ -13,36 +13,20 @@ import SpriteKit
 
 class AllSoundsComponent: Component {
     static let shared = AllSoundsComponent() //HACK I'm doing this to cheat
-    
-    var soundActions: [String: SKAction] = [:]
 
+
+    var soundActions: [String: SKAction] = [:]
+    
     private override init() {
         super.init()
         preloadSounds()
     }
 
     private func preloadSounds() {
-        let soundFiles = [
-            "alienEntrance.wav",
-            "bangLarge.wav",
-            "bangMedium.wav",
-            "bangSmall.wav",
-            "beat1.wav",
-            "beat2.wav",
-            "braam-6150.wav",
-            "extraShip.wav",
-            "fire.wav",
-            "hyperspace.wav",
-            "powerup.wav",
-            "saucerBig.wav",
-            "saucerSmall.wav",
-            "thrust.wav",
-            "toggle.wav",
-        ]
         // Preload the sound effects
-        for soundFile in soundFiles {
-            let soundAction = SKAction.playSoundFileNamed(soundFile, waitForCompletion: false)
-            soundActions[soundFile] = soundAction
+        SoundFileNames.allCases.forEach { soundFile in
+            let soundAction = SKAction.playSoundFileNamed(soundFile.rawValue, waitForCompletion: false)
+            soundActions[soundFile.rawValue] = soundAction
         }
     }
 }

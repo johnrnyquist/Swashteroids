@@ -83,6 +83,6 @@ extension Creator: PowerUpCreator {
     private func createRandomVelocity(level: Double) -> VelocityComponent {
         let velocityX = Double.random(in: -10.0...10.0) * Double(level)
         let velocityY = Double.random(in: -10.0...10.0) * Double(level)
-        return VelocityComponent(velocityX: velocityX, velocityY: velocityY, dampening: 0)
+        return VelocityComponent(velocityX: velocityX, velocityY: velocityY, dampening: 0, base: 60.0)
     }
 }

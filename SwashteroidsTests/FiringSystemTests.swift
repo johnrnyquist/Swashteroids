@@ -32,7 +32,7 @@ class FiringSystemTests: XCTestCase {
         let time: TimeInterval = 1.0
         let minimumShotInterval = 0.0 // 1 second
         //
-        let motion = VelocityComponent(velocityX: 0, velocityY: 0)
+        let motion = VelocityComponent(velocityX: 0, velocityY: 0, base: 60.0)
         let position = PositionComponent(x: 0, y: 0, z: .ship)
         let gun = GunComponent(offsetX: 0,
                                offsetY: 0,
@@ -57,7 +57,7 @@ class FiringSystemTests: XCTestCase {
         let time: TimeInterval = 0.1
         let minimumShotInterval = 1.0 // 1 second
         //
-        let motion = VelocityComponent(velocityX: 0, velocityY: 0)
+        let motion = VelocityComponent(velocityX: 0, velocityY: 0, base: 60.0)
         let position = PositionComponent(x: 0, y: 0, z: .ship)
         let gun = GunComponent(offsetX: 0,
                                offsetY: 0,

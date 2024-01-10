@@ -14,7 +14,7 @@ extension GameScene: SoundPlaying {}
 extension GameScene: Container {}
 
 final class GameScene: SKScene {
-    static var sound = SKAudioNode(fileNamed: "thrust.wav") //HACK HACK HACK
+    static var sound = SKAudioNode(fileNamed: SoundFileNames.thrust.rawValue) //HACK HACK HACK
     var touchDelegate: TouchDelegate?
 
     override func didMove(to view: SKView) {

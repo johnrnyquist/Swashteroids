@@ -31,55 +31,59 @@ class AlienSystem: System {
         }
     }
 
+    func targeting(_ position: PositionComponent, _ velocity: VelocityComponent, _ target: CGPoint) {
+        let deltaX = position.x - target.x
+        let deltaY = position.y - target.y
+        let angleInRadians = atan2(deltaY, deltaX)
+        velocity.linearVelocity = CGPoint(x: -cos(angleInRadians) * velocity.base, y: -sin(angleInRadians) * velocity.base)
+        position.rotationRadians = angleInRadians + CGFloat.pi
+    }
+
+    func atEndDestination(_ x: Double, _ endDestination: CGPoint) -> Bool {
+        if endDestination.x > 0 {
+            return x >= endDestination.x
+        } else {
+            return x <= endDestination.x
+        }
+    }
+
     private func updateNode(node alienNode: Node, time: TimeInterval) {
-        guard let alienPosition = alienNode[PositionComponent.self],
-              let alienVelocity = alienNode[VelocityComponent.self],
+        guard let position = alienNode[PositionComponent.self],
+              let velocity = alienNode[VelocityComponent.self],
               let alienComponent = alienNode[AlienComponent.self],
-              alienNode.entity?[DeathThroesComponent.self] == nil
+              alienNode.entity?[DeathThroesComponent.self] == nil,
+              let alienEntity = alienNode.entity
         else { return }
+        // update reaction time
         alienComponent.timeSinceLastReaction += time
-        if alienPosition.x > UIScreen.main.bounds.size.width, //HACK
-           let entity = alienNode.entity {
-            engine?.remove(entity: entity)
-            return
-        }
-        let playerAlive = shipNodes?.head?.entity != nil && shipNodes?.head?.entity?[DeathThroesComponent.self] == nil
-        if !playerAlive,
-           alienNode.entity?[GunComponent.self] != nil {
-            alienNode.entity?.remove(componentClass: GunComponent.self)
-            alienPosition.rotationRadians = 0
-            alienVelocity.linearVelocity = CGPoint(x: 100, y: 0)
-            return
-        }
+        // update position
+        let shipEntity = shipNodes?.head?.entity
+        let playerAlive = shipEntity != nil && shipEntity?[DeathThroesComponent.self] == nil
+        let isTimeToReact = alienComponent.timeSinceLastReaction >= alienComponent.reactionTime
+        //
+        // Target the ship if it's alive and it's time to react
         if playerAlive,
-           alienComponent.timeSinceLastReaction >= alienComponent.reactionTime {
+           isTimeToReact,
+           let shipPosition = shipEntity?[PositionComponent.self]?.position {
             alienComponent.timeSinceLastReaction = 0
-            if let shipPosition = shipNodes?.head?[PositionComponent.self] {
-                let deltaX = alienPosition.x - shipPosition.x
-                let deltaY = alienPosition.y - shipPosition.y
-                let angleInRadians = atan2(deltaY, deltaX)
-                alienVelocity.linearVelocity = CGPoint(x: -cos(angleInRadians) * 60, y: -sin(angleInRadians) * 60)
-                alienPosition.rotationRadians = angleInRadians + CGFloat.pi
-            }
+            targeting(position, velocity, shipPosition)
         }
-//        if playerAlive,
-//            alienComponent.timeSinceLastReaction >= alienComponent.reactionTime {
-//            alienComponent.timeSinceLastReaction = 0
-//            if let shipPosition = shipNodes?.head?[PositionComponent.self] {
-//                let deltaX = alienPosition.x - shipPosition.x
-//                let deltaY = alienPosition.y - shipPosition.y
-//                let targetAngleInRadians = atan2(deltaY, deltaX)
-//
-//                // Interpolate between the current rotation and the target rotation
-//                let interpolationFactor = CGFloat(0.1) // Adjust this value to change the size of rotation
-//                let currentAngleInRadians = alienPosition.rotationRadians - CGFloat.pi
-//                let angleDifference = targetAngleInRadians - currentAngleInRadians
-//                let angleDifferenceNormalized = atan2(sin(angleDifference), cos(angleDifference)) // Normalize to [-pi, pi]
-//                let newAngleInRadians = currentAngleInRadians + angleDifferenceNormalized * interpolationFactor
-//
-//                alienVelocity.linearVelocity = CGPoint(x: -cos(newAngleInRadians) * 60, y: -sin(newAngleInRadians) * 60)
-//                alienPosition.rotationRadians = newAngleInRadians + CGFloat.pi
-//            }
-//        }
+        //
+        // Move it off screen if player is dead, this happens once
+        if !playerAlive,
+           alienEntity[GunComponent.self] != nil {
+            alienEntity.remove(componentClass: GunComponent.self)
+            position.rotationRadians = alienComponent.endDestination.x > 0 ? 0 : CGFloat.pi
+            velocity.linearVelocity = CGPoint(x: (alienComponent.endDestination.x > 0 ? velocity.exit : -velocity.exit),
+                                              y: 0)
+            return
+        }
+        //
+        // Remove if player is dead and it's off screen
+        if !playerAlive,
+           atEndDestination(position.x, alienComponent.endDestination) {
+            engine?.remove(entity: alienEntity)
+            return
+        }
     }
 }

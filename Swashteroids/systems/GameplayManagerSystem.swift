@@ -29,7 +29,6 @@ class GameplayManagerSystem: System {
     private weak var ships: NodeList!
     private weak var aliens: NodeList!
     private let spaceshipPositionRatio: CGFloat = 0.5
-    private let levelUpSound = "braam-6150.wav"
     private let minimumLevel = 1
     private let hudTextFontName = "Futura Condensed Medium"
     private var hudTextFontSize: CGFloat = 64
@@ -58,12 +57,19 @@ class GameplayManagerSystem: System {
     override func update(time: TimeInterval) {
         guard let currentStateNode = appStates.head as? AppStateNode,
               let entity = currentStateNode.entity,
-              let appStateComponent = currentStateNode[AppStateComponent.self] else { return }
-        
+              let appStateComponent = currentStateNode[AppStateComponent.self],
+              appStateComponent.appState == .playing
+        else { return }
+
         if aliens.head == nil {
             appStateComponent.alienAppearanceRate -= time
             if appStateComponent.alienAppearanceRate <= 0 {
                 appStateComponent.alienAppearanceRate = appStateComponent.alienAppearanceRateDefault
+                creator.createAlien()
+                creator.createAlien()
+                creator.createAlien()
+                creator.createAlien()
+                creator.createAlien()
                 creator.createAlien()
             }
         }
@@ -115,7 +121,7 @@ class GameplayManagerSystem: System {
         guard let shipNode = ships.head,
               let spaceShipPosition = shipNode[PositionComponent.self] else { return }
         appStateComponent.level += 1
-        entity.add(component: AudioComponent(fileNamed: levelUpSound, actionKey: "levelUp"))
+        entity.add(component: AudioComponent(fileNamed: .levelUpSound, actionKey: "levelUp"))
         announceLevel(appStateComponent: appStateComponent)
         createAsteroids(count: appStateComponent.level, avoiding: spaceShipPosition.position, level: appStateComponent.level)
     }

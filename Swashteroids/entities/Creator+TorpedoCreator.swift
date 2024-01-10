@@ -34,13 +34,13 @@ extension Creator: TorpedoCreator {
                     z: Layer.torpedoes,
                     rotationDegrees: 0))
                 .add(component: CollisionComponent(radius: 0))
-                .add(component: VelocityComponent(
-                    velocityX: cos * 220 + velocity.linearVelocity.x * 1.0 / scaleManager.SCALE_FACTOR,
-                    velocityY: sin * 220 + velocity.linearVelocity.y * 1.0 / scaleManager.SCALE_FACTOR,
-                    angularVelocity: 0 + velocity.angularVelocity,
-                    dampening: 0 + velocity.dampening))
+                .add(component: VelocityComponent(velocityX: cos * 220 + velocity.linearVelocity.x * 1.0 / scaleManager.SCALE_FACTOR,
+                                                  velocityY: sin * 220 + velocity.linearVelocity.y * 1.0 / scaleManager.SCALE_FACTOR,
+                                                  angularVelocity: 0 + velocity.angularVelocity,
+                                                  dampening: 0 + velocity.dampening,
+                                                  base: 60.0))
                 .add(component: DisplayComponent(sknode: sprite))
-                .add(component: AudioComponent(fileNamed: "fire.wav", actionKey: name))
+                .add(component: AudioComponent(fileNamed: .launchTorpedo, actionKey: name))
         sprite.name = entity.name
         do {
             try engine.add(entity: entity)

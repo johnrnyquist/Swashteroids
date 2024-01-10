@@ -18,7 +18,7 @@ protocol AsteroidCreator: AnyObject {
     func createAsteroid(radius: Double, x: Double, y: Double, level: Int)
 }
 
-protocol HudCreator {
+protocol HudCreator: AnyObject {
     func createHud(gameState: AppStateComponent)
 }
 

@@ -34,11 +34,12 @@ final class MovementSystemTests: XCTestCase {
     func test_UpdatePosition() throws {
         let node = MovementNode()
         let positionComponent = PositionComponent(x: 0, y: 0, z: .ship)
-        let motionComponent = VelocityComponent(velocityX: 1.0, 
-                                              velocityY: 2.0, 
-                                              angularVelocity: 0.0, 
-                                              dampening: 0.0,
-                                              scaleManager: MockScaleManager())
+        let motionComponent = VelocityComponent(velocityX: 1.0,
+                                                velocityY: 2.0,
+                                                angularVelocity: 0.0,
+                                                dampening: 0.0,
+                                                base: 60.0,
+                                                scaleManager: MockScaleManager())
         node.components[PositionComponent.name] = positionComponent
         node.components[VelocityComponent.name] = motionComponent
         system.updateNode(node: node, time: 1)
@@ -49,11 +50,12 @@ final class MovementSystemTests: XCTestCase {
     func test_UpdateNodeWrapBoundsXLeft() throws {
         let node = MovementNode()
         let positionComponent = PositionComponent(x: 0.0, y: 0.0, z: .ship)
-        let motionComponent = VelocityComponent(velocityX: -1.0, 
-                                              velocityY: 0.0, 
-                                              angularVelocity: 0.0, 
-                                              dampening: 0.0,
-                                              scaleManager: MockScaleManager())
+        let motionComponent = VelocityComponent(velocityX: -1.0,
+                                                velocityY: 0.0,
+                                                angularVelocity: 0.0,
+                                                dampening: 0.0,
+                                                base: 60.0,
+                                                scaleManager: MockScaleManager())
         node.components[PositionComponent.name] = positionComponent
         node.components[VelocityComponent.name] = motionComponent
         system.updateNode(node: node, time: 1)
@@ -64,11 +66,12 @@ final class MovementSystemTests: XCTestCase {
     func test_UpdateNodeWrapBoundsYDown() throws {
         let node = MovementNode()
         let positionComponent = PositionComponent(x: 0.0, y: 0.0, z: .ship)
-        let motionComponent = VelocityComponent(velocityX: 0.0, 
-                                              velocityY: -1.0, 
-                                              angularVelocity: 0.0, 
-                                              dampening: 0.0,
-                                              scaleManager: MockScaleManager())
+        let motionComponent = VelocityComponent(velocityX: 0.0,
+                                                velocityY: -1.0,
+                                                angularVelocity: 0.0,
+                                                dampening: 0.0,
+                                                base: 60.0,
+                                                scaleManager: MockScaleManager())
         node.components[PositionComponent.name] = positionComponent
         node.components[VelocityComponent.name] = motionComponent
         system.updateNode(node: node, time: 1)
@@ -79,11 +82,12 @@ final class MovementSystemTests: XCTestCase {
     func test_UpdateNodeWrapBoundsXRight() throws {
         let node = MovementNode()
         let positionComponent = PositionComponent(x: size.width, y: 0.0, z: .ship)
-        let motionComponent = VelocityComponent(velocityX: 1.0, 
-                                              velocityY: 0.0, 
-                                              angularVelocity: 0.0, 
-                                              dampening: 0.0,
-                                              scaleManager: MockScaleManager())
+        let motionComponent = VelocityComponent(velocityX: 1.0,
+                                                velocityY: 0.0,
+                                                angularVelocity: 0.0,
+                                                dampening: 0.0,
+                                                base: 60.0,
+                                                scaleManager: MockScaleManager())
         node.components[PositionComponent.name] = positionComponent
         node.components[VelocityComponent.name] = motionComponent
         system.updateNode(node: node, time: 1)
@@ -94,11 +98,12 @@ final class MovementSystemTests: XCTestCase {
     func test_UpdateNodeWrapBoundsYUp() throws {
         let node = MovementNode()
         let positionComponent = PositionComponent(x: 0.0, y: size.height, z: .ship)
-        let motionComponent = VelocityComponent(velocityX: 0.0, 
-                                              velocityY: 1.0, 
-                                              angularVelocity: 0.0, 
-                                              dampening: 0.0, 
-                                              scaleManager: MockScaleManager())
+        let motionComponent = VelocityComponent(velocityX: 0.0,
+                                                velocityY: 1.0,
+                                                angularVelocity: 0.0,
+                                                dampening: 0.0,
+                                                base: 60.0,
+                                                scaleManager: MockScaleManager())
         node.components[PositionComponent.name] = positionComponent
         node.components[VelocityComponent.name] = motionComponent
         system.updateNode(node: node, time: 1)
@@ -109,7 +114,7 @@ final class MovementSystemTests: XCTestCase {
     func test_Rotation() throws {
         let node = MovementNode()
         let positionComponent = PositionComponent(x: 0.0, y: 0, z: .ship)
-        let motionComponent = VelocityComponent(velocityX: 0.0, velocityY: 0, angularVelocity: 1.0, dampening: 0.0)
+        let motionComponent = VelocityComponent(velocityX: 0.0, velocityY: 0, angularVelocity: 1.0, dampening: 0.0, base: 60.0)
         node.components[PositionComponent.name] = positionComponent
         node.components[VelocityComponent.name] = motionComponent
         system.updateNode(node: node, time: 1)
@@ -119,8 +124,7 @@ final class MovementSystemTests: XCTestCase {
     func test_DampeningAffectsXandY() throws {
         let node = MovementNode()
         let positionComponent = PositionComponent(x: 0.0, y: 0, z: .ship)
-        let motionComponent = VelocityComponent(velocityX: 1.0, velocityY: 1.0,
-                                              angularVelocity: 1.0, dampening: 0.1)
+        let motionComponent = VelocityComponent(velocityX: 1.0, velocityY: 1.0, angularVelocity: 1.0, dampening: 0.1, base: 60.0)
         node.components[PositionComponent.name] = positionComponent
         node.components[VelocityComponent.name] = motionComponent
         system.updateNode(node: node, time: 1)
@@ -137,8 +141,11 @@ final class MovementSystemTests: XCTestCase {
         let time: TimeInterval = 1
         let node = MovementNode()
         let positionComponent = PositionComponent(x: size.width, y: size.height, z: .ship)
-        let motionComponent = VelocityComponent(velocityX: -1.0, velocityY: -1.0,
-                                              angularVelocity: 1.0, dampening: 0.1)
+        let motionComponent = VelocityComponent(velocityX: -1.0,
+                                                velocityY: -1.0,
+                                                angularVelocity: 1.0,
+                                                dampening: 0.1,
+                                                base: 60.0)
         node.components[PositionComponent.name] = positionComponent
         node.components[VelocityComponent.name] = motionComponent
         for _ in 0..<numUpdates {

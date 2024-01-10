@@ -27,7 +27,7 @@ extension Creator: ShipCreator {
 //        ship.add(component: GunComponent(offsetX: 21, offsetY: 0, minimumShotInterval: 0.25, torpedoLifetime: 2))
         ship.add(component: WarpDriveComponent())
         ship.add(component: PositionComponent(x: state.size.width / 2, y: state.size.height / 2, z: .ship, rotationDegrees: 0.0))
-        ship.add(component: VelocityComponent(velocityX: 0.0, velocityY: 0.0, dampening: 0.0))
+        ship.add(component: VelocityComponent(velocityX: 0.0, velocityY: 0.0, dampening: 0.0, base: 60.0))
         ship.add(component: CollisionComponent(radius: 25))
         ship.add(component: DisplayComponent(sknode: shipSprite))
         ship.add(component: MovementRateComponent(accelerationRate: 90, rotationRate: 100))
@@ -72,6 +72,6 @@ extension Creator: ShipCreator {
         // Add components
         ship.add(component: DisplayComponent(sknode: spriteNode))
         ship.add(component: DeathThroesComponent(countdown: 3.0))
-        ship.add(component: AudioComponent(fileNamed: "bangLarge.wav", actionKey: "shipExplosion"))
+        ship.add(component: AudioComponent(fileNamed: .explosion, actionKey: "shipExplosion"))
     }
 }

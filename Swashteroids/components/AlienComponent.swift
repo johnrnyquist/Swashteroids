@@ -14,4 +14,9 @@ import Foundation
 class AlienComponent: Component {
     var timeSinceLastReaction: TimeInterval = 0.0
     var reactionTime: TimeInterval = 0.5
+    var endDestination: CGPoint = .zero
+    var startDestination: CGPoint = .zero
+    init(reactionTime: Double) {
+        self.reactionTime = reactionTime
+    }
 }

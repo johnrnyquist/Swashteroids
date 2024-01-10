@@ -20,7 +20,7 @@ final class AudioSystemTests: XCTestCase {
     var soundPlayer: MockSoundPlayer!
 
     override func setUpWithError() throws {
-        component = AudioComponent(fileNamed: "thrust.wav", actionKey: "bar")
+        component = AudioComponent(fileNamed: .thrust, actionKey: "bar")
         node = AudioNode()
         node.components[AudioComponent.name] = component
         soundPlayer = MockSoundPlayer()

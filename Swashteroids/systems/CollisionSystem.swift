@@ -103,7 +103,7 @@ class CollisionSystem: System {
             asteroidEntity
                     .remove(componentClass: DisplayComponent.self)
                     .remove(componentClass: CollisionComponent.self)
-                    .add(component: AudioComponent(fileNamed: "bangLarge.wav",
+                    .add(component: AudioComponent(fileNamed: .explosion,
                                                    actionKey: asteroidEntity.name))
                     .add(component: DisplayComponent(sknode: spriteNode))
                     .add(component: DeathThroesComponent(countdown: 0.2))
@@ -128,7 +128,7 @@ class CollisionSystem: System {
                                                                minimumShotInterval: 0.25,
                                                                torpedoLifetime: 2))
                 shipCollisionNode?.entity?
-                                  .add(component: AudioComponent(fileNamed: "powerup.wav",
+                                  .add(component: AudioComponent(fileNamed: .powerUp,
                                                                  actionKey: "powerup.wav"))
                 //HACK for immediate gratification
                 let fadeIn = SKAction.fadeAlpha(to: 1.0, duration: 0.2)
@@ -158,7 +158,7 @@ class CollisionSystem: System {
                 shipCollisionNode?.entity?
                                   .add(component: HyperspaceEngineComponent())
                 shipCollisionNode?.entity?
-                                  .add(component: AudioComponent(fileNamed: "powerup.wav",
+                                  .add(component: AudioComponent(fileNamed: .powerUp,
                                                                  actionKey: "powerup.wav"))
                 //HACK for immediate gratification
                 let fadeIn = SKAction.fadeAlpha(to: 1.0, duration: 0.2)

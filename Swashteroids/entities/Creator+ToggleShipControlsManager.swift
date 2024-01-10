@@ -38,7 +38,7 @@ extension Creator: ToggleShipControlsManager {
                     AppStateComponent.name
                     ] as? AppStateComponent)?.shipControlsState = toState //HACK remove? Add TransitionAppStateComponent?
                 engine.hud?.add(component: ChangeShipControlsStateComponent(to: toState))
-                engine.hud?.add(component: AudioComponent(fileNamed: "toggle.wav",
+                engine.hud?.add(component: AudioComponent(fileNamed: .toggle,
                                                           actionKey: "toggle\(toggleState.rawValue)"))
             },
             touchUp: { sprite in sprite.alpha = 0.2 },

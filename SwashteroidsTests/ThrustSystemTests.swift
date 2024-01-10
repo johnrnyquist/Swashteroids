@@ -32,7 +32,7 @@ final class ThrustSystemTests: XCTestCase {
         let rotation = Double.pi/4.0
         let position = PositionComponent(x: 0, y: 0, z: .ship, rotationDegrees: rotation)
         let applythrust = ApplyThrustComponent.shared
-        let motion = VelocityComponent(velocityX: 0.0, velocityY: 0.0)
+        let motion = VelocityComponent(velocityX: 0.0, velocityY: 0.0, base: 60.0)
         let motionControls = MovementRateComponent(accelerationRate: 10.0,
                                                      rotationRate: 0.0,
                                                      scaleManager: MockScaleManager())

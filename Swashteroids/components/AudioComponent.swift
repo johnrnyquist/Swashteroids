@@ -15,13 +15,16 @@ import Swash
 final class AudioComponent: Component {
     private(set) var playlist: [String: SKAction] = [:]
 
-    init(fileNamed: String, actionKey: String) {
-        playlist[actionKey] = AllSoundsComponent.shared.soundActions[fileNamed]!
+    init(fileNamed name: SoundFileNames, actionKey key: String) {
+        super.init()
+        addSoundAction(fileNamed: name, actionKey: key)
     }
 
     /// If you want to run more than one sound with this component, add the next sound with this method.
-    func addSoundAction(fileNamed: String, actionKey: String) {
-        playlist[actionKey] = AllSoundsComponent.shared.soundActions[fileNamed]!
+    func addSoundAction(fileNamed name: SoundFileNames, actionKey: String) {
+        if let action = AllSoundsComponent.shared.soundActions[name.rawValue] {
+            playlist[actionKey] = action
+        }
     }
 
     func clearPlaylist() {

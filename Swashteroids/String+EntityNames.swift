@@ -34,6 +34,7 @@ extension String {
     static let alien: EntityName = "alienEntity"
     static let allSounds: EntityName = "allSoundsEntity"
     static let appState: EntityName = "appStateEntity"
+    static let asteroid : EntityName = "asteroidEntity"
     static let gameOver: EntityName = "gameOver"
     static let hud: EntityName = "hudEntity"
     static let hyperspacePowerUp: EntityName = "hyperspacePowerUpEntity"

@@ -13,7 +13,7 @@ import SpriteKit
 @testable import Swash
 @testable import Swashteroids
 
-final class GameManagerSystemTests: XCTestCase {
+final class GameplayManagerSystemTests: XCTestCase {
     var creator: MockCreator!
     var engine: Engine!
     var scene: SKScene!
@@ -41,7 +41,7 @@ final class GameManagerSystemTests: XCTestCase {
                 .add(component: CollisionComponent(radius: LARGE_ASTEROID_RADIUS,
                                                    scaleManager: MockScaleManager()))
                 .add(component: PositionComponent(x: 0, y: 0, z: .asteroids))
-                .add(component: VelocityComponent(velocityX: 0, velocityY: 0))
+                .add(component: VelocityComponent(velocityX: 0, velocityY: 0, base: 60.0))
         try? engine.add(entity: asteroid)
         let suggestedShipLocation = CGPoint(x: 100, y: 100)
         let result = system.isClearToAddSpaceship(at: suggestedShipLocation)
@@ -59,7 +59,7 @@ final class GameManagerSystemTests: XCTestCase {
                 .add(component: CollisionComponent(radius: LARGE_ASTEROID_RADIUS,
                                                    scaleManager: MockScaleManager()))
                 .add(component: PositionComponent(x: 0, y: 0, z: .asteroids))
-                .add(component: VelocityComponent(velocityX: 0, velocityY: 0))
+                .add(component: VelocityComponent(velocityX: 0, velocityY: 0, base: 60.0))
         try? engine.add(entity: asteroid)
         let suggestedShipLocation = CGPoint(x: 0, y: 0)
         let result = system.isClearToAddSpaceship(at: suggestedShipLocation)
