@@ -54,38 +54,40 @@ class GameplayManagerSystem: System {
         aliens = engine.getNodeList(nodeClassType: AlienCollisionNode.self)
     }
 
-    override func update(time: TimeInterval) {
-        guard let currentStateNode = appStates.head as? AppStateNode,
-              let entity = currentStateNode.entity,
-              let appStateComponent = currentStateNode[AppStateComponent.self],
-              appStateComponent.appState == .playing //JRN: Or I could add/remove this system based on appState
-        else { return }
-//        if aliens.head == nil {
-        appStateComponent.alienAppearanceRate -= time
-        if appStateComponent.alienAppearanceRate <= 0 {
-            appStateComponent.alienAppearanceRate = appStateComponent.alienAppearanceRateDefault
-            creator.createAlien()
-        }
-//        }
-        handleGameState(appStateComponent: appStateComponent, entity: entity)
-    }
-
     override func removeFromEngine(engine: Engine) {
         creator = nil
         appStates = nil
         ships = nil
         asteroids = nil
         torpedoes = nil
+        aliens = nil
+    }
+
+    override func update(time: TimeInterval) {
+        guard let currentStateNode = appStates.head as? AppStateNode,
+              let entity = currentStateNode.entity,
+              let appStateComponent = currentStateNode[AppStateComponent.self],
+              appStateComponent.appState == .playing //JRN: Or I could add/remove this system based on appState
+        else { return }
+        handleGameState(appStateComponent: appStateComponent, entity: entity, time: time)
+    }
+
+    func handleAlienAppearances(appStateComponent: AppStateComponent, time: TimeInterval) {
+        appStateComponent.alienAppearanceRate -= time
+        if appStateComponent.alienAppearanceRate <= 0 {
+            appStateComponent.alienAppearanceRate = appStateComponent.alienAppearanceRateDefault
+            creator.createAlien()
+        }
     }
 
     // MARK: - Game Logic
     /// If there are no ships and is playing, handle it. 
     /// If there are no asteroids, no torpedoes and there is a ship then you finished the level, go to the next.
-    func handleGameState(appStateComponent: AppStateComponent, entity: Entity) {
+    func handleGameState(appStateComponent: AppStateComponent, entity: Entity, time: TimeInterval) {
+        handleAlienAppearances(appStateComponent: appStateComponent, time: time)
         // No ships in the NodeList, but we're still playing.
-        if ships.empty,
-           appStateComponent.appState == .playing {
-            handlePlayingState(appStateComponent: appStateComponent, entity: entity)
+        if ships.empty {
+            continueOrEnd(appStateComponent: appStateComponent, entity: entity)
         }
         // No asteroids or torpedoes but we have a ship, so start a new level.
         if asteroids.empty,
@@ -95,7 +97,7 @@ class GameplayManagerSystem: System {
     }
 
     /// If we have ships, make one. Otherwise, go to game over state.
-    func handlePlayingState(appStateComponent: AppStateComponent, entity: Entity) {
+    func continueOrEnd(appStateComponent: AppStateComponent, entity: Entity) {
         // If we have any ships left, make another and some power-ups
         if appStateComponent.numShips > 0 {
             let newSpaceshipPosition = CGPoint(x: size.width * spaceshipPositionRatio,

@@ -133,7 +133,7 @@ final class GameplayManagerSystemTests: XCTestCase {
                                                   score: 0,
                                                   appState: .playing,
                                                   shipControlsState: .showingButtons)
-        system.handlePlayingState(appStateComponent: appStateComponent, entity: Entity())
+        system.continueOrEnd(appStateComponent: appStateComponent, entity: Entity())
         XCTAssertEqual(system.isClearToAddSpaceshipCalled, true)
         XCTAssertEqual(system.createPowerUpsCalled, true)
 
@@ -163,7 +163,7 @@ final class GameplayManagerSystemTests: XCTestCase {
                                                   score: 0,
                                                   appState: .playing,
                                                   shipControlsState: .showingButtons)
-        system.handlePlayingState(appStateComponent: appStateComponent, entity: Entity())
+        system.continueOrEnd(appStateComponent: appStateComponent, entity: Entity())
         XCTAssertEqual(system.isClearToAddSpaceshipCalled, true)
 
         class MockGameManagerSystem_HandlePlayingState_NotClear: GameplayManagerSystem {
@@ -188,7 +188,7 @@ final class GameplayManagerSystemTests: XCTestCase {
                                                   appState: .playing,
                                                   shipControlsState: .showingButtons)
         let entity = Entity(named: "currentState")
-        system.handlePlayingState(appStateComponent: appStateComponent, entity: entity)
+        system.continueOrEnd(appStateComponent: appStateComponent, entity: entity)
         XCTAssertNotNil(entity[TransitionAppStateComponent.self])
     }
 
@@ -205,16 +205,33 @@ final class GameplayManagerSystemTests: XCTestCase {
                                                                     score: 0,
                                                                     appState: .playing,
                                                                     shipControlsState: .showingButtons),
-                               entity: Entity())
+                               entity: Entity(),
+                               time: 1.0)
         XCTAssertTrue(system.handlePlayingStateCalled)
 
         class MockGameManagerSystem_NoShips_Playing: GameplayManagerSystem {
             var handlePlayingStateCalled = false
 
-            override func handlePlayingState(appStateComponent: AppStateComponent, entity: Entity) {
+            override func continueOrEnd(appStateComponent: AppStateComponent, entity: Entity) {
                 handlePlayingStateCalled = true
             }
         }
+    }
+
+    func test_HandleAlienAppearances() {
+        let system = GameplayManagerSystem(creator: creator,
+                                           size: CGSize(width: 1024, height: 768),
+                                           scene: scene,
+                                           scaleManager: MockScaleManager())
+        let appStateComponent = AppStateComponent(size: .zero,
+                                                  ships: 1,
+                                                  level: 1,
+                                                  score: 0,
+                                                  appState: .playing,
+                                                  shipControlsState: .showingButtons)
+        appStateComponent.alienAppearanceRate = 1.0
+        system.handleAlienAppearances(appStateComponent: appStateComponent, time: 1.0)
+        XCTAssertTrue(creator.createAlienCalled)
     }
 
     func test_HandleGameState_NoAsteroidsTorpedoes() {
@@ -236,7 +253,8 @@ final class GameplayManagerSystemTests: XCTestCase {
                                                                     score: 0,
                                                                     appState: .playing,
                                                                     shipControlsState: .showingButtons),
-                               entity: shipEntity)
+                               entity: shipEntity,
+                               time: 1.0)
         XCTAssertTrue(system.goToNextLevelCalled)
 
         class MockGameManagerSystem_NoAsteroidsTorpedoes: GameplayManagerSystem {

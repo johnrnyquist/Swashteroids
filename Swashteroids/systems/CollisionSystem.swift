@@ -49,7 +49,7 @@ class CollisionSystem: System {
         shipHyperspacePowerUpCollisionCheck(shipCollisionNode: ships.head, hyperspacePowerUpNode: hyperspacePowerUp.head)
         torpedoAsteroidCollisionCheck(torpedoCollisionNode: torpedoes.head, asteroidCollisionNode: asteroids.head)
         for vehicle in [ships.head, aliens.head] {
-            torpedoVehicleCollisionCheck(torpedoCollisionNode: torpedoes.head, vehicle: vehicle)
+            torpedoVehicleCollisionCheck(torpedoCollisionNode: torpedoes.head, vehicleCollisionNode: vehicle)
             vehicleAsteroidCollisionCheck(node: vehicle, asteroidCollisionNode: asteroids.head)
         }
         shipShipCollisionCheck(ships.head, aliens.head)
@@ -200,16 +200,16 @@ class CollisionSystem: System {
         }
     }
 
-    func torpedoVehicleCollisionCheck(torpedoCollisionNode: Node?, vehicle: Node?) {
+    func torpedoVehicleCollisionCheck(torpedoCollisionNode: Node?, vehicleCollisionNode: Node?) {
         var torpedoCollisionNode = torpedoCollisionNode
         while let currentTorpedo = torpedoCollisionNode {
-            var vehicle = vehicle
+            var vehicle = vehicleCollisionNode
             while let currentVehicle = vehicle {
                 guard
                     let currentVehiclePosition = currentVehicle[PositionComponent.self],
                     let torpedoPosition = currentTorpedo[PositionComponent.self],
-                    let owner = currentTorpedo[TorpedoComponent.self]?.owner,
                     let currentVehicleCollision = currentVehicle[CollisionComponent.self],
+                    let owner = currentTorpedo[TorpedoComponent.self]?.owner,
                     owner == .player && currentVehicle[AlienComponent.self] != nil ||
                     owner == .computerOpponent && currentVehicle[ShipComponent.self] != nil
                 else { vehicle = currentVehicle.next; continue } // or return? }

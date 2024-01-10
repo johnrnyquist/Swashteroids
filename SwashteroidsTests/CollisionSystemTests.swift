@@ -44,7 +44,7 @@ class CollisionSystemTests: XCTestCase {
                 .add(component: CollisionComponent(radius: 25))
         try? engine.add(entity: shipEntity)
         alienEntity = Entity(named: .alien)
-            .add(component: AlienComponent(reactionTime: 1.0))
+                .add(component: AlienComponent(reactionTime: 1.0))
                 .add(component: PositionComponent(x: 0, y: 0, z: .ship, rotationDegrees: 0.0))
                 .add(component: VelocityComponent(velocityX: 0.0, velocityY: 0.0, dampening: 0.0, base: 60.0))
                 .add(component: CollisionComponent(radius: 25))
@@ -68,7 +68,8 @@ class CollisionSystemTests: XCTestCase {
                 .add(component: PositionComponent(x: 0, y: 0, z: 0))
                 .add(component: DisplayComponent(sknode: SKNode()))
         try? engine.add(entity: hyperspacePowerUpEntity)
-        torpedoEntity = Entity(named: "torpedoEnityt")
+        torpedoEntity = Entity(named: .torpedo)
+                .add(component: TorpedoComponent(lifeRemaining: 1, owner: .player))
                 .add(component: GunPowerUpComponent())
                 .add(component: CollisionComponent(radius: 10, scaleManager: MockScaleManager()))
                 .add(component: PositionComponent(x: 0, y: 0, z: 0))
@@ -136,6 +137,55 @@ class CollisionSystemTests: XCTestCase {
         XCTAssertTrue(asteroidEntity.has(componentClassName: DeathThroesComponent.name))
     }
 
+    func test_TorpedoVehicleCollisionCheck_PlayerShootsAlien() {
+        let system = CollisionSystem(creator: creator,
+                                     size: .zero,
+                                     scaleManager: MockScaleManager())
+        engine.add(system: system, priority: 1)
+        //
+        let torpedoNode = TorpedoCollisionNode()
+        for component in torpedoEntity.componentClassNameInstanceMap {
+            torpedoNode.components[component.key] = component.value
+        }
+        torpedoNode.entity = torpedoEntity
+        torpedoEntity[TorpedoComponent.self]?.owner = .player
+        let alienCollisionNode = AlienCollisionNode()
+        for component in alienEntity.componentClassNameInstanceMap {
+            alienCollisionNode.components[component.key] = component.value
+        }
+        alienCollisionNode.entity = alienEntity
+        // SUT
+        system.torpedoVehicleCollisionCheck(torpedoCollisionNode: torpedoNode, vehicleCollisionNode: alienCollisionNode)
+        //
+        XCTAssertTrue(creator.removeShipCalled)
+        XCTAssertEqual(appStateComponent.score, 500)
+    }
+
+    func test_TorpedoVehicleCollisionCheck_AlienShootsPlayer() {
+        let system = CollisionSystem(creator: creator,
+                                     size: .zero,
+                                     scaleManager: MockScaleManager())
+        engine.add(system: system, priority: 1)
+        //
+        appStateComponent.numShips = 1
+        let torpedoNode = TorpedoCollisionNode()
+        for component in torpedoEntity.componentClassNameInstanceMap {
+            torpedoNode.components[component.key] = component.value
+        }
+        torpedoNode.entity = torpedoEntity
+        torpedoEntity[TorpedoComponent.self]?.owner = .computerOpponent
+        let shipCollisionNode = ShipCollisionNode()
+        for component in shipEntity.componentClassNameInstanceMap {
+            shipCollisionNode.components[component.key] = component.value
+        }
+        shipCollisionNode.entity = shipEntity
+        // SUT
+        system.torpedoVehicleCollisionCheck(torpedoCollisionNode: torpedoNode, vehicleCollisionNode: shipCollisionNode)
+        //
+        XCTAssertTrue(creator.removeShipCalled)
+        XCTAssertEqual(appStateComponent.numShips, 0)
+    }
+
     func test_ShipTorpedoPowerUpCollisionCheck() {
         let system = CollisionSystem(creator: creator,
                                      size: .zero,
@@ -170,18 +220,18 @@ class CollisionSystemTests: XCTestCase {
             shipCollisionNode.components[component.key] = component.value
         }
         shipCollisionNode.entity = shipEntity
-        let hsPowerUpNode: Node = GunSupplierNode()
+        let hyperspacePowerUp: Node = HyperspacePowerUpNode()
         for component in hyperspacePowerUpEntity.componentClassNameInstanceMap {
-            hsPowerUpNode.components[component.key] = component.value
+            hyperspacePowerUp.components[component.key] = component.value
         }
-        hsPowerUpNode.entity = hyperspacePowerUpEntity
+        hyperspacePowerUp.entity = hyperspacePowerUpEntity
         // SUT
         system.shipHyperspacePowerUpCollisionCheck(shipCollisionNode: shipCollisionNode,
-                                                   hyperspacePowerUpNode: hsPowerUpNode)
+                                                   hyperspacePowerUpNode: hyperspacePowerUp)
         //
         XCTAssertTrue(shipEntity.has(componentClassName: HyperspaceEngineComponent.name))
         XCTAssertTrue(shipEntity.has(componentClassName: AudioComponent.name))
-        XCTAssertNil(engine.getEntity(named: "hsPowerUp"))
+        XCTAssertNil(engine.getEntity(named: .hyperspacePowerUp))
     }
 
     func test_TorpedoAsteroidCollisionCheck() {
@@ -212,7 +262,7 @@ class CollisionSystemTests: XCTestCase {
         system.torpedoAsteroidCollisionCheck(torpedoCollisionNode: torpedoNode, asteroidCollisionNode: asteroidNode)
         //
         XCTAssertTrue(system.splitAsteroidCalled)
-        XCTAssertNil(engine.getEntity(named: "torpedo"))
+        XCTAssertNil(engine.getEntity(named: .torpedo))
 
         class MockCollisionSystem: CollisionSystem {
             var splitAsteroidCalled = false
