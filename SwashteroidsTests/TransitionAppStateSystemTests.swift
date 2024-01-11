@@ -40,7 +40,7 @@ final class TransitionAppStateSystemTests: XCTestCase {
     func test_UpdateNodeFromStartToInfoNoButtons() throws {
         let node = TransitionAppStateNode()
         let appStateComponent = AppStateComponent(size: size,
-                                                  ships: 0,
+                                                  numShips: 0,
                                                   level: 0,
                                                   score: 0,
                                                   appState: .start,
@@ -57,7 +57,7 @@ final class TransitionAppStateSystemTests: XCTestCase {
     func test_UpdateNodeFromStartToInfoButtons() throws {
         let node = TransitionAppStateNode()
         let appStateComponent = AppStateComponent(size: size,
-                                                  ships: 0,
+                                                  numShips: 0,
                                                   level: 0,
                                                   score: 0,
                                                   appState: .start,
@@ -74,7 +74,7 @@ final class TransitionAppStateSystemTests: XCTestCase {
     func test_UpdateNodeFromInfoButtonsToPlaying() throws {
         let node = TransitionAppStateNode()
         let appStateComponent = AppStateComponent(size: size,
-                                                  ships: 0,
+                                                  numShips: 0,
                                                   level: 0,
                                                   score: 0,
                                                   appState: .infoButtons,
@@ -91,7 +91,7 @@ final class TransitionAppStateSystemTests: XCTestCase {
     func test_UpdateNodeFromGameOverToStart() throws {
         let node = TransitionAppStateNode()
         let appStateComponent = AppStateComponent(size: size,
-                                                  ships: 0,
+                                                  numShips: 0,
                                                   level: 0,
                                                   score: 0,
                                                   appState: .gameOver,
@@ -108,7 +108,7 @@ final class TransitionAppStateSystemTests: XCTestCase {
     func test_UpdateNodeFromInfoNoButtonsToPlaying() throws {
         let node = TransitionAppStateNode()
         let appStateComponent = AppStateComponent(size: size,
-                                                  ships: 0,
+                                                  numShips: 0,
                                                   level: 0,
                                                   score: 0,
                                                   appState: .infoNoButtons,
@@ -124,7 +124,7 @@ final class TransitionAppStateSystemTests: XCTestCase {
 
     func test_UpdateNodeFromPlayingWithButtonsToGameOver() throws {
         let appStateComponent = AppStateComponent(size: size,
-                                                  ships: 0,
+                                                  numShips: 0,
                                                   level: 0,
                                                   score: 0,
                                                   appState: .playing,

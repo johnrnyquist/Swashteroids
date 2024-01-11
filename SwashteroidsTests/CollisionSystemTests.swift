@@ -29,7 +29,7 @@ class CollisionSystemTests: XCTestCase {
         creator = MockAsteroidCreator()
         engine = Engine()
         appStateComponent = AppStateComponent(size: .zero,
-                                              ships: 1,
+                                              numShips: 1,
                                               level: 1,
                                               score: 0,
                                               appState: .playing,
@@ -252,7 +252,7 @@ class CollisionSystemTests: XCTestCase {
         let appState = Entity(named: .appState)
                 .add(component: AppStateComponent(
                     size: .zero,
-                    ships: 1,
+                    numShips: 1,
                     level: 1,
                     score: 0,
                     appState: .playing,

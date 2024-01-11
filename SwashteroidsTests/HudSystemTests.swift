@@ -32,7 +32,7 @@ class HudSystemTests: XCTestCase {
         let hudNode = HudNode()
         let hudComponent = HudComponent(hudView: HudView(gameSize: .zero))
         let appStateComponent = AppStateComponent(size: .zero,
-                                                  ships: 1,
+                                                  numShips: 1,
                                                   level: 2,
                                                   score: 3,
                                                   appState: .playing,

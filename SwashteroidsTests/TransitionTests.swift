@@ -27,7 +27,7 @@ final class TransitionTests: XCTestCase {
         size = CGSize(width: 1024.0, height: 768.0)
         engine = Engine()
         appStateComponent = AppStateComponent(size: .zero,
-                                              ships: 3,
+                                              numShips: 3,
                                               level: 4,
                                               score: 5,
                                               appState: .infoButtons,

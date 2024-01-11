@@ -98,7 +98,7 @@ final class GameplayManagerSystemTests: XCTestCase {
         try? engine.add(entity: shipEntity)
         engine.add(system: system, priority: 1)
         let appStateComponent = AppStateComponent(size: .zero,
-                                                  ships: 1,
+                                                  numShips: 1,
                                                   level: 1,
                                                   score: 0,
                                                   appState: .playing,
@@ -128,7 +128,7 @@ final class GameplayManagerSystemTests: XCTestCase {
                                                               scene: scene,
                                                               scaleManager: MockScaleManager())
         let appStateComponent = AppStateComponent(size: .zero,
-                                                  ships: 1,
+                                                  numShips: 1,
                                                   level: 1,
                                                   score: 0,
                                                   appState: .playing,
@@ -158,7 +158,7 @@ final class GameplayManagerSystemTests: XCTestCase {
                                                                        scene: scene,
                                                                        scaleManager: MockScaleManager())
         let appStateComponent = AppStateComponent(size: .zero,
-                                                  ships: 1,
+                                                  numShips: 1,
                                                   level: 1,
                                                   score: 0,
                                                   appState: .playing,
@@ -182,7 +182,7 @@ final class GameplayManagerSystemTests: XCTestCase {
                                            scene: scene,
                                            scaleManager: MockScaleManager())
         let appStateComponent = AppStateComponent(size: .zero,
-                                                  ships: 0,
+                                                  numShips: 0,
                                                   level: 1,
                                                   score: 0,
                                                   appState: .playing,
@@ -200,7 +200,7 @@ final class GameplayManagerSystemTests: XCTestCase {
         engine.add(system: system, priority: 1)
         // need to look at this function's logic
         system.handleGameState(appStateComponent: AppStateComponent(size: .zero,
-                                                                    ships: 1,
+                                                                    numShips: 1,
                                                                     level: 1,
                                                                     score: 0,
                                                                     appState: .playing,
@@ -224,7 +224,7 @@ final class GameplayManagerSystemTests: XCTestCase {
                                            scene: scene,
                                            scaleManager: MockScaleManager())
         let appStateComponent = AppStateComponent(size: .zero,
-                                                  ships: 1,
+                                                  numShips: 1,
                                                   level: 1,
                                                   score: 0,
                                                   appState: .playing,
@@ -248,7 +248,7 @@ final class GameplayManagerSystemTests: XCTestCase {
         engine.add(system: system, priority: 1)
         //
         system.handleGameState(appStateComponent: AppStateComponent(size: .zero,
-                                                                    ships: 1,
+                                                                    numShips: 1,
                                                                     level: 1,
                                                                     score: 0,
                                                                     appState: .playing,

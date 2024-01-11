@@ -32,7 +32,7 @@ final class GameOverSystemTests: XCTestCase {
         let gameOver = GameOverComponent()
         let appState = AppStateComponent(
             size: .zero,
-            ships: 0,
+            numShips: 0,
             level: 1,
             score: 2,
             appState: .gameOver,
