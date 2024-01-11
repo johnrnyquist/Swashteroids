@@ -77,6 +77,14 @@ class GameplayManagerSystem: System {
         if appStateComponent.alienAppearanceRate <= 0 {
             appStateComponent.alienAppearanceRate = appStateComponent.alienAppearanceRateDefault
             creator.createAlien()
+            let turnRed = SKAction.customAction(withDuration: 0.1) { _, _ in
+                self.scene.backgroundColor = .alienWarning
+            }
+            let turnBlack = SKAction.customAction(withDuration: 0.1) { _, _ in
+                self.scene.backgroundColor = .background
+            }
+            let sequence = SKAction.sequence([turnRed, turnBlack, turnRed, turnBlack])
+            scene.run(sequence)
         }
     }
 
