@@ -16,8 +16,8 @@ extension Creator: PowerUpCreator {
         createHyperspacePowerUp(level: level, radius: POWER_UP_RADIUS)
     }
 
-    func createPlasmaTorpedoesPowerUp(level: Int) {
-        createPlasmaTorpedoesPowerUp(level: level, radius: POWER_UP_RADIUS)
+    func createTorpedoesPowerUp(level: Int) {
+        createTorpedoesPowerUp(level: level, radius: POWER_UP_RADIUS)
     }
 
     private func createEmitter(colored color: UIColor, on sprite: SKSpriteNode) {
@@ -30,9 +30,9 @@ extension Creator: PowerUpCreator {
         }
     }
 
-    func createPlasmaTorpedoesPowerUp(level: Int, radius: Double = POWER_UP_RADIUS) {
+    func createTorpedoesPowerUp(level: Int, radius: Double = POWER_UP_RADIUS) {
         guard engine.getEntity(named: .torpedoPowerUp) == nil else { return }
-        let sprite = PlasmaTorpedoesPowerUpView(imageNamed: "torpedoPowerUp")
+        let sprite = TorpedoesPowerUpView(imageNamed: "torpedoPowerUp")
         createEmitter(colored: .powerUpTorpedo, on: sprite)
         let entity = Entity(named: .torpedoPowerUp)
         sprite.name = entity.name

@@ -44,7 +44,7 @@ final class FiringSystem: System {
         gun.timeSinceLastShot += time
         if gun.timeSinceLastShot >= gun.minimumShotInterval {
             let pos = PositionComponent(x: position.x, y: position.y, z: .asteroids, rotationDegrees: position.rotationDegrees)
-            creator?.createPlasmaTorpedo(gun, pos, velocity)
+            creator?.createTorpedo(gun, pos, velocity)
             gun.timeSinceLastShot = 0
             gun.ammo -= 1
         }

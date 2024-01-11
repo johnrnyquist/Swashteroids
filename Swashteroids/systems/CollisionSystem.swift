@@ -159,7 +159,7 @@ class CollisionSystem: System {
                 engine.remove(entity: currentPowerUp.entity!)
                 hyperspacePowerUpNode = currentPowerUp.next
                 shipCollisionNode?.entity?
-                                  .add(component: HyperspaceDriveComponent(jumps: 20))
+                                  .add(component: HyperspaceDriveComponent(jumps: 5))
                 shipCollisionNode?.entity?
                                   .add(component: AudioComponent(fileNamed: .powerUp,
                                                                  actionKey: "powerup.wav"))

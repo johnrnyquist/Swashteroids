@@ -62,7 +62,7 @@ final class HudSystem: System {
             hudNode?[HudComponent.self]?.hudView.setAmmo(gunComponent.ammo)
             if gunComponent.ammo == 0 {
                 shipEntity?.remove(componentClass: GunComponent.self)
-                creator?.createPlasmaTorpedoesPowerUp(level: 1) //TODO: get real level 
+                creator?.createTorpedoesPowerUp(level: 1) //TODO: get real level 
                 if let fireButton = engine?.getEntity(named: .fireButton) {
                     engine?.remove(entity: fireButton)
                 }

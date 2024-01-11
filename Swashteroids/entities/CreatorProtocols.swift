@@ -25,8 +25,8 @@ protocol HudCreator: AnyObject {
 protocol PowerUpCreator: AnyObject {
     func createHyperspacePowerUp(level: Int)
     func createHyperspacePowerUp(level: Int, radius: Double)
-    func createPlasmaTorpedoesPowerUp(level: Int)
-    func createPlasmaTorpedoesPowerUp(level: Int, radius: Double)
+    func createTorpedoesPowerUp(level: Int)
+    func createTorpedoesPowerUp(level: Int, radius: Double)
 }
 
 protocol ShipCreator: AnyObject {
@@ -35,5 +35,5 @@ protocol ShipCreator: AnyObject {
 }
 
 protocol TorpedoCreator: AnyObject {
-    func createPlasmaTorpedo(_ gunComponent: GunComponent, _ position: PositionComponent, _ velocity: VelocityComponent)
+    func createTorpedo(_ gunComponent: GunComponent, _ position: PositionComponent, _ velocity: VelocityComponent)
 }

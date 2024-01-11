@@ -13,8 +13,8 @@
 class MockPowerUpCreator: PowerUpCreator {
     var createHyperspacePowerUpCalled = false
     var createHyperspacePowerUpRadiusCalled = false
-    var createPlasmaTorpedoesPowerUpCalled = false
-    var createPlasmaTorpedoesPowerUpRadiusCalled = false
+    var createTorpedoesPowerUpCalled = false
+    var createTorpedoesPowerUpRadiusCalled = false
 
     func createHyperspacePowerUp(level: Int) {
         createHyperspacePowerUpCalled = true
@@ -24,12 +24,12 @@ class MockPowerUpCreator: PowerUpCreator {
         createHyperspacePowerUpRadiusCalled = true
     }
 
-    func createPlasmaTorpedoesPowerUp(level: Int) {
-        createPlasmaTorpedoesPowerUpCalled = true
+    func createTorpedoesPowerUp(level: Int) {
+        createTorpedoesPowerUpCalled = true
     }
 
-    func createPlasmaTorpedoesPowerUp(level: Int, radius: Double) {
-        createPlasmaTorpedoesPowerUpRadiusCalled = true
+    func createTorpedoesPowerUp(level: Int, radius: Double) {
+        createTorpedoesPowerUpRadiusCalled = true
     }
 }
 

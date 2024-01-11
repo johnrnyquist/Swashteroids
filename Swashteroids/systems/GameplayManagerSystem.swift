@@ -140,7 +140,7 @@ class GameplayManagerSystem: System {
 
     /// Create power-ups
     func createPowerUps(level: Int) {
-        creator.createPlasmaTorpedoesPowerUp(level: level)
+        creator.createTorpedoesPowerUp(level: level)
         creator.createHyperspacePowerUp(level: level)
     }
 

@@ -91,7 +91,7 @@ class FiringSystemTests: XCTestCase {
         var createPlasmaTorpedoesPowerUpCalled = false
         var createPlasmaTorpedoesPowerUpRadiusCalled = false
 
-        func createPlasmaTorpedo(_ gunComponent: GunComponent, _ parentPosition: PositionComponent, _ parentVelocity: VelocityComponent) {
+        func createTorpedo(_ gunComponent: GunComponent, _ parentPosition: PositionComponent, _ parentVelocity: VelocityComponent) {
             fired = true
         }
 
@@ -103,11 +103,11 @@ class FiringSystemTests: XCTestCase {
             createHyperspacePowerUpRadiusCalled = true
         }
 
-        func createPlasmaTorpedoesPowerUp(level: Int) {
+        func createTorpedoesPowerUp(level: Int) {
             createPlasmaTorpedoesPowerUpCalled = true
         }
 
-        func createPlasmaTorpedoesPowerUp(level: Int, radius: Double) {
+        func createTorpedoesPowerUp(level: Int, radius: Double) {
             createPlasmaTorpedoesPowerUpRadiusCalled = true
         }
     }

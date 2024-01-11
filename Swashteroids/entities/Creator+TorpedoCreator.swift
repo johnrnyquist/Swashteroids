@@ -12,7 +12,7 @@ import Swash
 import SpriteKit
 
 extension Creator: TorpedoCreator {
-    func createPlasmaTorpedo(_ gunComponent: GunComponent, _ position: PositionComponent, _ velocity: VelocityComponent) {
+    func createTorpedo(_ gunComponent: GunComponent, _ position: PositionComponent, _ velocity: VelocityComponent) {
         let cos = cos(position.rotationRadians)
         let sin = sin(position.rotationRadians)
         let sprite = SwashSpriteNode(texture: createTorpedoTexture(color: gunComponent.torpedoColor))

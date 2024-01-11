@@ -287,11 +287,11 @@ final class GameplayManagerSystemTests: XCTestCase {
         func createHyperspacePowerUp(level: Int, radius: Double) {
         }
 
-        func createPlasmaTorpedoesPowerUp(level: Int) {
+        func createTorpedoesPowerUp(level: Int) {
             createPlasmaTorpedoesPowerUpLevelCalled = true
         }
 
-        func createPlasmaTorpedoesPowerUp(level: Int, radius: Double) {
+        func createTorpedoesPowerUp(level: Int, radius: Double) {
         }
 
         func createShip(_ state: AppStateComponent) {
@@ -304,7 +304,7 @@ final class GameplayManagerSystemTests: XCTestCase {
             createAsteroidCalled += 1
         }
 
-        func createPlasmaTorpedo(_ gunComponent: GunComponent, _ parentPosition: PositionComponent, _ parentVelocity: VelocityComponent) {
+        func createTorpedo(_ gunComponent: GunComponent, _ parentPosition: PositionComponent, _ parentVelocity: VelocityComponent) {
         }
     }
 }

@@ -19,6 +19,7 @@ final class AppStateComponent: Component {
     var nextShipScore = 10_000
     var level: Int {
         didSet {
+            guard level > 1 else { return }
             score += levelBonus
         }
     }
