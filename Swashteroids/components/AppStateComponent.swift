@@ -34,12 +34,12 @@ final class AppStateComponent: Component {
     var appState: AppState
     var shipControlsState: ShipControlsState
     var alienAppearanceRate: TimeInterval = 0.0
-    var alienAppearanceRateDefault: TimeInterval {
-        5.0
-    }
 //    var alienAppearanceRateDefault: TimeInterval {
-//        Double.random(in: 15.0...90.0)
+//        5.0
 //    }
+    var alienAppearanceRateDefault: TimeInterval {
+        Double.random(in: 15.0...90.0)
+    }
 
     init(size: CGSize,
          numShips: Int,
