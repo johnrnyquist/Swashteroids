@@ -14,20 +14,17 @@ import XCTest
 
 class HudSystemTests: XCTestCase {
     var system: HudSystem!
+    var creator: PowerUpCreator!
 
     override func setUpWithError() throws {
-        system = HudSystem()
+        creator = MockPowerUpCreator()
+        system = HudSystem(creator: creator)
     }
 
     override func tearDownWithError() throws {
         system = nil
     }
-
-    func test_Init() throws {
-        XCTAssertTrue(system.nodeClass == HudNode.self)
-        XCTAssertNotNil(system.nodeUpdateFunction)
-    }
-
+    
     func test_UpdateNode() throws {
         let hudNode = HudNode()
         let hudComponent = HudComponent(hudView: HudView(gameSize: .zero))
@@ -44,4 +41,6 @@ class HudSystemTests: XCTestCase {
         XCTAssertEqual(hudComponent.hudView.getLevelText(), "LEVEL: 2")
         XCTAssertEqual(hudComponent.hudView.getScoreText(), "SCORE: 3")
     }
+
 }
+

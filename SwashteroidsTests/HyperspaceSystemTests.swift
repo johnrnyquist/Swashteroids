@@ -14,9 +14,13 @@ import XCTest
 
 final class HyperspaceSystemTests: XCTestCase {
     var system: HyperspaceJumpSystem!
-
+    var engine: Engine!
+    var creator: PowerUpCreator!
+    
     override func setUpWithError() throws {
-        system = HyperspaceJumpSystem()
+        engine = Engine()
+        creator = MockPowerUpCreator()
+        system = HyperspaceJumpSystem(engine: engine, creator: creator)
     }
     
     override func tearDownWithError() throws {
@@ -32,7 +36,7 @@ final class HyperspaceSystemTests: XCTestCase {
         let entity = Entity()
         let node = HyperspaceJumpNode()
         node.entity = entity
-        let hyperEngine = HyperspaceDriveComponent()
+        let hyperEngine = HyperspaceDriveComponent(jumps: 20)
         let hyperJump = DoHyperspaceJumpComponent(size: .zero)
         let position = PositionComponent(x: 0, y: 0, z: .ship)
         let display = DisplayComponent(sknode: SwashSpriteNode())

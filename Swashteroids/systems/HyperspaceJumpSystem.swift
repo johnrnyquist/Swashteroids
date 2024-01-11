@@ -48,33 +48,3 @@ final class HyperspaceJumpSystem: ListIteratingSystem {
         }
     }
 }
-//
-//final class HyperspaceSystem: System {
-//    var engine: Engine?
-//    private weak var hudNodes: NodeList?
-//    private weak var hyperspaceNodes: NodeList?
-//    private weak var creator: PowerUpCreator?
-//
-//    override public func addToEngine(engine: Engine) {
-//        self.engine = engine
-//        hyperspaceNodes = engine.getNodeList(nodeClassType: HyperspaceNode.self)
-//        hudNodes = engine.getNodeList(nodeClassType: HudNode.self)
-//    }
-//
-//    init(creator: PowerUpCreator) {
-//        self.creator = creator
-//    }
-//
-//    override func update(time: TimeInterval) {
-//        guard let node = hyperspaceNodes?.head,
-//              let hyperspaceEngine = node[HyperspaceDriveComponent.self],
-//              let hudNode = hudNodes?.head
-//        else { return }
-//        if hyperspaceEngine.jumps == 0,
-//           let entity = node.entity {
-//            engine?.remove(entity: entity)
-//        }
-//    }
-//}
-//
-

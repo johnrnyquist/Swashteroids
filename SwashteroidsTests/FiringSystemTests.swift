@@ -34,13 +34,13 @@ class FiringSystemTests: XCTestCase {
         //
         let motion = VelocityComponent(velocityX: 0, velocityY: 0, base: 60.0)
         let position = PositionComponent(x: 0, y: 0, z: .ship)
-        let gun = GunComponent(offsetX: <#T##Double##Swift.Double#>,
-                               offsetY: <#T##Double##Swift.Double#>,
-                               minimumShotInterval: <#T##TimeInterval##Foundation.TimeInterval#>,
-                               torpedoLifetime: <#T##TimeInterval##Foundation.TimeInterval#>,
+        let gun = GunComponent(offsetX: 0,
+                               offsetY: 0,
+                               minimumShotInterval: minimumShotInterval,
+                               torpedoLifetime: 0,
                                torpedoColor: .torpedo,
-                               ownerType: <#T##OwnerType##Swashteroids.OwnerType#>,
-                               ammo: <#T##Int##Swift.Int#>)
+                               ownerType: .player,
+                               ammo: 20)
         let fireDown = FireDownComponent.shared
         //
         let entity = Entity()
@@ -62,13 +62,13 @@ class FiringSystemTests: XCTestCase {
         //
         let motion = VelocityComponent(velocityX: 0, velocityY: 0, base: 60.0)
         let position = PositionComponent(x: 0, y: 0, z: .ship)
-        let gun = GunComponent(offsetX: <#T##Double##Swift.Double#>,
-                               offsetY: <#T##Double##Swift.Double#>,
-                               minimumShotInterval: <#T##TimeInterval##Foundation.TimeInterval#>,
-                               torpedoLifetime: <#T##TimeInterval##Foundation.TimeInterval#>,
+        let gun = GunComponent(offsetX: 0,
+                               offsetY: 0,
+                               minimumShotInterval: minimumShotInterval,
+                               torpedoLifetime: 0,
                                torpedoColor: .torpedo,
-                               ownerType: <#T##OwnerType##Swashteroids.OwnerType#>,
-                               ammo: <#T##Int##Swift.Int#>)
+                               ownerType: .player,
+                               ammo: 20)
         let fireDown = FireDownComponent.shared
         let initialTimeSinceLastShot = gun.timeSinceLastShot
         //
@@ -84,11 +84,31 @@ class FiringSystemTests: XCTestCase {
         XCTAssertEqual(gun.timeSinceLastShot, time + initialTimeSinceLastShot)
     }
 
-    class MockTorpedoCreator: TorpedoCreator {
+    class MockTorpedoCreator: TorpedoCreator & PowerUpCreator {
         var fired = false
+        var createHyperspacePowerUpCalled = false
+        var createHyperspacePowerUpRadiusCalled = false
+        var createPlasmaTorpedoesPowerUpCalled = false
+        var createPlasmaTorpedoesPowerUpRadiusCalled = false
 
         func createPlasmaTorpedo(_ gunComponent: GunComponent, _ parentPosition: PositionComponent, _ parentVelocity: VelocityComponent) {
             fired = true
+        }
+
+        func createHyperspacePowerUp(level: Int) {
+            createHyperspacePowerUpCalled = true
+        }
+
+        func createHyperspacePowerUp(level: Int, radius: Double) {
+            createHyperspacePowerUpRadiusCalled = true
+        }
+
+        func createPlasmaTorpedoesPowerUp(level: Int) {
+            createPlasmaTorpedoesPowerUpCalled = true
+        }
+
+        func createPlasmaTorpedoesPowerUp(level: Int, radius: Double) {
+            createPlasmaTorpedoesPowerUpRadiusCalled = true
         }
     }
 }

@@ -304,8 +304,42 @@ class CollisionSystemTests: XCTestCase {
         }
     }
 
-    class MockAsteroidCreator: AsteroidCreator & ShipCreator {
+    class MockAsteroidCreator: AsteroidCreator & ShipCreator & ShipButtonControlsManager {
+        //MARK: - ShipButtonControlsManager
+        var removeShipControlButtonsCalled = false
+        var createShipControlButtonsCalled = false
+        var enableShipControlButtonsCalled = false
+        var showFireButtonCalled = false
+        var showHyperspaceButtonCalled = false
+
+        func removeShipControlButtons() {
+            removeShipControlButtonsCalled = true
+        }
+
+        func createShipControlButtons() {
+            createShipControlButtonsCalled = true
+        }
+
+        func enableShipControlButtons() {
+            enableShipControlButtonsCalled = true
+        }
+
+        func showFireButton() {
+            showFireButtonCalled = true
+        }
+
+        func showHyperspaceButton() {
+            showHyperspaceButtonCalled = true
+        }
+
+        //MARK: - AsteroidCreator
         var createAsteroidCalled = 0
+
+        func createAsteroid(radius: Double, x: Double, y: Double, level: Int) {
+            createAsteroidCalled += 1
+        }
+
+        //MARK: ShipCreator
         var createShipCalled = false
         var removeShipCalled = false
 
@@ -315,10 +349,6 @@ class CollisionSystemTests: XCTestCase {
 
         func destroy(ship: Entity) {
             removeShipCalled = true
-        }
-
-        func createAsteroid(radius: Double, x: Double, y: Double, level: Int) {
-            createAsteroidCalled += 1
         }
     }
 

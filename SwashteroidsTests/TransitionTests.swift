@@ -134,18 +134,16 @@ final class TransitionTests: XCTestCase {
     }
 
     class MockCreator: HudCreator, ToggleShipControlsManager, ShipQuadrantsControlsManager, ShipButtonControlsManager {
+        //MARK: - HudCreator
         var createHudCalled = false
-        var createToggleButtonCalled = false
-        var removeToggleButtonCalled = false
-        var createShipControlQuadrantsCalled = false
-        var removeShipControlQuadrantsCalled = false
-        var enableShipControlButtonsCalled = false
-        var removeShipControlButtonsCalled = false
-        var createShipControlButtonsCalled = false
 
         func createHud(gameState: AppStateComponent) {
             createHudCalled = true
         }
+
+        //MARK: - ToggleShipControlsManager
+        var createToggleButtonCalled = false
+        var removeToggleButtonCalled = false
 
         func createToggleButton(_ state: Toggle) {
             createToggleButtonCalled = true
@@ -155,12 +153,31 @@ final class TransitionTests: XCTestCase {
             removeToggleButtonCalled = true
         }
 
+        //MARK: - ShipQuadrantsControlsManager
+        var createShipControlQuadrantsCalled = false
+        var removeShipControlQuadrantsCalled = false
+
         func createShipControlQuadrants() {
             createShipControlQuadrantsCalled = true
         }
 
         func removeShipControlQuadrants() {
             removeShipControlQuadrantsCalled = true
+        }
+
+        //MARK: - ShipButtonControlsManager
+        var createShipControlButtonsCalled = false
+        var enableShipControlButtonsCalled = false
+        var removeShipControlButtonsCalled = false
+        var showFireButtonCalled = false
+        var showHyperspaceButtonCalled = false
+
+        func showFireButton() {
+            showFireButtonCalled = true
+        }
+
+        func showHyperspaceButton() {
+            showHyperspaceButtonCalled = true
         }
 
         func enableShipControlButtons() {

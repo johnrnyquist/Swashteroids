@@ -77,13 +77,13 @@ final class ShipControlsSystemTests: XCTestCase {
         //TODO: do_toggleButtons requires the ShipEntity type as it uses engine.ship. 
         let ship = Entity(named: .ship)
                 .add(component: AccelerometerComponent())
-                .add(component: GunComponent(offsetX: <#T##Double##Swift.Double#>,
-                                             offsetY: <#T##Double##Swift.Double#>,
-                                             minimumShotInterval: <#T##TimeInterval##Foundation.TimeInterval#>,
-                                             torpedoLifetime: <#T##TimeInterval##Foundation.TimeInterval#>,
+                .add(component: GunComponent(offsetX: 0,
+                                             offsetY: 0,
+                                             minimumShotInterval: 0,
+                                             torpedoLifetime: 0,
                                              torpedoColor: .torpedo,
-                                             ownerType: <#T##OwnerType##Swashteroids.OwnerType#>,
-                                             ammo: <#T##Int##Swift.Int#>))
+                                             ownerType: .player,
+                                             ammo: 20))
         try? engine.add(entity: ship)
         let fireButton = Entity(named: .fireButton)
                 .add(component: DisplayComponent(sknode: SwashSpriteNode()))
@@ -105,7 +105,7 @@ final class ShipControlsSystemTests: XCTestCase {
         //TODO: do_toggleButtons requires the ShipEntity type as it uses engine.ship. 
         let ship = Entity(named: .ship)
                 .add(component: AccelerometerComponent())
-                .add(component: HyperspaceDriveComponent())
+                .add(component: HyperspaceDriveComponent(jumps: 20))
         try? engine.add(entity: ship)
         let hyperspaceButton = Entity(named: .hyperspaceButton)
                 .add(component: DisplayComponent(sknode: SwashSpriteNode()))
@@ -125,14 +125,14 @@ final class ShipControlsSystemTests: XCTestCase {
         engine.add(system: system, priority: 1)
         let ship = Entity()
                 .add(component: AccelerometerComponent())
-                .add(component: GunComponent(offsetX: <#T##Double##Swift.Double#>,
-                                             offsetY: <#T##Double##Swift.Double#>,
-                                             minimumShotInterval: <#T##TimeInterval##Foundation.TimeInterval#>,
-                                             torpedoLifetime: <#T##TimeInterval##Foundation.TimeInterval#>,
+                .add(component: GunComponent(offsetX: 0,
+                                             offsetY: 0,
+                                             minimumShotInterval: 0,
+                                             torpedoLifetime: 0,
                                              torpedoColor: .torpedo,
-                                             ownerType: <#T##OwnerType##Swashteroids.OwnerType#>,
-                                             ammo: <#T##Int##Swift.Int#>))
-                .add(component: HyperspaceDriveComponent())
+                                             ownerType: .player,
+                                             ammo: 20))
+                .add(component: HyperspaceDriveComponent(jumps: 20))
         try? engine.add(entity: ship)
         //                
         system.do_toggleButtons(.hidingButtons)
@@ -140,17 +140,13 @@ final class ShipControlsSystemTests: XCTestCase {
         XCTAssertTrue(creator.removeShipControlButtonsCalled)
         XCTAssertTrue(creator.removeToggleButtonCalled)
         XCTAssertTrue(creator.createToggleButtonCalled)
-        XCTAssertTrue(ship.has(componentClassName: AccelerometerComponent.name))    
+        XCTAssertTrue(ship.has(componentClassName: AccelerometerComponent.name))
     }
 
     class MockCreator: ShipQuadrantsControlsManager, ShipButtonControlsManager, ToggleShipControlsManager {
-        var removeShipControlQuadrantsCalled = false
+        //MARK: - ShipQuadrantsControlsManager
         var createShipControlQuadrantsCalled = false
-        var removeShipControlButtonsCalled = false
-        var createShipControlButtonsCalled = false
-        var enableShipControlButtonsCalled = false
-        var removeToggleButtonCalled = false
-        var createToggleButtonCalled = false
+        var removeShipControlQuadrantsCalled = false
 
         func removeShipControlQuadrants() {
             removeShipControlQuadrantsCalled = true
@@ -158,6 +154,21 @@ final class ShipControlsSystemTests: XCTestCase {
 
         func createShipControlQuadrants() {
             createShipControlQuadrantsCalled = true
+        }
+
+        //MARK: - ShipButtonControlsManager
+        var createShipControlButtonsCalled = false
+        var enableShipControlButtonsCalled = false
+        var removeShipControlButtonsCalled = false
+        var showFireButtonCalled = false
+        var showHyperspaceButtonCalled = false
+
+        func showFireButton() {
+            showFireButtonCalled = true
+        }
+
+        func showHyperspaceButton() {
+            showHyperspaceButtonCalled = true
         }
 
         func removeShipControlButtons() {
@@ -171,6 +182,10 @@ final class ShipControlsSystemTests: XCTestCase {
         func enableShipControlButtons() {
             enableShipControlButtonsCalled = true
         }
+
+        //MARK: - ToggleShipControlsManager
+        var createToggleButtonCalled = false
+        var removeToggleButtonCalled = false
 
         func removeToggleButton() {
             removeToggleButtonCalled = true
