@@ -65,8 +65,8 @@ extension Creator: ShipQuadrantsControlsManager {
                     touchDown: { [unowned self] sprite in
                         generator?.impactOccurred()
                         if let ship = self.engine.ship,
-                           ship.has(componentClassName: HyperspaceEngineComponent.name) {
-                            engine.ship?.add(component: HyperspaceJumpComponent(size: size))
+                           ship.has(componentClassName: HyperspaceDriveComponent.name) {
+                            engine.ship?.add(component: DoHyperspaceJumpComponent(size: size))
                         }
                     },
                     touchUp: { _ in },

@@ -10,12 +10,64 @@
 
 import Foundation
 import Swash
+import SpriteKit
 
+final class HudSystem: System {
+    private weak var gunNodes: NodeList?
+    private weak var hudNodes: NodeList?
+    private weak var hyperspaceNodes: NodeList?
+    private weak var engine: Engine?
+    private weak var creator: PowerUpCreator?
+    
+    override public func addToEngine(engine: Engine) {
+        self.engine = engine
+        gunNodes = engine.getNodeList(nodeClassType: GunNode.self)
+        hudNodes = engine.getNodeList(nodeClassType: HudNode.self)
+        hyperspaceNodes = engine.getNodeList(nodeClassType: HyperspaceNode.self)
+    }
 
-final class HudSystem: ListIteratingSystem {
-    init() {
-        super.init(nodeClass: HudNode.self)
-        nodeUpdateFunction = updateNode
+    init(creator: PowerUpCreator) {
+        self.creator = creator
+    }
+
+    override public func update(time: TimeInterval) {
+        guard let hudNode = hudNodes?.head else { return }
+        updateNode(hudNode, time)
+        guard let gunNodes else { return }
+        var gunNode = gunNodes.head
+        while let currentGunNode = gunNode {
+            updateForGunNode(currentGunNode[GunComponent.self], gunNode?.entity, hudNode)
+            gunNode = currentGunNode.next
+        }
+        guard let hyperspaceNode = hyperspaceNodes?.head else { return } 
+        updateForHyperspaceNode(hyperspaceNode[HyperspaceDriveComponent.self], hudNode)
+    }
+    
+    func updateForHyperspaceNode(_ hyperspaceComponent: HyperspaceDriveComponent?, _ hudNode: Node?) {
+        if let hyperspaceComponent {
+            hudNode?[HudComponent.self]?.hudView.setJumps(hyperspaceComponent.jumps)
+            if hyperspaceComponent.jumps == 0 {
+                hyperspaceNodes?.head?.entity?.remove(componentClass: HyperspaceDriveComponent.self)
+                creator?.createHyperspacePowerUp(level: 1) //TODO: get real level
+                if let hyperspaceButton = engine?.getEntity(named: .hyperspaceButton) {
+                    engine?.remove(entity: hyperspaceButton)
+                }
+            }
+        }
+    }
+
+    func updateForGunNode(_ gunComponent: GunComponent?, _ shipEntity: Entity?, _ hudNode: Node?) {
+        if let gunComponent,
+           gunComponent.ownerType == .player {
+            hudNode?[HudComponent.self]?.hudView.setAmmo(gunComponent.ammo)
+            if gunComponent.ammo == 0 {
+                shipEntity?.remove(componentClass: GunComponent.self)
+                creator?.createPlasmaTorpedoesPowerUp(level: 1) //TODO: get real level 
+                if let fireButton = engine?.getEntity(named: .fireButton) {
+                    engine?.remove(entity: fireButton)
+                }
+            }
+        }
     }
 
     func updateNode(_ hudNode: Node, _ time: TimeInterval) {

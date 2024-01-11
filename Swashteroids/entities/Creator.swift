@@ -25,6 +25,8 @@ class Creator {
     var buttonPaddingLeft = 30.0
     var buttonPaddingRight = 30.0
     var firstRowButtonPaddingY = 30.0
+    var fireButtonEntity: Entity? //HACK
+    var hyperspaceButtonEntity: Entity? //HACK
 
     init(engine: Engine,
          size: CGSize, generator: UIImpactFeedbackGenerator? = nil,

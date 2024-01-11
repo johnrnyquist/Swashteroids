@@ -17,7 +17,8 @@ extension Creator: ShipButtonControlsManager {
         engine.removeEntities(named: shipControls)
     }
 
-    func createButtonEntity(sprite button: SwashSpriteNode, color: UIColor, position: CGPoint, name: EntityName) {
+    @discardableResult
+    func createButtonEntity(sprite button: SwashSpriteNode, color: UIColor, position: CGPoint, name: EntityName) -> Entity {
         button.color = color
         button.colorBlendFactor = 1.0
         button.alpha = 0.2
@@ -26,6 +27,19 @@ extension Creator: ShipButtonControlsManager {
                 .add(component: DisplayComponent(sknode: button))
         button.entity = buttonEntity
         engine.replace(entity: buttonEntity)
+        return buttonEntity
+    }
+
+    func showFireButton() {
+        if let fireButtonEntity {
+            engine.replace(entity: fireButtonEntity)
+        }
+    }
+
+    func showHyperspaceButton() {
+        if let hyperspaceButtonEntity {
+            engine.replace(entity: hyperspaceButtonEntity)
+        }
     }
 
     func createShipControlButtons() {
@@ -51,7 +65,11 @@ extension Creator: ShipButtonControlsManager {
         let fireButton = SwashSpriteNode(imageNamed: .fireButton)
         let fireX = -thrustButton.size.width - buttonPadding + thrustX
         let fireY = leftY
-        createButtonEntity(sprite: fireButton, color: .fireButton, position: CGPoint(x: fireX, y: fireY), name: .fireButton)
+        // I'm storing the fire button so it can be added and removed from the engine without re-creating.
+        fireButtonEntity = createButtonEntity(sprite: fireButton,
+                                              color: .fireButton,
+                                              position: CGPoint(x: fireX, y: fireY),
+                                              name: .fireButton)
         // flip
         let flipButton = SwashSpriteNode(imageNamed: .flipButton)
         let flipX = leftX
@@ -61,10 +79,11 @@ extension Creator: ShipButtonControlsManager {
         let hyperspaceButton = SwashSpriteNode(imageNamed: .hyperspaceButton)
         let hyperspaceX = thrustX
         let hyperspaceY = flipY
-        createButtonEntity(sprite: hyperspaceButton,
-                           color: .hyperspaceButton,
-                           position: CGPoint(x: hyperspaceX, y: hyperspaceY),
-                           name: .hyperspaceButton)
+        // I'm storing the fire button so it can be added and removed from the engine without re-creating.
+        hyperspaceButtonEntity = createButtonEntity(sprite: hyperspaceButton,
+                                                    color: .hyperspaceButton,
+                                                    position: CGPoint(x: hyperspaceX, y: hyperspaceY),
+                                                    name: .hyperspaceButton)
     }
 
     func enableShipControlButtons() {
@@ -98,7 +117,7 @@ extension Creator: ShipButtonControlsManager {
                       touchDown: { [unowned self] sprite in
                           sprite.alpha = 0.6
                           generator?.impactOccurred()
-                          engine.ship?.add(component: HyperspaceJumpComponent(size: size))
+                          engine.ship?.add(component: DoHyperspaceJumpComponent(size: size))
                       },
                       touchUp: { sprite in sprite.alpha = 0.2 },
                       touchUpOutside: { sprite in sprite.alpha = 0.2 },

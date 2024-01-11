@@ -13,21 +13,23 @@ import Swash
 import SpriteKit
 
 final class FiringSystem: System {
-    private weak var creator: TorpedoCreator?
-    private weak var gunControlNodes: NodeList?
+    private weak var creator: (TorpedoCreator & PowerUpCreator)?
+    private weak var firingNodes: NodeList?
+    private weak var hudNodes: NodeList?
     private weak var engine: Engine?
 
-    init(creator: TorpedoCreator) {
+    init(creator: TorpedoCreator & PowerUpCreator) {
         self.creator = creator
     }
 
     override public func addToEngine(engine: Engine) {
         self.engine = engine
-        gunControlNodes = engine.getNodeList(nodeClassType: GunControlNode.self)
+        firingNodes = engine.getNodeList(nodeClassType: FiringNode.self)
+        hudNodes = engine.getNodeList(nodeClassType: HudNode.self)
     }
 
     override public func update(time: TimeInterval) {
-        var node = gunControlNodes?.head
+        var node = firingNodes?.head
         while let currentNode = node {
             updateNode(node: currentNode, time: time)
             node = currentNode.next
@@ -44,7 +46,7 @@ final class FiringSystem: System {
             let pos = PositionComponent(x: position.x, y: position.y, z: .asteroids, rotationDegrees: position.rotationDegrees)
             creator?.createPlasmaTorpedo(gun, pos, velocity)
             gun.timeSinceLastShot = 0
+            gun.ammo -= 1
         }
     }
 }
-

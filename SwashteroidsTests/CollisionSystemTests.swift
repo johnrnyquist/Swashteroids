@@ -196,7 +196,7 @@ class CollisionSystemTests: XCTestCase {
             shipCollisionNode.components[component.key] = component.value
         }
         shipCollisionNode.entity = shipEntity
-        let torpedoPowerUpNode = GunSupplierNode()
+        let torpedoPowerUpNode = GunPowerUpNode()
         for component in torpedoPowerUpEntity.componentClassNameInstanceMap {
             torpedoPowerUpNode.components[component.key] = component.value
         }
@@ -229,7 +229,7 @@ class CollisionSystemTests: XCTestCase {
         system.shipHyperspacePowerUpCollisionCheck(shipCollisionNode: shipCollisionNode,
                                                    hyperspacePowerUpNode: hyperspacePowerUp)
         //
-        XCTAssertTrue(shipEntity.has(componentClassName: HyperspaceEngineComponent.name))
+        XCTAssertTrue(shipEntity.has(componentClassName: HyperspaceDriveComponent.name))
         XCTAssertTrue(shipEntity.has(componentClassName: AudioComponent.name))
         XCTAssertNil(engine.getEntity(named: .hyperspacePowerUp))
     }
@@ -239,7 +239,7 @@ class CollisionSystemTests: XCTestCase {
                                          size: .zero,
                                          scaleManager: MockScaleManager())
         engine.add(system: system, priority: 1)
-        let torpedoNode = GunSupplierNode()
+        let torpedoNode = GunPowerUpNode()
         for component in torpedoEntity.componentClassNameInstanceMap {
             torpedoNode.components[component.key] = component.value
         }

@@ -83,14 +83,15 @@ final class Swashteroids: NSObject {
                 .add(system: CollisionSystem(creator: creator, size: size), priority: .resolveCollisions)
                 // animate
                 .add(system: AnimationSystem(), priority: .animate)
-                .add(system: HudSystem(), priority: .animate)
                 // update
                 .add(system: AlienSystem(), priority: .update)
                 .add(system: TorpedoAgeSystem(), priority: .update)
                 .add(system: DeathThroesSystem(), priority: .update)
                 .add(system: FiringSystem(creator: creator), priority: .update)
-                .add(system: HyperspaceSystem(), priority: .update)
+                .add(system: HyperspaceJumpSystem(engine: engine, creator: creator), priority: .update)
+//                .add(system: HyperspaceSystem(engine: engine), priority: .update)
                 .add(system: NacellesSystem(), priority: .update)
+                .add(system: HudSystem(creator: creator), priority: .update)
                 // render
                 .add(system: AudioSystem(soundPlayer: soundPlayer), priority: .render)
                 .add(system: RepeatingAudioSystem(), priority: .render)

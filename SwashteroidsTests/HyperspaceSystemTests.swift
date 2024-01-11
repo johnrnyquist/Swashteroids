@@ -13,10 +13,10 @@ import XCTest
 @testable import Swashteroids
 
 final class HyperspaceSystemTests: XCTestCase {
-    var system: HyperspaceSystem!
+    var system: HyperspaceJumpSystem!
 
     override func setUpWithError() throws {
-        system = HyperspaceSystem()
+        system = HyperspaceJumpSystem()
     }
     
     override func tearDownWithError() throws {
@@ -24,24 +24,24 @@ final class HyperspaceSystemTests: XCTestCase {
     }
 
     func test_Init() throws {
-        XCTAssertTrue(system.nodeClass == HyperspaceNode.self)
+        XCTAssertTrue(system.nodeClass == HyperspaceJumpNode.self)
         XCTAssertNotNil(system.nodeUpdateFunction)
     }
 
     func test_UpdateNode() throws {
         let entity = Entity()
-        let node = HyperspaceNode()
+        let node = HyperspaceJumpNode()
         node.entity = entity
-        let hyperEngine = HyperspaceEngineComponent()
-        let hyperJump = HyperspaceJumpComponent(size: .zero)
+        let hyperEngine = HyperspaceDriveComponent()
+        let hyperJump = DoHyperspaceJumpComponent(size: .zero)
         let position = PositionComponent(x: 0, y: 0, z: .ship)
         let display = DisplayComponent(sknode: SwashSpriteNode())
         entity.add(component: hyperEngine)
         entity.add(component: hyperJump)
         entity.add(component: position)
         entity.add(component: display)
-        node.components[HyperspaceEngineComponent.name] = hyperEngine
-        node.components[HyperspaceJumpComponent.name] = hyperJump
+        node.components[HyperspaceDriveComponent.name] = hyperEngine
+        node.components[DoHyperspaceJumpComponent.name] = hyperJump
         node.components[PositionComponent.name] = position
         node.components[DisplayComponent.name] = display
         if system.nodeUpdateFunction == nil {
@@ -51,7 +51,7 @@ final class HyperspaceSystemTests: XCTestCase {
         }
         XCTAssertEqual(position.x, hyperJump.x)
         XCTAssertEqual(position.y, hyperJump.y)
-        XCTAssertFalse(entity.has(componentClassName: HyperspaceJumpComponent.name))
+        XCTAssertFalse(entity.has(componentClassName: DoHyperspaceJumpComponent.name))
         XCTAssertTrue(entity.has(componentClassName: AudioComponent.name))
     }
 }

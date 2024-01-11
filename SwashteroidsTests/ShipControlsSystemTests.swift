@@ -77,7 +77,13 @@ final class ShipControlsSystemTests: XCTestCase {
         //TODO: do_toggleButtons requires the ShipEntity type as it uses engine.ship. 
         let ship = Entity(named: .ship)
                 .add(component: AccelerometerComponent())
-                .add(component: GunComponent(offsetX: 0, offsetY: 0, minimumShotInterval: 0, torpedoLifetime: 0))
+                .add(component: GunComponent(offsetX: <#T##Double##Swift.Double#>,
+                                             offsetY: <#T##Double##Swift.Double#>,
+                                             minimumShotInterval: <#T##TimeInterval##Foundation.TimeInterval#>,
+                                             torpedoLifetime: <#T##TimeInterval##Foundation.TimeInterval#>,
+                                             torpedoColor: .torpedo,
+                                             ownerType: <#T##OwnerType##Swashteroids.OwnerType#>,
+                                             ammo: <#T##Int##Swift.Int#>))
         try? engine.add(entity: ship)
         let fireButton = Entity(named: .fireButton)
                 .add(component: DisplayComponent(sknode: SwashSpriteNode()))
@@ -99,7 +105,7 @@ final class ShipControlsSystemTests: XCTestCase {
         //TODO: do_toggleButtons requires the ShipEntity type as it uses engine.ship. 
         let ship = Entity(named: .ship)
                 .add(component: AccelerometerComponent())
-                .add(component: HyperspaceEngineComponent())
+                .add(component: HyperspaceDriveComponent())
         try? engine.add(entity: ship)
         let hyperspaceButton = Entity(named: .hyperspaceButton)
                 .add(component: DisplayComponent(sknode: SwashSpriteNode()))
@@ -119,8 +125,14 @@ final class ShipControlsSystemTests: XCTestCase {
         engine.add(system: system, priority: 1)
         let ship = Entity()
                 .add(component: AccelerometerComponent())
-                .add(component: GunComponent(offsetX: 0, offsetY: 0, minimumShotInterval: 0, torpedoLifetime: 0))
-                .add(component: HyperspaceEngineComponent())
+                .add(component: GunComponent(offsetX: <#T##Double##Swift.Double#>,
+                                             offsetY: <#T##Double##Swift.Double#>,
+                                             minimumShotInterval: <#T##TimeInterval##Foundation.TimeInterval#>,
+                                             torpedoLifetime: <#T##TimeInterval##Foundation.TimeInterval#>,
+                                             torpedoColor: .torpedo,
+                                             ownerType: <#T##OwnerType##Swashteroids.OwnerType#>,
+                                             ammo: <#T##Int##Swift.Int#>))
+                .add(component: HyperspaceDriveComponent())
         try? engine.add(entity: ship)
         //                
         system.do_toggleButtons(.hidingButtons)

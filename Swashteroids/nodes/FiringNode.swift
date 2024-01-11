@@ -10,7 +10,7 @@
 
 import Swash
 
-final class GunControlNode: Node {
+final class FiringNode: Node {
     required init() {
         super.init()
         components = [
@@ -18,6 +18,16 @@ final class GunControlNode: Node {
             PositionComponent.name: nil_component,
             GunComponent.name: nil_component,
             FireDownComponent.name: nil_component
+        ]
+    }
+}
+
+
+final class GunNode: Node {
+    required init() {
+        super.init()
+        components = [
+            GunComponent.name: nil_component,
         ]
     }
 }

@@ -13,7 +13,7 @@ import Swash
 
 /// This class is an argument for switching to the SpriteKit physics engine.
 class CollisionSystem: System {
-    private weak var creator: (AsteroidCreator & ShipCreator)!
+    private weak var creator: (AsteroidCreator & ShipCreator & ShipButtonControlsManager)!
     private weak var appStateNodes: NodeList!
     private weak var ships: NodeList!
     private weak var aliens: NodeList!
@@ -25,7 +25,7 @@ class CollisionSystem: System {
     private var size: CGSize
     let scaleManager: ScaleManaging
 
-    init(creator: AsteroidCreator & ShipCreator, size: CGSize, scaleManager: ScaleManaging = ScaleManager.shared) {
+    init(creator: AsteroidCreator & ShipCreator & ShipButtonControlsManager, size: CGSize, scaleManager: ScaleManaging = ScaleManager.shared) {
         self.creator = creator
         self.size = size
         self.scaleManager = scaleManager
@@ -38,7 +38,7 @@ class CollisionSystem: System {
         aliens = engine.getNodeList(nodeClassType: AlienCollisionNode.self)
         asteroids = engine.getNodeList(nodeClassType: AsteroidCollisionNode.self)
         torpedoes = engine.getNodeList(nodeClassType: TorpedoCollisionNode.self)
-        torpedoPowerUp = engine.getNodeList(nodeClassType: GunSupplierNode.self)
+        torpedoPowerUp = engine.getNodeList(nodeClassType: GunPowerUpNode.self)
         hyperspacePowerUp = engine.getNodeList(nodeClassType: HyperspacePowerUpNode.self)
     }
 
@@ -52,11 +52,11 @@ class CollisionSystem: System {
             torpedoVehicleCollisionCheck(torpedoCollisionNode: torpedoes.head, vehicleCollisionNode: vehicle)
             vehicleAsteroidCollisionCheck(node: vehicle, asteroidCollisionNode: asteroids.head)
         }
-        shipShipCollisionCheck(ships.head, aliens.head)
+        shipAlienCollisionCheck(ships.head, aliens.head)
     }
 
     /// Assuming at most one of each... for now.
-    func shipShipCollisionCheck(_ ship: Node?, _ alien: Node?) {
+    func shipAlienCollisionCheck(_ ship: Node?, _ alien: Node?) {
         guard let ship,
               let alien
         else { return }
@@ -122,17 +122,22 @@ class CollisionSystem: System {
                 engine.remove(entity: currentPowerUp.entity!)
                 torpedoPowerUpNode = currentPowerUp.next
                 shipCollisionNode?.entity?
-                                  .add(component: GunComponent(offsetX: 21, offsetY: 0,
+                                  .add(component: GunComponent(offsetX: 21,
+                                                               offsetY: 0,
                                                                minimumShotInterval: 0.25,
-                                                               torpedoLifetime: 2))
+                                                               torpedoLifetime: 2,
+                                                               torpedoColor: .torpedo,
+                                                               ownerType: .player,
+                                                               ammo: 20))
                 shipCollisionNode?.entity?
                                   .add(component: AudioComponent(fileNamed: .powerUp,
                                                                  actionKey: "powerup.wav"))
                 //HACK for immediate gratification
+                creator.showFireButton()
                 let fadeIn = SKAction.fadeAlpha(to: 1.0, duration: 0.2)
                 let fadeOut = SKAction.fadeAlpha(to: 0.2, duration: 0.2)
                 let seq = SKAction.sequence([fadeIn, fadeOut])
-                let sprite = (engine.getEntity(named: .fireButton)?[DisplayComponent.name] as? DisplayComponent)?.sprite
+                let sprite = engine.getEntity(named: .fireButton)?[DisplayComponent.self]?.sprite
                 sprite?.run(seq)
                 //END_HACK
             }
@@ -154,11 +159,12 @@ class CollisionSystem: System {
                 engine.remove(entity: currentPowerUp.entity!)
                 hyperspacePowerUpNode = currentPowerUp.next
                 shipCollisionNode?.entity?
-                                  .add(component: HyperspaceEngineComponent())
+                                  .add(component: HyperspaceDriveComponent(jumps: 20))
                 shipCollisionNode?.entity?
                                   .add(component: AudioComponent(fileNamed: .powerUp,
                                                                  actionKey: "powerup.wav"))
                 //HACK for immediate gratification
+                creator.showHyperspaceButton()
                 let fadeIn = SKAction.fadeAlpha(to: 1.0, duration: 0.2)
                 let fadeOut = SKAction.fadeAlpha(to: 0.2, duration: 0.2)
                 let seq = SKAction.sequence([fadeIn, fadeOut])

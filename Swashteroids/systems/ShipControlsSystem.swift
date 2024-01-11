@@ -50,7 +50,7 @@ class ShipControlsSystem: ListIteratingSystem {
                     }
                 }
                 if let ship = engine.ship,
-                   ship.has(componentClassName: HyperspaceEngineComponent.name) {
+                   ship.has(componentClassName: HyperspaceDriveComponent.name) {
                     if let hyperspaceButton = engine.getEntity(named: .hyperspaceButton),
                        let sprite = hyperspaceButton.sprite {
                         sprite.alpha = 0.2

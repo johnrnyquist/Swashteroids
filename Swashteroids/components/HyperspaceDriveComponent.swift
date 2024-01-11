@@ -11,4 +11,10 @@
 import Swash
 
 /// You need an engine to make a jump.
-final class HyperspaceEngineComponent: Component {}
+final class HyperspaceDriveComponent: Component {
+    var jumps: Int
+
+    init(jumps: Int) {
+        self.jumps = jumps
+    }
+}

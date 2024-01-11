@@ -43,7 +43,8 @@ extension Creator: AlienCreator {
                                          minimumShotInterval: 1.25,
                                          torpedoLifetime: 2,
                                          torpedoColor: .white,
-                                         ownerType: .computerOpponent))
+                                         ownerType: .computerOpponent,
+                                         ammo: Int.max))
             .add(component: FireDownComponent.shared)
             .add(component: DisplayComponent(sknode: sprite))
         try? engine.add(entity: alien)

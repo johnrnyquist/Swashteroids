@@ -12,7 +12,7 @@ import Swash
 import Foundation
 
 /// Holds the jump coordinates.
-final class HyperspaceJumpComponent: Component {
+final class DoHyperspaceJumpComponent: Component {
     let x: Double
     let y: Double
 

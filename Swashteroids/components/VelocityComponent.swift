@@ -25,7 +25,7 @@ final class VelocityComponent: Component {
     var dampening: Double
     var wraps: Bool
     var base: Double
-    var exit: Double { Double.random(in: (base*4)...(base*5)) }
+    var exit: Double { Double.random(in: (base*2)...(base*3)) }
 
     init(velocityX: Double,
          velocityY: Double,

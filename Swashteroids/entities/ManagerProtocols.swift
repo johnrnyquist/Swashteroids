@@ -11,6 +11,8 @@ protocol ShipButtonControlsManager: AnyObject {
     func removeShipControlButtons()
     func createShipControlButtons()
     func enableShipControlButtons()
+    func showFireButton()
+    func showHyperspaceButton()
 }
 
 protocol ShipQuadrantsControlsManager: AnyObject {

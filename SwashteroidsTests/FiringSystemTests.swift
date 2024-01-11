@@ -34,10 +34,13 @@ class FiringSystemTests: XCTestCase {
         //
         let motion = VelocityComponent(velocityX: 0, velocityY: 0, base: 60.0)
         let position = PositionComponent(x: 0, y: 0, z: .ship)
-        let gun = GunComponent(offsetX: 0,
-                               offsetY: 0,
-                               minimumShotInterval: minimumShotInterval,
-                               torpedoLifetime: 0)
+        let gun = GunComponent(offsetX: <#T##Double##Swift.Double#>,
+                               offsetY: <#T##Double##Swift.Double#>,
+                               minimumShotInterval: <#T##TimeInterval##Foundation.TimeInterval#>,
+                               torpedoLifetime: <#T##TimeInterval##Foundation.TimeInterval#>,
+                               torpedoColor: .torpedo,
+                               ownerType: <#T##OwnerType##Swashteroids.OwnerType#>,
+                               ammo: <#T##Int##Swift.Int#>)
         let fireDown = FireDownComponent.shared
         //
         let entity = Entity()
@@ -59,10 +62,13 @@ class FiringSystemTests: XCTestCase {
         //
         let motion = VelocityComponent(velocityX: 0, velocityY: 0, base: 60.0)
         let position = PositionComponent(x: 0, y: 0, z: .ship)
-        let gun = GunComponent(offsetX: 0,
-                               offsetY: 0,
-                               minimumShotInterval: minimumShotInterval,
-                               torpedoLifetime: 0)
+        let gun = GunComponent(offsetX: <#T##Double##Swift.Double#>,
+                               offsetY: <#T##Double##Swift.Double#>,
+                               minimumShotInterval: <#T##TimeInterval##Foundation.TimeInterval#>,
+                               torpedoLifetime: <#T##TimeInterval##Foundation.TimeInterval#>,
+                               torpedoColor: .torpedo,
+                               ownerType: <#T##OwnerType##Swashteroids.OwnerType#>,
+                               ammo: <#T##Int##Swift.Int#>)
         let fireDown = FireDownComponent.shared
         let initialTimeSinceLastShot = gun.timeSinceLastShot
         //
