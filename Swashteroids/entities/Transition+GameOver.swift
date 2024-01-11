@@ -23,7 +23,7 @@ extension Transition {
         }
         engine.removeEntities(named: [.hud, .gameOver, .hyperspacePowerUp, .torpedoPowerUp])
         if let appState = engine.appState?[AppStateComponent.name] as? AppStateComponent {
-            appState.reset()
+            appState.resetGame()
         }
     }
 

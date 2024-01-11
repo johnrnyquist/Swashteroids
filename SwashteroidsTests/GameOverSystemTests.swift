@@ -31,7 +31,7 @@ final class GameOverSystemTests: XCTestCase {
     func test_UpdateNode() throws {
         let gameOver = GameOverComponent()
         let appState = AppStateComponent(
-            size: .zero,
+            gameSize: .zero,
             numShips: 0,
             level: 1,
             score: 2,

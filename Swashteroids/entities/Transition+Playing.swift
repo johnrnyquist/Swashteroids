@@ -20,7 +20,6 @@ extension Transition {
     }
 
     func toPlayingScreen(appStateComponent: AppStateComponent) {
-        appStateComponent.resetBoard()
         hudCreator?.createHud(gameState: appStateComponent)
         if appStateComponent.shipControlsState == .hidingButtons {
             toggleShipControlsManager?.createToggleButton(.off)

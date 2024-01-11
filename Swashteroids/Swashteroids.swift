@@ -46,7 +46,7 @@ final class Swashteroids: NSObject {
                 .add(component: AllSoundsComponent.shared)
         try? engine.add(entity: allSoundsEntity)
         // Add the app state entity
-        let appStateComponent = AppStateComponent(size: scene.size,
+        let appStateComponent = AppStateComponent(gameSize: scene.size,
                                                   numShips: 3,
                                                   level: 0,
                                                   score: 0,

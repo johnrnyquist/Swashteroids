@@ -13,7 +13,7 @@ import SpriteKit
 
 extension Creator: HudCreator, AlertPresenting {
     func createHud(gameState: AppStateComponent) {
-        let view = HudView(gameSize: gameState.size)
+        let view = HudView(gameSize: gameState.gameSize)
         let hudEntity = Entity(named: .hud)
                 .add(component: HudComponent(hudView: view))
                 .add(component: DisplayComponent(sknode: view))

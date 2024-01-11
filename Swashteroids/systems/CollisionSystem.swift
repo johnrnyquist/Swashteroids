@@ -231,7 +231,8 @@ class CollisionSystem: System {
                     //TODO: refactor the below
                     if let gameStateNode = appStateNodes.head,
                        let appStateComponent = gameStateNode[AppStateComponent.self],
-                       currentTorpedo[TorpedoComponent.self]?.owner == .player {
+                       currentTorpedo[TorpedoComponent.self]?.owner == .player,
+                       vehicle?[DeathThroesComponent.self] == nil {
                         appStateComponent.score += 500
                     }
                     break

@@ -20,7 +20,7 @@ class Transition {
     private(set) var generator: UIImpactFeedbackGenerator?
     var size: CGSize {
         if let appStateComponent = engine.appState?[AppStateComponent.name] as? AppStateComponent {
-            return appStateComponent.size
+            return appStateComponent.gameSize
         } else {
             return CGSize(width: 0, height: 0)
         }

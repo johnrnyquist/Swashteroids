@@ -28,7 +28,7 @@ class CollisionSystemTests: XCTestCase {
     override func setUpWithError() throws {
         creator = MockAsteroidCreator()
         engine = Engine()
-        appStateComponent = AppStateComponent(size: .zero,
+        appStateComponent = AppStateComponent(gameSize: .zero,
                                               numShips: 1,
                                               level: 1,
                                               score: 0,
@@ -251,7 +251,7 @@ class CollisionSystemTests: XCTestCase {
         asteroidNode.entity = asteroidEntity
         let appState = Entity(named: .appState)
                 .add(component: AppStateComponent(
-                    size: .zero,
+                    gameSize: .zero,
                     numShips: 1,
                     level: 1,
                     score: 0,

@@ -97,7 +97,7 @@ final class GameplayManagerSystemTests: XCTestCase {
                 .add(component: ShipComponent())
         try? engine.add(entity: shipEntity)
         engine.add(system: system, priority: 1)
-        let appStateComponent = AppStateComponent(size: .zero,
+        let appStateComponent = AppStateComponent(gameSize: .zero,
                                                   numShips: 1,
                                                   level: 1,
                                                   score: 0,
@@ -127,7 +127,7 @@ final class GameplayManagerSystemTests: XCTestCase {
                                                               size: CGSize(width: 1024, height: 768),
                                                               scene: scene,
                                                               scaleManager: MockScaleManager())
-        let appStateComponent = AppStateComponent(size: .zero,
+        let appStateComponent = AppStateComponent(gameSize: .zero,
                                                   numShips: 1,
                                                   level: 1,
                                                   score: 0,
@@ -157,7 +157,7 @@ final class GameplayManagerSystemTests: XCTestCase {
                                                                        size: CGSize(width: 1024, height: 768),
                                                                        scene: scene,
                                                                        scaleManager: MockScaleManager())
-        let appStateComponent = AppStateComponent(size: .zero,
+        let appStateComponent = AppStateComponent(gameSize: .zero,
                                                   numShips: 1,
                                                   level: 1,
                                                   score: 0,
@@ -181,7 +181,7 @@ final class GameplayManagerSystemTests: XCTestCase {
                                            size: CGSize(width: 1024, height: 768),
                                            scene: scene,
                                            scaleManager: MockScaleManager())
-        let appStateComponent = AppStateComponent(size: .zero,
+        let appStateComponent = AppStateComponent(gameSize: .zero,
                                                   numShips: 0,
                                                   level: 1,
                                                   score: 0,
@@ -199,7 +199,7 @@ final class GameplayManagerSystemTests: XCTestCase {
                                                            scaleManager: MockScaleManager())
         engine.add(system: system, priority: 1)
         // need to look at this function's logic
-        system.handleGameState(appStateComponent: AppStateComponent(size: .zero,
+        system.handleGameState(appStateComponent: AppStateComponent(gameSize: .zero,
                                                                     numShips: 1,
                                                                     level: 1,
                                                                     score: 0,
@@ -223,7 +223,7 @@ final class GameplayManagerSystemTests: XCTestCase {
                                            size: CGSize(width: 1024, height: 768),
                                            scene: scene,
                                            scaleManager: MockScaleManager())
-        let appStateComponent = AppStateComponent(size: .zero,
+        let appStateComponent = AppStateComponent(gameSize: .zero,
                                                   numShips: 1,
                                                   level: 1,
                                                   score: 0,
@@ -247,7 +247,7 @@ final class GameplayManagerSystemTests: XCTestCase {
         try? engine.add(entity: shipEntity)
         engine.add(system: system, priority: 1)
         //
-        system.handleGameState(appStateComponent: AppStateComponent(size: .zero,
+        system.handleGameState(appStateComponent: AppStateComponent(gameSize: .zero,
                                                                     numShips: 1,
                                                                     level: 1,
                                                                     score: 0,

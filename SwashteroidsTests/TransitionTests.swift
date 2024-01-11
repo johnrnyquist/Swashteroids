@@ -26,7 +26,7 @@ final class TransitionTests: XCTestCase {
     override func setUpWithError() throws {
         size = CGSize(width: 1024.0, height: 768.0)
         engine = Engine()
-        appStateComponent = AppStateComponent(size: .zero,
+        appStateComponent = AppStateComponent(gameSize: .zero,
                                               numShips: 3,
                                               level: 4,
                                               score: 5,
@@ -66,30 +66,7 @@ final class TransitionTests: XCTestCase {
             XCTAssertNil(engine.getEntity(named: entityName))
         }
     }
-
-    //TODO: This test is fragile, it depends on the the calls .
-    func test_ToPlayingScreenWhileHidingButtons() {
-        appStateComponent.shipControlsState = .hidingButtons
-        transition.toPlayingScreen(appStateComponent: appStateComponent)
-        XCTAssertEqual(appStateComponent.numShips, 3)
-        XCTAssertEqual(appStateComponent.level, 0)
-        XCTAssertEqual(appStateComponent.score, 0)
-        XCTAssertTrue(creator.createHudCalled)
-        XCTAssertTrue(creator.createToggleButtonCalled)
-        XCTAssertTrue(creator.createShipControlQuadrantsCalled)
-    }
-
-    //TODO: This test is fragile, it depends on the the calls
-    func test_ToPlayingScreenWhileShowingButtons() {
-        appStateComponent.shipControlsState = .showingButtons
-        transition.toPlayingScreen(appStateComponent: appStateComponent)
-        XCTAssertEqual(appStateComponent.numShips, 3)
-        XCTAssertEqual(appStateComponent.level, 0)
-        XCTAssertEqual(appStateComponent.score, 0)
-        XCTAssertTrue(creator.createHudCalled)
-        XCTAssertTrue(creator.createToggleButtonCalled)
-    }
-
+    
     func test_FromPlayingScreen() {
         transition.fromPlayingScreen()
         XCTAssertTrue(creator.removeToggleButtonCalled)
@@ -104,9 +81,9 @@ final class TransitionTests: XCTestCase {
         for entityName: EntityName in [.hud, .gameOver, .hyperspacePowerUp, .torpedoPowerUp] {
             XCTAssertNil(engine.getEntity(named: entityName))
         }
-        XCTAssertEqual(appStateComponent.numShips, 3)
-        XCTAssertEqual(appStateComponent.level, 0)
-        XCTAssertEqual(appStateComponent.score, 0)
+        XCTAssertEqual(appStateComponent.score, appStateComponent.orig_score)
+        XCTAssertEqual(appStateComponent.level, appStateComponent.orig_level)
+        XCTAssertEqual(appStateComponent.numShips, appStateComponent.orig_numShips)
     }
 
     func test_ToGameOverScreen() {

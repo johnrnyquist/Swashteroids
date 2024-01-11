@@ -28,7 +28,7 @@ class HudSystemTests: XCTestCase {
     func test_UpdateNode() throws {
         let hudNode = HudNode()
         let hudComponent = HudComponent(hudView: HudView(gameSize: .zero))
-        let appStateComponent = AppStateComponent(size: .zero,
+        let appStateComponent = AppStateComponent(gameSize: .zero,
                                                   numShips: 1,
                                                   level: 2,
                                                   score: 3,
