@@ -19,15 +19,20 @@ class GameOverView: SwashSpriteNode {
         gameOver.horizontalAlignmentMode = .center
         return gameOver
     }()
-    let scaleManager: ScaleManaging
 
-    init(size: CGSize, scaleManager: ScaleManaging = ScaleManager.shared) {
-        self.scaleManager = scaleManager
-        super.init(texture: nil, color: .clear, size: size)
+    init(gameSize: CGSize, scaleManager: ScaleManaging = ScaleManager.shared) {
+        super.init(texture: nil, color: .clear, size: gameSize)
+        let background = SKSpriteNode(color: .clear, size: gameSize)  
+        background.name = "gameOverBackground"
+        print(background.size, background.frame.size, background.scale)
+        background.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        background.scale = 2
+        addChild(background)
         name = "gameOverView"
         addChild(gameOver)
         gameOver.fontSize = 150.0
         let swash = SKSpriteNode(imageNamed: "swash")
+        swash.name = "swash"
         swash.anchorPoint = CGPoint(x: 0.5, y: 1)
         swash.scale = scaleManager.SCALE_FACTOR == 1.0 ? 0.8 : 1.0
         swash.alpha = 0.2

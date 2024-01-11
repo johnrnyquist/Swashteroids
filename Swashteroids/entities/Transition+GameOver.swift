@@ -31,11 +31,11 @@ extension Transition {
         guard let appStateComponent = engine.appState?[AppStateComponent.name] as? AppStateComponent else {
             fatalError("WARNING: engine did not contain AppStateComponent!")
         }
-        let gameOverView = GameOverView(size: size)
+        let gameOverView = GameOverView(gameSize: gameSize)
         let gameOverEntity = Entity(named: .gameOver)
                 .add(component: GameOverComponent())
                 .add(component: DisplayComponent(sknode: gameOverView))
-				.add(component: PositionComponent(x: size.width/2, y: size.height/2, z: .top, rotationDegrees: 0))
+				.add(component: PositionComponent(x: gameSize.width/2, y: gameSize.height/2, z: .top, rotationDegrees: 0))
                 .add(component: TouchableComponent())
                 .add(component: appStateComponent)
                 .add(component: ButtonBehaviorComponent(

@@ -18,7 +18,7 @@ class Transition {
     var shipControlButtonsManager: ShipButtonControlsManager?
     private(set) var engine: Engine
     private(set) var generator: UIImpactFeedbackGenerator?
-    var size: CGSize {
+    var gameSize: CGSize {
         if let appStateComponent = engine.appState?[AppStateComponent.name] as? AppStateComponent {
             return appStateComponent.gameSize
         } else {

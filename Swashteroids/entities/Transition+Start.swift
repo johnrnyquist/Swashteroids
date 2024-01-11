@@ -19,7 +19,7 @@ extension Transition {
     /// The start screen is not an entity, but composed of entities.  It is the first screen the user sees.
     func toStartScreen() {
         // create the sprites
-        let startView = StartView(gameSize: size)
+        let startView = StartView(gameSize: gameSize)
         let noButtonsSprite = startView.noButtons
         let buttonsSprite = startView.buttons
         noButtonsSprite.removeFromParent()

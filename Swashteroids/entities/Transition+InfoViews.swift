@@ -26,7 +26,7 @@ extension Transition {
         viewSprite.removeFromParent()
         let viewEntity = Entity(named: .noButtonsInfoView)
                 .add(component: DisplayComponent(sknode: viewSprite))
-				.add(component: PositionComponent(x: size.width/2, y: size.height/2, z: .buttons, rotationDegrees: 0))
+				.add(component: PositionComponent(x: gameSize.width/2, y: gameSize.height/2, z: .buttons, rotationDegrees: 0))
                 .add(component: TouchableComponent())
                 .add(component: ButtonBehaviorComponent(
                     touchDown: { [unowned self] sprite in
@@ -54,7 +54,7 @@ extension Transition {
 
         let viewEntity = Entity(named: .buttonsInfoView)
                 .add(component: DisplayComponent(sknode: viewSprite))
-				.add(component: PositionComponent(x: size.width/2, y: size.height/2, z: .buttons, rotationDegrees: 0))
+				.add(component: PositionComponent(x: gameSize.width/2, y: gameSize.height/2, z: .buttons, rotationDegrees: 0))
                 .add(component: TouchableComponent())
                 .add(component: ButtonBehaviorComponent(touchDown: { [unowned self] sprite in
                     generator?.impactOccurred()
