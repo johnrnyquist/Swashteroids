@@ -50,4 +50,5 @@ enum SoundFileNames: String, CaseIterable {
     case powerUp = "powerup.wav"
     case thrust = "thrust.wav"
     case toggle = "toggle.wav"
+    case treasure = "treasure.wav"
 }

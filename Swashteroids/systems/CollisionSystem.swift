@@ -21,6 +21,7 @@ class CollisionSystem: System {
     private weak var torpedoes: NodeList!
     private weak var torpedoPowerUp: NodeList!
     private weak var hyperspacePowerUp: NodeList!
+    private weak var treasures: NodeList!
     private weak var engine: Engine!
     private var size: CGSize
     let scaleManager: ScaleManaging
@@ -40,36 +41,128 @@ class CollisionSystem: System {
         torpedoes = engine.getNodeList(nodeClassType: TorpedoCollisionNode.self)
         torpedoPowerUp = engine.getNodeList(nodeClassType: GunPowerUpNode.self)
         hyperspacePowerUp = engine.getNodeList(nodeClassType: HyperspacePowerUpNode.self)
+        treasures = engine.getNodeList(nodeClassType: TreasureCollisionNode.self)
     }
 
     /// 
     /// - Parameter time: The time since the last update
     override public func update(time: TimeInterval) {
-        shipTorpedoPowerUpCollisionCheck(shipCollisionNode: ships.head, torpedoPowerUpNode: torpedoPowerUp.head)
-        shipHyperspacePowerUpCollisionCheck(shipCollisionNode: ships.head, hyperspacePowerUpNode: hyperspacePowerUp.head)
-        torpedoAsteroidCollisionCheck(torpedoCollisionNode: torpedoes.head, asteroidCollisionNode: asteroids.head)
-        for vehicle in [ships.head, aliens.head] {
-            torpedoVehicleCollisionCheck(torpedoCollisionNode: torpedoes.head, vehicleCollisionNode: vehicle)
-            vehicleAsteroidCollisionCheck(node: vehicle, asteroidCollisionNode: asteroids.head)
+        // ships and torpedoPowerUps
+        collisionCheck(nodeA: ships.head, nodeB: torpedoPowerUp.head) { shipNode, torpedoPowerUpNode in
+            engine.remove(entity: torpedoPowerUpNode.entity!)
+            shipNode.entity?
+                    .add(component: GunComponent(offsetX: 21,
+                                                 offsetY: 0,
+                                                 minimumShotInterval: 0.25,
+                                                 torpedoLifetime: 2,
+                                                 torpedoColor: .torpedo,
+                                                 ownerType: .player,
+                                                 ammo: 20))
+            shipNode.entity?
+                    .add(component: AudioComponent(fileNamed: .powerUp,
+                                                   actionKey: "powerup.wav"))
+            //HACK for immediate gratification
+            creator.showFireButton()
+            let fadeIn = SKAction.fadeAlpha(to: 1.0, duration: 0.2)
+            let fadeOut = SKAction.fadeAlpha(to: 0.2, duration: 0.2)
+            let seq = SKAction.sequence([fadeIn, fadeOut])
+            let sprite = engine.getEntity(named: .fireButton)?[DisplayComponent.self]?.sprite
+            sprite?.run(seq)
+            //END_HACK
         }
-        shipAlienCollisionCheck(ships.head, aliens.head)
-    }
-
-    /// Assuming at most one of each... for now.
-    func shipAlienCollisionCheck(_ ship: Node?, _ alien: Node?) {
-        guard let ship,
-              let alien
-        else { return }
-        guard let shipPosition = ship[PositionComponent.self],
-              let shipCollision = ship[CollisionComponent.self],
-              let shipVelocity = ship[VelocityComponent.self],
-              let alienPosition = alien[PositionComponent.self],
-              let alienCollision = alien[CollisionComponent.self],
-              let alienVelocity = alien[VelocityComponent.self],
-              let shipEntity = ship.entity,
-              let alienEntity = alien.entity
-        else { return }
-        if alienPosition.position.distance(from: shipPosition.position) < shipCollision.radius + alienCollision.radius {
+        // ships and hyperspacePowerUps
+        collisionCheck(nodeA: ships.head, nodeB: hyperspacePowerUp.head) { shipNode, hyperspace in
+            engine.remove(entity: hyperspace.entity!)
+            shipNode.entity?
+                    .add(component: HyperspaceDriveComponent(jumps: 5))
+            shipNode.entity?
+                    .add(component: AudioComponent(fileNamed: .powerUp,
+                                                   actionKey: "powerup.wav"))
+            //HACK for immediate gratification
+            creator.showHyperspaceButton()
+            let fadeIn = SKAction.fadeAlpha(to: 1.0, duration: 0.2)
+            let fadeOut = SKAction.fadeAlpha(to: 0.2, duration: 0.2)
+            let seq = SKAction.sequence([fadeIn, fadeOut])
+            let sprite = (engine.getEntity(named: .hyperspaceButton)?[DisplayComponent.name] as? DisplayComponent)?.sprite
+            sprite?.run(seq)
+            //END_HACK
+        }
+        // torpedoes and asteroids
+        collisionCheck(nodeA: torpedoes.head, nodeB: asteroids.head) { torpedoNode, asteroidNode in
+            if let entity = torpedoNode.entity { engine.remove(entity: entity) }
+            let level = appStateNodes.head?[AppStateComponent.self]?.level ?? 1
+            if let entity = asteroidNode.entity {
+                splitAsteroid(asteroidEntity: entity, level: level)
+                if let gameStateNode = appStateNodes.head,
+                   let appStateComponent = gameStateNode[AppStateComponent.self],
+                   torpedoNode[TorpedoComponent.self]?.owner == .player {
+                    appStateComponent.score += 25
+                }
+            }
+        }
+        //
+        for vehicle in [ships.head, aliens.head] {
+            // torpedoes and vehicles
+            collisionCheck(nodeA: torpedoes.head, nodeB: vehicle) { torpedoNode, vehicleNode in
+                if let entity = torpedoNode.entity { engine.remove(entity: entity) }
+                if let entity = vehicleNode.entity,
+                   entity[DeathThroesComponent.self] == nil {
+                    if vehicleNode[ShipComponent.self] != nil {
+                        appStateNodes.head?[AppStateComponent.self]?.numShips -= 1
+                    }
+                    creator.destroy(ship: entity)
+                }
+                //TODO: refactor the below
+                if let gameStateNode = appStateNodes.head,
+                   let appStateComponent = gameStateNode[AppStateComponent.self],
+                   torpedoNode[TorpedoComponent.self]?.owner == .player,
+                   vehicle?[DeathThroesComponent.self] == nil,
+                   let killScore = vehicleNode[AlienComponent.self]?.killScore {
+                    appStateComponent.score += killScore
+                }
+            }
+            // vehicles and asteroids
+            collisionCheck(nodeA: vehicle, nodeB: asteroids.head) { vehicleNode, asteroidNode in
+                if let asteroidVelocity = asteroidNode[VelocityComponent.self],
+                   let shipVelocity = vehicleNode[VelocityComponent.self] {
+                    shipVelocity.linearVelocity = asteroidVelocity.linearVelocity
+                    shipVelocity.angularVelocity = asteroidVelocity.angularVelocity
+                }
+                // If a ship hits an asteroid, it enters its death throes. Removing its ability to move or shoot.
+                // A ship in its death throes can still hit an asteroid. 
+                if vehicleNode.entity?
+                              .has(componentClassName: DeathThroesComponent.name) == false { //HACK not sure I like this check
+                    if vehicleNode.entity?[ShipComponent.self] != nil {
+                        appStateNodes.head?[AppStateComponent.self]?.numShips -= 1
+                    }
+                    creator.destroy(ship: vehicleNode.entity!)
+                }
+                let level = appStateNodes.head?[AppStateComponent.self]?.level ?? 1
+                if let entity = asteroidNode.entity {
+                    splitAsteroid(asteroidEntity: entity, level: level)
+                }
+            }
+            // vehicles and treasures
+            collisionCheck(nodeA: vehicle, nodeB: treasures.head) { vehicleNode, treasureNode in
+                engine.remove(entity: treasureNode.entity!)
+                if let appState = appStateNodes.head,
+                   vehicleNode[ShipComponent.self] != nil,
+                   let component = appState[AppStateComponent.self],
+                   let value = treasureNode[TreasureComponent.self]?.value {
+                    vehicleNode.entity?.add(component: AudioComponent(fileNamed: .treasure,
+                                                                      actionKey: "treasure"))
+                    component.score += value
+                }
+            }
+        }
+        // ships and aliens
+        collisionCheck(nodeA: ships.head, nodeB: aliens.head) { shipNode, alienNode in
+            guard let shipEntity = shipNode.entity,
+                  let alienEntity = alienNode.entity,
+                  let shipVelocity = shipNode[VelocityComponent.self],
+                  let alienCollision = alienNode[CollisionComponent.self],
+                  let alienVelocity = alienNode[VelocityComponent.self]
+            else { return }
             shipEntity.remove(componentClass: VelocityComponent.self)
             alienEntity.remove(componentClass: VelocityComponent.self)
             shipEntity.add(component: alienVelocity)
@@ -83,10 +176,45 @@ class CollisionSystem: System {
         }
     }
 
+    //HACK this is duplicated in Creator.swift
+    func addEmitter(colored color: UIColor, on sknode: SKNode) {
+        if let emitter = SKEmitterNode(fileNamed: "fireflies_mod.sks") {
+            emitter.setScale(1.0 * scaleManager.SCALE_FACTOR)
+            let colorRamp: [UIColor] = [color.lighter(by: 30.0).shiftHue(by: 10.0)]
+            let keyTimes: [NSNumber] = [1.0]
+            let colorSequence = SKKeyframeSequence(keyframeValues: colorRamp, times: keyTimes)
+            emitter.particleColorSequence = colorSequence
+            sknode.addChild(emitter)
+        }
+    }
+
+    private func createTreasure(positionComponent: PositionComponent) {
+        let r = Int.random(in: 1...5) == 5
+        let standard = (color: UIColor.systemGreen, value: 75)
+        let special = (color: UIColor.systemPink, value: 350)
+        let treasureData = r ? special : standard
+        let sprite = SwashSpriteNode(color: treasureData.color, size: CGSize(width: 10, height: 10))
+        addEmitter(colored: treasureData.color, on: sprite)
+        let treasureEntity = Entity(named: "treasure" + "_\(Int.random(in: 0...10_000))")
+                .add(component: TreasureComponent(value: treasureData.value))
+                .add(component: PositionComponent(x: positionComponent.x,
+                                                  y: positionComponent.y,
+                                                  z: .asteroids,
+                                                  rotationDegrees: 45))
+                .add(component: VelocityComponent(velocityX: 0, velocityY: 0, angularVelocity: 25, wraps: true, base: 0))
+                .add(component: CollisionComponent(radius: 10))
+                .add(component: DisplayComponent(sknode: sprite))
+        sprite.entity = treasureEntity
+        engine.replace(entity: treasureEntity)
+    }
+
     func splitAsteroid(asteroidEntity: Entity, splits: Int = 2, level: Int) {
         guard let collisionComponent = asteroidEntity[CollisionComponent.self],
               let positionComponent = asteroidEntity[PositionComponent.self]
         else { return }
+        if Int.random(in: 1...3) == 3 {
+            createTreasure(positionComponent: positionComponent)
+        }
         if (collisionComponent.radius > LARGE_ASTEROID_RADIUS * scaleManager.SCALE_FACTOR / 4) {
             for _ in 1...splits {
                 creator.createAsteroid(radius: collisionComponent.radius * 1.0 / scaleManager.SCALE_FACTOR / 2.0,
@@ -108,177 +236,25 @@ class CollisionSystem: System {
         }
     }
 
-    func shipTorpedoPowerUpCollisionCheck(shipCollisionNode: Node?, torpedoPowerUpNode: Node?) {
-        var torpedoPowerUpNode = torpedoPowerUpNode // make mutable copy
-        while let currentPowerUp = torpedoPowerUpNode {
-            guard
-                let gunSupplierPosition = currentPowerUp[PositionComponent.self],
-                let shipPosition = shipCollisionNode?[PositionComponent.self],
-                let gunSupplierCollision = currentPowerUp[CollisionComponent.self],
-                let shipCollision = shipCollisionNode?[CollisionComponent.self]
-            else { torpedoPowerUpNode = currentPowerUp.next; continue }
-            let distanceToShip = gunSupplierPosition.position.distance(from: shipPosition.position)
-            if (distanceToShip <= gunSupplierCollision.radius + shipCollision.radius) {
-                engine.remove(entity: currentPowerUp.entity!)
-                torpedoPowerUpNode = currentPowerUp.next
-                shipCollisionNode?.entity?
-                                  .add(component: GunComponent(offsetX: 21,
-                                                               offsetY: 0,
-                                                               minimumShotInterval: 0.25,
-                                                               torpedoLifetime: 2,
-                                                               torpedoColor: .torpedo,
-                                                               ownerType: .player,
-                                                               ammo: 20))
-                shipCollisionNode?.entity?
-                                  .add(component: AudioComponent(fileNamed: .powerUp,
-                                                                 actionKey: "powerup.wav"))
-                //HACK for immediate gratification
-                creator.showFireButton()
-                let fadeIn = SKAction.fadeAlpha(to: 1.0, duration: 0.2)
-                let fadeOut = SKAction.fadeAlpha(to: 0.2, duration: 0.2)
-                let seq = SKAction.sequence([fadeIn, fadeOut])
-                let sprite = engine.getEntity(named: .fireButton)?[DisplayComponent.self]?.sprite
-                sprite?.run(seq)
-                //END_HACK
-            }
-            torpedoPowerUpNode = currentPowerUp.next
-        }
-    }
-
-    func shipHyperspacePowerUpCollisionCheck(shipCollisionNode: Node?, hyperspacePowerUpNode: Node?) {
-        var hyperspacePowerUpNode = hyperspacePowerUpNode
-        while let currentPowerUp = hyperspacePowerUpNode {
-            guard
-                let hyperspacePowerUpPosition = currentPowerUp[PositionComponent.self],
-                let shipPosition = shipCollisionNode?[PositionComponent.self],
-                let hyperspacePowerUpCollision = currentPowerUp[CollisionComponent.self],
-                let shipCollision = shipCollisionNode?[CollisionComponent.self]
-            else { hyperspacePowerUpNode = currentPowerUp.next; continue }
-            let distanceToShip = hyperspacePowerUpPosition.position.distance(from: shipPosition.position)
-            if (distanceToShip <= hyperspacePowerUpCollision.radius + shipCollision.radius) {
-                engine.remove(entity: currentPowerUp.entity!)
-                hyperspacePowerUpNode = currentPowerUp.next
-                shipCollisionNode?.entity?
-                                  .add(component: HyperspaceDriveComponent(jumps: 5))
-                shipCollisionNode?.entity?
-                                  .add(component: AudioComponent(fileNamed: .powerUp,
-                                                                 actionKey: "powerup.wav"))
-                //HACK for immediate gratification
-                creator.showHyperspaceButton()
-                let fadeIn = SKAction.fadeAlpha(to: 1.0, duration: 0.2)
-                let fadeOut = SKAction.fadeAlpha(to: 0.2, duration: 0.2)
-                let seq = SKAction.sequence([fadeIn, fadeOut])
-                let sprite = (engine.getEntity(named: .hyperspaceButton)?[DisplayComponent.name] as? DisplayComponent)?.sprite
-                sprite?.run(seq)
-                //END_HACK
-            }
-            hyperspacePowerUpNode = hyperspacePowerUpNode?.next
-        }
-    }
-
-    func torpedoAsteroidCollisionCheck(torpedoCollisionNode: Node?, asteroidCollisionNode: Node?) {
-        var torpedoNode = torpedoCollisionNode
-        while let torpedo = torpedoNode {
-            var asteroidNode = asteroidCollisionNode
-            while let currentAsteroid = asteroidNode {
+    func collisionCheck(nodeA: Node?, nodeB: Node?, action: (Node, Node) -> Void) {
+        var nodeA = nodeA // make mutable copy
+        while let currentNodeA = nodeA {
+            var nodeB = nodeB // make mutable copy
+            while let currentNodeB = nodeB {
                 guard
-                    let asteroidPosition = currentAsteroid[PositionComponent.self],
-                    let torpedoPosition = torpedo[PositionComponent.self],
-                    let asteroidCollision = currentAsteroid[CollisionComponent.self]
-                else { asteroidNode = currentAsteroid.next; continue } // or return? }
-                if (asteroidPosition.position.distance(from: torpedoPosition.position) <= asteroidCollision.radius) {
-                    if let entity = torpedo.entity { engine.remove(entity: entity) }
-                    let level = appStateNodes.head?[AppStateComponent.self]?.level ?? 1
-                    if let entity = asteroidNode?.entity {
-                        splitAsteroid(asteroidEntity: entity, level: level)
-                    }
-                    //TODO: refactor the below
-                    if let gameStateNode = appStateNodes.head,
-                       let appStateComponent = gameStateNode[AppStateComponent.self],
-                       torpedo[TorpedoComponent.self]?.owner == .player {
-                        appStateComponent.score += 100
-                    }
+                    let nodeB_position = currentNodeB[PositionComponent.self],
+                    let nodeA_position = currentNodeA[PositionComponent.self],
+                    let nodeB_collision = currentNodeB[CollisionComponent.self],
+                    let nodeA_collision = currentNodeA[CollisionComponent.self]
+                else { nodeB = currentNodeB.next; continue }
+                let distance = nodeB_position.position.distance(from: nodeA_position.position)
+                if (distance <= nodeB_collision.radius + nodeA_collision.radius) {
+                    action(currentNodeA, currentNodeB)
                     break
                 }
-                asteroidNode = currentAsteroid.next
+                nodeB = currentNodeB.next
             }
-            torpedoNode = torpedo.next
-        }
-    }
-
-    func torpedoVehicleCollisionCheck(torpedoCollisionNode: Node?, vehicleCollisionNode: Node?) {
-        var torpedoCollisionNode = torpedoCollisionNode
-        while let currentTorpedo = torpedoCollisionNode {
-            var vehicle = vehicleCollisionNode
-            while let currentVehicle = vehicle {
-                guard
-                    let currentVehiclePosition = currentVehicle[PositionComponent.self],
-                    let torpedoPosition = currentTorpedo[PositionComponent.self],
-                    let currentVehicleCollision = currentVehicle[CollisionComponent.self],
-                    let owner = currentTorpedo[TorpedoComponent.self]?.owner,
-                    owner == .player && currentVehicle[AlienComponent.self] != nil ||
-                    owner == .computerOpponent && currentVehicle[ShipComponent.self] != nil
-                else { vehicle = currentVehicle.next; continue } // or return? }
-                if (currentVehiclePosition.position.distance(from: torpedoPosition.position) <= currentVehicleCollision.radius) {
-                    if let entity = currentTorpedo.entity { engine.remove(entity: entity) }
-                    if let entity = vehicle?.entity,
-                       entity[DeathThroesComponent.self] == nil {
-                        if vehicle?[ShipComponent.self] != nil {
-                            appStateNodes.head?[AppStateComponent.self]?.numShips -= 1
-                        }
-                        creator.destroy(ship: entity)
-                    }
-                    //TODO: refactor the below
-                    if let gameStateNode = appStateNodes.head,
-                       let appStateComponent = gameStateNode[AppStateComponent.self],
-                       currentTorpedo[TorpedoComponent.self]?.owner == .player,
-                       vehicle?[DeathThroesComponent.self] == nil {
-                        appStateComponent.score += 500
-                    }
-                    break
-                }
-                vehicle = currentVehicle.next
-            }
-            torpedoCollisionNode = currentTorpedo.next
-        }
-    }
-
-    func vehicleAsteroidCollisionCheck(node: Node?, asteroidCollisionNode: Node?) {
-        var collisionNode = node
-        while let currentNode = collisionNode {
-            var asteroidCollisionNode = asteroidCollisionNode
-            while let currentAsteroid = asteroidCollisionNode {
-                guard
-                    let ship = currentNode.entity,
-                    let asteroidPosition = currentAsteroid[PositionComponent.self],
-                    let shipPosition = currentNode[PositionComponent.self],
-                    let asteroidCollision = currentAsteroid[CollisionComponent.self],
-                    let shipCollision = currentNode[CollisionComponent.self]
-                else { asteroidCollisionNode = currentAsteroid.next; continue }
-                let distanceToShip = asteroidPosition.position.distance(from: shipPosition.position)
-                if (distanceToShip <= asteroidCollision.radius + shipCollision.radius) {
-                    if let asteroidVelocity = currentAsteroid[VelocityComponent.self],
-                       let shipVelocity = currentNode[VelocityComponent.self] {
-                        shipVelocity.linearVelocity = asteroidVelocity.linearVelocity
-                        shipVelocity.angularVelocity = asteroidVelocity.angularVelocity
-                    }
-                    // If a ship hits an asteroid, it enters its death throes. Removing its ability to move or shoot.
-                    // A ship in its death throes can still hit an asteroid. 
-                    if ship.has(componentClassName: DeathThroesComponent.name) == false { //HACK not sure I like this check
-                        if ship[ShipComponent.self] != nil {
-                            appStateNodes.head?[AppStateComponent.self]?.numShips -= 1
-                        }
-                        creator.destroy(ship: ship)
-                    }
-                    let level = appStateNodes.head?[AppStateComponent.self]?.level ?? 1
-                    if let entity = currentAsteroid.entity {
-                        splitAsteroid(asteroidEntity: entity, level: level)
-                    }
-                    break
-                }
-                asteroidCollisionNode = currentAsteroid.next
-            }
-            collisionNode = currentNode.next
+            nodeA = currentNodeA.next
         }
     }
 

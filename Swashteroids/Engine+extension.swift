@@ -12,7 +12,7 @@ import Swash
 
 extension Engine {
     var ship: Entity? {
-        getEntity(named: .ship)
+        getEntity(named: .player)
     }
     var gameOver: Entity? {
         getEntity(named: .gameOver)

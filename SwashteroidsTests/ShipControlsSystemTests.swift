@@ -58,7 +58,7 @@ final class ShipControlsSystemTests: XCTestCase {
         let system = ShipControlsSystem(creator: creator)
         engine.add(system: system, priority: 1)
         //TODO: do_toggleButtons requires the ShipEntity type as it uses engine.ship. 
-        let ship = Entity(named: .ship)
+        let ship = Entity(named: .player)
                 .add(component: AccelerometerComponent())
         try? engine.add(entity: ship)
         // SUT    
@@ -75,7 +75,7 @@ final class ShipControlsSystemTests: XCTestCase {
         let system = ShipControlsSystem(creator: creator)
         engine.add(system: system, priority: 1)
         //TODO: do_toggleButtons requires the ShipEntity type as it uses engine.ship. 
-        let ship = Entity(named: .ship)
+        let ship = Entity(named: .player)
                 .add(component: AccelerometerComponent())
                 .add(component: GunComponent(offsetX: 0,
                                              offsetY: 0,
@@ -103,7 +103,7 @@ final class ShipControlsSystemTests: XCTestCase {
         let system = ShipControlsSystem(creator: creator)
         engine.add(system: system, priority: 1)
         //TODO: do_toggleButtons requires the ShipEntity type as it uses engine.ship. 
-        let ship = Entity(named: .ship)
+        let ship = Entity(named: .player)
                 .add(component: AccelerometerComponent())
                 .add(component: HyperspaceDriveComponent(jumps: 20))
         try? engine.add(entity: ship)

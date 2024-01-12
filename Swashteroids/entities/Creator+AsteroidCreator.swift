@@ -15,6 +15,12 @@ extension Creator: AsteroidCreator {
     func createAsteroid(radius: Double, x: Double, y: Double, level: Int) {
         numAsteroids += 1
         let sprite = SwashSpriteNode(texture: createAsteroidTexture(radius: radius, color: .asteroid))
+//        sprite.physicsBody = SKPhysicsBody(circleOfRadius: CGFloat(radius * scaleManager.SCALE_FACTOR))
+//        sprite.physicsBody?.isDynamic = true
+//        sprite.physicsBody?.affectedByGravity = false
+//        sprite.physicsBody?.categoryBitMask = asteroidCategory
+//        sprite.physicsBody?.contactTestBitMask =  playerCategory | torpedoCategory
+//        sprite.physicsBody?.collisionBitMask = 0
         let entity = Entity()
         entity.name = .asteroid + "_\(numAsteroids)"
         sprite.name = entity.name
@@ -30,7 +36,7 @@ extension Creator: AsteroidCreator {
                 .add(component: CollisionComponent(radius: radius))
                 .add(component: AsteroidComponent())
                 .add(component: DisplayComponent(sknode: sprite))
-        
+        sprite.entity = entity
         do {
             try engine.add(entity: entity)
         } catch SwashError.entityNameAlreadyInUse(let message) {

@@ -92,7 +92,7 @@ final class GameplayManagerSystemTests: XCTestCase {
                                                          size: CGSize(width: 1024, height: 768),
                                                          scene: scene,
                                                          scaleManager: MockScaleManager())
-        let shipEntity = Entity(named: .ship)
+        let shipEntity = Entity(named: .player)
                 .add(component: PositionComponent(x: 0, y: 0, z: .ship))
                 .add(component: ShipComponent())
         try? engine.add(entity: shipEntity)
@@ -241,7 +241,7 @@ final class GameplayManagerSystemTests: XCTestCase {
                                                                 scene: scene,
                                                                 scaleManager: MockScaleManager())
         engine.add(system: system, priority: 1)
-        let shipEntity = Entity(named: .ship)
+        let shipEntity = Entity(named: .player)
                 .add(component: PositionComponent(x: 0, y: 0, z: .ship))
                 .add(component: ShipComponent())
         try? engine.add(entity: shipEntity)

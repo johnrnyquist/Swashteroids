@@ -24,7 +24,7 @@ final class GameViewController: UIViewController, AlertPresenting {
 
     override func loadView() {
         skView = SKView()
-        skView.showsPhysics = false
+        skView.showsPhysics = true
         skView.ignoresSiblingOrder = true // true is more optimized rendering, but must set zPosition
         skView.isUserInteractionEnabled = true
         skView.isMultipleTouchEnabled = true
@@ -34,7 +34,7 @@ final class GameViewController: UIViewController, AlertPresenting {
     override func viewDidLoad() {
         startNewGame()
     }
-    
+
     func startNewGame() {
         let screenSize = UIScreen.main.bounds
         let screenWidth = screenSize.width
@@ -47,6 +47,8 @@ final class GameViewController: UIViewController, AlertPresenting {
         game = Swashteroids(scene: gameScene, alertPresenter: self)
         gameScene.delegate = game
         gameScene.touchDelegate = game
+        gameScene.physicsWorld.contactDelegate = game
+        gameScene.physicsWorld.gravity = CGVector(dx: 0, dy: 0)
         game?.start()
         skView.presentScene(gameScene)
     }
@@ -55,12 +57,12 @@ final class GameViewController: UIViewController, AlertPresenting {
         game?.stop()
         let alertView = PauseAlert(
             home: { [unowned self] in
-                dismiss(animated: true, completion: { [unowned self] in 
+                dismiss(animated: true, completion: { [unowned self] in
                     startNewGame()
                 })
             },
             resume: { [unowned self] in
-                dismiss(animated: true, completion: { [unowned self] in 
+                dismiss(animated: true, completion: { [unowned self] in
                     game?.start()
                 })
             })
@@ -94,5 +96,27 @@ final class GameViewController: UIViewController, AlertPresenting {
             default:
                 break
         }
+    }
+}
+
+let playerCategory: UInt32 = 0x1 << 0
+let alienCategory: UInt32 = 0x1 << 1
+let asteroidCategory: UInt32 = 0x1 << 2
+let torpedoCategory: UInt32 = 0x1 << 3
+let powerUpCategory: UInt32 = 0x1 << 4
+
+extension Swashteroids: SKPhysicsContactDelegate {
+    func didBegin(_ contact: SKPhysicsContact) {
+        print(#function)
+        if let a = contact.bodyA.node as? SwashSpriteNode,
+           let b = contact.bodyB.node as? SwashSpriteNode,
+           let ae = a.entity,
+           let be = b.entity {
+            print("\(ae.name) hit \(be.name)")
+        }
+    }
+
+    func didEnd(_ contact: SKPhysicsContact) {
+        print(#function)
     }
 }

@@ -20,9 +20,9 @@ extension Creator: PowerUpCreator {
         createTorpedoesPowerUp(level: level, radius: POWER_UP_RADIUS)
     }
 
-    private func createEmitter(colored color: UIColor, on sprite: SKSpriteNode) {
+    func addEmitter(colored color: UIColor, on sprite: SKSpriteNode) {
         if let emitter = SKEmitterNode(fileNamed: "fireflies_mod.sks") {
-            let colorRamp: [UIColor] = [color]
+            let colorRamp: [UIColor] = [color.shiftHue(by: 5.0)]
             let keyTimes: [NSNumber] = [1.0]
             let colorSequence = SKKeyframeSequence(keyframeValues: colorRamp, times: keyTimes)
             emitter.particleColorSequence = colorSequence
@@ -32,8 +32,8 @@ extension Creator: PowerUpCreator {
 
     func createTorpedoesPowerUp(level: Int, radius: Double = POWER_UP_RADIUS) {
         guard engine.getEntity(named: .torpedoPowerUp) == nil else { return }
-        let sprite = TorpedoesPowerUpView(imageNamed: "torpedoPowerUp")
-        createEmitter(colored: .powerUpTorpedo, on: sprite)
+        let sprite = TorpedoesPowerUpView(imageNamed: .torpedoPowerUp)
+        addEmitter(colored: .powerUpTorpedo, on: sprite)
         let entity = Entity(named: .torpedoPowerUp)
         sprite.name = entity.name
         sprite.color = .powerUpTorpedo
@@ -54,7 +54,7 @@ extension Creator: PowerUpCreator {
     func createHyperspacePowerUp(level: Int, radius: Double = POWER_UP_RADIUS) {
         guard engine.getEntity(named: .hyperspacePowerUp) == nil else { return }
         let sprite = HyperspacePowerUpView(imageNamed: "hyperspacePowerUp")
-        createEmitter(colored: .powerUpHyperspace, on: sprite)
+        addEmitter(colored: .powerUpHyperspace, on: sprite)
         let entity = Entity(named: .hyperspacePowerUp)
         sprite.name = entity.name
         sprite.color = .powerUpHyperspace

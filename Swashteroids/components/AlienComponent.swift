@@ -17,8 +17,10 @@ class AlienComponent: Component {
     var reactionTime: TimeInterval = 0.5
     var endDestination: CGPoint = .zero
     var startDestination: CGPoint = .zero
+    var killScore = 350
 
-    init(reactionTime: Double) {
+    init(reactionTime: Double, killScore: Int) {
         self.reactionTime = reactionTime
+        self.killScore = killScore
     }
 }

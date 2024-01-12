@@ -18,11 +18,11 @@ extension Creator: ShipButtonControlsManager {
     }
 
     @discardableResult
-    func createButtonEntity(sprite button: SwashSpriteNode, color: UIColor, position: CGPoint, name: EntityName) -> Entity {
+    func createButtonEntity(sprite button: SwashSpriteNode, color: UIColor, position: CGPoint, named: EntityName) -> Entity {
         button.color = color
         button.colorBlendFactor = 1.0
         button.alpha = 0.2
-        let buttonEntity = Entity(named: name)
+        let buttonEntity = Entity(named: named)
                 .add(component: PositionComponent(x: position.x, y: position.y, z: .buttons, rotationDegrees: 0.0))
                 .add(component: DisplayComponent(sknode: button))
         button.entity = buttonEntity
@@ -47,12 +47,12 @@ extension Creator: ShipButtonControlsManager {
         let leftButton = SwashSpriteNode(imageNamed: .leftButton)
         let leftX = leftButton.size.width / 2 + buttonPaddingLeft
         let leftY = leftButton.size.height / 2 + firstRowButtonPaddingY
-        createButtonEntity(sprite: leftButton, color: .leftButton, position: CGPoint(x: leftX, y: leftY), name: .leftButton)
+        createButtonEntity(sprite: leftButton, color: .leftButton, position: CGPoint(x: leftX, y: leftY), named: .leftButton)
         // right
         let rightButton = SwashSpriteNode(imageNamed: .rightButton)
         let rightX = rightButton.size.width + buttonPadding + leftX
         let rightY = leftY
-        createButtonEntity(sprite: rightButton, color: .rightButton, position: CGPoint(x: rightX, y: rightY), name: .rightButton)
+        createButtonEntity(sprite: rightButton, color: .rightButton, position: CGPoint(x: rightX, y: rightY), named: .rightButton)
         // thrust
         let thrustButton = SwashSpriteNode(imageNamed: .thrustButton)
         let thrustX = size.width - thrustButton.size.width / 2 - buttonPaddingRight
@@ -60,7 +60,7 @@ extension Creator: ShipButtonControlsManager {
         createButtonEntity(sprite: thrustButton,
                            color: .thrustButton,
                            position: CGPoint(x: thrustX, y: thrustY),
-                           name: .thrustButton)
+                           named: .thrustButton)
         // fire
         let fireButton = SwashSpriteNode(imageNamed: .fireButton)
         let fireX = -thrustButton.size.width - buttonPadding + thrustX
@@ -69,12 +69,12 @@ extension Creator: ShipButtonControlsManager {
         fireButtonEntity = createButtonEntity(sprite: fireButton,
                                               color: .fireButton,
                                               position: CGPoint(x: fireX, y: fireY),
-                                              name: .fireButton)
+                                              named: .fireButton)
         // flip
         let flipButton = SwashSpriteNode(imageNamed: .flipButton)
         let flipX = leftX
         let flipY = leftY + flipButton.size.height + buttonPadding
-        createButtonEntity(sprite: flipButton, color: .flipButton, position: CGPoint(x: flipX, y: flipY), name: .flipButton)
+        createButtonEntity(sprite: flipButton, color: .flipButton, position: CGPoint(x: flipX, y: flipY), named: .flipButton)
         // hyperspace
         let hyperspaceButton = SwashSpriteNode(imageNamed: .hyperspaceButton)
         let hyperspaceX = thrustX
@@ -83,7 +83,7 @@ extension Creator: ShipButtonControlsManager {
         hyperspaceButtonEntity = createButtonEntity(sprite: hyperspaceButton,
                                                     color: .hyperspaceButton,
                                                     position: CGPoint(x: hyperspaceX, y: hyperspaceY),
-                                                    name: .hyperspaceButton)
+                                                    named: .hyperspaceButton)
     }
 
     func enableShipControlButtons() {
