@@ -63,12 +63,12 @@ final class Swashteroids: NSObject {
     }
 
     private func createSystems(scene: GameScene) {
-        let size = scene.size
+        let gameSize = scene.size
         let soundPlayer = scene
         let container = scene
         engine
             // preupdate
-                .add(system: GameplayManagerSystem(creator: creator, size: size, scene: scene), priority: .preUpdate)
+                .add(system: GameplayManagerSystem(creator: creator, size: gameSize, scene: scene), priority: .preUpdate)
                 .add(system: GameOverSystem(), priority: .preUpdate)
                 .add(system: ShipControlsSystem(creator: creator), priority: .preUpdate)
                 .add(system: TransitionAppStateSystem(transition: transition), priority: .preUpdate)
@@ -76,16 +76,16 @@ final class Swashteroids: NSObject {
                 .add(system: AccelerometerSystem(), priority: .move)
                 .add(system: FlipSystem(), priority: .move)
                 .add(system: LeftSystem(), priority: .move)
-                .add(system: MovementSystem(size: size), priority: .move)
+                .add(system: MovementSystem(size: gameSize), priority: .move)
                 .add(system: RightSystem(), priority: .move)
                 .add(system: ThrustSystem(), priority: .move)
                 // resolve collisions
-                .add(system: CollisionSystem(creator: creator, size: size), priority: .resolveCollisions)
+                .add(system: CollisionSystem(creator: creator, size: gameSize), priority: .resolveCollisions)
                 // animate
                 .add(system: AnimationSystem(), priority: .animate)
                 // update
                 .add(system: AlienSystem(), priority: .update)
-                .add(system: AlienFiringSystem(creator: creator), priority: .update)
+                .add(system: AlienFiringSystem(creator: creator, gameSize: gameSize), priority: .update)
                 .add(system: FiringSystem(creator: creator), priority: .update)
                 .add(system: TorpedoAgeSystem(), priority: .update)
                 .add(system: DeathThroesSystem(), priority: .update)

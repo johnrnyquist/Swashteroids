@@ -47,7 +47,7 @@ extension Creator: AlienCreator {
                 .add(component: GunComponent(offsetX: 21,
                                              offsetY: 0,
                                              minimumShotInterval: 1.25,
-                                             torpedoLifetime: 2,
+                                             torpedoLifetime: 0.75,
                                              torpedoColor: .white,
                                              ownerType: .computerOpponent,
                                              numTorpedoes: Int.max))
