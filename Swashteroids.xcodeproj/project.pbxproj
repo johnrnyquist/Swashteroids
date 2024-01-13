@@ -12,7 +12,7 @@
 		8D0A0D2E2B4E0122007E9898 /* AlienSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0A0D2D2B4E0122007E9898 /* AlienSystem.swift */; };
 		8D0A0D302B4E016A007E9898 /* AlienNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0A0D2F2B4E016A007E9898 /* AlienNode.swift */; };
 		8D0A0D322B4E01C0007E9898 /* AlienCollisionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0A0D312B4E01C0007E9898 /* AlienCollisionNode.swift */; };
-		8D0A0D342B4E08D4007E9898 /* alienEntrance.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D0A0D332B4E08D4007E9898 /* alienEntrance.wav */; };
+		8D0A0D342B4E08D4007E9898 /* alien_entrance.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D0A0D332B4E08D4007E9898 /* alien_entrance.wav */; };
 		8D23C1362B02C4CA00F7D878 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1352B02C4CA00F7D878 /* AppDelegate.swift */; };
 		8D23C13C2B02C4CA00F7D878 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C13B2B02C4CA00F7D878 /* GameScene.swift */; };
 		8D23C13E2B02C4CA00F7D878 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C13D2B02C4CA00F7D878 /* GameViewController.swift */; };
@@ -68,7 +68,7 @@
 		8D23C1D12B02C59D00F7D878 /* MovementSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1872B02C59C00F7D878 /* MovementSystem.swift */; };
 		8D23C1D22B02C59D00F7D878 /* RenderSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1882B02C59C00F7D878 /* RenderSystem.swift */; };
 		8D23C1D32B02C59D00F7D878 /* Creator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C18A2B02C59D00F7D878 /* Creator.swift */; };
-		8D23C1D72B02C59D00F7D878 /* bangLarge.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C18F2B02C59D00F7D878 /* bangLarge.wav */; };
+		8D23C1D72B02C59D00F7D878 /* bang_large.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C18F2B02C59D00F7D878 /* bang_large.wav */; };
 		8D23C1D82B02C59D00F7D878 /* thrust.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C1902B02C59D00F7D878 /* thrust.wav */; };
 		8D23C1D92B02C59D00F7D878 /* fire.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C1912B02C59D00F7D878 /* fire.wav */; };
 		8D23C1DF2B02C59D00F7D878 /* Create_Texture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1982B02C59D00F7D878 /* Create_Texture.swift */; };
@@ -112,6 +112,7 @@
 		8D714E2E2B3535DC009E1586 /* SKSpriteNode+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D714E2D2B3535DC009E1586 /* SKSpriteNode+extensions.swift */; };
 		8D71C0472B3603CF004D6D0C /* ScaleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139DE0BD2F73AFFAEDE2DA /* ScaleManager.swift */; };
 		8D82703C2B4D85BA003A4FC0 /* AlienComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139D122048662B55407E9F /* AlienComponent.swift */; };
+		8D88FE012B5334F900937FF1 /* powerup_appearance.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D88FE002B5334F900937FF1 /* powerup_appearance.wav */; };
 		8D8F24B22B51B8FA00B2E223 /* CGRect+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8F24B12B51B8FA00B2E223 /* CGRect+extensions.swift */; };
 		8D8F24B42B51CC6B00B2E223 /* treasure.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D8F24B32B51CC6B00B2E223 /* treasure.wav */; };
 		8D8F24B62B51D47700B2E223 /* UIColor+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8F24B52B51D47700B2E223 /* UIColor+extensions.swift */; };
@@ -211,7 +212,7 @@
 		8D0A0D2D2B4E0122007E9898 /* AlienSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlienSystem.swift; sourceTree = "<group>"; };
 		8D0A0D2F2B4E016A007E9898 /* AlienNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlienNode.swift; sourceTree = "<group>"; };
 		8D0A0D312B4E01C0007E9898 /* AlienCollisionNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlienCollisionNode.swift; sourceTree = "<group>"; };
-		8D0A0D332B4E08D4007E9898 /* alienEntrance.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = alienEntrance.wav; sourceTree = "<group>"; };
+		8D0A0D332B4E08D4007E9898 /* alien_entrance.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = alien_entrance.wav; sourceTree = "<group>"; };
 		8D23C1322B02C4CA00F7D878 /* Swashteroids.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swashteroids.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D23C1352B02C4CA00F7D878 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8D23C13B2B02C4CA00F7D878 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -267,7 +268,7 @@
 		8D23C1872B02C59C00F7D878 /* MovementSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovementSystem.swift; sourceTree = "<group>"; };
 		8D23C1882B02C59C00F7D878 /* RenderSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderSystem.swift; sourceTree = "<group>"; };
 		8D23C18A2B02C59D00F7D878 /* Creator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Creator.swift; sourceTree = "<group>"; };
-		8D23C18F2B02C59D00F7D878 /* bangLarge.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bangLarge.wav; sourceTree = "<group>"; };
+		8D23C18F2B02C59D00F7D878 /* bang_large.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bang_large.wav; sourceTree = "<group>"; };
 		8D23C1902B02C59D00F7D878 /* thrust.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = thrust.wav; sourceTree = "<group>"; };
 		8D23C1912B02C59D00F7D878 /* fire.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = fire.wav; sourceTree = "<group>"; };
 		8D23C1982B02C59D00F7D878 /* Create_Texture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Create_Texture.swift; sourceTree = "<group>"; };
@@ -311,6 +312,7 @@
 		8D70211A2B4EFEAE0032107A /* Creator+AlienCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Creator+AlienCreator.swift"; sourceTree = "<group>"; };
 		8D70211C2B4F1C960032107A /* Nodelist+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Nodelist+extensions.swift"; sourceTree = "<group>"; };
 		8D714E2D2B3535DC009E1586 /* SKSpriteNode+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SKSpriteNode+extensions.swift"; sourceTree = "<group>"; };
+		8D88FE002B5334F900937FF1 /* powerup_appearance.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = powerup_appearance.wav; sourceTree = "<group>"; };
 		8D8F24B12B51B8FA00B2E223 /* CGRect+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+extensions.swift"; sourceTree = "<group>"; };
 		8D8F24B32B51CC6B00B2E223 /* treasure.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = treasure.wav; sourceTree = "<group>"; };
 		8D8F24B52B51D47700B2E223 /* UIColor+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+extensions.swift"; sourceTree = "<group>"; };
@@ -604,9 +606,10 @@
 			children = (
 				8D8F24B32B51CC6B00B2E223 /* treasure.wav */,
 				8D8F24B82B5204B100B2E223 /* treasure_special.wav */,
+				8D88FE002B5334F900937FF1 /* powerup_appearance.wav */,
 				8D8F24B92B5204B100B2E223 /* treasure_standard.wav */,
-				8D0A0D332B4E08D4007E9898 /* alienEntrance.wav */,
-				8D23C18F2B02C59D00F7D878 /* bangLarge.wav */,
+				8D0A0D332B4E08D4007E9898 /* alien_entrance.wav */,
+				8D23C18F2B02C59D00F7D878 /* bang_large.wav */,
 				8D6D81542B1A562900AD8D18 /* braam-6150.wav */,
 				8D23C1912B02C59D00F7D878 /* fire.wav */,
 				8D688FBC2B0680D900056CD3 /* hyperspace.wav */,
@@ -812,14 +815,15 @@
 				8D6D81592B1A648400AD8D18 /* StartScene.sks in Resources */,
 				8D6D81572B1A5EC200AD8D18 /* NoButtonsInfo.sks in Resources */,
 				8D23C1D82B02C59D00F7D878 /* thrust.wav in Resources */,
-				8D23C1D72B02C59D00F7D878 /* bangLarge.wav in Resources */,
+				8D23C1D72B02C59D00F7D878 /* bang_large.wav in Resources */,
 				8D6D81552B1A562900AD8D18 /* braam-6150.wav in Resources */,
 				8D8F24BB2B5204B100B2E223 /* treasure_standard.wav in Resources */,
 				8D688FBD2B0680D900056CD3 /* hyperspace.wav in Resources */,
 				8D5911602B4CA6F300A31B95 /* fireflies_mod.sks in Resources */,
 				8D8F24BA2B5204B100B2E223 /* treasure_special.wav in Resources */,
 				8D23C1EB2B02CD9800F7D878 /* LICENSE.md in Resources */,
-				8D0A0D342B4E08D4007E9898 /* alienEntrance.wav in Resources */,
+				8D88FE012B5334F900937FF1 /* powerup_appearance.wav in Resources */,
+				8D0A0D342B4E08D4007E9898 /* alien_entrance.wav in Resources */,
 				8D23C1432B02C4CC00F7D878 /* SwashteroidsAssets.xcassets in Resources */,
 				8D23C1E92B02CD7E00F7D878 /* README.md in Resources */,
 				8D23C1C42B02C59D00F7D878 /* plasmaTorpedo.sks in Resources */,

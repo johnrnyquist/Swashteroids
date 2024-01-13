@@ -37,7 +37,7 @@ final class AlienFiringSystem: System {
         guard let velocity = node[VelocityComponent.self],
               let position = node[PositionComponent.self],
               let gun = node[GunComponent.self],
-              let fireDown = node[AlienFireDownComponent.self]
+              let _ = node[AlienFireDownComponent.self]
         else { return }
         gun.timeSinceLastShot += time
         if gun.timeSinceLastShot >= gun.minimumShotInterval, gameRect.contains(position.position) {

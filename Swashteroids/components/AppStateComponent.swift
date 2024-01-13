@@ -67,7 +67,6 @@ final class AppStateComponent: Component {
         alienAppearanceRate = alienAppearanceRateDefault
     }
 
-
     func resetGame() {
         numShips = orig_numShips
         level = orig_level

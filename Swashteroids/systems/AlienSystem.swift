@@ -13,16 +13,18 @@ import Foundation
 import UIKit
 
 class AlienSystem: System {
+    var engine: Engine?
     var alienNodes: NodeList?
     var shipNodes: NodeList?
     var asteroidNodes: NodeList?
-    var engine: Engine?
+    var treasureNodes: NodeList?
 
     override func addToEngine(engine: Engine) {
         self.engine = engine
         alienNodes = engine.getNodeList(nodeClassType: AlienNode.self)
         shipNodes = engine.getNodeList(nodeClassType: ShipNode.self)
         asteroidNodes = engine.getNodeList(nodeClassType: AsteroidCollisionNode.self)
+        treasureNodes = engine.getNodeList(nodeClassType: TreasureCollisionNode.self)
     }
 
     override func update(time: TimeInterval) {
@@ -31,6 +33,65 @@ class AlienSystem: System {
             updateNode(node: currentNode, time: time)
             alienNode = currentNode.next
         }
+    }
+
+    private func updateNode(node alienNode: Node, time: TimeInterval) {
+        guard let alienPosition = alienNode[PositionComponent.self],
+              let velocity = alienNode[VelocityComponent.self],
+              let alienComponent = alienNode[AlienComponent.self],
+              alienNode.entity?[DeathThroesComponent.self] == nil,
+              let alienEntity = alienNode.entity
+        else { return }
+        alienComponent.timeSinceLastReaction += time
+        let isTimeToReact = alienComponent.timeSinceLastReaction >= alienComponent.reactionTime
+        let shipEntity = shipNodes?.head?.entity
+        let playerAlive = shipEntity != nil && shipEntity?[DeathThroesComponent.self] == nil
+        //
+        // Target the ship if it's alive and it's time to react
+        if playerAlive,
+           isTimeToReact {
+            alienComponent.timeSinceLastReaction = 0
+            pickTarget(alienComponent: alienComponent, position: alienPosition)
+            targeting(alienPosition, velocity, alienComponent.targetingEntity![PositionComponent.self]!.position)
+        }
+        //
+        // Move it off screen if player is dead, this happens ONCE
+        if !playerAlive,
+           alienEntity[GunComponent.self] != nil {
+            alienEntity.remove(componentClass: GunComponent.self)
+            alienPosition.rotationRadians = alienComponent.endDestination.x > 0 ? 0 : CGFloat.pi
+            velocity.linearVelocity = CGPoint(x: (alienComponent.endDestination.x > 0 ? velocity.exit : -velocity.exit),
+                                              y: 0)
+            return
+        }
+        //
+        // Remove if player is dead and it's off screen
+        if !playerAlive,
+           atEndDestination(alienPosition.x, alienComponent.endDestination) {
+            engine?.remove(entity: alienEntity)
+            return
+        }
+    }
+
+    func findClosestObject(to point: CGPoint, in entities: [Entity]) -> Entity {
+        var closestObject: Entity = entities[0]
+        var smallestDistance: CGFloat = .greatestFiniteMagnitude
+        for entity in entities {
+            let distance = entity[PositionComponent.self]!.position.distance(from: entity[PositionComponent.self]!.position)
+            if distance < smallestDistance {
+                smallestDistance = distance
+                closestObject = entity
+            }
+        }
+        return closestObject
+    }
+
+    func pickTarget(alienComponent: AlienComponent, position: PositionComponent) {
+        let ship = shipNodes?.head?.entity
+        let closestAsteroid = findClosestEntity(to: position.position, node: asteroidNodes?.head)
+        let closestTreasure = findClosestEntity(to: position.position, node: treasureNodes?.head)
+        let entities = [ship, closestAsteroid, closestTreasure].compactMap { $0 }
+        alienComponent.targetingEntity = findClosestObject(to: position.position, in: entities)
     }
 
     func targeting(_ position: PositionComponent, _ velocity: VelocityComponent, _ target: CGPoint) {
@@ -49,74 +110,21 @@ class AlienSystem: System {
         }
     }
 
-    private func updateNode(node alienNode: Node, time: TimeInterval) {
-        guard let position = alienNode[PositionComponent.self],
-              let velocity = alienNode[VelocityComponent.self],
-              let alienComponent = alienNode[AlienComponent.self],
-              alienNode.entity?[DeathThroesComponent.self] == nil,
-              let alienEntity = alienNode.entity
-        else { return }
-        alienComponent.timeSinceLastReaction += time
-        let isTimeToReact = alienComponent.timeSinceLastReaction >= alienComponent.reactionTime
-        let shipEntity = shipNodes?.head?.entity
-        let playerAlive = shipEntity != nil && shipEntity?[DeathThroesComponent.self] == nil
-        //
-        // Target the ship if it's alive and it's time to react
-        if playerAlive,
-           isTimeToReact {
-            alienComponent.timeSinceLastReaction = 0
-            pickTarget(alienComponent, position)
-            targeting(position, velocity, alienComponent.targetEntity![PositionComponent.self]!.position)
-        }
-        //
-        // Move it off screen if player is dead, this happens ONCE
-        if !playerAlive,
-           alienEntity[GunComponent.self] != nil {
-            alienEntity.remove(componentClass: GunComponent.self)
-            position.rotationRadians = alienComponent.endDestination.x > 0 ? 0 : CGFloat.pi
-            velocity.linearVelocity = CGPoint(x: (alienComponent.endDestination.x > 0 ? velocity.exit : -velocity.exit),
-                                              y: 0)
-            return
-        }
-        //
-        // Remove if player is dead and it's off screen
-        if !playerAlive,
-           atEndDestination(position.x, alienComponent.endDestination) {
-            engine?.remove(entity: alienEntity)
-            return
-        }
-    }
-
-    private func findClosestAsteroid(_ position: CGPoint) -> Entity? {
-        var closestAsteroid: Entity?
+    func findClosestEntity(to position: CGPoint, node: Node?) -> Entity? {
+        guard let _ = node else { return nil }
+        var closestEntity: Entity?
         var smallestDistance = Double.greatestFiniteMagnitude
-        var asteroidCollisionNode = asteroidNodes?.head
-        while let currentAsteroidNode = asteroidCollisionNode {
-            if let asteroidPosition = currentAsteroidNode.entity?[PositionComponent.self] {
-                let distance = position.distance(from: asteroidPosition.position)
+        var collidableNode = node
+        while let currentNode = collidableNode {
+            if let nodePosition = currentNode.entity?[PositionComponent.self] {
+                let distance = position.distance(from: nodePosition.position)
                 if distance < smallestDistance {
                     smallestDistance = distance
-                    closestAsteroid = currentAsteroidNode.entity
+                    closestEntity = currentNode.entity
                 }
             }
-            asteroidCollisionNode = currentAsteroidNode.next
+            collidableNode = currentNode.next
         }
-        return closestAsteroid
-    }
-
-    private func pickTarget(_ component: AlienComponent, _ position: PositionComponent) {
-        let closestAsteroid = findClosestAsteroid(position.position)
-        if let closestAsteroid,
-           let ship = shipNodes?.head?.entity {
-            let asteroidPosition = closestAsteroid[PositionComponent.self]!.position
-            let shipPosition = ship[PositionComponent.self]!.position
-            let asteroidDistance = position.position.distance(from: asteroidPosition)
-            let shipDistance = position.position.distance(from: shipPosition)
-            if asteroidDistance < shipDistance {
-                component.targetEntity = closestAsteroid
-            } else {
-                component.targetEntity = ship
-            }
-        }
+        return closestEntity
     }
 }

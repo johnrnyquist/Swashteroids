@@ -13,35 +13,46 @@ import SpriteKit
 
 extension Creator: TorpedoCreator {
     func createTorpedo(_ gunComponent: GunComponent, _ position: PositionComponent, _ velocity: VelocityComponent) {
-        let cos = cos(position.rotationRadians)
-        let sin = sin(position.rotationRadians)
-        let sprite = SwashSpriteNode(texture: createTorpedoTexture(color: gunComponent.torpedoColor))
-        let sparkEmitter = SKEmitterNode(fileNamed: "plasmaTorpedo.sks")!
-        sparkEmitter.emissionAngle = position.rotationRadians + Double.pi
+        numTorpedoes += 1
+        // 
+        let name = "torpedo_\(numTorpedoes)"
+        let entity = Entity(named: name)
+        let emitter = SKEmitterNode(fileNamed: "plasmaTorpedo.sks")!
         let colorRamp: [UIColor] = [gunComponent.torpedoColor]
         let keyTimes: [NSNumber] = [1.0]
         let colorSequence = SKKeyframeSequence(keyframeValues: colorRamp, times: keyTimes)
-        sparkEmitter.particleColorSequence = colorSequence
-        sprite.addChild(sparkEmitter)
-        let name = "torpedo_\(numTorpedoes)"
-        numTorpedoes += 1
-        let entity = Entity(named: name)
+        let cos = cos(position.rotationRadians)
+        let sin = sin(position.rotationRadians)
+        let sprite = SwashSpriteNode(texture: createTorpedoTexture(color: gunComponent.torpedoColor))
+        //
+//        sprite.physicsBody = SKPhysicsBody(rectangleOf: sprite.size)
+//        sprite.physicsBody?.isDynamic = true
+//        sprite.physicsBody?.affectedByGravity = false
+//        sprite.physicsBody?.categoryBitMask = torpedoCategory
+//        sprite.physicsBody?.contactTestBitMask = asteroidCategory | playerCategory | alienCategory
+        emitter.particleColorSequence = colorSequence
+        emitter.emissionAngle = position.rotationRadians + Double.pi
+        sprite.entity = entity
+        sprite.name = entity.name
+        sprite.addChild(emitter)
+        entity
                 .add(component: TorpedoComponent(lifeRemaining: gunComponent.torpedoLifetime,
-                                                       owner: gunComponent.ownerType))
+                                                 owner: gunComponent.ownerType))
                 .add(component: PositionComponent(
                     x: cos * gunComponent.offsetFromParent.x - sin * gunComponent.offsetFromParent.y + position.x,
                     y: sin * gunComponent.offsetFromParent.x + cos * gunComponent.offsetFromParent.y + position.y,
                     z: Layer.torpedoes,
                     rotationDegrees: 0))
                 .add(component: CollidableComponent(radius: 0))
-                .add(component: VelocityComponent(velocityX: cos * 220 + velocity.linearVelocity.x * 1.0 / scaleManager.SCALE_FACTOR,
-                                                  velocityY: sin * 220 + velocity.linearVelocity.y * 1.0 / scaleManager.SCALE_FACTOR,
+                .add(component: VelocityComponent(velocityX: cos * 220 + velocity.linearVelocity
+                                                                                 .x * 1.0 / scaleManager.SCALE_FACTOR,
+                                                  velocityY: sin * 220 + velocity.linearVelocity
+                                                                                 .y * 1.0 / scaleManager.SCALE_FACTOR,
                                                   angularVelocity: 0 + velocity.angularVelocity,
                                                   dampening: 0 + velocity.dampening,
                                                   base: 60.0))
                 .add(component: DisplayComponent(sknode: sprite))
                 .add(component: AudioComponent(fileNamed: .launchTorpedo, actionKey: name))
-        sprite.name = entity.name
         do {
             try engine.add(entity: entity)
         } catch SwashError.entityNameAlreadyInUse(let message) {

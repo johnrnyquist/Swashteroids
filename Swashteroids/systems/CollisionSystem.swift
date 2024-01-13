@@ -149,19 +149,17 @@ class CollisionSystem: System {
             // vehicles and treasures
             collisionCheck(nodeA: vehicle, nodeB: treasures.head) { vehicleNode, treasureNode in
                 engine.remove(entity: treasureNode.entity!)
-                if let appState = appStateNodes.head,
-                   vehicleNode[ShipComponent.self] != nil,
-                   let component = appState[AppStateComponent.self],
-                   let value = treasureNode[TreasureComponent.self]?.value {
-                    let soundName: SoundFileNames
+                if
+                    let _ = vehicleNode[ShipComponent.self], // it’s the player
+                    let ship = vehicleNode.entity,
+                    let appState = appStateNodes.head?[AppStateComponent.self],
+                    let value = treasureNode[TreasureComponent.self]?.value {
+                    appState.score += value
                     if value == treasure_special_value {
-                        soundName = .treasure_special
+                        ship.add(component: AudioComponent(fileNamed: .treasureSpecial, actionKey: "treasure"))
                     } else {
-                        soundName = .treasure_standard
+                        ship.add(component: AudioComponent(fileNamed: .treasureStandard, actionKey: "treasure"))
                     }
-                    vehicleNode.entity?.add(component: AudioComponent(fileNamed: soundName,
-                                                                      actionKey: "treasure"))
-                    component.score += value
                 }
             }
         }
