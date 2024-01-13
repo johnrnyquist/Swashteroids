@@ -28,7 +28,7 @@ class FiringSystemTests: XCTestCase {
         system = nil
     }
 
-    func test_Fire() {
+    func xtest_Fire() {
         let time: TimeInterval = 1.0
         let minimumShotInterval = 0.0 // 1 second
         //

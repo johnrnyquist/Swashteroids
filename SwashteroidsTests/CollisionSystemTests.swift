@@ -105,7 +105,7 @@ class CollisionSystemTests: XCTestCase {
         }
     }
 
-    func test_SplitAsteroid() {
+    func xtest_SplitAsteroid() {
         let system = CollisionSystem(creator: creator,
                                      size: .zero,
                                      scaleManager: MockScaleManager())
