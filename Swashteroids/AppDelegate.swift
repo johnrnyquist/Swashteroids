@@ -10,12 +10,18 @@
 
 import UIKit
 import SpriteKit
+import AVFoundation
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var gameViewController: GameViewController!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.ambient)
+        } catch {
+            print("Failed to set audio session category.")
+        }
         window = UIWindow(frame: UIScreen.main.bounds)
         if let window {
             gameViewController = GameViewController()
