@@ -40,7 +40,7 @@ class FiringSystemTests: XCTestCase {
                                torpedoLifetime: 0,
                                torpedoColor: .torpedo,
                                ownerType: .player,
-                               ammo: 20)
+                               numTorpedoes: 20)
         let fireDown = FireDownComponent.shared
         //
         let entity = Entity()
@@ -68,7 +68,7 @@ class FiringSystemTests: XCTestCase {
                                torpedoLifetime: 0,
                                torpedoColor: .torpedo,
                                ownerType: .player,
-                               ammo: 20)
+                               numTorpedoes: 20)
         let fireDown = FireDownComponent.shared
         let initialTimeSinceLastShot = gun.timeSinceLastShot
         //

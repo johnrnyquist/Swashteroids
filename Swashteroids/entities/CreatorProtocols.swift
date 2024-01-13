@@ -37,3 +37,8 @@ protocol ShipCreator: AnyObject {
 protocol TorpedoCreator: AnyObject {
     func createTorpedo(_ gunComponent: GunComponent, _ position: PositionComponent, _ velocity: VelocityComponent)
 }
+
+protocol TreasureCreator: AnyObject {
+    func createTreasure(positionComponent: PositionComponent)
+}
+

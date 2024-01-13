@@ -18,7 +18,7 @@ enum OwnerType {
 }
 
 final class GunComponent: Component {
-    var ammo: Int
+    var numTorpedoes: Int
     var minimumShotInterval: TimeInterval = 0.25
     var offsetFromParent = CGPoint(x: 21, y: 0)
     var ownerType: OwnerType
@@ -27,12 +27,12 @@ final class GunComponent: Component {
     var torpedoColor: UIColor = .torpedo
     var torpedoLifetime: TimeInterval = 2.0
 
-    init(offsetX: Double, offsetY: Double, minimumShotInterval: TimeInterval, torpedoLifetime: TimeInterval, torpedoColor: UIColor = .torpedo, ownerType: OwnerType, ammo: Int) {
+    init(offsetX: Double, offsetY: Double, minimumShotInterval: TimeInterval, torpedoLifetime: TimeInterval, torpedoColor: UIColor = .torpedo, ownerType: OwnerType, numTorpedoes: Int) {
         offsetFromParent = CGPoint(x: offsetX, y: offsetY)
         self.minimumShotInterval = minimumShotInterval
         self.torpedoLifetime = torpedoLifetime
         self.torpedoColor = torpedoColor
         self.ownerType = ownerType
-        self.ammo = ammo
+        self.numTorpedoes = numTorpedoes
     }
 }

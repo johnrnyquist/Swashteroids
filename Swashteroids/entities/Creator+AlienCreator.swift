@@ -38,7 +38,7 @@ extension Creator: AlienCreator {
         let velocityX = Double.random(in: -10.0...30.0) + 60.0
         let alien = Entity(named: "\(EntityName.alien)_\(numAliens)")
                 .add(component: alienComponent)
-                .add(component: CollisionComponent(radius: 25))
+                .add(component: CollidableComponent(radius: 25))
                 .add(component: PositionComponent(x: alienComponent.startDestination.x,
                                                   y: alienComponent.startDestination.y,
                                                   z: .asteroids))
@@ -50,8 +50,8 @@ extension Creator: AlienCreator {
                                              torpedoLifetime: 2,
                                              torpedoColor: .white,
                                              ownerType: .computerOpponent,
-                                             ammo: Int.max))
-                .add(component: FireDownComponent.shared)
+                                             numTorpedoes: Int.max))
+                .add(component: AlienFireDownComponent.shared)
                 .add(component: DisplayComponent(sknode: sprite))
         sprite.entity = alien
         try? engine.add(entity: alien)

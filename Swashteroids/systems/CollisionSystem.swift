@@ -17,7 +17,7 @@ let treasure_special_value = 350
 
 /// This class is an argument for switching to the SpriteKit physics engine.
 class CollisionSystem: System {
-    private weak var creator: (AsteroidCreator & ShipCreator & ShipButtonControlsManager)!
+    private weak var creator: (AsteroidCreator & ShipCreator & ShipButtonControlsManager & TreasureCreator)!
     private weak var appStateNodes: NodeList!
     private weak var ships: NodeList!
     private weak var aliens: NodeList!
@@ -30,7 +30,7 @@ class CollisionSystem: System {
     private var size: CGSize
     let scaleManager: ScaleManaging
 
-    init(creator: AsteroidCreator & ShipCreator & ShipButtonControlsManager, size: CGSize, scaleManager: ScaleManaging = ScaleManager.shared) {
+    init(creator: AsteroidCreator & ShipCreator & ShipButtonControlsManager & TreasureCreator, size: CGSize, scaleManager: ScaleManaging = ScaleManager.shared) {
         self.creator = creator
         self.size = size
         self.scaleManager = scaleManager
@@ -61,7 +61,7 @@ class CollisionSystem: System {
                                                  torpedoLifetime: 2,
                                                  torpedoColor: .torpedo,
                                                  ownerType: .player,
-                                                 ammo: 20))
+                                                 numTorpedoes: 20))
             shipNode.entity?
                     .add(component: AudioComponent(fileNamed: .powerUp,
                                                    actionKey: "powerup.wav"))
@@ -170,7 +170,7 @@ class CollisionSystem: System {
             guard let shipEntity = shipNode.entity,
                   let alienEntity = alienNode.entity,
                   let shipVelocity = shipNode[VelocityComponent.self],
-                  let alienCollision = alienNode[CollisionComponent.self],
+                  let alienCollision = alienNode[CollidableComponent.self],
                   let alienVelocity = alienNode[VelocityComponent.self]
             else { return }
             shipEntity.remove(componentClass: VelocityComponent.self)
@@ -186,44 +186,12 @@ class CollisionSystem: System {
         }
     }
 
-    //HACK this is duplicated in Creator.swift
-    func addEmitter(colored color: UIColor, on sknode: SKNode) {
-        if let emitter = SKEmitterNode(fileNamed: "fireflies_mod.sks") {
-            emitter.setScale(1.0 * scaleManager.SCALE_FACTOR)
-            let colorRamp: [UIColor] = [color.lighter(by: 30.0).shiftHue(by: 10.0)]
-            let keyTimes: [NSNumber] = [1.0]
-            let colorSequence = SKKeyframeSequence(keyframeValues: colorRamp, times: keyTimes)
-            emitter.particleColorSequence = colorSequence
-            sknode.addChild(emitter)
-        }
-    }
-
-    private func createTreasure(positionComponent: PositionComponent) {
-        let r = Int.random(in: 1...5) == 5
-        let standard = (color: UIColor.systemGreen, value: treasure_standard_value)
-        let special = (color: UIColor.systemPink, value: treasure_special_value)
-        let treasureData = r ? special : standard
-        let sprite = SwashSpriteNode(color: treasureData.color, size: CGSize(width: 10, height: 10))
-        addEmitter(colored: treasureData.color, on: sprite)
-        let treasureEntity = Entity(named: "treasure" + "_\(Int.random(in: 0...10_000))")
-                .add(component: TreasureComponent(value: treasureData.value))
-                .add(component: PositionComponent(x: positionComponent.x,
-                                                  y: positionComponent.y,
-                                                  z: .asteroids,
-                                                  rotationDegrees: 45))
-                .add(component: VelocityComponent(velocityX: 0, velocityY: 0, angularVelocity: 25, wraps: true, base: 0))
-                .add(component: CollisionComponent(radius: 10))
-                .add(component: DisplayComponent(sknode: sprite))
-        sprite.entity = treasureEntity
-        engine.replace(entity: treasureEntity)
-    }
-
     func splitAsteroid(asteroidEntity: Entity, splits: Int = 2, level: Int) {
-        guard let collisionComponent = asteroidEntity[CollisionComponent.self],
+        guard let collisionComponent = asteroidEntity[CollidableComponent.self],
               let positionComponent = asteroidEntity[PositionComponent.self]
         else { return }
         if Int.random(in: 1...3) == 3 {
-            createTreasure(positionComponent: positionComponent)
+            creator.createTreasure(positionComponent: positionComponent)
         }
         if (collisionComponent.radius > LARGE_ASTEROID_RADIUS * scaleManager.SCALE_FACTOR / 4) {
             for _ in 1...splits {
@@ -238,7 +206,7 @@ class CollisionSystem: System {
             spriteNode.addChild(emitter)
             asteroidEntity
                     .remove(componentClass: DisplayComponent.self)
-                    .remove(componentClass: CollisionComponent.self)
+                    .remove(componentClass: CollidableComponent.self)
                     .add(component: AudioComponent(fileNamed: .explosion,
                                                    actionKey: asteroidEntity.name))
                     .add(component: DisplayComponent(sknode: spriteNode))
@@ -254,8 +222,8 @@ class CollisionSystem: System {
                 guard
                     let nodeB_position = currentNodeB[PositionComponent.self],
                     let nodeA_position = currentNodeA[PositionComponent.self],
-                    let nodeB_collision = currentNodeB[CollisionComponent.self],
-                    let nodeA_collision = currentNodeA[CollisionComponent.self]
+                    let nodeB_collision = currentNodeB[CollidableComponent.self],
+                    let nodeA_collision = currentNodeA[CollidableComponent.self]
                 else { nodeB = currentNodeB.next; continue }
                 let distance = nodeB_position.position.distance(from: nodeA_position.position)
                 if (distance <= nodeB_collision.radius + nodeA_collision.radius) {

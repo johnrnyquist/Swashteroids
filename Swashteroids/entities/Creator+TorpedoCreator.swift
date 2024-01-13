@@ -33,7 +33,7 @@ extension Creator: TorpedoCreator {
                     y: sin * gunComponent.offsetFromParent.x + cos * gunComponent.offsetFromParent.y + position.y,
                     z: Layer.torpedoes,
                     rotationDegrees: 0))
-                .add(component: CollisionComponent(radius: 0))
+                .add(component: CollidableComponent(radius: 0))
                 .add(component: VelocityComponent(velocityX: cos * 220 + velocity.linearVelocity.x * 1.0 / scaleManager.SCALE_FACTOR,
                                                   velocityY: sin * 220 + velocity.linearVelocity.y * 1.0 / scaleManager.SCALE_FACTOR,
                                                   angularVelocity: 0 + velocity.angularVelocity,

@@ -136,19 +136,15 @@ extension Creator: ShipQuadrantsControlsManager {
                 .add(component: ButtonBehaviorComponent(
                     touchDown: { [unowned self] sprite in
                         generator?.impactOccurred()
-                        self.engine.ship?.add(component: FireDownComponent.shared)
+                        engine.ship?.add(component: FireDownComponent.shared)
                     },
                     touchUp: { sprite in
-                        self.engine.ship?.remove(componentClass: FireDownComponent.self)
                     },
                     touchUpOutside: { sprite in
-                        self.engine.ship?.remove(componentClass: FireDownComponent.self)
                     },
                     touchMoved: { sprite, over in
                         if over {
-                            self.engine.ship?.add(component: FireDownComponent.shared)
                         } else {
-                            self.engine.ship?.remove(componentClass: FireDownComponent.self)
                         }
                     }
                 ))

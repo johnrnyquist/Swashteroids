@@ -226,19 +226,15 @@ extension Creator: ShipButtonControlsManager {
                 },
                 touchUp: { sprite in
                     sprite.alpha = 0.2
-                    self.engine.ship?.remove(componentClass: FireDownComponent.self)
                 },
                 touchUpOutside: { sprite in
                     sprite.alpha = 0.2
-                    self.engine.ship?.remove(componentClass: FireDownComponent.self)
                 },
                 touchMoved: { sprite, over in
                     if over {
                         sprite.alpha = 0.6
-                        self.engine.ship?.add(component: FireDownComponent.shared)
                     } else {
                         sprite.alpha = 0.2
-                        self.engine.ship?.remove(componentClass: FireDownComponent.self)
                     }
                 }
             ))

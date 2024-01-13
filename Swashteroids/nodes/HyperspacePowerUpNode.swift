@@ -14,7 +14,7 @@ final class HyperspacePowerUpNode: Node {
     required init() {
         super.init()
         components = [
-            CollisionComponent.name: nil_component,
+            CollidableComponent.name: nil_component,
             PositionComponent.name: nil_component,
             HyperspacePowerUpComponent.name: nil_component,
             DisplayComponent.name: nil_component,

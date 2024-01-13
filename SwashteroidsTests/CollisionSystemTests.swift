@@ -14,7 +14,7 @@ import XCTest
 @testable import Swash
 
 class CollisionSystemTests: XCTestCase {
-    var creator: MockAsteroidCreator!
+    var creator: MockCreator!
     var engine: Engine!
     var shipEntity: Entity!
     var asteroidEntity: Entity!
@@ -26,7 +26,7 @@ class CollisionSystemTests: XCTestCase {
     var appStateComponent: AppStateComponent!
 
     override func setUpWithError() throws {
-        creator = MockAsteroidCreator()
+        creator = MockCreator()
         engine = Engine()
         appStateComponent = AppStateComponent(gameSize: .zero,
                                               numShips: 1,
@@ -41,37 +41,37 @@ class CollisionSystemTests: XCTestCase {
                 .add(component: ShipComponent())
                 .add(component: PositionComponent(x: 0, y: 0, z: .ship, rotationDegrees: 0.0))
                 .add(component: VelocityComponent(velocityX: 0.0, velocityY: 0.0, dampening: 0.0, base: 60.0))
-                .add(component: CollisionComponent(radius: 25))
+                .add(component: CollidableComponent(radius: 25))
         try? engine.add(entity: shipEntity)
         alienEntity = Entity(named: .alien)
                 .add(component: AlienComponent(reactionTime: 1.0, killScore: 350))
                 .add(component: PositionComponent(x: 0, y: 0, z: .ship, rotationDegrees: 0.0))
                 .add(component: VelocityComponent(velocityX: 0.0, velocityY: 0.0, dampening: 0.0, base: 60.0))
-                .add(component: CollisionComponent(radius: 25))
+                .add(component: CollidableComponent(radius: 25))
         try? engine.add(entity: alienEntity)
         asteroidEntity = Entity(named: "asteroidEntity")
                 .add(component: AsteroidComponent())
-                .add(component: CollisionComponent(radius: LARGE_ASTEROID_RADIUS, scaleManager: MockScaleManager()))
+                .add(component: CollidableComponent(radius: LARGE_ASTEROID_RADIUS, scaleManager: MockScaleManager()))
                 .add(component: PositionComponent(x: 0, y: 0, z: 0))
                 .add(component: DisplayComponent(sknode: SKNode()))
                 .add(component: VelocityComponent(velocityX: 0, velocityY: 0, dampening: 0, base: 60.0))
         try? engine.add(entity: asteroidEntity)
         torpedoPowerUpEntity = Entity(named: .torpedoPowerUp)
                 .add(component: GunPowerUpComponent())
-                .add(component: CollisionComponent(radius: POWER_UP_RADIUS, scaleManager: MockScaleManager()))
+                .add(component: CollidableComponent(radius: POWER_UP_RADIUS, scaleManager: MockScaleManager()))
                 .add(component: PositionComponent(x: 0, y: 0, z: 0))
                 .add(component: DisplayComponent(sknode: SKNode()))
         try? engine.add(entity: torpedoPowerUpEntity)
         hyperspacePowerUpEntity = Entity(named: .hyperspacePowerUp)
                 .add(component: HyperspacePowerUpComponent())
-                .add(component: CollisionComponent(radius: 10, scaleManager: MockScaleManager()))
+                .add(component: CollidableComponent(radius: 10, scaleManager: MockScaleManager()))
                 .add(component: PositionComponent(x: 0, y: 0, z: 0))
                 .add(component: DisplayComponent(sknode: SKNode()))
         try? engine.add(entity: hyperspacePowerUpEntity)
         torpedoEntity = Entity(named: .torpedo)
                 .add(component: TorpedoComponent(lifeRemaining: 1, owner: .player))
                 .add(component: GunPowerUpComponent())
-                .add(component: CollisionComponent(radius: 10, scaleManager: MockScaleManager()))
+                .add(component: CollidableComponent(radius: 10, scaleManager: MockScaleManager()))
                 .add(component: PositionComponent(x: 0, y: 0, z: 0))
                 .add(component: DisplayComponent(sknode: SKNode()))
         try? engine.add(entity: torpedoEntity)
@@ -105,7 +105,7 @@ class CollisionSystemTests: XCTestCase {
         }
     }
 
-    func xtest_SplitAsteroid() {
+    func test_SplitAsteroid() {
         let system = CollisionSystem(creator: creator,
                                      size: .zero,
                                      scaleManager: MockScaleManager())
@@ -114,7 +114,8 @@ class CollisionSystemTests: XCTestCase {
         system.splitAsteroid(asteroidEntity: asteroidEntity, splits: 2, level: 1)
         //
         XCTAssertEqual(creator.createAsteroidCalled, 2)
-        XCTAssertFalse(asteroidEntity.has(componentClassName: CollisionComponent.name))
+        XCTAssertEqual(creator.createTreasureCalled, true)
+        XCTAssertFalse(asteroidEntity.has(componentClassName: CollidableComponent.name))
         XCTAssertTrue(asteroidEntity.has(componentClassName: AudioComponent.name))
         XCTAssertTrue(asteroidEntity.has(componentClassName: DeathThroesComponent.name))
     }
@@ -207,7 +208,7 @@ class CollisionSystemTests: XCTestCase {
         }
         hyperspacePowerUp.entity = hyperspacePowerUpEntity
         // SUT
-        system.collisionCheck(nodeA: shipCollisionNode, nodeB: hyperspacePowerUp, action: {_, _ in })
+        system.collisionCheck(nodeA: shipCollisionNode, nodeB: hyperspacePowerUp, action: { _, _ in })
         //
         XCTAssertTrue(shipEntity.has(componentClassName: HyperspaceDriveComponent.name))
         XCTAssertTrue(shipEntity.has(componentClassName: AudioComponent.name))
@@ -270,7 +271,9 @@ class CollisionSystemTests: XCTestCase {
         asteroidCollisionNode.entity = asteroidEntity
         // SUT
         //TODO: this is no longer a decent test
-        system.collisionCheck(nodeA: shipCollisionNode, nodeB: asteroidCollisionNode, action: { _, _ in system.splitAsteroid(asteroidEntity: asteroidEntity, splits: 2, level: 1)})
+        system.collisionCheck(nodeA: shipCollisionNode,
+                              nodeB: asteroidCollisionNode,
+                              action: { _, _ in system.splitAsteroid(asteroidEntity: asteroidEntity, splits: 2, level: 1) })
         //
         XCTAssertTrue(system.splitAsteroidCalled)
         XCTAssertTrue(appStateComponent.numShips == 0)
@@ -284,13 +287,18 @@ class CollisionSystemTests: XCTestCase {
         }
     }
 
-    class MockAsteroidCreator: AsteroidCreator & ShipCreator & ShipButtonControlsManager {
+    class MockCreator: AsteroidCreator & ShipCreator & ShipButtonControlsManager & TreasureCreator {
         //MARK: - ShipButtonControlsManager
         var removeShipControlButtonsCalled = false
         var createShipControlButtonsCalled = false
         var enableShipControlButtonsCalled = false
         var showFireButtonCalled = false
         var showHyperspaceButtonCalled = false
+        var createTreasureCalled = false
+
+        func createTreasure(positionComponent: PositionComponent) {
+            createTreasureCalled = true
+        }
 
         func removeShipControlButtons() {
             removeShipControlButtonsCalled = true
@@ -336,3 +344,5 @@ class CollisionSystemTests: XCTestCase {
         var SCALE_FACTOR: CGFloat { 1.0 }
     }
 }
+
+extension CollisionSystemTests.MockCreator {}

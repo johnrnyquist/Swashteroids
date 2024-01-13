@@ -10,7 +10,7 @@
 
 import Swash
 
-final class CollisionComponent: Component {
+final class CollidableComponent: Component {
     var radius = 0.0
 
     init(radius: Double, scaleManager: ScaleManaging = ScaleManager.shared) {

@@ -52,4 +52,16 @@ class Creator {
     func removeEntity(_ entity: Entity) {
         engine.remove(entity: entity)
     }
+
+    func addEmitter(colored color: UIColor, on sknode: SKNode) {
+        if let emitter = SKEmitterNode(fileNamed: "fireflies_mod.sks") {
+            // emitter.setScale(1.0 * scaleManager.SCALE_FACTOR)
+            // let colorRamp: [UIColor] = [color.lighter(by: 30.0).shiftHue(by: 10.0)]
+            let colorRamp: [UIColor] = [color.shiftHue(by: 5.0)]
+            let keyTimes: [NSNumber] = [1.0]
+            let colorSequence = SKKeyframeSequence(keyframeValues: colorRamp, times: keyTimes)
+            emitter.particleColorSequence = colorSequence
+            sknode.addChild(emitter)
+        }
+    }
 }

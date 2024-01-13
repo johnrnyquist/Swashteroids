@@ -20,16 +20,6 @@ extension Creator: PowerUpCreator {
         createTorpedoesPowerUp(level: level, radius: POWER_UP_RADIUS)
     }
 
-    func addEmitter(colored color: UIColor, on sprite: SKSpriteNode) {
-        if let emitter = SKEmitterNode(fileNamed: "fireflies_mod.sks") {
-            let colorRamp: [UIColor] = [color.shiftHue(by: 5.0)]
-            let keyTimes: [NSNumber] = [1.0]
-            let colorSequence = SKKeyframeSequence(keyframeValues: colorRamp, times: keyTimes)
-            emitter.particleColorSequence = colorSequence
-            sprite.addChild(emitter)
-        }
-    }
-
     func createTorpedoesPowerUp(level: Int, radius: Double = POWER_UP_RADIUS) {
         guard engine.getEntity(named: .torpedoPowerUp) == nil else { return }
         let sprite = TorpedoesPowerUpView(imageNamed: .torpedoPowerUp)
@@ -45,7 +35,7 @@ extension Creator: PowerUpCreator {
                 .add(component: GunPowerUpComponent())
                 .add(component: positionComponent)
                 .add(component: velocityComponent)
-                .add(component: CollisionComponent(radius: radius))
+                .add(component: CollidableComponent(radius: radius))
                 .add(component: DisplayComponent(sknode: sprite))
                 .add(component: AnimationComponent(animation: sprite))
         engine.replace(entity: entity)
@@ -66,7 +56,7 @@ extension Creator: PowerUpCreator {
                 .add(component: HyperspacePowerUpComponent())
                 .add(component: positionComponent)
                 .add(component: velocityComponent)
-                .add(component: CollisionComponent(radius: radius))
+                .add(component: CollidableComponent(radius: radius))
                 .add(component: DisplayComponent(sknode: sprite))
                 .add(component: AnimationComponent(animation: sprite))
         engine.replace(entity: entity)

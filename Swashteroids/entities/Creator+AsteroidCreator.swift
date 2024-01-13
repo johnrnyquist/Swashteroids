@@ -33,7 +33,7 @@ extension Creator: AsteroidCreator {
                                                   angularVelocity: Double.random(in: -100.0...100.0),
                                                   dampening: 0,
                                                   base: 60.0))
-                .add(component: CollisionComponent(radius: radius))
+                .add(component: CollidableComponent(radius: radius))
                 .add(component: AsteroidComponent())
                 .add(component: DisplayComponent(sknode: sprite))
         sprite.entity = entity

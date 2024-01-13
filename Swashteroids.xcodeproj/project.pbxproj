@@ -50,7 +50,7 @@
 		8D23C1BC2B02C59D00F7D878 /* DisplayComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1702B02C59C00F7D878 /* DisplayComponent.swift */; };
 		8D23C1BE2B02C59D00F7D878 /* PositionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1722B02C59C00F7D878 /* PositionComponent.swift */; };
 		8D23C1BF2B02C59D00F7D878 /* HudComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1732B02C59C00F7D878 /* HudComponent.swift */; };
-		8D23C1C02B02C59D00F7D878 /* CollisionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1742B02C59C00F7D878 /* CollisionComponent.swift */; };
+		8D23C1C02B02C59D00F7D878 /* CollidableComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1742B02C59C00F7D878 /* CollidableComponent.swift */; };
 		8D23C1C12B02C59D00F7D878 /* StartComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1752B02C59C00F7D878 /* StartComponent.swift */; };
 		8D23C1C22B02C59D00F7D878 /* Hashable+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1762B02C59C00F7D878 /* Hashable+extensions.swift */; };
 		8D23C1C32B02C59D00F7D878 /* shipExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C1782B02C59C00F7D878 /* shipExplosion.sks */; };
@@ -135,6 +135,7 @@
 		93139265D59A74E99D27A0CF /* Transition+GameOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931393BFA7122C52736144FB /* Transition+GameOver.swift */; };
 		9313927570EF98CB5DB23DCB /* NacelleSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139C5C73E05D316598047C /* NacelleSystemTests.swift */; };
 		931392BC342CBC595CB879B5 /* FlipComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139EB3AE52346EF745211F /* FlipComponent.swift */; };
+		9313935D542E2721BFFADDC1 /* Creator+TreasureCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139F2C79FC630142EA1605 /* Creator+TreasureCreator.swift */; };
 		931393799C3434FBF3FC0CCD /* InputComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931396DD35CCD39E8E4EDB16 /* InputComponent.swift */; };
 		931394AC921BF3C3D7CABD13 /* FiringSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139DE76BF1939914D55E38 /* FiringSystemTests.swift */; };
 		93139562CC6BB542C42A3493 /* LeftNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139D029684C918FEDD3DC1 /* LeftNode.swift */; };
@@ -244,7 +245,7 @@
 		8D23C1702B02C59C00F7D878 /* DisplayComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayComponent.swift; sourceTree = "<group>"; };
 		8D23C1722B02C59C00F7D878 /* PositionComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PositionComponent.swift; sourceTree = "<group>"; };
 		8D23C1732B02C59C00F7D878 /* HudComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudComponent.swift; sourceTree = "<group>"; };
-		8D23C1742B02C59C00F7D878 /* CollisionComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollisionComponent.swift; sourceTree = "<group>"; };
+		8D23C1742B02C59C00F7D878 /* CollidableComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollidableComponent.swift; sourceTree = "<group>"; };
 		8D23C1752B02C59C00F7D878 /* StartComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartComponent.swift; sourceTree = "<group>"; };
 		8D23C1762B02C59C00F7D878 /* Hashable+extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Hashable+extensions.swift"; sourceTree = "<group>"; };
 		8D23C1782B02C59C00F7D878 /* shipExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = shipExplosion.sks; sourceTree = "<group>"; };
@@ -382,6 +383,7 @@
 		93139E95FF431FF894CFD502 /* Creator+ToggleShipControlsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Creator+ToggleShipControlsManager.swift"; sourceTree = "<group>"; };
 		93139EB3AE52346EF745211F /* FlipComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlipComponent.swift; sourceTree = "<group>"; };
 		93139EE51DF4C3AE1D381E57 /* Creator+AsteroidCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Creator+AsteroidCreator.swift"; sourceTree = "<group>"; };
+		93139F2C79FC630142EA1605 /* Creator+TreasureCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Creator+TreasureCreator.swift"; sourceTree = "<group>"; };
 		93139F43221229D3FBAC46D9 /* Creator+ShipCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Creator+ShipCreator.swift"; sourceTree = "<group>"; };
 		93139F7B6117208071E3FE22 /* TransitionAppStateSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionAppStateSystem.swift; sourceTree = "<group>"; };
 		93139FDF0C76049256DAE28C /* RightNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightNode.swift; sourceTree = "<group>"; };
@@ -506,7 +508,7 @@
 				8D23C16A2B02C59C00F7D878 /* AsteroidComponent.swift */,
 				8D23C1682B02C59C00F7D878 /* AudioComponent.swift */,
 				8D41E2102B1E64530031AF54 /* ChangeShipControlsStateComponent.swift */,
-				8D23C1742B02C59C00F7D878 /* CollisionComponent.swift */,
+				8D23C1742B02C59C00F7D878 /* CollidableComponent.swift */,
 				8D23C16D2B02C59C00F7D878 /* DeathThroesComponent.swift */,
 				8D23C1702B02C59C00F7D878 /* DisplayComponent.swift */,
 				931399840A8AC5987DF6D3D4 /* FireDownComponent.swift */,
@@ -580,6 +582,7 @@
 				931398E70F42335F03D272DD /* Transition+InfoViews.swift */,
 				93139DF99E2237817263DF63 /* Transition+Playing.swift */,
 				93139349F91910D60271C8DA /* Transition+Start.swift */,
+				93139F2C79FC630142EA1605 /* Creator+TreasureCreator.swift */,
 			);
 			path = entities;
 			sourceTree = "<group>";
@@ -836,7 +839,7 @@
 				8D23C1D12B02C59D00F7D878 /* MovementSystem.swift in Sources */,
 				8D23C1BF2B02C59D00F7D878 /* HudComponent.swift in Sources */,
 				8D0A0D2E2B4E0122007E9898 /* AlienSystem.swift in Sources */,
-				8D23C1C02B02C59D00F7D878 /* CollisionComponent.swift in Sources */,
+				8D23C1C02B02C59D00F7D878 /* CollidableComponent.swift in Sources */,
 				8D651D6C2B278BB30088AEEF /* Swashteroids+SKSceneDelegate.swift in Sources */,
 				8D41E2112B1E64530031AF54 /* ChangeShipControlsStateComponent.swift in Sources */,
 				8D23C19D2B02C59D00F7D878 /* Swashteroids.swift in Sources */,
@@ -961,6 +964,7 @@
 				93139909ADC0F687EEE55314 /* HyperspacePowerUpNode.swift in Sources */,
 				93139EFCD84F2131FD44424E /* TreasureComponent.swift in Sources */,
 				93139D95B51622F2F0A0817C /* TreasureCollisionNode.swift in Sources */,
+				9313935D542E2721BFFADDC1 /* Creator+TreasureCreator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

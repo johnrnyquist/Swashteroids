@@ -38,7 +38,7 @@ final class GameplayManagerSystemTests: XCTestCase {
         engine.add(system: system, priority: 1)
         let asteroid = Entity(named: "asteroid")
                 .add(component: AsteroidComponent())
-                .add(component: CollisionComponent(radius: LARGE_ASTEROID_RADIUS,
+                .add(component: CollidableComponent(radius: LARGE_ASTEROID_RADIUS,
                                                    scaleManager: MockScaleManager()))
                 .add(component: PositionComponent(x: 0, y: 0, z: .asteroids))
                 .add(component: VelocityComponent(velocityX: 0, velocityY: 0, base: 60.0))
@@ -56,7 +56,7 @@ final class GameplayManagerSystemTests: XCTestCase {
         engine.add(system: system, priority: 1)
         let asteroid = Entity(named: "asteroid")
                 .add(component: AsteroidComponent())
-                .add(component: CollisionComponent(radius: LARGE_ASTEROID_RADIUS,
+                .add(component: CollidableComponent(radius: LARGE_ASTEROID_RADIUS,
                                                    scaleManager: MockScaleManager()))
                 .add(component: PositionComponent(x: 0, y: 0, z: .asteroids))
                 .add(component: VelocityComponent(velocityX: 0, velocityY: 0, base: 60.0))

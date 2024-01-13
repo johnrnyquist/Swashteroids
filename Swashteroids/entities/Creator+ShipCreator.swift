@@ -31,11 +31,11 @@ extension Creator: ShipCreator {
         sprite.entity = ship
         ship.add(component: ShipComponent())
         ship.add(component: HyperspaceDriveComponent(jumps: 0))
-        ship.add(component: GunComponent(offsetX: 21, offsetY: 0, minimumShotInterval: 0.1, torpedoLifetime: 2, ownerType: .player, ammo: 0))
+        ship.add(component: GunComponent(offsetX: 21, offsetY: 0, minimumShotInterval: 0.1, torpedoLifetime: 2, ownerType: .player, numTorpedoes: 0))
         ship.add(component: WarpDriveComponent())
         ship.add(component: PositionComponent(x: state.gameSize.width / 2, y: state.gameSize.height / 2, z: .ship, rotationDegrees: 0.0))
         ship.add(component: VelocityComponent(velocityX: 0.0, velocityY: 0.0, dampening: 0.0, base: 60.0))
-        ship.add(component: CollisionComponent(radius: 25))
+        ship.add(component: CollidableComponent(radius: 25))
         ship.add(component: DisplayComponent(sknode: sprite))
         ship.add(component: MovementRateComponent(accelerationRate: 90, rotationRate: 100))
         ship.add(component: InputComponent.shared)
