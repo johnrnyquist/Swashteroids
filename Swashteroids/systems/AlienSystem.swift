@@ -47,12 +47,18 @@ class AlienSystem: System {
         let shipEntity = shipNodes?.head?.entity
         let playerAlive = shipEntity != nil && shipEntity?[DeathThroesComponent.self] == nil
         //
+        if let _ = alienComponent.targetingEntity,
+           let name = alienComponent.targetingEntity?.name,
+           engine?.getEntity(named: name) == nil {
+            alienComponent.targetingEntity = nil
+        }
+        //
         // Target the ship if it's alive and it's time to react
         if playerAlive,
            isTimeToReact {
             alienComponent.timeSinceLastReaction = 0
             pickTarget(alienComponent: alienComponent, position: alienPosition)
-            targeting(alienPosition, velocity, alienComponent.targetingEntity![PositionComponent.self]!.position)
+            moveTowardTarget(alienPosition, velocity, alienComponent.targetingEntity![PositionComponent.self]!.position)
         }
         //
         // Move it off screen if player is dead, this happens ONCE
@@ -87,6 +93,7 @@ class AlienSystem: System {
     }
 
     func pickTarget(alienComponent: AlienComponent, position: PositionComponent) {
+        guard alienComponent.targetingEntity == nil else { return }
         let ship = shipNodes?.head?.entity
         let closestAsteroid = findClosestEntity(to: position.position, node: asteroidNodes?.head)
         let closestTreasure = findClosestEntity(to: position.position, node: treasureNodes?.head)
@@ -94,7 +101,7 @@ class AlienSystem: System {
         alienComponent.targetingEntity = findClosestObject(to: position.position, in: entities)
     }
 
-    func targeting(_ position: PositionComponent, _ velocity: VelocityComponent, _ target: CGPoint) {
+    func moveTowardTarget(_ position: PositionComponent, _ velocity: VelocityComponent, _ target: CGPoint) {
         let deltaX = position.x - target.x
         let deltaY = position.y - target.y
         let angleInRadians = atan2(deltaY, deltaX)

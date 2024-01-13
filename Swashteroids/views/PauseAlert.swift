@@ -38,7 +38,6 @@ struct PauseAlert: View {
     var body: some View {
         VStack(spacing: 10) {
             ButtonView(label: "Home", action: home)
-//            ButtonView(label: "Restart", action: restart)
             ButtonView(label: "Resume", action: resume)
         }
                 .frame(width: 200, height: 160)

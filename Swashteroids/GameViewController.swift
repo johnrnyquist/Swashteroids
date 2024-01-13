@@ -20,7 +20,7 @@ final class GameViewController: UIViewController, AlertPresenting {
     var skView: SKView!
     var gameScene: GameScene!
     var game: Swashteroids?
-    var alertPresenter: AlertPresenting!
+    var isAlertPresented = false //HACK: this is a hack to prevent the game from starting when the app returns from background.
 
     override func loadView() {
         skView = SKView()
@@ -58,11 +58,13 @@ final class GameViewController: UIViewController, AlertPresenting {
         let alertView = PauseAlert(
             home: { [unowned self] in
                 dismiss(animated: true, completion: { [unowned self] in
+                    isAlertPresented = false
                     startNewGame()
                 })
             },
             resume: { [unowned self] in
                 dismiss(animated: true, completion: { [unowned self] in
+                    isAlertPresented = false
                     game?.start()
                 })
             })
@@ -70,6 +72,7 @@ final class GameViewController: UIViewController, AlertPresenting {
         hostingController.modalPresentationStyle = .overCurrentContext
         hostingController.view.backgroundColor = UIColor(white: 1, alpha: 0.0)
         present(hostingController, animated: true, completion: nil)
+        isAlertPresented = true
     }
 
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {

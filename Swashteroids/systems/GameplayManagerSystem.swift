@@ -112,8 +112,6 @@ class GameplayManagerSystem: System {
                                                y: size.height * spaceshipPositionRatio)
             if isClearToAddSpaceship(at: newSpaceshipPosition) {
                 creator.createShip(appStateComponent)
-                let level = max(appStateComponent.level, minimumLevel)
-                createPowerUps(level: level)
             }
         } else { // GAME OVER!
             entity.add(component: TransitionAppStateComponent(from: .playing, to: .gameOver))
@@ -145,13 +143,6 @@ class GameplayManagerSystem: System {
         }
         return true
     }
-
-    /// Create power-ups
-    func createPowerUps(level: Int) {
-        creator.createTorpedoesPowerUp(level: level)
-        creator.createHyperspacePowerUp(level: level)
-    }
-
     /// Create asteroids
     func createAsteroids(count: Int, avoiding positionToAvoid: CGPoint, level: Int) {
         for _ in 0..<count {
