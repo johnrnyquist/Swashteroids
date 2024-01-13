@@ -56,12 +56,10 @@ class AlienSystem: System {
               alienNode.entity?[DeathThroesComponent.self] == nil,
               let alienEntity = alienNode.entity
         else { return }
-        // update reaction time
         alienComponent.timeSinceLastReaction += time
-        // update position
+        let isTimeToReact = alienComponent.timeSinceLastReaction >= alienComponent.reactionTime
         let shipEntity = shipNodes?.head?.entity
         let playerAlive = shipEntity != nil && shipEntity?[DeathThroesComponent.self] == nil
-        let isTimeToReact = alienComponent.timeSinceLastReaction >= alienComponent.reactionTime
         //
         // Target the ship if it's alive and it's time to react
         if playerAlive,
@@ -107,7 +105,6 @@ class AlienSystem: System {
     }
 
     private func pickTarget(_ component: AlienComponent, _ position: PositionComponent) {
-//        guard component.targetEntity == nil else { return }
         let closestAsteroid = findClosestAsteroid(position.position)
         if let closestAsteroid,
            let ship = shipNodes?.head?.entity {

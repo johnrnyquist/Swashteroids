@@ -115,6 +115,8 @@
 		8D8F24B22B51B8FA00B2E223 /* CGRect+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8F24B12B51B8FA00B2E223 /* CGRect+extensions.swift */; };
 		8D8F24B42B51CC6B00B2E223 /* treasure.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D8F24B32B51CC6B00B2E223 /* treasure.wav */; };
 		8D8F24B62B51D47700B2E223 /* UIColor+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8F24B52B51D47700B2E223 /* UIColor+extensions.swift */; };
+		8D8F24BA2B5204B100B2E223 /* treasure_special.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D8F24B82B5204B100B2E223 /* treasure_special.wav */; };
+		8D8F24BB2B5204B100B2E223 /* treasure_standard.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D8F24B92B5204B100B2E223 /* treasure_standard.wav */; };
 		8D9DEF642B059E3800064B01 /* DoHyperspaceJumpComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9DEF632B059E3800064B01 /* DoHyperspaceJumpComponent.swift */; };
 		8D9DEF662B059EC400064B01 /* HyperspaceJumpNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9DEF652B059EC400064B01 /* HyperspaceJumpNode.swift */; };
 		8D9DEF682B059F2800064B01 /* HyperspaceJumpSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9DEF672B059F2800064B01 /* HyperspaceJumpSystem.swift */; };
@@ -307,6 +309,8 @@
 		8D8F24B12B51B8FA00B2E223 /* CGRect+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+extensions.swift"; sourceTree = "<group>"; };
 		8D8F24B32B51CC6B00B2E223 /* treasure.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = treasure.wav; sourceTree = "<group>"; };
 		8D8F24B52B51D47700B2E223 /* UIColor+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+extensions.swift"; sourceTree = "<group>"; };
+		8D8F24B82B5204B100B2E223 /* treasure_special.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = treasure_special.wav; sourceTree = "<group>"; };
+		8D8F24B92B5204B100B2E223 /* treasure_standard.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = treasure_standard.wav; sourceTree = "<group>"; };
 		8D9DEF632B059E3800064B01 /* DoHyperspaceJumpComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoHyperspaceJumpComponent.swift; sourceTree = "<group>"; };
 		8D9DEF652B059EC400064B01 /* HyperspaceJumpNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyperspaceJumpNode.swift; sourceTree = "<group>"; };
 		8D9DEF672B059F2800064B01 /* HyperspaceJumpSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyperspaceJumpSystem.swift; sourceTree = "<group>"; };
@@ -584,6 +588,8 @@
 			isa = PBXGroup;
 			children = (
 				8D8F24B32B51CC6B00B2E223 /* treasure.wav */,
+				8D8F24B82B5204B100B2E223 /* treasure_special.wav */,
+				8D8F24B92B5204B100B2E223 /* treasure_standard.wav */,
 				8D0A0D332B4E08D4007E9898 /* alienEntrance.wav */,
 				8D23C18F2B02C59D00F7D878 /* bangLarge.wav */,
 				8D6D81542B1A562900AD8D18 /* braam-6150.wav */,
@@ -793,8 +799,10 @@
 				8D23C1D82B02C59D00F7D878 /* thrust.wav in Resources */,
 				8D23C1D72B02C59D00F7D878 /* bangLarge.wav in Resources */,
 				8D6D81552B1A562900AD8D18 /* braam-6150.wav in Resources */,
+				8D8F24BB2B5204B100B2E223 /* treasure_standard.wav in Resources */,
 				8D688FBD2B0680D900056CD3 /* hyperspace.wav in Resources */,
 				8D5911602B4CA6F300A31B95 /* fireflies_mod.sks in Resources */,
+				8D8F24BA2B5204B100B2E223 /* treasure_special.wav in Resources */,
 				8D23C1EB2B02CD9800F7D878 /* LICENSE.md in Resources */,
 				8D0A0D342B4E08D4007E9898 /* alienEntrance.wav in Resources */,
 				8D23C1432B02C4CC00F7D878 /* SwashteroidsAssets.xcassets in Resources */,

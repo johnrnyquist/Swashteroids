@@ -11,6 +11,10 @@
 import SpriteKit
 import Swash
 
+//HACK global constants for now
+let treasure_standard_value = 75
+let treasure_special_value = 350
+
 /// This class is an argument for switching to the SpriteKit physics engine.
 class CollisionSystem: System {
     private weak var creator: (AsteroidCreator & ShipCreator & ShipButtonControlsManager)!
@@ -53,7 +57,7 @@ class CollisionSystem: System {
             shipNode.entity?
                     .add(component: GunComponent(offsetX: 21,
                                                  offsetY: 0,
-                                                 minimumShotInterval: 0.25,
+                                                 minimumShotInterval: 0.125,
                                                  torpedoLifetime: 2,
                                                  torpedoColor: .torpedo,
                                                  ownerType: .player,
@@ -149,7 +153,13 @@ class CollisionSystem: System {
                    vehicleNode[ShipComponent.self] != nil,
                    let component = appState[AppStateComponent.self],
                    let value = treasureNode[TreasureComponent.self]?.value {
-                    vehicleNode.entity?.add(component: AudioComponent(fileNamed: .treasure,
+                    let soundName: SoundFileNames
+                    if value == treasure_special_value {
+                        soundName = .treasure_special
+                    } else {
+                        soundName = .treasure_standard
+                    }
+                    vehicleNode.entity?.add(component: AudioComponent(fileNamed: soundName,
                                                                       actionKey: "treasure"))
                     component.score += value
                 }
@@ -190,8 +200,8 @@ class CollisionSystem: System {
 
     private func createTreasure(positionComponent: PositionComponent) {
         let r = Int.random(in: 1...5) == 5
-        let standard = (color: UIColor.systemGreen, value: 75)
-        let special = (color: UIColor.systemPink, value: 350)
+        let standard = (color: UIColor.systemGreen, value: treasure_standard_value)
+        let special = (color: UIColor.systemPink, value: treasure_special_value)
         let treasureData = r ? special : standard
         let sprite = SwashSpriteNode(color: treasureData.color, size: CGSize(width: 10, height: 10))
         addEmitter(colored: treasureData.color, on: sprite)

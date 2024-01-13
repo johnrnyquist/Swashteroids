@@ -15,17 +15,13 @@ import SpriteKit
 final class FiringSystem: System {
     private weak var creator: (TorpedoCreator & PowerUpCreator)?
     private weak var firingNodes: NodeList?
-    private weak var hudNodes: NodeList?
-    private weak var engine: Engine?
 
     init(creator: TorpedoCreator & PowerUpCreator) {
         self.creator = creator
     }
 
     override public func addToEngine(engine: Engine) {
-        self.engine = engine
         firingNodes = engine.getNodeList(nodeClassType: FiringNode.self)
-        hudNodes = engine.getNodeList(nodeClassType: HudNode.self)
     }
 
     override public func update(time: TimeInterval) {
@@ -39,7 +35,8 @@ final class FiringSystem: System {
     private func updateNode(node: Node, time: TimeInterval) {
         guard let velocity = node[VelocityComponent.self],
               let position = node[PositionComponent.self],
-              let gun = node[GunComponent.self]
+              let gun = node[GunComponent.self],
+              let _ = node[FireDownComponent.self]
         else { return }
         gun.timeSinceLastShot += time
         if gun.timeSinceLastShot >= gun.minimumShotInterval {
