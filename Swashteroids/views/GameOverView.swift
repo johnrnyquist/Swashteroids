@@ -59,6 +59,8 @@ class GameOverView: SwashSpriteNode {
         swash.anchorPoint = CGPoint(x: 0.5, y: 1)
         swash.scale = scaleManager.SCALE_FACTOR == 1.0 ? 0.8 : 1.0
         swash.alpha = 0.2
+        swash.color = .systemBlue
+        swash.colorBlendFactor = 0.2
         swash.y = hitPercentageNum.y - 40
         background.addChild(swash)
         zPosition = .top

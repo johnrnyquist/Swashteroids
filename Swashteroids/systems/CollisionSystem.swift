@@ -51,7 +51,7 @@ class CollisionSystem: System {
     /// 
     /// - Parameter time: The time since the last update
     override public func update(time: TimeInterval) {
-        // ships and torpedoPowerUps
+        // ship and torpedoPowerUps
         collisionCheck(nodeA: ships.head, nodeB: torpedoPowerUp.head) { shipNode, torpedoPowerUpNode in
             engine.remove(entity: torpedoPowerUpNode.entity!)
             shipNode.entity?
@@ -74,7 +74,7 @@ class CollisionSystem: System {
             sprite?.run(seq)
             //END_HACK
         }
-        // ships and hyperspacePowerUps
+        // ship and hyperspacePowerUps
         collisionCheck(nodeA: ships.head, nodeB: hyperspacePowerUp.head) { shipNode, hyperspace in
             engine.remove(entity: hyperspace.entity!)
             shipNode.entity?

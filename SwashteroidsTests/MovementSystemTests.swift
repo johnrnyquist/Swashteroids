@@ -18,7 +18,7 @@ final class MovementSystemTests: XCTestCase {
 
     override func setUpWithError() throws {
         size = CGSize(width: 1024.0, height: 768.0)
-        system = MovementSystem(size: size)
+        system = MovementSystem(gameSize: size)
     }
 
     override func tearDownWithError() throws {

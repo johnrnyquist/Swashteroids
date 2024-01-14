@@ -72,6 +72,7 @@ extension Creator: ShipCreator {
         // Remove components
         ship.remove(componentClass: AudioComponent.self)
         ship.remove(componentClass: DisplayComponent.self)
+        ship.remove(componentClass: CollidableComponent.self)
         ship.remove(componentClass: GunComponent.self)
         ship.remove(componentClass: HyperspaceDriveComponent.self)
         ship.remove(componentClass: InputComponent.self)

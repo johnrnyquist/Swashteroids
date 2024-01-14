@@ -17,7 +17,7 @@ class HudView: SKNode {
     private var shipsLabel: SKLabelNode!
     var pauseButton: SwashSpriteNode!
     var ammoView: AmmoView!
-    var jumpsView: HyperspaceJumpsView!
+    var jumpsView: AmmoView!
 
     func setAmmo(_ ammo: Int) {
         guard ammoView.ammo != ammo else { return }
@@ -25,8 +25,8 @@ class HudView: SKNode {
     }
 
     func setJumps(_ jumps: Int) {
-        guard jumpsView.jumps != jumps else { return }
-        jumpsView.jumps = jumps
+        guard jumpsView.ammo != jumps else { return }
+        jumpsView.ammo = jumps
     }
 
     init(gameSize: CGSize, scaleManager: ScaleManaging = ScaleManager.shared) {
@@ -52,15 +52,15 @@ class HudView: SKNode {
         addChild(shipsLabel)
         addChild(pauseButton)
         // Ammo
-        ammoView = AmmoView()
+        ammoView = AmmoView(circleColor: .powerUpTorpedo, size: gameSize, icon: TorpedoesPowerUpView(imageNamed: .torpedoPowerUp))
         ammoView.zPosition = .top
-        ammoView.x = gameSize.width * 1 / 4 - ammoView.width
+        ammoView.x = gameSize.width * 1 / 3 - ammoView.width
         ammoView.y = textY
         addChild(ammoView)
-     // Jumps
-        jumpsView = HyperspaceJumpsView()
+        // Jumps
+        jumpsView = AmmoView(circleColor: .powerUpHyperspace, size: gameSize, icon: HyperspacePowerUpView(imageNamed: .hyperspacePowerUp))
         jumpsView.zPosition = .top
-        jumpsView.x = gameSize.width * 2 / 3 - jumpsView.width
+        jumpsView.x = gameSize.width * 3 / 4 - jumpsView.width
         jumpsView.y = textY
         addChild(jumpsView)
     }
@@ -111,7 +111,7 @@ class HudView: SKNode {
 class AmmoView: SKSpriteNode {
     var ammo: Int = 0 {
         didSet {
-            update()
+            refresh()
         }
     }
     var circles: [SKShapeNode] = []
@@ -120,97 +120,54 @@ class AmmoView: SKSpriteNode {
     var startingPoint = CGPoint(x: 0.0, y: 0.0)
     let rows = 2
     let columns = 10
-
-    func createCircles() {
-        let padding: CGFloat = 3.0
-        for row in 0..<rows {
-            for column in 0..<columns {
-                let circle = SKShapeNode(circleOfRadius: radius)
-                circle.fillColor = .powerUpTorpedo
-                circle.strokeColor = .clear
-                circle.position = CGPoint(
-                    x: startingPoint.x + CGFloat(column) * spacing + padding,
-                    y: startingPoint.y + CGFloat(row) * spacing + padding + radius // Add radius to y position
-                )
-                circle.isHidden = true
-                circles.append(circle)
-                addChild(circle)
-            }
-        }
-    }
-
-    func update() {
+    let padding: CGFloat = 3.0
+    var icon: SKSpriteNode!
+    
+    func refresh() {
         for (index, circle) in circles.enumerated() {
             circle.isHidden = index >= ammo
         }
+        icon.isHidden = ammo == 0
+    }
+
+    convenience init(circleColor: UIColor, size: CGSize, icon: SKSpriteNode) {
+        self.init(texture: nil, color: .clear, size: size)
+        self.icon = icon
+        createCircles(circleColor, icon)
     }
 
     override init(texture: SKTexture?, color: UIColor, size: CGSize) {
-        let padding: CGFloat = 3.0
-        let rectWidth = CGFloat(columns) * spacing + 2 * padding
-        let rectHeight = CGFloat(rows) * spacing + 2 * padding
-        let rectangle = CGRect(x: startingPoint.x - padding, y: startingPoint.y - padding, width: rectWidth, height: rectHeight)
-        super.init(texture: texture,
-                   color: color,
-                   size: CGSize(width: rectangle.width, height: rectangle.height))
-        spacing = radius * 2.0 + 3.0
+        spacing = radius * 2.0 + padding
         startingPoint = CGPoint(x: radius, y: radius)
-        createCircles()
+        let rectWidth = CGFloat(columns) * spacing + padding
+        let rectHeight = CGFloat(rows) * spacing + padding
+        let rectangle = CGRect(x: 0, y: 0, width: rectWidth, height: rectHeight)
+        super.init(texture: texture,
+                   color: .clear,
+                   size: CGSize(width: rectangle.width, height: rectangle.height))
+        anchorPoint = .zero
     }
 
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-//TODO: this class is almost identical to AmmoView
-class HyperspaceJumpsView: SKSpriteNode {
-    var jumps: Int = 0 {
-        didSet {
-            update()
-        }
-    }
-    var circles: [SKShapeNode] = []
-    let radius: CGFloat = 2.0
-    var spacing: CGFloat = 0.0
-    var startingPoint = CGPoint(x: 0.0, y: 0.0)
-    let rows = 2
-    let columns = 10
-
-    func createCircles() {
-        let padding: CGFloat = 3.0
+    func createCircles(_ color: UIColor, _ icon: SKSpriteNode) {
+        addChild(icon)
+        icon.anchorPoint = CGPoint(x: 1.0, y: 0.0)
+        icon.y = padding
+        icon.alpha = 0.6
         for row in 0..<rows {
             for column in 0..<columns {
                 let circle = SKShapeNode(circleOfRadius: radius)
-                circle.fillColor = .powerUpHyperspace
+                circle.fillColor = color
                 circle.strokeColor = .clear
                 circle.position = CGPoint(
                     x: startingPoint.x + CGFloat(column) * spacing + padding,
-                    y: startingPoint.y + CGFloat(row) * spacing + padding + radius // Add radius to y position
+                    y: startingPoint.y + CGFloat(row) * spacing + padding
                 )
                 circle.isHidden = true
                 circles.append(circle)
                 addChild(circle)
             }
         }
-    }
-
-    func update() {
-        for (index, circle) in circles.enumerated() {
-            circle.isHidden = index >= jumps
-        }
-    }
-
-    override init(texture: SKTexture?, color: UIColor, size: CGSize) {
-        let padding: CGFloat = 3.0
-        let rectWidth = CGFloat(columns) * spacing + 2 * padding
-        let rectHeight = CGFloat(rows) * spacing + 2 * padding
-        let rectangle = CGRect(x: startingPoint.x - padding, y: startingPoint.y - padding, width: rectWidth, height: rectHeight)
-        super.init(texture: texture,
-                   color: color,
-                   size: CGSize(width: rectangle.width, height: rectangle.height))
-        spacing = radius * 2.0 + 3.0
-        startingPoint = CGPoint(x: radius, y: radius)
-        createCircles()
+        refresh()
     }
 
     required init?(coder aDecoder: NSCoder) {

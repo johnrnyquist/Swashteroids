@@ -11,11 +11,13 @@
 import SpriteKit
 
 extension GameScene: SoundPlaying {}
+
 extension GameScene: Container {}
 
 final class GameScene: SKScene {
     static var sound = SKAudioNode(fileNamed: SoundFileNames.thrust.rawValue) //HACK HACK HACK
     var touchDelegate: TouchDelegate?
+    var cameraNode: SKCameraNode!
 
     override func didMove(to view: SKView) {
         super.didMove(to: view)
@@ -28,6 +30,11 @@ final class GameScene: SKScene {
         run(addAudioNodeAction)
         //END_HACK
         backgroundColor = .background
+        cameraNode = SKCameraNode()
+        camera = cameraNode
+        cameraNode.setScale(1.0)
+        cameraNode.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
+        addChild(cameraNode)
     }
 
     //MARK:- TOUCHES -------------------------

@@ -12,10 +12,10 @@ import Foundation
 import Swash
 
 final class MovementSystem: ListIteratingSystem {
-    var size: CGSize
+    var gameSize: CGSize
 
-    init(size: CGSize) {
-        self.size = size
+    init(gameSize: CGSize) {
+        self.gameSize = gameSize
         super.init(nodeClass: MovementNode.self)
         nodeUpdateFunction = updateNode
     }
@@ -28,16 +28,16 @@ final class MovementSystem: ListIteratingSystem {
         position.y += velocity.linearVelocity.y * time
         if velocity.wraps {
             if (position.x < 0) {
-                position.x += size.width
+                position.x += gameSize.width
             }
-            if (position.x > size.width) {
-                position.x -= size.width
+            if (position.x > gameSize.width) {
+                position.x -= gameSize.width
             }
             if (position.y < 0) {
-                position.y += size.height
+                position.y += gameSize.height
             }
-            if (position.y > size.height) {
-                position.y -= size.height
+            if (position.y > gameSize.height) {
+                position.y -= gameSize.height
             }
         }
         position.rotationDegrees += velocity.angularVelocity * time

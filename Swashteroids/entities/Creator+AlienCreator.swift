@@ -76,7 +76,9 @@ extension Creator: AlienCreator {
             warningSprite.color = .background
         }
         let remove = SKAction.removeFromParent()
-        let sequence = SKAction.sequence([turnRed, turnBlack, turnRed, turnBlack, turnRed, turnBlack, remove])
+        let singleFlash = SKAction.sequence([turnRed, turnBlack])
+        let flashing = SKAction.repeat(singleFlash, count: 3)
+        let sequence = SKAction.sequence([flashing, remove])
         warningSprite.run(sequence)
     }
 }

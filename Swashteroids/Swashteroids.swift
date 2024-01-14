@@ -76,7 +76,7 @@ final class Swashteroids: NSObject {
                 .add(system: AccelerometerSystem(), priority: .move)
                 .add(system: FlipSystem(), priority: .move)
                 .add(system: LeftSystem(), priority: .move)
-                .add(system: MovementSystem(size: gameSize), priority: .move)
+                .add(system: MovementSystem(gameSize: gameSize), priority: .move)
                 .add(system: RightSystem(), priority: .move)
                 .add(system: ThrustSystem(), priority: .move)
                 // resolve collisions
@@ -90,7 +90,6 @@ final class Swashteroids: NSObject {
                 .add(system: TorpedoAgeSystem(), priority: .update)
                 .add(system: DeathThroesSystem(), priority: .update)
                 .add(system: HyperspaceJumpSystem(engine: engine, creator: creator), priority: .update)
-//                .add(system: HyperspaceSystem(engine: engine), priority: .update)
                 .add(system: NacellesSystem(), priority: .update)
                 .add(system: HudSystem(creator: creator), priority: .update)
                 // render
