@@ -56,14 +56,14 @@ final class TransitionTests: XCTestCase {
     func test_ToStartScreen() {
         transition.toStartScreen()
         for entityName: EntityName in [.start, .noButtons, .withButtons] {
-            XCTAssertNotNil(engine.getEntity(named: entityName))
+            XCTAssertNotNil(engine.findEntity(named: entityName))
         }
     }
 
     func test_FromStartScreen() {
         transition.fromStartScreen()
         for entityName: EntityName in [.start, .noButtons, .withButtons] {
-            XCTAssertNil(engine.getEntity(named: entityName))
+            XCTAssertNil(engine.findEntity(named: entityName))
         }
     }
     
@@ -79,7 +79,7 @@ final class TransitionTests: XCTestCase {
         let asteroids = engine.getNodeList(nodeClassType: AsteroidCollisionNode.self)
         XCTAssertNil(asteroids.head)
         for entityName: EntityName in [.hud, .gameOver, .hyperspacePowerUp, .torpedoPowerUp] {
-            XCTAssertNil(engine.getEntity(named: entityName))
+            XCTAssertNil(engine.findEntity(named: entityName))
         }
         XCTAssertEqual(appStateComponent.score, appStateComponent.orig_score)
         XCTAssertEqual(appStateComponent.level, appStateComponent.orig_level)
@@ -88,7 +88,7 @@ final class TransitionTests: XCTestCase {
 
     func test_ToGameOverScreen() {
         transition.toGameOverScreen()
-        guard let gameOverEntity = engine.getEntity(named: .gameOver) else {
+        guard let gameOverEntity = engine.findEntity(named: .gameOver) else {
             XCTFail("gameOverEntity was nil")
             return
         }

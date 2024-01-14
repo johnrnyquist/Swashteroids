@@ -323,11 +323,11 @@
 		8D9DEF632B059E3800064B01 /* DoHyperspaceJumpComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoHyperspaceJumpComponent.swift; sourceTree = "<group>"; };
 		8D9DEF652B059EC400064B01 /* HyperspaceJumpNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyperspaceJumpNode.swift; sourceTree = "<group>"; };
 		8D9DEF672B059F2800064B01 /* HyperspaceJumpSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyperspaceJumpSystem.swift; sourceTree = "<group>"; };
+		8DA827F72B546343001C0CDB /* Swashteroids.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = Swashteroids.xctestplan; path = SwashteroidsTests/Swashteroids.xctestplan; sourceTree = "<group>"; };
 		8DA97A952B23581100E7495A /* Int+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+extensions.swift"; sourceTree = "<group>"; };
 		8DB409EB2B1D3C6F008DE4EB /* TransitionAppStateComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionAppStateComponent.swift; sourceTree = "<group>"; };
 		8DB99F512B2BE7D700C3593A /* TestingAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingAppDelegate.swift; sourceTree = "<group>"; };
 		8DB99F532B2BE81800C3593A /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		8DB99F552B2BE92B00C3593A /* Swashteroids.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = Swashteroids.xctestplan; path = SwashteroidsTests/Swashteroids.xctestplan; sourceTree = "<group>"; };
 		8DB99F562B2BE9EE00C3593A /* RenderSystemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderSystemTests.swift; sourceTree = "<group>"; };
 		8DB99F582B2BF2A700C3593A /* GameOverSystemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverSystemTests.swift; sourceTree = "<group>"; };
 		8DB99F5A2B2C9B4500C3593A /* TransitionAppStateSystemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionAppStateSystemTests.swift; sourceTree = "<group>"; };
@@ -423,7 +423,7 @@
 		8D23C1292B02C4C900F7D878 = {
 			isa = PBXGroup;
 			children = (
-				8DB99F552B2BE92B00C3593A /* Swashteroids.xctestplan */,
+				8DA827F72B546343001C0CDB /* Swashteroids.xctestplan */,
 				8D23C1EC2B02CFAD00F7D878 /* images */,
 				8D23C1342B02C4CA00F7D878 /* Swashteroids */,
 				8D23C1E82B02CD7E00F7D878 /* README.md */,

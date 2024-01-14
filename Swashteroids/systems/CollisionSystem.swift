@@ -70,7 +70,7 @@ class CollisionSystem: System {
             let fadeIn = SKAction.fadeAlpha(to: 1.0, duration: 0.2)
             let fadeOut = SKAction.fadeAlpha(to: 0.2, duration: 0.2)
             let seq = SKAction.sequence([fadeIn, fadeOut])
-            let sprite = engine.getEntity(named: .fireButton)?[DisplayComponent.self]?.sprite
+            let sprite = engine.findEntity(named: .fireButton)?[DisplayComponent.self]?.sprite
             sprite?.run(seq)
             //END_HACK
         }
@@ -87,7 +87,7 @@ class CollisionSystem: System {
             let fadeIn = SKAction.fadeAlpha(to: 1.0, duration: 0.2)
             let fadeOut = SKAction.fadeAlpha(to: 0.2, duration: 0.2)
             let seq = SKAction.sequence([fadeIn, fadeOut])
-            let sprite = (engine.getEntity(named: .hyperspaceButton)?[DisplayComponent.name] as? DisplayComponent)?.sprite
+            let sprite = (engine.findEntity(named: .hyperspaceButton)?[DisplayComponent.name] as? DisplayComponent)?.sprite
             sprite?.run(seq)
             //END_HACK
         }

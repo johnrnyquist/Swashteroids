@@ -189,7 +189,7 @@ class CollisionSystemTests: XCTestCase {
         //
         XCTAssertTrue(shipEntity.has(componentClassName: GunComponent.name))
         XCTAssertTrue(shipEntity.has(componentClassName: AudioComponent.name))
-        XCTAssertNil(engine.getEntity(named: .torpedoPowerUp))
+        XCTAssertNil(engine.findEntity(named: .torpedoPowerUp))
     }
 
     func xtest_ShipHyperspacePowerUpCollisionCheck() {
@@ -212,7 +212,7 @@ class CollisionSystemTests: XCTestCase {
         //
         XCTAssertTrue(shipEntity.has(componentClassName: HyperspaceDriveComponent.name))
         XCTAssertTrue(shipEntity.has(componentClassName: AudioComponent.name))
-        XCTAssertNil(engine.getEntity(named: .hyperspacePowerUp))
+        XCTAssertNil(engine.findEntity(named: .hyperspacePowerUp))
     }
 
     func xtest_TorpedoAsteroidCollisionCheck() {
@@ -243,7 +243,7 @@ class CollisionSystemTests: XCTestCase {
         system.collisionCheck(nodeA: torpedoNode, nodeB: asteroidNode) { _, _ in }
         //
         XCTAssertTrue(system.splitAsteroidCalled)
-        XCTAssertNil(engine.getEntity(named: .torpedo))
+        XCTAssertNil(engine.findEntity(named: .torpedo))
 
         class MockCollisionSystem: CollisionSystem {
             var splitAsteroidCalled = false

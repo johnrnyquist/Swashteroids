@@ -44,14 +44,14 @@ class ShipControlsSystem: ListIteratingSystem {
                 // HACK alpha for fire and hyperspace is set to 0.0 in Creator+ShipControlButtonsManager.swift
                 if let ship = engine.ship,
                    ship.has(componentClassName: GunComponent.name) {
-                    if let fireButton = engine.getEntity(named: .fireButton),
+                    if let fireButton = engine.findEntity(named: .fireButton),
                        let sprite = fireButton.sprite {
                         sprite.alpha = 0.2
                     }
                 }
                 if let ship = engine.ship,
                    ship.has(componentClassName: HyperspaceDriveComponent.name) {
-                    if let hyperspaceButton = engine.getEntity(named: .hyperspaceButton),
+                    if let hyperspaceButton = engine.findEntity(named: .hyperspaceButton),
                        let sprite = hyperspaceButton.sprite {
                         sprite.alpha = 0.2
                     }

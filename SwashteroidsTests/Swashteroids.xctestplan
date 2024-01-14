@@ -1,15 +1,20 @@
 {
   "configurations" : [
     {
-      "id" : "76AA5695-791F-4072-A2EB-1B592E050265",
-      "name" : "Configuration 1",
+      "id" : "54E650F9-DD7A-46A7-BE03-FE1EFD5332BC",
+      "name" : "Test Scheme Action",
       "options" : {
 
       }
     }
   ],
   "defaultOptions" : {
-
+    "codeCoverage" : false,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Swashteroids.xcodeproj",
+      "identifier" : "8D23C1312B02C4CA00F7D878",
+      "name" : "Swashteroids"
+    }
   },
   "testTargets" : [
     {

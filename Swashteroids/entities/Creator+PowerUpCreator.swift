@@ -45,7 +45,7 @@ extension Creator: PowerUpCreator {
                        sprite: SwashSpriteNode,
                        color: UIColor,
                        component: Component) {
-        guard engine.getEntity(named: entityName) == nil else { return }
+        guard engine.findEntity(named: entityName) == nil else { return }
         sprite.name = entityName
         sprite.color = color
         sprite.colorBlendFactor = 1.0

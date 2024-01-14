@@ -12,24 +12,24 @@ import Swash
 
 extension Engine {
     var ship: Entity? {
-        getEntity(named: .player)
+        findEntity(named: .player)
     }
     var gameOver: Entity? {
-        getEntity(named: .gameOver)
+        findEntity(named: .gameOver)
     }
     var hud: Entity? {
-        getEntity(named: .hud)
+        findEntity(named: .hud)
     }
     var appState: Entity? {
-        getEntity(named: .appState)
+        findEntity(named: .appState)
     }
     var input: Entity? {
-        getEntity(named: .input)
+        findEntity(named: .input)
     }
 
     func removeEntities(named names: [EntityName]) {
         for name in names {
-            if let entity = getEntity(named: name) {
+            if let entity = findEntity(named: name) {
                 remove(entity: entity)
             } else {
                 print(#function, #line, "NOTE: engine did not contain `\(name)` entity!")

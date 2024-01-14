@@ -56,6 +56,6 @@ class DeathThroesSystemTests: XCTestCase {
             system.nodeUpdateFunction!(node, 2.0)
         }
         XCTAssertEqual(deathThroes.countdown, -1.0)
-        XCTAssertNil(engine.getEntity(named: "deathThroesEntity"))
+        XCTAssertNil(engine.findEntity(named: "deathThroesEntity"))
     }
 }

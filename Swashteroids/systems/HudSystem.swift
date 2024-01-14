@@ -49,7 +49,7 @@ final class HudSystem: System {
             if hyperspaceComponent.jumps == 0 {
                 hyperspaceNodes?.head?.entity?.remove(componentClass: HyperspaceDriveComponent.self)
                 creator?.createHyperspacePowerUp(level: 1) //TODO: get real level
-                if let hyperspaceButton = engine?.getEntity(named: .hyperspaceButton),
+                if let hyperspaceButton = engine?.findEntity(named: .hyperspaceButton),
                    engine?.appState?[AppStateComponent.self]?.shipControlsState == .showingButtons { //HACK
                     engine?.remove(entity: hyperspaceButton)
                 }
@@ -64,7 +64,7 @@ final class HudSystem: System {
             if gunComponent.numTorpedoes == 0 {
                 shipEntity?.remove(componentClass: GunComponent.self)
                 creator?.createTorpedoesPowerUp(level: 1) //TODO: get real level 
-                if let fireButton = engine?.getEntity(named: .fireButton),
+                if let fireButton = engine?.findEntity(named: .fireButton),
                    engine?.appState?[AppStateComponent.self]?.shipControlsState == .showingButtons { //HACK 
                     engine?.remove(entity: fireButton)
                 }

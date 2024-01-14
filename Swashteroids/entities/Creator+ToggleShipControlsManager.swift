@@ -13,7 +13,7 @@ import SpriteKit
 
 extension Creator: ToggleShipControlsManager {
     func removeToggleButton() {
-        guard let entity = engine.getEntity(named: .toggleButton) else { return }
+        guard let entity = engine.findEntity(named: .toggleButton) else { return }
         engine.remove(entity: entity)
     }
 

@@ -87,12 +87,12 @@ extension Creator: ShipButtonControlsManager {
     }
 
     func enableShipControlButtons() {
-        guard let flip = engine.getEntity(named: .flipButton),
-              let hyperspace = engine.getEntity(named: .hyperspaceButton),
-              let left = engine.getEntity(named: .leftButton),
-              let right = engine.getEntity(named: .rightButton),
-              let thrust = engine.getEntity(named: .thrustButton),
-              let fire = engine.getEntity(named: .fireButton)
+        guard let flip = engine.findEntity(named: .flipButton),
+              let hyperspace = engine.findEntity(named: .hyperspaceButton),
+              let left = engine.findEntity(named: .leftButton),
+              let right = engine.findEntity(named: .rightButton),
+              let thrust = engine.findEntity(named: .thrustButton),
+              let fire = engine.findEntity(named: .fireButton)
         else {
             print(#function, #line, "WARNING: could not find all buttons in engine")
             return
