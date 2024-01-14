@@ -69,7 +69,7 @@ class CollisionSystemTests: XCTestCase {
                 .add(component: DisplayComponent(sknode: SKNode()))
         try? engine.add(entity: hyperspacePowerUpEntity)
         torpedoEntity = Entity(named: .torpedo)
-                .add(component: TorpedoComponent(lifeRemaining: 1, owner: .player))
+                .add(component: TorpedoComponent(lifeRemaining: 1, owner: .player, ownerEntity: shipEntity))
                 .add(component: GunPowerUpComponent())
                 .add(component: CollidableComponent(radius: 10, scaleManager: MockScaleManager()))
                 .add(component: PositionComponent(x: 0, y: 0, z: 0))

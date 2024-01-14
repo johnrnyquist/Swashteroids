@@ -41,14 +41,13 @@ final class AlienFiringSystem: System {
         else { return }
         gun.timeSinceLastShot += time
         if gun.timeSinceLastShot >= gun.minimumShotInterval, gameRect.contains(position.position) {
+            gun.timeSinceLastShot = 0
             var pos = PositionComponent(x: position.x, y: position.y, z: .asteroids, rotationDegrees: position.rotationDegrees)
             creator?.createTorpedo(gun, pos, velocity)
             pos = PositionComponent(x: position.x, y: position.y, z: .asteroids, rotationDegrees: position.rotationDegrees + 30.0)
             creator?.createTorpedo(gun, pos, velocity)
             pos = PositionComponent(x: position.x, y: position.y, z: .asteroids, rotationDegrees: position.rotationDegrees - 30.0)
             creator?.createTorpedo(gun, pos, velocity)
-            gun.timeSinceLastShot = 0
-            gun.numTorpedoes -= 1
         }
     }
 }

@@ -39,7 +39,8 @@ extension Creator: AlienCreator {
                 alienComponent.endDestination = left
         }
         let velocityX = Double.random(in: -10.0...30.0) + 60.0
-        let alien = Entity(named: "\(EntityName.alien)_\(numAliens)")
+        let alienEntity = Entity(named: "\(EntityName.alien)_\(numAliens)")
+        alienEntity
                 .add(component: alienComponent)
                 .add(component: CollidableComponent(radius: 25))
                 .add(component: PositionComponent(x: alienComponent.startDestination.x,
@@ -53,11 +54,12 @@ extension Creator: AlienCreator {
                                              torpedoLifetime: 0.75,
                                              torpedoColor: .white,
                                              ownerType: .computerOpponent,
+                                             ownerEntity: alienEntity,
                                              numTorpedoes: Int.max))
                 .add(component: AlienFireDownComponent.shared)
                 .add(component: DisplayComponent(sknode: sprite))
-        sprite.entity = alien
-        try? engine.add(entity: alien)
+        sprite.entity = alienEntity
+        try? engine.add(entity: alienEntity)
         //HACK for immediate gratification
         let warningSprite = SKSpriteNode(color: .alienWarning,
                                          size: CGSize(width: scene.size.width * 0.1, height: scene.size.height))

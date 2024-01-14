@@ -35,14 +35,14 @@ extension Creator: TorpedoCreator {
 //        sprite.physicsBody?.affectedByGravity = false
 //        sprite.physicsBody?.categoryBitMask = torpedoCategory
 //        sprite.physicsBody?.contactTestBitMask = asteroidCategory | playerCategory | alienCategory
+        sprite.entity = entity
+        sprite.addChild(emitter)
+        sprite.name = entity.name
         emitter.particleColorSequence = colorSequence
         emitter.emissionAngle = position.rotationRadians + Double.pi
-        sprite.entity = entity
-        sprite.name = entity.name
-        sprite.addChild(emitter)
         entity
                 .add(component: TorpedoComponent(lifeRemaining: gunComponent.torpedoLifetime,
-                                                 owner: gunComponent.ownerType))
+                                                 owner: gunComponent.ownerType, ownerEntity: gunComponent.ownerEntity))
                 .add(component: PositionComponent(
                     x: cos * gunComponent.offsetFromParent.x - sin * gunComponent.offsetFromParent.y + position.x,
                     y: sin * gunComponent.offsetFromParent.x + cos * gunComponent.offsetFromParent.y + position.y,

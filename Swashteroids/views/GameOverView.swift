@@ -40,21 +40,25 @@ class GameOverView: SwashSpriteNode {
     }()
 
     init(gameSize: CGSize, hitPercent: Int, scaleManager: ScaleManaging = ScaleManager.shared) {
-        super.init(texture: nil, color: .clear, size: gameSize.scaled(by: 2))
-        let background = SKSpriteNode(color: .clear, size: gameSize.scaled(by: 2))  
+        super.init(texture: nil, color: .clear, size: gameSize)
+        scale = 1
+        let background = SKSpriteNode(color: .clear, size: gameSize)
         background.name = "gameOverBackground"
         addChild(background)
+        let container = SwashSpriteNode(color: .clear, size: gameSize)  
+        container.name = "gameOverBackground"
+        addChild(container)
         name = "gameOverView"
-        background.addChild(gameOver)
+        container.addChild(gameOver)
         gameOver.y = size.height / 4
-        background.addChild(hitPercentage)
-        background.addChild(hitPercentageNum)
+        container.addChild(hitPercentage)
+        container.addChild(hitPercentageNum)
         hitPercentage.y = gameOver.y - hitPercentage.frame.height * 1.7
         hitPercentage.text = "Your hit percentage:"
         hitPercentageNum.y = hitPercentage.y - hitPercentageNum.frame.height * 1.7
         hitPercentageNum.text = "\(hitPercent)%"
         //
-        let swash = SKSpriteNode(imageNamed: "swash")
+        let swash = SwashSpriteNode(imageNamed: "swash")
         swash.name = "swash"
         swash.anchorPoint = CGPoint(x: 0.5, y: 1)
         swash.scale = scaleManager.SCALE_FACTOR == 1.0 ? 0.8 : 1.0
@@ -62,7 +66,7 @@ class GameOverView: SwashSpriteNode {
         swash.color = .systemBlue
         swash.colorBlendFactor = 0.2
         swash.y = hitPercentageNum.y - 40
-        background.addChild(swash)
+        container.addChild(swash)
         zPosition = .top
     }
 

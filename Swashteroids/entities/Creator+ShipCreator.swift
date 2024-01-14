@@ -13,7 +13,7 @@ import SpriteKit
 
 extension Creator: ShipCreator {
     func createShip(_ state: AppStateComponent) {
-        let ship = Entity(named: .player)
+        let player = Entity(named: .player)
         let sprite = SwashSpriteNode(texture: createShipTexture())
 //        sprite.physicsBody = SKPhysicsBody(rectangleOf: sprite.size.scaled(by: 0.8))//(circleOfRadius: 25 * scaleManager.SCALE_FACTOR)
 //        sprite.physicsBody?.isDynamic = true
@@ -28,28 +28,28 @@ extension Creator: ShipCreator {
         nacellesSprite.isHidden = true
         nacellesSprite.name = "nacelles"
         sprite.addChild(nacellesSprite)
-        sprite.entity = ship
-        ship.add(component: ShipComponent())
-        ship.add(component: HyperspaceDriveComponent(jumps: 0))
-        ship.add(component: GunComponent(offsetX: 21, offsetY: 0, minimumShotInterval: 0.1, torpedoLifetime: 2, ownerType: .player, numTorpedoes: 0))
-        ship.add(component: WarpDriveComponent())
-        ship.add(component: PositionComponent(x: state.gameSize.width / 2, y: state.gameSize.height / 2, z: .ship, rotationDegrees: 0.0))
-        ship.add(component: VelocityComponent(velocityX: 0.0, velocityY: 0.0, dampening: 0.0, base: 60.0))
-        ship.add(component: CollidableComponent(radius: 25))
-        ship.add(component: DisplayComponent(sknode: sprite))
-        ship.add(component: MovementRateComponent(accelerationRate: 90, rotationRate: 100))
-        ship.add(component: InputComponent.shared)
-        ship.add(component: AccelerometerComponent())
-        ship.add(component: ChangeShipControlsStateComponent(to: state.shipControlsState))
-        ship.add(component: RepeatingAudioComponent(sound: GameScene.sound)) //HACK
+        sprite.entity = player
+        player.add(component: ShipComponent())
+        player.add(component: HyperspaceDriveComponent(jumps: 0))
+        player.add(component: GunComponent(offsetX: 21, offsetY: 0, minimumShotInterval: 0.1, torpedoLifetime: 2, ownerType: .player, ownerEntity: player, numTorpedoes: 0))
+        player.add(component: WarpDriveComponent())
+        player.add(component: PositionComponent(x: state.gameSize.width / 2, y: state.gameSize.height / 2, z: .ship, rotationDegrees: 0.0))
+        player.add(component: VelocityComponent(velocityX: 0.0, velocityY: 0.0, dampening: 0.0, base: 60.0))
+        player.add(component: CollidableComponent(radius: 25))
+        player.add(component: DisplayComponent(sknode: sprite))
+        player.add(component: MovementRateComponent(accelerationRate: 90, rotationRate: 100))
+        player.add(component: InputComponent.shared)
+        player.add(component: AccelerometerComponent())
+        player.add(component: ChangeShipControlsStateComponent(to: state.shipControlsState))
+        player.add(component: RepeatingAudioComponent(sound: GameScene.sound)) //HACK
         switch state.shipControlsState {
             case .hidingButtons:
-                ship.add(component: AccelerometerComponent())
+                player.add(component: AccelerometerComponent())
             case .showingButtons:
-                ship.remove(componentClass: AccelerometerComponent.self)
+                player.remove(componentClass: AccelerometerComponent.self)
         }
         do {
-            try engine.add(entity: ship)
+            try engine.add(entity: player)
         } catch SwashError.entityNameAlreadyInUse(let message) {
             fatalError(message)
         } catch {

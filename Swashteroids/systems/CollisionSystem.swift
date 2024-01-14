@@ -54,15 +54,16 @@ class CollisionSystem: System {
         // ship and torpedoPowerUps
         collisionCheck(nodeA: ships.head, nodeB: torpedoPowerUp.head) { shipNode, torpedoPowerUpNode in
             engine.remove(entity: torpedoPowerUpNode.entity!)
-            shipNode.entity?
+            guard let player = shipNode.entity else { return }
+            player
                     .add(component: GunComponent(offsetX: 21,
                                                  offsetY: 0,
                                                  minimumShotInterval: 0.125,
                                                  torpedoLifetime: 2,
                                                  torpedoColor: .torpedo,
                                                  ownerType: .player,
+                                                 ownerEntity: player,
                                                  numTorpedoes: 20))
-            shipNode.entity?
                     .add(component: AudioComponent(fileNamed: .powerUp,
                                                    actionKey: "powerup.wav"))
             //HACK for immediate gratification
@@ -77,9 +78,9 @@ class CollisionSystem: System {
         // ship and hyperspacePowerUps
         collisionCheck(nodeA: ships.head, nodeB: hyperspacePowerUp.head) { shipNode, hyperspace in
             engine.remove(entity: hyperspace.entity!)
-            shipNode.entity?
+            guard let player = shipNode.entity else { return }
+            player
                     .add(component: HyperspaceDriveComponent(jumps: 5))
-            shipNode.entity?
                     .add(component: AudioComponent(fileNamed: .powerUp,
                                                    actionKey: "powerup.wav"))
             //HACK for immediate gratification
@@ -109,19 +110,17 @@ class CollisionSystem: System {
         for vehicle in [ships.head, aliens.head] {
             // torpedoes and vehicles
             collisionCheck(nodeA: torpedoes.head, nodeB: vehicle) { torpedoNode, vehicleNode in
-                if let entity = torpedoNode.entity { engine.remove(entity: entity) }
-                if let entity = vehicleNode.entity,
-                   entity[DeathThroesComponent.self] == nil {
-                    if vehicleNode[ShipComponent.self] != nil {
-                        appStateNodes.head?[AppStateComponent.self]?.numShips -= 1
-                    }
-                    creator.destroy(ship: entity)
-                }
+                if let torpedo = torpedoNode.entity { engine.remove(entity: torpedo) }
+                // Alien torpedoes can’t hit aliens, and player torpedoes can’t hit player ships.
+                guard let te = torpedoNode[TorpedoComponent.self]?.ownerEntity,
+                      let ve = vehicleNode.entity,
+                      te != ve
+                else { return }
+                creator.destroy(ship: ve)
                 //TODO: refactor the below
                 if let gameStateNode = appStateNodes.head,
                    let appStateComponent = gameStateNode[AppStateComponent.self],
                    torpedoNode[TorpedoComponent.self]?.owner == .player,
-                   vehicle?[DeathThroesComponent.self] == nil,
                    let killScore = vehicleNode[AlienComponent.self]?.killScore {
                     appStateComponent.score += killScore
                     appStateComponent.numHits += 1
