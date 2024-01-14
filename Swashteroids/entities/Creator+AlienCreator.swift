@@ -12,8 +12,8 @@ import Swash
 import SpriteKit
 
 extension Creator: AlienCreator {
-    func createAlien() {
-        guard engine.getEntity(named: .player) != nil else { return }
+    func createAlien(scene: GameScene) {
+        guard engine.findEntity(named: .player) != nil else { return }
         numAliens += 1
         let sprite = SwashSpriteNode(imageNamed: .alien)
         sprite.name = "\(EntityName.alien)_\(numAliens)"
@@ -23,15 +23,18 @@ extension Creator: AlienCreator {
 //        sprite.physicsBody?.categoryBitMask = alienCategory
 //        sprite.physicsBody?.contactTestBitMask = asteroidCategory | playerCategory | torpedoCategory
         let alienComponent = AlienComponent(reactionTime: Double.random(in: 0.4...0.8), killScore: 350)
-        let left = CGPoint(x: -sprite.width / 2,
+        let left = CGPoint(x: -sprite.width * 3,
                            y: Double.random(in: 40...(size.height - 40)))
-        let right = CGPoint(x: size.width + sprite.width / 2,
+        let right = CGPoint(x: size.width + sprite.width * 3,
                             y: Double.random(in: 40...(size.height - 40)))
+        let leftSide: Bool
         switch Bool.random() {
             case true:
+                leftSide = true
                 alienComponent.startDestination = left
                 alienComponent.endDestination = right
             case false:
+                leftSide = false
                 alienComponent.startDestination = right
                 alienComponent.endDestination = left
         }
@@ -55,5 +58,25 @@ extension Creator: AlienCreator {
                 .add(component: DisplayComponent(sknode: sprite))
         sprite.entity = alien
         try? engine.add(entity: alien)
+        //HACK for immediate gratification
+        let warningSprite = SKSpriteNode(color: .alienWarning,
+                                         size: CGSize(width: scene.size.width * 0.1, height: scene.size.height))
+        scene.addChild(warningSprite)
+        warningSprite.anchorPoint = .zero
+        warningSprite.zPosition = .bottom
+        if leftSide {
+            warningSprite.x = 0
+        } else {
+            warningSprite.x = scene.size.width - warningSprite.width
+        }
+        let turnRed = SKAction.customAction(withDuration: 0.1) { _, _ in
+            warningSprite.color = .alienWarning
+        }
+        let turnBlack = SKAction.customAction(withDuration: 0.1) { _, _ in
+            warningSprite.color = .background
+        }
+        let remove = SKAction.removeFromParent()
+        let sequence = SKAction.sequence([turnRed, turnBlack, turnRed, turnBlack, turnRed, turnBlack, remove])
+        warningSprite.run(sequence)
     }
 }

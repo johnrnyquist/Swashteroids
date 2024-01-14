@@ -21,7 +21,7 @@ Has too many responsibilities.
  */
 class GameplayManagerSystem: System {
     private var size: CGSize
-    private weak var scene: SKScene!
+    private weak var scene: GameScene!
     private weak var creator: (PowerUpCreator & ShipCreator & AsteroidCreator & TorpedoCreator & AlienCreator)!
     private weak var asteroids: NodeList!
     private weak var torpedoes: NodeList!
@@ -37,7 +37,7 @@ class GameplayManagerSystem: System {
 
     init(creator: PowerUpCreator & ShipCreator & AsteroidCreator & TorpedoCreator & AlienCreator,
          size: CGSize,
-         scene: SKScene,
+         scene: GameScene,
          scaleManager: ScaleManaging = ScaleManager.shared) {
         self.creator = creator
         self.size = size
@@ -76,15 +76,7 @@ class GameplayManagerSystem: System {
         appStateComponent.alienAppearanceRate -= time
         if appStateComponent.alienAppearanceRate <= 0 {
             appStateComponent.alienAppearanceRate = appStateComponent.alienAppearanceRateDefault
-            creator.createAlien()
-            let turnRed = SKAction.customAction(withDuration: 0.1) { _, _ in
-                self.scene.backgroundColor = .alienWarning
-            }
-            let turnBlack = SKAction.customAction(withDuration: 0.1) { _, _ in
-                self.scene.backgroundColor = .background
-            }
-            let sequence = SKAction.sequence([turnRed, turnBlack, turnRed, turnBlack])
-            scene.run(sequence)
+            creator.createAlien(scene: scene)
         }
     }
 

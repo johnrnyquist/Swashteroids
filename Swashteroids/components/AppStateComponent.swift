@@ -25,6 +25,8 @@ final class AppStateComponent: Component {
     var nextShipScore = 10_000
     var numShips: Int
     var shipControlsState: ShipControlsState
+    var numTorpedoesFired = 0
+    var numHits = 0
     var level: Int {
         didSet {
             guard level > 1 else { return }
@@ -38,6 +40,10 @@ final class AppStateComponent: Component {
                 nextShipScore += nextShipIncrement
             }
         }
+    }
+    var hitPercentage: Int {
+        guard numTorpedoesFired > 0 else { return 0 }
+        return Int(round(Double(numHits) / Double(numTorpedoesFired) * 100))
     }
     //MARK: - Not set from argument to init (yet)
     let levelBonus = 500
@@ -76,5 +82,6 @@ final class AppStateComponent: Component {
         //
         nextShipScore = 10_000
         alienAppearanceRate = alienAppearanceRateDefault
+        numTorpedoesFired = 0
     }
 }

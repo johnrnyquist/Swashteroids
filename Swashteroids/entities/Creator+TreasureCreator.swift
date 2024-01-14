@@ -17,7 +17,7 @@ extension Creator: TreasureCreator {
         let standard = (color: UIColor.systemGreen, value: treasure_standard_value)
         let special = (color: UIColor.systemPink, value: treasure_special_value)
         let treasureData = r ? special : standard
-        let sprite = SwashSpriteNode(color: treasureData.color, size: CGSize(width: 10, height: 10))
+        let sprite = SwashSpriteNode(color: treasureData.color, size: CGSize(width: 12, height: 12))
         addEmitter(colored: treasureData.color, on: sprite)
         let treasureEntity = Entity(named: "treasure" + "_\(Int.random(in: 0...10_000))")
                 .add(component: TreasureComponent(value: treasureData.value))

@@ -13,9 +13,14 @@ import SpriteKit
 
 extension Creator: TorpedoCreator {
     func createTorpedo(_ gunComponent: GunComponent, _ position: PositionComponent, _ velocity: VelocityComponent) {
-        numTorpedoes += 1
+        //TODO: this should be re-thought
+        var name = "torpedo_"
+        if let appStateEntity = engine.getEntity(named: .appState),
+           let appStateComponent = appStateEntity[AppStateComponent.self] {
+            appStateComponent.numTorpedoesFired += 1
+            name += "\(appStateComponent.numTorpedoesFired)"
+        }
         // 
-        let name = "torpedo_\(numTorpedoes)"
         let entity = Entity(named: name)
         let emitter = SKEmitterNode(fileNamed: "plasmaTorpedo.sks")!
         let colorRamp: [UIColor] = [gunComponent.torpedoColor]

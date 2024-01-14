@@ -33,14 +33,19 @@ struct ButtonView: View {
 }
 
 struct PauseAlert: View {
+    var hitPercentage: Int
     var home: () -> Void
     var resume: () -> Void
     var body: some View {
         VStack(spacing: 10) {
             ButtonView(label: "Home", action: home)
             ButtonView(label: "Resume", action: resume)
+            Text("Hit percentage: \(hitPercentage)%")
+                    .foregroundColor(.white)
+                    .font(.custom("Futura Condensed Medium", size: 24))
+                    .padding(.top, 10)
         }
-                .frame(width: 200, height: 160)
+                .frame(width: 200, height: 200)
                 .background(Color.black)
                 .cornerRadius(20)
                 .overlay(
@@ -52,6 +57,6 @@ struct PauseAlert: View {
 
 struct PauseAlert_Previews: PreviewProvider {
     static var previews: some View {
-        PauseAlert(home: {}, resume: {})
+        PauseAlert(hitPercentage: 0, home: {}, resume: {})
     }
 }

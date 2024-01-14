@@ -20,7 +20,6 @@ class Creator {
     let scaleManager: ScaleManaging
     var numAsteroids = 0
     var numAliens = 0
-    var numTorpedoes = 0
     var buttonPadding = 30.0
     var buttonPaddingLeft = 30.0
     var buttonPaddingRight = 30.0

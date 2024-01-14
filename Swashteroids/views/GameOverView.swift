@@ -17,27 +17,50 @@ class GameOverView: SwashSpriteNode {
         gameOver.fontName = "Badloc ICG"
         gameOver.fontColor = .gameOverText
         gameOver.horizontalAlignmentMode = .center
+        gameOver.fontSize = 85.0
         return gameOver
     }()
+    private var hitPercentage: SKLabelNode = {
+        let label = SKLabelNode(text: "Hit Percentage")
+        label.name = "gameOverLabel"
+        label.fontName = "Futura-Medium"
+        label.fontColor = .gameOverText
+        label.horizontalAlignmentMode = .center
+        label.fontSize = 36
+        return label
+    }()
+    private var hitPercentageNum: SKLabelNode = {
+        let label = SKLabelNode(text: "0%")
+        label.name = "gameOverLabel"
+        label.fontName = "Futura-Medium"
+        label.fontColor = .gameOverText
+        label.horizontalAlignmentMode = .center
+        label.fontSize = 48
+        return label
+    }()
 
-    init(gameSize: CGSize, scaleManager: ScaleManaging = ScaleManager.shared) {
-        super.init(texture: nil, color: .clear, size: gameSize)
-        let background = SKSpriteNode(color: .clear, size: gameSize)  
+    init(gameSize: CGSize, hitPercent: Int, scaleManager: ScaleManaging = ScaleManager.shared) {
+        super.init(texture: nil, color: .clear, size: gameSize.scaled(by: 2))
+        let background = SKSpriteNode(color: .clear, size: gameSize.scaled(by: 2))  
         background.name = "gameOverBackground"
-        print(background.size, background.frame.size, background.scale)
-        background.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        background.scale = 2
         addChild(background)
         name = "gameOverView"
-        addChild(gameOver)
-        gameOver.fontSize = 150.0
+        background.addChild(gameOver)
+        gameOver.y = size.height / 4
+        background.addChild(hitPercentage)
+        background.addChild(hitPercentageNum)
+        hitPercentage.y = gameOver.y - hitPercentage.frame.height * 1.7
+        hitPercentage.text = "Your hit percentage:"
+        hitPercentageNum.y = hitPercentage.y - hitPercentageNum.frame.height * 1.7
+        hitPercentageNum.text = "\(hitPercent)%"
+        //
         let swash = SKSpriteNode(imageNamed: "swash")
         swash.name = "swash"
         swash.anchorPoint = CGPoint(x: 0.5, y: 1)
         swash.scale = scaleManager.SCALE_FACTOR == 1.0 ? 0.8 : 1.0
         swash.alpha = 0.2
-        swash.y = gameOver.y - 30
-        addChild(swash)
+        swash.y = hitPercentageNum.y - 40
+        background.addChild(swash)
         zPosition = .top
     }
 

@@ -49,7 +49,7 @@ class AlienSystem: System {
         //
         if let _ = alienComponent.targetingEntity,
            let name = alienComponent.targetingEntity?.name,
-           engine?.getEntity(named: name) == nil {
+           engine?.findEntity(named: name) == nil {
             alienComponent.targetingEntity = nil
         }
         //

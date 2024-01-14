@@ -101,6 +101,7 @@ class CollisionSystem: System {
                    let appStateComponent = gameStateNode[AppStateComponent.self],
                    torpedoNode[TorpedoComponent.self]?.owner == .player {
                     appStateComponent.score += 25
+                    appStateComponent.numHits += 1
                 }
             }
         }
@@ -123,6 +124,7 @@ class CollisionSystem: System {
                    vehicle?[DeathThroesComponent.self] == nil,
                    let killScore = vehicleNode[AlienComponent.self]?.killScore {
                     appStateComponent.score += killScore
+                    appStateComponent.numHits += 1
                 }
             }
             // vehicles and asteroids

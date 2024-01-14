@@ -11,7 +11,7 @@
 import Swash
 
 protocol AlienCreator: AnyObject {
-    func createAlien()
+    func createAlien(scene: GameScene)
 }
 
 protocol AsteroidCreator: AnyObject {

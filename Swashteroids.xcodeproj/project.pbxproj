@@ -113,6 +113,7 @@
 		8D71C0472B3603CF004D6D0C /* ScaleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139DE0BD2F73AFFAEDE2DA /* ScaleManager.swift */; };
 		8D82703C2B4D85BA003A4FC0 /* AlienComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139D122048662B55407E9F /* AlienComponent.swift */; };
 		8D88FE012B5334F900937FF1 /* powerup_appearance.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D88FE002B5334F900937FF1 /* powerup_appearance.wav */; };
+		8D88FE032B535D0D00937FF1 /* GameOverView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D88FE022B535D0D00937FF1 /* GameOverView2.swift */; };
 		8D8F24B22B51B8FA00B2E223 /* CGRect+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8F24B12B51B8FA00B2E223 /* CGRect+extensions.swift */; };
 		8D8F24B42B51CC6B00B2E223 /* treasure.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D8F24B32B51CC6B00B2E223 /* treasure.wav */; };
 		8D8F24B62B51D47700B2E223 /* UIColor+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8F24B52B51D47700B2E223 /* UIColor+extensions.swift */; };
@@ -313,6 +314,7 @@
 		8D70211C2B4F1C960032107A /* Nodelist+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Nodelist+extensions.swift"; sourceTree = "<group>"; };
 		8D714E2D2B3535DC009E1586 /* SKSpriteNode+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SKSpriteNode+extensions.swift"; sourceTree = "<group>"; };
 		8D88FE002B5334F900937FF1 /* powerup_appearance.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = powerup_appearance.wav; sourceTree = "<group>"; };
+		8D88FE022B535D0D00937FF1 /* GameOverView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverView2.swift; sourceTree = "<group>"; };
 		8D8F24B12B51B8FA00B2E223 /* CGRect+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+extensions.swift"; sourceTree = "<group>"; };
 		8D8F24B32B51CC6B00B2E223 /* treasure.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = treasure.wav; sourceTree = "<group>"; };
 		8D8F24B52B51D47700B2E223 /* UIColor+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+extensions.swift"; sourceTree = "<group>"; };
@@ -635,6 +637,7 @@
 				8D41E2182B1E7AB00031AF54 /* SwashSpriteNode.swift */,
 				8D23C19B2B02C59D00F7D878 /* PowerUpsViews.swift */,
 				8D23C1442B02C4CC00F7D878 /* LaunchScreen.storyboard */,
+				8D88FE022B535D0D00937FF1 /* GameOverView2.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -918,6 +921,7 @@
 				8D23C1BB2B02C59D00F7D878 /* GunComponent.swift in Sources */,
 				8D6A0E032B0AB84B00F2E137 /* GameOverNode.swift in Sources */,
 				8D9DEF642B059E3800064B01 /* DoHyperspaceJumpComponent.swift in Sources */,
+				8D88FE032B535D0D00937FF1 /* GameOverView2.swift in Sources */,
 				8D9DEF662B059EC400064B01 /* HyperspaceJumpNode.swift in Sources */,
 				8D82703C2B4D85BA003A4FC0 /* AlienComponent.swift in Sources */,
 				8D23C1C12B02C59D00F7D878 /* StartComponent.swift in Sources */,
