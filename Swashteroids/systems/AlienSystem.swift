@@ -47,6 +47,7 @@ class AlienSystem: System {
         let shipEntity = shipNodes?.head?.entity
         let playerAlive = shipEntity != nil && shipEntity?[DeathThroesComponent.self] == nil
         //
+        // Does the alien have a target? If so, is the target still alive?
         if let _ = alienComponent.targetingEntity,
            let name = alienComponent.targetingEntity?.name,
            engine?.findEntity(named: name) == nil {
@@ -97,12 +98,8 @@ class AlienSystem: System {
         let ship = shipNodes?.head?.entity
         let closestAsteroid = findClosestEntity(to: position.position, node: asteroidNodes?.head)
         let closestTreasure = findClosestEntity(to: position.position, node: treasureNodes?.head)
-        print(ship?.name, ship![PositionComponent.self]?.position.distance(from: position.position))
-        print(closestAsteroid?.name, closestAsteroid?[PositionComponent.self]?.position.distance(from: position.position))
-        print(closestTreasure?.name, closestTreasure?[PositionComponent.self]?.position.distance(from: position.position))
         let entities = [ship, closestAsteroid, closestTreasure].compactMap { $0 }
         alienComponent.targetingEntity = findClosestObject(to: position.position, in: entities)
-        print("Target picked: \(alienComponent.targetingEntity?.name ?? "nil")")
     }
 
     func moveTowardTarget(_ position: PositionComponent, _ velocity: VelocityComponent, _ target: CGPoint) {
