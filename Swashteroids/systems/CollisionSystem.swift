@@ -170,7 +170,7 @@ class CollisionSystem: System {
             guard let shipEntity = shipNode.entity,
                   let alienEntity = alienNode.entity,
                   let shipVelocity = shipNode[VelocityComponent.self],
-                  let alienCollision = alienNode[CollidableComponent.self],
+                  let _ = alienNode[CollidableComponent.self],
                   let alienVelocity = alienNode[VelocityComponent.self]
             else { return }
             shipEntity.remove(componentClass: VelocityComponent.self)
