@@ -83,7 +83,7 @@ class AlienSystem: System {
         var closestObject: Entity = entities[0]
         var smallestDistance: CGFloat = .greatestFiniteMagnitude
         for entity in entities {
-            let distance = entity[PositionComponent.self]!.position.distance(from: entity[PositionComponent.self]!.position)
+            let distance = point.distance(from: entity[PositionComponent.self]!.position)
             if distance < smallestDistance {
                 smallestDistance = distance
                 closestObject = entity
@@ -97,8 +97,12 @@ class AlienSystem: System {
         let ship = shipNodes?.head?.entity
         let closestAsteroid = findClosestEntity(to: position.position, node: asteroidNodes?.head)
         let closestTreasure = findClosestEntity(to: position.position, node: treasureNodes?.head)
+        print(ship?.name, ship![PositionComponent.self]?.position.distance(from: position.position))
+        print(closestAsteroid?.name, closestAsteroid?[PositionComponent.self]?.position.distance(from: position.position))
+        print(closestTreasure?.name, closestTreasure?[PositionComponent.self]?.position.distance(from: position.position))
         let entities = [ship, closestAsteroid, closestTreasure].compactMap { $0 }
         alienComponent.targetingEntity = findClosestObject(to: position.position, in: entities)
+        print("Target picked: \(alienComponent.targetingEntity?.name ?? "nil")")
     }
 
     func moveTowardTarget(_ position: PositionComponent, _ velocity: VelocityComponent, _ target: CGPoint) {
