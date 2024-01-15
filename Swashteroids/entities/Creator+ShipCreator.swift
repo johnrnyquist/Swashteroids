@@ -31,7 +31,7 @@ extension Creator: ShipCreator {
         sprite.entity = player
         player.add(component: ShipComponent())
         player.add(component: HyperspaceDriveComponent(jumps: 0))
-        player.add(component: GunComponent(offsetX: 21, offsetY: 0, minimumShotInterval: 0.1, torpedoLifetime: 2, ownerType: .player, ownerEntity: player, numTorpedoes: 0))
+        player.add(component: GunComponent(offsetX: sprite.width/2, offsetY: 0, minimumShotInterval: 0.1, torpedoLifetime: 2, ownerType: .player, ownerEntity: player, numTorpedoes: 0))
         player.add(component: WarpDriveComponent())
         player.add(component: PositionComponent(x: state.gameSize.width / 2, y: state.gameSize.height / 2, z: .ship, rotationDegrees: 0.0))
         player.add(component: VelocityComponent(velocityX: 0.0, velocityY: 0.0, dampening: 0.0, base: 60.0))

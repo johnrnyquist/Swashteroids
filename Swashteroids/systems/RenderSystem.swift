@@ -41,11 +41,6 @@ final class RenderSystem: System {
             let sprite = component.sknode
         else { return }
         container.addChild(sprite)
-        print("sprite.name: \(sprite.name ?? "nil")")
-        print("sprite.zPosition: \(sprite.zPosition)")
-        print("sprite.size: \((sprite as? SKSpriteNode)?.size)")
-        print("sprite.isHidden: \(sprite.isHidden)")
-        print("")
     }
 
     private func removeFromDisplay(_ node: Node) {

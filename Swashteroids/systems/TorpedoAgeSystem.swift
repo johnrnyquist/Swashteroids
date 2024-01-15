@@ -32,6 +32,7 @@ final class TorpedoAgeSystem: ListIteratingSystem {
         if torpedoComponent.lifeRemaining <= 0,
            let entity = node.entity {
             engine.remove(entity: entity)
+            print("TorpedoAgeSystem: removed \(entity.name)")
         }
     }
 }

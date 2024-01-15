@@ -52,14 +52,11 @@ extension Creator: TorpedoCreator {
             fatalError("Unexpected error: \(error).")
         }
         entity
-                .add(component: TorpedoComponent(lifeRemaining: gunComponent.torpedoLifetime,
-                                                 owner: gunComponent.ownerType, ownerEntity: gunComponent.ownerEntity))
                 .add(component: PositionComponent(
                     x: cos * gunComponent.offsetFromParent.x - sin * gunComponent.offsetFromParent.y + position.x,
                     y: sin * gunComponent.offsetFromParent.x + cos * gunComponent.offsetFromParent.y + position.y,
                     z: Layer.torpedoes,
                     rotationDegrees: 0))
-                .add(component: CollidableComponent(radius: 0))
                 .add(component: VelocityComponent(velocityX: cos * 220 + velocity.linearVelocity
                                                                                  .x * 1.0 / scaleManager.SCALE_FACTOR,
                                                   velocityY: sin * 220 + velocity.linearVelocity
@@ -69,5 +66,9 @@ extension Creator: TorpedoCreator {
                                                   base: 60.0))
                 .add(component: DisplayComponent(sknode: sprite))
                 .add(component: AudioComponent(fileNamed: .launchTorpedo, actionKey: name))
+                .add(component: CollidableComponent(radius: 0))
+                .add(component: TorpedoComponent(lifeRemaining: gunComponent.torpedoLifetime,
+                                                 owner: gunComponent.ownerType,
+                                                 ownerEntity: gunComponent.ownerEntity))
     }
 }

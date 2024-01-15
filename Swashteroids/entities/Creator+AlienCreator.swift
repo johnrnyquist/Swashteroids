@@ -48,7 +48,7 @@ extension Creator: AlienCreator {
                                                   z: .asteroids))
                 .add(component: VelocityComponent(velocityX: velocityX, velocityY: 0, wraps: false, base: velocityX))
                 .add(component: AudioComponent(fileNamed: .alienEntrance, actionKey: "alienEntrance"))
-                .add(component: GunComponent(offsetX: 21,
+                .add(component: GunComponent(offsetX: sprite.width/2,
                                              offsetY: 0,
                                              minimumShotInterval: 1.25,
                                              torpedoLifetime: 0.75,

@@ -56,7 +56,7 @@ class CollisionSystem: System {
             engine.remove(entity: torpedoPowerUpNode.entity!)
             guard let player = shipNode.entity else { return }
             player
-                    .add(component: GunComponent(offsetX: 21,
+                    .add(component: GunComponent(offsetX: player.sprite!.width/2,
                                                  offsetY: 0,
                                                  minimumShotInterval: 0.125,
                                                  torpedoLifetime: 2,
@@ -110,12 +110,15 @@ class CollisionSystem: System {
         for vehicle in [ships.head, aliens.head] {
             // torpedoes and vehicles
             collisionCheck(nodeA: torpedoes.head, nodeB: vehicle) { torpedoNode, vehicleNode in
-                if let torpedo = torpedoNode.entity { engine.remove(entity: torpedo) }
                 // Alien torpedoes can’t hit aliens, and player torpedoes can’t hit player ships.
                 guard let te = torpedoNode[TorpedoComponent.self]?.ownerEntity,
                       let ve = vehicleNode.entity,
                       te != ve
                 else { return }
+                if let torpedo = torpedoNode.entity { engine.remove(entity: torpedo) }
+                if ve[ShipComponent.self] != nil {
+                    appStateNodes.head?[AppStateComponent.self]?.numShips -= 1
+                }
                 creator.destroy(ship: ve)
                 //TODO: refactor the below
                 if let gameStateNode = appStateNodes.head,
