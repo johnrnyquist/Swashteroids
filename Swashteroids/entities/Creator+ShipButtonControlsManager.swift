@@ -21,6 +21,7 @@ extension Creator: ShipButtonControlsManager {
     func createButtonEntity(sprite button: SwashSpriteNode, color: UIColor, position: CGPoint, named: EntityName) -> Entity {
         button.color = color
         button.colorBlendFactor = 1.0
+        button.name = named
         button.alpha = 0.2
         let buttonEntity = Entity(named: named)
                 .add(component: PositionComponent(x: position.x, y: position.y, z: .buttons, rotationDegrees: 0.0))

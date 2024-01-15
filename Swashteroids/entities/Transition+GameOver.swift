@@ -40,6 +40,7 @@ extension Transition {
             fatalError("WARNING: engine did not contain AppStateComponent!")
         }
         let gameOverView = GameOverView(gameSize: gameSize, hitPercent: appStateComponent.hitPercentage)
+        gameOverView.name = "gameOverView"
         let gameOverEntity = Entity(named: .gameOver)
                 .add(component: GameOverComponent())
                 .add(component: DisplayComponent(sknode: gameOverView))

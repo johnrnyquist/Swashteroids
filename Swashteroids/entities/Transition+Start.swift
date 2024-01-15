@@ -22,6 +22,9 @@ extension Transition {
         let startView = StartView(gameSize: gameSize)
         let noButtonsSprite = startView.noButtons
         let buttonsSprite = startView.buttons
+        startView.name = .start
+        noButtonsSprite.name = .noButtons
+        buttonsSprite.name = .withButtons
         noButtonsSprite.removeFromParent()
         buttonsSprite.removeFromParent()
         // create the entities

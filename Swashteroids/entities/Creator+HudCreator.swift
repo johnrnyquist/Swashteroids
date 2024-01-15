@@ -14,12 +14,14 @@ import SpriteKit
 extension Creator: HudCreator, AlertPresenting {
     func createHud(gameState: AppStateComponent) {
         let view = HudView(gameSize: gameState.gameSize)
+        view.name = "hud"
         let hudEntity = Entity(named: .hud)
                 .add(component: HudComponent(hudView: view))
                 .add(component: DisplayComponent(sknode: view))
                 .add(component: PositionComponent(x: 0, y: 0, z: .hud, rotationDegrees: 0))
                 .add(component: gameState)
         let pauseButton = view.pauseButton!
+        pauseButton.name = "pauseButton"
         pauseButton.removeFromParent()
         let position = PositionComponent(x: pauseButton.x, y: pauseButton.y, z: .hud, rotationDegrees: 0)
         let pause = Entity(named: .pauseButton) //HACK

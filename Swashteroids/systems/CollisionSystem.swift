@@ -201,14 +201,15 @@ class CollisionSystem: System {
             }
         }
         if let emitter = SKEmitterNode(fileNamed: "shipExplosion.sks") {
-            let spriteNode = SKNode()
-            spriteNode.addChild(emitter)
+            let skNode = SKNode()
+            skNode.name = "explosion on \(asteroidEntity.name)"
+            skNode.addChild(emitter)
             asteroidEntity
                     .remove(componentClass: DisplayComponent.self)
                     .remove(componentClass: CollidableComponent.self)
                     .add(component: AudioComponent(fileNamed: .explosion,
                                                    actionKey: asteroidEntity.name))
-                    .add(component: DisplayComponent(sknode: spriteNode))
+                    .add(component: DisplayComponent(sknode: skNode))
                     .add(component: DeathThroesComponent(countdown: 0.2))
         }
     }

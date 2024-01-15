@@ -51,6 +51,10 @@ extension Creator: ShipQuadrantsControlsManager {
         let q2Sprite = createQuadrantSprite(quadrant: 2, entity: q2Entity)
         let q3Sprite = createQuadrantSprite(quadrant: 3, entity: q3Entity)
         let q4Sprite = createQuadrantSprite(quadrant: 4, entity: q4Entity)
+        q1Sprite.name = .q1
+        q2Sprite.name = .q2
+        q3Sprite.name = .q3
+        q4Sprite.name = .q4
         // Add the entities to the engine
         engine.replace(entity: q1Entity)
         engine.replace(entity: q2Entity)

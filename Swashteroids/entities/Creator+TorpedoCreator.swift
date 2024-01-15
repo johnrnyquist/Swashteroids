@@ -19,8 +19,10 @@ extension Creator: TorpedoCreator {
            let appStateComponent = appStateEntity[AppStateComponent.self] {
             appStateComponent.numTorpedoesFired += 1
             name += "\(appStateComponent.numTorpedoesFired)"
+        } else {
+            name += UUID().uuidString
         }
-        // 
+        //
         let entity = Entity(named: name)
         let emitter = SKEmitterNode(fileNamed: "plasmaTorpedo.sks")!
         let colorRamp: [UIColor] = [gunComponent.torpedoColor]
@@ -38,8 +40,17 @@ extension Creator: TorpedoCreator {
         sprite.entity = entity
         sprite.addChild(emitter)
         sprite.name = entity.name
+        sprite.zPosition = .asteroids
         emitter.particleColorSequence = colorSequence
         emitter.emissionAngle = position.rotationRadians + Double.pi
+        do {
+            try engine.add(entity: entity)
+            print("\(entity.name) created by \(gunComponent.ownerEntity.name)")
+        } catch SwashError.entityNameAlreadyInUse(let message) {
+            fatalError(message)
+        } catch {
+            fatalError("Unexpected error: \(error).")
+        }
         entity
                 .add(component: TorpedoComponent(lifeRemaining: gunComponent.torpedoLifetime,
                                                  owner: gunComponent.ownerType, ownerEntity: gunComponent.ownerEntity))
@@ -58,12 +69,5 @@ extension Creator: TorpedoCreator {
                                                   base: 60.0))
                 .add(component: DisplayComponent(sknode: sprite))
                 .add(component: AudioComponent(fileNamed: .launchTorpedo, actionKey: name))
-        do {
-            try engine.add(entity: entity)
-        } catch SwashError.entityNameAlreadyInUse(let message) {
-            fatalError(message)
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
     }
 }

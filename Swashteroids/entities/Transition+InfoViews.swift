@@ -63,6 +63,7 @@ extension Transition {
                     engine.appState?.add(component: TransitionAppStateComponent(from: .infoButtons, to: .playing))
                 }))
         viewSprite.entity = viewEntity
+        viewSprite.name = .buttonsInfoView
         engine.replace(entity: viewEntity)
     }
 }

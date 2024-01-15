@@ -29,6 +29,7 @@ extension Creator: TreasureCreator {
                 .add(component: CollidableComponent(radius: 10))
                 .add(component: DisplayComponent(sknode: sprite))
         sprite.entity = treasureEntity
+        sprite.name = treasureEntity.name
         engine.replace(entity: treasureEntity)
     }
 }

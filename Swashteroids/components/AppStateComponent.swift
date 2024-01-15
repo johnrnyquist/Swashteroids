@@ -49,8 +49,8 @@ final class AppStateComponent: Component {
     let levelBonus = 500
     let nextShipIncrement = 10_000
     var alienAppearanceRate: TimeInterval = 0.0
-//    var alienAppearanceRateDefault: TimeInterval { 2.0 }
-    var alienAppearanceRateDefault: TimeInterval { Double.random(in: 15.0...90.0) }
+    var alienAppearanceRateDefault: TimeInterval { 5.0 }
+//    var alienAppearanceRateDefault: TimeInterval { Double.random(in: 15.0...90.0) }
 
     init(gameSize: CGSize,
          numShips: Int,
