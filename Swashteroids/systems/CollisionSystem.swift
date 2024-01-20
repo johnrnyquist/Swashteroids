@@ -103,7 +103,7 @@ class CollisionSystem: System {
                    torpedoNode[TorpedoComponent.self]?.owner == .player {
                     appStateComponent.score += 25
                     appStateComponent.numHits += 1
-                    appStateComponent.numAsteroidsDestroyed += 1
+                    appStateComponent.numAsteroidsMined += 1
                 }
             }
         }
@@ -120,7 +120,7 @@ class CollisionSystem: System {
                 if ve[ShipComponent.self] != nil {
                     appStateNodes.head?[AppStateComponent.self]?.numShips -= 1
                 } else {
-                    appStateNodes.head?[AppStateComponent.self]?.numAliensKilled += 1
+                    appStateNodes.head?[AppStateComponent.self]?.numAliensDestroyed += 1
                 }
                 creator.destroy(ship: ve)
                 //TODO: refactor the below

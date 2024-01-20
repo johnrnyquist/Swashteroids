@@ -70,8 +70,8 @@ struct StatsView: View {
         VStack(spacing: 0) {
             Text("Shots Fired: \(appState.numTorpedoesFired)")
             Text("Hit Percentage: \(appState.hitPercentage)%")
-            Text("Asteroids Mined: \(appState.numAsteroidsDestroyed)")
-            Text("Aliens Destroyed: \(appState.numAliensKilled)")
+            Text("Asteroids Mined: \(appState.numAsteroidsMined)")
+            Text("Aliens Destroyed: \(appState.numAliensDestroyed)")
         }.foregroundColor(.white)
             .font(.custom("Futura Condensed Medium", size: 24))
     }
