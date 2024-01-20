@@ -15,13 +15,13 @@ extension Creator: TorpedoCreator {
     func createTorpedo(_ gunComponent: GunComponent, _ position: PositionComponent, _ velocity: VelocityComponent) {
         //TODO: this should be re-thought
         var name = "torpedo_"
-        if let appStateEntity = engine.findEntity(named: .appState),
-           let appStateComponent = appStateEntity[AppStateComponent.self] {
-            appStateComponent.numTorpedoesFired += 1
-            name += "\(appStateComponent.numTorpedoesFired)"
-        } else {
-            name += UUID().uuidString
+        guard let appStateEntity = engine.findEntity(named: .appState),
+              let appStateComponent = appStateEntity[AppStateComponent.self]
+        else {
+            fatalError("Could not find AppStateComponent.")
         }
+        appStateComponent.numTorpedoesFired += 1
+        name += "\(appStateComponent.numTorpedoesFired)"
         //
         let entity = Entity(named: name)
         let emitter = SKEmitterNode(fileNamed: "plasmaTorpedo.sks")!

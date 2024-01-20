@@ -29,7 +29,7 @@ extension Transition {
         // Clear any existing treasures, aliens, and asteroids. 
         [TreasureCollisionNode.self, AlienCollisionNode.self, AsteroidCollisionNode.self].forEach { engine.clearEntities(of: $0) }
         // Clear entities with unique names.
-        engine.removeEntities(named: [.hud, .gameOver, .hyperspacePowerUp, .torpedoPowerUp])
+        engine.removeEntities(named: [.hud, .gameOver, .hyperspacePowerUp, .torpedoPowerUp, .pauseButton])
         if let appState = engine.appState?[AppStateComponent.name] as? AppStateComponent {
             appState.resetGame()
         }
@@ -44,7 +44,7 @@ extension Transition {
         let gameOverEntity = Entity(named: .gameOver)
                 .add(component: GameOverComponent())
                 .add(component: DisplayComponent(sknode: gameOverView))
-                .add(component: PositionComponent(x: gameSize.width / 2, y: gameSize.height / 2, z: .top, rotationDegrees: 0))
+                .add(component: PositionComponent(x: gameSize.width / 2, y: gameSize.height / 2, z: .gameOver, rotationDegrees: 0))
                 .add(component: TouchableComponent())
                 .add(component: appStateComponent)
                 .add(component: ButtonBehaviorComponent(

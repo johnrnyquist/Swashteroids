@@ -20,24 +20,7 @@ class GameOverView: SwashSpriteNode {
         gameOver.fontSize = 85.0
         return gameOver
     }()
-    private var hitPercentage: SKLabelNode = {
-        let label = SKLabelNode(text: "Hit Percentage")
-        label.name = "gameOverLabel"
-        label.fontName = "Futura-Medium"
-        label.fontColor = .gameOverText
-        label.horizontalAlignmentMode = .center
-        label.fontSize = 36
-        return label
-    }()
-    private var hitPercentageNum: SKLabelNode = {
-        let label = SKLabelNode(text: "0%")
-        label.name = "gameOverLabel"
-        label.fontName = "Futura-Medium"
-        label.fontColor = .gameOverText
-        label.horizontalAlignmentMode = .center
-        label.fontSize = 48
-        return label
-    }()
+
 
     init(gameSize: CGSize, hitPercent: Int, scaleManager: ScaleManaging = ScaleManager.shared) {
         super.init(texture: nil, color: .clear, size: gameSize)
@@ -50,13 +33,7 @@ class GameOverView: SwashSpriteNode {
         addChild(container)
         name = "gameOverView"
         container.addChild(gameOver)
-        gameOver.y = size.height / 4
-        container.addChild(hitPercentage)
-        container.addChild(hitPercentageNum)
-        hitPercentage.y = gameOver.y - hitPercentage.frame.height * 1.7
-        hitPercentage.text = "Your hit percentage:"
-        hitPercentageNum.y = hitPercentage.y - hitPercentageNum.frame.height * 1.7
-        hitPercentageNum.text = "\(hitPercent)%"
+        gameOver.y = size.height / 3
         //
         let swash = SwashSpriteNode(imageNamed: "swash")
         swash.name = "swash"
@@ -65,7 +42,7 @@ class GameOverView: SwashSpriteNode {
         swash.alpha = 0.2
         swash.color = .systemBlue
         swash.colorBlendFactor = 0.2
-        swash.y = hitPercentageNum.y - 40
+        swash.y = gameOver.y - 40
         container.addChild(swash)
         zPosition = .top
     }

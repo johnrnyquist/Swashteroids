@@ -56,7 +56,7 @@ final class GameViewController: UIViewController, AlertPresenting {
     @IBAction func showPauseAlert() {
         game?.stop()
         let alertView = PauseAlert(
-            hitPercentage: game!.engine.appState![AppStateComponent.self]!.hitPercentage , //HACK
+            appState: game!.engine.appState![AppStateComponent.self]!, //HACK
             home: { [unowned self] in
                 dismiss(animated: true, completion: { [unowned self] in
                     isAlertPresented = false

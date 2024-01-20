@@ -13,7 +13,6 @@ import SpriteKit
 
 extension Transition {
     func fromPlayingScreen() {
-        engine.removeEntities(named: [.pauseButton])
         toggleShipControlsManager?.removeToggleButton()
         shipControlButtonsManager?.removeShipControlButtons()
         shipControlQuadrantsManager?.removeShipControlQuadrants()

@@ -27,36 +27,52 @@ struct ButtonView: View {
                         RoundedRectangle(cornerRadius: 10)
                                 .stroke(Color.white, lineWidth: 2)
                     )
-                    .padding(.horizontal, 20)
         }
     }
 }
 
 struct PauseAlert: View {
-    var hitPercentage: Int
+    var appState: AppStateComponent
     var home: () -> Void
     var resume: () -> Void
     var body: some View {
         VStack(spacing: 10) {
-            ButtonView(label: "Home", action: home)
-            ButtonView(label: "Resume", action: resume)
-            Text("Hit percentage: \(hitPercentage)%")
-                    .foregroundColor(.white)
-                    .font(.custom("Futura Condensed Medium", size: 24))
-                    .padding(.top, 10)
-        }
-                .frame(width: 200, height: 200)
-                .background(Color.black)
-                .cornerRadius(20)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 20)
-                            .stroke(Color.white, lineWidth: 2)
-                )
+            StatsView(appState: appState)
+            HStack(spacing: 19.0) {
+                ButtonView(label: "Home", action: home)
+                ButtonView(label: "Resume", action: resume)
+            }.padding(.horizontal, 20)
+        }.frame(width: 300, height: 230)
+         .background(Color.black)
+         .cornerRadius(20)
+         .overlay(
+             RoundedRectangle(cornerRadius: 20)
+                     .stroke(Color.white, lineWidth: 2)
+         )
     }
 }
 
 struct PauseAlert_Previews: PreviewProvider {
     static var previews: some View {
-        PauseAlert(hitPercentage: 0, home: {}, resume: {})
+        PauseAlert(appState: AppStateComponent(gameSize: .zero,
+                                               numShips: 1,
+                                               level: 1,
+                                               score: 0,
+                                               appState: .playing,
+                                               shipControlsState: .showingButtons),
+                    home: {}, resume: {})
+    }
+}
+
+struct StatsView: View {
+    var appState: AppStateComponent
+    var body: some View {
+        VStack(spacing: 0) {
+            Text("Shots Fired: \(appState.numTorpedoesFired)")
+            Text("Hit Percentage: \(appState.hitPercentage)%")
+            Text("Asteroids Mined: \(appState.numAsteroidsDestroyed)")
+            Text("Aliens Destroyed: \(appState.numAliensKilled)")
+        }.foregroundColor(.white)
+            .font(.custom("Futura Condensed Medium", size: 24))
     }
 }
