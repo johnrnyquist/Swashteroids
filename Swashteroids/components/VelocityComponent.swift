@@ -25,7 +25,7 @@ final class VelocityComponent: Component {
     var dampening: Double
     var wraps: Bool
     var base: Double
-    var exit: Double { Double.random(in: (base*2)...(base*3)) }
+    var exit: Double
 
     init(velocityX: Double,
          velocityY: Double,
@@ -41,6 +41,7 @@ final class VelocityComponent: Component {
         self.wraps = wraps
         if let base { self.base = base }
         else { self.base = velocityX }
+        exit = 300 * scaleManager.SCALE_FACTOR
     }
 }
 

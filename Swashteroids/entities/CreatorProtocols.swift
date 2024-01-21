@@ -8,10 +8,11 @@
 // https://github.com/johnrnyquist/Swash
 //
 
+import Foundation
 import Swash
 
 protocol AlienCreator: AnyObject {
-    func createAlien(scene: GameScene)
+    func createAliens(scene: GameScene)
 }
 
 protocol AsteroidCreator: AnyObject {

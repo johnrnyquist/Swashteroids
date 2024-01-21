@@ -50,6 +50,5 @@ class Transition {
         self.toggleShipControlsManager = toggleShipControlsManager
         self.shipControlQuadrantsManager = shipControlQuadrantsManager
         self.shipControlButtonsManager = shipControlButtonsManager
-
     }
 }

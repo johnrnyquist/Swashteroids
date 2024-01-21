@@ -45,7 +45,6 @@ extension Creator: TorpedoCreator {
         emitter.emissionAngle = position.rotationRadians + Double.pi
         do {
             try engine.add(entity: entity)
-            print("\(entity.name) created by \(gunComponent.ownerEntity.name)")
         } catch SwashError.entityNameAlreadyInUse(let message) {
             fatalError(message)
         } catch {

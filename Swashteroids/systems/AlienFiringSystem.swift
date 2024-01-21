@@ -40,14 +40,23 @@ final class AlienFiringSystem: System {
               let _ = node[AlienFireDownComponent.self]
         else { return }
         gun.timeSinceLastShot += time
-        if gun.timeSinceLastShot >= gun.minimumShotInterval, gameRect.contains(position.position) {
-            gun.timeSinceLastShot = 0
-            var pos = PositionComponent(x: position.x, y: position.y, z: .asteroids, rotationDegrees: position.rotationDegrees)
-            creator?.createTorpedo(gun, pos, velocity)
-            pos = PositionComponent(x: position.x, y: position.y, z: .asteroids, rotationDegrees: position.rotationDegrees + 30.0)
-            creator?.createTorpedo(gun, pos, velocity)
-            pos = PositionComponent(x: position.x, y: position.y, z: .asteroids, rotationDegrees: position.rotationDegrees - 30.0)
-            creator?.createTorpedo(gun, pos, velocity)
-        }
+        //
+        guard gun.timeSinceLastShot >= gun.minimumShotInterval, gameRect.contains(position.position) else { return }
+        //
+        gun.timeSinceLastShot = 0
+        var pos = PositionComponent(x: position.x, y: position.y, z: .asteroids, rotationDegrees: position.rotationDegrees)
+        creator?.createTorpedo(gun, pos, velocity)
+        //
+        guard let _ = node.entity?[AlienSoldierComponent.self] else { return }
+        pos = PositionComponent(x: position.x,
+                                y: position.y,
+                                z: .asteroids,
+                                rotationDegrees: position.rotationDegrees + 30.0)
+        creator?.createTorpedo(gun, pos, velocity)
+        pos = PositionComponent(x: position.x,
+                                y: position.y,
+                                z: .asteroids,
+                                rotationDegrees: position.rotationDegrees - 30.0)
+        creator?.createTorpedo(gun, pos, velocity)
     }
 }

@@ -31,7 +31,8 @@ extension String {
     static let buttonsInfoView: EntityName = "buttonsInfoViewEntity"
     static let noButtonsInfoView: EntityName = "noButtonsInfoViewEntity"
     // Misc
-    static let alien: EntityName = "alienEntity"
+    static let alienSoldier: EntityName = "alienSoldierEntity"
+    static let alienWorker: EntityName = "alienWorkerEntity"
     static let allSounds: EntityName = "allSoundsEntity"
     static let appState: EntityName = "appStateEntity"
     static let asteroid : EntityName = "asteroidEntity"

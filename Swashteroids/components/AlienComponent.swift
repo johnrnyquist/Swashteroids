@@ -24,3 +24,10 @@ class AlienComponent: Component {
         self.killScore = killScore
     }
 }
+
+class AlienSoldierComponent: Component {
+}
+
+class AlienWorkerComponent: Component {
+}
+

@@ -76,7 +76,7 @@ class GameplayManagerSystem: System {
         appStateComponent.alienAppearanceRate -= time
         if appStateComponent.alienAppearanceRate <= 0 {
             appStateComponent.alienAppearanceRate = appStateComponent.alienAppearanceRateDefault
-            creator.createAlien(scene: scene)
+            creator.createAliens(scene: scene)
         }
     }
 
