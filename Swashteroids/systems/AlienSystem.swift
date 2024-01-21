@@ -124,7 +124,6 @@ class AlienWorkerSystem: AlienSystem {
 
     override func pickTarget(alienComponent: AlienComponent, position: PositionComponent) {
         guard alienComponent.targetingEntity == nil else { return }
-        let ship = shipNodes?.head?.entity
         let closestAsteroid = findClosestEntity(to: position.position, node: asteroidNodes?.head)
         let closestTreasure = findClosestEntity(to: position.position, node: treasureNodes?.head)
         let entities = [closestAsteroid, closestTreasure].compactMap { $0 }
@@ -222,8 +221,8 @@ class AlienSoldierSystem: AlienSystem {
     override func pickTarget(alienComponent: AlienComponent, position: PositionComponent) {
         guard alienComponent.targetingEntity == nil else { return }
         let ship = shipNodes?.head?.entity
-        let closestAsteroid = findClosestEntity(to: position.position, node: asteroidNodes?.head)
-        let closestTreasure = findClosestEntity(to: position.position, node: treasureNodes?.head)
+//        let closestAsteroid = findClosestEntity(to: position.position, node: asteroidNodes?.head)
+//        let closestTreasure = findClosestEntity(to: position.position, node: treasureNodes?.head)
 //        let entities = [ship, ship, ship, ship, closestAsteroid, closestTreasure].compactMap { $0 }
 //        alienComponent.targetingEntity = findClosestObject(to: position.position, in: entities)
         alienComponent.targetingEntity = ship
