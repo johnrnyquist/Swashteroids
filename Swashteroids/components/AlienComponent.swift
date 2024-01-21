@@ -14,10 +14,10 @@ import Foundation
 class AlienComponent: Component {
     weak var targetingEntity: Entity?
     var timeSinceLastReaction: TimeInterval = 0.0
-    var reactionTime: TimeInterval = 0.5
+    var reactionTime: TimeInterval
     var endDestination: CGPoint = .zero
     var startDestination: CGPoint = .zero
-    var killScore = 350
+    var killScore: Int
 
     init(reactionTime: Double, killScore: Int) {
         self.reactionTime = reactionTime

@@ -22,7 +22,7 @@ final class AppStateComponent: Component {
     let orig_shipControlsState: ShipControlsState
     // Current values
     var appState: AppState
-    var nextShipScore = 10_000
+    var nextShipScore = 5_000
     var numShips: Int
     var shipControlsState: ShipControlsState
     var numTorpedoesFired = 0
@@ -47,7 +47,7 @@ final class AppStateComponent: Component {
     }
     //MARK: - Not set from argument to init (yet)
     let levelBonus = 500
-    let nextShipIncrement = 10_000
+    let nextShipIncrement = 5_000
     var alienAppearanceRate: TimeInterval = 0.0
 //    var alienAppearanceRateDefault: TimeInterval { 5.0 }
     var alienAppearanceRateDefault: TimeInterval { Double.random(in: 15.0...90.0) }
@@ -82,7 +82,7 @@ final class AppStateComponent: Component {
         appState = orig_appState
         shipControlsState = orig_shipControlsState
         //
-        nextShipScore = 10_000
+        nextShipScore = 5_000
         alienAppearanceRate = alienAppearanceRateDefault
         numTorpedoesFired = 0
     }

@@ -26,7 +26,7 @@ extension Creator: AlienCreator {
                                   startDestination: CGPoint(x: entrance.startDestination.x, y: entrance.startDestination.y + 50),
                                   endDestination: entrance.endDestination)
 
-            case 2, 3:
+            case 2:
                 createAlienWorker(scene: scene,
                                   startDestination: CGPoint(x: entrance.startDestination.x, y: entrance.startDestination.y + 50),
                                   endDestination: entrance.endDestination)
@@ -111,7 +111,7 @@ extension Creator: AlienCreator {
 //        sprite.physicsBody?.affectedByGravity = false
 //        sprite.physicsBody?.categoryBitMask = alienCategory
 //        sprite.physicsBody?.contactTestBitMask = asteroidCategory | playerCategory | torpedoCategory
-        let workerComponent = AlienComponent(reactionTime: Double.random(in: 0.4...0.8), killScore: 350)
+        let workerComponent = AlienComponent(reactionTime: Double.random(in: 0.4...0.8), killScore: 50)
         workerComponent.startDestination = startDestination
         workerComponent.endDestination = endDestination
         let velocityX = Double.random(in: -10.0...30.0) + 40.0

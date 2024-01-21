@@ -19,7 +19,8 @@ extension Creator: TreasureCreator {
         let treasureData = r ? special : standard
         let sprite = SwashSpriteNode(color: treasureData.color, size: CGSize(width: 12, height: 12))
         addEmitter(colored: treasureData.color, on: sprite)
-        let treasureEntity = Entity(named: "treasure" + "_\(Int.random(in: 0...10_000))")
+        numTreasures += 1
+        let treasureEntity = Entity(named: "treasure" + "_\(numTreasures)")
                 .add(component: TreasureComponent(value: treasureData.value))
                 .add(component: PositionComponent(x: positionComponent.x,
                                                   y: positionComponent.y,
