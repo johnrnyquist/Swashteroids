@@ -44,7 +44,7 @@ class CollisionSystemTests: XCTestCase {
                 .add(component: CollidableComponent(radius: 25))
         try? engine.add(entity: shipEntity)
         alienEntity = Entity(named: .alienSoldier)
-                .add(component: AlienSoldierComponent(reactionTime: 1.0, killScore: 350))
+                .add(component: AlienComponent(reactionTime: 1.0, killScore: 350))
                 .add(component: PositionComponent(x: 0, y: 0, z: .ship, rotationDegrees: 0.0))
                 .add(component: VelocityComponent(velocityX: 0.0, velocityY: 0.0, dampening: 0.0, base: 60.0))
                 .add(component: CollidableComponent(radius: 25))

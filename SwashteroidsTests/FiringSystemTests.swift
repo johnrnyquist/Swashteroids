@@ -32,6 +32,7 @@ class FiringSystemTests: XCTestCase {
         let time: TimeInterval = 1.0
         let minimumShotInterval = 0.0 // 1 second
         //
+        let entity = Entity()
         let motion = VelocityComponent(velocityX: 0, velocityY: 0, base: 60.0)
         let position = PositionComponent(x: 0, y: 0, z: .ship)
         let gun = GunComponent(offsetX: 0,
@@ -39,11 +40,12 @@ class FiringSystemTests: XCTestCase {
                                minimumShotInterval: minimumShotInterval,
                                torpedoLifetime: 0,
                                torpedoColor: .torpedo,
-                               ownerType: .player,
+                               ownerType: .player, 
+                               ownerEntity: entity,
                                numTorpedoes: 20)
         let fireDown = FireDownComponent.shared
         //
-        let entity = Entity()
+        entity
                 .add(component: motion)
                 .add(component: position)
                 .add(component: gun)
@@ -60,6 +62,7 @@ class FiringSystemTests: XCTestCase {
         let time: TimeInterval = 0.1
         let minimumShotInterval = 1.0 // 1 second
         //
+        let entity = Entity()
         let motion = VelocityComponent(velocityX: 0, velocityY: 0, base: 60.0)
         let position = PositionComponent(x: 0, y: 0, z: .ship)
         let gun = GunComponent(offsetX: 0,
@@ -67,16 +70,17 @@ class FiringSystemTests: XCTestCase {
                                minimumShotInterval: minimumShotInterval,
                                torpedoLifetime: 0,
                                torpedoColor: .torpedo,
-                               ownerType: .player,
+                               ownerType: .player, 
+                               ownerEntity: entity,
                                numTorpedoes: 20)
         let fireDown = FireDownComponent.shared
         let initialTimeSinceLastShot = gun.timeSinceLastShot
         //
-        let entity = Entity()
-                .add(component: motion)
-                .add(component: position)
-                .add(component: gun)
-                .add(component: fireDown)
+        entity
+            .add(component: motion)
+            .add(component: position)
+            .add(component: gun)
+            .add(component: fireDown)
         try? engine.add(entity: entity)
         //
         system.update(time: time)

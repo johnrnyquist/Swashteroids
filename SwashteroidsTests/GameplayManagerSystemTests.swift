@@ -225,7 +225,7 @@ final class GameplayManagerSystemTests: XCTestCase {
                                                   shipControlsState: .showingButtons)
         appStateComponent.alienAppearanceRate = 1.0
         system.handleAlienAppearances(appStateComponent: appStateComponent, time: 1.0)
-        XCTAssertTrue(creator.createAlienCalled)
+        XCTAssertTrue(creator.createAliensCalled)
     }
 
     func test_HandleGameState_NoAsteroidsTorpedoes() {
@@ -265,7 +265,7 @@ final class GameplayManagerSystemTests: XCTestCase {
     }
 
     class MockCreator: PowerUpCreator & ShipCreator & AsteroidCreator & TorpedoCreator & AlienCreator {
-        var createAlienCalled = false
+        var createAliensCalled = false
         var createAsteroidCalled = 0
 
         func createHyperspacePowerUp(level: Int) {
@@ -284,8 +284,8 @@ final class GameplayManagerSystemTests: XCTestCase {
 
         }
         
-        func createAlien(scene: GameScene) {
-            createAlienCalled = true
+        func createAliens(scene: GameScene) {
+            createAliensCalled = true
         }
 
         func createShip(_ state: AppStateComponent) {

@@ -76,13 +76,15 @@ final class ShipControlsSystemTests: XCTestCase {
         engine.add(system: system, priority: 1)
         //TODO: do_toggleButtons requires the ShipEntity type as it uses engine.ship. 
         let ship = Entity(named: .player)
+        ship
                 .add(component: AccelerometerComponent())
                 .add(component: GunComponent(offsetX: 0,
                                              offsetY: 0,
                                              minimumShotInterval: 0,
                                              torpedoLifetime: 0,
                                              torpedoColor: .torpedo,
-                                             ownerType: .player,
+                                             ownerType: .player, 
+                                             ownerEntity: ship,
                                              numTorpedoes: 20))
         try? engine.add(entity: ship)
         let fireButton = Entity(named: .fireButton)
@@ -124,13 +126,15 @@ final class ShipControlsSystemTests: XCTestCase {
         let system = ShipControlsSystem(creator: creator)
         engine.add(system: system, priority: 1)
         let ship = Entity()
+        ship
                 .add(component: AccelerometerComponent())
                 .add(component: GunComponent(offsetX: 0,
                                              offsetY: 0,
                                              minimumShotInterval: 0,
                                              torpedoLifetime: 0,
                                              torpedoColor: .torpedo,
-                                             ownerType: .player,
+                                             ownerType: .player, 
+                                             ownerEntity: ship,
                                              numTorpedoes: 20))
                 .add(component: HyperspaceDriveComponent(jumps: 20))
         try? engine.add(entity: ship)
