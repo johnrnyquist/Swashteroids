@@ -15,6 +15,7 @@ class HudView: SKNode {
     private var levelLabel: SKLabelNode!
     private var scoreLabel: SKLabelNode!
     private var shipsLabel: SKLabelNode!
+    private var pauseButtonArt: SKSpriteNode!
     var pauseButton: SwashSpriteNode!
     var ammoView: AmmoView!
     var jumpsView: AmmoView!
@@ -40,17 +41,26 @@ class HudView: SKNode {
         }
         scoreLabel = createLabel(x: gameSize.width / 2, y: textY, alignment: .center)
         shipsLabel = createLabel(x: textXPadding, y: textY, alignment: .left)
-        pauseButton = SwashSpriteNode(imageNamed: "pause")
-        pauseButton.anchorPoint = CGPoint(x: 1.0, y: 0.0)
+        //
+        let pausePadding = 25.0
+        pauseButtonArt = SKSpriteNode(imageNamed: "pause")
+        pauseButtonArt.size = CGSize(width: gameSize.height-textY + 10, height: gameSize.height-textY + pausePadding)
+        pauseButton = SwashSpriteNode(color: .clear, size: CGSize(width: pauseButtonArt.size.width + pausePadding * 2.0, height: pauseButtonArt.size.height + pausePadding * 2.0 ))
+        pauseButton.addChild(pauseButtonArt)
+
+        pauseButtonArt.anchorPoint = CGPoint(x: 1, y: 0)
+        pauseButton.anchorPoint = CGPoint(x: 1, y: 0)
+        pauseButtonArt.position = CGPoint(x: -pausePadding, y: pausePadding)
+
         pauseButton.zPosition = .buttons
         pauseButton.x = gameSize.width - textXPadding
-        pauseButton.y = textY
-        pauseButton.scale = 0.25 //HACK
-        levelLabel = createLabel(x: gameSize.width - textXPadding - pauseButton.width - 20.0, y: textY, alignment: .right)
+        pauseButton.y = textY - pausePadding * scaleManager.SCALE_FACTOR
+        addChild(pauseButton)
+        //
+        levelLabel = createLabel(x: gameSize.width - textXPadding - pauseButtonArt.width - 20.0, y: textY, alignment: .right)
         addChild(levelLabel)
         addChild(scoreLabel)
         addChild(shipsLabel)
-        addChild(pauseButton)
         // Ammo
         ammoView = AmmoView(circleColor: .powerUpTorpedo, size: gameSize, icon: TorpedoesPowerUpView(imageNamed: .torpedoPowerUp))
         ammoView.zPosition = .top

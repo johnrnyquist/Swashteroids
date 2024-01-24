@@ -55,25 +55,28 @@ final class GameViewController: UIViewController, AlertPresenting {
 
     @IBAction func showPauseAlert() {
         game?.stop()
-        let alertView = PauseAlert(
-            appState: game!.engine.appState![AppStateComponent.self]!, //HACK
-            home: { [unowned self] in
-                dismiss(animated: true, completion: { [unowned self] in
-                    isAlertPresented = false
-                    startNewGame()
+        if game?.appStateComponent.appState == .playing ||
+           game?.appStateComponent.appState == .gameOver {
+            let alertView = PauseAlert(
+                appState: game!.engine.appState![AppStateComponent.self]!, //HACK
+                home: { [unowned self] in
+                    dismiss(animated: true, completion: { [unowned self] in
+                        isAlertPresented = false
+                        startNewGame()
+                    })
+                },
+                resume: { [unowned self] in
+                    dismiss(animated: true, completion: { [unowned self] in
+                        isAlertPresented = false
+                        game?.start()
+                    })
                 })
-            },
-            resume: { [unowned self] in
-                dismiss(animated: true, completion: { [unowned self] in
-                    isAlertPresented = false
-                    game?.start()
-                })
-            })
-        let hostingController = UIHostingController(rootView: alertView)
-        hostingController.modalPresentationStyle = .overCurrentContext
-        hostingController.view.backgroundColor = UIColor(white: 1, alpha: 0.0)
-        present(hostingController, animated: true, completion: nil)
-        isAlertPresented = true
+            let hostingController = UIHostingController(rootView: alertView)
+            hostingController.modalPresentationStyle = .overCurrentContext
+            hostingController.view.backgroundColor = UIColor(white: 1, alpha: 0.0)
+            present(hostingController, animated: true, completion: nil)
+            isAlertPresented = true
+        }
     }
 
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
