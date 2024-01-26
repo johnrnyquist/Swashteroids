@@ -111,6 +111,7 @@
 		8D70211D2B4F1C960032107A /* Nodelist+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D70211C2B4F1C960032107A /* Nodelist+extensions.swift */; };
 		8D714E2E2B3535DC009E1586 /* SKSpriteNode+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D714E2D2B3535DC009E1586 /* SKSpriteNode+extensions.swift */; };
 		8D71C0472B3603CF004D6D0C /* ScaleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139DE0BD2F73AFFAEDE2DA /* ScaleManager.swift */; };
+		8D88C4842B61D3FF00B75314 /* RandomnessTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D88C4832B61D3FF00B75314 /* RandomnessTests.swift */; };
 		8D88FE012B5334F900937FF1 /* powerup_appearance.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D88FE002B5334F900937FF1 /* powerup_appearance.wav */; };
 		8D88FE032B535D0D00937FF1 /* GameOverView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D88FE022B535D0D00937FF1 /* GameOverView2.swift */; };
 		8D8F24B22B51B8FA00B2E223 /* CGRect+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8F24B12B51B8FA00B2E223 /* CGRect+extensions.swift */; };
@@ -140,6 +141,7 @@
 		931392BC342CBC595CB879B5 /* FlipComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139EB3AE52346EF745211F /* FlipComponent.swift */; };
 		9313935D542E2721BFFADDC1 /* Creator+TreasureCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139F2C79FC630142EA1605 /* Creator+TreasureCreator.swift */; };
 		931393799C3434FBF3FC0CCD /* InputComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931396DD35CCD39E8E4EDB16 /* InputComponent.swift */; };
+		9313945BF406DE5979CDEA51 /* Randomness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313959F4B35EA9D7843BD7A /* Randomness.swift */; };
 		931394AC921BF3C3D7CABD13 /* FiringSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139DE76BF1939914D55E38 /* FiringSystemTests.swift */; };
 		93139562CC6BB542C42A3493 /* LeftNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139D029684C918FEDD3DC1 /* LeftNode.swift */; };
 		9313961BE93AEE536D58C27B /* AudioSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931390BDEBA443104F781428 /* AudioSystemTests.swift */; };
@@ -313,6 +315,7 @@
 		8D70211A2B4EFEAE0032107A /* Creator+AlienCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Creator+AlienCreator.swift"; sourceTree = "<group>"; };
 		8D70211C2B4F1C960032107A /* Nodelist+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Nodelist+extensions.swift"; sourceTree = "<group>"; };
 		8D714E2D2B3535DC009E1586 /* SKSpriteNode+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SKSpriteNode+extensions.swift"; sourceTree = "<group>"; };
+		8D88C4832B61D3FF00B75314 /* RandomnessTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomnessTests.swift; sourceTree = "<group>"; };
 		8D88FE002B5334F900937FF1 /* powerup_appearance.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = powerup_appearance.wav; sourceTree = "<group>"; };
 		8D88FE022B535D0D00937FF1 /* GameOverView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverView2.swift; sourceTree = "<group>"; };
 		8D8F24B12B51B8FA00B2E223 /* CGRect+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+extensions.swift"; sourceTree = "<group>"; };
@@ -349,6 +352,7 @@
 		9313941564944F14B4041467 /* GameOverSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverSystem.swift; sourceTree = "<group>"; };
 		93139489970BEA17AF74C95E /* TouchNodes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchNodes.swift; sourceTree = "<group>"; };
 		931394D1D0B636772EE1DFF7 /* String+EntityNames.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+EntityNames.swift"; sourceTree = "<group>"; };
+		9313959F4B35EA9D7843BD7A /* Randomness.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Randomness.swift; sourceTree = "<group>"; };
 		931395F838B2866767296F25 /* Creator+ShipQuadrantsControlsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Creator+ShipQuadrantsControlsManager.swift"; sourceTree = "<group>"; };
 		931395FA04809CC11F1BF287 /* TreasureComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreasureComponent.swift; sourceTree = "<group>"; };
 		9313961CB4F5B39D06FE5B0F /* RepeatingAudioNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatingAudioNode.swift; sourceTree = "<group>"; };
@@ -466,6 +470,7 @@
 				8D23C18C2B02C59D00F7D878 /* sounds */,
 				8D23C17B2B02C59C00F7D878 /* systems */,
 				8D23C1972B02C59D00F7D878 /* views */,
+				9313959F4B35EA9D7843BD7A /* Randomness.swift */,
 			);
 			path = Swashteroids;
 			sourceTree = "<group>";
@@ -676,6 +681,7 @@
 				93139D4336E12C89FC8BE06B /* TransitionTests.swift */,
 				931390BDEBA443104F781428 /* AudioSystemTests.swift */,
 				93139AACD0733A9656662B03 /* MockPowerUpCreator.swift */,
+				8D88C4832B61D3FF00B75314 /* RandomnessTests.swift */,
 			);
 			path = SwashteroidsTests;
 			sourceTree = "<group>";
@@ -989,6 +995,7 @@
 				931391D71C321C0A29A57949 /* GunNode.swift in Sources */,
 				931398B178A3200C9AA53ED2 /* AlienFireDownComponent.swift in Sources */,
 				93139E360C9751C14F46F8DA /* AlienComponent.swift in Sources */,
+				9313945BF406DE5979CDEA51 /* Randomness.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1017,6 +1024,7 @@
 				93139D4F7B05532BC0F56A6C /* GameplayManagerSystemTests.swift in Sources */,
 				93139AF6101463528E309EA7 /* ShipControlsSystemTests.swift in Sources */,
 				931390FD65B5AF82D24FEB32 /* CollisionSystemTests.swift in Sources */,
+				8D88C4842B61D3FF00B75314 /* RandomnessTests.swift in Sources */,
 				9313961BE93AEE536D58C27B /* AudioSystemTests.swift in Sources */,
 				931398A1B70C60540B24F30B /* MockPowerUpCreator.swift in Sources */,
 			);

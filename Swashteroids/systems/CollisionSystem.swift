@@ -17,6 +17,9 @@ let treasure_special_value = 350
 
 /// This class is an argument for switching to the SpriteKit physics engine.
 class CollisionSystem: System {
+    private let randomness: Randomness
+    private let scaleManager: ScaleManaging
+    private var size: CGSize
     private weak var creator: (AsteroidCreator & ShipCreator & ShipButtonControlsManager & TreasureCreator)!
     private weak var appStateNodes: NodeList!
     private weak var ships: NodeList!
@@ -27,12 +30,11 @@ class CollisionSystem: System {
     private weak var hyperspacePowerUp: NodeList!
     private weak var treasures: NodeList!
     private weak var engine: Engine!
-    private var size: CGSize
-    let scaleManager: ScaleManaging
 
-    init(creator: AsteroidCreator & ShipCreator & ShipButtonControlsManager & TreasureCreator, size: CGSize, scaleManager: ScaleManaging = ScaleManager.shared) {
+    init(creator: AsteroidCreator & ShipCreator & ShipButtonControlsManager & TreasureCreator, size: CGSize, randomness: Randomness, scaleManager: ScaleManaging = ScaleManager.shared) {
         self.creator = creator
         self.size = size
+        self.randomness = randomness
         self.scaleManager = scaleManager
     }
 
@@ -208,14 +210,14 @@ class CollisionSystem: System {
         guard let collisionComponent = asteroidEntity[CollidableComponent.self],
               let positionComponent = asteroidEntity[PositionComponent.self]
         else { return }
-        if Int.random(in: 1...3) == 3 {
+        if randomness.nextInt(from: 1, through: 3) == 3 {
             creator.createTreasure(positionComponent: positionComponent)
         }
         if (collisionComponent.radius > LARGE_ASTEROID_RADIUS * scaleManager.SCALE_FACTOR / 4) {
             for _ in 1...splits {
                 creator.createAsteroid(radius: collisionComponent.radius * 1.0 / scaleManager.SCALE_FACTOR / 2.0,
-                                       x: positionComponent.x + Double.random(in: -5...5),
-                                       y: positionComponent.y + Double.random(in: -5...5),
+                                       x: positionComponent.x + randomness.nextDouble(from: -5.0, through: 5.0),
+                                       y: positionComponent.y + randomness.nextDouble(from: -5.0, through: 5.0),
                                        level: level)
             }
         }

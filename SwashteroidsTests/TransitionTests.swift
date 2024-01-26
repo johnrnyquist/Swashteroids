@@ -26,12 +26,7 @@ final class TransitionTests: XCTestCase {
     override func setUpWithError() throws {
         size = CGSize(width: 1024.0, height: 768.0)
         engine = Engine()
-        appStateComponent = AppStateComponent(gameSize: .zero,
-                                              numShips: 3,
-                                              level: 4,
-                                              score: 5,
-                                              appState: .infoButtons,
-                                              shipControlsState: .hidingButtons)
+        appStateComponent = AppStateComponent(gameSize: .zero, numShips: 3, level: 4, score: 5, appState: .infoButtons, shipControlsState: .hidingButtons, randomness: Randomness(seed: 1))
         appStateEntity = Entity(named: "appStateEntity")
                 .add(component: appStateComponent)
         do {

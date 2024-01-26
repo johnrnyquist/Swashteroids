@@ -41,20 +41,22 @@ extension Creator: AlienCreator {
                 createAlienWorker(scene: scene,
                                   startDestination: CGPoint(x: entrance.startDestination.x, y: entrance.startDestination.y - 50),
                                   endDestination: entrance.endDestination)
-                createAlienSoldier(scene: scene, startDestination: entrance.startDestination, endDestination: entrance.endDestination)
+                createAlienSoldier(scene: scene,
+                                   startDestination: entrance.startDestination,
+                                   endDestination: entrance.endDestination)
         }
        appStateEntity.add(component: AudioComponent(fileNamed: .alienEntrance, actionKey: "alienEntrance"))
     }
 
     func pickEntrance() -> (startDestination: CGPoint, endDestination: CGPoint, leftSide: Bool) {
         let left = CGPoint(x: -200, //-sprite.width * 3,
-                           y: Double.random(in: 40...(size.height - 40)))
+                           y: randomness.nextDouble(from: 40, through: size.height - 40))
         let right = CGPoint(x: size.width + 200, //sprite.width * 3,
-                            y: Double.random(in: 40...(size.height - 40)))
+                            y: randomness.nextDouble(from: 40, through: size.height - 40))
         var startDestination: CGPoint
         var endDestination: CGPoint
         let leftSide: Bool
-        switch Bool.random() {
+        switch randomness.nextBool() {
             case true:
                 leftSide = true
                 startDestination = left
@@ -111,10 +113,10 @@ extension Creator: AlienCreator {
 //        sprite.physicsBody?.affectedByGravity = false
 //        sprite.physicsBody?.categoryBitMask = alienCategory
 //        sprite.physicsBody?.contactTestBitMask = asteroidCategory | playerCategory | torpedoCategory
-        let workerComponent = AlienComponent(reactionTime: Double.random(in: 0.4...0.8), killScore: 50)
+        let workerComponent = AlienComponent(reactionTime: randomness.nextDouble(from: 0.4, through: 0.8), killScore: 50)
         workerComponent.startDestination = startDestination
         workerComponent.endDestination = endDestination
-        let velocityX = Double.random(in: -10.0...30.0) + 40.0
+        let velocityX = randomness.nextDouble(from: -10.0, through: 30.0) + 40.0
         let alienEntity = Entity(named: "\(EntityName.alienWorker)_\(numAliens)")
         alienEntity
                 .add(component: workerComponent)
@@ -149,10 +151,10 @@ extension Creator: AlienCreator {
 //        sprite.physicsBody?.affectedByGravity = false
 //        sprite.physicsBody?.categoryBitMask = alienCategory
 //        sprite.physicsBody?.contactTestBitMask = asteroidCategory | playerCategory | torpedoCategory
-        let soldierComponent = AlienComponent(reactionTime: Double.random(in: 0.4...0.8), killScore: 350)
+        let soldierComponent = AlienComponent(reactionTime: randomness.nextDouble(from: 0.4, through: 0.8), killScore: 350)
         soldierComponent.startDestination = startDestination
         soldierComponent.endDestination = endDestination
-        let velocityX = Double.random(in: -10.0...30.0) + 60.0
+        let velocityX = randomness.nextDouble(from: -10.0, through: 30) + 60.0
         let alienEntity = Entity(named: "\(EntityName.alienSoldier)_\(numAliens)")
         alienEntity
                 .add(component: soldierComponent)

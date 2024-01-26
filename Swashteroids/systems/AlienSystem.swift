@@ -61,6 +61,12 @@ class AlienWorkerSystem: AlienSystem {
     var shipNodes: NodeList?
     var asteroidNodes: NodeList?
     var treasureNodes: NodeList?
+    let randomness: Randomness
+    
+    init(randomness: Randomness) {
+        self.randomness = randomness
+        super.init()
+    }
 
     override func addToEngine(engine: Engine) {
         self.engine = engine
@@ -128,7 +134,7 @@ class AlienWorkerSystem: AlienSystem {
         let closestTreasure = findClosestEntity(to: position.position, node: treasureNodes?.head)
         let entities = [closestAsteroid, closestTreasure].compactMap { $0 }
         if entities.count > 0 {
-            alienComponent.targetingEntity = entities.randomElement()
+            alienComponent.targetingEntity = entities[randomness.nextInt(upTo: entities.count)]
         }
     }
 

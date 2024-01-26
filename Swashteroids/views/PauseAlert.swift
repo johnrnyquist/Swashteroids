@@ -59,7 +59,8 @@ struct PauseAlert_Previews: PreviewProvider {
                                                level: 1,
                                                score: 0,
                                                appState: .playing,
-                                               shipControlsState: .showingButtons),
+                                               shipControlsState: .showingButtons,
+                                               randomness: Randomness(seed: 1)),
                     home: {}, resume: {})
     }
 }

@@ -34,14 +34,13 @@ class GameplayManagerSystem: System {
     private var hudTextFontSize: CGFloat = 64
     private var spaceshipClearanceRadius: CGFloat = 50
     private var minimumAsteroidDistance: CGFloat = 80
-
-    init(creator: PowerUpCreator & ShipCreator & AsteroidCreator & TorpedoCreator & AlienCreator,
-         size: CGSize,
-         scene: GameScene,
-         scaleManager: ScaleManaging = ScaleManager.shared) {
+    private let randomness: Randomness
+    
+    init(creator: PowerUpCreator & ShipCreator & AsteroidCreator & TorpedoCreator & AlienCreator, size: CGSize, scene: GameScene, randomness: Randomness, scaleManager: ScaleManaging = ScaleManager.shared) {
         self.creator = creator
         self.size = size
         self.scene = scene
+        self.randomness = randomness
         hudTextFontSize *= scaleManager.SCALE_FACTOR
     }
 
@@ -148,14 +147,14 @@ class GameplayManagerSystem: System {
 
     /// Create a random position on the screen
     func randomPosition() -> CGPoint {
-        let isVertical = Bool.random()
-        let isPositive = Bool.random()
+        let isVertical = randomness.nextBool()
+        let isPositive = randomness.nextBool()
         if isVertical {
             let y = isPositive ? Double(size.height) : 0.0
-            return CGPoint(x: Double.random(in: 0.0...1.0) * size.width, y: y)
+            return CGPoint(x: randomness.nextDouble(from: 0.0, through: 1.0) * size.width, y: y)
         } else {
             let x = isPositive ? Double(size.width) : 0.0
-            return CGPoint(x: x, y: Double.random(in: 0.0...1.0) * size.height)
+            return CGPoint(x: x, y: randomness.nextDouble(from: 0.0, through: 1.0) * size.height)
         }
     }
 

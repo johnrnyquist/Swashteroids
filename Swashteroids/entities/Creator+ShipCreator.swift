@@ -78,7 +78,7 @@ extension Creator: ShipCreator {
         ship.remove(componentClass: InputComponent.self)
         ship.remove(componentClass: MovementRateComponent.self)
         // Add components
-        ship[VelocityComponent.self]?.angularVelocity = Double.random(in: -100.0...100.0)
+        ship[VelocityComponent.self]?.angularVelocity = randomness.nextDouble(from: -100.0, through: 100.0)
         ship.add(component: DisplayComponent(sknode: spriteNode))
         ship.add(component: DeathThroesComponent(countdown: 3.0))
         ship.add(component: AudioComponent(fileNamed: .explosion, actionKey: "shipExplosion"))

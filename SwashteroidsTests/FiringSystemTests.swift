@@ -28,7 +28,7 @@ class FiringSystemTests: XCTestCase {
         system = nil
     }
 
-    func xtest_Fire() {
+    func test_Fire() {
         let time: TimeInterval = 1.0
         let minimumShotInterval = 0.0 // 1 second
         //
@@ -55,39 +55,9 @@ class FiringSystemTests: XCTestCase {
         system.update(time: time)
         //
         XCTAssertTrue(creator.fired)
-        XCTAssertEqual(gun.timeSinceLastShot, 0.0)
+        XCTAssertEqual(gun.numTorpedoes, 19)
     }
-
-    func xtest_TooSoonToFire() {
-        let time: TimeInterval = 0.1
-        let minimumShotInterval = 1.0 // 1 second
-        //
-        let entity = Entity()
-        let motion = VelocityComponent(velocityX: 0, velocityY: 0, base: 60.0)
-        let position = PositionComponent(x: 0, y: 0, z: .ship)
-        let gun = GunComponent(offsetX: 0,
-                               offsetY: 0,
-                               minimumShotInterval: minimumShotInterval,
-                               torpedoLifetime: 0,
-                               torpedoColor: .torpedo,
-                               ownerType: .player, 
-                               ownerEntity: entity,
-                               numTorpedoes: 20)
-        let fireDown = FireDownComponent.shared
-        let initialTimeSinceLastShot = gun.timeSinceLastShot
-        //
-        entity
-            .add(component: motion)
-            .add(component: position)
-            .add(component: gun)
-            .add(component: fireDown)
-        try? engine.add(entity: entity)
-        //
-        system.update(time: time)
-        XCTAssertFalse(creator.fired)
-        XCTAssertEqual(gun.timeSinceLastShot, time + initialTimeSinceLastShot)
-    }
-
+    
     class MockTorpedoCreator: TorpedoCreator & PowerUpCreator {
         var fired = false
         var createHyperspacePowerUpCalled = false

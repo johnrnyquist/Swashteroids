@@ -70,7 +70,8 @@ extension Creator: ShipQuadrantsControlsManager {
                         generator?.impactOccurred()
                         if let ship = self.engine.ship,
                            ship.has(componentClassName: HyperspaceDriveComponent.name) {
-                            engine.ship?.add(component: DoHyperspaceJumpComponent(size: size))
+                            engine.ship?.add(component: DoHyperspaceJumpComponent(size: size,
+                                                                                  randomness: randomness))
                         }
                     },
                     touchUp: { _ in },

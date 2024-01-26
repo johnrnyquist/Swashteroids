@@ -33,7 +33,8 @@ class HudSystemTests: XCTestCase {
                                                   level: 2,
                                                   score: 3,
                                                   appState: .playing,
-                                                  shipControlsState: .showingButtons)
+                                                  shipControlsState: .showingButtons,
+                                                  randomness: Randomness(seed: 1))
         hudNode.components[HudComponent.name] = hudComponent
         hudNode.components[AppStateComponent.name] = appStateComponent
         system.updateNode(hudNode, 1)

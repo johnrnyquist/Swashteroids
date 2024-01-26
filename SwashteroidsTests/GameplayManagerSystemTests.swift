@@ -34,6 +34,7 @@ final class GameplayManagerSystemTests: XCTestCase {
         let system = GameplayManagerSystem(creator: creator,
                                            size: CGSize(width: 1024, height: 768),
                                            scene: scene,
+                                           randomness: Randomness(seed: 1),
                                            scaleManager: MockScaleManager())
         engine.add(system: system, priority: 1)
         let asteroid = Entity(named: "asteroid")
@@ -48,10 +49,11 @@ final class GameplayManagerSystemTests: XCTestCase {
         XCTAssertTrue(result)
     }
 
-    func xtest_IsNotClearToAddSpaceship() {
+    func test_IsNotClearToAddSpaceship() {
         let system = GameplayManagerSystem(creator: creator,
                                            size: CGSize(width: 1024, height: 768),
                                            scene: scene,
+                                           randomness: Randomness(seed: 1),
                                            scaleManager: MockScaleManager())
         engine.add(system: system, priority: 1)
         let asteroid = Entity(named: "asteroid")
@@ -62,7 +64,9 @@ final class GameplayManagerSystemTests: XCTestCase {
                 .add(component: VelocityComponent(velocityX: 0, velocityY: 0, base: 60.0))
         try? engine.add(entity: asteroid)
         let suggestedShipLocation = CGPoint(x: 0, y: 0)
+        // SUT
         let result = system.isClearToAddSpaceship(at: suggestedShipLocation)
+        //
         XCTAssertFalse(result)
     }
 
@@ -70,6 +74,7 @@ final class GameplayManagerSystemTests: XCTestCase {
         let system = GameplayManagerSystem(creator: creator,
                                            size: CGSize(width: 1024, height: 768),
                                            scene: scene,
+                                           randomness: Randomness(seed: 1),
                                            scaleManager: MockScaleManager())
         engine.add(system: system, priority: 1)
         //TODO: Add assertions
@@ -79,6 +84,7 @@ final class GameplayManagerSystemTests: XCTestCase {
         let system = GameplayManagerSystem(creator: creator,
                                            size: CGSize(width: 1024, height: 768),
                                            scene: scene,
+                                           randomness: Randomness(seed: 1),
                                            scaleManager: MockScaleManager())
         engine.add(system: system, priority: 1)
         system.createAsteroids(count: 2, avoiding: .zero, level: 1)
@@ -88,7 +94,7 @@ final class GameplayManagerSystemTests: XCTestCase {
     func test_GoToNextLevel() {
         let system = MockGameManagerSystem_GoToNextLevel(creator: creator,
                                                          size: CGSize(width: 1024, height: 768),
-                                                         scene: scene,
+                                                         scene: scene, randomness: Randomness(seed: 1),
                                                          scaleManager: MockScaleManager())
         let shipEntity = Entity(named: .player)
                 .add(component: PositionComponent(x: 0, y: 0, z: .ship))
@@ -100,7 +106,8 @@ final class GameplayManagerSystemTests: XCTestCase {
                                                   level: 1,
                                                   score: 0,
                                                   appState: .playing,
-                                                  shipControlsState: .showingButtons)
+                                                  shipControlsState: .showingButtons,
+                                                  randomness: Randomness(seed: 1))
         system.goToNextLevel(appStateComponent: appStateComponent, entity: shipEntity)
         XCTAssertEqual(appStateComponent.level, 2)
         XCTAssertTrue(system.announceLevelCalled)
@@ -123,14 +130,15 @@ final class GameplayManagerSystemTests: XCTestCase {
     func xtest_HandlePlayingState_HavingShips_IsClearToAddShips() {
         let system = MockGameManagerSystem_HandlePlayingState(creator: creator,
                                                               size: CGSize(width: 1024, height: 768),
-                                                              scene: scene,
+                                                              scene: scene, randomness: Randomness(seed: 1),
                                                               scaleManager: MockScaleManager())
         let appStateComponent = AppStateComponent(gameSize: .zero,
                                                   numShips: 1,
                                                   level: 1,
                                                   score: 0,
                                                   appState: .playing,
-                                                  shipControlsState: .showingButtons)
+                                                  shipControlsState: .showingButtons,
+                                                  randomness: Randomness(seed: 1))
         system.continueOrEnd(appStateComponent: appStateComponent, entity: Entity())
         XCTAssertEqual(system.isClearToAddSpaceshipCalled, true)
         XCTAssertEqual(system.createPowerUpsCalled, true)
@@ -149,14 +157,15 @@ final class GameplayManagerSystemTests: XCTestCase {
     func test_HandlePlayingState_HavingShips_IsNotClearToAddShips() {
         let system = MockGameManagerSystem_HandlePlayingState_NotClear(creator: creator,
                                                                        size: CGSize(width: 1024, height: 768),
-                                                                       scene: scene,
+                                                                       scene: scene, randomness: Randomness(seed: 1),
                                                                        scaleManager: MockScaleManager())
         let appStateComponent = AppStateComponent(gameSize: .zero,
                                                   numShips: 1,
                                                   level: 1,
                                                   score: 0,
                                                   appState: .playing,
-                                                  shipControlsState: .showingButtons)
+                                                  shipControlsState: .showingButtons,
+                                                  randomness: Randomness(seed: 1))
         system.continueOrEnd(appStateComponent: appStateComponent, entity: Entity())
         XCTAssertEqual(system.isClearToAddSpaceshipCalled, true)
 
@@ -174,13 +183,15 @@ final class GameplayManagerSystemTests: XCTestCase {
         let system = GameplayManagerSystem(creator: creator,
                                            size: CGSize(width: 1024, height: 768),
                                            scene: scene,
+                                           randomness: Randomness(seed: 1),
                                            scaleManager: MockScaleManager())
         let appStateComponent = AppStateComponent(gameSize: .zero,
                                                   numShips: 0,
                                                   level: 1,
                                                   score: 0,
                                                   appState: .playing,
-                                                  shipControlsState: .showingButtons)
+                                                  shipControlsState: .showingButtons,
+                                                  randomness: Randomness(seed: 1))
         let entity = Entity(named: "currentState")
         system.continueOrEnd(appStateComponent: appStateComponent, entity: entity)
         XCTAssertNotNil(entity[TransitionAppStateComponent.self])
@@ -189,7 +200,7 @@ final class GameplayManagerSystemTests: XCTestCase {
     func test_HandleGameState_NoShips_Playing() {
         let system = MockGameManagerSystem_NoShips_Playing(creator: creator,
                                                            size: CGSize(width: 1024, height: 768),
-                                                           scene: scene,
+                                                           scene: scene, randomness: Randomness(seed: 1),
                                                            scaleManager: MockScaleManager())
         engine.add(system: system, priority: 1)
         // need to look at this function's logic
@@ -198,7 +209,8 @@ final class GameplayManagerSystemTests: XCTestCase {
                                                                     level: 1,
                                                                     score: 0,
                                                                     appState: .playing,
-                                                                    shipControlsState: .showingButtons),
+                                                                    shipControlsState: .showingButtons,
+                                                                    randomness: Randomness(seed: 1)),
                                entity: Entity(),
                                time: 1.0)
         XCTAssertTrue(system.handlePlayingStateCalled)
@@ -216,13 +228,15 @@ final class GameplayManagerSystemTests: XCTestCase {
         let system = GameplayManagerSystem(creator: creator,
                                            size: CGSize(width: 1024, height: 768),
                                            scene: scene,
+                                           randomness: Randomness(seed: 1),
                                            scaleManager: MockScaleManager())
         let appStateComponent = AppStateComponent(gameSize: .zero,
                                                   numShips: 1,
                                                   level: 1,
                                                   score: 0,
                                                   appState: .playing,
-                                                  shipControlsState: .showingButtons)
+                                                  shipControlsState: .showingButtons,
+                                                  randomness: Randomness(seed: 1))
         appStateComponent.alienAppearanceRate = 1.0
         system.handleAlienAppearances(appStateComponent: appStateComponent, time: 1.0)
         XCTAssertTrue(creator.createAliensCalled)
@@ -232,7 +246,7 @@ final class GameplayManagerSystemTests: XCTestCase {
         // need to look at this function's logic
         let system = MockGameManagerSystem_NoAsteroidsTorpedoes(creator: creator,
                                                                 size: CGSize(width: 1024, height: 768),
-                                                                scene: scene,
+                                                                scene: scene, randomness: Randomness(seed: 1),
                                                                 scaleManager: MockScaleManager())
         engine.add(system: system, priority: 1)
         let shipEntity = Entity(named: .player)
@@ -246,7 +260,8 @@ final class GameplayManagerSystemTests: XCTestCase {
                                                                     level: 1,
                                                                     score: 0,
                                                                     appState: .playing,
-                                                                    shipControlsState: .showingButtons),
+                                                                    shipControlsState: .showingButtons,
+                                                                    randomness: Randomness(seed: 1)),
                                entity: shipEntity,
                                time: 1.0)
         XCTAssertTrue(system.goToNextLevelCalled)

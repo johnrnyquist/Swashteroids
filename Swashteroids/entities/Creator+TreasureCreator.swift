@@ -13,7 +13,7 @@ import SpriteKit
 
 extension Creator: TreasureCreator {
     func createTreasure(positionComponent: PositionComponent) {
-        let r = Int.random(in: 1...5) == 5
+        let r = randomness.nextInt(from: 1, through: 5) == 5
         let standard = (color: UIColor.systemGreen, value: treasure_standard_value)
         let special = (color: UIColor.systemPink, value: treasure_special_value)
         let treasureData = r ? special : standard

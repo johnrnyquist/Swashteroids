@@ -28,9 +28,11 @@ extension Creator: AsteroidCreator {
         let speedModifier = lvl * 0.1 + 1.0  // 1.1, 1.2, 1.3, 1.4
         entity
                 .add(component: PositionComponent(x: x, y: y, z: .asteroids, rotationDegrees: 0.0))
-                .add(component: VelocityComponent(velocityX: min(Double.random(in: -82.0...82.0) * speedModifier, 100.0),
-                                                  velocityY: min(Double.random(in: -82.0...82.0) * speedModifier, 100.0),
-                                                  angularVelocity: Double.random(in: -100.0...100.0),
+                .add(component: VelocityComponent(velocityX: min(randomness.nextDouble(from: -82.0,
+                                                                                       through: 82.0) * speedModifier, 100.0),
+                                                  velocityY: min(randomness.nextDouble(from: -82.0,
+                                                                                       through: 82.0) * speedModifier, 100.0),
+                                                  angularVelocity: randomness.nextDouble(from: -100, through: 100),
                                                   dampening: 0,
                                                   base: 60.0))
                 .add(component: CollidableComponent(radius: radius))
@@ -44,5 +46,27 @@ extension Creator: AsteroidCreator {
         } catch {
             fatalError("Unexpected error: \(error).")
         }
+    }
+
+    func createAsteroidTexture(radius: Double, color: UIColor) -> SKTexture {
+        let renderer = UIGraphicsImageRenderer(size: CGSize(width: radius * 2, height: radius * 2))
+        let asteroid = renderer.image { ctx in
+            ctx.cgContext.translateBy(x: radius, y: radius) // move to center
+            ctx.cgContext.setStrokeColor(color.cgColor)
+            ctx.cgContext.setLineWidth(LINE_WIDTH)
+            var angle = 0.0
+            ctx.cgContext.move(to: CGPoint(x: radius, y: 0.0))
+            while angle < (Double.pi * 2) {
+                let length = (0.75 + randomness.nextDouble(from: 0.0, through: 0.25)) * radius
+                let posX = cos(angle) * length
+                let posY = sin(angle) * length
+                let point = CGPoint(x: posX, y: posY)
+                ctx.cgContext.addLine(to: point)
+                angle += randomness.nextDouble(from: 0.0, through: 0.5)
+            }
+            ctx.cgContext.addLine(to: CGPoint(x: radius, y: 0.0))
+            ctx.cgContext.strokePath()
+        }
+        return SKTexture(image: asteroid)
     }
 }

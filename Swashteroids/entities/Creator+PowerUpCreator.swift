@@ -67,23 +67,24 @@ extension Creator: PowerUpCreator {
         let alphaUp = SKAction.fadeAlpha(to: 1.0, duration: 0.5)
         let scaleUp = SKAction.scale(to: sprite.scale * 2.0, duration: 0.3)
         let scaleDown = SKAction.scale(to: sprite.scale, duration: 0.3)
-        let waitToMake = SKAction.wait(forDuration: Double.random(in: 4.0...6.0))
+        let waitToMake = SKAction.wait(forDuration: randomness.nextDouble(from: 4.0, through: 6.0))
         let action = SKAction.run { entity.add(component: AudioComponent(fileNamed: .powerUpAppearance, actionKey: "newPowerUp")) }
         let sequence = SKAction.sequence([waitToMake, alphaUp, action, scaleUp, scaleDown])
         sprite.run(sequence)
     }
 
     func createRandomPosition(level: Double, layer: Layer) -> PositionComponent {
-        let r1 = Double.random(in: 75.0...(level * 130)) * [-1, 1].randomElement()!
-        let r2 = Double.random(in: 75.0...(level * 100)) * [-1, 1].randomElement()!
+        let dir = [-1, 1]
+        let r1 = randomness.nextDouble(from: 75.0, through: level * 130.0) * Double(randomness.nextInt(upTo: dir.count))
+        let r2 = randomness.nextDouble(from: 75.0, through: level * 100) * Double(randomness.nextInt(upTo: dir.count))
         let centerX = min(size.width / 2.0 + r1, size.width)
         let centerY = min(size.height / 2.0 + r2, size.height)
         return PositionComponent(x: centerX, y: centerY, z: layer, rotationDegrees: 0.0)
     }
 
     func createRandomVelocity(level: Double) -> VelocityComponent {
-        let velocityX = Double.random(in: -10.0...10.0) * Double(level)
-        let velocityY = Double.random(in: -10.0...10.0) * Double(level)
+        let velocityX = randomness.nextDouble(from: -10.0, through: 10.0) * Double(level)
+        let velocityY = randomness.nextDouble(from: -10.0, through: 10.0) * Double(level)
         return VelocityComponent(velocityX: velocityX, velocityY: velocityY, dampening: 0, base: 60.0)
     }
 }

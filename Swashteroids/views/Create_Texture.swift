@@ -106,25 +106,4 @@ func createShipTexture(color: UIColor = .ship) -> SKTexture {
      */
 }
 
-func createAsteroidTexture(radius: Double, color: UIColor) -> SKTexture {
-    let renderer = UIGraphicsImageRenderer(size: CGSize(width: radius * 2, height: radius * 2))
-    let asteroid = renderer.image { ctx in
-        ctx.cgContext.translateBy(x: radius, y: radius) // move to center
-        ctx.cgContext.setStrokeColor(color.cgColor)
-        ctx.cgContext.setLineWidth(LINE_WIDTH)
-        var angle = 0.0
-        ctx.cgContext.move(to: CGPoint(x: radius, y: 0.0))
-        while angle < (Double.pi * 2) {
-            let length = (0.75 + Double.random(in: 0.0...0.25)) * radius
-            let posX = cos(angle) * length
-            let posY = sin(angle) * length
-            let point = CGPoint(x: posX, y: posY)
-            ctx.cgContext.addLine(to: point)
-            angle += Double.random(in: 0.0...0.5)
-        }
-        ctx.cgContext.addLine(to: CGPoint(x: radius, y: 0.0))
-        ctx.cgContext.strokePath()
-    }
-    return SKTexture(image: asteroid)
-}
 

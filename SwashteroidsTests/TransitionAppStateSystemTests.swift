@@ -44,7 +44,8 @@ final class TransitionAppStateSystemTests: XCTestCase {
                                                   level: 0,
                                                   score: 0,
                                                   appState: .start,
-                                                  shipControlsState: .hidingButtons)
+                                                  shipControlsState: .hidingButtons,
+                                                  randomness: Randomness(seed: 1))
         let transitionComponent = TransitionAppStateComponent(from: .start, to: .infoNoButtons)
         node.components[AppStateComponent.name] = appStateComponent
         node.components[TransitionAppStateComponent.name] = transitionComponent
@@ -61,7 +62,8 @@ final class TransitionAppStateSystemTests: XCTestCase {
                                                   level: 0,
                                                   score: 0,
                                                   appState: .start,
-                                                  shipControlsState: .showingButtons)
+                                                  shipControlsState: .showingButtons,
+                                                  randomness: Randomness(seed: 1))
         let transitionComponent = TransitionAppStateComponent(from: .start, to: .infoButtons)
         node.components[AppStateComponent.name] = appStateComponent
         node.components[TransitionAppStateComponent.name] = transitionComponent
@@ -78,7 +80,8 @@ final class TransitionAppStateSystemTests: XCTestCase {
                                                   level: 0,
                                                   score: 0,
                                                   appState: .infoButtons,
-                                                  shipControlsState: .showingButtons)
+                                                  shipControlsState: .showingButtons,
+                                                  randomness: Randomness(seed: 1))
         let transitionComponent = TransitionAppStateComponent(from: .infoButtons, to: .playing)
         node.components[AppStateComponent.name] = appStateComponent
         node.components[TransitionAppStateComponent.name] = transitionComponent
@@ -95,7 +98,8 @@ final class TransitionAppStateSystemTests: XCTestCase {
                                                   level: 0,
                                                   score: 0,
                                                   appState: .gameOver,
-                                                  shipControlsState: .showingButtons)
+                                                  shipControlsState: .showingButtons,
+                                                  randomness: Randomness(seed: 1))
         let transitionComponent = TransitionAppStateComponent(from: .gameOver, to: .start)
         node.components[AppStateComponent.name] = appStateComponent
         node.components[TransitionAppStateComponent.name] = transitionComponent
@@ -112,7 +116,8 @@ final class TransitionAppStateSystemTests: XCTestCase {
                                                   level: 0,
                                                   score: 0,
                                                   appState: .infoNoButtons,
-                                                  shipControlsState: .hidingButtons)
+                                                  shipControlsState: .hidingButtons,
+                                                  randomness: Randomness(seed: 1))
         let transitionComponent = TransitionAppStateComponent(from: .infoNoButtons, to: .playing)
         node.components[AppStateComponent.name] = appStateComponent
         node.components[TransitionAppStateComponent.name] = transitionComponent
@@ -128,7 +133,8 @@ final class TransitionAppStateSystemTests: XCTestCase {
                                                   level: 0,
                                                   score: 0,
                                                   appState: .playing,
-                                                  shipControlsState: .showingButtons)
+                                                  shipControlsState: .showingButtons,
+                                                  randomness: Randomness(seed: 1))
         let appStateEntity = Entity(named: "appStateEntity")
                 .add(component: appStateComponent)
         do {

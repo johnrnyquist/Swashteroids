@@ -27,11 +27,9 @@ class Creator {
     var firstRowButtonPaddingY = 30.0
     var fireButtonEntity: Entity? //HACK
     var hyperspaceButtonEntity: Entity? //HACK
+    let randomness: Randomness
 
-    init(engine: Engine,
-         size: CGSize, generator: UIImpactFeedbackGenerator? = nil,
-         scaleManager: ScaleManaging = ScaleManager.shared,
-         alertPresenter: AlertPresenting) {
+    init(engine: Engine, size: CGSize, generator: UIImpactFeedbackGenerator? = nil, scaleManager: ScaleManaging = ScaleManager.shared, alertPresenter: AlertPresenting, randomness: Randomness) {
         self.scaleManager = scaleManager
         self.alertPresenter = alertPresenter
         buttonPadding *= scaleManager.SCALE_FACTOR
@@ -41,6 +39,7 @@ class Creator {
         self.engine = engine
         self.size = size
         self.generator = generator
+        self.randomness = randomness
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
            let window = appDelegate.window {
             buttonPaddingLeft += max(window.safeAreaInsets.left, 10)

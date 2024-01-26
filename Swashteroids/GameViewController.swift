@@ -44,7 +44,7 @@ final class GameViewController: UIViewController, AlertPresenting {
         gameScene.name = "gameScene"
         gameScene.anchorPoint = .zero
         gameScene.scaleMode = .aspectFit
-        game = Swashteroids(scene: gameScene, alertPresenter: self)
+        game = Swashteroids(scene: gameScene, alertPresenter: self, seed: Int(Date().timeIntervalSince1970))
         gameScene.delegate = game
         gameScene.touchDelegate = game
         gameScene.physicsWorld.contactDelegate = game

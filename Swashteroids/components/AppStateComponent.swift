@@ -50,16 +50,14 @@ final class AppStateComponent: Component {
     let nextShipIncrement = 5_000
     var alienAppearanceRate: TimeInterval = 0.0
 //    var alienAppearanceRateDefault: TimeInterval { 5.0 }
-    var alienAppearanceRateDefault: TimeInterval { Double.random(in: 15.0...90.0) }
+//    var alienAppearanceRateDefault: TimeInterval { Double.random(in: 15.0...90.0) }
+    var alienAppearanceRateDefault: TimeInterval { randomness.nextDouble(from: 15.0, through: 90.0) }
     var numAliensDestroyed = 0
     var numAsteroidsMined = 0
+    let randomness: Randomness
 
-    init(gameSize: CGSize,
-         numShips: Int,
-         level: Int,
-         score: Int,
-         appState: AppState,
-         shipControlsState: ShipControlsState) {
+    init(gameSize: CGSize, numShips: Int, level: Int, score: Int,
+         appState: AppState, shipControlsState: ShipControlsState, randomness: Randomness) {
         self.gameSize = gameSize
         orig_numShips = numShips
         orig_level = level
@@ -71,6 +69,7 @@ final class AppStateComponent: Component {
         self.score = orig_score
         self.appState = orig_appState
         self.shipControlsState = orig_shipControlsState
+        self.randomness = randomness
         super.init()
         alienAppearanceRate = alienAppearanceRateDefault
     }

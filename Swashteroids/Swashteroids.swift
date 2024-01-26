@@ -25,13 +25,23 @@ final class Swashteroids: NSObject {
     private(set) var orientation = 1.0
     private(set) var scene: GameScene
     var appStateComponent: AppStateComponent
+    let randomness: Randomness
 
-    init(scene: GameScene, alertPresenter: AlertPresenting) {
+    init(scene: GameScene, alertPresenter: AlertPresenting, seed: Int = 0) {
         self.scene = scene
         self.alertPresenter = alertPresenter
+        if seed == 0 {
+            randomness = Randomness(seed: Int(Date().timeIntervalSince1970))
+        } else {
+            randomness = Randomness(seed: seed)
+        }
         engine = Engine()
         tickEngineListener = Listener(engine.update)
-        creator = Creator(engine: engine, size: scene.size, generator: generator, alertPresenter: alertPresenter)
+        creator = Creator(engine: engine,
+                          size: scene.size,
+                          generator: generator,
+                          alertPresenter: alertPresenter,
+                          randomness: randomness)
         transition = Transition(engine: engine, creator: creator, generator: generator)
         orientation = UIDevice.current.orientation == .landscapeRight ? -1.0 : 1.0
         appStateComponent = AppStateComponent(gameSize: scene.size,
@@ -39,7 +49,8 @@ final class Swashteroids: NSObject {
                                               level: 0,
                                               score: 0,
                                               appState: .initial,
-                                              shipControlsState: .showingButtons)
+                                              shipControlsState: .showingButtons,
+                                              randomness: randomness)
         super.init()
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(orientationChanged),
@@ -68,7 +79,7 @@ final class Swashteroids: NSObject {
         let container = scene
         engine
             // preupdate
-                .add(system: GameplayManagerSystem(creator: creator, size: gameSize, scene: scene), priority: .preUpdate)
+                .add(system: GameplayManagerSystem(creator: creator, size: gameSize, scene: scene, randomness: randomness), priority: .preUpdate)
                 .add(system: GameOverSystem(), priority: .preUpdate)
                 .add(system: ShipControlsSystem(creator: creator), priority: .preUpdate)
                 .add(system: TransitionAppStateSystem(transition: transition), priority: .preUpdate)
@@ -80,12 +91,12 @@ final class Swashteroids: NSObject {
                 .add(system: RightSystem(), priority: .move)
                 .add(system: ThrustSystem(), priority: .move)
                 // resolve collisions
-                .add(system: CollisionSystem(creator: creator, size: gameSize), priority: .resolveCollisions)
+                .add(system: CollisionSystem(creator: creator, size: gameSize, randomness: randomness), priority: .resolveCollisions)
                 // animate
                 .add(system: AnimationSystem(), priority: .animate)
                 // update
                 .add(system: AlienSoldierSystem(), priority: .update)
-                .add(system: AlienWorkerSystem(), priority: .update)
+                .add(system: AlienWorkerSystem(randomness: randomness), priority: .update)
                 .add(system: AlienFiringSystem(creator: creator, gameSize: gameSize), priority: .update)
                 .add(system: FiringSystem(creator: creator), priority: .update)
                 .add(system: TorpedoAgeSystem(), priority: .update)

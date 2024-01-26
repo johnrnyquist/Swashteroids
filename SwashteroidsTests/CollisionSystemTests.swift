@@ -28,12 +28,7 @@ class CollisionSystemTests: XCTestCase {
     override func setUpWithError() throws {
         creator = MockCreator()
         engine = Engine()
-        appStateComponent = AppStateComponent(gameSize: .zero,
-                                              numShips: 1,
-                                              level: 1,
-                                              score: 0,
-                                              appState: .playing,
-                                              shipControlsState: .showingButtons)
+        appStateComponent = AppStateComponent(gameSize: .zero, numShips: 1, level: 1, score: 0, appState: .playing, shipControlsState: .showingButtons, randomness: Randomness(seed: 1))
         appStateEntity = Entity(named: .appState)
                 .add(component: appStateComponent)
         try? engine.add(entity: appStateEntity)
@@ -88,7 +83,7 @@ class CollisionSystemTests: XCTestCase {
 
     func test_Update() {
         let system = MockCollisionSystem(creator: creator,
-                                         size: .zero,
+                                         size: .zero, randomness: Randomness(seed: 1),
                                          scaleManager: MockScaleManager())
         engine.add(system: system, priority: 1)
         // SUT
@@ -105,9 +100,10 @@ class CollisionSystemTests: XCTestCase {
         }
     }
 
-    func xtest_SplitAsteroid() {
+    func test_SplitAsteroid() {
         let system = CollisionSystem(creator: creator,
                                      size: .zero,
+                                     randomness: Randomness(seed: 2), //2 is the seed for the test
                                      scaleManager: MockScaleManager())
         guard let asteroidEntity else { XCTFail("asteroidEntity is nil!"); return }
         // SUT
@@ -123,6 +119,7 @@ class CollisionSystemTests: XCTestCase {
     func xtest_TorpedoVehicleCollisionCheck_PlayerShootsAlien() {
         let system = CollisionSystem(creator: creator,
                                      size: .zero,
+                                     randomness: Randomness(seed: 1),
                                      scaleManager: MockScaleManager())
         engine.add(system: system, priority: 1)
         //
@@ -147,6 +144,7 @@ class CollisionSystemTests: XCTestCase {
     func xtest_TorpedoVehicleCollisionCheck_AlienShootsPlayer() {
         let system = CollisionSystem(creator: creator,
                                      size: .zero,
+                                     randomness: Randomness(seed: 1),
                                      scaleManager: MockScaleManager())
         engine.add(system: system, priority: 1)
         //
@@ -172,6 +170,7 @@ class CollisionSystemTests: XCTestCase {
     func xtest_ShipTorpedoPowerUpCollisionCheck() {
         let system = CollisionSystem(creator: creator,
                                      size: .zero,
+                                     randomness: Randomness(seed: 1),
                                      scaleManager: MockScaleManager())
         engine.add(system: system, priority: 1)
         let shipCollisionNode = ShipCollisionNode()
@@ -195,6 +194,7 @@ class CollisionSystemTests: XCTestCase {
     func xtest_ShipHyperspacePowerUpCollisionCheck() {
         let system = CollisionSystem(creator: creator,
                                      size: .zero,
+                                     randomness: Randomness(seed: 1),
                                      scaleManager: MockScaleManager())
         engine.add(system: system, priority: 1)
         let shipCollisionNode: Node = ShipCollisionNode()
@@ -217,7 +217,7 @@ class CollisionSystemTests: XCTestCase {
 
     func xtest_TorpedoAsteroidCollisionCheck() {
         let system = MockCollisionSystem(creator: creator,
-                                         size: .zero,
+                                         size: .zero, randomness: Randomness(seed: 1),
                                          scaleManager: MockScaleManager())
         engine.add(system: system, priority: 1)
         let torpedoNode = GunPowerUpNode()
@@ -231,13 +231,13 @@ class CollisionSystemTests: XCTestCase {
         }
         asteroidNode.entity = asteroidEntity
         let appState = Entity(named: .appState)
-                .add(component: AppStateComponent(
-                    gameSize: .zero,
-                    numShips: 1,
-                    level: 1,
-                    score: 0,
-                    appState: .playing,
-                    shipControlsState: .showingButtons))
+                .add(component: AppStateComponent(gameSize: .zero,
+                                                  numShips: 1,
+                                                  level: 1,
+                                                  score: 0,
+                                                  appState: .playing,
+                                                  shipControlsState: .showingButtons,
+                                                  randomness: Randomness(seed: 1)))
         try? engine.add(entity: appState)
         // SUT
         system.collisionCheck(nodeA: torpedoNode, nodeB: asteroidNode) { _, _ in }
@@ -256,7 +256,7 @@ class CollisionSystemTests: XCTestCase {
 
     func xtest_ShipAsteroidCollisionCheck() {
         let system = MockCollisionSystem(creator: creator,
-                                         size: .zero,
+                                         size: .zero, randomness: Randomness(seed: 1),
                                          scaleManager: MockScaleManager())
         engine.add(system: system, priority: 1)
         let shipCollisionNode = ShipCollisionNode()
