@@ -57,7 +57,8 @@ final class AppStateComponent: Component {
     var numAsteroidsMined: Int
     var numTorpedoesFired: Int
     var numTorpedoesPlayerFired: Int
-    
+    var timePlayed: Double
+
     init(gameSize: CGSize, numShips: Int, level: Int, score: Int,
          appState: AppState, shipControlsState: ShipControlsState, randomness: Randomness) {
         self.gameSize = gameSize
@@ -83,6 +84,7 @@ final class AppStateComponent: Component {
         numHits = 0
         numTorpedoesFired = 0
         numTorpedoesPlayerFired = 0
+        timePlayed = 0.0
         super.init()
         alienAppearanceRate = alienAppearanceRateDefault
     }
@@ -101,5 +103,6 @@ final class AppStateComponent: Component {
         numHits = 0
         numTorpedoesFired = 0
         numTorpedoesPlayerFired = 0
+        timePlayed = 0.0
     }
 }

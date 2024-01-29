@@ -79,7 +79,9 @@ final class Swashteroids: NSObject {
         let container = scene
         engine
             // preupdate
-                .add(system: GameplayManagerSystem(creator: creator, size: gameSize, scene: scene, randomness: randomness), priority: .preUpdate)
+                .add(system: TimeOfPlaySystem(), priority: .preUpdate)
+                .add(system: GameplayManagerSystem(creator: creator, size: gameSize, scene: scene, randomness: randomness),
+                     priority: .preUpdate)
                 .add(system: GameOverSystem(), priority: .preUpdate)
                 .add(system: ShipControlsSystem(creator: creator), priority: .preUpdate)
                 .add(system: TransitionAppStateSystem(transition: transition), priority: .preUpdate)
@@ -91,7 +93,8 @@ final class Swashteroids: NSObject {
                 .add(system: RightSystem(), priority: .move)
                 .add(system: ThrustSystem(), priority: .move)
                 // resolve collisions
-                .add(system: CollisionSystem(creator: creator, size: gameSize, randomness: randomness), priority: .resolveCollisions)
+                .add(system: CollisionSystem(creator: creator, size: gameSize, randomness: randomness),
+                     priority: .resolveCollisions)
                 // animate
                 .add(system: AnimationSystem(), priority: .animate)
                 // update

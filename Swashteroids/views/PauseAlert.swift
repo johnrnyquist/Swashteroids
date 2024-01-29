@@ -42,7 +42,7 @@ struct PauseAlert: View {
                 ButtonView(label: "Home", action: home)
                 ButtonView(label: "Resume", action: resume)
             }.padding(.horizontal, 20)
-        }.frame(width: 300, height: 230)
+        }.frame(width: 320, height: 270)
          .background(Color.black)
          .cornerRadius(20)
          .overlay(
@@ -61,7 +61,7 @@ struct PauseAlert_Previews: PreviewProvider {
                                                appState: .playing,
                                                shipControlsState: .showingButtons,
                                                randomness: Randomness(seed: 1)),
-                    home: {}, resume: {})
+                   home: {}, resume: {})
     }
 }
 
@@ -69,11 +69,31 @@ struct StatsView: View {
     var appState: AppStateComponent
     var body: some View {
         VStack(spacing: 0) {
-            Text("Shots Fired: \(appState.numTorpedoesPlayerFired)")
-            Text("Hit Percentage: \(appState.hitPercentage)%")
-            Text("Asteroids Mined: \(appState.numAsteroidsMined)")
-            Text("Aliens Destroyed: \(appState.numAliensDestroyed)")
+            HStack {
+                Text("Level: \(appState.level)")
+                Text("    ")
+                Text("Score: \(appState.score.formattedWithCommas)")
+            }.font(.custom("Futura Condensed Medium", size: 30))
+            Text("Asteroids Mined: \(appState.numAsteroidsMined.formattedWithCommas)")
+            Text("Aliens Destroyed: \(appState.numAliensDestroyed.formattedWithCommas)")
+            Text("Shots Fired: \(appState.numTorpedoesPlayerFired.formattedWithCommas)")
+            Text("Hit Percentage: \(appState.hitPercentage.formattedWithCommas)%")
+            Text("Play Time: \(getTime(appState.timePlayed))")
         }.foregroundColor(.white)
-            .font(.custom("Futura Condensed Medium", size: 24))
+         .font(.custom("Futura Condensed Medium", size: 22))
+
+    }
+    func getTime(_ time: Double) -> String {
+        let hours = Int(time) / 3600
+        let minutes = Int(time) / 60 % 60
+        let seconds = Int(time) % 60
+        return String(format: "%02i:%02i:%02i", hours, minutes, seconds)
+//        if hours > 0 {
+//            return String(format: "%02i:%02i:%02i", hours, minutes, seconds)
+//        } else if minutes > 0 {
+//            return String(format: "%02i:%02i", minutes, seconds)
+//        } else {
+//            return String(format: "%02i", seconds)
+//        }
     }
 }

@@ -27,3 +27,17 @@ final class AccelerometerSystem: ListIteratingSystem {
         position.rotationDegrees += control.rotationRate * (input.rotate.amount * 0.05)
     }
 }
+
+
+final class TimeOfPlaySystem: ListIteratingSystem {
+    init() {
+        super.init(nodeClass: AppStateNode.self)
+        nodeUpdateFunction = updateNode
+    }
+
+    private func updateNode(node: Node, time: TimeInterval) {
+        guard let appState = node[AppStateComponent.self]
+        else { return }
+        appState.timePlayed += time
+    }
+}
