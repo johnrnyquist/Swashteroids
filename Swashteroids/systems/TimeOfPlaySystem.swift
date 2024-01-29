@@ -10,21 +10,16 @@
 
 import Foundation
 import Swash
-import SpriteKit
 
-final class AccelerometerSystem: ListIteratingSystem {
+final class TimeOfPlaySystem: ListIteratingSystem {
     init() {
-        super.init(nodeClass: AccelerometerNode.self)
+        super.init(nodeClass: AppStateNode.self)
         nodeUpdateFunction = updateNode
     }
 
     private func updateNode(node: Node, time: TimeInterval) {
-        guard let input = node[InputComponent.self],
-              input.rotate.isDown,
-              let position = node[PositionComponent.self],
-              let control = node[MovementRateComponent.self]
+        guard let appState = node[AppStateComponent.self]
         else { return }
-        position.rotationDegrees += control.rotationRate * (input.rotate.amount * 0.05)
+        appState.timePlayed += time
     }
 }
-
