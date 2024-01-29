@@ -75,7 +75,7 @@ final class AppStateComponent: Component {
         self.appState = orig_appState
         self.shipControlsState = orig_shipControlsState
         // constants
-        levelBonus = 5_000
+        levelBonus = 500
         nextShipIncrement = 5_000
         //
         nextShipScore = nextShipIncrement
