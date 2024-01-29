@@ -69,7 +69,7 @@ struct StatsView: View {
     var appState: AppStateComponent
     var body: some View {
         VStack(spacing: 0) {
-            Text("Shots Fired: \(appState.numTorpedoesFired)")
+            Text("Shots Fired: \(appState.numTorpedoesPlayerFired)")
             Text("Hit Percentage: \(appState.hitPercentage)%")
             Text("Asteroids Mined: \(appState.numAsteroidsMined)")
             Text("Aliens Destroyed: \(appState.numAliensDestroyed)")

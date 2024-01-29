@@ -40,6 +40,15 @@ class Randomness {
         Int(drand48() * Double(max - min)) + min
     }
 
+    /// Generates a random integer from the specified minimum up to and including the specified maximum.
+    /// - Parameters:
+    ///   - min: The lower bound of the range.
+    ///   - max: The upper bound of the range.
+    /// - Returns: A random `Int` from `min` up to and including `max`.
+    func nextInt(from min: Int, through max: Int) -> Int {
+        Int(drand48() * Double(max - min + 1)) + min
+    }
+
     /// Generates a random `Double` within the specified range.
     /// - Parameters:
     ///   - min: The lower bound of the range.
@@ -49,15 +58,6 @@ class Randomness {
         min + (drand48() * (max - min))
     }
 
-    /// Generates a random integer from the specified minimum up to and including the specified maximum.
-    /// - Parameters:
-    ///   - min: The lower bound of the range.
-    ///   - max: The upper bound of the range.
-    /// - Returns: A random `Int` from `min` up to and including `max`.
-    func nextInt(from min: Int, through max: Int) -> Int {
-        Int(drand48() * Double(max - min + 1)) + min
-    }
-    
     /// Generates a Boolean value, which is `true` or `false` with equal likelihood.
     /// - Returns: A random `Bool`.
     /// - Note: This method is equivalent to calling `nextDouble()` and checking if the result is less than 0.5.

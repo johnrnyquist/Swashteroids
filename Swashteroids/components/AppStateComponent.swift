@@ -14,19 +14,20 @@ import Foundation
 final class AppStateComponent: Component {
     //MARK: - Set from argument to init
     let gameSize: CGSize
+    let randomness: Randomness
     // Original values for resetting
-    let orig_numShips: Int
-    let orig_level: Int
-    let orig_score: Int
     let orig_appState: AppState
+    let orig_level: Int
+    let orig_numShips: Int
+    let orig_score: Int
     let orig_shipControlsState: ShipControlsState
     // Current values
     var appState: AppState
-    var nextShipScore = 5_000
+    var nextShipScore: Int
+    var numHits: Int
     var numShips: Int
     var shipControlsState: ShipControlsState
-    var numTorpedoesFired = 0
-    var numHits = 0
+    //
     var level: Int {
         didSet {
             guard level > 1 else { return }
@@ -42,23 +43,26 @@ final class AppStateComponent: Component {
         }
     }
     var hitPercentage: Int {
-        guard numTorpedoesFired > 0 else { return 0 }
-        return Int(round(Double(numHits) / Double(numTorpedoesFired) * 100))
+        guard numTorpedoesPlayerFired > 0 else { return 0 }
+        return Int(round(Double(numHits) / Double(numTorpedoesPlayerFired) * 100))
     }
     //MARK: - Not set from argument to init (yet)
-    let levelBonus = 500
-    let nextShipIncrement = 5_000
+    let levelBonus: Int
+    let nextShipIncrement: Int
     var alienAppearanceRate: TimeInterval = 0.0
 //    var alienAppearanceRateDefault: TimeInterval { 5.0 }
 //    var alienAppearanceRateDefault: TimeInterval { Double.random(in: 15.0...90.0) }
     var alienAppearanceRateDefault: TimeInterval { randomness.nextDouble(from: 15.0, through: 90.0) }
-    var numAliensDestroyed = 0
-    var numAsteroidsMined = 0
-    let randomness: Randomness
-
+    var numAliensDestroyed: Int
+    var numAsteroidsMined: Int
+    var numTorpedoesFired: Int
+    var numTorpedoesPlayerFired: Int
+    
     init(gameSize: CGSize, numShips: Int, level: Int, score: Int,
          appState: AppState, shipControlsState: ShipControlsState, randomness: Randomness) {
         self.gameSize = gameSize
+        self.randomness = randomness
+        //
         orig_numShips = numShips
         orig_level = level
         orig_score = score
@@ -69,7 +73,16 @@ final class AppStateComponent: Component {
         self.score = orig_score
         self.appState = orig_appState
         self.shipControlsState = orig_shipControlsState
-        self.randomness = randomness
+        // constants
+        levelBonus = 5_000
+        nextShipIncrement = 5_000
+        //
+        nextShipScore = nextShipIncrement
+        numAliensDestroyed = 0
+        numAsteroidsMined = 0
+        numHits = 0
+        numTorpedoesFired = 0
+        numTorpedoesPlayerFired = 0
         super.init()
         alienAppearanceRate = alienAppearanceRateDefault
     }
@@ -81,8 +94,12 @@ final class AppStateComponent: Component {
         appState = orig_appState
         shipControlsState = orig_shipControlsState
         //
-        nextShipScore = 5_000
         alienAppearanceRate = alienAppearanceRateDefault
+        nextShipScore = nextShipIncrement
+        numAliensDestroyed = 0
+        numAsteroidsMined = 0
+        numHits = 0
         numTorpedoesFired = 0
+        numTorpedoesPlayerFired = 0
     }
 }

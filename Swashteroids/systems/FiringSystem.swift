@@ -15,13 +15,15 @@ import SpriteKit
 final class FiringSystem: System {
     private weak var creator: (TorpedoCreator & PowerUpCreator)?
     private weak var firingNodes: NodeList?
-
+    private weak var engine: Engine?
+    
     init(creator: TorpedoCreator & PowerUpCreator) {
         self.creator = creator
     }
 
     override public func addToEngine(engine: Engine) {
         firingNodes = engine.getNodeList(nodeClassType: FiringNode.self)
+        self.engine = engine
     }
 
     override public func update(time: TimeInterval) {
@@ -42,5 +44,8 @@ final class FiringSystem: System {
         let pos = PositionComponent(x: position.x, y: position.y, z: .asteroids, rotationDegrees: position.rotationDegrees)
         creator?.createTorpedo(gun, pos, velocity)
         gun.numTorpedoes -= 1
+        if let appState = engine?.appState?[AppStateComponent.name] as? AppStateComponent {
+            appState.numTorpedoesPlayerFired += 1
+        }
     }
 }

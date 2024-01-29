@@ -90,7 +90,7 @@ class GameplayManagerSystem: System {
         }
         // No asteroids or torpedoes but we have a ship, so start a new level.
         if asteroids.empty,
-           !ships.empty {
+           appStateComponent.numShips > 0 {
             goToNextLevel(appStateComponent: appStateComponent, entity: entity)
         }
     }
