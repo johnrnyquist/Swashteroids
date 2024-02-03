@@ -39,8 +39,8 @@ final class VelocityComponent: Component {
         self.angularVelocity = angularVelocity
         self.dampening = dampening
         self.wraps = wraps
-        if let base { self.base = base }
-        else { self.base = velocityX }
+        if let base { self.base = base * scaleManager.SCALE_FACTOR }
+        else { self.base = velocityX * scaleManager.SCALE_FACTOR }
         exit = 300 * scaleManager.SCALE_FACTOR
     }
 }
