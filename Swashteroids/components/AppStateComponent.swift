@@ -49,7 +49,7 @@ final class AppStateComponent: Component {
     //MARK: - Not set from argument to init (yet)
     let levelBonus: Int
     let nextShipIncrement: Int
-    var alienAppearanceRate: TimeInterval = 0.0
+    var alienNextAppearance: TimeInterval = 0.0
 //    var alienAppearanceRateDefault: TimeInterval { 5.0 }
     var alienAppearanceRateDefault: TimeInterval { randomness.nextDouble(from: 15.0, through: 90.0) }
     var numAliensDestroyed: Int
@@ -85,7 +85,7 @@ final class AppStateComponent: Component {
         numTorpedoesPlayerFired = 0
         timePlayed = 0.0
         super.init()
-        alienAppearanceRate = alienAppearanceRateDefault
+        alienNextAppearance = alienAppearanceRateDefault
     }
 
     func resetGame() {
@@ -95,7 +95,7 @@ final class AppStateComponent: Component {
         appState = orig_appState
         shipControlsState = orig_shipControlsState
         //
-        alienAppearanceRate = alienAppearanceRateDefault
+        alienNextAppearance = alienAppearanceRateDefault
         nextShipScore = nextShipIncrement
         numAliensDestroyed = 0
         numAsteroidsMined = 0

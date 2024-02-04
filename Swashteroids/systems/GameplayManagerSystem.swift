@@ -72,9 +72,9 @@ class GameplayManagerSystem: System {
     }
 
     func handleAlienAppearances(appStateComponent: AppStateComponent, time: TimeInterval) {
-        appStateComponent.alienAppearanceRate -= time
-        if appStateComponent.alienAppearanceRate <= 0 {
-            appStateComponent.alienAppearanceRate = appStateComponent.alienAppearanceRateDefault
+        appStateComponent.alienNextAppearance -= time
+        if appStateComponent.alienNextAppearance <= 0 {
+            appStateComponent.alienNextAppearance = appStateComponent.alienAppearanceRateDefault
             creator.createAliens(scene: scene)
         }
     }

@@ -237,7 +237,7 @@ final class GameplayManagerSystemTests: XCTestCase {
                                                   appState: .playing,
                                                   shipControlsState: .showingButtons,
                                                   randomness: Randomness(seed: 1))
-        appStateComponent.alienAppearanceRate = 1.0
+        appStateComponent.alienNextAppearance = 1.0
         system.handleAlienAppearances(appStateComponent: appStateComponent, time: 1.0)
         XCTAssertTrue(creator.createAliensCalled)
     }

@@ -20,6 +20,7 @@ extension Creator: AlienCreator {
         warningAliens(scene: scene, leftSide: entrance.leftSide)
         switch appState.level {
             case 1:
+                createSoldier(scene: scene, entrance: entrance)
                 createAlienWorker(scene: scene,
                                   startDestination: CGPoint(x: entrance.startDestination.x, y: entrance.startDestination.y + 50),
                                   endDestination: entrance.endDestination)
@@ -157,7 +158,7 @@ extension Creator: AlienCreator {
         let workerComponent = AlienComponent(reactionTime: randomness.nextDouble(from: 0.4, through: 0.8), killScore: 50)
         workerComponent.startDestination = startDestination
         workerComponent.endDestination = endDestination
-        let velocityX = 100.0 + Double(appState.level) * 5.0 + randomness.nextDouble(from: 0.0, through: 10.0)
+        let velocityX = 90.0 + Double(appState.level) * 5.0 + randomness.nextDouble(from: 0.0, through: 10.0)
         let alienEntity = Entity(named: "\(EntityName.alienWorker)_\(numAliens)")
         alienEntity
                 .add(component: workerComponent)

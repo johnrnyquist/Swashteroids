@@ -74,9 +74,9 @@ extension Creator: PowerUpCreator {
     }
 
     func createRandomPosition(level: Double, layer: Layer) -> PositionComponent {
-        let dir = [-1, 1]
-        let r1 = randomness.nextDouble(from: 75.0, through: level * 130.0) * Double(randomness.nextInt(upTo: dir.count))
-        let r2 = randomness.nextDouble(from: 75.0, through: level * 100) * Double(randomness.nextInt(upTo: dir.count))
+        let dir = [-1.0, 1.0]
+        let r1 = randomness.nextDouble(from: 75.0, through: level * 130.0) * dir[randomness.nextInt(upTo: dir.count)]
+        let r2 = randomness.nextDouble(from: 75.0, through: level * 100) * dir[randomness.nextInt(upTo: dir.count)]
         let centerX = min(size.width / 2.0 + r1, size.width)
         let centerY = min(size.height / 2.0 + r2, size.height)
         return PositionComponent(x: centerX, y: centerY, z: layer, rotationDegrees: 0.0)

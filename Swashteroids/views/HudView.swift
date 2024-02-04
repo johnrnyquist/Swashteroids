@@ -48,7 +48,6 @@ class HudView: SKNode {
         pauseButtonArt.anchorPoint = CGPoint(x: 1, y: 0)
         pauseButtonArt.position = CGPoint(x: gameSize.width - textXPadding, y: textY)
         pauseButtonArt.zPosition = .top
-        print(pauseButtonArt.size)
         addChild(pauseButtonArt)
         //
         // pauseButton is used by an Entity
