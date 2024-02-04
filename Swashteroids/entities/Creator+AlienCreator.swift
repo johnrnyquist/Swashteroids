@@ -15,37 +15,78 @@ extension Creator: AlienCreator {
     func createAliens(scene: GameScene) {
         guard engine.findEntity(named: .player) != nil else { return }
         guard let appStateEntity = engine.appState,
-                let appState = appStateEntity[AppStateComponent.self] else { return }
-
+              let appState = appStateEntity[AppStateComponent.self] else { return }
         let entrance = pickEntrance()
         warningAliens(scene: scene, leftSide: entrance.leftSide)
-
         switch appState.level {
             case 1:
                 createAlienWorker(scene: scene,
                                   startDestination: CGPoint(x: entrance.startDestination.x, y: entrance.startDestination.y + 50),
                                   endDestination: entrance.endDestination)
-
             case 2:
-                createAlienWorker(scene: scene,
-                                  startDestination: CGPoint(x: entrance.startDestination.x, y: entrance.startDestination.y + 50),
-                                  endDestination: entrance.endDestination)
-                createAlienWorker(scene: scene,
-                                  startDestination: CGPoint(x: entrance.startDestination.x, y: entrance.startDestination.y - 50),
-                                  endDestination: entrance.endDestination)
-
+                switch randomness.nextBool() {
+                    case true:
+                        createTwoWorkers(scene: scene, entrance: entrance)
+                    case false:
+                        createAlienWorker(scene: scene,
+                                          startDestination: CGPoint(x: entrance.startDestination.x,
+                                                                    y: entrance.startDestination.y + 50),
+                                          endDestination: entrance.endDestination)
+                }
+            case 3:
+                switch randomness.nextInt(from: 1, through: 3) {
+                    case 1:
+                        createTwoWorkers(scene: scene, entrance: entrance)
+                    case 2:
+                        createSoldier(scene: scene, entrance: entrance)
+                    case 3:
+                        createAlienWorker(scene: scene,
+                                          startDestination: CGPoint(x: entrance.startDestination.x,
+                                                                    y: entrance.startDestination.y + 50),
+                                          endDestination: entrance.endDestination)
+                    default:
+                        break
+                }
             default:
-                createAlienWorker(scene: scene,
-                                  startDestination: CGPoint(x: entrance.startDestination.x, y: entrance.startDestination.y + 50),
-                                  endDestination: entrance.endDestination)
-                createAlienWorker(scene: scene,
-                                  startDestination: CGPoint(x: entrance.startDestination.x, y: entrance.startDestination.y - 50),
-                                  endDestination: entrance.endDestination)
-                createAlienSoldier(scene: scene,
-                                   startDestination: entrance.startDestination,
-                                   endDestination: entrance.endDestination)
+                switch randomness.nextInt(from: 1, through: 5) {
+                    case 1:
+                        createTwoWorkers(scene: scene, entrance: entrance)
+                    case 2:
+                        createAlienWorker(scene: scene,
+                                          startDestination: CGPoint(x: entrance.startDestination.x,
+                                                                    y: entrance.startDestination.y + 50),
+                                          endDestination: entrance.endDestination)
+                    case 3:
+                        createSoldier(scene: scene, entrance: entrance)
+                    case 4:
+                        createAlienWorker(scene: scene,
+                                          startDestination: CGPoint(x: entrance.startDestination.x,
+                                                                    y: entrance.startDestination.y + 50),
+                                          endDestination: entrance.endDestination)
+                        createSoldier(scene: scene, entrance: entrance)
+                    case 5:
+                        createTwoWorkers(scene: scene, entrance: entrance)
+                        createSoldier(scene: scene, entrance: entrance)
+                    default:
+                        break
+                }
         }
-       appStateEntity.add(component: AudioComponent(fileNamed: .alienEntrance, actionKey: "alienEntrance"))
+        appStateEntity.add(component: AudioComponent(fileNamed: .alienEntrance, actionKey: "alienEntrance"))
+    }
+
+    func createSoldier(scene: GameScene, entrance: (startDestination: CGPoint, endDestination: CGPoint, leftSide: Bool)) {
+        createAlienSoldier(scene: scene,
+                           startDestination: entrance.startDestination,
+                           endDestination: entrance.endDestination)
+    }
+
+    func createTwoWorkers(scene: GameScene, entrance: (startDestination: CGPoint, endDestination: CGPoint, leftSide: Bool)) {
+        createAlienWorker(scene: scene,
+                          startDestination: CGPoint(x: entrance.startDestination.x, y: entrance.startDestination.y + 50),
+                          endDestination: entrance.endDestination)
+        createAlienWorker(scene: scene,
+                          startDestination: CGPoint(x: entrance.startDestination.x, y: entrance.startDestination.y - 50),
+                          endDestination: entrance.endDestination)
     }
 
     func pickEntrance() -> (startDestination: CGPoint, endDestination: CGPoint, leftSide: Bool) {
