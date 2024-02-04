@@ -18,7 +18,8 @@ final class TimeOfPlaySystem: ListIteratingSystem {
     }
 
     private func updateNode(node: Node, time: TimeInterval) {
-        guard let appState = node[AppStateComponent.self]
+        guard let appState = node[AppStateComponent.self],
+              appState.appState == .playing
         else { return }
         appState.timePlayed += time
     }
