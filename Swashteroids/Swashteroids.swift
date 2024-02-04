@@ -35,15 +35,6 @@ final class Swashteroids: NSObject {
         } else {
             randomness = Randomness(seed: seed)
         }
-        engine = Engine()
-        tickEngineListener = Listener(engine.update)
-        creator = Creator(engine: engine,
-                          size: scene.size,
-                          generator: generator,
-                          alertPresenter: alertPresenter,
-                          randomness: randomness)
-        transition = Transition(engine: engine, creator: creator, generator: generator)
-        orientation = UIDevice.current.orientation == .landscapeRight ? -1.0 : 1.0
         appStateComponent = AppStateComponent(gameSize: scene.size,
                                               numShips: 3,
                                               level: 0,
@@ -51,6 +42,11 @@ final class Swashteroids: NSObject {
                                               appState: .initial,
                                               shipControlsState: .showingButtons,
                                               randomness: randomness)
+        engine = Engine()
+        tickEngineListener = Listener(engine.update)
+        creator = Creator(engine: engine, size: scene.size, appState: appStateComponent, generator: generator, alertPresenter: alertPresenter, randomness: randomness)
+        transition = Transition(engine: engine, creator: creator, generator: generator)
+        orientation = UIDevice.current.orientation == .landscapeRight ? -1.0 : 1.0
         super.init()
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(orientationChanged),

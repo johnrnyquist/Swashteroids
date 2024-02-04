@@ -116,7 +116,7 @@ extension Creator: AlienCreator {
         let workerComponent = AlienComponent(reactionTime: randomness.nextDouble(from: 0.4, through: 0.8), killScore: 50)
         workerComponent.startDestination = startDestination
         workerComponent.endDestination = endDestination
-        let velocityX = randomness.nextDouble(from: -10.0, through: 30.0) + 40.0
+        let velocityX = 100.0 + Double(appState.level) * 5.0 + randomness.nextDouble(from: 0.0, through: 10.0)
         let alienEntity = Entity(named: "\(EntityName.alienWorker)_\(numAliens)")
         alienEntity
                 .add(component: workerComponent)
@@ -154,7 +154,7 @@ extension Creator: AlienCreator {
         let soldierComponent = AlienComponent(reactionTime: randomness.nextDouble(from: 0.4, through: 0.8), killScore: 350)
         soldierComponent.startDestination = startDestination
         soldierComponent.endDestination = endDestination
-        let velocityX = randomness.nextDouble(from: -10.0, through: 30) + 60.0
+        let velocityX = 120.0 + Double(appState.level) * 5.0 + randomness.nextDouble(from: 0.0, through: 10.0)
         let alienEntity = Entity(named: "\(EntityName.alienSoldier)_\(numAliens)")
         alienEntity
                 .add(component: soldierComponent)

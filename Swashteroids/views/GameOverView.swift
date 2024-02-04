@@ -35,7 +35,7 @@ class GameOverView: SwashSpriteNode {
         container.addChild(gameOver)
         gameOver.y = size.height / 3
         //
-        let swash = SwashSpriteNode(imageNamed: "swash")
+        let swash = SKSpriteNode(imageNamed: "swash")
         swash.name = "swash"
         swash.anchorPoint = CGPoint(x: 0.5, y: 1)
         swash.scale = scaleManager.SCALE_FACTOR == 1.0 ? 0.8 : 1.0

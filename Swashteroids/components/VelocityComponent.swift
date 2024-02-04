@@ -41,7 +41,7 @@ final class VelocityComponent: Component {
         self.wraps = wraps
         if let base { self.base = base * scaleManager.SCALE_FACTOR }
         else { self.base = velocityX * scaleManager.SCALE_FACTOR }
-        exit = 300 * scaleManager.SCALE_FACTOR
+        exit = self.base * 3.0
     }
 }
 
