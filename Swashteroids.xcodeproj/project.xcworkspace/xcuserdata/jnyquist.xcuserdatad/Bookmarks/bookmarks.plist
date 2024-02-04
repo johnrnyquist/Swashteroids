@@ -36,13 +36,13 @@
 				<key>focused</key>
 				<string>        </string>
 				<key>leading</key>
-				<string>        transition = Transition(engine: engine, creator: creator, generator: generator)
-        orientation = UIDevice.current.orientation == .landscapeRight ? -1.0 : 1.0
+				<string>        engine = Engine()
+        tickEngineListener = Listener(engine.update)
 </string>
 				<key>trailing</key>
-				<string>appStateComponent = AppStateComponent(gameSize: scene.size,
-                                              numShips: 3,
-                                              level: 0,
+				<string>creator = Creator(engine: engine, size: scene.size, appState: appStateComponent, generator: generator, alertPresenter: alertPresenter, randomness: randomness)
+        transition = Transition(engine: engine, creator: creator, generator: generator)
+        orientation = UIDevice.current.orientation == .landscapeRight ? -1.0 : 1.0
 </string>
 			</dict>
 			<key>type</key>
