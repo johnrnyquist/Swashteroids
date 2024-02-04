@@ -87,7 +87,7 @@
 		8D41E2132B1E65950031AF54 /* ShipControlsStateNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D41E2122B1E65950031AF54 /* ShipControlsStateNode.swift */; };
 		8D41E2152B1E66820031AF54 /* TransitionAppStateNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D41E2142B1E66820031AF54 /* TransitionAppStateNode.swift */; };
 		8D41E2172B1E66EE0031AF54 /* ShipControlsSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D41E2162B1E66EE0031AF54 /* ShipControlsSystem.swift */; };
-		8D41E2192B1E7AB00031AF54 /* SwashSpriteNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D41E2182B1E7AB00031AF54 /* SwashSpriteNode.swift */; };
+		8D41E2192B1E7AB00031AF54 /* SwashScaledSpriteNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D41E2182B1E7AB00031AF54 /* SwashScaledSpriteNode.swift */; };
 		8D41E21D2B1F988E0031AF54 /* TorpedosComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D41E21C2B1F988E0031AF54 /* TorpedosComponent.swift */; };
 		8D41E21F2B1FA2D00031AF54 /* Entity+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D41E21E2B1FA2D00031AF54 /* Entity+extension.swift */; };
 		8D4627662B251761007F01E6 /* powerup.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D4627652B251761007F01E6 /* powerup.wav */; };
@@ -292,7 +292,7 @@
 		8D41E2122B1E65950031AF54 /* ShipControlsStateNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipControlsStateNode.swift; sourceTree = "<group>"; };
 		8D41E2142B1E66820031AF54 /* TransitionAppStateNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionAppStateNode.swift; sourceTree = "<group>"; };
 		8D41E2162B1E66EE0031AF54 /* ShipControlsSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShipControlsSystem.swift; sourceTree = "<group>"; };
-		8D41E2182B1E7AB00031AF54 /* SwashSpriteNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwashSpriteNode.swift; sourceTree = "<group>"; };
+		8D41E2182B1E7AB00031AF54 /* SwashScaledSpriteNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwashScaledSpriteNode.swift; sourceTree = "<group>"; };
 		8D41E21C2B1F988E0031AF54 /* TorpedosComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TorpedosComponent.swift; sourceTree = "<group>"; };
 		8D41E21E2B1FA2D00031AF54 /* Entity+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entity+extension.swift"; sourceTree = "<group>"; };
 		8D4627652B251761007F01E6 /* powerup.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = powerup.wav; sourceTree = "<group>"; };
@@ -641,7 +641,7 @@
 				931392B2F2F0077756DDF207 /* PauseAlert.swift */,
 				8D23C19A2B02C59D00F7D878 /* SKNode+extensions.swift */,
 				8D23C19C2B02C59D00F7D878 /* StartView.swift */,
-				8D41E2182B1E7AB00031AF54 /* SwashSpriteNode.swift */,
+				8D41E2182B1E7AB00031AF54 /* SwashScaledSpriteNode.swift */,
 				8D23C19B2B02C59D00F7D878 /* PowerUpsViews.swift */,
 				8D23C1442B02C4CC00F7D878 /* LaunchScreen.storyboard */,
 				8D88FE022B535D0D00937FF1 /* GameOverView2.swift */,
@@ -880,7 +880,7 @@
 				8D23C1B12B02C59D00F7D878 /* TorpedoComponent.swift in Sources */,
 				8D23C19F2B02C59D00F7D878 /* ShipCollisionNode.swift in Sources */,
 				8D23C1C62B02C59D00F7D878 /* CollisionSystem.swift in Sources */,
-				8D41E2192B1E7AB00031AF54 /* SwashSpriteNode.swift in Sources */,
+				8D41E2192B1E7AB00031AF54 /* SwashScaledSpriteNode.swift in Sources */,
 				8D41E2132B1E65950031AF54 /* ShipControlsStateNode.swift in Sources */,
 				8D8F24B22B51B8FA00B2E223 /* CGRect+extensions.swift in Sources */,
 				8D23C1A32B02C59D00F7D878 /* TorpedoAgeNode.swift in Sources */,

@@ -24,7 +24,6 @@ class GameOverView: SwashSpriteNode {
 
     init(gameSize: CGSize, hitPercent: Int, scaleManager: ScaleManaging = ScaleManager.shared) {
         super.init(texture: nil, color: .clear, size: gameSize)
-        scale = 1
         let background = SKSpriteNode(color: .clear, size: gameSize)
         background.name = "gameOverBackground"
         addChild(background)

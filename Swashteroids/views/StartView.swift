@@ -21,12 +21,11 @@ final class StartView: SwashSpriteNode {
         versionInfoFontSize *= scaleManager.SCALE_FACTOR
         // Initialize StartView constants
         versionInfo = SKLabelNode(text: "Nyquist Art + Logic, LLC v\(appVersion) (build \(appBuild))")
-        title = SwashSpriteNode(imageNamed: "title")
-        noButtons = SwashSpriteNode(imageNamed: "nobuttons")
-        buttons = SwashSpriteNode(imageNamed: "buttons")
+        title = SwashScaledSpriteNode(imageNamed: "title")
+        noButtons = SwashScaledSpriteNode(imageNamed: "nobuttons")
+        buttons = SwashScaledSpriteNode(imageNamed: "buttons")
         // Configure StartView
         super.init(texture: nil, color: .clear, size: gameSize)
-        scale = 1 // clear the parent's setting
         anchorPoint = .zero
         zPosition = .top
         // Configure title
@@ -34,16 +33,16 @@ final class StartView: SwashSpriteNode {
         title.colorBlendFactor = 1.0
         title.position = CGPoint(x: size.width / 2, y: size.height / 2)
         // Configure rocks
-        let leftRocks = SwashSpriteNode(imageNamed: "rocks_left")
+        let leftRocks = SwashScaledSpriteNode(imageNamed: "rocks_left")
         leftRocks.scale *= 1.25
         leftRocks.anchorPoint = CGPoint(x: 0, y: 1)
         leftRocks.position = CGPoint(x: -leftRocks.frame.width, y: size.height)
-        let rightRocks = SwashSpriteNode(imageNamed: "rocks_right")
+        let rightRocks = SwashScaledSpriteNode(imageNamed: "rocks_right")
         rightRocks.scale *= 1.25
         rightRocks.anchorPoint = CGPoint(x: 0, y: 1)
         rightRocks.position = CGPoint(x: size.width + rightRocks.frame.width, y: size.height)
         // Configure ship
-        let ship = SwashSpriteNode(imageNamed: "ship")
+        let ship = SwashScaledSpriteNode(imageNamed: "ship")
         ship.alpha = 0
         ship.position = CGPoint(x: size.width / 2, y: size.height / 2 * 0.78)
         // Configure animations

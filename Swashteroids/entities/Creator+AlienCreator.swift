@@ -106,7 +106,7 @@ extension Creator: AlienCreator {
         guard engine.findEntity(named: .player) != nil else { return }
         print(self, #function)
         numAliens += 1
-        let sprite = SwashSpriteNode(imageNamed: .alienWorker)
+        let sprite = SwashScaledSpriteNode(imageNamed: .alienWorker)
         sprite.name = "\(EntityName.alienWorker)_\(numAliens)"
 //        sprite.physicsBody = SKPhysicsBody(rectangleOf: sprite.size)
 //        sprite.physicsBody?.isDynamic = true
@@ -144,7 +144,7 @@ extension Creator: AlienCreator {
         guard engine.findEntity(named: .player) != nil else { return }
         print(self, #function)
         numAliens += 1
-        let sprite = SwashSpriteNode(imageNamed: .alienSoldier)
+        let sprite = SwashScaledSpriteNode(imageNamed: .alienSoldier)
         sprite.name = "\(EntityName.alienSoldier)_\(numAliens)"
 //        sprite.physicsBody = SKPhysicsBody(rectangleOf: sprite.size)
 //        sprite.physicsBody?.isDynamic = true

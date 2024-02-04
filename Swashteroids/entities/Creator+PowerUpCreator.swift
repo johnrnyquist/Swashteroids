@@ -42,7 +42,7 @@ extension Creator: PowerUpCreator {
     func createPowerUp(level: Int,
                        radius: Double,
                        entityName: EntityName,
-                       sprite: SwashSpriteNode,
+                       sprite: SwashScaledSpriteNode,
                        color: UIColor,
                        component: Component) {
         guard engine.findEntity(named: entityName) == nil else { return }

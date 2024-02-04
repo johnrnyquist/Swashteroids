@@ -14,7 +14,7 @@ import SpriteKit
 extension Creator: ShipCreator {
     func createShip(_ state: AppStateComponent) {
         let player = Entity(named: .player)
-        let sprite = SwashSpriteNode(texture: createShipTexture())
+        let sprite = SwashScaledSpriteNode(texture: createShipTexture())
 //        sprite.physicsBody = SKPhysicsBody(rectangleOf: sprite.size.scaled(by: 0.8))//(circleOfRadius: 25 * scaleManager.SCALE_FACTOR)
 //        sprite.physicsBody?.isDynamic = true
 //        sprite.physicsBody?.affectedByGravity = false

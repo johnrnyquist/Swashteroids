@@ -19,7 +19,7 @@ extension Creator: ToggleShipControlsManager {
 
     func createToggleButton(_ toggleState: Toggle) {
         let name = toggleState == .on ? "toggleButtonsOn" : "toggleButtonsOff"
-        let sprite = SwashSpriteNode(imageNamed: name)
+        let sprite = SwashScaledSpriteNode(imageNamed: name)
         sprite.name = name
         sprite.alpha = 0.2
         let x = size.width / 2

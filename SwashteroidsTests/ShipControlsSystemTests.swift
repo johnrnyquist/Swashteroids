@@ -88,7 +88,7 @@ final class ShipControlsSystemTests: XCTestCase {
                                              numTorpedoes: 20))
         try? engine.add(entity: ship)
         let fireButton = Entity(named: .fireButton)
-                .add(component: DisplayComponent(sknode: SwashSpriteNode()))
+                .add(component: DisplayComponent(sknode: SwashScaledSpriteNode()))
         try? engine.add(entity: fireButton)
         // SUT
         system.do_toggleButtons(.showingButtons)
@@ -110,7 +110,7 @@ final class ShipControlsSystemTests: XCTestCase {
                 .add(component: HyperspaceDriveComponent(jumps: 20))
         try? engine.add(entity: ship)
         let hyperspaceButton = Entity(named: .hyperspaceButton)
-                .add(component: DisplayComponent(sknode: SwashSpriteNode()))
+                .add(component: DisplayComponent(sknode: SwashScaledSpriteNode()))
         try? engine.add(entity: hyperspaceButton)
         // SUT  
         system.do_toggleButtons(.showingButtons)

@@ -42,22 +42,24 @@ class HudView: SKNode {
         scoreLabel = createLabel(x: gameSize.width / 2, y: textY, alignment: .center)
         shipsLabel = createLabel(x: textXPadding, y: textY, alignment: .left)
         //
-        let pausePadding = 25.0
+        // pauseButtonArt does nothing
         pauseButtonArt = SKSpriteNode(imageNamed: "pause")
-        pauseButtonArt.size = CGSize(width: gameSize.height-textY + 10, height: gameSize.height-textY + pausePadding)
-        pauseButton = SwashSpriteNode(color: .clear, size: CGSize(width: pauseButtonArt.size.width + pausePadding * 2.0, height: pauseButtonArt.size.height + pausePadding * 2.0 ))
-        pauseButton.addChild(pauseButtonArt)
-
+        pauseButtonArt.size = CGSize(width: scoreLabel.fontSize, height: scoreLabel.fontSize)
         pauseButtonArt.anchorPoint = CGPoint(x: 1, y: 0)
-        pauseButton.anchorPoint = CGPoint(x: 1, y: 0)
-        pauseButtonArt.position = CGPoint(x: -pausePadding, y: pausePadding)
-
+        pauseButtonArt.position = CGPoint(x: gameSize.width - textXPadding, y: textY)
+        pauseButtonArt.zPosition = .top
+        print(pauseButtonArt.size)
+        addChild(pauseButtonArt)
+        //
+        // pauseButton is used by an Entity
+        pauseButton = SwashSpriteNode(color: .clear, size: CGSize(width: 100, height: 100 ))
+        pauseButton.anchorPoint = CGPoint(x: 1, y: 1)
+        pauseButton.x = gameSize.width 
+        pauseButton.y = gameSize.height
         pauseButton.zPosition = .buttons
-        pauseButton.x = gameSize.width - textXPadding
-        pauseButton.y = textY - pausePadding * scaleManager.SCALE_FACTOR
         addChild(pauseButton)
         //
-        levelLabel = createLabel(x: gameSize.width - textXPadding - pauseButtonArt.width - 20.0, y: textY, alignment: .right)
+        levelLabel = createLabel(x: gameSize.width - pauseButtonArt.width - textXPadding * 3, y: textY, alignment: .right)
         addChild(levelLabel)
         addChild(scoreLabel)
         addChild(shipsLabel)
@@ -88,7 +90,9 @@ class HudView: SKNode {
     }
 
     func setLevel(_ value: Int) {
-        levelLabel.text = "LEVEL: \(value)"
+        var val = value
+        if val == 0 { val = 1 }
+        levelLabel.text = "LEVEL: \(val)"
     }
 
     func getScoreText() -> String {

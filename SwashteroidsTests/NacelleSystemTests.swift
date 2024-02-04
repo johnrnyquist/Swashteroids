@@ -31,8 +31,8 @@ class NacellesSystemTests: XCTestCase {
     func test_Warping() throws {
         let warpdrive = WarpDriveComponent()
         warpdrive.isThrusting = true
-        let sprite = SwashSpriteNode()
-        let nacelles = SwashSpriteNode()
+        let sprite = SwashScaledSpriteNode()
+        let nacelles = SwashScaledSpriteNode()
         nacelles.name = "nacelles"
         sprite.addChild(nacelles)   
         let display = DisplayComponent(sknode: sprite)
@@ -50,8 +50,8 @@ class NacellesSystemTests: XCTestCase {
     func test_NotWarping() throws {
         let warpdrive = WarpDriveComponent()
         warpdrive.isThrusting = false
-        let sprite = SwashSpriteNode()
-        let nacelles = SwashSpriteNode()
+        let sprite = SwashScaledSpriteNode()
+        let nacelles = SwashScaledSpriteNode()
         nacelles.name = "nacelles"
         sprite.addChild(nacelles)   
         let display = DisplayComponent(sknode: sprite)

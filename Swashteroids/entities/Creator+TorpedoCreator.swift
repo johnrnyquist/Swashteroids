@@ -30,7 +30,7 @@ extension Creator: TorpedoCreator {
         let colorSequence = SKKeyframeSequence(keyframeValues: colorRamp, times: keyTimes)
         let cos = cos(position.rotationRadians)
         let sin = sin(position.rotationRadians)
-        let sprite = SwashSpriteNode(texture: createTorpedoTexture(color: gunComponent.torpedoColor))
+        let sprite = SwashScaledSpriteNode(texture: createTorpedoTexture(color: gunComponent.torpedoColor))
         //
 //        sprite.physicsBody = SKPhysicsBody(rectangleOf: sprite.size)
 //        sprite.physicsBody?.isDynamic = true

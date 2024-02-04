@@ -35,7 +35,7 @@ final class RenderSystemTests: XCTestCase {
     }
 
     func test_Update() {
-        let sprite = SwashSpriteNode()
+        let sprite = SwashScaledSpriteNode()
         let display = DisplayComponent(sknode: sprite)
         let position = PositionComponent(x: 1, y: 2, z: .ship)
         let entity = Entity()
@@ -63,7 +63,7 @@ final class RenderSystemTests: XCTestCase {
 
     func test_AddToDisplay() {
         let entity = Entity()
-        let sprite = SwashSpriteNode()
+        let sprite = SwashScaledSpriteNode()
         let display = DisplayComponent(sknode: sprite)
         let position = PositionComponent(x: 0, y: 0, z: .ship)
         entity
@@ -76,7 +76,7 @@ final class RenderSystemTests: XCTestCase {
 
     func test_RemoveFromDisplay() {
         engine.add(system: system, priority: 1)
-        let sprite = SwashSpriteNode()
+        let sprite = SwashScaledSpriteNode()
         let entity = Entity()
         entity
                 .add(component: DisplayComponent(sknode: sprite))

@@ -45,7 +45,6 @@ extension Transition {
 
     func toButtonsInfoScreen() {
         let viewSprite = SwashSpriteNode(color: .background, size: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
-        viewSprite.scale = 1.0
 		let artSprite = SKSpriteNode(imageNamed: "infoButtons")
         viewSprite.addChild(artSprite)
 		let screenSize = UIScreen.main.bounds.size

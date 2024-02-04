@@ -14,7 +14,7 @@ import SpriteKit
 extension Creator: AsteroidCreator {
     func createAsteroid(radius: Double, x: Double, y: Double, level: Int) {
         numAsteroids += 1
-        let sprite = SwashSpriteNode(texture: createAsteroidTexture(radius: radius, color: .asteroid))
+        let sprite = SwashScaledSpriteNode(texture: createAsteroidTexture(radius: radius, color: .asteroid))
 //        sprite.physicsBody = SKPhysicsBody(circleOfRadius: CGFloat(radius * scaleManager.SCALE_FACTOR))
 //        sprite.physicsBody?.isDynamic = true
 //        sprite.physicsBody?.affectedByGravity = false
