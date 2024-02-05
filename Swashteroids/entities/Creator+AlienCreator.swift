@@ -20,7 +20,6 @@ extension Creator: AlienCreator {
         warningAliens(scene: scene, leftSide: entrance.leftSide)
         switch appState.level {
             case 1:
-                createSoldier(scene: scene, entrance: entrance)
                 createAlienWorker(scene: scene,
                                   startDestination: CGPoint(x: entrance.startDestination.x, y: entrance.startDestination.y + 50),
                                   endDestination: entrance.endDestination)
