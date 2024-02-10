@@ -18,7 +18,7 @@ final class Swashteroids: NSObject {
     private let generator = UIImpactFeedbackGenerator(style: .heavy)
     private var creator: Creator
     private var tickEngineListener: Listener
-    private var tickProvider: FrameTickProvider?
+    private var tickProvider: TickProvider?
     private var transition: Transition
     private(set) var engine: Engine
     private(set) var inputComponent = InputComponent.shared
@@ -62,6 +62,7 @@ final class Swashteroids: NSObject {
         let appStateEntity = Entity(named: .appState)
                 .add(component: appStateComponent)
                 .add(component: TransitionAppStateComponent(from: .initial, to: .start))
+                .add(component: TimePlayedComponent())
         try? engine.add(entity: appStateEntity)
         // Add the input entity
         let inputEntity = Entity(named: .input)
@@ -75,7 +76,7 @@ final class Swashteroids: NSObject {
         let container = scene
         engine
             // preupdate
-                .add(system: TimeOfPlaySystem(), priority: .preUpdate)
+                .add(system: TimePlayedSystem(), priority: .preUpdate)
                 .add(system: GameplayManagerSystem(creator: creator, size: gameSize, scene: scene, randomness: randomness),
                      priority: .preUpdate)
                 .add(system: GameOverSystem(), priority: .preUpdate)
@@ -111,7 +112,7 @@ final class Swashteroids: NSObject {
 
     func start() {
         motionManager?.startAccelerometerUpdates()
-        tickProvider = FrameTickProvider()
+        tickProvider = TickProvider()
         tickProvider?.add(tickEngineListener) // Then engine listens for ticks
         tickProvider?.start()
     }
@@ -123,8 +124,8 @@ final class Swashteroids: NSObject {
         motionManager?.stopAccelerometerUpdates()
     }
 
-    func dispatchTick() {
-        tickProvider?.dispatchTick()
+    func dispatchTick(_ currentTime: TimeInterval) {
+        tickProvider?.dispatchTick(currentTime)
     }
 
     @objc func orientationChanged(_ notification: Notification) {

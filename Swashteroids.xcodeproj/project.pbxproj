@@ -144,7 +144,7 @@
 		9313945BF406DE5979CDEA51 /* Randomness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313959F4B35EA9D7843BD7A /* Randomness.swift */; };
 		931394AC921BF3C3D7CABD13 /* FiringSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139DE76BF1939914D55E38 /* FiringSystemTests.swift */; };
 		93139562CC6BB542C42A3493 /* LeftNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139D029684C918FEDD3DC1 /* LeftNode.swift */; };
-		93139581CECED4EF1373A5BD /* TimeOfPlaySystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313962E5C5B4402DC06E899 /* TimeOfPlaySystem.swift */; };
+		93139581CECED4EF1373A5BD /* TimePlayedSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313962E5C5B4402DC06E899 /* TimePlayedSystem.swift */; };
 		9313961BE93AEE536D58C27B /* AudioSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931390BDEBA443104F781428 /* AudioSystemTests.swift */; };
 		931396A2070DB4DA286B21D7 /* RightNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139FDF0C76049256DAE28C /* RightNode.swift */; };
 		931397073B11911E75B9BFA0 /* Creator+ShipQuadrantsControlsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931395F838B2866767296F25 /* Creator+ShipQuadrantsControlsManager.swift */; };
@@ -189,6 +189,7 @@
 		93139E5DCD4193CB19DDB025 /* Creator+PowerUpCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139C73A66D8863A166745D /* Creator+PowerUpCreator.swift */; };
 		93139E9EAA1EF70B2FE63374 /* FlipNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139CC64C9CFC7E61D7DCFE /* FlipNode.swift */; };
 		93139EB726F6A591F339A9E1 /* ThrustSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931393FE8CC28A572666583C /* ThrustSystemTests.swift */; };
+		93139ED17AF0B2679783AE64 /* TickProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139406E9C8BCF53204C6FC /* TickProvider.swift */; };
 		93139EFCD84F2131FD44424E /* TreasureComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931395FA04809CC11F1BF287 /* TreasureComponent.swift */; };
 		93139F0DDF5880C3EAFA8A5D /* Transition+Start.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139349F91910D60271C8DA /* Transition+Start.swift */; };
 		93139F3F4BF404579411D473 /* Transition+InfoViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931398E70F42335F03D272DD /* Transition+InfoViews.swift */; };
@@ -350,6 +351,7 @@
 		93139349F91910D60271C8DA /* Transition+Start.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Transition+Start.swift"; sourceTree = "<group>"; };
 		931393BFA7122C52736144FB /* Transition+GameOver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Transition+GameOver.swift"; sourceTree = "<group>"; };
 		931393FE8CC28A572666583C /* ThrustSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThrustSystemTests.swift; sourceTree = "<group>"; };
+		93139406E9C8BCF53204C6FC /* TickProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TickProvider.swift; sourceTree = "<group>"; };
 		9313941564944F14B4041467 /* GameOverSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverSystem.swift; sourceTree = "<group>"; };
 		93139489970BEA17AF74C95E /* TouchNodes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchNodes.swift; sourceTree = "<group>"; };
 		931394D1D0B636772EE1DFF7 /* String+EntityNames.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+EntityNames.swift"; sourceTree = "<group>"; };
@@ -357,7 +359,7 @@
 		931395F838B2866767296F25 /* Creator+ShipQuadrantsControlsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Creator+ShipQuadrantsControlsManager.swift"; sourceTree = "<group>"; };
 		931395FA04809CC11F1BF287 /* TreasureComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreasureComponent.swift; sourceTree = "<group>"; };
 		9313961CB4F5B39D06FE5B0F /* RepeatingAudioNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatingAudioNode.swift; sourceTree = "<group>"; };
-		9313962E5C5B4402DC06E899 /* TimeOfPlaySystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeOfPlaySystem.swift; sourceTree = "<group>"; };
+		9313962E5C5B4402DC06E899 /* TimePlayedSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimePlayedSystem.swift; sourceTree = "<group>"; };
 		9313964664F31540DA9D0416 /* HyperspaceSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HyperspaceSystemTests.swift; sourceTree = "<group>"; };
 		931396DD35CCD39E8E4EDB16 /* InputComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputComponent.swift; sourceTree = "<group>"; };
 		93139735B7C5C32A3DA6CB9D /* TouchComponents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchComponents.swift; sourceTree = "<group>"; };
@@ -473,6 +475,7 @@
 				8D23C17B2B02C59C00F7D878 /* systems */,
 				8D23C1972B02C59D00F7D878 /* views */,
 				9313959F4B35EA9D7843BD7A /* Randomness.swift */,
+				93139406E9C8BCF53204C6FC /* TickProvider.swift */,
 			);
 			path = Swashteroids;
 			sourceTree = "<group>";
@@ -575,6 +578,7 @@
 			children = (
 				8D6AD48B2B099F9900E258BF /* list_iterating */,
 				8D23C17C2B02C59C00F7D878 /* CollisionSystem.swift */,
+				8D23C1842B02C59C00F7D878 /* HudSystem.swift */,
 				8D23C17F2B02C59C00F7D878 /* FiringSystem.swift */,
 				8D23C1822B02C59C00F7D878 /* GameplayManagerSystem.swift */,
 				8D23C1882B02C59C00F7D878 /* RenderSystem.swift */,
@@ -697,7 +701,6 @@
 				8D23C1832B02C59C00F7D878 /* DeathThroesSystem.swift */,
 				931390D4ADEAB2D4BAFC8C1F /* FlipSystem.swift */,
 				9313941564944F14B4041467 /* GameOverSystem.swift */,
-				8D23C1842B02C59C00F7D878 /* HudSystem.swift */,
 				8D9DEF672B059F2800064B01 /* HyperspaceJumpSystem.swift */,
 				93139B0F783B5FBCD7E56343 /* LeftSystem.swift */,
 				8D23C1872B02C59C00F7D878 /* MovementSystem.swift */,
@@ -708,7 +711,7 @@
 				931390DB9E3BECA50B2D05CF /* ThrustSystem.swift */,
 				8D23C1802B02C59C00F7D878 /* TorpedoAgeSystem.swift */,
 				93139F7B6117208071E3FE22 /* TransitionAppStateSystem.swift */,
-				9313962E5C5B4402DC06E899 /* TimeOfPlaySystem.swift */,
+				9313962E5C5B4402DC06E899 /* TimePlayedSystem.swift */,
 			);
 			name = list_iterating;
 			sourceTree = "<group>";
@@ -999,7 +1002,8 @@
 				931398B178A3200C9AA53ED2 /* AlienFireDownComponent.swift in Sources */,
 				93139E360C9751C14F46F8DA /* AlienComponent.swift in Sources */,
 				9313945BF406DE5979CDEA51 /* Randomness.swift in Sources */,
-				93139581CECED4EF1373A5BD /* TimeOfPlaySystem.swift in Sources */,
+				93139581CECED4EF1373A5BD /* TimePlayedSystem.swift in Sources */,
+				93139ED17AF0B2679783AE64 /* TickProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
