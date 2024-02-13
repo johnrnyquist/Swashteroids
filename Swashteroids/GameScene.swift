@@ -21,6 +21,7 @@ final class GameScene: SKScene {
 
     override func didMove(to view: SKView) {
         super.didMove(to: view)
+        setUpControllerObservers()
         //HACK to get around the SpriteKit bug where repeated sounds have a popping noise
         GameScene.sound.run(SKAction.changeVolume(to: 0, duration: 0))
         let addAudioNodeAction = SKAction.run { [unowned self] in

@@ -148,6 +148,7 @@
 		9313961BE93AEE536D58C27B /* AudioSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931390BDEBA443104F781428 /* AudioSystemTests.swift */; };
 		931396A2070DB4DA286B21D7 /* RightNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139FDF0C76049256DAE28C /* RightNode.swift */; };
 		931397073B11911E75B9BFA0 /* Creator+ShipQuadrantsControlsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931395F838B2866767296F25 /* Creator+ShipQuadrantsControlsManager.swift */; };
+		93139767DADE3701C7A4DE57 /* GameScene+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139F9D5B67C687239DF403 /* GameScene+extensions.swift */; };
 		931397757ABDD3E731FEB69F /* RepeatingAudioSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139A85D4D955B243719D63 /* RepeatingAudioSystem.swift */; };
 		931397BD1834CFFC21464D3F /* Transition+Playing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139DF99E2237817263DF63 /* Transition+Playing.swift */; };
 		931397BF9389B3840459AF7F /* AlienFiringSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139DB33A30E1B67842EF18 /* AlienFiringSystem.swift */; };
@@ -406,6 +407,7 @@
 		93139F2C79FC630142EA1605 /* Creator+TreasureCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Creator+TreasureCreator.swift"; sourceTree = "<group>"; };
 		93139F43221229D3FBAC46D9 /* Creator+ShipCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Creator+ShipCreator.swift"; sourceTree = "<group>"; };
 		93139F7B6117208071E3FE22 /* TransitionAppStateSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionAppStateSystem.swift; sourceTree = "<group>"; };
+		93139F9D5B67C687239DF403 /* GameScene+extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GameScene+extensions.swift"; sourceTree = "<group>"; };
 		93139FDF0C76049256DAE28C /* RightNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -719,6 +721,7 @@
 		8D8F24B72B51D4B100B2E223 /* extensions */ = {
 			isa = PBXGroup;
 			children = (
+				93139F9D5B67C687239DF403 /* GameScene+extensions.swift */,
 				93139AFE6A68E0D9B149BA93 /* CGFloat+extensions.swift */,
 				8D23C1E42B02C81D00F7D878 /* CGPoint+extensions.swift */,
 				8D8F24B12B51B8FA00B2E223 /* CGRect+extensions.swift */,
@@ -1004,6 +1007,7 @@
 				9313945BF406DE5979CDEA51 /* Randomness.swift in Sources */,
 				93139581CECED4EF1373A5BD /* TimePlayedSystem.swift in Sources */,
 				93139ED17AF0B2679783AE64 /* TickProvider.swift in Sources */,
+				93139767DADE3701C7A4DE57 /* GameScene+extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1186,7 +1190,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Swashteroids/Swashteroids.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 88;
+				CURRENT_PROJECT_VERSION = 89;
 				DEVELOPMENT_TEAM = W8GR9TRDWE;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1219,7 +1223,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Swashteroids/Swashteroids.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 88;
+				CURRENT_PROJECT_VERSION = 89;
 				DEVELOPMENT_TEAM = W8GR9TRDWE;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
