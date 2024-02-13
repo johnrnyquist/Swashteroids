@@ -124,7 +124,9 @@ final class Swashteroids: NSObject {
         motionManager?.stopAccelerometerUpdates()
     }
 
+    var currentTime = 0.0
     func dispatchTick(_ currentTime: TimeInterval) {
+        self.currentTime = currentTime
         tickProvider?.dispatchTick(currentTime)
     }
 
