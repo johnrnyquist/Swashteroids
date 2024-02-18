@@ -10,12 +10,5 @@
 
 import Swash
 
-
-final class ChangeShipControlsStateComponent: Component {
-	var destination: ShipControlsState
-
-	init(to: ShipControlsState) {
-		self.destination = to
-	}
-}
+class GameControllerComponent: Component {}
 

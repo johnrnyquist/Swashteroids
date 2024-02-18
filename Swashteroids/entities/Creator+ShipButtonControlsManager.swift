@@ -31,15 +31,27 @@ extension Creator: ShipButtonControlsManager {
         return buttonEntity
     }
 
+    // HACK
     func showFireButton() {
-        if let fireButtonEntity {
+        if let fireButtonEntity, engine.appStateComponent.shipControlsState == .showingButtons{
             engine.replace(entity: fireButtonEntity)
+            let fadeIn = SKAction.fadeAlpha(to: 1.0, duration: 0.2)
+            let fadeOut = SKAction.fadeAlpha(to: 0.2, duration: 0.2)
+            let seq = SKAction.sequence([fadeIn, fadeOut])
+            let sprite = engine.findEntity(named: .fireButton)?[DisplayComponent.self]?.sprite
+            sprite?.run(seq)
         }
     }
 
+    // HACK 
     func showHyperspaceButton() {
-        if let hyperspaceButtonEntity {
+        if let hyperspaceButtonEntity, engine.appStateComponent.shipControlsState == .showingButtons {
             engine.replace(entity: hyperspaceButtonEntity)
+            let fadeIn = SKAction.fadeAlpha(to: 1.0, duration: 0.2)
+            let fadeOut = SKAction.fadeAlpha(to: 0.2, duration: 0.2)
+            let seq = SKAction.sequence([fadeIn, fadeOut])
+            let sprite = (engine.findEntity(named: .hyperspaceButton)?[DisplayComponent.name] as? DisplayComponent)?.sprite
+            sprite?.run(seq)
         }
     }
 

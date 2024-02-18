@@ -13,7 +13,7 @@ import Swash
 
 
 final class DisplayComponent: Component {
-    private(set) var sknode: SKNode?
+    private(set) weak var sknode: SKNode?
 
     init(sknode: SKNode) {
         self.sknode = sknode

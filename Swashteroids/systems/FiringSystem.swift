@@ -44,7 +44,7 @@ final class FiringSystem: System {
         let pos = PositionComponent(x: position.x, y: position.y, z: .asteroids, rotationDegrees: position.rotationDegrees)
         creator?.createTorpedo(gun, pos, velocity)
         gun.numTorpedoes -= 1
-        if let appState = engine?.appState?[AppStateComponent.name] as? AppStateComponent {
+        if let appState = engine?.appStateComponent {
             appState.numTorpedoesPlayerFired += 1
         }
     }

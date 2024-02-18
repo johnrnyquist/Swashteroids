@@ -17,7 +17,7 @@ protocol SoundPlaying: AnyObject {
 }
 
 final class AudioSystem: ListIteratingSystem {
-    private var soundPlayer: SoundPlaying
+    private weak var soundPlayer: SoundPlaying?
 
     init(soundPlayer: SoundPlaying) {
         self.soundPlayer = soundPlayer
@@ -29,10 +29,10 @@ final class AudioSystem: ListIteratingSystem {
         guard let audioComponent = node[AudioComponent.self]
         else { return }
         for (soundKey, soundAction) in audioComponent.playlist {
-            if let _ = soundPlayer.action(forKey: soundKey) {
+            if let _ = soundPlayer?.action(forKey: soundKey) {
                 continue // I never hit this, but it's here just in case
             }
-            soundPlayer.run(soundAction, withKey: soundKey)
+            soundPlayer?.run(soundAction, withKey: soundKey)
         }
         audioComponent.clearPlaylist()
         node.entity?.remove(componentClass: AudioComponent.self)

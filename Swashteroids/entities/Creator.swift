@@ -13,24 +13,23 @@ import Swash
 
 /// Creator contains a number of convenience methods that create and configure entities, then adds them to its engine.
 class Creator {
-    var alertPresenter: AlertPresenting?
-    var engine: Engine
-    var size: CGSize
-    var generator: UIImpactFeedbackGenerator?
-    let scaleManager: ScaleManaging
-    var numAsteroids = 0
-    var numAliens = 0
-    var numTreasures = 0
+    let randomness: Randomness
     var buttonPadding = 30.0
     var buttonPaddingLeft = 30.0
     var buttonPaddingRight = 30.0
-    var firstRowButtonPaddingY = 30.0
     var fireButtonEntity: Entity? //HACK
+    var firstRowButtonPaddingY = 30.0
     var hyperspaceButtonEntity: Entity? //HACK
-    let randomness: Randomness
-    let appState: AppStateComponent
+    var numAliens = 0
+    var numAsteroids = 0
+    var numTreasures = 0
+    var size: CGSize
+    weak var scaleManager: ScaleManaging!
+    weak var alertPresenter: AlertPresenting?
+    weak var engine: Engine!
+    weak var generator: UIImpactFeedbackGenerator?
 
-    init(engine: Engine, size: CGSize, appState: AppStateComponent, generator: UIImpactFeedbackGenerator? = nil, scaleManager: ScaleManaging = ScaleManager.shared, alertPresenter: AlertPresenting, randomness: Randomness) {
+    init(engine: Engine, size: CGSize, generator: UIImpactFeedbackGenerator? = nil, scaleManager: ScaleManaging = ScaleManager.shared, alertPresenter: AlertPresenting, randomness: Randomness) {
         self.scaleManager = scaleManager
         self.alertPresenter = alertPresenter
         buttonPadding *= scaleManager.SCALE_FACTOR
@@ -39,7 +38,6 @@ class Creator {
         firstRowButtonPaddingY *= scaleManager.SCALE_FACTOR
         self.engine = engine
         self.size = size
-        self.appState = appState
         self.generator = generator
         self.randomness = randomness
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate,

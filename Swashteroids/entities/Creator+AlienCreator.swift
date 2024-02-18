@@ -14,11 +14,9 @@ import SpriteKit
 extension Creator: AlienCreator {
     func createAliens(scene: GameScene) {
         guard engine.findEntity(named: .player) != nil else { return }
-        guard let appStateEntity = engine.appState,
-              let appState = appStateEntity[AppStateComponent.self] else { return }
         let entrance = pickEntrance()
         warningAliens(scene: scene, leftSide: entrance.leftSide)
-        switch appState.level {
+        switch engine.appStateComponent.level {
             case 1:
                 createAlienWorker(scene: scene,
                                   startDestination: CGPoint(x: entrance.startDestination.x, y: entrance.startDestination.y + 50),
@@ -71,7 +69,7 @@ extension Creator: AlienCreator {
                         break
                 }
         }
-        appStateEntity.add(component: AudioComponent(fileNamed: .alienEntrance, actionKey: "alienEntrance"))
+        engine.appStateEntity.add(component: AudioComponent(fileNamed: .alienEntrance, actionKey: "alienEntrance"))
     }
 
     func createSoldier(scene: GameScene, entrance: (startDestination: CGPoint, endDestination: CGPoint, leftSide: Bool)) {
@@ -157,7 +155,7 @@ extension Creator: AlienCreator {
         let workerComponent = AlienComponent(reactionTime: randomness.nextDouble(from: 0.4, through: 0.8), killScore: 50)
         workerComponent.startDestination = startDestination
         workerComponent.endDestination = endDestination
-        let velocityX = 90.0 + Double(appState.level) * 5.0 + randomness.nextDouble(from: 0.0, through: 10.0)
+        let velocityX = 90.0 + Double(engine.appStateComponent.level) * 5.0 + randomness.nextDouble(from: 0.0, through: 10.0)
         let alienEntity = Entity(named: "\(EntityName.alienWorker)_\(numAliens)")
         alienEntity
                 .add(component: workerComponent)
@@ -195,7 +193,7 @@ extension Creator: AlienCreator {
         let soldierComponent = AlienComponent(reactionTime: randomness.nextDouble(from: 0.4, through: 0.8), killScore: 350)
         soldierComponent.startDestination = startDestination
         soldierComponent.endDestination = endDestination
-        let velocityX = 120.0 + Double(appState.level) * 5.0 + randomness.nextDouble(from: 0.0, through: 10.0)
+        let velocityX = 120.0 + Double(engine.appStateComponent.level) * 5.0 + randomness.nextDouble(from: 0.0, through: 10.0)
         let alienEntity = Entity(named: "\(EntityName.alienSoldier)_\(numAliens)")
         alienEntity
                 .add(component: soldierComponent)

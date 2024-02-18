@@ -22,7 +22,7 @@ final class GunComponent: Component {
     var minimumShotInterval: TimeInterval = 0.25
     var offsetFromParent = CGPoint(x: 21, y: 0)
     var ownerType: OwnerType
-    var ownerEntity: Entity
+    weak var ownerEntity: Entity!
     var rotation = 0.0
     var timeSinceLastShot: TimeInterval = Double.infinity
     var torpedoColor: UIColor = .torpedo

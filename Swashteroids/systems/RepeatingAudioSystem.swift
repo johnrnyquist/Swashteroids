@@ -24,10 +24,10 @@ final class RepeatingAudioSystem: ListIteratingSystem {
         switch audio.state {
             case .shouldBegin:
                 audio.state = .playing
-                audio.sound.run(SKAction.changeVolume(to: 1, duration: 0))
+                audio.sound?.run(SKAction.changeVolume(to: 1, duration: 0))
             case .shouldStop:
                 audio.state = .notPlaying
-                audio.sound.run(SKAction.changeVolume(to: 0, duration: 0))
+                audio.sound?.run(SKAction.changeVolume(to: 0, duration: 0))
             case .notPlaying, .playing:
                 break
         }

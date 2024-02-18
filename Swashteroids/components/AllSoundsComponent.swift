@@ -24,9 +24,9 @@ class AllSoundsComponent: Component {
 
     private func preloadSounds() {
         // Preload the sound effects
-        SoundFileNames.allCases.forEach { soundFile in
+        SoundFileNames.allCases.forEach { [weak self] soundFile in
             let soundAction = SKAction.playSoundFileNamed(soundFile.rawValue, waitForCompletion: false)
-            soundActions[soundFile.rawValue] = soundAction
+            self?.soundActions[soundFile.rawValue] = soundAction
         }
     }
 }

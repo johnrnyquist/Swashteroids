@@ -31,7 +31,7 @@ extension Transition {
                 .add(component: ButtonBehaviorComponent(
                     touchDown: { [unowned self] sprite in
                         generator?.impactOccurred()
-                        engine.appState?.add(component: TransitionAppStateComponent(from: .infoNoButtons, to: .playing))
+                        engine.appStateEntity.add(component: TransitionAppStateComponent(from: .infoNoButtons, to: .playing))
                     }))
         viewSprite.entity = viewEntity
         engine.replace(entity: viewEntity)
@@ -59,7 +59,7 @@ extension Transition {
                 .add(component: TouchableComponent())
                 .add(component: ButtonBehaviorComponent(touchDown: { [unowned self] sprite in
                     generator?.impactOccurred()
-                    engine.appState?.add(component: TransitionAppStateComponent(from: .infoButtons, to: .playing))
+                    engine.appStateEntity.add(component: TransitionAppStateComponent(from: .infoButtons, to: .playing))
                 }))
         viewSprite.entity = viewEntity
         viewSprite.name = .buttonsInfoView

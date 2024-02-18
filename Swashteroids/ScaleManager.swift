@@ -10,7 +10,7 @@
 
 import UIKit
 
-protocol ScaleManaging {
+protocol ScaleManaging: AnyObject {
     var SCALE_FACTOR: CGFloat { get }
 }
 

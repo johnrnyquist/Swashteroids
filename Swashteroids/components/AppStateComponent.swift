@@ -14,7 +14,7 @@ import Foundation
 final class AppStateComponent: Component {
     //MARK: - Set from argument to init
     let gameSize: CGSize
-    let randomness: Randomness
+    weak var randomness: Randomness!
     // Original values for resetting
     let orig_appState: AppState
     let orig_level: Int
@@ -22,7 +22,14 @@ final class AppStateComponent: Component {
     let orig_score: Int
     let orig_shipControlsState: ShipControlsState
     // Current values
-    var appState: AppState
+    var appState: AppState {
+        willSet {
+            print("willSet appState: \(appState)")
+        }
+        didSet {
+            print("didSet appState: \(appState)")
+        }
+    }
     var nextShipScore: Int
     var numHits: Int
     var numShips: Int

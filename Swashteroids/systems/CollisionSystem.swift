@@ -68,13 +68,11 @@ class CollisionSystem: System {
                                                  numTorpedoes: 20))
                     .add(component: AudioComponent(fileNamed: .powerUp,
                                                    actionKey: "powerup.wav"))
+            
+            
+            
             //HACK for immediate gratification
             creator.showFireButton()
-            let fadeIn = SKAction.fadeAlpha(to: 1.0, duration: 0.2)
-            let fadeOut = SKAction.fadeAlpha(to: 0.2, duration: 0.2)
-            let seq = SKAction.sequence([fadeIn, fadeOut])
-            let sprite = engine.findEntity(named: .fireButton)?[DisplayComponent.self]?.sprite
-            sprite?.run(seq)
             //END_HACK
         }
         // ship and hyperspacePowerUps
@@ -87,11 +85,6 @@ class CollisionSystem: System {
                                                    actionKey: "powerup.wav"))
             //HACK for immediate gratification
             creator.showHyperspaceButton()
-            let fadeIn = SKAction.fadeAlpha(to: 1.0, duration: 0.2)
-            let fadeOut = SKAction.fadeAlpha(to: 0.2, duration: 0.2)
-            let seq = SKAction.sequence([fadeIn, fadeOut])
-            let sprite = (engine.findEntity(named: .hyperspaceButton)?[DisplayComponent.name] as? DisplayComponent)?.sprite
-            sprite?.run(seq)
             //END_HACK
         }
         // torpedoes and asteroids

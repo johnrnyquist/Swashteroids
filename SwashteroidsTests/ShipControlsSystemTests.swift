@@ -62,7 +62,7 @@ final class ShipControlsSystemTests: XCTestCase {
                 .add(component: AccelerometerComponent())
         try? engine.add(entity: ship)
         // SUT    
-        system.do_toggleButtons(.showingButtons)
+        system.handleChange(.showingButtons)
         //
         XCTAssertTrue(creator.createShipControlButtonsCalled)
         XCTAssertTrue(creator.enableShipControlButtonsCalled)
@@ -91,7 +91,7 @@ final class ShipControlsSystemTests: XCTestCase {
                 .add(component: DisplayComponent(sknode: SwashScaledSpriteNode()))
         try? engine.add(entity: fireButton)
         // SUT
-        system.do_toggleButtons(.showingButtons)
+        system.handleChange(.showingButtons)
         //
         XCTAssertTrue(creator.createShipControlButtonsCalled)
         XCTAssertTrue(creator.enableShipControlButtonsCalled)
@@ -113,7 +113,7 @@ final class ShipControlsSystemTests: XCTestCase {
                 .add(component: DisplayComponent(sknode: SwashScaledSpriteNode()))
         try? engine.add(entity: hyperspaceButton)
         // SUT  
-        system.do_toggleButtons(.showingButtons)
+        system.handleChange(.showingButtons)
         //
         XCTAssertTrue(creator.enableShipControlButtonsCalled)
         XCTAssertTrue(creator.removeToggleButtonCalled)
@@ -139,7 +139,7 @@ final class ShipControlsSystemTests: XCTestCase {
                 .add(component: HyperspaceDriveComponent(jumps: 20))
         try? engine.add(entity: ship)
         //                
-        system.do_toggleButtons(.hidingButtons)
+        system.handleChange(.hidingButtons)
         XCTAssertTrue(creator.createShipControlQuadrantsCalled)
         XCTAssertTrue(creator.removeShipControlButtonsCalled)
         XCTAssertTrue(creator.removeToggleButtonCalled)

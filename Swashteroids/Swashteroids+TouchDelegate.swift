@@ -10,7 +10,7 @@
 
 import SpriteKit
 
-protocol TouchDelegate {
+protocol TouchDelegate: AnyObject {
     func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
     func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?)
     func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?)

@@ -12,12 +12,12 @@ import Swash
 import SpriteKit
 
 final class RepeatingAudioComponent: Component {
-    var sound: SKAudioNode
+    weak var sound: SKAudioNode?
     var state: RepeatingSoundState = .notPlaying
 
     init(sound: SKAudioNode) {
         self.sound = sound
-        self.sound.autoplayLooped = true
+        self.sound?.autoplayLooped = true
         super.init()
     }
 }

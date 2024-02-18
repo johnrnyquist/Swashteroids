@@ -20,7 +20,7 @@ final class RenderSystemTests: XCTestCase {
 
     override func setUpWithError() throws {
         container = MockContainer()
-        system = RenderSystem(container: container)
+        system = RenderSystem(scene: container)
         engine = Engine()
     }
 
@@ -31,7 +31,7 @@ final class RenderSystemTests: XCTestCase {
     }
 
     func test_Init() throws {
-        XCTAssertNotNil(system.container)
+        XCTAssertNotNil(system.scene)
     }
 
     func test_Update() {
@@ -91,7 +91,7 @@ final class RenderSystemTests: XCTestCase {
         engine.add(system: system, priority: 1)
         engine.remove(system: system)
         XCTAssertNil(system.nodes)
-        XCTAssertNil(system.container)
+        XCTAssertNil(system.scene)
     }
 
     class MockContainer: SKNode, Container {

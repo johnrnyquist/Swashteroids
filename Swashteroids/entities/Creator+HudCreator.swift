@@ -12,6 +12,7 @@ import Swash
 import SpriteKit
 
 extension Creator: HudCreator, AlertPresenting {
+
     func createHud(gameState: AppStateComponent) {
         let view = HudView(gameSize: gameState.gameSize)
         view.name = "hud"
@@ -32,18 +33,29 @@ extension Creator: HudCreator, AlertPresenting {
                     self.alertPresenter?.showPauseAlert()
                 })
         pauseButton.entity = pause
-        do {
-            try engine.add(entity: hudEntity)
-            try engine.add(entity: pause)
-        } catch SwashError.entityNameAlreadyInUse(let message) {
-            fatalError(message)
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
+        engine.replace(entity: hudEntity)
+        engine.replace(entity: pause)
     }
 
     func showPauseAlert() {
         alertPresenter?.showPauseAlert()
     }
+    var isAlertPresented: Bool {
+        get {
+            alertPresenter?.isAlertPresented ?? false
+        }
+        set {
+            alertPresenter?.isAlertPresented = newValue
+        }
+    }
+
+    func home() {
+        alertPresenter?.home()
+    }
+
+    func resume() {
+        alertPresenter?.resume()
+    }
+
 }
 

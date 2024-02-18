@@ -27,6 +27,8 @@ enum AppState {
 enum ShipControlsState {
     case showingButtons
     case hidingButtons
+    case usingGameController
+    case usingScreenControls
 }
 
 enum Toggle: String {

@@ -13,8 +13,13 @@ import SpriteKit
 import CoreMotion
 
 final class Swashteroids: NSObject {
+    deinit {
+        print("Swashteroids deinit")
+        NotificationCenter.default.removeObserver(self)
+    }
+
     let motionManager: CMMotionManager? = CMMotionManager()
-    private let alertPresenter: AlertPresenting
+    let randomness: Randomness
     private let generator = UIImpactFeedbackGenerator(style: .heavy)
     private var creator: Creator
     private var tickEngineListener: Listener
@@ -23,9 +28,8 @@ final class Swashteroids: NSObject {
     private(set) var engine: Engine
     private(set) var inputComponent = InputComponent.shared
     private(set) var orientation = 1.0
-    private(set) var scene: GameScene
-    var appStateComponent: AppStateComponent
-    let randomness: Randomness
+    private(set) weak var scene: GameScene!
+    weak var alertPresenter: AlertPresenting!
 
     init(scene: GameScene, alertPresenter: AlertPresenting, seed: Int = 0) {
         self.scene = scene
@@ -35,16 +39,13 @@ final class Swashteroids: NSObject {
         } else {
             randomness = Randomness(seed: seed)
         }
-        appStateComponent = AppStateComponent(gameSize: scene.size,
-                                              numShips: 3,
-                                              level: 0,
-                                              score: 0,
-                                              appState: .initial,
-                                              shipControlsState: .showingButtons,
-                                              randomness: randomness)
         engine = Engine()
         tickEngineListener = Listener(engine.update)
-        creator = Creator(engine: engine, size: scene.size, appState: appStateComponent, generator: generator, alertPresenter: alertPresenter, randomness: randomness)
+        creator = Creator(engine: engine,
+                          size: scene.size,
+                          generator: generator,
+                          alertPresenter: alertPresenter,
+                          randomness: randomness)
         transition = Transition(engine: engine, creator: creator, generator: generator)
         orientation = UIDevice.current.orientation == .landscapeRight ? -1.0 : 1.0
         super.init()
@@ -59,6 +60,13 @@ final class Swashteroids: NSObject {
         let allSoundsEntity = Entity(named: .allSounds)
                 .add(component: AllSoundsComponent.shared)
         try? engine.add(entity: allSoundsEntity)
+        let appStateComponent = AppStateComponent(gameSize: scene.size,
+                                                  numShips: 3,
+                                                  level: 0,
+                                                  score: 0,
+                                                  appState: .initial,
+                                                  shipControlsState: .showingButtons,
+                                                  randomness: randomness)
         let appStateEntity = Entity(named: .appState)
                 .add(component: appStateComponent)
                 .add(component: TransitionAppStateComponent(from: .initial, to: .start))
@@ -70,10 +78,17 @@ final class Swashteroids: NSObject {
         try? engine.add(entity: inputEntity)
     }
 
+    func usingGameController() {
+        engine.appStateEntity.add(component: ChangeShipControlsStateComponent(to: .usingGameController))
+    }
+
+    func usingScreenControls() {
+        engine.appStateEntity.add(component: ChangeShipControlsStateComponent(to: .usingScreenControls))
+    }
+
     private func createSystems(scene: GameScene) {
         let gameSize = scene.size
         let soundPlayer = scene
-        let container = scene
         engine
             // preupdate
                 .add(system: TimePlayedSystem(), priority: .preUpdate)
@@ -107,7 +122,7 @@ final class Swashteroids: NSObject {
                 // render
                 .add(system: AudioSystem(soundPlayer: soundPlayer), priority: .render)
                 .add(system: RepeatingAudioSystem(), priority: .render)
-                .add(system: RenderSystem(container: container), priority: .render)
+                .add(system: RenderSystem(scene: scene), priority: .render)
     }
 
     func start() {
@@ -125,6 +140,7 @@ final class Swashteroids: NSObject {
     }
 
     var currentTime = 0.0
+
     func dispatchTick(_ currentTime: TimeInterval) {
         self.currentTime = currentTime
         tickProvider?.dispatchTick(currentTime)

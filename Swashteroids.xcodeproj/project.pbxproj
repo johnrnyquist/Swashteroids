@@ -138,6 +138,7 @@
 		931392438E0382586D8988D5 /* AlienFiringNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313995C9360F53AD9D2BB65 /* AlienFiringNode.swift */; };
 		93139265D59A74E99D27A0CF /* Transition+GameOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931393BFA7122C52736144FB /* Transition+GameOver.swift */; };
 		9313927570EF98CB5DB23DCB /* NacelleSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139C5C73E05D316598047C /* NacelleSystemTests.swift */; };
+		9313927C0E3372687D3DA799 /* GameControllerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313954C85643D9FEA3B568D /* GameControllerComponent.swift */; };
 		931392BC342CBC595CB879B5 /* FlipComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139EB3AE52346EF745211F /* FlipComponent.swift */; };
 		9313935D542E2721BFFADDC1 /* Creator+TreasureCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139F2C79FC630142EA1605 /* Creator+TreasureCreator.swift */; };
 		931393799C3434FBF3FC0CCD /* InputComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931396DD35CCD39E8E4EDB16 /* InputComponent.swift */; };
@@ -356,6 +357,7 @@
 		9313941564944F14B4041467 /* GameOverSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverSystem.swift; sourceTree = "<group>"; };
 		93139489970BEA17AF74C95E /* TouchNodes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchNodes.swift; sourceTree = "<group>"; };
 		931394D1D0B636772EE1DFF7 /* String+EntityNames.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+EntityNames.swift"; sourceTree = "<group>"; };
+		9313954C85643D9FEA3B568D /* GameControllerComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameControllerComponent.swift; sourceTree = "<group>"; };
 		9313959F4B35EA9D7843BD7A /* Randomness.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Randomness.swift; sourceTree = "<group>"; };
 		931395F838B2866767296F25 /* Creator+ShipQuadrantsControlsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Creator+ShipQuadrantsControlsManager.swift"; sourceTree = "<group>"; };
 		931395FA04809CC11F1BF287 /* TreasureComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreasureComponent.swift; sourceTree = "<group>"; };
@@ -560,6 +562,7 @@
 				931395FA04809CC11F1BF287 /* TreasureComponent.swift */,
 				9313996FDF7208F45DD67644 /* AlienFireDownComponent.swift */,
 				93139E651DD82D706FDF1B26 /* AlienComponent.swift */,
+				9313954C85643D9FEA3B568D /* GameControllerComponent.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -578,14 +581,14 @@
 		8D23C17B2B02C59C00F7D878 /* systems */ = {
 			isa = PBXGroup;
 			children = (
-				8D6AD48B2B099F9900E258BF /* list_iterating */,
+				93139DB33A30E1B67842EF18 /* AlienFiringSystem.swift */,
+				8D0A0D2D2B4E0122007E9898 /* AlienSystem.swift */,
 				8D23C17C2B02C59C00F7D878 /* CollisionSystem.swift */,
-				8D23C1842B02C59C00F7D878 /* HudSystem.swift */,
 				8D23C17F2B02C59C00F7D878 /* FiringSystem.swift */,
 				8D23C1822B02C59C00F7D878 /* GameplayManagerSystem.swift */,
+				8D23C1842B02C59C00F7D878 /* HudSystem.swift */,
+				8D6AD48B2B099F9900E258BF /* list_iterating */,
 				8D23C1882B02C59C00F7D878 /* RenderSystem.swift */,
-				8D0A0D2D2B4E0122007E9898 /* AlienSystem.swift */,
-				93139DB33A30E1B67842EF18 /* AlienFiringSystem.swift */,
 			);
 			path = systems;
 			sourceTree = "<group>";
@@ -711,9 +714,9 @@
 				9313921B1C15E7B6BB9E6B36 /* RightSystem.swift */,
 				8D41E2162B1E66EE0031AF54 /* ShipControlsSystem.swift */,
 				931390DB9E3BECA50B2D05CF /* ThrustSystem.swift */,
+				9313962E5C5B4402DC06E899 /* TimePlayedSystem.swift */,
 				8D23C1802B02C59C00F7D878 /* TorpedoAgeSystem.swift */,
 				93139F7B6117208071E3FE22 /* TransitionAppStateSystem.swift */,
-				9313962E5C5B4402DC06E899 /* TimePlayedSystem.swift */,
 			);
 			name = list_iterating;
 			sourceTree = "<group>";
@@ -1008,6 +1011,7 @@
 				93139581CECED4EF1373A5BD /* TimePlayedSystem.swift in Sources */,
 				93139ED17AF0B2679783AE64 /* TickProvider.swift in Sources */,
 				93139767DADE3701C7A4DE57 /* GameScene+extensions.swift in Sources */,
+				9313927C0E3372687D3DA799 /* GameControllerComponent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1190,7 +1194,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Swashteroids/Swashteroids.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 89;
+				CURRENT_PROJECT_VERSION = 90;
 				DEVELOPMENT_TEAM = W8GR9TRDWE;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1207,9 +1211,12 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.3;
+				MARKETING_VERSION = 2.4;
 				PRODUCT_BUNDLE_IDENTIFIER = net.nyquist.Swashteroids;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1223,7 +1230,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Swashteroids/Swashteroids.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 89;
+				CURRENT_PROJECT_VERSION = 90;
 				DEVELOPMENT_TEAM = W8GR9TRDWE;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1240,9 +1247,12 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.3;
+				MARKETING_VERSION = 2.4;
 				PRODUCT_BUNDLE_IDENTIFIER = net.nyquist.Swashteroids;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

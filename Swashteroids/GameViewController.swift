@@ -12,8 +12,11 @@ import UIKit
 import SpriteKit
 import SwiftUI
 
-protocol AlertPresenting {
+protocol AlertPresenting: AnyObject {
     func showPauseAlert()
+    var isAlertPresented: Bool { get set }
+    func home()
+    func resume()
 }
 
 final class GameViewController: UIViewController, AlertPresenting {
@@ -36,10 +39,10 @@ final class GameViewController: UIViewController, AlertPresenting {
     }
 
     func startNewGame() {
+        gameScene = nil
         let screenSize = UIScreen.main.bounds
         let screenWidth = screenSize.width
         let screenHeight = screenSize.height
-        //TODO: I'm not crazy about the bi-directional dependency between game and gameScene, need to consider other options.
         gameScene = GameScene(size: CGSize(width: screenWidth, height: screenHeight))
         gameScene.name = "gameScene"
         gameScene.anchorPoint = .zero
@@ -53,24 +56,28 @@ final class GameViewController: UIViewController, AlertPresenting {
         skView.presentScene(gameScene)
     }
 
+    func home() {
+            dismiss(animated: true, completion: { [unowned self] in
+                isAlertPresented = false
+                startNewGame()
+            })
+    }
+
+    func resume() {
+            dismiss(animated: true, completion: { [unowned self] in
+                isAlertPresented = false
+                game?.start()
+            })
+    }
+
     @IBAction func showPauseAlert() {
         game?.stop()
-        if game?.appStateComponent.appState == .playing ||
-           game?.appStateComponent.appState == .gameOver {
+        if game?.engine.appStateComponent.appState == .playing ||
+            game?.engine.appStateComponent.appState == .gameOver {
             let alertView = PauseAlert(
-                appState: game!.engine.appState![AppStateComponent.self]!, //HACK
-                home: { [unowned self] in
-                    dismiss(animated: true, completion: { [unowned self] in
-                        isAlertPresented = false
-                        startNewGame()
-                    })
-                },
-                resume: { [unowned self] in
-                    dismiss(animated: true, completion: { [unowned self] in
-                        isAlertPresented = false
-                        game?.start()
-                    })
-                })
+                appState: game!.engine.appStateComponent, //HACK
+                home: self.home,
+                resume: self.resume)
             let hostingController = UIHostingController(rootView: alertView)
             hostingController.modalPresentationStyle = .overCurrentContext
             hostingController.view.backgroundColor = UIColor(white: 1, alpha: 0.0)

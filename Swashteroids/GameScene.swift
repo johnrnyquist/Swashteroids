@@ -9,25 +9,38 @@
 //
 
 import SpriteKit
+import Swash
 import GameController
 
 extension GameScene: SoundPlaying {}
 
-extension GameScene: Container {}
+class GameScene2: SKScene {
+    public var touchDelegate: TouchDelegate?
+    static let sound = SKAudioNode(fileNamed: SoundFileNames.thrust.rawValue)
+}
 
 final class GameScene: SKScene {
+    deinit {
+        print("GameScene deinit")
+        removeAllActions()
+        removeFromParent()
+        removeAllChildren()
+        NotificationCenter.default.removeObserver(self) 
+    }
+
     static var sound = SKAudioNode(fileNamed: SoundFileNames.thrust.rawValue) //HACK HACK HACK
-    var touchDelegate: TouchDelegate?
+    weak var touchDelegate: TouchDelegate?
     var previousTime = 0.0
 //    var cameraNode: SKCameraNode!
     override func didMove(to view: SKView) {
+        print(#function)
         super.didMove(to: view)
         setUpControllerObservers()
         //HACK to get around the SpriteKit bug where repeated sounds have a popping noise
         GameScene.sound.run(SKAction.changeVolume(to: 0, duration: 0))
-        let addAudioNodeAction = SKAction.run { [unowned self] in
+        let addAudioNodeAction = SKAction.run { [weak self] in
             GameScene.sound.removeFromParent()
-            addChild(GameScene.sound)
+            self?.addChild(GameScene.sound)
         }
         run(addAudioNodeAction)
         //END_HACK
@@ -62,6 +75,7 @@ final class GameScene: SKScene {
     }
     //MARK:- GAME CONTROLLER -------------------------
     func setUpControllerObservers() {
+        print(#function)
         NotificationCenter.default
                           .addObserver(self,
                                        selector: #selector(self.connectControllers),
@@ -72,61 +86,117 @@ final class GameScene: SKScene {
                                        selector: #selector(self.controllerDisconnected),
                                        name: NSNotification.Name.GCControllerDidDisconnect,
                                        object: nil)
+        connectControllers()
     }
 
     @objc func connectControllers() {
         print(#function)
         for controller in GCController.controllers() {
-            print(controller.vendorName)
+            print(controller.vendorName ?? "Unknown Vendor")
             //Check to see whether it is an extended Game Controller (Such as a Nimbus)
-            if controller.extendedGamepad != nil {
+            if controller.extendedGamepad != nil,
+               let game = delegate as? Swashteroids {
                 print("Extended Gamepad")
+                game.engine.appStateEntity.add(component: GameControllerComponent())
+                game.usingGameController()
                 setupControllerControls(controller: controller)
+                break
             }
         }
     }
 
+    @objc func controllerDisconnected() {
+        print(#function)
+        let game = (delegate as! Swashteroids)
+        game.engine.appStateEntity.remove(componentClass: GameControllerComponent.self)
+        game.usingScreenControls()
+    }
+
     func setupControllerControls(controller: GCController) {
         //Function that check the controller when anything is moved or pressed on it
-        controller.extendedGamepad?.valueChangedHandler = { (pad: GCExtendedGamepad, element: GCControllerElement) in
+        controller.extendedGamepad?.valueChangedHandler = { [weak self] (pad: GCExtendedGamepad, element: GCControllerElement) in
             // Add movement in here for sprites of the controllers
-            self.controllerInputDetected(pad: pad, element: element, index: controller.playerIndex.rawValue)
+            self?.controllerInputDetected(pad: pad, element: element, index: controller.playerIndex.rawValue)
         }
     }
 
     var timeSinceFired = 0.0
     var timeSinceFlip = 0.0
+    var timeSinceHyperspace = 0.0
 
     func controllerInputDetected(pad: GCExtendedGamepad, element: GCControllerElement, index: Int) {
         print("Controller: \(index), Element: \(element)")
         let game = (delegate as! Swashteroids)
+        print("appState: \(game.engine.appStateComponent.appState)")
+        if game.engine.appStateComponent.appState == .start {
+            if pad.buttonA.isPressed {
+                game.engine.appStateEntity.add(component: ChangeShipControlsStateComponent(to: .usingGameController))
+                game.engine.appStateEntity.add(component: TransitionAppStateComponent(from: .start, to: .playing))
+                return
+            }
+        }
+        if game.engine.appStateComponent.appState == .gameOver {
+            if pad.buttonY.isPressed {
+                game.engine.appStateEntity.add(component: ChangeShipControlsStateComponent(to: .usingGameController))
+                game.engine.appStateEntity.add(component: TransitionAppStateComponent(from: .gameOver, to: .start))
+                return
+            }
+            if pad.buttonA.isPressed && !game.alertPresenter.isAlertPresented {
+                game.alertPresenter.showPauseAlert()
+                return
+            }
+            if pad.buttonX.isPressed {
+                game.alertPresenter.home()
+                return
+            }
+            if pad.buttonB.isPressed {
+                game.alertPresenter.resume()
+                return
+            }
+        }
+        if game.engine.appStateComponent.appState == .playing {
+            if !game.alertPresenter.isAlertPresented,
+               pad.buttonY.isPressed {
+                game.alertPresenter.showPauseAlert()
+                return
+            } else if pad.buttonX.isPressed {
+                game.alertPresenter.home()
+                return
+            } else if pad.buttonB.isPressed {
+                game.alertPresenter.resume()
+                return
+            }
+        }
         let deltaTime = game.currentTime - previousTime
         previousTime = game.currentTime
         timeSinceFired += deltaTime
         timeSinceFlip += deltaTime
+        timeSinceHyperspace += deltaTime
         // HYPERSPACE
-        if pad.buttonA.isPressed {
+        if timeSinceHyperspace > 0.5 && (pad.rightShoulder.isPressed && pad.rightShoulder.value == 1.0) {
+            timeSinceHyperspace = 0.0
             game.engine.ship?.add(component: DoHyperspaceJumpComponent(size: size, randomness: game.randomness))
         }
         // FLIP
-        if pad.dpad.up.isPressed {
-            timeSinceFlip = 0
+        if timeSinceFlip > 0.2 && (pad.leftShoulder.isPressed && pad.leftShoulder.value == 1.0) {
+            timeSinceFlip = 0.0
             game.engine.ship?.add(component: FlipComponent.shared)
         }
         // FIRE
-        if timeSinceFired > 0.1 {
-            if pad.rightTrigger.isPressed, pad.rightTrigger.value == 1.0  {
-                timeSinceFired = 0
+        if timeSinceFired > 0.2 {
+            if pad.rightTrigger.isPressed,
+               pad.rightTrigger.value == 1.0 {
+                timeSinceFired = 0.0
                 game.engine.ship?.add(component: FireDownComponent.shared)
             }
         }
-        // LEFT
+        // TURN LEFT
         if pad.leftThumbstick.left.isPressed || pad.dpad.left.isPressed {
             game.engine.ship?.add(component: LeftComponent.shared)
         } else {
             game.engine.ship?.remove(componentClass: LeftComponent.self)
         }
-        // RIGHT
+        // TURN RIGHT
         if pad.leftThumbstick.right.isPressed || pad.dpad.right.isPressed {
             game.engine.ship?.add(component: RightComponent.shared)
         } else {
@@ -142,9 +212,5 @@ final class GameScene: SKScene {
             game.engine.ship?[WarpDriveComponent.self]?.isThrusting = false
             game.engine.ship?[RepeatingAudioComponent.self]?.state = .shouldStop
         }
-    }
-
-    @objc func controllerDisconnected() {
-        print(#function)
     }
 }

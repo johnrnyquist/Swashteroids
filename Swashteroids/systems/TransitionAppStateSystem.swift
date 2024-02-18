@@ -50,13 +50,7 @@ final class TransitionAppStateSystem: ListIteratingSystem {
                 transition?.toGameOverScreen()
             case .playing:
                 appStateComponent.timePlayed = 0.0
-                if transitionComponent.from == .infoNoButtons {
-                    appStateComponent.shipControlsState = .hidingButtons
-                    transition?.toPlayingScreen(appStateComponent: appStateComponent)
-                } else if transitionComponent.from == .infoButtons {
-                    appStateComponent.shipControlsState = .showingButtons
-                    transition?.toPlayingScreen(appStateComponent: appStateComponent)
-                }
+                transition?.toPlayingScreen(appStateComponent: appStateComponent)
             case .infoButtons:
                 transition?.toButtonsInfoScreen()
             case .infoNoButtons:

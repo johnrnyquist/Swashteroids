@@ -34,8 +34,8 @@ class GameplayManagerSystem: System {
     private var hudTextFontSize: CGFloat = 64
     private var spaceshipClearanceRadius: CGFloat = 50
     private var minimumAsteroidDistance: CGFloat = 80
-    private let randomness: Randomness
-    
+    private weak var randomness: Randomness!
+
     init(creator: PowerUpCreator & ShipCreator & AsteroidCreator & TorpedoCreator & AlienCreator, size: CGSize, scene: GameScene, randomness: Randomness, scaleManager: ScaleManaging = ScaleManager.shared) {
         self.creator = creator
         self.size = size
