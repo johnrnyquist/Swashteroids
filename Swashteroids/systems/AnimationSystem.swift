@@ -21,6 +21,6 @@ final class AnimationSystem: ListIteratingSystem {
 	func updateNode(node: Node, time: TimeInterval) {
         guard let animationComponent = node[AnimationComponent.self]
         else { return }
-        animationComponent.animation.animate(time)
+        animationComponent.animation?.animate(time)
     }
 }

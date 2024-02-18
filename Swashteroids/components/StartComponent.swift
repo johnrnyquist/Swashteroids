@@ -10,5 +10,4 @@
 
 import Swash
 
-final class StartComponent: Component {
-}
+final class StartComponent: Component {}

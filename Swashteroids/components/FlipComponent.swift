@@ -11,7 +11,7 @@
 import Swash
 
 /// Used by the flip button and in the FlipSystem.
-class FlipComponent: Component {
+final class FlipComponent: Component {
     /// If something is just a flag that I use frequently, I make it a shared instance. 
     static let shared = FlipComponent()
 

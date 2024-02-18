@@ -12,7 +12,7 @@ import Swash
 
 /// Used to indicate the application of thrust. 
 /// Per the ThrustNode, you need a WarpDriveComponent to apply thrust.
-class ApplyThrustComponent: Component {
+final class ApplyThrustComponent: Component {
 /// If something is just a flag that I use frequently, I make it a shared instance. 
     static let shared = ApplyThrustComponent()
 

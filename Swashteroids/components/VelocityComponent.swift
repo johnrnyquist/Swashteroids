@@ -12,7 +12,12 @@ import Foundation
 import Swash
 
 final class VelocityComponent: Component {
+    var angularVelocity: Double
+    var base: Double
+    var dampening: Double
+    var exit: Double
     var linearVelocity = CGPoint()
+    var wraps: Bool
     var x: Double {
         get { Double(linearVelocity.x) }
         set { linearVelocity.x = newValue }
@@ -21,11 +26,6 @@ final class VelocityComponent: Component {
         get { Double(linearVelocity.y) }
         set { linearVelocity.y = newValue }
     }
-    var angularVelocity: Double
-    var dampening: Double
-    var wraps: Bool
-    var base: Double
-    var exit: Double
 
     init(velocityX: Double,
          velocityY: Double,

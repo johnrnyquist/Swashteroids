@@ -11,11 +11,10 @@
 import Swash
 
 /// Used by the thrust button and in the ThrustSystem.
-class LeftComponent: Component {
+final class LeftComponent: Component {
     /// If something is just a flag that I use frequently, I make it a shared instance. 
     static let shared = LeftComponent()
+    let amount = 0.0175
 
     private override init() {}
-
-    let amount = 0.0175
 }

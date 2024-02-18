@@ -11,12 +11,11 @@
 import Swash
 
 /// Used by the rotate right button and in the RightSystem.
-class RightComponent: Component {
+final class RightComponent: Component {
     /// If something is just a flag that I use frequently, I make it a shared instance. 
     static let shared = RightComponent()
+    let amount = -0.0175
 
     private override init() {}
-
-    let amount = -0.0175
 }
 

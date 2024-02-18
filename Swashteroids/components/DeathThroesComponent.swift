@@ -11,7 +11,6 @@
 import Foundation
 import Swash
 
-
 final class DeathThroesComponent: Component {
     var countdown: TimeInterval
 

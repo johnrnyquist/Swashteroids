@@ -10,6 +10,7 @@
 
 import Swash
 
-class GunPowerUpComponent: Component {}
-class HyperspacePowerUpComponent: Component {}
+final class GunPowerUpComponent: Component {}
+
+final class HyperspacePowerUpComponent: Component {}
 

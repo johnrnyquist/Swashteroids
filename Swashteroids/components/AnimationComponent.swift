@@ -11,17 +11,16 @@
 import Foundation
 import Swash
 
+protocol Animating: AnyObject {
+    func animate(_ time: TimeInterval)
+}
 
 final class AnimationComponent: Component {
-    var animation: Animating
+    weak var animation: Animating?
 
     init(animation: Animating) {
         self.animation = animation
         super.init()
     }
-}
-
-protocol Animating {
-    func animate(_ time: TimeInterval)
 }
 

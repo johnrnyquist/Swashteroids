@@ -10,7 +10,7 @@
 
 import Swash
 
-class TreasureComponent: Component {
+final class TreasureComponent: Component {
     var value: Int
 
     init(value: Int) {

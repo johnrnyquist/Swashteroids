@@ -10,5 +10,5 @@
 
 import Swash
 
-class AccelerometerComponent: Component {}
+final class AccelerometerComponent: Component {}
 

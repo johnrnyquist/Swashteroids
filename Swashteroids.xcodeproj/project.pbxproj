@@ -88,7 +88,7 @@
 		8D41E2152B1E66820031AF54 /* TransitionAppStateNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D41E2142B1E66820031AF54 /* TransitionAppStateNode.swift */; };
 		8D41E2172B1E66EE0031AF54 /* ShipControlsSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D41E2162B1E66EE0031AF54 /* ShipControlsSystem.swift */; };
 		8D41E2192B1E7AB00031AF54 /* SwashScaledSpriteNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D41E2182B1E7AB00031AF54 /* SwashScaledSpriteNode.swift */; };
-		8D41E21D2B1F988E0031AF54 /* TorpedosComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D41E21C2B1F988E0031AF54 /* TorpedosComponent.swift */; };
+		8D41E21D2B1F988E0031AF54 /* PowerUpComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D41E21C2B1F988E0031AF54 /* PowerUpComponents.swift */; };
 		8D41E21F2B1FA2D00031AF54 /* Entity+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D41E21E2B1FA2D00031AF54 /* Entity+extension.swift */; };
 		8D4627662B251761007F01E6 /* powerup.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D4627652B251761007F01E6 /* powerup.wav */; };
 		8D512A992B41B47D00C30AC7 /* AccelerometerSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D512A982B41B47D00C30AC7 /* AccelerometerSystemTests.swift */; };
@@ -296,7 +296,7 @@
 		8D41E2142B1E66820031AF54 /* TransitionAppStateNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionAppStateNode.swift; sourceTree = "<group>"; };
 		8D41E2162B1E66EE0031AF54 /* ShipControlsSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShipControlsSystem.swift; sourceTree = "<group>"; };
 		8D41E2182B1E7AB00031AF54 /* SwashScaledSpriteNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwashScaledSpriteNode.swift; sourceTree = "<group>"; };
-		8D41E21C2B1F988E0031AF54 /* TorpedosComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TorpedosComponent.swift; sourceTree = "<group>"; };
+		8D41E21C2B1F988E0031AF54 /* PowerUpComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerUpComponents.swift; sourceTree = "<group>"; };
 		8D41E21E2B1FA2D00031AF54 /* Entity+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entity+extension.swift"; sourceTree = "<group>"; };
 		8D4627652B251761007F01E6 /* powerup.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = powerup.wav; sourceTree = "<group>"; };
 		8D512A982B41B47D00C30AC7 /* AccelerometerSystemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccelerometerSystemTests.swift; sourceTree = "<group>"; };
@@ -554,7 +554,7 @@
 				93139323EC193D378DF26BB7 /* RightComponent.swift */,
 				8D23C16B2B02C59C00F7D878 /* ShipComponent.swift */,
 				8D23C1752B02C59C00F7D878 /* StartComponent.swift */,
-				8D41E21C2B1F988E0031AF54 /* TorpedosComponent.swift */,
+				8D41E21C2B1F988E0031AF54 /* PowerUpComponents.swift */,
 				93139735B7C5C32A3DA6CB9D /* TouchComponents.swift */,
 				8DB409EB2B1D3C6F008DE4EB /* TransitionAppStateComponent.swift */,
 				8D23C16C2B02C59C00F7D878 /* VelocityComponent.swift */,
@@ -931,7 +931,7 @@
 				8D23C1E32B02C59D00F7D878 /* StartView.swift in Sources */,
 				8D23C13E2B02C4CA00F7D878 /* GameViewController.swift in Sources */,
 				8D0A0D2C2B4DEA71007E9898 /* ManagerProtocols.swift in Sources */,
-				8D41E21D2B1F988E0031AF54 /* TorpedosComponent.swift in Sources */,
+				8D41E21D2B1F988E0031AF54 /* PowerUpComponents.swift in Sources */,
 				8DD26DC92B22D7E300DA5BC3 /* AccelerometerNode.swift in Sources */,
 				8D23C1E72B02C81D00F7D878 /* Double+extensions.swift in Sources */,
 				8D9DEF682B059F2800064B01 /* HyperspaceJumpSystem.swift in Sources */,

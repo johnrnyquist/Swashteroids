@@ -11,8 +11,8 @@
 import Swash
 
 final class MovementRateComponent: Component {
-    var accelerationRate: Double = 0
-    var rotationRate: Double = 0
+    var accelerationRate: Double = 0.0
+    var rotationRate: Double = 0.0
 
     init(accelerationRate: Double, 
          rotationRate: Double, 

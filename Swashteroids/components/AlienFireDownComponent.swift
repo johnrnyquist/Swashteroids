@@ -10,7 +10,7 @@
 
 import Swash
 
-class AlienFireDownComponent: Component {
+final class AlienFireDownComponent: Component {
     /// If something is just a flag that I use frequently, I make it a shared instance. 
     static let shared = AlienFireDownComponent()
 

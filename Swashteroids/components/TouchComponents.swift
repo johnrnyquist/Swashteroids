@@ -10,9 +10,9 @@
 
 import Swash
 
-class TouchableComponent: Component {}
+final class TouchableComponent: Component {}
 
-class ButtonBehaviorComponent: Component {
+final class ButtonBehaviorComponent: Component {
     var touchDown: ((SwashSpriteNode) -> ())?
     var touchUp: ((SwashSpriteNode) -> ())?
     var touchUpOutside: ((SwashSpriteNode) -> ())?

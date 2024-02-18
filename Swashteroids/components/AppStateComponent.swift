@@ -12,9 +12,7 @@ import Swash
 import Foundation
 
 final class AppStateComponent: Component {
-    //MARK: - Set from argument to init
     let gameSize: CGSize
-    weak var randomness: Randomness!
     // Original values for resetting
     let orig_appState: AppState
     let orig_level: Int
@@ -34,6 +32,7 @@ final class AppStateComponent: Component {
     var numHits: Int
     var numShips: Int
     var shipControlsState: ShipControlsState
+    weak var randomness: Randomness!
     //
     var level: Int {
         didSet {

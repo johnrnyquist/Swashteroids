@@ -10,12 +10,11 @@
 
 import Swash
 
-
 final class ChangeShipControlsStateComponent: Component {
-	var destination: ShipControlsState
+    var destination: ShipControlsState
 
-	init(to: ShipControlsState) {
-		self.destination = to
-	}
+    init(to: ShipControlsState) {
+        destination = to
+    }
 }
 

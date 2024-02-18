@@ -11,13 +11,13 @@
 import Swash
 import Foundation
 
-class AlienComponent: Component {
-    weak var targetingEntity: Entity?
-    var timeSinceLastReaction: TimeInterval = 0.0
-    var reactionTime: TimeInterval
+final class AlienComponent: Component {
     var endDestination: CGPoint = .zero
-    var startDestination: CGPoint = .zero
     var killScore: Int
+    var reactionTime: TimeInterval
+    var startDestination: CGPoint = .zero
+    var timeSinceLastReaction: TimeInterval = 0.0
+    weak var targetingEntity: Entity?
 
     init(reactionTime: Double, killScore: Int) {
         self.reactionTime = reactionTime

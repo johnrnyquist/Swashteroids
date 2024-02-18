@@ -10,5 +10,5 @@
 
 import Swash
 
-class GameControllerComponent: Component {}
+final class GameControllerComponent: Component {}
 
