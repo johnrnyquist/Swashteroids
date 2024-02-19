@@ -10,7 +10,7 @@
 
 import Swash
 
-class AccelerometerNode: Node {
+final class AccelerometerNode: Node {
 	required init() {
 		super.init()
 		components = [

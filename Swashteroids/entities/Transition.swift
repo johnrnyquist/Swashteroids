@@ -11,7 +11,7 @@
 import Swash
 import SpriteKit
 
-class Transition {
+final class Transition {
     var hudCreator: HudCreator?
     var toggleShipControlsManager: ToggleShipControlsManager?
     var shipControlQuadrantsManager: ShipQuadrantsControlsManager?

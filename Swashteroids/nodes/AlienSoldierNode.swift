@@ -10,7 +10,7 @@
 
 import Swash
 
-class AlienSoldierNode: Node {
+final class AlienSoldierNode: Node {
     required init() {
         super.init()
         components = [
@@ -22,7 +22,7 @@ class AlienSoldierNode: Node {
     }
 }
 
-class AlienWorkerNode: Node {
+final class AlienWorkerNode: Node {
     required init() {
         super.init()
         components = [

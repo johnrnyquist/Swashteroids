@@ -8,7 +8,6 @@
 // https://github.com/johnrnyquist/Swash
 //
 
-
 import Swash
 
 final class TorpedoCollisionNode: Node {
