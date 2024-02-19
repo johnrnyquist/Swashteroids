@@ -154,10 +154,10 @@ class GameScene: SKScene {
                pad.buttonY.isPressed {
                 game.alertPresenter.showPauseAlert()
                 return
-            } else if pad.buttonX.isPressed {
+            } else if game.alertPresenter.isAlertPresented, pad.buttonX.isPressed {
                 game.alertPresenter.home()
                 return
-            } else if pad.buttonB.isPressed {
+            } else if game.alertPresenter.isAlertPresented, pad.buttonB.isPressed {
                 game.alertPresenter.resume()
                 return
             }
