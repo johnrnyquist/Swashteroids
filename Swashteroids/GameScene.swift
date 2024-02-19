@@ -14,12 +14,7 @@ import GameController
 
 extension GameScene: SoundPlaying {}
 
-class GameScene2: SKScene {
-    public var touchDelegate: TouchDelegate?
-    static let sound = SKAudioNode(fileNamed: SoundFileNames.thrust.rawValue)
-}
-
-final class GameScene: SKScene {
+class GameScene: SKScene {
     deinit {
         print("GameScene deinit")
         removeAllActions()

@@ -102,6 +102,12 @@ final class TransitionTests: XCTestCase {
     }
 
     class MockAlertPresenter: AlertPresenting {
+        var isAlertPresented: Bool = false
+
+        func home() {}
+        
+        func resume() {}
+        
         func showPauseAlert() {}
     }
 

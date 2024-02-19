@@ -32,7 +32,7 @@ final class AppStateComponent: Component {
     var numHits: Int
     var numShips: Int
     var shipControlsState: ShipControlsState
-    weak var randomness: Randomness!
+    var randomness: Randomness
     //
     var level: Int {
         didSet {

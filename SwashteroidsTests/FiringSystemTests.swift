@@ -51,6 +51,9 @@ class FiringSystemTests: XCTestCase {
                 .add(component: gun)
                 .add(component: fireDown)
         try! engine.add(entity: entity)
+        let appState = Entity(named: .appState)
+            .add(component: AppStateComponent(gameSize: .zero, numShips: 0, level: 0, score: 0, appState: .initial, shipControlsState: .hidingButtons, randomness: Randomness(seed: 1)))
+        engine.replace(entity: appState)
         // SUT
         system.update(time: time)
         //

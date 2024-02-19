@@ -12,7 +12,7 @@ import Swash
 
 /// This is really a special DisplayComponent.
 final class HudComponent: Component {
-    weak var hudView: HudView?
+    var hudView: HudView
 
     init(hudView: HudView) {
         self.hudView = hudView

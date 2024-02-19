@@ -87,7 +87,9 @@ final class GameplayManagerSystemTests: XCTestCase {
                                            randomness: Randomness(seed: 1),
                                            scaleManager: MockScaleManager())
         engine.add(system: system, priority: 1)
+        // SUT
         system.createAsteroids(count: 2, avoiding: .zero, level: 1)
+        // 
         XCTAssertEqual(creator.createAsteroidCalled, 2)
     }
 

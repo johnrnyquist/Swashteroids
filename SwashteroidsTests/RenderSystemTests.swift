@@ -15,11 +15,11 @@ import SpriteKit
 
 final class RenderSystemTests: XCTestCase {
     var system: RenderSystem!
-    var container: MockContainer!
+    var container: MockScene!
     var engine: Engine!
 
     override func setUpWithError() throws {
-        container = MockContainer()
+        container = MockScene()
         system = RenderSystem(scene: container)
         engine = Engine()
     }
@@ -93,13 +93,28 @@ final class RenderSystemTests: XCTestCase {
         XCTAssertNil(system.nodes)
         XCTAssertNil(system.scene)
     }
+}
 
-    class MockContainer: SKNode, Container {
-        var addChildCalled = false
+import GameController
 
-        override func addChild(_ node: SKNode) {
-            super.addChild(_: node)
-            addChildCalled = true
-        }
-    }
+class MockScene: GameScene {
+    override func didMove(to view: SKView) {}
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {}
+
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {}
+
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {}
+
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {}
+
+    override func setUpControllerObservers() {}
+
+    override func connectControllers() {}
+
+    override func controllerDisconnected() {}
+
+    override func setupControllerControls(controller: GCController) {}
+
+    override func controllerInputDetected(pad: GCExtendedGamepad, element: GCControllerElement, index: Int) {}
 }

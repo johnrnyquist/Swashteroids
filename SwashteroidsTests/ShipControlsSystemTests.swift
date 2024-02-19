@@ -48,7 +48,7 @@ final class ShipControlsSystemTests: XCTestCase {
         class MockShipControlsSystem_DoToggleButtons: ShipControlsSystem {
             var do_toggleButtonsCalled = false
 
-            override func do_toggleButtons(_ to: ShipControlsState) {
+            override func handleChange(to: ShipControlsState) {
                 do_toggleButtonsCalled = true
             }
         }
@@ -61,8 +61,11 @@ final class ShipControlsSystemTests: XCTestCase {
         let ship = Entity(named: .player)
                 .add(component: AccelerometerComponent())
         try? engine.add(entity: ship)
-        // SUT    
-        system.handleChange(.showingButtons)
+        let appState = Entity(named: .appState)
+            .add(component: AppStateComponent(gameSize: .zero, numShips: 0, level: 0, score: 0, appState: .initial, shipControlsState: .hidingButtons, randomness: Randomness(seed: 1)))
+        engine.replace(entity: appState)
+        // SUT
+        system.handleChange(to: .showingButtons)
         //
         XCTAssertTrue(creator.createShipControlButtonsCalled)
         XCTAssertTrue(creator.enableShipControlButtonsCalled)
@@ -88,10 +91,13 @@ final class ShipControlsSystemTests: XCTestCase {
                                              numTorpedoes: 20))
         try? engine.add(entity: ship)
         let fireButton = Entity(named: .fireButton)
-                .add(component: DisplayComponent(sknode: SwashScaledSpriteNode()))
+                .add(component: DisplayComponent(sknode: SwashSpriteNode()))
         try? engine.add(entity: fireButton)
+        let appState = Entity(named: .appState)
+            .add(component: AppStateComponent(gameSize: .zero, numShips: 0, level: 0, score: 0, appState: .initial, shipControlsState: .hidingButtons, randomness: Randomness(seed: 1)))
+        engine.replace(entity: appState)
         // SUT
-        system.handleChange(.showingButtons)
+        system.handleChange(to: .showingButtons)
         //
         XCTAssertTrue(creator.createShipControlButtonsCalled)
         XCTAssertTrue(creator.enableShipControlButtonsCalled)
@@ -112,8 +118,11 @@ final class ShipControlsSystemTests: XCTestCase {
         let hyperspaceButton = Entity(named: .hyperspaceButton)
                 .add(component: DisplayComponent(sknode: SwashScaledSpriteNode()))
         try? engine.add(entity: hyperspaceButton)
-        // SUT  
-        system.handleChange(.showingButtons)
+        let appState = Entity(named: .appState)
+            .add(component: AppStateComponent(gameSize: .zero, numShips: 0, level: 0, score: 0, appState: .initial, shipControlsState: .hidingButtons, randomness: Randomness(seed: 1)))
+        engine.replace(entity: appState)
+        // SUT
+        system.handleChange(to: .showingButtons)
         //
         XCTAssertTrue(creator.enableShipControlButtonsCalled)
         XCTAssertTrue(creator.removeToggleButtonCalled)
@@ -138,8 +147,11 @@ final class ShipControlsSystemTests: XCTestCase {
                                              numTorpedoes: 20))
                 .add(component: HyperspaceDriveComponent(jumps: 20))
         try? engine.add(entity: ship)
-        //                
-        system.handleChange(.hidingButtons)
+        let appState = Entity(named: .appState)
+            .add(component: AppStateComponent(gameSize: .zero, numShips: 0, level: 0, score: 0, appState: .initial, shipControlsState: .hidingButtons, randomness: Randomness(seed: 1)))
+        engine.replace(entity: appState)
+        //
+        system.handleChange(to: .hidingButtons)
         XCTAssertTrue(creator.createShipControlQuadrantsCalled)
         XCTAssertTrue(creator.removeShipControlButtonsCalled)
         XCTAssertTrue(creator.removeToggleButtonCalled)

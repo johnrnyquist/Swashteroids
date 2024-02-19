@@ -45,7 +45,7 @@ final class HudSystem: System {
     
     func updateForHyperspaceNode(_ hyperspaceComponent: HyperspaceDriveComponent?, _ hudNode: Node?) {
         if let hyperspaceComponent {
-            hudNode?[HudComponent.self]?.hudView?.setJumps(hyperspaceComponent.jumps)
+            hudNode?[HudComponent.self]?.hudView.setJumps(hyperspaceComponent.jumps)
             if hyperspaceComponent.jumps == 0 {
                 hyperspaceNodes?.head?.entity?.remove(componentClass: HyperspaceDriveComponent.self)
                 creator?.createHyperspacePowerUp(level: 1) //TODO: get real level
@@ -60,7 +60,7 @@ final class HudSystem: System {
     func updateForGunNode(_ gunComponent: GunComponent?, _ shipEntity: Entity?, _ hudNode: Node?) {
         if let gunComponent,
            gunComponent.ownerType == .player {
-            hudNode?[HudComponent.self]?.hudView?.setAmmo(gunComponent.numTorpedoes)
+            hudNode?[HudComponent.self]?.hudView.setAmmo(gunComponent.numTorpedoes)
             if gunComponent.numTorpedoes == 0 {
                 shipEntity?.remove(componentClass: GunComponent.self)
                 creator?.createTorpedoesPowerUp(level: 1) //TODO: get real level 
@@ -76,9 +76,9 @@ final class HudSystem: System {
         guard let hudComponent = hudNode[HudComponent.self],
               let appStateComponent = hudNode[AppStateComponent.self]
         else { return }
-        hudComponent.hudView?.setNumShips(appStateComponent.numShips)
-        hudComponent.hudView?.setScore(appStateComponent.score)
-        hudComponent.hudView?.setLevel(appStateComponent.level)
+        hudComponent.hudView.setNumShips(appStateComponent.numShips)
+        hudComponent.hudView.setScore(appStateComponent.score)
+        hudComponent.hudView.setLevel(appStateComponent.level)
     }
 }
 

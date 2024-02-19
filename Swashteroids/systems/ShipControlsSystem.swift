@@ -35,7 +35,6 @@ class ShipControlsSystem: ListIteratingSystem {
         node.entity?.remove(componentClass: ChangeShipControlsStateComponent.self)
     }
 
-    //HACK this whole method is a hack, the Law of Demeter is being violated.
     func handleChange(to: ShipControlsState) {
         engine.appStateComponent.shipControlsState = to
         switch to {
