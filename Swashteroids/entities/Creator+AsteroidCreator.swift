@@ -11,7 +11,7 @@
 import Swash
 import SpriteKit
 
-extension Creator: AsteroidCreator {
+extension Creator: AsteroidCreatorUseCase {
     func createAsteroid(radius: Double, x: Double, y: Double, level: Int) {
         numAsteroids += 1
         let sprite = SwashScaledSpriteNode(texture: createAsteroidTexture(radius: radius, color: .asteroid))

@@ -376,7 +376,7 @@ class CollisionSystemTests: XCTestCase {
         XCTAssertTrue(result)
     }
 
-    class MockCreator: AsteroidCreator & ShipCreator & ShipButtonControlsManager & TreasureCreator {
+    class MockCreator: AsteroidCreatorUseCase & ShipCreatorUseCase & ShipButtonControlsManagerUseCase & TreasureCreatorUseCase {
         //MARK: - ShipButtonControlsManager
         var removeShipControlButtonsCalled = false
         var createShipControlButtonsCalled = false

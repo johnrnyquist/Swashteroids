@@ -12,10 +12,10 @@ import Swash
 import SpriteKit
 
 final class Transition {
-    var hudCreator: HudCreator?
-    var toggleShipControlsManager: ToggleShipControlsManager?
-    var shipControlQuadrantsManager: ShipQuadrantsControlsManager?
-    var shipControlButtonsManager: ShipButtonControlsManager?
+    var hudCreator: HudCreatorUseCase?
+    var toggleShipControlsManager: ToggleShipControlsManagerUseCase?
+    var shipControlQuadrantsManager: ShipQuadrantsControlsManagerUseCase?
+    var shipControlButtonsManager: ShipButtonControlsManagerUseCase?
     private(set) var engine: Engine
     private(set) var generator: UIImpactFeedbackGenerator?
     var gameSize: CGSize {
@@ -23,7 +23,7 @@ final class Transition {
     }
 
     convenience init(engine: Engine,
-                     creator: HudCreator & ToggleShipControlsManager & ShipQuadrantsControlsManager & ShipButtonControlsManager,
+                     creator: HudCreatorUseCase & ToggleShipControlsManagerUseCase & ShipQuadrantsControlsManagerUseCase & ShipButtonControlsManagerUseCase,
                      generator: UIImpactFeedbackGenerator? = nil) {
         self.init(engine: engine,
                   hudCreator: creator,
@@ -34,10 +34,10 @@ final class Transition {
     }
 
     init(engine: Engine,
-         hudCreator: HudCreator? = nil,
-         toggleShipControlsManager: ToggleShipControlsManager? = nil,
-         shipControlQuadrantsManager: ShipQuadrantsControlsManager? = nil,
-         shipControlButtonsManager: ShipButtonControlsManager? = nil,
+         hudCreator: HudCreatorUseCase? = nil,
+         toggleShipControlsManager: ToggleShipControlsManagerUseCase? = nil,
+         shipControlQuadrantsManager: ShipQuadrantsControlsManagerUseCase? = nil,
+         shipControlButtonsManager: ShipButtonControlsManagerUseCase? = nil,
          generator: UIImpactFeedbackGenerator? = nil
     ) {
         self.engine = engine

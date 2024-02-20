@@ -13,9 +13,9 @@ import SpriteKit
 
 final class HyperspaceJumpSystem: ListIteratingSystem {
     private weak var engine: Engine?
-    private weak var creator: PowerUpCreator?
+    private weak var creator: PowerUpCreatorUseCase?
     
-    init(engine: Engine, creator: PowerUpCreator) {
+    init(engine: Engine, creator: PowerUpCreatorUseCase) {
         super.init(nodeClass: HyperspaceJumpNode.self)
         self.engine = engine
         self.creator = creator

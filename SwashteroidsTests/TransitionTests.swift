@@ -111,7 +111,7 @@ final class TransitionTests: XCTestCase {
         func showPauseAlert() {}
     }
 
-    class MockCreator: HudCreator, ToggleShipControlsManager, ShipQuadrantsControlsManager, ShipButtonControlsManager {
+    class MockCreator: HudCreatorUseCase, ToggleShipControlsManagerUseCase, ShipQuadrantsControlsManagerUseCase, ShipButtonControlsManagerUseCase {
         //MARK: - HudCreator
         var createHudCalled = false
 

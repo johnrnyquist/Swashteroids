@@ -11,7 +11,7 @@
 import Swash
 import SpriteKit
 
-extension Creator: PowerUpCreator {
+extension Creator: PowerUpCreatorUseCase {
     func createHyperspacePowerUp(level: Int) {
         createHyperspacePowerUp(level: level, radius: POWER_UP_RADIUS)
     }

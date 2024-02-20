@@ -15,7 +15,7 @@ import XCTest
 final class HyperspaceSystemTests: XCTestCase {
     var system: HyperspaceJumpSystem!
     var engine: Engine!
-    var creator: PowerUpCreator!
+    var creator: PowerUpCreatorUseCase!
     
     override func setUpWithError() throws {
         engine = Engine()

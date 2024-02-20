@@ -11,7 +11,7 @@
 import Swash
 import SpriteKit
 
-extension Creator: TreasureCreator {
+extension Creator: TreasureCreatorUseCase {
     func createTreasure(positionComponent: PositionComponent) {
         let r = randomness.nextInt(from: 1, through: 5) == 5
         let standard = (color: UIColor.systemGreen, value: treasure_standard_value)

@@ -11,7 +11,7 @@
 import Swash
 import SpriteKit
 
-extension Creator: HudCreator, AlertPresenting {
+extension Creator: HudCreatorUseCase, AlertPresenting {
 
     func createHud(gameState: AppStateComponent) {
         let view = HudView(gameSize: gameState.gameSize)

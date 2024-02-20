@@ -11,7 +11,7 @@
 import Swash
 import SpriteKit
 
-extension Creator: ShipCreator {
+extension Creator: ShipCreatorUseCase {
     func createShip(_ state: AppStateComponent) {
         let player = Entity(named: .player)
         let sprite = SwashScaledSpriteNode(texture: createShipTexture())

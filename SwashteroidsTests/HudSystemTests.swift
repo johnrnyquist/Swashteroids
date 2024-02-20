@@ -14,7 +14,7 @@ import XCTest
 
 class HudSystemTests: XCTestCase {
     var system: HudSystem!
-    var creator: PowerUpCreator!
+    var creator: PowerUpCreatorUseCase!
 
     override func setUpWithError() throws {
         creator = MockPowerUpCreator()

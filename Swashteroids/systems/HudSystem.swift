@@ -17,7 +17,7 @@ final class HudSystem: System {
     private weak var hudNodes: NodeList?
     private weak var hyperspaceNodes: NodeList?
     private weak var engine: Engine?
-    private weak var creator: PowerUpCreator?
+    private weak var creator: PowerUpCreatorUseCase?
     
     override public func addToEngine(engine: Engine) {
         self.engine = engine
@@ -26,7 +26,7 @@ final class HudSystem: System {
         hyperspaceNodes = engine.getNodeList(nodeClassType: HyperspaceNode.self)
     }
 
-    init(creator: PowerUpCreator) {
+    init(creator: PowerUpCreatorUseCase) {
         self.creator = creator
     }
 

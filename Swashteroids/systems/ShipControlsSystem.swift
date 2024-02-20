@@ -14,10 +14,10 @@ import Foundation
 
 /// This should be the place for all changes on the Ship’s controls
 class ShipControlsSystem: ListIteratingSystem {
-    private weak var creator: (ShipQuadrantsControlsManager & ShipButtonControlsManager & ToggleShipControlsManager)!
+    private weak var creator: (ShipQuadrantsControlsManagerUseCase & ShipButtonControlsManagerUseCase & ToggleShipControlsManagerUseCase)!
     private weak var engine: Engine!
 
-    init(creator: ShipQuadrantsControlsManager & ShipButtonControlsManager & ToggleShipControlsManager) {
+    init(creator: ShipQuadrantsControlsManagerUseCase & ShipButtonControlsManagerUseCase & ToggleShipControlsManagerUseCase) {
         self.creator = creator
         super.init(nodeClass: ShipControlsStateNode.self)
         nodeUpdateFunction = updateNode

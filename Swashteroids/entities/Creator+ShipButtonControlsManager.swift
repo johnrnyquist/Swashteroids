@@ -11,7 +11,7 @@
 import Swash
 import SpriteKit
 
-extension Creator: ShipButtonControlsManager {
+extension Creator: ShipButtonControlsManagerUseCase {
     func removeShipControlButtons() {
         let shipControls: [EntityName] = [.leftButton, .rightButton, .thrustButton, .fireButton, .flipButton, .hyperspaceButton]
         engine.removeEntities(named: shipControls)

@@ -11,7 +11,7 @@
 import Swash
 import SpriteKit
 
-extension Creator: ToggleShipControlsManager {
+extension Creator: ToggleShipControlsManagerUseCase {
     func removeToggleButton() {
         guard let entity = engine.findEntity(named: .toggleButton) else { return }
         engine.remove(entity: entity)

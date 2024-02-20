@@ -22,7 +22,7 @@ Has too many responsibilities.
 class GameplayManagerSystem: System {
     private var size: CGSize
     private weak var scene: GameScene!
-    private weak var creator: (PowerUpCreator & ShipCreator & AsteroidCreator & TorpedoCreator & AlienCreator)!
+    private weak var creator: (PowerUpCreatorUseCase & ShipCreatorUseCase & AsteroidCreatorUseCase & TorpedoCreatorUseCase & AlienCreatorUseCase)!
     private weak var asteroids: NodeList!
     private weak var torpedoes: NodeList!
     private weak var appStates: NodeList!
@@ -36,7 +36,7 @@ class GameplayManagerSystem: System {
     private var minimumAsteroidDistance: CGFloat = 80
     private var randomness: Randomness!
 
-    init(creator: PowerUpCreator & ShipCreator & AsteroidCreator & TorpedoCreator & AlienCreator, size: CGSize, scene: GameScene, randomness: Randomness, scaleManager: ScaleManaging = ScaleManager.shared) {
+    init(creator: PowerUpCreatorUseCase & ShipCreatorUseCase & AsteroidCreatorUseCase & TorpedoCreatorUseCase & AlienCreatorUseCase, size: CGSize, scene: GameScene, randomness: Randomness, scaleManager: ScaleManaging = ScaleManager.shared) {
         self.creator = creator
         self.size = size
         self.scene = scene

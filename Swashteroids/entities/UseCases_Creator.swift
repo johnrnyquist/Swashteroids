@@ -11,35 +11,35 @@
 import Foundation
 import Swash
 
-protocol AlienCreator: AnyObject {
+protocol AlienCreatorUseCase: AnyObject {
     func createAliens(scene: GameScene)
 }
 
-protocol AsteroidCreator: AnyObject {
+protocol AsteroidCreatorUseCase: AnyObject {
     func createAsteroid(radius: Double, x: Double, y: Double, level: Int)
 }
 
-protocol HudCreator: AnyObject {
+protocol HudCreatorUseCase: AnyObject {
     func createHud(gameState: AppStateComponent)
 }
 
-protocol PowerUpCreator: AnyObject {
+protocol PowerUpCreatorUseCase: AnyObject {
     func createHyperspacePowerUp(level: Int)
     func createHyperspacePowerUp(level: Int, radius: Double)
     func createTorpedoesPowerUp(level: Int)
     func createTorpedoesPowerUp(level: Int, radius: Double)
 }
 
-protocol ShipCreator: AnyObject {
+protocol ShipCreatorUseCase: AnyObject {
     func createShip(_ state: AppStateComponent)
     func destroy(ship: Entity)
 }
 
-protocol TorpedoCreator: AnyObject {
+protocol TorpedoCreatorUseCase: AnyObject {
     func createTorpedo(_ gunComponent: GunComponent, _ position: PositionComponent, _ velocity: VelocityComponent)
 }
 
-protocol TreasureCreator: AnyObject {
+protocol TreasureCreatorUseCase: AnyObject {
     func createTreasure(positionComponent: PositionComponent)
 }
 

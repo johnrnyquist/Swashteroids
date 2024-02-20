@@ -12,7 +12,7 @@ import Foundation
 import Swash
 
 final class TransitionAppStateSystem: ListIteratingSystem {
-    weak var transition: Transition?
+    weak var transition: (GameOverUseCase & InfoViewsUseCase & PlayingUseCase & StartUseCase)?
 
     init(transition: Transition) {
         self.transition = transition

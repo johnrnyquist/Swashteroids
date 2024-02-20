@@ -10,7 +10,7 @@
 
 @testable import Swashteroids
 
-class MockPowerUpCreator: PowerUpCreator {
+class MockPowerUpCreator: PowerUpCreatorUseCase {
     var createHyperspacePowerUpCalled = false
     var createHyperspacePowerUpRadiusCalled = false
     var createTorpedoesPowerUpCalled = false

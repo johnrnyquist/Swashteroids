@@ -11,7 +11,7 @@
 import Swash
 import SpriteKit
 
-extension Creator: AlienCreator {
+extension Creator: AlienCreatorUseCase {
     func createAliens(scene: GameScene) {
         guard engine.findEntity(named: .player) != nil else { return }
         let entrance = pickEntrance()

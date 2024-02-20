@@ -281,7 +281,7 @@ final class GameplayManagerSystemTests: XCTestCase {
         var SCALE_FACTOR: CGFloat { 1.0 }
     }
 
-    class MockCreator: PowerUpCreator & ShipCreator & AsteroidCreator & TorpedoCreator & AlienCreator {
+    class MockCreator: PowerUpCreatorUseCase & ShipCreatorUseCase & AsteroidCreatorUseCase & TorpedoCreatorUseCase & AlienCreatorUseCase {
         var createAliensCalled = false
         var createAsteroidCalled = 0
 

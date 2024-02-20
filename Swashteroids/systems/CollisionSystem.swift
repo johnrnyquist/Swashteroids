@@ -20,7 +20,7 @@ class CollisionSystem: System {
     private let randomness: Randomness
     private let scaleManager: ScaleManaging
     private var size: CGSize
-    private weak var creator: (AsteroidCreator & ShipCreator & ShipButtonControlsManager & TreasureCreator)!
+    private weak var creator: (AsteroidCreatorUseCase & ShipCreatorUseCase & ShipButtonControlsManagerUseCase & TreasureCreatorUseCase)!
     private weak var appStateNodes: NodeList!
     private weak var ships: NodeList!
     private weak var aliens: NodeList!
@@ -31,7 +31,7 @@ class CollisionSystem: System {
     private weak var treasures: NodeList!
     private weak var engine: Engine!
 
-    init(creator: AsteroidCreator & ShipCreator & ShipButtonControlsManager & TreasureCreator, size: CGSize, randomness: Randomness, scaleManager: ScaleManaging = ScaleManager.shared) {
+    init(creator: AsteroidCreatorUseCase & ShipCreatorUseCase & ShipButtonControlsManagerUseCase & TreasureCreatorUseCase, size: CGSize, randomness: Randomness, scaleManager: ScaleManaging = ScaleManager.shared) {
         self.creator = creator
         self.size = size
         self.randomness = randomness

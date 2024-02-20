@@ -61,7 +61,7 @@ class FiringSystemTests: XCTestCase {
         XCTAssertEqual(gun.numTorpedoes, 19)
     }
     
-    class MockTorpedoCreator: TorpedoCreator & PowerUpCreator {
+    class MockTorpedoCreator: TorpedoCreatorUseCase & PowerUpCreatorUseCase {
         var fired = false
         var createHyperspacePowerUpCalled = false
         var createHyperspacePowerUpRadiusCalled = false

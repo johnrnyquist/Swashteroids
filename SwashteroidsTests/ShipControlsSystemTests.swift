@@ -159,7 +159,7 @@ final class ShipControlsSystemTests: XCTestCase {
         XCTAssertTrue(ship.has(componentClassName: AccelerometerComponent.name))
     }
 
-    class MockCreator: ShipQuadrantsControlsManager, ShipButtonControlsManager, ToggleShipControlsManager {
+    class MockCreator: ShipQuadrantsControlsManagerUseCase, ShipButtonControlsManagerUseCase, ToggleShipControlsManagerUseCase {
         //MARK: - ShipQuadrantsControlsManager
         var createShipControlQuadrantsCalled = false
         var removeShipControlQuadrantsCalled = false

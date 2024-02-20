@@ -11,7 +11,7 @@
 import Swash
 import SpriteKit
 
-extension Transition {
+extension Transition: StartUseCase {
     func fromStartScreen() {
         engine.removeEntities(named: [.noButtons, .withButtons, .start])
     }
@@ -30,7 +30,6 @@ extension Transition {
         if engine.appStateEntity.has(componentClass: GameControllerComponent.self) {
             return
         }
-        
         // BUTTONS
         let noButtonsSprite = startView.noButtons
         let buttonsSprite = startView.buttons

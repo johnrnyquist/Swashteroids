@@ -11,7 +11,7 @@
 import Swash
 import SpriteKit
 
-extension Transition {
+extension Transition: PlayingUseCase {
     func fromPlayingScreen() {
         toggleShipControlsManager?.removeToggleButton()
         shipControlButtonsManager?.removeShipControlButtons()

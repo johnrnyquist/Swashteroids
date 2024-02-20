@@ -11,7 +11,7 @@
 import Swash
 import SpriteKit
 
-extension Creator: TorpedoCreator {
+extension Creator: TorpedoCreatorUseCase {
     func createTorpedo(_ gunComponent: GunComponent, _ position: PositionComponent, _ velocity: VelocityComponent) {
         //TODO: this should be re-thought
         var name = "torpedo_"
