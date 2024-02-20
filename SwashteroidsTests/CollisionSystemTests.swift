@@ -14,17 +14,18 @@ import XCTest
 @testable import Swash
 
 class CollisionSystemTests: XCTestCase {
+    var alienEntity: Entity!
+    var appStateComponent: AppStateComponent!
+    var appStateEntity: Entity!
+    var asteroidEntity: Entity!
     var creator: MockCreator!
     var engine: Engine!
-    var shipEntity: Entity!
-    var asteroidEntity: Entity!
-    var alienEntity: Entity!
-    var torpedoEntity_player: Entity!
-    var torpedoEntity_alien: Entity!
-    var torpedoPowerUpEntity: Entity!
     var hyperspacePowerUpEntity: Entity!
-    var appStateEntity: Entity!
-    var appStateComponent: AppStateComponent!
+    var shipEntity: Entity!
+    var torpedoEntity_alien: Entity!
+    var torpedoEntity_player: Entity!
+    var torpedoPowerUpEntity: Entity!
+    var treasureEntity: Entity!
 
     override func setUpWithError() throws {
         creator = MockCreator()
@@ -84,6 +85,10 @@ class CollisionSystemTests: XCTestCase {
                 .add(component: PositionComponent(x: 0, y: 0, z: 0))
                 .add(component: DisplayComponent(sknode: SKNode()))
         try? engine.add(entity: torpedoEntity_player)
+        treasureEntity = Entity(named: "treasure_1")
+                .add(component: TreasureComponent(value: 1))
+                .add(component: CollidableComponent(radius: 10, scaleManager: MockScaleManager()))
+                .add(component: PositionComponent(x: 0, y: 0, z: 0))
     }
 
     override func tearDownWithError() throws {
@@ -300,6 +305,75 @@ class CollisionSystemTests: XCTestCase {
                 splitAsteroidCalled = true
             }
         }
+    }
+    
+    func test_vehiclesAndTreasures() {
+        let system = CollisionSystem(creator: creator,
+                                     size: .zero,
+                                     randomness: Randomness(seed: 1),
+                                     scaleManager: MockScaleManager())
+        engine.add(system: system, priority: 1)
+        let shipCollisionNode = ShipCollisionNode()
+        for component in shipEntity.componentClassNameInstanceMap {
+            shipCollisionNode.components[component.key] = component.value
+        }
+        shipCollisionNode.entity = shipEntity
+        let treasure = TreasureCollisionNode()
+        for component in treasureEntity.componentClassNameInstanceMap {
+            treasure.components[component.key] = component.value
+        }
+        treasure.entity = treasureEntity
+        // SUT
+        system.vehiclesAndTreasures(vehicleNode: shipCollisionNode, treasureNode: treasure)
+        //
+        XCTAssertNil(engine.findEntity(named: "treasure_1"))
+    }
+    
+    func test_shipsAndAliens() {
+        let system = CollisionSystem(creator: creator,
+                                     size: .zero,
+                                     randomness: Randomness(seed: 1),
+                                     scaleManager: MockScaleManager())
+        engine.add(system: system, priority: 1)
+        let shipCollisionNode = ShipCollisionNode()
+        for component in shipEntity.componentClassNameInstanceMap {
+            shipCollisionNode.components[component.key] = component.value
+        }
+        shipCollisionNode.entity = shipEntity
+        let alienCollisionNode = AlienCollisionNode()
+        for component in alienEntity.componentClassNameInstanceMap {
+            alienCollisionNode.components[component.key] = component.value
+        }
+        alienCollisionNode.entity = alienEntity
+        // SUT
+        system.shipsAndAliens(shipNode: shipCollisionNode, alienNode: alienCollisionNode)
+        //
+        XCTAssertTrue(creator.removeShipCalled)
+        XCTAssertTrue(appStateComponent.numShips == 0)
+    }
+    
+    func test_collisionCheck() {
+        let system = CollisionSystem(creator: creator,
+                                     size: .zero,
+                                     randomness: Randomness(seed: 1),
+                                     scaleManager: MockScaleManager())
+        let nodeA = ShipCollisionNode()
+        for component in shipEntity.componentClassNameInstanceMap {
+            nodeA.components[component.key] = component.value
+        }
+        nodeA.entity = shipEntity
+        let nodeB = AsteroidCollisionNode()
+        for component in asteroidEntity.componentClassNameInstanceMap {
+            nodeB.components[component.key] = component.value
+        }
+        nodeB.entity = asteroidEntity
+        var result = false
+        // SUT
+        system.collisionCheck(nodeA: nodeA, nodeB: nodeB) { _, _ in
+            result = true
+        }
+        //
+        XCTAssertTrue(result)
     }
 
     class MockCreator: AsteroidCreator & ShipCreator & ShipButtonControlsManager & TreasureCreator {
