@@ -11,7 +11,6 @@
 import XCTest
 @testable import Swashteroids
 @testable import Swash
-import SpriteKit
 
 class FiringSystemTests: XCTestCase {
     var system: FiringSystem!
@@ -36,8 +35,6 @@ class FiringSystemTests: XCTestCase {
         let minimumShotInterval = 0.0 // 1 second
         //
         let entity = Entity()
-        let gunSprite = SwashSpriteNode(color: .red, size: CGSize())
-        entity.add(component: DisplayComponent(sknode: gunSprite))
         let motion = VelocityComponent(velocityX: 0, velocityY: 0, base: 60.0)
         let position = PositionComponent(x: 0, y: 0, z: .ship)
         let gun = GunComponent(offsetX: 0,
