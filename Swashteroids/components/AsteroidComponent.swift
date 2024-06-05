@@ -10,4 +10,6 @@
 
 import Swash
 
+
+// TODO: Why does this not have size info like radius?
 final class AsteroidComponent: Component {}

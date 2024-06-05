@@ -119,6 +119,7 @@ final class Swashteroids: NSObject {
                 .add(system: HyperspaceJumpSystem(engine: engine, creator: creator), priority: .update)
                 .add(system: NacellesSystem(), priority: .update)
                 .add(system: HudSystem(creator: creator), priority: .update)
+                .add(system: SplitAsteroidSystem(creator: creator, randomness: randomness), priority: .update)
                 // render
                 .add(system: AudioSystem(soundPlayer: soundPlayer), priority: .render)
                 .add(system: RepeatingAudioSystem(), priority: .render)

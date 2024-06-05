@@ -170,7 +170,7 @@ class CollisionSystemTests: XCTestCase {
         appStateComponent.numShips = 1
         let appStateEntity = Entity(named: .appState)
                 .add(component: appStateComponent)
-        try? engine.add(entity: appStateEntity)
+        engine.replace(entity: appStateEntity)
         let torpedoNode = TorpedoCollisionNode()
         for component in torpedoEntity_alien.componentClassNameInstanceMap {
             torpedoNode.components[component.key] = component.value
@@ -260,7 +260,7 @@ class CollisionSystemTests: XCTestCase {
                                                   appState: .playing,
                                                   shipControlsState: .showingButtons,
                                                   randomness: Randomness(seed: 1)))
-        try? engine.add(entity: appState)
+        engine.replace(entity: appState)
         // SUT
         system.torpedoesAndAsteroids(torpedoNode: torpedoNode, asteroidNode: asteroidNode)
         //

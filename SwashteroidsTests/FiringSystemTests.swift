@@ -11,6 +11,7 @@
 import XCTest
 @testable import Swashteroids
 @testable import Swash
+import SpriteKit
 
 class FiringSystemTests: XCTestCase {
     var system: FiringSystem!
@@ -25,7 +26,9 @@ class FiringSystemTests: XCTestCase {
     }
 
     override func tearDownWithError() throws {
+        engine = nil
         system = nil
+        creator = nil
     }
 
     func test_Fire() {
@@ -33,6 +36,8 @@ class FiringSystemTests: XCTestCase {
         let minimumShotInterval = 0.0 // 1 second
         //
         let entity = Entity()
+        let gunSprite = SwashSpriteNode(color: .red, size: CGSize())
+        entity.add(component: DisplayComponent(sknode: gunSprite))
         let motion = VelocityComponent(velocityX: 0, velocityY: 0, base: 60.0)
         let position = PositionComponent(x: 0, y: 0, z: .ship)
         let gun = GunComponent(offsetX: 0,
@@ -52,7 +57,13 @@ class FiringSystemTests: XCTestCase {
                 .add(component: fireDown)
         try! engine.add(entity: entity)
         let appState = Entity(named: .appState)
-            .add(component: AppStateComponent(gameSize: .zero, numShips: 0, level: 0, score: 0, appState: .initial, shipControlsState: .hidingButtons, randomness: Randomness(seed: 1)))
+            .add(component: AppStateComponent(gameSize: .zero, 
+                                              numShips: 0, 
+                                              level: 0,
+                                              score: 0, 
+                                              appState: .initial,
+                                              shipControlsState: .hidingButtons,
+                                              randomness: Randomness(seed: 1)))
         engine.replace(entity: appState)
         // SUT
         system.update(time: time)

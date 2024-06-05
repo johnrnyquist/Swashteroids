@@ -85,6 +85,7 @@ class CollisionSystem: System {
         if let entity = torpedoNode.entity { engine.remove(entity: entity) }
         let level = appStateNodes.head?[AppStateComponent.self]?.level ?? 1
         if let entity = asteroidNode.entity {
+            // This could be done in a separate system. Add a component indicating the split, it could hold the level.
             splitAsteroid(asteroidEntity: entity, level: level)
             if let gameStateNode = appStateNodes.head,
                let appStateComponent = gameStateNode[AppStateComponent.self],
@@ -143,6 +144,7 @@ class CollisionSystem: System {
         }
         let level = appStateNodes.head?[AppStateComponent.self]?.level ?? 1
         if let entity = asteroidNode.entity {
+            // This could be done in a separate system. Add a component indicating the split, it could hold the level.
             splitAsteroid(asteroidEntity: entity, level: level)
         }
     }
@@ -226,6 +228,9 @@ class CollisionSystem: System {
         }
     }
 
+    // This could be done in a separate system. Add a component indicating the split, it could hold the level.
+    // what if the phaser splits things differently? Straight line cut? Wobbling after? Or results in just one smaller? 
+    // Or splits into 3 (two small, one medium)? What if it destroys a medium sized one?
     func splitAsteroid(asteroidEntity: Entity, splits: Int = 2, level: Int) {
         guard let collisionComponent = asteroidEntity[CollidableComponent.self],
               let positionComponent = asteroidEntity[PositionComponent.self]

@@ -184,6 +184,7 @@
 		93139D10A3929204EC8DF9BF /* FlipSystemTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139C3D0D48098244988F2F /* FlipSystemTest.swift */; };
 		93139D4F7B05532BC0F56A6C /* GameplayManagerSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139A6D529EF901F7F45FFD /* GameplayManagerSystemTests.swift */; };
 		93139D5194CC414BF7F76B99 /* LeftSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139B0F783B5FBCD7E56343 /* LeftSystem.swift */; };
+		93139D6A9AB03B5EF3DB5CA4 /* SplitAsteroidSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139419BAEEF4CF709898FF /* SplitAsteroidSystem.swift */; };
 		93139D95B51622F2F0A0817C /* TreasureCollisionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931390993573DD02D04EE52C /* TreasureCollisionNode.swift */; };
 		93139DB6913344090273397D /* String+EntityNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931394D1D0B636772EE1DFF7 /* String+EntityNames.swift */; };
 		93139DCDFD8DE5D48E8CB1BD /* FlipSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931390D4ADEAB2D4BAFC8C1F /* FlipSystem.swift */; };
@@ -357,6 +358,7 @@
 		931393FE8CC28A572666583C /* ThrustSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThrustSystemTests.swift; sourceTree = "<group>"; };
 		93139406E9C8BCF53204C6FC /* TickProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TickProvider.swift; sourceTree = "<group>"; };
 		9313941564944F14B4041467 /* GameOverSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverSystem.swift; sourceTree = "<group>"; };
+		93139419BAEEF4CF709898FF /* SplitAsteroidSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitAsteroidSystem.swift; sourceTree = "<group>"; };
 		93139489970BEA17AF74C95E /* TouchNodes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchNodes.swift; sourceTree = "<group>"; };
 		931394D1D0B636772EE1DFF7 /* String+EntityNames.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+EntityNames.swift"; sourceTree = "<group>"; };
 		9313954C85643D9FEA3B568D /* GameControllerComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameControllerComponent.swift; sourceTree = "<group>"; };
@@ -720,6 +722,7 @@
 				9313962E5C5B4402DC06E899 /* TimePlayedSystem.swift */,
 				8D23C1802B02C59C00F7D878 /* TorpedoAgeSystem.swift */,
 				93139F7B6117208071E3FE22 /* TransitionAppStateSystem.swift */,
+				93139419BAEEF4CF709898FF /* SplitAsteroidSystem.swift */,
 			);
 			name = list_iterating;
 			sourceTree = "<group>";
@@ -1016,6 +1019,7 @@
 				93139767DADE3701C7A4DE57 /* GameScene+extensions.swift in Sources */,
 				9313927C0E3372687D3DA799 /* GameControllerComponent.swift in Sources */,
 				93139344A029BD438A8160A9 /* UseCases_Transition.swift in Sources */,
+				93139D6A9AB03B5EF3DB5CA4 /* SplitAsteroidSystem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

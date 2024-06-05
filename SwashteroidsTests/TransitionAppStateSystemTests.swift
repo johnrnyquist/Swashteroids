@@ -28,8 +28,8 @@ final class TransitionAppStateSystemTests: XCTestCase {
     override func tearDownWithError() throws {
         system = nil
         transition = nil
-        size = nil
         engine = nil
+        size = nil
     }
 
     func test_Init() throws {

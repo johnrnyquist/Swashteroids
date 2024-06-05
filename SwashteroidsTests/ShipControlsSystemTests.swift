@@ -23,8 +23,8 @@ final class ShipControlsSystemTests: XCTestCase {
     }
 
     override func tearDownWithError() throws {
-        creator = nil
         engine = nil
+        creator = nil
     }
 
     func test_Init() throws {
