@@ -27,9 +27,10 @@ extension Transition: StartUseCase {
         startEntity
                 .add(component: DisplayComponent(sknode: startView))
                 .add(component: PositionComponent(x: 0, y: 0, z: .top, rotationDegrees: 0))
-        if engine.appStateEntity.has(componentClass: GameControllerComponent.self) {
-            return
-        }
+        // TODO: Is the below necessary?
+//        if engine.appStateEntity.has(componentClass: GameControllerComponent.self) {
+//            return
+//        }
         // BUTTONS
         let noButtonsSprite = startView.noButtons
         let buttonsSprite = startView.buttons

@@ -1,7 +1,7 @@
 {
   "configurations" : [
     {
-      "id" : "FDD9A6E8-3C45-4172-9DC5-0A943F3F2B95",
+      "id" : "831A2603-985F-46B9-8B97-58D95B2A0785",
       "name" : "Test Scheme Action",
       "options" : {
 
@@ -9,7 +9,15 @@
     }
   ],
   "defaultOptions" : {
-    "codeCoverage" : false,
+    "codeCoverage" : {
+      "targets" : [
+        {
+          "containerPath" : "container:Swashteroids.xcodeproj",
+          "identifier" : "8D23C1312B02C4CA00F7D878",
+          "name" : "Swashteroids"
+        }
+      ]
+    },
     "targetForVariableExpansion" : {
       "containerPath" : "container:Swashteroids.xcodeproj",
       "identifier" : "8D23C1312B02C4CA00F7D878",

@@ -141,7 +141,7 @@ class GameplayManagerSystem: System {
             repeat {
                 position = randomPosition()
             } while (position.distance(from: positionToAvoid) <= minimumAsteroidDistance)
-            creator.createAsteroid(radius: LARGE_ASTEROID_RADIUS, x: position.x, y: position.y, level: level)
+            creator.createAsteroid(radius: LARGE_ASTEROID_RADIUS, x: position.x, y: position.y, size: .large, level: level)
         }
     }
 

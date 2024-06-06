@@ -11,7 +11,10 @@
 import Swash
 import Foundation
 
+// HACK 
 var LARGE_ASTEROID_RADIUS = 54.0
+var MEDIUM_ASTEROID_RADIUS = 27.0
+var SMALL_ASTEROID_RADIUS = 13.5
 var POWER_UP_RADIUS = 7.0
 // TODO: Is this AppState or GameState? Start, playing, gameover, paused all seem like game states. infoButtons and infoNoButtons seem like app states.
 enum AppState {

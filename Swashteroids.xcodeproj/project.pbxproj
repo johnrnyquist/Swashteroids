@@ -203,6 +203,7 @@
 		93139F78DDEA725367C42BFD /* Creator+AsteroidCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139EE51DF4C3AE1D381E57 /* Creator+AsteroidCreator.swift */; };
 		93139F81F995E10AEE533513 /* LeftComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139BC38DC2F4BF7B9F869A /* LeftComponent.swift */; };
 		93139F8A1021EE54E773A085 /* RightSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139B1BA616F9CF29C1B194 /* RightSystemTests.swift */; };
+		93139FA4FA84A393896F7414 /* AlienCreatorUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139B933148A8CE373B6EE8 /* AlienCreatorUseCaseTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -332,9 +333,9 @@
 		8D9DEF632B059E3800064B01 /* DoHyperspaceJumpComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoHyperspaceJumpComponent.swift; sourceTree = "<group>"; };
 		8D9DEF652B059EC400064B01 /* HyperspaceJumpNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyperspaceJumpNode.swift; sourceTree = "<group>"; };
 		8D9DEF672B059F2800064B01 /* HyperspaceJumpSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyperspaceJumpSystem.swift; sourceTree = "<group>"; };
-		8DA827F72B546343001C0CDB /* Swashteroids.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = Swashteroids.xctestplan; path = SwashteroidsTests/Swashteroids.xctestplan; sourceTree = "<group>"; };
 		8DA97A952B23581100E7495A /* Int+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+extensions.swift"; sourceTree = "<group>"; };
 		8DB409EB2B1D3C6F008DE4EB /* TransitionAppStateComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionAppStateComponent.swift; sourceTree = "<group>"; };
+		8DB65D702C1132660030623B /* Swashteroids.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Swashteroids.xctestplan; sourceTree = "<group>"; };
 		8DB99F512B2BE7D700C3593A /* TestingAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingAppDelegate.swift; sourceTree = "<group>"; };
 		8DB99F532B2BE81800C3593A /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		8DB99F562B2BE9EE00C3593A /* RenderSystemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderSystemTests.swift; sourceTree = "<group>"; };
@@ -391,6 +392,7 @@
 		93139AFE6A68E0D9B149BA93 /* CGFloat+extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+extensions.swift"; sourceTree = "<group>"; };
 		93139B0F783B5FBCD7E56343 /* LeftSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftSystem.swift; sourceTree = "<group>"; };
 		93139B1BA616F9CF29C1B194 /* RightSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightSystemTests.swift; sourceTree = "<group>"; };
+		93139B933148A8CE373B6EE8 /* AlienCreatorUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlienCreatorUseCaseTests.swift; sourceTree = "<group>"; };
 		93139BC38DC2F4BF7B9F869A /* LeftComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftComponent.swift; sourceTree = "<group>"; };
 		93139BD2BE63CAC32979ABA3 /* HyperspaceDriveComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HyperspaceDriveComponent.swift; sourceTree = "<group>"; };
 		93139BEB3AC5615963614D45 /* CollisionSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollisionSystemTests.swift; sourceTree = "<group>"; };
@@ -439,7 +441,7 @@
 		8D23C1292B02C4C900F7D878 = {
 			isa = PBXGroup;
 			children = (
-				8DA827F72B546343001C0CDB /* Swashteroids.xctestplan */,
+				8DB65D702C1132660030623B /* Swashteroids.xctestplan */,
 				8D23C1EC2B02CFAD00F7D878 /* images */,
 				8D23C1342B02C4CA00F7D878 /* Swashteroids */,
 				8D23C1E82B02CD7E00F7D878 /* README.md */,
@@ -698,6 +700,7 @@
 				931390BDEBA443104F781428 /* AudioSystemTests.swift */,
 				93139AACD0733A9656662B03 /* MockPowerUpCreator.swift */,
 				8D88C4832B61D3FF00B75314 /* RandomnessTests.swift */,
+				93139B933148A8CE373B6EE8 /* AlienCreatorUseCaseTests.swift */,
 			);
 			path = SwashteroidsTests;
 			sourceTree = "<group>";
@@ -1051,6 +1054,7 @@
 				8D88C4842B61D3FF00B75314 /* RandomnessTests.swift in Sources */,
 				9313961BE93AEE536D58C27B /* AudioSystemTests.swift in Sources */,
 				931398A1B70C60540B24F30B /* MockPowerUpCreator.swift in Sources */,
+				93139FA4FA84A393896F7414 /* AlienCreatorUseCaseTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

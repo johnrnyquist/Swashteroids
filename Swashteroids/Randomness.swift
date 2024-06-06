@@ -10,7 +10,8 @@
 
 import Foundation
 
-/// `Randomness` is a class for generating random numbers.
+/// `Randomness` is a class for generating random numbers. 
+// It is really just a wrapper around the `srand48` and `drand48` functions.
 class Randomness {
     /// Initializes a new instance of `Randomness` and sets the seed for the random number generator.
     /// - Parameter seed: The seed for the random number generator.

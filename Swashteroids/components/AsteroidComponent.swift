@@ -10,6 +10,28 @@
 
 import Swash
 
+enum AsteroidSize {
+    case small
+    case medium
+    case large
+}
 
-// TODO: Why does this not have size info like radius?
-final class AsteroidComponent: Component {}
+final class AsteroidComponent: Component {
+    let size: AsteroidSize
+
+    init(size: AsteroidSize) {
+        self.size = size
+        super.init()
+    }
+
+    func shrink() -> AsteroidSize {
+        switch size {
+        case .medium:
+            return .small
+        case .large:
+            return .medium
+        default:
+            return .large // Should never happen
+        }
+    }
+}

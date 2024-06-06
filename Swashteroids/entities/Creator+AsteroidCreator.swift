@@ -12,7 +12,15 @@ import Swash
 import SpriteKit
 
 extension Creator: AsteroidCreatorUseCase {
-    func createAsteroid(radius: Double, x: Double, y: Double, level: Int) {
+    /// Create an asteroid with the given radius, x, y, and level.
+    /// 
+    /// - Parameters:
+    ///   - radius: The radius of the asteroid.
+    ///   - x: The x position of the asteroid.
+    ///   - y: The y position of the asteroid.
+    ///   - size: The size of the asteroid.
+    ///   - level: This is the Game's current level. Value is used to determine the speed of the asteroid.
+    func createAsteroid(radius: Double, x: Double, y: Double, size: AsteroidSize, level: Int) {
         numAsteroids += 1
         let sprite = SwashScaledSpriteNode(texture: createAsteroidTexture(radius: radius, color: .asteroid))
 //        sprite.physicsBody = SKPhysicsBody(circleOfRadius: CGFloat(radius * scaleManager.SCALE_FACTOR))
@@ -36,7 +44,7 @@ extension Creator: AsteroidCreatorUseCase {
                                                   dampening: 0,
                                                   base: 60.0))
                 .add(component: CollidableComponent(radius: radius))
-                .add(component: AsteroidComponent())
+                .add(component: AsteroidComponent(size: size))
                 .add(component: DisplayComponent(sknode: sprite))
         sprite.entity = entity
         do {

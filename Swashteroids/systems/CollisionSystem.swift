@@ -85,8 +85,7 @@ class CollisionSystem: System {
         if let entity = torpedoNode.entity { engine.remove(entity: entity) }
         let level = appStateNodes.head?[AppStateComponent.self]?.level ?? 1
         if let entity = asteroidNode.entity {
-            // This could be done in a separate system. Add a component indicating the split, it could hold the level.
-            splitAsteroid(asteroidEntity: entity, level: level)
+            entity.add(component: SplitAsteroidComponent(level: level, splits: 2))
             if let gameStateNode = appStateNodes.head,
                let appStateComponent = gameStateNode[AppStateComponent.self],
                torpedoNode[TorpedoComponent.self]?.owner == .player {
@@ -144,8 +143,7 @@ class CollisionSystem: System {
         }
         let level = appStateNodes.head?[AppStateComponent.self]?.level ?? 1
         if let entity = asteroidNode.entity {
-            // This could be done in a separate system. Add a component indicating the split, it could hold the level.
-            splitAsteroid(asteroidEntity: entity, level: level)
+            entity.add(component: SplitAsteroidComponent(level: level, splits: 2))
         }
     }
 
@@ -187,22 +185,15 @@ class CollisionSystem: System {
     /// 
     /// - Parameter time: The time since the last update
     override public func update(time: TimeInterval) {
-        // ship and torpedoPowerUps
-        collisionCheck(nodeA: ships.head, nodeB: torpedoPowerUp.head, action: shipAndTorpedoPowerUp)
-        // ship and hyperspacePowerUps
-        collisionCheck(nodeA: ships.head, nodeB: hyperspacePowerUp.head, action: shipAndHyperspacePowerUp)
-        // torpedoes and asteroids
-        collisionCheck(nodeA: torpedoes.head, nodeB: asteroids.head, action: torpedoesAndAsteroids)
-        //
+        collisionCheck(nodeA: ships.head,     nodeB: torpedoPowerUp.head,    action: shipAndTorpedoPowerUp)
+        collisionCheck(nodeA: ships.head,     nodeB: hyperspacePowerUp.head, action: shipAndHyperspacePowerUp)
+        collisionCheck(nodeA: torpedoes.head, nodeB: asteroids.head,         action: torpedoesAndAsteroids)
+
         for vehicle in [ships.head, aliens.head] {
-            // torpedoes and vehicles
-            collisionCheck(nodeA: torpedoes.head, nodeB: vehicle, action: torpedoAndVehicle)
-            // vehicles and asteroids
-            collisionCheck(nodeA: vehicle, nodeB: asteroids.head, action: vehiclesAndAsteroids)
-            // vehicles and treasures
-            collisionCheck(nodeA: vehicle, nodeB: treasures.head, action: vehiclesAndTreasures)
+            collisionCheck(nodeA: torpedoes.head, nodeB: vehicle,        action: torpedoAndVehicle)
+            collisionCheck(nodeA: vehicle,        nodeB: asteroids.head, action: vehiclesAndAsteroids)
+            collisionCheck(nodeA: vehicle,        nodeB: treasures.head, action: vehiclesAndTreasures)
         }
-        // ships and aliens
         collisionCheck(nodeA: ships.head, nodeB: aliens.head, action: shipsAndAliens)
     }
 
@@ -227,39 +218,7 @@ class CollisionSystem: System {
             nodeA = currentNodeA.next
         }
     }
-
-    // This could be done in a separate system. Add a component indicating the split, it could hold the level.
-    // what if the phaser splits things differently? Straight line cut? Wobbling after? Or results in just one smaller? 
-    // Or splits into 3 (two small, one medium)? What if it destroys a medium sized one?
-    func splitAsteroid(asteroidEntity: Entity, splits: Int = 2, level: Int) {
-        guard let collisionComponent = asteroidEntity[CollidableComponent.self],
-              let positionComponent = asteroidEntity[PositionComponent.self]
-        else { return }
-        if randomness.nextInt(from: 1, through: 3) == 3 {
-            creator.createTreasure(positionComponent: positionComponent)
-        }
-        if (collisionComponent.radius > LARGE_ASTEROID_RADIUS * scaleManager.SCALE_FACTOR / 4) {
-            for _ in 1...splits {
-                creator.createAsteroid(radius: collisionComponent.radius * 1.0 / scaleManager.SCALE_FACTOR / 2.0,
-                                       x: positionComponent.x + randomness.nextDouble(from: -5.0, through: 5.0),
-                                       y: positionComponent.y + randomness.nextDouble(from: -5.0, through: 5.0),
-                                       level: level)
-            }
-        }
-        if let emitter = SKEmitterNode(fileNamed: "shipExplosion.sks") {
-            let skNode = SKNode()
-            skNode.name = "explosion on \(asteroidEntity.name)"
-            skNode.addChild(emitter)
-            asteroidEntity
-                    .remove(componentClass: DisplayComponent.self)
-                    .remove(componentClass: CollidableComponent.self)
-                    .add(component: AudioComponent(fileNamed: .explosion,
-                                                   actionKey: asteroidEntity.name))
-                    .add(component: DisplayComponent(sknode: skNode))
-                    .add(component: DeathThroesComponent(countdown: 0.2))
-        }
-    }
-
+    
     override public func removeFromEngine(engine: Engine) {
         appStateNodes = nil
         ships = nil
