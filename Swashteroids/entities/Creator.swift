@@ -24,7 +24,7 @@ final class Creator {
     var numAsteroids = 0
     var numTreasures = 0
     var size: CGSize
-    weak var scaleManager: ScaleManaging!
+    var scaleManager: ScaleManaging
     weak var alertPresenter: AlertPresenting?
     weak var engine: Engine!
     weak var generator: UIImpactFeedbackGenerator?

@@ -12,30 +12,8 @@ import Swash
 import Foundation
 import SpriteKit
 
-class SplitAsteroidComponent: Component {
-    let level: Int
-    let splits: Int
-
-    init(level: Int, splits: Int = 2) {
-        self.level = level
-        self.splits = splits
-        super.init()
-    }
-}
-
-class SplitAsteroidNode: Node {
-    required init() {
-        super.init()
-        components = [
-            SplitAsteroidComponent.name: nil_component,
-            AsteroidComponent.name: nil_component,
-            PositionComponent.name: nil_component,
-            VelocityComponent.name: nil_component
-        ]
-    }
-}
-
 class SplitAsteroidSystem: ListIteratingSystem {
+    typealias Creator = SplitAsteroidUseCase
     let creator: Creator
     let randomness: Randomness
 

@@ -14,11 +14,15 @@ protocol ScaleManaging: AnyObject {
     var SCALE_FACTOR: CGFloat { get }
 }
 
+/// ScaleManager is a singleton that calculates the scale factor based on the screen size.
 class ScaleManager: ScaleManaging {
+    /// The shared instance of the ScaleManager.
     static let shared: ScaleManaging = ScaleManager()
+    /// The scale factor based on the screen size.
     var SCALE_FACTOR: CGFloat
 
-    private init(width: CGFloat = UIScreen.main.bounds.size.width, 
+    /// Initializes the ScaleManager with the screen size.
+    private init(width: CGFloat = UIScreen.main.bounds.size.width,
                  height: CGFloat = UIScreen.main.bounds.size.height) {
         let designWidth = 1024.0
         let designHeight = 768.0

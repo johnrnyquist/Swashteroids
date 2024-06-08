@@ -20,9 +20,10 @@ Determines if a ship needs to be made.
 Has too many responsibilities.
  */
 class GameplayManagerSystem: System {
+    typealias Creator = PowerUpCreatorUseCase & ShipCreatorUseCase & AsteroidCreatorUseCase & TorpedoCreatorUseCase & AlienCreatorUseCase
     private var size: CGSize
     private weak var scene: GameScene!
-    private weak var creator: (PowerUpCreatorUseCase & ShipCreatorUseCase & AsteroidCreatorUseCase & TorpedoCreatorUseCase & AlienCreatorUseCase)!
+    private weak var creator: Creator!
     private weak var asteroids: NodeList!
     private weak var torpedoes: NodeList!
     private weak var appStates: NodeList!
@@ -36,7 +37,7 @@ class GameplayManagerSystem: System {
     private var minimumAsteroidDistance: CGFloat = 80
     private var randomness: Randomness!
 
-    init(creator: PowerUpCreatorUseCase & ShipCreatorUseCase & AsteroidCreatorUseCase & TorpedoCreatorUseCase & AlienCreatorUseCase, size: CGSize, scene: GameScene, randomness: Randomness, scaleManager: ScaleManaging = ScaleManager.shared) {
+    init(creator: Creator, size: CGSize, scene: GameScene, randomness: Randomness, scaleManager: ScaleManaging = ScaleManager.shared) {
         self.creator = creator
         self.size = size
         self.scene = scene

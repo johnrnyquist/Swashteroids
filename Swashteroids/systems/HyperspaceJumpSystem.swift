@@ -12,10 +12,11 @@ import Swash
 import SpriteKit
 
 final class HyperspaceJumpSystem: ListIteratingSystem {
+    typealias Creator = PowerUpCreatorUseCase
     private weak var engine: Engine?
-    private weak var creator: PowerUpCreatorUseCase?
+    private weak var creator: Creator?
     
-    init(engine: Engine, creator: PowerUpCreatorUseCase) {
+    init(engine: Engine, creator: Creator) {
         super.init(nodeClass: HyperspaceJumpNode.self)
         self.engine = engine
         self.creator = creator

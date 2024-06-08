@@ -11,6 +11,12 @@
 import Foundation
 import Swash
 
+protocol SplitAsteroidUseCase: AnyObject {
+    func createTreasure(positionComponent: PositionComponent)
+    func createAsteroid(radius: Double, x: Double, y: Double, size: AsteroidSize, level: Int)
+    var scaleManager: any ScaleManaging { get }
+}
+
 protocol AlienCreatorUseCase: AnyObject {
     func createAliens(scene: GameScene)
 }

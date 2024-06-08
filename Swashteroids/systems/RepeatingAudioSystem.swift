@@ -12,7 +12,6 @@ import Swash
 import SpriteKit
 
 final class RepeatingAudioSystem: ListIteratingSystem {
-
     init() {
         super.init(nodeClass: RepeatingAudioNode.self)
         nodeUpdateFunction = updateNode
@@ -22,14 +21,14 @@ final class RepeatingAudioSystem: ListIteratingSystem {
         guard let audio = node[RepeatingAudioComponent.self]
         else { return }
         switch audio.state {
-            case .shouldBegin:
-                audio.state = .playing
-                audio.sound?.run(SKAction.changeVolume(to: 1, duration: 0))
-            case .shouldStop:
-                audio.state = .notPlaying
-                audio.sound?.run(SKAction.changeVolume(to: 0, duration: 0))
-            case .notPlaying, .playing:
-                break
+        case .shouldBegin:
+            audio.state = .playing
+            audio.sound?.run(SKAction.changeVolume(to: 1, duration: 0))
+        case .shouldStop:
+            audio.state = .notPlaying
+            audio.sound?.run(SKAction.changeVolume(to: 0, duration: 0))
+        case .notPlaying, .playing:
+            break
         }
     }
 }
