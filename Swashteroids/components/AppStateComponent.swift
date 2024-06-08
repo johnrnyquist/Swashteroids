@@ -64,8 +64,13 @@ final class AppStateComponent: Component {
     var numTorpedoesPlayerFired: Int
     var timePlayed: Double
 
-    init(gameSize: CGSize, numShips: Int, level: Int, score: Int,
-         appState: AppState, shipControlsState: ShipControlsState, randomness: Randomness) {
+    init(gameSize: CGSize,
+         numShips: Int,
+         level: Int,
+         score: Int,
+         appState: AppState,
+         shipControlsState: ShipControlsState,
+         randomness: Randomness) {
         self.gameSize = gameSize
         self.randomness = randomness
         //

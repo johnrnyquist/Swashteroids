@@ -12,7 +12,7 @@ import SpriteKit
 import Swash
 
 /// Creator contains a number of convenience methods that create and configure entities, then adds them to its engine.
-final class Creator {
+class Creator {
     let randomness: Randomness
     var buttonPadding = 30.0
     var buttonPaddingLeft = 30.0
@@ -20,7 +20,6 @@ final class Creator {
     var fireButtonEntity: Entity? //HACK
     var firstRowButtonPaddingY = 30.0
     var hyperspaceButtonEntity: Entity? //HACK
-    var numAliens = 0
     var numAsteroids = 0
     var numTreasures = 0
     var size: CGSize

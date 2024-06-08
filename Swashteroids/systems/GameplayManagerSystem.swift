@@ -20,7 +20,7 @@ Determines if a ship needs to be made.
 Has too many responsibilities.
  */
 class GameplayManagerSystem: System {
-    typealias Creator = PowerUpCreatorUseCase & ShipCreatorUseCase & AsteroidCreatorUseCase & TorpedoCreatorUseCase & AlienCreatorUseCase
+    typealias Creator = PowerUpCreatorUseCase & ShipCreatorUseCase & AsteroidCreatorUseCase & TorpedoCreatorUseCase
     private var size: CGSize
     private weak var scene: GameScene!
     private weak var creator: Creator!
@@ -36,8 +36,15 @@ class GameplayManagerSystem: System {
     private var spaceshipClearanceRadius: CGFloat = 50
     private var minimumAsteroidDistance: CGFloat = 80
     private var randomness: Randomness!
+    private let alienCreator: AlienCreatorUseCase
 
-    init(creator: Creator, size: CGSize, scene: GameScene, randomness: Randomness, scaleManager: ScaleManaging = ScaleManager.shared) {
+    init(alienCreator: AlienCreatorUseCase,
+         creator: Creator,
+         size: CGSize,
+         scene: GameScene,
+         randomness: Randomness,
+         scaleManager: ScaleManaging = ScaleManager.shared) {
+        self.alienCreator = alienCreator
         self.creator = creator
         self.size = size
         self.scene = scene
@@ -76,7 +83,7 @@ class GameplayManagerSystem: System {
         appStateComponent.alienNextAppearance -= time
         if appStateComponent.alienNextAppearance <= 0 {
             appStateComponent.alienNextAppearance = appStateComponent.alienAppearanceRateDefault
-            creator.createAliens(scene: scene)
+            alienCreator.createAliens(scene: scene)
         }
     }
 
@@ -135,6 +142,7 @@ class GameplayManagerSystem: System {
         }
         return true
     }
+
     /// Create asteroids
     func createAsteroids(count: Int, avoiding positionToAvoid: CGPoint, level: Int) {
         for _ in 0..<count {

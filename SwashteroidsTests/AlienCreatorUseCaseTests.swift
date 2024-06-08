@@ -14,9 +14,24 @@ import XCTest
 import SpriteKit
 
 final class AlienCreatorUseCaseTests: XCTestCase {
-    override func setUpWithError() throws {}
+    var engine: Engine!
 
-    override func tearDownWithError() throws {}
+    override func setUpWithError() throws {
+        engine = Engine()
+        let appState = Entity(named: .appState)
+        appState.add(component: AppStateComponent(gameSize: .zero,
+                                                  numShips: 0,
+                                                  level: 1,
+                                                  score: 0,
+                                                  appState: .playing,
+                                                  shipControlsState: .showingButtons,
+                                                  randomness: Randomness(seed: 1)))
+        try! engine.add(entity: appState)
+    }
+
+    override func tearDownWithError() throws {
+        engine = nil
+    }
 
     class MockAlertPresenting: AlertPresenting {
         var isAlertPresented: Bool
@@ -30,13 +45,39 @@ final class AlienCreatorUseCaseTests: XCTestCase {
         func resume() {}
     }
 
-    func test_createAliens() throws {
-        let engine = Engine()
-        let creator = Creator(engine: engine,
-                              size: .zero,
-                              alertPresenter: MockAlertPresenting(),
-                              randomness: Randomness(seed: 1))
-        creator.createAliens(scene: GameScene(size: .zero))
-        //TODO: Finish test
+    func test_createAlienWorker_has_player() throws {
+        let player = Entity(named: .player)
+        try! engine.add(entity: player)
+        let creator = AlienCreator(engine: engine,
+                                   size: .zero,
+                                   randomness: Randomness(seed: 1))
+        creator.createAlienWorker(startDestination: .zero, endDestination: .zero)
+        XCTAssertNotNil(engine.findEntity(named: "alienWorkerEntity_1"))
+    }
+
+    func test_createAlienWorker_no_player() throws {
+        let creator = AlienCreator(engine: engine,
+                                   size: .zero,
+                                   randomness: Randomness(seed: 1))
+        creator.createAlienWorker(startDestination: .zero, endDestination: .zero)
+        XCTAssertNil(engine.findEntity(named: "alienWorkerEntity_1"))
+    }
+
+    func test_createAlienSoldier_has_player() throws {
+        let player = Entity(named: .player)
+        try! engine.add(entity: player)
+        let creator = AlienCreator(engine: engine,
+                                   size: .zero,
+                                   randomness: Randomness(seed: 1))
+        creator.createAlienSoldier(startDestination: .zero, endDestination: .zero)
+        XCTAssertNotNil(engine.findEntity(named: "alienSoldierEntity_1"))
+    }
+
+    func test_createAlienSoldier_no_player() throws {
+        let creator = AlienCreator(engine: engine,
+                                   size: .zero,
+                                   randomness: Randomness(seed: 1))
+        creator.createAlienSoldier(startDestination: .zero, endDestination: .zero)
+        XCTAssertNil(engine.findEntity(named: "alienSoldierEntity_1"))
     }
 }

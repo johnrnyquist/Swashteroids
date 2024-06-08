@@ -89,10 +89,15 @@ final class Swashteroids: NSObject {
     private func createSystems(scene: GameScene) {
         let gameSize = scene.size
         let soundPlayer = scene
+        let alienCreator = AlienCreator(engine: engine, size: gameSize, randomness: randomness)
         engine
             // preupdate
                 .add(system: TimePlayedSystem(), priority: .preUpdate)
-                .add(system: GameplayManagerSystem(creator: creator, size: gameSize, scene: scene, randomness: randomness),
+                .add(system: GameplayManagerSystem(alienCreator: alienCreator,
+                                                   creator: creator,
+                                                   size: gameSize,
+                                                   scene: scene,
+                                                   randomness: randomness),
                      priority: .preUpdate)
                 .add(system: GameOverSystem(), priority: .preUpdate)
                 .add(system: ShipControlsSystem(creator: creator), priority: .preUpdate)
