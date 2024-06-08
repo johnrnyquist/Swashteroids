@@ -12,19 +12,3 @@ import Swash
 
 final class AccelerometerComponent: Component {}
 
-protocol Comp {
-    init()
-    static var name: String { get }
-}
-
-extension Comp {
-    static var name: String {
-        "\(Self.self)"
-    }
-}
-
-struct MyStruct: Comp {
-    init() {
-        // Your implementation here
-    }
-}

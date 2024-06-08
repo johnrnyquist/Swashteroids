@@ -38,7 +38,7 @@ final class GameplayManagerSystemTests: XCTestCase {
                                            scaleManager: MockScaleManager())
         engine.add(system: system, priority: 1)
         let asteroid = Entity(named: "asteroid")
-                .add(component: AsteroidComponent())
+                .add(component: AsteroidComponent(size: .large))
                 .add(component: CollidableComponent(radius: LARGE_ASTEROID_RADIUS,
                                                    scaleManager: MockScaleManager()))
                 .add(component: PositionComponent(x: 0, y: 0, z: .asteroids))
@@ -57,7 +57,7 @@ final class GameplayManagerSystemTests: XCTestCase {
                                            scaleManager: MockScaleManager())
         engine.add(system: system, priority: 1)
         let asteroid = Entity(named: "asteroid")
-                .add(component: AsteroidComponent())
+                .add(component: AsteroidComponent(size: .large))
                 .add(component: CollidableComponent(radius: LARGE_ASTEROID_RADIUS,
                                                    scaleManager: MockScaleManager()))
                 .add(component: PositionComponent(x: 0, y: 0, z: .asteroids))
@@ -281,9 +281,17 @@ final class GameplayManagerSystemTests: XCTestCase {
         var SCALE_FACTOR: CGFloat { 1.0 }
     }
 
-    class MockCreator: PowerUpCreatorUseCase & ShipCreatorUseCase & AsteroidCreatorUseCase & TorpedoCreatorUseCase & AlienCreatorUseCase {
+    class MockCreator: GameplayManagerSystem.Creator {
         var createAliensCalled = false
         var createAsteroidCalled = 0
+
+        func createAsteroid(radius: Double,
+                            x: Double,
+                            y: Double,
+                            size: AsteroidSize,
+                            level: Int) {
+            createAsteroidCalled += 1
+        }
 
         func createHyperspacePowerUp(level: Int) {
 
@@ -315,7 +323,9 @@ final class GameplayManagerSystemTests: XCTestCase {
             createAsteroidCalled += 1
         }
 
-        func createTorpedo(_ gunComponent: GunComponent, _ parentPosition: PositionComponent, _ parentVelocity: VelocityComponent) {
+        func createTorpedo(_ gunComponent: GunComponent, 
+                           _ parentPosition: PositionComponent,
+                           _ parentVelocity: VelocityComponent) {
         }
     }
 }

@@ -54,7 +54,7 @@ class CollisionSystemTests: XCTestCase {
                 .add(component: CollidableComponent(radius: 25))
         try? engine.add(entity: alienEntity)
         asteroidEntity = Entity(named: "asteroidEntity")
-                .add(component: AsteroidComponent())
+            .add(component: AsteroidComponent(size: .large))
                 .add(component: CollidableComponent(radius: LARGE_ASTEROID_RADIUS, scaleManager: MockScaleManager()))
                 .add(component: PositionComponent(x: 0, y: 0, z: 0))
                 .add(component: DisplayComponent(sknode: SKNode()))
@@ -119,21 +119,22 @@ class CollisionSystemTests: XCTestCase {
         }
     }
 
-    func test_SplitAsteroid() {
-        let system = CollisionSystem(creator: creator,
-                                     size: .zero,
-                                     randomness: Randomness(seed: 2), //2 is the seed for the test
-                                     scaleManager: MockScaleManager())
-        guard let asteroidEntity else { XCTFail("asteroidEntity is nil!"); return }
-        // SUT
-        system.splitAsteroid(asteroidEntity: asteroidEntity, splits: 2, level: 1)
-        //
-        XCTAssertEqual(creator.createAsteroidCalled, 2)
-        XCTAssertEqual(creator.createTreasureCalled, true)
-        XCTAssertFalse(asteroidEntity.has(componentClassName: CollidableComponent.name))
-        XCTAssertTrue(asteroidEntity.has(componentClassName: AudioComponent.name))
-        XCTAssertTrue(asteroidEntity.has(componentClassName: DeathThroesComponent.name))
-    }
+    // TODO: Move to test sweet for SplitAsteroidSystem
+//    func test_SplitAsteroid() {
+//        let system = CollisionSystem(creator: creator,
+//                                     size: .zero,
+//                                     randomness: Randomness(seed: 2), //2 is the seed for the test
+//                                     scaleManager: MockScaleManager())
+//        guard let asteroidEntity else { XCTFail("asteroidEntity is nil!"); return }
+//        // SUT
+//        system.splitAsteroid(asteroidEntity: asteroidEntity, splits: 2, level: 1)
+//        //
+//        XCTAssertEqual(creator.createAsteroidCalled, 2)
+//        XCTAssertEqual(creator.createTreasureCalled, true)
+//        XCTAssertFalse(asteroidEntity.has(componentClassName: CollidableComponent.name))
+//        XCTAssertTrue(asteroidEntity.has(componentClassName: AudioComponent.name))
+//        XCTAssertTrue(asteroidEntity.has(componentClassName: DeathThroesComponent.name))
+//    }
 
     func test_torpedoAndVehicle_PlayerShootsAlien() {
         let system = CollisionSystem(creator: creator,
@@ -238,7 +239,7 @@ class CollisionSystemTests: XCTestCase {
     }
 
     func test_torpedoesAndAsteroids() {
-        let system = MockCollisionSystem(creator: creator,
+        let system = CollisionSystem(creator: creator,
                                          size: .zero, randomness: Randomness(seed: 1),
                                          scaleManager: MockScaleManager())
         engine.add(system: system, priority: 1)
@@ -264,20 +265,12 @@ class CollisionSystemTests: XCTestCase {
         // SUT
         system.torpedoesAndAsteroids(torpedoNode: torpedoNode, asteroidNode: asteroidNode)
         //
-        XCTAssertTrue(system.splitAsteroidCalled)
+        XCTAssertTrue(asteroidNode.entity!.has(componentClass: SplitAsteroidComponent.self))
         XCTAssertNil(engine.findEntity(named: .torpedo))
-
-        class MockCollisionSystem: CollisionSystem {
-            var splitAsteroidCalled = false
-
-            override func splitAsteroid(asteroidEntity: Entity, splits: Int = 2, level: Int) {
-                splitAsteroidCalled = true
-            }
-        }
     }
 
     func test_vehiclesAndAsteroids_Player() {
-        let system = MockCollisionSystem(creator: creator,
+        let system = CollisionSystem(creator: creator,
                                          size: .zero, randomness: Randomness(seed: 1),
                                          scaleManager: MockScaleManager())
         engine.add(system: system, priority: 1)
@@ -295,16 +288,8 @@ class CollisionSystemTests: XCTestCase {
         //TODO: this is no longer a decent test
         system.vehiclesAndAsteroids(vehicleNode: shipCollisionNode, asteroidNode: asteroidCollisionNode)
         //
-        XCTAssertTrue(system.splitAsteroidCalled)
+        XCTAssertTrue(asteroidCollisionNode.entity!.has(componentClass: SplitAsteroidComponent.self))
         XCTAssertTrue(appStateComponent.numShips == 0)
-
-        class MockCollisionSystem: CollisionSystem {
-            var splitAsteroidCalled = false
-
-            override func splitAsteroid(asteroidEntity: Entity, splits: Int = 2, level: Int) {
-                splitAsteroidCalled = true
-            }
-        }
     }
     
     func test_vehiclesAndTreasures() {
@@ -376,7 +361,7 @@ class CollisionSystemTests: XCTestCase {
         XCTAssertTrue(result)
     }
 
-    class MockCreator: AsteroidCreatorUseCase & ShipCreatorUseCase & ShipButtonControlsManagerUseCase & TreasureCreatorUseCase {
+    class MockCreator: CollisionSystem.Creator {
         //MARK: - ShipButtonControlsManager
         var removeShipControlButtonsCalled = false
         var createShipControlButtonsCalled = false
@@ -412,7 +397,7 @@ class CollisionSystemTests: XCTestCase {
         //MARK: - AsteroidCreator
         var createAsteroidCalled = 0
 
-        func createAsteroid(radius: Double, x: Double, y: Double, level: Int) {
+        func createAsteroid(radius: Double, x: Double, y: Double, size: AsteroidSize, level: Int) {
             createAsteroidCalled += 1
         }
 
