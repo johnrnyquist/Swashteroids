@@ -11,7 +11,22 @@
 import Swash
 import SpriteKit
 
-extension Creator: ShipCreatorUseCase {
+class ShipCreator: ShipCreatorUseCase {
+    let engine: Engine
+    let size: CGSize
+    let randomness: Randomizing
+    weak var generator: UIImpactFeedbackGenerator?
+
+    init(engine: Engine,
+         size: CGSize,
+         generator: UIImpactFeedbackGenerator? = nil,
+         randomness: Randomizing = Randomness.shared) {
+        self.engine = engine
+        self.size = size
+        self.generator = generator
+        self.randomness = randomness
+    }
+
     func createShip(_ state: AppStateComponent) {
         let player = Entity(named: .player)
         let sprite = SwashScaledSpriteNode(texture: createShipTexture())
@@ -52,14 +67,14 @@ extension Creator: ShipCreatorUseCase {
         player.add(component: ChangeShipControlsStateComponent(to: state.shipControlsState))
         player.add(component: RepeatingAudioComponent(sound: GameScene.sound)) //HACK
         switch state.shipControlsState {
-            case .hidingButtons:
-                player.add(component: AccelerometerComponent())
-            case .showingButtons:
-                player.remove(componentClass: AccelerometerComponent.self)
-            case .usingScreenControls:
-                break
-            case .usingGameController:
-                break
+        case .hidingButtons:
+            player.add(component: AccelerometerComponent())
+        case .showingButtons:
+            player.remove(componentClass: AccelerometerComponent.self)
+        case .usingScreenControls:
+            break
+        case .usingGameController:
+            break
         }
         do {
             try engine.add(entity: player)
@@ -69,7 +84,6 @@ extension Creator: ShipCreatorUseCase {
             fatalError("Unexpected error: \(error).")
         }
     }
-
 
     /// Removes and adds components to the ship entity to put in a destroyed state.
     /// Also adds a flaming particle emitter to the ship sprite.
@@ -107,7 +121,7 @@ extension Creator: ShipCreatorUseCase {
         // create a red sprite that covers the screen and has an alpha of 0.3
         let warningSprite = SKSpriteNode(color: .alienWarning, size: size)
         entity.add(component: DisplayComponent(sknode: warningSprite))
-            .add(component: PositionComponent(x: 0, y: 0, z: .bottom))
+              .add(component: PositionComponent(x: 0, y: 0, z: .bottom))
         warningSprite.anchorPoint = .zero
         let turnRed = SKAction.customAction(withDuration: 0.1) { _, _ in
             self.generator?.impactOccurred()

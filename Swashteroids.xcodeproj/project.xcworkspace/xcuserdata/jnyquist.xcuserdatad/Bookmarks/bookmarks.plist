@@ -41,9 +41,9 @@
                           generator: generator,
 </string>
 				<key>trailing</key>
-				<string>        transition = Transition(engine: engine, creator: creator, generator: generator)
-        orientation = UIDevice.current.orientation == .landscapeRight ? -1.0 : 1.0
-        super.init()
+				<string>        transition = Transition(engine: engine, 
+                                hudCreator: HudCreator(engine: engine, alertPresenter: alertPresenter),
+                                creator: creator, 
 </string>
 			</dict>
 			<key>type</key>

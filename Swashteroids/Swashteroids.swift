@@ -44,7 +44,10 @@ final class Swashteroids: NSObject {
                           size: scene.size,
                           generator: generator,
                           alertPresenter: alertPresenter)
-        transition = Transition(engine: engine, creator: creator, generator: generator)
+        transition = Transition(engine: engine, 
+                                hudCreator: HudCreator(engine: engine, alertPresenter: alertPresenter),
+                                creator: creator, 
+                                generator: generator)
         orientation = UIDevice.current.orientation == .landscapeRight ? -1.0 : 1.0
         super.init()
         NotificationCenter.default.addObserver(self,
@@ -91,12 +94,13 @@ final class Swashteroids: NSObject {
         let powerUpCreator = PowerUpCreator(engine: engine, size: gameSize)
         let asteroidCreator = AsteroidCreator(engine: engine)
         let alienCreator = AlienCreator(engine: engine, size: gameSize)
+        let shipCreator = ShipCreator(engine: engine, size: gameSize)
         engine
             // preupdate
                 .add(system: TimePlayedSystem(), priority: .preUpdate)
                 .add(system: GameplayManagerSystem(asteroidCreator: asteroidCreator,
-                                                   alienCreator: alienCreator,
-                                                   creator: creator,
+                                                   alienCreator: alienCreator, 
+                                                   shipCreator: shipCreator,
                                                    size: gameSize,
                                                    scene: scene),
                      priority: .preUpdate)
@@ -111,7 +115,8 @@ final class Swashteroids: NSObject {
                 .add(system: RightSystem(), priority: .move)
                 .add(system: ThrustSystem(), priority: .move)
                 // resolve collisions
-                .add(system: CollisionSystem(asteroidCreator: asteroidCreator,
+                .add(system: CollisionSystem(shipCreator: shipCreator,
+                                             asteroidCreator: asteroidCreator,
                                              creator: creator,
                                              size: gameSize),
                      priority: .resolveCollisions)

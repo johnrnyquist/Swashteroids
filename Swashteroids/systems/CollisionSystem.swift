@@ -17,7 +17,7 @@ let treasure_special_value = 350
 
 /// This class is an argument for switching to the SpriteKit physics engine.
 class CollisionSystem: System {
-    typealias Creator = ShipCreatorUseCase & ShipButtonControlsManagerUseCase
+    typealias Creator = ShipButtonControlsManagerUseCase
     private let randomness: Randomizing
     private let scaleManager: ScaleManaging
     private var size: CGSize
@@ -32,13 +32,16 @@ class CollisionSystem: System {
     private weak var treasures: NodeList!
     private weak var engine: Engine!
     private let asteroidCreator: AsteroidCreatorUseCase
+    private let shipCreator: ShipCreatorUseCase
 
     init(
+        shipCreator: ShipCreatorUseCase,
         asteroidCreator: AsteroidCreatorUseCase,
         creator: Creator,
         size: CGSize,
         randomness: Randomizing = Randomness.shared,
         scaleManager: ScaleManaging = ScaleManager.shared) {
+            self.shipCreator = shipCreator
         self.asteroidCreator = asteroidCreator
         self.creator = creator
         self.size = size
@@ -123,7 +126,7 @@ class CollisionSystem: System {
         } else {
             appStateNodes.head?[AppStateComponent.self]?.numAliensDestroyed += 1
         }
-        creator.destroy(ship: ve)
+        shipCreator.destroy(ship: ve)
         //TODO: refactor the below
         if let gameStateNode = appStateNodes.head,
            let appStateComponent = gameStateNode[AppStateComponent.self],
@@ -147,7 +150,7 @@ class CollisionSystem: System {
             if vehicleNode.entity?[ShipComponent.self] != nil {
                 appStateNodes.head?[AppStateComponent.self]?.numShips -= 1
             }
-            creator.destroy(ship: vehicleNode.entity!)
+            shipCreator.destroy(ship: vehicleNode.entity!)
         }
         let level = appStateNodes.head?[AppStateComponent.self]?.level ?? 1
         if let entity = asteroidNode.entity {
@@ -182,8 +185,8 @@ class CollisionSystem: System {
         alienEntity.remove(componentClass: VelocityComponent.self)
         shipEntity.add(component: alienVelocity)
         alienEntity.add(component: shipVelocity)
-        creator.destroy(ship: shipEntity)
-        creator.destroy(ship: alienEntity)
+        shipCreator.destroy(ship: shipEntity)
+        shipCreator.destroy(ship: alienEntity)
         if let appState = appStateNodes.head,
            let component = appState[AppStateComponent.self] {
             component.numShips -= 1

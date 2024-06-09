@@ -11,7 +11,14 @@
 import Swash
 import SpriteKit
 
-extension Creator: HudCreatorUseCase, AlertPresenting {
+class HudCreator: HudCreatorUseCase, AlertPresenting {
+    private weak var engine: Engine!
+    private weak var alertPresenter: AlertPresenting?
+
+    init(engine: Engine, alertPresenter: AlertPresenting) {
+        self.engine = engine
+        self.alertPresenter = alertPresenter
+    }
 
     func createHud(gameState: AppStateComponent) {
         let view = HudView(gameSize: gameState.gameSize)
@@ -40,6 +47,7 @@ extension Creator: HudCreatorUseCase, AlertPresenting {
     func showPauseAlert() {
         alertPresenter?.showPauseAlert()
     }
+
     var isAlertPresented: Bool {
         get {
             alertPresenter?.isAlertPresented ?? false
@@ -56,6 +64,5 @@ extension Creator: HudCreatorUseCase, AlertPresenting {
     func resume() {
         alertPresenter?.resume()
     }
-
 }
 

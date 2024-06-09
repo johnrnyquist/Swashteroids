@@ -12,7 +12,7 @@ import Swash
 import SpriteKit
 
 final class Transition {
-    var hudCreator: HudCreatorUseCase?
+    let hudCreator: HudCreatorUseCase?
     var toggleShipControlsManager: ToggleShipControlsManagerUseCase?
     var shipControlQuadrantsManager: ShipQuadrantsControlsManagerUseCase?
     var shipControlButtonsManager: ShipButtonControlsManagerUseCase?
@@ -23,10 +23,11 @@ final class Transition {
     }
 
     convenience init(engine: Engine,
-                     creator: HudCreatorUseCase & ToggleShipControlsManagerUseCase & ShipQuadrantsControlsManagerUseCase & ShipButtonControlsManagerUseCase,
+                     hudCreator: HudCreatorUseCase,
+                     creator: ToggleShipControlsManagerUseCase & ShipQuadrantsControlsManagerUseCase & ShipButtonControlsManagerUseCase,
                      generator: UIImpactFeedbackGenerator? = nil) {
         self.init(engine: engine,
-                  hudCreator: creator,
+                  hudCreator: hudCreator,
                   toggleShipControlsManager: creator,
                   shipControlQuadrantsManager: creator,
                   shipControlButtonsManager: creator,

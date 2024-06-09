@@ -20,10 +20,9 @@ Determines if a ship needs to be made.
 Has too many responsibilities.
  */
 class GameplayManagerSystem: System {
-    typealias Creator = ShipCreatorUseCase
     private var size: CGSize
     private weak var scene: GameScene!
-    private weak var creator: Creator!
+    private weak var shipCreator: ShipCreatorUseCase!
     private weak var asteroids: NodeList!
     private weak var torpedoes: NodeList!
     private weak var appStates: NodeList!
@@ -41,14 +40,14 @@ class GameplayManagerSystem: System {
 
     init(asteroidCreator: AsteroidCreatorUseCase,
          alienCreator: AlienCreatorUseCase,
-         creator: Creator,
+         shipCreator: ShipCreatorUseCase,
          size: CGSize,
          scene: GameScene,
          randomness: Randomizing = Randomness.shared,
          scaleManager: ScaleManaging = ScaleManager.shared) {
         self.asteroidCreator = asteroidCreator
         self.alienCreator = alienCreator
-        self.creator = creator
+        self.shipCreator = shipCreator
         self.size = size
         self.scene = scene
         self.randomness = randomness
@@ -65,7 +64,7 @@ class GameplayManagerSystem: System {
     }
 
     override func removeFromEngine(engine: Engine) {
-        creator = nil
+        shipCreator = nil
         appStates = nil
         ships = nil
         asteroids = nil
@@ -113,7 +112,7 @@ class GameplayManagerSystem: System {
             let newSpaceshipPosition = CGPoint(x: size.width * spaceshipPositionRatio,
                                                y: size.height * spaceshipPositionRatio)
             if isClearToAddSpaceship(at: newSpaceshipPosition) {
-                creator.createShip(appStateComponent)
+                shipCreator.createShip(appStateComponent)
             }
         } else { // GAME OVER!
             entity.add(component: TransitionAppStateComponent(from: .playing, to: .gameOver))
