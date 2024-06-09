@@ -12,9 +12,9 @@ import Swash
 import SpriteKit
 
 class PowerUpCreator: PowerUpCreatorUseCase {
-    let engine: Engine
-    let size: CGSize
-    let randomness: Randomizing
+    private let size: CGSize
+    private weak var engine: Engine!
+    private weak var randomness: Randomizing!
 
     init(engine: Engine, size: CGSize, randomness: Randomizing = Randomness.shared) {
         self.engine = engine

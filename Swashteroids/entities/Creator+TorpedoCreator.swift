@@ -12,8 +12,8 @@ import Swash
 import SpriteKit
 
 class TorpedoCreator: TorpedoCreatorUseCase {
-    private let engine: Engine
-    private let scaleManager: ScaleManaging
+    private weak var engine: Engine!
+    private weak var scaleManager: ScaleManaging!
 
     init(engine: Engine, scaleManager: ScaleManaging = ScaleManager.shared) {
         self.engine = engine

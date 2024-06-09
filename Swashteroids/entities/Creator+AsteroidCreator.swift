@@ -13,9 +13,9 @@ import SpriteKit
 
 class AsteroidCreator: AsteroidCreatorUseCase {
     private let engine: Engine
-    private let randomness: Randomizing
-    private let scaleManager: ScaleManaging
-    private var numAsteroids = 0
+    private var totalAsteroids = 0
+    private weak var randomness: Randomizing!
+    private weak var scaleManager: ScaleManaging!
     
     init(engine: Engine,
          randomness: Randomizing = Randomness.shared,
@@ -33,7 +33,7 @@ class AsteroidCreator: AsteroidCreatorUseCase {
     ///   - size: The size of the asteroid.
     ///   - level: This is the Game's current level. Value is used to determine the speed of the asteroid.
     func createAsteroid(radius: Double, x: Double, y: Double, size: AsteroidSize, level: Int) {
-        numAsteroids += 1
+        totalAsteroids += 1
         let sprite = SwashScaledSpriteNode(texture: createAsteroidTexture(radius: radius, color: .asteroid))
 //        sprite.physicsBody = SKPhysicsBody(circleOfRadius: CGFloat(radius * scaleManager.SCALE_FACTOR))
 //        sprite.physicsBody?.isDynamic = true
@@ -42,7 +42,7 @@ class AsteroidCreator: AsteroidCreatorUseCase {
 //        sprite.physicsBody?.contactTestBitMask =  playerCategory | torpedoCategory
 //        sprite.physicsBody?.collisionBitMask = 0
         let entity = Entity()
-        entity.name = .asteroid + "_\(numAsteroids)"
+        entity.name = .asteroid + "_\(totalAsteroids)"
         sprite.name = entity.name
         let lvl = Double(level > 0 ? level : 1)
         let speedModifier = lvl * 0.1 + 1.0  // 1.1, 1.2, 1.3, 1.4

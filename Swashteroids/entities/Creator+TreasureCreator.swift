@@ -12,9 +12,9 @@ import Swash
 import SpriteKit
 
 class TreasureCreator: TreasureCreatorUseCase {
-    private let engine: Engine
-    private let randomness: Randomizing
-    private var numTreasures = 0
+    private var totalTreasures = 0
+    private weak var engine: Engine!
+    private weak var randomness: Randomizing!
 
     init(engine: Engine, randomness: Randomizing = Randomness.shared) {
         self.engine = engine
@@ -28,8 +28,8 @@ class TreasureCreator: TreasureCreatorUseCase {
         let treasureData = r ? special : standard
         let sprite = SwashScaledSpriteNode(color: treasureData.color, size: CGSize(width: 12, height: 12))
         addEmitter(colored: treasureData.color, on: sprite)
-        numTreasures += 1
-        let treasureEntity = Entity(named: "treasure" + "_\(numTreasures)")
+        totalTreasures += 1
+        let treasureEntity = Entity(named: "treasure" + "_\(totalTreasures)")
                 .add(component: TreasureComponent(value: treasureData.value))
                 .add(component: PositionComponent(x: positionComponent.x,
                                                   y: positionComponent.y,

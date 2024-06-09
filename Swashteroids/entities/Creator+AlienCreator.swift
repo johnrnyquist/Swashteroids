@@ -12,10 +12,10 @@ import Swash
 import SpriteKit
 
 class AlienCreator: AlienCreatorUseCase {
-    let engine: Engine
-    let size: CGSize
-    let randomness: Randomizing
-    var numAliens = 0
+    private let size: CGSize
+    private var totalAliens = 0
+    private weak var engine: Engine!
+    private weak var randomness: Randomizing!
 
     init(engine: Engine, size: CGSize, randomness: Randomizing = Randomness.shared) {
         self.engine = engine
@@ -154,9 +154,9 @@ class AlienCreator: AlienCreatorUseCase {
 
     func createAlienWorker(startDestination: CGPoint, endDestination: CGPoint) {
         guard engine.findEntity(named: .player) != nil else { return }
-        numAliens += 1
+        totalAliens += 1
         let sprite = SwashScaledSpriteNode(imageNamed: .alienWorker)
-        sprite.name = "\(EntityName.alienWorker)_\(numAliens)"
+        sprite.name = "\(EntityName.alienWorker)_\(totalAliens)"
 //        sprite.physicsBody = SKPhysicsBody(rectangleOf: sprite.size)
 //        sprite.physicsBody?.isDynamic = true
 //        sprite.physicsBody?.affectedByGravity = false
@@ -166,7 +166,7 @@ class AlienCreator: AlienCreatorUseCase {
         workerComponent.startDestination = startDestination
         workerComponent.endDestination = endDestination
         let velocityX = 90.0 + Double(engine.appStateComponent.level) * 5.0 + randomness.nextDouble(from: 0.0, through: 10.0)
-        let alienEntity = Entity(named: "\(EntityName.alienWorker)_\(numAliens)")
+        let alienEntity = Entity(named: "\(EntityName.alienWorker)_\(totalAliens)")
         alienEntity
                 .add(component: workerComponent)
                 .add(component: AlienWorkerComponent())
@@ -191,9 +191,9 @@ class AlienCreator: AlienCreatorUseCase {
 
     func createAlienSoldier(startDestination: CGPoint, endDestination: CGPoint) {
         guard engine.findEntity(named: .player) != nil else { return }
-        numAliens += 1
+        totalAliens += 1
         let sprite = SwashScaledSpriteNode(imageNamed: .alienSoldier)
-        sprite.name = "\(EntityName.alienSoldier)_\(numAliens)"
+        sprite.name = "\(EntityName.alienSoldier)_\(totalAliens)"
 //        sprite.physicsBody = SKPhysicsBody(rectangleOf: sprite.size)
 //        sprite.physicsBody?.isDynamic = true
 //        sprite.physicsBody?.affectedByGravity = false
@@ -203,7 +203,7 @@ class AlienCreator: AlienCreatorUseCase {
         soldierComponent.startDestination = startDestination
         soldierComponent.endDestination = endDestination
         let velocityX = 120.0 + Double(engine.appStateComponent.level) * 5.0 + randomness.nextDouble(from: 0.0, through: 10.0)
-        let alienEntity = Entity(named: "\(EntityName.alienSoldier)_\(numAliens)")
+        let alienEntity = Entity(named: "\(EntityName.alienSoldier)_\(totalAliens)")
         alienEntity
                 .add(component: soldierComponent)
                 .add(component: AlienSoldierComponent())

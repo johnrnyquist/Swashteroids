@@ -10,7 +10,7 @@
 
 import Foundation
 
-protocol Randomizing {
+protocol Randomizing: AnyObject {
     func nextDouble() -> Double
     func nextInt(upTo max: Int) -> Int
     func nextInt(from min: Int, upTo max: Int) -> Int
