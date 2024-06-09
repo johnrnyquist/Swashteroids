@@ -18,7 +18,6 @@ class CollisionSystemTests: XCTestCase {
     var appStateComponent: AppStateComponent!
     var appStateEntity: Entity!
     var asteroidEntity: Entity!
-    var creator: MockCreator!
     var engine: Engine!
     var hyperspacePowerUpEntity: Entity!
     var shipEntity: Entity!
@@ -26,9 +25,12 @@ class CollisionSystemTests: XCTestCase {
     var torpedoEntity_player: Entity!
     var torpedoPowerUpEntity: Entity!
     var treasureEntity: Entity!
+    var system: CollisionSystem!
+    var shipButtonControlsManager: MockShipButtonControlsManager!
+    var shipCreator: MockShipCreator!
+    var asteroidCreator: MockAsteroidCreator!
 
     override func setUpWithError() throws {
-        creator = MockCreator()
         engine = Engine()
         appStateComponent = AppStateComponent(gameSize: .zero,
                                               numShips: 1,
@@ -36,7 +38,7 @@ class CollisionSystemTests: XCTestCase {
                                               score: 0,
                                               appState: .playing,
                                               shipControlsState: .showingButtons,
-                                              randomness: Randomness(seed: 1))
+                                              randomness: Randomness.initialize(with: 1))
         appStateEntity = Entity(named: .appState)
                 .add(component: appStateComponent)
         try? engine.add(entity: appStateEntity)
@@ -54,7 +56,7 @@ class CollisionSystemTests: XCTestCase {
                 .add(component: CollidableComponent(radius: 25))
         try? engine.add(entity: alienEntity)
         asteroidEntity = Entity(named: "asteroidEntity")
-            .add(component: AsteroidComponent(size: .large))
+                .add(component: AsteroidComponent(size: .large))
                 .add(component: CollidableComponent(radius: LARGE_ASTEROID_RADIUS, scaleManager: MockScaleManager()))
                 .add(component: PositionComponent(x: 0, y: 0, z: 0))
                 .add(component: DisplayComponent(sknode: SKNode()))
@@ -89,10 +91,18 @@ class CollisionSystemTests: XCTestCase {
                 .add(component: TreasureComponent(value: 1))
                 .add(component: CollidableComponent(radius: 10, scaleManager: MockScaleManager()))
                 .add(component: PositionComponent(x: 0, y: 0, z: 0))
+        shipButtonControlsManager = MockShipButtonControlsManager()
+        shipCreator = MockShipCreator()
+        asteroidCreator = MockAsteroidCreator()
+        system = CollisionSystem(shipCreator: shipCreator,
+                                 asteroidCreator: asteroidCreator,
+                                 shipButtonControlsManager: shipButtonControlsManager,
+                                 size: .zero,
+                                 randomness: Randomness.initialize(with: 1),
+                                 scaleManager: MockScaleManager())
     }
 
     override func tearDownWithError() throws {
-        creator = nil
         engine = nil
         shipEntity = nil
         asteroidEntity = nil
@@ -101,9 +111,11 @@ class CollisionSystemTests: XCTestCase {
     }
 
     func test_Update() {
-        let system = MockCollisionSystem(creator: creator,
-                                         size: .zero, randomness: Randomness(seed: 1),
-                                         scaleManager: MockScaleManager())
+        let system = MockCollisionSystem(shipCreator: shipCreator,
+                                         asteroidCreator: asteroidCreator,
+                                         shipButtonControlsManager: shipButtonControlsManager,
+                                         size: .zero,
+                                         randomness: Randomness.initialize(with: 1))
         engine.add(system: system, priority: 1)
         // SUT
         system.update(time: 1)
@@ -135,12 +147,7 @@ class CollisionSystemTests: XCTestCase {
 //        XCTAssertTrue(asteroidEntity.has(componentClassName: AudioComponent.name))
 //        XCTAssertTrue(asteroidEntity.has(componentClassName: DeathThroesComponent.name))
 //    }
-
     func test_torpedoAndVehicle_PlayerShootsAlien() {
-        let system = CollisionSystem(creator: creator,
-                                     size: .zero,
-                                     randomness: Randomness(seed: 1),
-                                     scaleManager: MockScaleManager())
         engine.add(system: system, priority: 1)
         //
         let torpedoNode = TorpedoCollisionNode()
@@ -157,15 +164,11 @@ class CollisionSystemTests: XCTestCase {
         // SUT
         system.torpedoAndVehicle(torpedoNode: torpedoNode, vehicleNode: alienCollisionNode)
         //
-        XCTAssertTrue(creator.removeShipCalled)
+        XCTAssertTrue(shipCreator.destroyCalled)
         XCTAssertEqual(appStateComponent.score, 350)
     }
 
     func test_torpedoAndVehicle_AlienShootsPlayer() {
-        let system = CollisionSystem(creator: creator,
-                                     size: .zero,
-                                     randomness: Randomness(seed: 1),
-                                     scaleManager: MockScaleManager())
         engine.add(system: system, priority: 1)
         //
         appStateComponent.numShips = 1
@@ -186,15 +189,11 @@ class CollisionSystemTests: XCTestCase {
         // SUT
         system.torpedoAndVehicle(torpedoNode: torpedoNode, vehicleNode: shipCollisionNode)
         //
-        XCTAssertTrue(creator.removeShipCalled)
+        XCTAssertTrue(shipCreator.destroyCalled)
         XCTAssertEqual(appStateComponent.numShips, 0)
     }
 
     func test_shipAndTorpedoPowerUp() {
-        let system = CollisionSystem(creator: creator,
-                                     size: .zero,
-                                     randomness: Randomness(seed: 1),
-                                     scaleManager: MockScaleManager())
         engine.add(system: system, priority: 1)
         let shipCollisionNode = ShipCollisionNode()
         for component in shipEntity.componentClassNameInstanceMap {
@@ -215,10 +214,6 @@ class CollisionSystemTests: XCTestCase {
     }
 
     func test_shipAndHyperspacePowerUp() {
-        let system = CollisionSystem(creator: creator,
-                                     size: .zero,
-                                     randomness: Randomness(seed: 1),
-                                     scaleManager: MockScaleManager())
         engine.add(system: system, priority: 1)
         let shipCollisionNode: Node = ShipCollisionNode()
         for component in shipEntity.componentClassNameInstanceMap {
@@ -239,9 +234,6 @@ class CollisionSystemTests: XCTestCase {
     }
 
     func test_torpedoesAndAsteroids() {
-        let system = CollisionSystem(creator: creator,
-                                         size: .zero, randomness: Randomness(seed: 1),
-                                         scaleManager: MockScaleManager())
         engine.add(system: system, priority: 1)
         let torpedoNode = GunPowerUpNode()
         for component in torpedoEntity_player.componentClassNameInstanceMap {
@@ -260,7 +252,7 @@ class CollisionSystemTests: XCTestCase {
                                                   score: 0,
                                                   appState: .playing,
                                                   shipControlsState: .showingButtons,
-                                                  randomness: Randomness(seed: 1)))
+                                                  randomness: Randomness.initialize(with: 1)))
         engine.replace(entity: appState)
         // SUT
         system.torpedoesAndAsteroids(torpedoNode: torpedoNode, asteroidNode: asteroidNode)
@@ -270,9 +262,6 @@ class CollisionSystemTests: XCTestCase {
     }
 
     func test_vehiclesAndAsteroids_Player() {
-        let system = CollisionSystem(creator: creator,
-                                         size: .zero, randomness: Randomness(seed: 1),
-                                         scaleManager: MockScaleManager())
         engine.add(system: system, priority: 1)
         let shipCollisionNode = ShipCollisionNode()
         shipCollisionNode.entity = shipEntity
@@ -291,12 +280,8 @@ class CollisionSystemTests: XCTestCase {
         XCTAssertTrue(asteroidCollisionNode.entity!.has(componentClass: SplitAsteroidComponent.self))
         XCTAssertTrue(appStateComponent.numShips == 0)
     }
-    
+
     func test_vehiclesAndTreasures() {
-        let system = CollisionSystem(creator: creator,
-                                     size: .zero,
-                                     randomness: Randomness(seed: 1),
-                                     scaleManager: MockScaleManager())
         engine.add(system: system, priority: 1)
         let shipCollisionNode = ShipCollisionNode()
         for component in shipEntity.componentClassNameInstanceMap {
@@ -313,12 +298,8 @@ class CollisionSystemTests: XCTestCase {
         //
         XCTAssertNil(engine.findEntity(named: "treasure_1"))
     }
-    
+
     func test_shipsAndAliens() {
-        let system = CollisionSystem(creator: creator,
-                                     size: .zero,
-                                     randomness: Randomness(seed: 1),
-                                     scaleManager: MockScaleManager())
         engine.add(system: system, priority: 1)
         let shipCollisionNode = ShipCollisionNode()
         for component in shipEntity.componentClassNameInstanceMap {
@@ -333,15 +314,11 @@ class CollisionSystemTests: XCTestCase {
         // SUT
         system.shipsAndAliens(shipNode: shipCollisionNode, alienNode: alienCollisionNode)
         //
-        XCTAssertTrue(creator.removeShipCalled)
+        XCTAssertTrue(shipCreator.destroyCalled)
         XCTAssertTrue(appStateComponent.numShips == 0)
     }
-    
+
     func test_collisionCheck() {
-        let system = CollisionSystem(creator: creator,
-                                     size: .zero,
-                                     randomness: Randomness(seed: 1),
-                                     scaleManager: MockScaleManager())
         let nodeA = ShipCollisionNode()
         for component in shipEntity.componentClassNameInstanceMap {
             nodeA.components[component.key] = component.value
@@ -361,62 +338,40 @@ class CollisionSystemTests: XCTestCase {
         XCTAssertTrue(result)
     }
 
-    class MockCreator: CollisionSystem.Creator {
-        //MARK: - ShipButtonControlsManager
-        var removeShipControlButtonsCalled = false
-        var createShipControlButtonsCalled = false
-        var enableShipControlButtonsCalled = false
-        var showFireButtonCalled = false
-        var showHyperspaceButtonCalled = false
-        var createTreasureCalled = false
+    class MockScaleManager: ScaleManaging {
+        var SCALE_FACTOR: CGFloat { 1.0 }
+    }
 
-        func createTreasure(positionComponent: PositionComponent) {
-            createTreasureCalled = true
-        }
+    class MockShipButtonControlsManager: ShipButtonControlsManagerUseCase {
+        func createShipControlButtons() {}
 
-        func removeShipControlButtons() {
-            removeShipControlButtonsCalled = true
-        }
+        func enableShipControlButtons() {}
 
-        func createShipControlButtons() {
-            createShipControlButtonsCalled = true
-        }
+        func removeShipControlButtons() {}
 
-        func enableShipControlButtons() {
-            enableShipControlButtonsCalled = true
-        }
+        func showFireButton() {}
 
-        func showFireButton() {
-            showFireButtonCalled = true
-        }
+        func showHyperspaceButton() {}
+    }
 
-        func showHyperspaceButton() {
-            showHyperspaceButtonCalled = true
-        }
-
-        //MARK: - AsteroidCreator
-        var createAsteroidCalled = 0
+    class MockAsteroidCreator: AsteroidCreatorUseCase {
+        var createAsteroidCalled = false
 
         func createAsteroid(radius: Double, x: Double, y: Double, size: AsteroidSize, level: Int) {
-            createAsteroidCalled += 1
+            createAsteroidCalled = true
         }
+    }
 
-        //MARK: ShipCreator
+    class MockShipCreator: ShipCreatorUseCase {
+        var destroyCalled = false
         var createShipCalled = false
-        var removeShipCalled = false
 
         func createShip(_ state: AppStateComponent) {
             createShipCalled = true
         }
 
         func destroy(ship: Entity) {
-            removeShipCalled = true
+            destroyCalled = true
         }
     }
-
-    class MockScaleManager: ScaleManaging {
-        var SCALE_FACTOR: CGFloat { 1.0 }
-    }
 }
-
-extension CollisionSystemTests.MockCreator {}

@@ -45,12 +45,12 @@ final class TransitionAppStateSystemTests: XCTestCase {
                                                   score: 0,
                                                   appState: .start,
                                                   shipControlsState: .hidingButtons,
-                                                  randomness: Randomness(seed: 1))
+                                                  randomness: Randomness.initialize(with: 1))
         let transitionComponent = TransitionAppStateComponent(from: .start, to: .infoNoButtons)
         node.components[AppStateComponent.name] = appStateComponent
         node.components[TransitionAppStateComponent.name] = transitionComponent
         let appState = Entity(named: .appState)
-            .add(component: AppStateComponent(gameSize: .zero, numShips: 0, level: 0, score: 0, appState: .initial, shipControlsState: .hidingButtons, randomness: Randomness(seed: 1)))
+            .add(component: AppStateComponent(gameSize: .zero, numShips: 0, level: 0, score: 0, appState: .initial, shipControlsState: .hidingButtons, randomness: Randomness.initialize(with: 1)))
         engine.replace(entity: appState)
         // SUT
         system.updateNode(node: node, time: 1)
@@ -66,12 +66,12 @@ final class TransitionAppStateSystemTests: XCTestCase {
                                                   score: 0,
                                                   appState: .start,
                                                   shipControlsState: .showingButtons,
-                                                  randomness: Randomness(seed: 1))
+                                                  randomness: Randomness.initialize(with: 1))
         let transitionComponent = TransitionAppStateComponent(from: .start, to: .infoButtons)
         node.components[AppStateComponent.name] = appStateComponent
         node.components[TransitionAppStateComponent.name] = transitionComponent
         let appState = Entity(named: .appState)
-            .add(component: AppStateComponent(gameSize: .zero, numShips: 0, level: 0, score: 0, appState: .initial, shipControlsState: .hidingButtons, randomness: Randomness(seed: 1)))
+            .add(component: AppStateComponent(gameSize: .zero, numShips: 0, level: 0, score: 0, appState: .initial, shipControlsState: .hidingButtons, randomness: Randomness.initialize(with: 1)))
         engine.replace(entity: appState)
         // SUT
         system.updateNode(node: node, time: 1)
@@ -87,7 +87,7 @@ final class TransitionAppStateSystemTests: XCTestCase {
                                                   score: 0,
                                                   appState: .infoButtons,
                                                   shipControlsState: .showingButtons,
-                                                  randomness: Randomness(seed: 1))
+                                                  randomness: Randomness.initialize(with: 1))
         let transitionComponent = TransitionAppStateComponent(from: .infoButtons, to: .playing)
         node.components[AppStateComponent.name] = appStateComponent
         node.components[TransitionAppStateComponent.name] = transitionComponent
@@ -105,12 +105,12 @@ final class TransitionAppStateSystemTests: XCTestCase {
                                                   score: 0,
                                                   appState: .gameOver,
                                                   shipControlsState: .showingButtons,
-                                                  randomness: Randomness(seed: 1))
+                                                  randomness: Randomness.initialize(with: 1))
         let transitionComponent = TransitionAppStateComponent(from: .gameOver, to: .start)
         node.components[AppStateComponent.name] = appStateComponent
         node.components[TransitionAppStateComponent.name] = transitionComponent
         let appState = Entity(named: .appState)
-            .add(component: AppStateComponent(gameSize: .zero, numShips: 0, level: 0, score: 0, appState: .initial, shipControlsState: .hidingButtons, randomness: Randomness(seed: 1)))
+            .add(component: AppStateComponent(gameSize: .zero, numShips: 0, level: 0, score: 0, appState: .initial, shipControlsState: .hidingButtons, randomness: Randomness.initialize(with: 1)))
         engine.replace(entity: appState)
         // SUT
         system.updateNode(node: node, time: 1)
@@ -126,7 +126,7 @@ final class TransitionAppStateSystemTests: XCTestCase {
                                                   score: 0,
                                                   appState: .infoNoButtons,
                                                   shipControlsState: .hidingButtons,
-                                                  randomness: Randomness(seed: 1))
+                                                  randomness: Randomness.initialize(with: 1))
         let transitionComponent = TransitionAppStateComponent(from: .infoNoButtons, to: .playing)
         node.components[AppStateComponent.name] = appStateComponent
         node.components[TransitionAppStateComponent.name] = transitionComponent
@@ -143,7 +143,7 @@ final class TransitionAppStateSystemTests: XCTestCase {
                                                   score: 0,
                                                   appState: .playing,
                                                   shipControlsState: .showingButtons,
-                                                  randomness: Randomness(seed: 1))
+                                                  randomness: Randomness.initialize(with: 1))
         let appStateEntity = Entity(named: "appStateEntity")
                 .add(component: appStateComponent)
         do {

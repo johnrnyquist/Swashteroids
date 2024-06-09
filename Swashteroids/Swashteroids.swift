@@ -117,7 +117,7 @@ final class Swashteroids: NSObject {
                 // resolve collisions
                 .add(system: CollisionSystem(shipCreator: shipCreator,
                                              asteroidCreator: asteroidCreator,
-                                             creator: creator,
+                                             shipButtonControlsManager: creator,
                                              size: gameSize),
                      priority: .resolveCollisions)
                 // animate

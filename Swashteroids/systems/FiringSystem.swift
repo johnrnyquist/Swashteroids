@@ -13,12 +13,11 @@ import Swash
 import SpriteKit
 
 final class FiringSystem: System {
-    typealias Creator = TorpedoCreatorUseCase
-    private weak var torpedoCreator: Creator?
+    private weak var torpedoCreator: TorpedoCreatorUseCase?
     private weak var firingNodes: NodeList?
     private weak var engine: Engine?
     
-    init(torpedoCreator: Creator) {
+    init(torpedoCreator: TorpedoCreatorUseCase) {
         self.torpedoCreator = torpedoCreator
     }
 

@@ -25,7 +25,7 @@ final class AlienCreatorUseCaseTests: XCTestCase {
                                                   score: 0,
                                                   appState: .playing,
                                                   shipControlsState: .showingButtons,
-                                                  randomness: Randomness(seed: 1)))
+                                                  randomness: Randomness.initialize(with: 1)))
         try! engine.add(entity: appState)
     }
 
@@ -50,7 +50,7 @@ final class AlienCreatorUseCaseTests: XCTestCase {
         try! engine.add(entity: player)
         let creator = AlienCreator(engine: engine,
                                    size: .zero,
-                                   randomness: Randomness(seed: 1))
+                                   randomness: Randomness.initialize(with: 1))
         creator.createAlienWorker(startDestination: .zero, endDestination: .zero)
         XCTAssertNotNil(engine.findEntity(named: "alienWorkerEntity_1"))
     }
@@ -58,7 +58,7 @@ final class AlienCreatorUseCaseTests: XCTestCase {
     func test_createAlienWorker_no_player() throws {
         let creator = AlienCreator(engine: engine,
                                    size: .zero,
-                                   randomness: Randomness(seed: 1))
+                                   randomness: Randomness.initialize(with: 1))
         creator.createAlienWorker(startDestination: .zero, endDestination: .zero)
         XCTAssertNil(engine.findEntity(named: "alienWorkerEntity_1"))
     }
@@ -68,7 +68,7 @@ final class AlienCreatorUseCaseTests: XCTestCase {
         try! engine.add(entity: player)
         let creator = AlienCreator(engine: engine,
                                    size: .zero,
-                                   randomness: Randomness(seed: 1))
+                                   randomness: Randomness.initialize(with: 1))
         creator.createAlienSoldier(startDestination: .zero, endDestination: .zero)
         XCTAssertNotNil(engine.findEntity(named: "alienSoldierEntity_1"))
     }
@@ -76,7 +76,7 @@ final class AlienCreatorUseCaseTests: XCTestCase {
     func test_createAlienSoldier_no_player() throws {
         let creator = AlienCreator(engine: engine,
                                    size: .zero,
-                                   randomness: Randomness(seed: 1))
+                                   randomness: Randomness.initialize(with: 1))
         creator.createAlienSoldier(startDestination: .zero, endDestination: .zero)
         XCTAssertNil(engine.findEntity(named: "alienSoldierEntity_1"))
     }

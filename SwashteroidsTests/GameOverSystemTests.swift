@@ -36,7 +36,7 @@ final class GameOverSystemTests: XCTestCase {
                                          score: 2,
                                          appState: .gameOver,
                                          shipControlsState: .showingButtons,
-                                         randomness: Randomness(seed: 1))
+                                         randomness: Randomness.initialize(with: 1))
         let node = GameOverNode()
         node.components[GameOverComponent.name] = gameOver
         node.components[AppStateComponent.name] = appState

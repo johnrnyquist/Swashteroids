@@ -62,7 +62,13 @@ final class ShipControlsSystemTests: XCTestCase {
                 .add(component: AccelerometerComponent())
         try? engine.add(entity: ship)
         let appState = Entity(named: .appState)
-            .add(component: AppStateComponent(gameSize: .zero, numShips: 0, level: 0, score: 0, appState: .initial, shipControlsState: .hidingButtons, randomness: Randomness(seed: 1)))
+            .add(component: AppStateComponent(gameSize: .zero, 
+                                              numShips: 0, 
+                                              level: 0, 
+                                              score: 0, 
+                                              appState: .initial, 
+                                              shipControlsState: .hidingButtons, 
+                                              randomness: Randomness.initialize(with: 1)))
         engine.replace(entity: appState)
         // SUT
         system.handleChange(to: .showingButtons)
@@ -94,7 +100,13 @@ final class ShipControlsSystemTests: XCTestCase {
                 .add(component: DisplayComponent(sknode: SwashSpriteNode()))
         try? engine.add(entity: fireButton)
         let appState = Entity(named: .appState)
-            .add(component: AppStateComponent(gameSize: .zero, numShips: 0, level: 0, score: 0, appState: .initial, shipControlsState: .hidingButtons, randomness: Randomness(seed: 1)))
+            .add(component: AppStateComponent(gameSize: .zero, 
+                                              numShips: 0, 
+                                              level: 0, 
+                                              score: 0, 
+                                              appState: .initial, 
+                                              shipControlsState: .hidingButtons, 
+                                              randomness: Randomness.initialize(with: 1)))
         engine.replace(entity: appState)
         // SUT
         system.handleChange(to: .showingButtons)
@@ -119,7 +131,13 @@ final class ShipControlsSystemTests: XCTestCase {
                 .add(component: DisplayComponent(sknode: SwashScaledSpriteNode()))
         try? engine.add(entity: hyperspaceButton)
         let appState = Entity(named: .appState)
-            .add(component: AppStateComponent(gameSize: .zero, numShips: 0, level: 0, score: 0, appState: .initial, shipControlsState: .hidingButtons, randomness: Randomness(seed: 1)))
+            .add(component: AppStateComponent(gameSize: .zero, 
+                                              numShips: 0, 
+                                              level: 0, 
+                                              score: 0, 
+                                              appState: .initial, 
+                                              shipControlsState: .hidingButtons, 
+                                              randomness: Randomness.initialize(with: 1)))
         engine.replace(entity: appState)
         // SUT
         system.handleChange(to: .showingButtons)
@@ -148,7 +166,13 @@ final class ShipControlsSystemTests: XCTestCase {
                 .add(component: HyperspaceDriveComponent(jumps: 20))
         try? engine.add(entity: ship)
         let appState = Entity(named: .appState)
-            .add(component: AppStateComponent(gameSize: .zero, numShips: 0, level: 0, score: 0, appState: .initial, shipControlsState: .hidingButtons, randomness: Randomness(seed: 1)))
+            .add(component: AppStateComponent(gameSize: .zero, 
+                                              numShips: 0, 
+                                              level: 0, 
+                                              score: 0, 
+                                              appState: .initial, 
+                                              shipControlsState: .hidingButtons, 
+                                              randomness: Randomness.initialize(with: 1)))
         engine.replace(entity: appState)
         //
         system.handleChange(to: .hidingButtons)

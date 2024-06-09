@@ -12,10 +12,10 @@
 import XCTest
 
 final class RandomnessTests: XCTestCase {
-    var randomness: Randomness!
+    var randomness: Randomizing!
 
     override func setUpWithError() throws {
-        randomness = Randomness(seed: 1)
+        randomness = Randomness.initialize(with: 1)
     }
 
     func testNextDouble() {

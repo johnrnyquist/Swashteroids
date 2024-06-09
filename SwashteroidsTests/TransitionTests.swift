@@ -26,7 +26,13 @@ final class TransitionTests: XCTestCase {
     override func setUpWithError() throws {
         size = CGSize(width: 1024.0, height: 768.0)
         engine = Engine()
-        appStateComponent = AppStateComponent(gameSize: .zero, numShips: 3, level: 4, score: 5, appState: .infoButtons, shipControlsState: .hidingButtons, randomness: Randomness(seed: 1))
+        appStateComponent = AppStateComponent(gameSize: .zero,
+                                              numShips: 3,
+                                              level: 4,
+                                              score: 5,
+                                              appState: .infoButtons,
+                                              shipControlsState: .hidingButtons,
+                                              randomness: Randomness.initialize(with: 1))
         appStateEntity = Entity(named: "appStateEntity")
                 .add(component: appStateComponent)
         do {
@@ -35,7 +41,7 @@ final class TransitionTests: XCTestCase {
             XCTFail("Failed to add appStateEntity")
         }
         creator = MockCreator()
-        transition = Transition(engine: engine, creator: creator)
+        transition = Transition(engine: engine, hudCreator: MockHudCreator(), creator: creator)
     }
 
     override func tearDownWithError() throws {
@@ -61,7 +67,7 @@ final class TransitionTests: XCTestCase {
             XCTAssertNil(engine.findEntity(named: entityName))
         }
     }
-    
+
     func test_FromPlayingScreen() {
         transition.fromPlayingScreen()
         XCTAssertTrue(creator.removeToggleButtonCalled)
@@ -105,69 +111,49 @@ final class TransitionTests: XCTestCase {
         var isAlertPresented: Bool = false
 
         func home() {}
-        
+
         func resume() {}
-        
+
         func showPauseAlert() {}
     }
 
-    class MockCreator: HudCreatorUseCase, ToggleShipControlsManagerUseCase, ShipQuadrantsControlsManagerUseCase, ShipButtonControlsManagerUseCase {
-        //MARK: - HudCreator
-        var createHudCalled = false
-
-        func createHud(gameState: AppStateComponent) {
-            createHudCalled = true
-        }
-
+    class MockCreator: ToggleShipControlsManagerUseCase, ShipQuadrantsControlsManagerUseCase, ShipButtonControlsManagerUseCase {
         //MARK: - ToggleShipControlsManager
-        var createToggleButtonCalled = false
         var removeToggleButtonCalled = false
 
-        func createToggleButton(_ state: Toggle) {
-            createToggleButtonCalled = true
-        }
+        func createToggleButton(_ state: Toggle) {}
 
         func removeToggleButton() {
             removeToggleButtonCalled = true
         }
 
         //MARK: - ShipQuadrantsControlsManager
-        var createShipControlQuadrantsCalled = false
         var removeShipControlQuadrantsCalled = false
 
-        func createShipControlQuadrants() {
-            createShipControlQuadrantsCalled = true
-        }
+        func createShipControlQuadrants() {}
 
         func removeShipControlQuadrants() {
             removeShipControlQuadrantsCalled = true
         }
 
         //MARK: - ShipButtonControlsManager
-        var createShipControlButtonsCalled = false
-        var enableShipControlButtonsCalled = false
         var removeShipControlButtonsCalled = false
-        var showFireButtonCalled = false
-        var showHyperspaceButtonCalled = false
 
-        func showFireButton() {
-            showFireButtonCalled = true
-        }
+        func showFireButton() {}
 
-        func showHyperspaceButton() {
-            showHyperspaceButtonCalled = true
-        }
+        func showHyperspaceButton() {}
 
-        func enableShipControlButtons() {
-            enableShipControlButtonsCalled = true
-        }
+        func enableShipControlButtons() {}
 
         func removeShipControlButtons() {
             removeShipControlButtonsCalled = true
         }
 
-        func createShipControlButtons() {
-            createShipControlButtonsCalled = true
+        func createShipControlButtons() {}
+    }
+
+    class MockHudCreator: HudCreatorUseCase {
+        func createHud(gameState: AppStateComponent) {
         }
     }
 }

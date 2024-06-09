@@ -14,11 +14,11 @@ import XCTest
 
 class HudSystemTests: XCTestCase {
     var system: HudSystem!
-    var creator: PowerUpCreatorUseCase!
+    var powerUpCreator: PowerUpCreatorUseCase!
 
     override func setUpWithError() throws {
-        creator = MockPowerUpCreator()
-        system = HudSystem(creator: creator)
+        powerUpCreator = MockPowerUpCreator()
+        system = HudSystem(powerUpCreator: powerUpCreator)
     }
 
     override func tearDownWithError() throws {
@@ -34,7 +34,7 @@ class HudSystemTests: XCTestCase {
                                                   score: 3,
                                                   appState: .playing,
                                                   shipControlsState: .showingButtons,
-                                                  randomness: Randomness(seed: 1))
+                                                  randomness: Randomness.initialize(with: 1))
         hudNode.components[HudComponent.name] = hudComponent
         hudNode.components[AppStateComponent.name] = appStateComponent
         system.updateNode(hudNode, 1)

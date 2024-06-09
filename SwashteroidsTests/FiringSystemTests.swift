@@ -14,12 +14,12 @@ import XCTest
 
 class FiringSystemTests: XCTestCase {
     var system: FiringSystem!
-    var creator: MockTorpedoCreator!
+    var torpedoCreator: MockTorpedoCreator!
     var engine: Engine!
 
     override func setUpWithError() throws {
-        creator = MockTorpedoCreator()
-        system = FiringSystem(creator: creator)
+        torpedoCreator = MockTorpedoCreator()
+        system = FiringSystem(torpedoCreator: torpedoCreator)
         engine = Engine()
         engine.add(system: system, priority: 1)
     }
@@ -27,7 +27,7 @@ class FiringSystemTests: XCTestCase {
     override func tearDownWithError() throws {
         engine = nil
         system = nil
-        creator = nil
+        torpedoCreator = nil
     }
 
     func test_Fire() {
@@ -60,12 +60,12 @@ class FiringSystemTests: XCTestCase {
                                               score: 0, 
                                               appState: .initial,
                                               shipControlsState: .hidingButtons,
-                                              randomness: Randomness(seed: 1)))
+                                              randomness: Randomness.initialize(with: 1)))
         engine.replace(entity: appState)
         // SUT
         system.update(time: time)
         //
-        XCTAssertTrue(creator.fired)
+        XCTAssertTrue(torpedoCreator.fired)
         XCTAssertEqual(gun.numTorpedoes, 19)
     }
     

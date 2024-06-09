@@ -17,33 +17,31 @@ let treasure_special_value = 350
 
 /// This class is an argument for switching to the SpriteKit physics engine.
 class CollisionSystem: System {
-    typealias Creator = ShipButtonControlsManagerUseCase
+    private let asteroidCreator: AsteroidCreatorUseCase
     private let randomness: Randomizing
     private let scaleManager: ScaleManaging
-    private var size: CGSize
-    private weak var creator: Creator!
-    private weak var appStateNodes: NodeList!
-    private weak var ships: NodeList!
-    private weak var aliens: NodeList!
-    private weak var asteroids: NodeList!
-    private weak var torpedoes: NodeList!
-    private weak var torpedoPowerUp: NodeList!
-    private weak var hyperspacePowerUp: NodeList!
-    private weak var treasures: NodeList!
-    private weak var engine: Engine!
-    private let asteroidCreator: AsteroidCreatorUseCase
     private let shipCreator: ShipCreatorUseCase
+    private var size: CGSize
+    private weak var aliens: NodeList!
+    private weak var appStateNodes: NodeList!
+    private weak var asteroids: NodeList!
+    private weak var engine: Engine!
+    private weak var hyperspacePowerUp: NodeList!
+    private weak var shipButtonControlsManager: ShipButtonControlsManagerUseCase!
+    private weak var ships: NodeList!
+    private weak var torpedoPowerUp: NodeList!
+    private weak var torpedoes: NodeList!
+    private weak var treasures: NodeList!
 
-    init(
-        shipCreator: ShipCreatorUseCase,
-        asteroidCreator: AsteroidCreatorUseCase,
-        creator: Creator,
-        size: CGSize,
-        randomness: Randomizing = Randomness.shared,
-        scaleManager: ScaleManaging = ScaleManager.shared) {
-            self.shipCreator = shipCreator
+    init(shipCreator: ShipCreatorUseCase,
+         asteroidCreator: AsteroidCreatorUseCase,
+         shipButtonControlsManager: ShipButtonControlsManagerUseCase,
+         size: CGSize,
+         randomness: Randomizing = Randomness.shared,
+         scaleManager: ScaleManaging = ScaleManager.shared) {
+        self.shipCreator = shipCreator
         self.asteroidCreator = asteroidCreator
-        self.creator = creator
+        self.shipButtonControlsManager = shipButtonControlsManager
         self.size = size
         self.randomness = randomness
         self.scaleManager = scaleManager
@@ -76,7 +74,7 @@ class CollisionSystem: System {
                 .add(component: AudioComponent(fileNamed: .powerUp,
                                                actionKey: "powerup.wav"))
         //HACK for immediate gratification
-        creator.showFireButton()
+        shipButtonControlsManager.showFireButton()
         //END_HACK
     }
 
@@ -88,7 +86,7 @@ class CollisionSystem: System {
                 .add(component: AudioComponent(fileNamed: .powerUp,
                                                actionKey: "powerup.wav"))
         //HACK for immediate gratification
-        creator.showHyperspaceButton()
+        shipButtonControlsManager.showHyperspaceButton()
         //END_HACK
     }
 
