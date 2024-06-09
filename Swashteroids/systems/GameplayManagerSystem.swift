@@ -20,21 +20,21 @@ Determines if a ship needs to be made.
 Has too many responsibilities.
  */
 class GameplayManagerSystem: System {
+    private let alienCreator: AlienCreatorUseCase!
+    private let asteroidCreator: AsteroidCreatorUseCase!
     private let hudTextFontName = "Futura Condensed Medium"
     private let minimumLevel = 1
+    private let shipCreator: ShipCreatorUseCase!
     private let spaceshipPositionRatio: CGFloat = 0.5
     private var hudTextFontSize: CGFloat = 64
     private var minimumAsteroidDistance: CGFloat = 80
     private var randomness: Randomizing!
     private var size: CGSize
     private var spaceshipClearanceRadius: CGFloat = 50
-    private weak var alienCreator: AlienCreatorUseCase!
     private weak var aliens: NodeList!
     private weak var appStates: NodeList!
-    private weak var asteroidCreator: AsteroidCreatorUseCase!
     private weak var asteroids: NodeList!
     private weak var scene: GameScene!
-    private weak var shipCreator: ShipCreatorUseCase!
     private weak var ships: NodeList!
     private weak var torpedoes: NodeList!
 
