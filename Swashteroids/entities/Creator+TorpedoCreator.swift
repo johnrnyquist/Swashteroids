@@ -11,7 +11,15 @@
 import Swash
 import SpriteKit
 
-extension Creator: TorpedoCreatorUseCase {
+class TorpedoCreator: TorpedoCreatorUseCase {
+    private let engine: Engine
+    private let scaleManager: ScaleManaging
+
+    init(engine: Engine, scaleManager: ScaleManaging = ScaleManager.shared) {
+        self.engine = engine
+        self.scaleManager = scaleManager
+    }
+
     func createTorpedo(_ gunComponent: GunComponent, _ position: PositionComponent, _ velocity: VelocityComponent) {
         //TODO: this should be re-thought
         var name = "torpedo_"

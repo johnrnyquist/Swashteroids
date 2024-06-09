@@ -11,7 +11,16 @@
 import Swash
 import SpriteKit
 
-extension Creator: TreasureCreatorUseCase {
+class TreasureCreator: TreasureCreatorUseCase {
+    private let engine: Engine
+    private let randomness: Randomness
+    private var numTreasures = 0
+
+    init(engine: Engine, randomness: Randomness) {
+        self.engine = engine
+        self.randomness = randomness
+    }
+
     func createTreasure(positionComponent: PositionComponent) {
         let r = randomness.nextInt(from: 1, through: 5) == 5
         let standard = (color: UIColor.systemGreen, value: treasure_standard_value)
@@ -32,5 +41,17 @@ extension Creator: TreasureCreatorUseCase {
         sprite.entity = treasureEntity
         sprite.name = treasureEntity.name
         engine.replace(entity: treasureEntity)
+    }
+
+    func addEmitter(colored color: UIColor, on sknode: SKNode) {
+        if let emitter = SKEmitterNode(fileNamed: "fireflies_mod.sks") {
+            // emitter.setScale(1.0 * scaleManager.SCALE_FACTOR)
+            // let colorRamp: [UIColor] = [color.lighter(by: 30.0).shiftHue(by: 10.0)]
+            let colorRamp: [UIColor] = [color.shiftHue(by: 5.0)]
+            let keyTimes: [NSNumber] = [1.0]
+            let colorSequence = SKKeyframeSequence(keyframeValues: colorRamp, times: keyTimes)
+            emitter.particleColorSequence = colorSequence
+            sknode.addChild(emitter)
+        }
     }
 }

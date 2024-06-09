@@ -17,7 +17,7 @@ let treasure_special_value = 350
 
 /// This class is an argument for switching to the SpriteKit physics engine.
 class CollisionSystem: System {
-    typealias Creator = AsteroidCreatorUseCase & ShipCreatorUseCase & ShipButtonControlsManagerUseCase & TreasureCreatorUseCase
+    typealias Creator = ShipCreatorUseCase & ShipButtonControlsManagerUseCase
     private let randomness: Randomness
     private let scaleManager: ScaleManaging
     private var size: CGSize
@@ -31,8 +31,15 @@ class CollisionSystem: System {
     private weak var hyperspacePowerUp: NodeList!
     private weak var treasures: NodeList!
     private weak var engine: Engine!
+    private let asteroidCreator: AsteroidCreatorUseCase
 
-    init(creator: Creator, size: CGSize, randomness: Randomness, scaleManager: ScaleManaging = ScaleManager.shared) {
+    init(
+        asteroidCreator: AsteroidCreatorUseCase,
+        creator: Creator,
+        size: CGSize,
+        randomness: Randomness,
+        scaleManager: ScaleManaging = ScaleManager.shared) {
+        self.asteroidCreator = asteroidCreator
         self.creator = creator
         self.size = size
         self.randomness = randomness
@@ -105,10 +112,10 @@ class CollisionSystem: System {
         else { return }
         let torpedoOwner = torpedoNode[TorpedoComponent.self]!.owner
         switch torpedoOwner {
-            case .player:
-                if let _ = ve[ShipComponent.self] { return }
-            case .computerOpponent:
-                if let _ = ve[AlienComponent.self] { return }
+        case .player:
+            if let _ = ve[ShipComponent.self] { return }
+        case .computerOpponent:
+            if let _ = ve[AlienComponent.self] { return }
         }
         if let torpedo = torpedoNode.entity { engine.remove(entity: torpedo) }
         if ve[ShipComponent.self] != nil {
@@ -186,14 +193,13 @@ class CollisionSystem: System {
     /// 
     /// - Parameter time: The time since the last update
     override public func update(time: TimeInterval) {
-        collisionCheck(nodeA: ships.head,     nodeB: torpedoPowerUp.head,    action: shipAndTorpedoPowerUp)
-        collisionCheck(nodeA: ships.head,     nodeB: hyperspacePowerUp.head, action: shipAndHyperspacePowerUp)
-        collisionCheck(nodeA: torpedoes.head, nodeB: asteroids.head,         action: torpedoesAndAsteroids)
-
+        collisionCheck(nodeA: ships.head, nodeB: torpedoPowerUp.head, action: shipAndTorpedoPowerUp)
+        collisionCheck(nodeA: ships.head, nodeB: hyperspacePowerUp.head, action: shipAndHyperspacePowerUp)
+        collisionCheck(nodeA: torpedoes.head, nodeB: asteroids.head, action: torpedoesAndAsteroids)
         for vehicle in [ships.head, aliens.head] {
-            collisionCheck(nodeA: torpedoes.head, nodeB: vehicle,        action: torpedoAndVehicle)
-            collisionCheck(nodeA: vehicle,        nodeB: asteroids.head, action: vehiclesAndAsteroids)
-            collisionCheck(nodeA: vehicle,        nodeB: treasures.head, action: vehiclesAndTreasures)
+            collisionCheck(nodeA: torpedoes.head, nodeB: vehicle, action: torpedoAndVehicle)
+            collisionCheck(nodeA: vehicle, nodeB: asteroids.head, action: vehiclesAndAsteroids)
+            collisionCheck(nodeA: vehicle, nodeB: treasures.head, action: vehiclesAndTreasures)
         }
         collisionCheck(nodeA: ships.head, nodeB: aliens.head, action: shipsAndAliens)
     }
@@ -219,7 +225,7 @@ class CollisionSystem: System {
             nodeA = currentNodeA.next
         }
     }
-    
+
     override public func removeFromEngine(engine: Engine) {
         appStateNodes = nil
         ships = nil

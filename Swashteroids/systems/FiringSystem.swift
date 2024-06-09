@@ -13,13 +13,13 @@ import Swash
 import SpriteKit
 
 final class FiringSystem: System {
-    typealias Creator = TorpedoCreatorUseCase & PowerUpCreatorUseCase
-    private weak var creator: Creator?
+    typealias Creator = TorpedoCreatorUseCase
+    private weak var torpedoCreator: Creator?
     private weak var firingNodes: NodeList?
     private weak var engine: Engine?
     
-    init(creator: Creator) {
-        self.creator = creator
+    init(torpedoCreator: Creator) {
+        self.torpedoCreator = torpedoCreator
     }
 
     override public func addToEngine(engine: Engine) {
@@ -43,7 +43,7 @@ final class FiringSystem: System {
         else { return }
         node.entity?.remove(componentClass: FireDownComponent.self)
         let pos = PositionComponent(x: position.x, y: position.y, z: .asteroids, rotationDegrees: position.rotationDegrees)
-        creator?.createTorpedo(gun, pos, velocity)
+        torpedoCreator?.createTorpedo(gun, pos, velocity)
         gun.numTorpedoes -= 1
         if let appState = engine?.appStateComponent {
             appState.numTorpedoesPlayerFired += 1

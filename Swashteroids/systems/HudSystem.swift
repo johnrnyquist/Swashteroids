@@ -17,7 +17,7 @@ final class HudSystem: System {
     private weak var hudNodes: NodeList?
     private weak var hyperspaceNodes: NodeList?
     private weak var engine: Engine?
-    private weak var creator: PowerUpCreatorUseCase?
+    private var powerUpCreator: PowerUpCreatorUseCase?
     
     override public func addToEngine(engine: Engine) {
         self.engine = engine
@@ -26,8 +26,8 @@ final class HudSystem: System {
         hyperspaceNodes = engine.getNodeList(nodeClassType: HyperspaceNode.self)
     }
 
-    init(creator: PowerUpCreatorUseCase) {
-        self.creator = creator
+    init(powerUpCreator: PowerUpCreatorUseCase) {
+        self.powerUpCreator = powerUpCreator
     }
 
     override public func update(time: TimeInterval) {
@@ -48,7 +48,7 @@ final class HudSystem: System {
             hudNode?[HudComponent.self]?.hudView.setJumps(hyperspaceComponent.jumps)
             if hyperspaceComponent.jumps == 0 {
                 hyperspaceNodes?.head?.entity?.remove(componentClass: HyperspaceDriveComponent.self)
-                creator?.createHyperspacePowerUp(level: 1) //TODO: get real level
+                powerUpCreator?.createHyperspacePowerUp(level: 1) //TODO: get real level
                 if let hyperspaceButton = engine?.findEntity(named: .hyperspaceButton),
                    engine?.appStateComponent.shipControlsState == .showingButtons { //HACK
                     engine?.remove(entity: hyperspaceButton)
@@ -63,7 +63,7 @@ final class HudSystem: System {
             hudNode?[HudComponent.self]?.hudView.setAmmo(gunComponent.numTorpedoes)
             if gunComponent.numTorpedoes == 0 {
                 shipEntity?.remove(componentClass: GunComponent.self)
-                creator?.createTorpedoesPowerUp(level: 1) //TODO: get real level 
+                powerUpCreator?.createTorpedoesPowerUp(level: 1) //TODO: get real level 
                 if let fireButton = engine?.findEntity(named: .fireButton),
                    engine?.appStateComponent.shipControlsState == .showingButtons { //HACK
                     engine?.remove(entity: fireButton)

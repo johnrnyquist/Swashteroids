@@ -89,11 +89,16 @@ final class Swashteroids: NSObject {
     private func createSystems(scene: GameScene) {
         let gameSize = scene.size
         let soundPlayer = scene
+        let torpedoCreator = TorpedoCreator(engine: engine)
+        let treasureCreator = TreasureCreator(engine: engine, randomness: randomness)
+        let powerUpCreator = PowerUpCreator(engine: engine, size: gameSize, randomness: randomness)
+        let asteroidCreator = AsteroidCreator(engine: engine, randomness: randomness)
         let alienCreator = AlienCreator(engine: engine, size: gameSize, randomness: randomness)
         engine
             // preupdate
                 .add(system: TimePlayedSystem(), priority: .preUpdate)
-                .add(system: GameplayManagerSystem(alienCreator: alienCreator,
+                .add(system: GameplayManagerSystem(asteroidCreator: asteroidCreator,
+                                                   alienCreator: alienCreator,
                                                    creator: creator,
                                                    size: gameSize,
                                                    scene: scene,
@@ -110,21 +115,27 @@ final class Swashteroids: NSObject {
                 .add(system: RightSystem(), priority: .move)
                 .add(system: ThrustSystem(), priority: .move)
                 // resolve collisions
-                .add(system: CollisionSystem(creator: creator, size: gameSize, randomness: randomness),
+                .add(system: CollisionSystem(asteroidCreator: asteroidCreator,
+                                             creator: creator,
+                                             size: gameSize,
+                                             randomness: randomness),
                      priority: .resolveCollisions)
                 // animate
                 .add(system: AnimationSystem(), priority: .animate)
                 // update
                 .add(system: AlienSoldierSystem(), priority: .update)
                 .add(system: AlienWorkerSystem(randomness: randomness), priority: .update)
-                .add(system: AlienFiringSystem(creator: creator, gameSize: gameSize), priority: .update)
-                .add(system: FiringSystem(creator: creator), priority: .update)
+                .add(system: AlienFiringSystem(torpedoCreator: torpedoCreator, gameSize: gameSize), priority: .update)
+                .add(system: FiringSystem(torpedoCreator: torpedoCreator), priority: .update)
                 .add(system: TorpedoAgeSystem(), priority: .update)
                 .add(system: DeathThroesSystem(), priority: .update)
-                .add(system: HyperspaceJumpSystem(engine: engine, creator: creator), priority: .update)
+                .add(system: HyperspaceJumpSystem(engine: engine), priority: .update)
                 .add(system: NacellesSystem(), priority: .update)
-                .add(system: HudSystem(creator: creator), priority: .update)
-                .add(system: SplitAsteroidSystem(creator: creator, randomness: randomness), priority: .update)
+                .add(system: HudSystem(powerUpCreator: powerUpCreator), priority: .update)
+                .add(system: SplitAsteroidSystem(asteroidCreator: asteroidCreator,
+                                                 treasureCreator: treasureCreator,
+                                                 randomness: randomness),
+                     priority: .update)
                 // render
                 .add(system: AudioSystem(soundPlayer: soundPlayer), priority: .render)
                 .add(system: RepeatingAudioSystem(), priority: .render)

@@ -20,7 +20,7 @@ Determines if a ship needs to be made.
 Has too many responsibilities.
  */
 class GameplayManagerSystem: System {
-    typealias Creator = PowerUpCreatorUseCase & ShipCreatorUseCase & AsteroidCreatorUseCase & TorpedoCreatorUseCase
+    typealias Creator = ShipCreatorUseCase
     private var size: CGSize
     private weak var scene: GameScene!
     private weak var creator: Creator!
@@ -37,13 +37,16 @@ class GameplayManagerSystem: System {
     private var minimumAsteroidDistance: CGFloat = 80
     private var randomness: Randomness!
     private let alienCreator: AlienCreatorUseCase
+    private let asteroidCreator: AsteroidCreatorUseCase
 
-    init(alienCreator: AlienCreatorUseCase,
+    init(asteroidCreator: AsteroidCreatorUseCase,
+         alienCreator: AlienCreatorUseCase,
          creator: Creator,
          size: CGSize,
          scene: GameScene,
          randomness: Randomness,
          scaleManager: ScaleManaging = ScaleManager.shared) {
+        self.asteroidCreator = asteroidCreator
         self.alienCreator = alienCreator
         self.creator = creator
         self.size = size
@@ -150,7 +153,11 @@ class GameplayManagerSystem: System {
             repeat {
                 position = randomPosition()
             } while (position.distance(from: positionToAvoid) <= minimumAsteroidDistance)
-            creator.createAsteroid(radius: LARGE_ASTEROID_RADIUS, x: position.x, y: position.y, size: .large, level: level)
+            asteroidCreator.createAsteroid(radius: LARGE_ASTEROID_RADIUS,
+                                           x: position.x,
+                                           y: position.y,
+                                           size: .large,
+                                           level: level)
         }
     }
 

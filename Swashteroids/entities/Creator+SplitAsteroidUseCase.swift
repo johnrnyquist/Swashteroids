@@ -8,6 +8,6 @@
 // https://github.com/johnrnyquist/Swash
 //
 
-extension Creator: SplitAsteroidUseCase {
-    // Creator already conforms to all methods in the protocol, so we can just extend it to conform to the protocol.
-}
+//extension Creator: SplitAsteroidUseCase {
+//    // Creator already conforms to all methods in the protocol, so we can just extend it to conform to the protocol.
+//}

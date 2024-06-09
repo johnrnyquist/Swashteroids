@@ -11,7 +11,17 @@
 import Swash
 import SpriteKit
 
-extension Creator: PowerUpCreatorUseCase {
+class PowerUpCreator: PowerUpCreatorUseCase {
+    let engine: Engine
+    let size: CGSize
+    let randomness: Randomness
+
+    init(engine: Engine, size: CGSize, randomness: Randomness) {
+        self.engine = engine
+        self.size = size
+        self.randomness = randomness
+    }
+
     func createHyperspacePowerUp(level: Int) {
         createHyperspacePowerUp(level: level, radius: POWER_UP_RADIUS)
     }
@@ -61,14 +71,14 @@ extension Creator: PowerUpCreatorUseCase {
                 .add(component: positionComponent)
                 .add(component: velocityComponent)
                 .add(component: CollidableComponent(radius: radius))
-                
         self.engine.replace(entity: entity)
         sprite.alpha = 0.0
         let alphaUp = SKAction.fadeAlpha(to: 1.0, duration: 0.5)
         let scaleUp = SKAction.scale(to: sprite.scale * 2.0, duration: 0.3)
         let scaleDown = SKAction.scale(to: sprite.scale, duration: 0.3)
         let waitToMake = SKAction.wait(forDuration: randomness.nextDouble(from: 4.0, through: 6.0))
-        let action = SKAction.run { entity.add(component: AudioComponent(fileNamed: .powerUpAppearance, actionKey: "newPowerUp")) }
+        let action = SKAction.run { entity.add(component: AudioComponent(fileNamed: .powerUpAppearance,
+                                                                         actionKey: "newPowerUp")) }
         let sequence = SKAction.sequence([waitToMake, alphaUp, action, scaleUp, scaleDown])
         sprite.run(sequence)
     }
@@ -86,5 +96,17 @@ extension Creator: PowerUpCreatorUseCase {
         let velocityX = randomness.nextDouble(from: -10.0, through: 10.0) * Double(level)
         let velocityY = randomness.nextDouble(from: -10.0, through: 10.0) * Double(level)
         return VelocityComponent(velocityX: velocityX, velocityY: velocityY, dampening: 0, base: 60.0)
+    }
+
+    func addEmitter(colored color: UIColor, on sknode: SKNode) {
+        if let emitter = SKEmitterNode(fileNamed: "fireflies_mod.sks") {
+            // emitter.setScale(1.0 * scaleManager.SCALE_FACTOR)
+            // let colorRamp: [UIColor] = [color.lighter(by: 30.0).shiftHue(by: 10.0)]
+            let colorRamp: [UIColor] = [color.shiftHue(by: 5.0)]
+            let keyTimes: [NSNumber] = [1.0]
+            let colorSequence = SKKeyframeSequence(keyframeValues: colorRamp, times: keyTimes)
+            emitter.particleColorSequence = colorSequence
+            sknode.addChild(emitter)
+        }
     }
 }

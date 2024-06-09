@@ -11,7 +11,18 @@
 import Swash
 import SpriteKit
 
-extension Creator: AsteroidCreatorUseCase {
+class AsteroidCreator: AsteroidCreatorUseCase {
+    private let engine: Engine
+    private let randomness: Randomness
+    private let scaleManager: ScaleManaging
+    private var numAsteroids = 0
+    
+    init(engine: Engine, randomness: Randomness, 
+         scaleManager: ScaleManaging = ScaleManager.shared) {
+        self.engine = engine
+        self.randomness = randomness
+        self.scaleManager = scaleManager
+    }
     /// Create an asteroid with the given radius, x, y, and level.
     /// 
     /// - Parameters:

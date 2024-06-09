@@ -12,13 +12,13 @@ import Swash
 import SpriteKit
 
 final class AlienFiringSystem: System {
-    typealias Creator = TorpedoCreatorUseCase & PowerUpCreatorUseCase
-    private weak var creator: Creator?
+    typealias Creator = TorpedoCreatorUseCase 
+    private var torpedoCreator: Creator?
     private weak var firingNodes: NodeList?
     private let gameRect: CGRect
 
-    init(creator: Creator, gameSize: CGSize) {
-        self.creator = creator
+    init(torpedoCreator: Creator, gameSize: CGSize) {
+        self.torpedoCreator = torpedoCreator
         gameRect = CGRect(origin: .zero, size: gameSize)
     }
 
@@ -46,18 +46,18 @@ final class AlienFiringSystem: System {
         //
         gun.timeSinceLastShot = 0
         var pos = PositionComponent(x: position.x, y: position.y, z: .asteroids, rotationDegrees: position.rotationDegrees)
-        creator?.createTorpedo(gun, pos, velocity)
+        torpedoCreator?.createTorpedo(gun, pos, velocity)
         //
         guard let _ = node.entity?[AlienSoldierComponent.self] else { return }
         pos = PositionComponent(x: position.x,
                                 y: position.y,
                                 z: .asteroids,
                                 rotationDegrees: position.rotationDegrees + 30.0)
-        creator?.createTorpedo(gun, pos, velocity)
+        torpedoCreator?.createTorpedo(gun, pos, velocity)
         pos = PositionComponent(x: position.x,
                                 y: position.y,
                                 z: .asteroids,
                                 rotationDegrees: position.rotationDegrees - 30.0)
-        creator?.createTorpedo(gun, pos, velocity)
+        torpedoCreator?.createTorpedo(gun, pos, velocity)
     }
 }

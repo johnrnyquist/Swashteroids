@@ -13,13 +13,20 @@ import Foundation
 import SpriteKit
 
 class SplitAsteroidSystem: ListIteratingSystem {
-    typealias Creator = SplitAsteroidUseCase
-    let creator: Creator
+    let asteroidCreator: AsteroidCreatorUseCase
+    let treasureCreator: TreasureCreatorUseCase
     let randomness: Randomness
+    let scaleManager: ScaleManaging
 
-    init(creator: Creator, randomness: Randomness) {
-        self.creator = creator
+    init(asteroidCreator: AsteroidCreatorUseCase, 
+         treasureCreator: TreasureCreatorUseCase,
+         randomness: Randomness,
+         scaleManager: ScaleManaging = ScaleManager.shared
+    ) {
+        self.asteroidCreator = asteroidCreator
+        self.treasureCreator = treasureCreator
         self.randomness = randomness
+        self.scaleManager = scaleManager
         super.init(nodeClass: SplitAsteroidNode.self)
         nodeUpdateFunction = updateNode
     }
@@ -40,7 +47,7 @@ class SplitAsteroidSystem: ListIteratingSystem {
               let positionComponent = asteroidEntity[PositionComponent.self]
         else { return }
         if randomness.nextInt(from: 1, through: 3) == 3 {
-            creator.createTreasure(positionComponent: positionComponent)
+            treasureCreator.createTreasure(positionComponent: positionComponent)
         }
         switch asteroidComponent.size {
         case .small:
@@ -49,7 +56,7 @@ class SplitAsteroidSystem: ListIteratingSystem {
             // The smallest asteroid is 1/4 the size of the large asteroid.
             for _ in 1...splits {
                 // The new asteroid will be half the size of the original.
-                creator.createAsteroid(radius: collisionComponent.radius * 1.0 / creator.scaleManager.SCALE_FACTOR / 2.0,
+                asteroidCreator.createAsteroid(radius: collisionComponent.radius * 1.0 / scaleManager.SCALE_FACTOR / 2.0,
                                        x: positionComponent.x + randomness.nextDouble(from: -5.0, through: 5.0),
                                        y: positionComponent.y + randomness.nextDouble(from: -5.0, through: 5.0),
                                        size: asteroidComponent.shrink(),
