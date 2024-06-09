@@ -64,7 +64,6 @@ class GameplayManagerSystem: System {
     }
 
     override func removeFromEngine(engine: Engine) {
-        shipCreator = nil
         appStates = nil
         ships = nil
         asteroids = nil
