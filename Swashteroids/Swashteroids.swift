@@ -19,7 +19,6 @@ final class Swashteroids: NSObject {
     }
 
     let motionManager: CMMotionManager? = CMMotionManager()
-    let randomness: Randomness
     private let generator = UIImpactFeedbackGenerator(style: .heavy)
     private var creator: Creator
     private var tickEngineListener: Listener
@@ -35,17 +34,16 @@ final class Swashteroids: NSObject {
         self.scene = scene
         self.alertPresenter = alertPresenter
         if seed == 0 {
-            randomness = Randomness(seed: Int(Date().timeIntervalSince1970))
+            Randomness.initialize(with: Int(Date().timeIntervalSince1970))
         } else {
-            randomness = Randomness(seed: seed)
+            Randomness.initialize(with: seed)
         }
         engine = Engine()
         tickEngineListener = Listener(engine.update)
         creator = Creator(engine: engine,
                           size: scene.size,
                           generator: generator,
-                          alertPresenter: alertPresenter,
-                          randomness: randomness)
+                          alertPresenter: alertPresenter)
         transition = Transition(engine: engine, creator: creator, generator: generator)
         orientation = UIDevice.current.orientation == .landscapeRight ? -1.0 : 1.0
         super.init()
@@ -65,8 +63,7 @@ final class Swashteroids: NSObject {
                                                   level: 0,
                                                   score: 0,
                                                   appState: .initial,
-                                                  shipControlsState: .showingButtons,
-                                                  randomness: randomness)
+                                                  shipControlsState: .showingButtons)
         let appStateEntity = Entity(named: .appState)
                 .add(component: appStateComponent)
                 .add(component: TransitionAppStateComponent(from: .initial, to: .start))
@@ -90,10 +87,10 @@ final class Swashteroids: NSObject {
         let gameSize = scene.size
         let soundPlayer = scene
         let torpedoCreator = TorpedoCreator(engine: engine)
-        let treasureCreator = TreasureCreator(engine: engine, randomness: randomness)
-        let powerUpCreator = PowerUpCreator(engine: engine, size: gameSize, randomness: randomness)
-        let asteroidCreator = AsteroidCreator(engine: engine, randomness: randomness)
-        let alienCreator = AlienCreator(engine: engine, size: gameSize, randomness: randomness)
+        let treasureCreator = TreasureCreator(engine: engine)
+        let powerUpCreator = PowerUpCreator(engine: engine, size: gameSize)
+        let asteroidCreator = AsteroidCreator(engine: engine)
+        let alienCreator = AlienCreator(engine: engine, size: gameSize)
         engine
             // preupdate
                 .add(system: TimePlayedSystem(), priority: .preUpdate)
@@ -101,8 +98,7 @@ final class Swashteroids: NSObject {
                                                    alienCreator: alienCreator,
                                                    creator: creator,
                                                    size: gameSize,
-                                                   scene: scene,
-                                                   randomness: randomness),
+                                                   scene: scene),
                      priority: .preUpdate)
                 .add(system: GameOverSystem(), priority: .preUpdate)
                 .add(system: ShipControlsSystem(creator: creator), priority: .preUpdate)
@@ -117,14 +113,13 @@ final class Swashteroids: NSObject {
                 // resolve collisions
                 .add(system: CollisionSystem(asteroidCreator: asteroidCreator,
                                              creator: creator,
-                                             size: gameSize,
-                                             randomness: randomness),
+                                             size: gameSize),
                      priority: .resolveCollisions)
                 // animate
                 .add(system: AnimationSystem(), priority: .animate)
                 // update
                 .add(system: AlienSoldierSystem(), priority: .update)
-                .add(system: AlienWorkerSystem(randomness: randomness), priority: .update)
+                .add(system: AlienWorkerSystem(), priority: .update)
                 .add(system: AlienFiringSystem(torpedoCreator: torpedoCreator, gameSize: gameSize), priority: .update)
                 .add(system: FiringSystem(torpedoCreator: torpedoCreator), priority: .update)
                 .add(system: TorpedoAgeSystem(), priority: .update)
@@ -133,8 +128,7 @@ final class Swashteroids: NSObject {
                 .add(system: NacellesSystem(), priority: .update)
                 .add(system: HudSystem(powerUpCreator: powerUpCreator), priority: .update)
                 .add(system: SplitAsteroidSystem(asteroidCreator: asteroidCreator,
-                                                 treasureCreator: treasureCreator,
-                                                 randomness: randomness),
+                                                 treasureCreator: treasureCreator),
                      priority: .update)
                 // render
                 .add(system: AudioSystem(soundPlayer: soundPlayer), priority: .render)

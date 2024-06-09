@@ -10,12 +10,29 @@
 
 import Foundation
 
+protocol Randomizing {
+    func nextDouble() -> Double
+    func nextInt(upTo max: Int) -> Int
+    func nextInt(from min: Int, upTo max: Int) -> Int
+    func nextInt(from min: Int, through max: Int) -> Int
+    func nextDouble(from min: Double, through max: Double) -> Double
+    func nextBool() -> Bool
+}
+
 /// `Randomness` is a class for generating random numbers. 
 // It is really just a wrapper around the `srand48` and `drand48` functions.
-class Randomness {
+class Randomness: Randomizing {
+    static var shared: Randomness!
+
+    @discardableResult
+    static func initialize(with seed: Int) -> Randomizing {
+        shared = Randomness(seed: seed)
+        return Randomness.shared
+    }
+
     /// Initializes a new instance of `Randomness` and sets the seed for the random number generator.
     /// - Parameter seed: The seed for the random number generator.
-    init(seed: Int) {
+    private init(seed: Int) {
         srand48(seed)
     }
 

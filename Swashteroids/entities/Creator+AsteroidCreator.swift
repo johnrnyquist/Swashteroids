@@ -13,11 +13,12 @@ import SpriteKit
 
 class AsteroidCreator: AsteroidCreatorUseCase {
     private let engine: Engine
-    private let randomness: Randomness
+    private let randomness: Randomizing
     private let scaleManager: ScaleManaging
     private var numAsteroids = 0
     
-    init(engine: Engine, randomness: Randomness, 
+    init(engine: Engine,
+         randomness: Randomizing = Randomness.shared,
          scaleManager: ScaleManaging = ScaleManager.shared) {
         self.engine = engine
         self.randomness = randomness

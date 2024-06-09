@@ -14,9 +14,9 @@ import SpriteKit
 class PowerUpCreator: PowerUpCreatorUseCase {
     let engine: Engine
     let size: CGSize
-    let randomness: Randomness
+    let randomness: Randomizing
 
-    init(engine: Engine, size: CGSize, randomness: Randomness) {
+    init(engine: Engine, size: CGSize, randomness: Randomizing = Randomness.shared) {
         self.engine = engine
         self.size = size
         self.randomness = randomness

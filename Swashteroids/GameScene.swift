@@ -183,7 +183,7 @@ class GameScene: SKScene {
         if timeSinceHyperspace > 0.5 && (pad.rightShoulder.isPressed && pad.rightShoulder.value == 1.0) {
             gameControllerComponent.add(command: .rightShoulder)
             timeSinceHyperspace = 0.0
-            game.engine.ship?.add(component: DoHyperspaceJumpComponent(size: size, randomness: game.randomness))
+            game.engine.ship?.add(component: DoHyperspaceJumpComponent(size: size))
         }
         // FLIP
         if timeSinceFlip > 0.2 && (pad.leftShoulder.isPressed && pad.leftShoulder.value == 1.0) {

@@ -61,9 +61,9 @@ class AlienWorkerSystem: AlienSystem {
     var shipNodes: NodeList?
     var asteroidNodes: NodeList?
     var treasureNodes: NodeList?
-    let randomness: Randomness
-    
-    init(randomness: Randomness) {
+    let randomness: Randomizing
+
+    init(randomness: Randomizing = Randomness.shared) {
         self.randomness = randomness
         super.init()
     }

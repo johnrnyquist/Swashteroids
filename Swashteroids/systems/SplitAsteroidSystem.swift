@@ -15,12 +15,12 @@ import SpriteKit
 class SplitAsteroidSystem: ListIteratingSystem {
     let asteroidCreator: AsteroidCreatorUseCase
     let treasureCreator: TreasureCreatorUseCase
-    let randomness: Randomness
+    let randomness: Randomizing
     let scaleManager: ScaleManaging
 
     init(asteroidCreator: AsteroidCreatorUseCase, 
          treasureCreator: TreasureCreatorUseCase,
-         randomness: Randomness,
+         randomness: Randomizing = Randomness.shared,
          scaleManager: ScaleManaging = ScaleManager.shared
     ) {
         self.asteroidCreator = asteroidCreator

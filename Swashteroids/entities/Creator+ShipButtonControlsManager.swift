@@ -130,8 +130,7 @@ extension Creator: ShipButtonControlsManagerUseCase {
                       touchDown: { [unowned self] sprite in
                           sprite.alpha = 0.6
                           generator?.impactOccurred()
-                          engine.ship?.add(component: DoHyperspaceJumpComponent(size: size,
-                                                                                randomness: randomness))
+                          engine.ship?.add(component: DoHyperspaceJumpComponent(size: size))
                       },
                       touchUp: { sprite in sprite.alpha = 0.2 },
                       touchUpOutside: { sprite in sprite.alpha = 0.2 },

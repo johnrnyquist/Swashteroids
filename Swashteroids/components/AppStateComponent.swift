@@ -32,7 +32,7 @@ final class AppStateComponent: Component {
     var numHits: Int
     var numShips: Int
     var shipControlsState: ShipControlsState
-    var randomness: Randomness
+    var randomness: Randomizing
     //
     var level: Int {
         didSet {
@@ -70,7 +70,7 @@ final class AppStateComponent: Component {
          score: Int,
          appState: AppState,
          shipControlsState: ShipControlsState,
-         randomness: Randomness) {
+         randomness: Randomizing = Randomness.shared) {
         self.gameSize = gameSize
         self.randomness = randomness
         //

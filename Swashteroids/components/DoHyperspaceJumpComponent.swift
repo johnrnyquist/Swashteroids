@@ -16,7 +16,7 @@ final class DoHyperspaceJumpComponent: Component {
     let x: Double
     let y: Double
 
-    init(x: Double? = nil, y: Double? = nil, size: CGSize, randomness: Randomness) {
+    init(x: Double? = nil, y: Double? = nil, size: CGSize, randomness: Randomizing = Randomness.shared) {
         if let x {
             self.x = x
         } else {

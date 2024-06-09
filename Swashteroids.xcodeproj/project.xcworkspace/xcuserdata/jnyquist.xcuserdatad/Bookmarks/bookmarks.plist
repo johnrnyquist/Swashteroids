@@ -10,15 +10,15 @@
 				<key>location-parameters</key>
 				<dict>
 					<key>EndingColumnNumber</key>
-					<string>8</string>
+					<string>0</string>
 					<key>EndingLineNumber</key>
 					<string>46</string>
 					<key>StartingColumnNumber</key>
 					<string>0</string>
 					<key>StartingLineNumber</key>
-					<string>46</string>
+					<string>45</string>
 					<key>Timestamp</key>
-					<string>728696246.9671251</string>
+					<string>739585890.316049</string>
 				</dict>
 				<key>rebasable-url</key>
 				<dict>
@@ -34,15 +34,16 @@
 			<key>text-context</key>
 			<dict>
 				<key>focused</key>
-				<string>        </string>
+				<string>                          alertPresenter: alertPresenter)
+</string>
 				<key>leading</key>
 				<string>                          size: scene.size,
                           generator: generator,
 </string>
 				<key>trailing</key>
-				<string>                  alertPresenter: alertPresenter,
-                          randomness: randomness)
-        transition = Transition(engine: engine, creator: creator, generator: generator)
+				<string>        transition = Transition(engine: engine, creator: creator, generator: generator)
+        orientation = UIDevice.current.orientation == .landscapeRight ? -1.0 : 1.0
+        super.init()
 </string>
 			</dict>
 			<key>type</key>

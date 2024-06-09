@@ -35,7 +35,7 @@ class GameplayManagerSystem: System {
     private var hudTextFontSize: CGFloat = 64
     private var spaceshipClearanceRadius: CGFloat = 50
     private var minimumAsteroidDistance: CGFloat = 80
-    private var randomness: Randomness!
+    private var randomness: Randomizing!
     private let alienCreator: AlienCreatorUseCase
     private let asteroidCreator: AsteroidCreatorUseCase
 
@@ -44,7 +44,7 @@ class GameplayManagerSystem: System {
          creator: Creator,
          size: CGSize,
          scene: GameScene,
-         randomness: Randomness,
+         randomness: Randomizing = Randomness.shared,
          scaleManager: ScaleManaging = ScaleManager.shared) {
         self.asteroidCreator = asteroidCreator
         self.alienCreator = alienCreator

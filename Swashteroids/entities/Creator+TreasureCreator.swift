@@ -13,10 +13,10 @@ import SpriteKit
 
 class TreasureCreator: TreasureCreatorUseCase {
     private let engine: Engine
-    private let randomness: Randomness
+    private let randomness: Randomizing
     private var numTreasures = 0
 
-    init(engine: Engine, randomness: Randomness) {
+    init(engine: Engine, randomness: Randomizing = Randomness.shared) {
         self.engine = engine
         self.randomness = randomness
     }

@@ -14,10 +14,10 @@ import SpriteKit
 class AlienCreator: AlienCreatorUseCase {
     let engine: Engine
     let size: CGSize
-    let randomness: Randomness
+    let randomness: Randomizing
     var numAliens = 0
 
-    init(engine: Engine, size: CGSize, randomness: Randomness) {
+    init(engine: Engine, size: CGSize, randomness: Randomizing = Randomness.shared) {
         self.engine = engine
         self.size = size
         self.randomness = randomness

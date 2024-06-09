@@ -13,22 +13,26 @@ import Swash
 
 /// Creator contains a number of convenience methods that create and configure entities, then adds them to its engine.
 class Creator {
-    let randomness: Randomness
+    let randomness: Randomizing
     var buttonPadding = 30.0
     var buttonPaddingLeft = 30.0
     var buttonPaddingRight = 30.0
     var fireButtonEntity: Entity? //HACK
     var firstRowButtonPaddingY = 30.0
     var hyperspaceButtonEntity: Entity? //HACK
-    var numAsteroids = 0
-    var numTreasures = 0
     var size: CGSize
     var scaleManager: ScaleManaging
     weak var alertPresenter: AlertPresenting?
     weak var engine: Engine!
     weak var generator: UIImpactFeedbackGenerator?
 
-    init(engine: Engine, size: CGSize, generator: UIImpactFeedbackGenerator? = nil, scaleManager: ScaleManaging = ScaleManager.shared, alertPresenter: AlertPresenting, randomness: Randomness) {
+    init(engine: Engine,
+         size: CGSize,
+         generator: UIImpactFeedbackGenerator? = nil,
+         scaleManager: ScaleManaging = ScaleManager.shared,
+         alertPresenter: AlertPresenting,
+         randomness: Randomizing = Randomness.shared 
+    ) {
         self.scaleManager = scaleManager
         self.alertPresenter = alertPresenter
         buttonPadding *= scaleManager.SCALE_FACTOR

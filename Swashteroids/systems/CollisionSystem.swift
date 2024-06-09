@@ -18,7 +18,7 @@ let treasure_special_value = 350
 /// This class is an argument for switching to the SpriteKit physics engine.
 class CollisionSystem: System {
     typealias Creator = ShipCreatorUseCase & ShipButtonControlsManagerUseCase
-    private let randomness: Randomness
+    private let randomness: Randomizing
     private let scaleManager: ScaleManaging
     private var size: CGSize
     private weak var creator: Creator!
@@ -37,7 +37,7 @@ class CollisionSystem: System {
         asteroidCreator: AsteroidCreatorUseCase,
         creator: Creator,
         size: CGSize,
-        randomness: Randomness,
+        randomness: Randomizing = Randomness.shared,
         scaleManager: ScaleManaging = ScaleManager.shared) {
         self.asteroidCreator = asteroidCreator
         self.creator = creator
