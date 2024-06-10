@@ -17,10 +17,6 @@ class AlienSystem: System {
         preconditionFailure("\(#function) must be overridden in \(self)")
     }
 
-    func moveTowardTarget(_ position: PositionComponent, _ velocity: VelocityComponent, _ target: CGPoint) {
-        preconditionFailure("\(#function) must be overridden in \(self)")
-    }
-
     func findClosestObject(to point: CGPoint, in entities: [Entity]) -> Entity {
         return findClosestEntity(to: point, in: entities.map { ($0, $0[PositionComponent.self]!.position) })
     }
@@ -52,6 +48,23 @@ class AlienSystem: System {
             }
         }
         return closestEntity
+    }
+
+    func moveTowardTarget(_ position: PositionComponent, _ velocity: VelocityComponent, _ target: CGPoint) {
+        let deltaX = position.x - target.x
+        let deltaY = position.y - target.y
+        let angleInRadians = atan2(deltaY, deltaX)
+        // Interpolate between the current rotation and the target rotation
+//        let interpolationFactor = CGFloat(0.8) // Adjust this value to change the size of rotation
+//        let currentAngleInRadians = position.rotationRadians - CGFloat.pi
+//        let angleDifference = angleInRadians - currentAngleInRadians
+//        let angleDifferenceNormalized = atan2(sin(angleDifference), cos(angleDifference)) // Normalize to [-pi, pi]
+//        let newAngleInRadians = currentAngleInRadians + angleDifferenceNormalized * interpolationFactor
+        //
+        velocity.linearVelocity = CGPoint(x: -cos(angleInRadians) * velocity.base, y: -sin(angleInRadians) * velocity.base)
+        position.rotationRadians = angleInRadians + CGFloat.pi
+//        velocity.linearVelocity = CGPoint(x: -cos(newAngleInRadians) * velocity.base, y: -sin(newAngleInRadians) * velocity.base)
+//        position.rotationRadians = newAngleInRadians + CGFloat.pi
     }
 }
 
@@ -112,7 +125,8 @@ class AlienWorkerSystem: AlienSystem {
         }
         //
         // Move it off screen if player is dead, this happens ONCE
-        if !playerAlive, alienEntity[GunComponent.self] != nil {
+        if !playerAlive,
+           alienEntity[GunComponent.self] != nil {
             alienEntity.remove(componentClass: GunComponent.self)
             alienPosition.rotationRadians = alienComponent.endDestination.x > 0 ? 0 : CGFloat.pi
             velocity.linearVelocity = CGPoint(x: (alienComponent.endDestination.x > 0 ? velocity.exit : -velocity.exit),
@@ -136,23 +150,6 @@ class AlienWorkerSystem: AlienSystem {
         if entities.count > 0 {
             alienComponent.targetingEntity = entities[randomness.nextInt(upTo: entities.count)]
         }
-    }
-
-    override func moveTowardTarget(_ position: PositionComponent, _ velocity: VelocityComponent, _ target: CGPoint) {
-        let deltaX = position.x - target.x
-        let deltaY = position.y - target.y
-        let angleInRadians = atan2(deltaY, deltaX)
-        // Interpolate between the current rotation and the target rotation
-//        let interpolationFactor = CGFloat(0.8) // Adjust this value to change the size of rotation
-//        let currentAngleInRadians = position.rotationRadians - CGFloat.pi
-//        let angleDifference = angleInRadians - currentAngleInRadians
-//        let angleDifferenceNormalized = atan2(sin(angleDifference), cos(angleDifference)) // Normalize to [-pi, pi]
-//        let newAngleInRadians = currentAngleInRadians + angleDifferenceNormalized * interpolationFactor
-        //
-        velocity.linearVelocity = CGPoint(x: -cos(angleInRadians) * velocity.base, y: -sin(angleInRadians) * velocity.base)
-        position.rotationRadians = angleInRadians + CGFloat.pi
-//        velocity.linearVelocity = CGPoint(x: -cos(newAngleInRadians) * velocity.base, y: -sin(newAngleInRadians) * velocity.base)
-//        position.rotationRadians = newAngleInRadians + CGFloat.pi
     }
 }
 
@@ -232,13 +229,5 @@ class AlienSoldierSystem: AlienSystem {
 //        let entities = [ship, ship, ship, ship, closestAsteroid, closestTreasure].compactMap { $0 }
 //        alienComponent.targetingEntity = findClosestObject(to: position.position, in: entities)
         alienComponent.targetingEntity = ship
-    }
-
-    override func moveTowardTarget(_ position: PositionComponent, _ velocity: VelocityComponent, _ target: CGPoint) {
-        let deltaX = position.x - target.x
-        let deltaY = position.y - target.y
-        let angleInRadians = atan2(deltaY, deltaX)
-        velocity.linearVelocity = CGPoint(x: -cos(angleInRadians) * velocity.base, y: -sin(angleInRadians) * velocity.base)
-        position.rotationRadians = angleInRadians + CGFloat.pi
     }
 }
