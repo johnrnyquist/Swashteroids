@@ -47,7 +47,13 @@ final class GameViewController: UIViewController, AlertPresenting {
         gameScene.name = "gameScene"
         gameScene.anchorPoint = .zero
         gameScene.scaleMode = .aspectFit
-        game = Swashteroids(scene: gameScene, alertPresenter: self, seed: Int(Date().timeIntervalSince1970))
+        #if DEBUG
+            let seed = 1 // Hardcoded seed for debug builds
+        #else
+            let seed = Int(Date().timeIntervalSince1970) // Current time for non-debug builds
+        #endif
+        game = Swashteroids(scene: gameScene, alertPresenter: self, seed: seed)
+        print("seed \(seed)")
         gameScene.delegate = game
         gameScene.touchDelegate = game
         gameScene.physicsWorld.contactDelegate = game
@@ -113,11 +119,12 @@ final class GameViewController: UIViewController, AlertPresenting {
     }
 }
 
-let playerCategory: UInt32 = 0x1 << 0
-let alienCategory: UInt32 = 0x1 << 1
-let asteroidCategory: UInt32 = 0x1 << 2
-let torpedoCategory: UInt32 = 0x1 << 3
-let powerUpCategory: UInt32 = 0x1 << 4
+// For physics
+// let playerCategory: UInt32 = 0x1 << 0
+// let alienCategory: UInt32 = 0x1 << 1
+// let asteroidCategory: UInt32 = 0x1 << 2
+// let torpedoCategory: UInt32 = 0x1 << 3
+// let powerUpCategory: UInt32 = 0x1 << 4
 
 extension Swashteroids: SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {

@@ -12,12 +12,11 @@ import Swash
 import SpriteKit
 
 final class AlienFiringSystem: System {
-    typealias Creator = TorpedoCreatorUseCase 
-    private var torpedoCreator: Creator?
+    private var torpedoCreator: TorpedoCreatorUseCase?
     private weak var firingNodes: NodeList?
     private let gameRect: CGRect
 
-    init(torpedoCreator: Creator, gameSize: CGSize) {
+    init(torpedoCreator: TorpedoCreatorUseCase, gameSize: CGSize) {
         self.torpedoCreator = torpedoCreator
         gameRect = CGRect(origin: .zero, size: gameSize)
     }
