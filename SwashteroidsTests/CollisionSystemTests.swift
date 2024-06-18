@@ -96,7 +96,7 @@ class CollisionSystemTests: XCTestCase {
         asteroidCreator = MockAsteroidCreator()
         system = CollisionSystem(shipCreator: shipCreator,
                                  asteroidCreator: asteroidCreator,
-                                 shipButtonControlsManager: shipButtonControlsManager,
+                                 shipControlButtonsCreator: shipButtonControlsManager,
                                  size: .zero,
                                  randomness: Randomness.initialize(with: 1),
                                  scaleManager: MockScaleManager())
@@ -113,7 +113,7 @@ class CollisionSystemTests: XCTestCase {
     func test_Update() {
         let system = MockCollisionSystem(shipCreator: shipCreator,
                                          asteroidCreator: asteroidCreator,
-                                         shipButtonControlsManager: shipButtonControlsManager,
+                                         shipControlButtonsCreator: shipButtonControlsManager,
                                          size: .zero,
                                          randomness: Randomness.initialize(with: 1))
         engine.add(system: system, priority: 1)
@@ -342,7 +342,7 @@ class CollisionSystemTests: XCTestCase {
         var SCALE_FACTOR: CGFloat { 1.0 }
     }
 
-    class MockShipButtonControlsManager: ShipButtonControlsManagerUseCase {
+    class MockShipButtonControlsManager: ShipButtonControlsCreatorUseCase {
         func createShipControlButtons() {}
 
         func enableShipControlButtons() {}

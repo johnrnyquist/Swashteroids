@@ -7,7 +7,7 @@
 // Made with Swash, give it a try!
 // https://github.com/johnrnyquist/Swash
 //
-protocol ShipButtonControlsManagerUseCase: AnyObject {
+protocol ShipButtonControlsCreatorUseCase: AnyObject {
     func createShipControlButtons()
     func enableShipControlButtons()
     func removeShipControlButtons()
@@ -15,12 +15,12 @@ protocol ShipButtonControlsManagerUseCase: AnyObject {
     func showHyperspaceButton()
 }
 
-protocol ShipQuadrantsControlsManagerUseCase: AnyObject {
+protocol ShipQuadrantsControlsCreatorUseCase: AnyObject {
     func createShipControlQuadrants()
     func removeShipControlQuadrants()
 }
 
-protocol ToggleShipControlsManagerUseCase: AnyObject {
+protocol ToggleShipControlsCreatorUseCase: AnyObject {
     func createToggleButton(_ toggleState: Toggle)
     func removeToggleButton()
 }

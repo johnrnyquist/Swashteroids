@@ -13,7 +13,7 @@ import Swash
 
 final class TransitionAppStateSystem: ListIteratingSystem {
     typealias Transition = GameOverUseCase & InfoViewsUseCase & PlayingUseCase & StartUseCase
-    weak var transition: Transition?
+    private let transition: Transition?
 
     init(transition: Transition) {
         self.transition = transition

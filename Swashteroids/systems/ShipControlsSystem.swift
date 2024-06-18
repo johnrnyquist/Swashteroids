@@ -14,12 +14,17 @@ import Foundation
 
 /// This should be the place for all changes on the Ship’s controls
 class ShipControlsSystem: ListIteratingSystem {
-    typealias Creator = ShipQuadrantsControlsManagerUseCase & ShipButtonControlsManagerUseCase & ToggleShipControlsManagerUseCase
-    private weak var creator: Creator!
     private weak var engine: Engine!
+    private var toggleShipControlsCreator: ToggleShipControlsCreatorUseCase
+    private var shipControlQuadrantsCreator: ShipQuadrantsControlsCreatorUseCase
+    private var shipButtonControlsCreator: ShipButtonControlsCreatorUseCase
 
-    init(creator: Creator) {
-        self.creator = creator
+    init(toggleShipControlsCreator: ToggleShipControlsCreatorUseCase,
+         shipControlQuadrantsCreator: ShipQuadrantsControlsCreatorUseCase,
+         shipButtonControlsCreator: ShipButtonControlsCreatorUseCase) {
+        self.toggleShipControlsCreator = toggleShipControlsCreator
+        self.shipControlQuadrantsCreator = shipControlQuadrantsCreator
+        self.shipButtonControlsCreator = shipButtonControlsCreator
         super.init(nodeClass: ShipControlsStateNode.self)
         nodeUpdateFunction = updateNode
     }
@@ -39,32 +44,32 @@ class ShipControlsSystem: ListIteratingSystem {
     func handleChange(to: ShipControlsState) {
         engine.appStateComponent.shipControlsState = to
         switch to {
-            case .showingButtons:
-                showButtons()
-            case .hidingButtons:
-                engine.ship?.add(component: AccelerometerComponent())
-                creator.createShipControlQuadrants()
-                creator.removeShipControlButtons()
-                creator.removeToggleButton()
-                creator.createToggleButton(.off)
-            case .usingScreenControls:
-                print("ShipControlsSystem: showingScreenControls")
-                showButtons()
-                break
-            case .usingGameController:
-                print("ShipControlsSystem: hidingScreenControls")
-                creator.removeShipControlQuadrants()
-                engine.ship?.remove(componentClass: AccelerometerComponent.self)
-                creator.removeShipControlButtons()
-                creator.removeToggleButton()
-                break
+        case .showingButtons:
+            showButtons()
+        case .hidingButtons:
+            engine.ship?.add(component: AccelerometerComponent())
+            shipControlQuadrantsCreator.createShipControlQuadrants()
+            shipButtonControlsCreator.removeShipControlButtons()
+            toggleShipControlsCreator.removeToggleButton()
+            toggleShipControlsCreator.createToggleButton(.off)
+        case .usingScreenControls:
+            print("ShipControlsSystem: showingScreenControls")
+            showButtons()
+            break
+        case .usingGameController:
+            print("ShipControlsSystem: hidingScreenControls")
+            shipControlQuadrantsCreator.removeShipControlQuadrants()
+            engine.ship?.remove(componentClass: AccelerometerComponent.self)
+            shipButtonControlsCreator.removeShipControlButtons()
+            toggleShipControlsCreator.removeToggleButton()
+            break
         }
 
         func showButtons() {
             engine.ship?.remove(componentClass: AccelerometerComponent.self)
-            creator.removeShipControlQuadrants()
-            creator.createShipControlButtons()
-            creator.enableShipControlButtons()
+            shipControlQuadrantsCreator.removeShipControlQuadrants()
+            shipButtonControlsCreator.createShipControlButtons()
+            shipButtonControlsCreator.enableShipControlButtons()
             // HACK alpha for fire and hyperspace is set to 0.0 in Creator+ShipControlButtonsManager.swift
             if let ship = engine.ship,
                ship.has(componentClassName: GunComponent.name) {
@@ -80,8 +85,8 @@ class ShipControlsSystem: ListIteratingSystem {
                     sprite.alpha = 0.2
                 }
             }
-            creator.removeToggleButton()
-            creator.createToggleButton(.on)
+            toggleShipControlsCreator.removeToggleButton()
+            toggleShipControlsCreator.createToggleButton(.on)
         }
     }
 }

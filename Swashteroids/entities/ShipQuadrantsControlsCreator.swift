@@ -11,7 +11,17 @@
 import Swash
 import SpriteKit
 
-extension Creator: ShipQuadrantsControlsManagerUseCase {
+class ShipQuadrantsControlsCreator: ShipQuadrantsControlsCreatorUseCase {
+    private var engine: Engine
+    private var size: CGSize
+    private var generator: UIImpactFeedbackGenerator?
+
+    init(engine: Engine, size: CGSize, generator: UIImpactFeedbackGenerator?) {
+        self.engine = engine
+        self.size = size
+        self.generator = generator
+    }
+
     func removeShipControlQuadrants() {
         let quadrants: [EntityName] = [.q1, .q2, .q3, .q4]
         engine.removeEntities(named: quadrants)
@@ -20,16 +30,16 @@ extension Creator: ShipQuadrantsControlsManagerUseCase {
     func createQuadrantSprite(quadrant: Int, entity: Entity) -> SwashSpriteNode {
         let position: CGPoint
         switch quadrant {
-            case 1:
-                position = CGPoint(x: 0, y: size.height / 2)
-            case 2:
-                position = CGPoint(x: size.width / 2, y: size.height / 2)
-            case 3:
-                position = CGPoint(x: 0, y: 0)
-            case 4:
-                position = CGPoint(x: size.width / 2, y: 0)
-            default:
-                position = .zero
+        case 1:
+            position = CGPoint(x: 0, y: size.height / 2)
+        case 2:
+            position = CGPoint(x: size.width / 2, y: size.height / 2)
+        case 3:
+            position = CGPoint(x: 0, y: 0)
+        case 4:
+            position = CGPoint(x: size.width / 2, y: 0)
+        default:
+            position = .zero
         }
         let quadrantSprite = SwashSpriteNode(color: .black, size: CGSize(width: size.width / 2, height: size.height / 2))
         quadrantSprite.anchorPoint = CGPoint(x: 0, y: 0)

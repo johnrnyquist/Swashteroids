@@ -11,7 +11,40 @@
 import Swash
 import SpriteKit
 
-extension Creator: ShipButtonControlsManagerUseCase {
+class ShipButtonControlsCreator: ShipButtonControlsCreatorUseCase {
+    weak var engine: Engine!
+    var size: CGSize
+    var buttonPadding = 30.0
+    var buttonPaddingLeft = 30.0
+    var buttonPaddingRight = 30.0
+    var firstRowButtonPaddingY = 30.0
+    var fireButtonEntity: Entity? //HACK
+    var hyperspaceButtonEntity: Entity? //HACK
+    var scaleManager: ScaleManaging
+    weak var generator: UIImpactFeedbackGenerator?
+
+    init(engine: Engine,
+         size: CGSize,
+         generator: UIImpactFeedbackGenerator?,
+         scaleManager: ScaleManaging = ScaleManager.shared,
+         randomness: Randomizing = Randomness.shared
+    ) {
+        self.scaleManager = scaleManager
+        buttonPadding *= scaleManager.SCALE_FACTOR
+        buttonPaddingLeft *= scaleManager.SCALE_FACTOR
+        buttonPaddingRight *= scaleManager.SCALE_FACTOR
+        firstRowButtonPaddingY *= scaleManager.SCALE_FACTOR
+        self.engine = engine
+        self.size = size
+        self.generator = generator
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+           let window = appDelegate.window {
+            buttonPaddingLeft += max(window.safeAreaInsets.left, 10)
+            buttonPaddingRight += max(window.safeAreaInsets.right, 10)
+            firstRowButtonPaddingY += max(window.safeAreaInsets.bottom, 10)
+        }
+    }
+
     func removeShipControlButtons() {
         let shipControls: [EntityName] = [.leftButton, .rightButton, .thrustButton, .fireButton, .flipButton, .hyperspaceButton]
         engine.removeEntities(named: shipControls)
@@ -33,7 +66,8 @@ extension Creator: ShipButtonControlsManagerUseCase {
 
     // HACK
     func showFireButton() {
-        if let fireButtonEntity, engine.appStateComponent.shipControlsState == .showingButtons{
+        if let fireButtonEntity,
+           engine.appStateComponent.shipControlsState == .showingButtons {
             engine.replace(entity: fireButtonEntity)
             let fadeIn = SKAction.fadeAlpha(to: 1.0, duration: 0.2)
             let fadeOut = SKAction.fadeAlpha(to: 0.2, duration: 0.2)
@@ -45,7 +79,8 @@ extension Creator: ShipButtonControlsManagerUseCase {
 
     // HACK 
     func showHyperspaceButton() {
-        if let hyperspaceButtonEntity, engine.appStateComponent.shipControlsState == .showingButtons {
+        if let hyperspaceButtonEntity,
+           engine.appStateComponent.shipControlsState == .showingButtons {
             engine.replace(entity: hyperspaceButtonEntity)
             let fadeIn = SKAction.fadeAlpha(to: 1.0, duration: 0.2)
             let fadeOut = SKAction.fadeAlpha(to: 0.2, duration: 0.2)

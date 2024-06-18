@@ -27,7 +27,7 @@ class CollisionSystem: System {
     private weak var asteroids: NodeList!
     private weak var engine: Engine!
     private weak var hyperspacePowerUp: NodeList!
-    private weak var shipButtonControlsManager: ShipButtonControlsManagerUseCase!
+    private weak var shipButtonControlsCreator: ShipButtonControlsCreatorUseCase!
     private weak var ships: NodeList!
     private weak var torpedoPowerUp: NodeList!
     private weak var torpedoes: NodeList!
@@ -35,13 +35,13 @@ class CollisionSystem: System {
 
     init(shipCreator: ShipCreatorUseCase,
          asteroidCreator: AsteroidCreatorUseCase,
-         shipButtonControlsManager: ShipButtonControlsManagerUseCase,
+         shipButtonControlsCreator: ShipButtonControlsCreatorUseCase,
          size: CGSize,
          randomness: Randomizing = Randomness.shared,
          scaleManager: ScaleManaging = ScaleManager.shared) {
         self.shipCreator = shipCreator
         self.asteroidCreator = asteroidCreator
-        self.shipButtonControlsManager = shipButtonControlsManager
+        self.shipButtonControlsCreator = shipButtonControlsCreator
         self.size = size
         self.randomness = randomness
         self.scaleManager = scaleManager
@@ -74,7 +74,7 @@ class CollisionSystem: System {
                 .add(component: AudioComponent(fileNamed: .powerUp,
                                                actionKey: "powerup.wav"))
         //HACK for immediate gratification
-        shipButtonControlsManager.showFireButton()
+        shipButtonControlsCreator.showFireButton()
         //END_HACK
     }
 
@@ -86,7 +86,7 @@ class CollisionSystem: System {
                 .add(component: AudioComponent(fileNamed: .powerUp,
                                                actionKey: "powerup.wav"))
         //HACK for immediate gratification
-        shipButtonControlsManager.showHyperspaceButton()
+        shipButtonControlsCreator.showHyperspaceButton()
         //END_HACK
     }
 

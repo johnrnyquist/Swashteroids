@@ -68,7 +68,6 @@
 		8D23C1CF2B02C59D00F7D878 /* AnimationSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1852B02C59C00F7D878 /* AnimationSystem.swift */; };
 		8D23C1D12B02C59D00F7D878 /* MovementSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1872B02C59C00F7D878 /* MovementSystem.swift */; };
 		8D23C1D22B02C59D00F7D878 /* RenderSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1882B02C59C00F7D878 /* RenderSystem.swift */; };
-		8D23C1D32B02C59D00F7D878 /* Creator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C18A2B02C59D00F7D878 /* Creator.swift */; };
 		8D23C1D72B02C59D00F7D878 /* bang_large.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C18F2B02C59D00F7D878 /* bang_large.wav */; };
 		8D23C1D82B02C59D00F7D878 /* thrust.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C1902B02C59D00F7D878 /* thrust.wav */; };
 		8D23C1D92B02C59D00F7D878 /* fire.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C1912B02C59D00F7D878 /* fire.wav */; };
@@ -154,7 +153,7 @@
 		93139581CECED4EF1373A5BD /* TimePlayedSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313962E5C5B4402DC06E899 /* TimePlayedSystem.swift */; };
 		9313961BE93AEE536D58C27B /* AudioSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931390BDEBA443104F781428 /* AudioSystemTests.swift */; };
 		931396A2070DB4DA286B21D7 /* RightNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139FDF0C76049256DAE28C /* RightNode.swift */; };
-		931397073B11911E75B9BFA0 /* ShipQuadrantsControlsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931395F838B2866767296F25 /* ShipQuadrantsControlsManager.swift */; };
+		931397073B11911E75B9BFA0 /* ShipQuadrantsControlsCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931395F838B2866767296F25 /* ShipQuadrantsControlsCreator.swift */; };
 		93139767DADE3701C7A4DE57 /* GameScene+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139F9D5B67C687239DF403 /* GameScene+extensions.swift */; };
 		931397757ABDD3E731FEB69F /* RepeatingAudioSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139A85D4D955B243719D63 /* RepeatingAudioSystem.swift */; };
 		931397BD1834CFFC21464D3F /* Transition+Playing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139DF99E2237817263DF63 /* Transition+Playing.swift */; };
@@ -171,7 +170,7 @@
 		9313994EE65DC5F613776E1B /* PauseAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931392B2F2F0077756DDF207 /* PauseAlert.swift */; };
 		9313996AA764792E9B8670A5 /* FireDownComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931399840A8AC5987DF6D3D4 /* FireDownComponent.swift */; };
 		9313996B7589CCA869842E12 /* TouchComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139735B7C5C32A3DA6CB9D /* TouchComponents.swift */; };
-		93139985E9931A3012A6B150 /* ToggleShipControlsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139E95FF431FF894CFD502 /* ToggleShipControlsManager.swift */; };
+		93139985E9931A3012A6B150 /* ToggleShipControlsCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139E95FF431FF894CFD502 /* ToggleShipControlsCreator.swift */; };
 		93139999C782AFD3B2ACD018 /* TransitionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139D4336E12C89FC8BE06B /* TransitionTests.swift */; };
 		931399BCC437F101AA0DA3CB /* HudSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139949CD856130C98A8834 /* HudSystemTests.swift */; };
 		931399C749E2BD0BE4E247A0 /* ApplyThrustComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931397D7C84D4E580EB51E4D /* ApplyThrustComponent.swift */; };
@@ -184,7 +183,7 @@
 		93139BC5661C918BD0158277 /* HyperspaceSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313964664F31540DA9D0416 /* HyperspaceSystemTests.swift */; };
 		93139BD1EDA3D1E9AEA9C1D4 /* ThrustSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931390DB9E3BECA50B2D05CF /* ThrustSystem.swift */; };
 		93139C6BCF2ED1CDD8504B1C /* TorpedoCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139A97E15CCF640A73EC56 /* TorpedoCreator.swift */; };
-		93139C71990002FF2B995C07 /* ShipButtonControlsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931392CF258F1370304A48B7 /* ShipButtonControlsManager.swift */; };
+		93139C71990002FF2B995C07 /* ShipButtonControlsCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931392CF258F1370304A48B7 /* ShipButtonControlsCreator.swift */; };
 		93139CB863A15BF4B1274D41 /* ShipCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139F43221229D3FBAC46D9 /* ShipCreator.swift */; };
 		93139D10A3929204EC8DF9BF /* FlipSystemTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139C3D0D48098244988F2F /* FlipSystemTest.swift */; };
 		93139D4F7B05532BC0F56A6C /* GameplayManagerSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139A6D529EF901F7F45FFD /* GameplayManagerSystemTests.swift */; };
@@ -283,7 +282,6 @@
 		8D23C1852B02C59C00F7D878 /* AnimationSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationSystem.swift; sourceTree = "<group>"; };
 		8D23C1872B02C59C00F7D878 /* MovementSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovementSystem.swift; sourceTree = "<group>"; };
 		8D23C1882B02C59C00F7D878 /* RenderSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderSystem.swift; sourceTree = "<group>"; };
-		8D23C18A2B02C59D00F7D878 /* Creator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Creator.swift; sourceTree = "<group>"; };
 		8D23C18F2B02C59D00F7D878 /* bang_large.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bang_large.wav; sourceTree = "<group>"; };
 		8D23C1902B02C59D00F7D878 /* thrust.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = thrust.wav; sourceTree = "<group>"; };
 		8D23C1912B02C59D00F7D878 /* fire.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = fire.wav; sourceTree = "<group>"; };
@@ -361,7 +359,7 @@
 		9313921B1C15E7B6BB9E6B36 /* RightSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightSystem.swift; sourceTree = "<group>"; };
 		931392817415F62A631B78BE /* Transition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transition.swift; sourceTree = "<group>"; };
 		931392B2F2F0077756DDF207 /* PauseAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PauseAlert.swift; sourceTree = "<group>"; };
-		931392CF258F1370304A48B7 /* ShipButtonControlsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipButtonControlsManager.swift; sourceTree = "<group>"; };
+		931392CF258F1370304A48B7 /* ShipButtonControlsCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipButtonControlsCreator.swift; sourceTree = "<group>"; };
 		93139323EC193D378DF26BB7 /* RightComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightComponent.swift; sourceTree = "<group>"; };
 		93139349F91910D60271C8DA /* Transition+Start.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Transition+Start.swift"; sourceTree = "<group>"; };
 		931393BFA7122C52736144FB /* Transition+GameOver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Transition+GameOver.swift"; sourceTree = "<group>"; };
@@ -373,7 +371,7 @@
 		931394D1D0B636772EE1DFF7 /* String+EntityNames.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+EntityNames.swift"; sourceTree = "<group>"; };
 		9313954C85643D9FEA3B568D /* GameControllerComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameControllerComponent.swift; sourceTree = "<group>"; };
 		9313959F4B35EA9D7843BD7A /* Randomness.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Randomness.swift; sourceTree = "<group>"; };
-		931395F838B2866767296F25 /* ShipQuadrantsControlsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipQuadrantsControlsManager.swift; sourceTree = "<group>"; };
+		931395F838B2866767296F25 /* ShipQuadrantsControlsCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipQuadrantsControlsCreator.swift; sourceTree = "<group>"; };
 		931395FA04809CC11F1BF287 /* TreasureComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreasureComponent.swift; sourceTree = "<group>"; };
 		9313961CB4F5B39D06FE5B0F /* RepeatingAudioNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatingAudioNode.swift; sourceTree = "<group>"; };
 		9313962E5C5B4402DC06E899 /* TimePlayedSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimePlayedSystem.swift; sourceTree = "<group>"; };
@@ -419,7 +417,7 @@
 		93139DF99E2237817263DF63 /* Transition+Playing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Transition+Playing.swift"; sourceTree = "<group>"; };
 		93139E651DD82D706FDF1B26 /* AlienComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlienComponent.swift; sourceTree = "<group>"; };
 		93139E79623BA0A03F3FDF2B /* GunNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GunNode.swift; sourceTree = "<group>"; };
-		93139E95FF431FF894CFD502 /* ToggleShipControlsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToggleShipControlsManager.swift; sourceTree = "<group>"; };
+		93139E95FF431FF894CFD502 /* ToggleShipControlsCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToggleShipControlsCreator.swift; sourceTree = "<group>"; };
 		93139EB3AE52346EF745211F /* FlipComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlipComponent.swift; sourceTree = "<group>"; };
 		93139EE51DF4C3AE1D381E57 /* AsteroidCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsteroidCreator.swift; sourceTree = "<group>"; };
 		93139F2C79FC630142EA1605 /* TreasureCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreasureCreator.swift; sourceTree = "<group>"; };
@@ -757,14 +755,13 @@
 			children = (
 				8D70211A2B4EFEAE0032107A /* AlienCreator.swift */,
 				93139EE51DF4C3AE1D381E57 /* AsteroidCreator.swift */,
-				8D23C18A2B02C59D00F7D878 /* Creator.swift */,
 				931397F86C674AD22210D173 /* HudCreator.swift */,
 				93139C73A66D8863A166745D /* PowerUpCreator.swift */,
-				931392CF258F1370304A48B7 /* ShipButtonControlsManager.swift */,
+				931392CF258F1370304A48B7 /* ShipButtonControlsCreator.swift */,
 				93139F43221229D3FBAC46D9 /* ShipCreator.swift */,
-				931395F838B2866767296F25 /* ShipQuadrantsControlsManager.swift */,
+				931395F838B2866767296F25 /* ShipQuadrantsControlsCreator.swift */,
 				93139921E04E8DBE2DF6800B /* SplitAsteroidUseCase.swift */,
-				93139E95FF431FF894CFD502 /* ToggleShipControlsManager.swift */,
+				93139E95FF431FF894CFD502 /* ToggleShipControlsCreator.swift */,
 				93139A97E15CCF640A73EC56 /* TorpedoCreator.swift */,
 				93139F2C79FC630142EA1605 /* TreasureCreator.swift */,
 			);
@@ -986,7 +983,6 @@
 				8D512A9D2B41C15600C30AC7 /* AccelerometerSystem.swift in Sources */,
 				8D23C1A92B02C59D00F7D878 /* ShipEngineNode.swift in Sources */,
 				8DB409EC2B1D3C6F008DE4EB /* TransitionAppStateComponent.swift in Sources */,
-				8D23C1D32B02C59D00F7D878 /* Creator.swift in Sources */,
 				931393799C3434FBF3FC0CCD /* InputComponent.swift in Sources */,
 				93139920B1CB722DC9509E80 /* TransitionAppStateSystem.swift in Sources */,
 				8DB99F542B2BE81800C3593A /* main.swift in Sources */,
@@ -996,15 +992,15 @@
 				8DA97A962B23581100E7495A /* Int+extensions.swift in Sources */,
 				93139F0DDF5880C3EAFA8A5D /* Transition+Start.swift in Sources */,
 				93139F3F4BF404579411D473 /* Transition+InfoViews.swift in Sources */,
-				931397073B11911E75B9BFA0 /* ShipQuadrantsControlsManager.swift in Sources */,
-				93139C71990002FF2B995C07 /* ShipButtonControlsManager.swift in Sources */,
+				931397073B11911E75B9BFA0 /* ShipQuadrantsControlsCreator.swift in Sources */,
+				93139C71990002FF2B995C07 /* ShipButtonControlsCreator.swift in Sources */,
 				8DE66F112C14CA1500ECEE96 /* SplitAsteroidComponent.swift in Sources */,
 				93139265D59A74E99D27A0CF /* Transition+GameOver.swift in Sources */,
 				93139F78DDEA725367C42BFD /* AsteroidCreator.swift in Sources */,
 				93139CB863A15BF4B1274D41 /* ShipCreator.swift in Sources */,
 				93139C6BCF2ED1CDD8504B1C /* TorpedoCreator.swift in Sources */,
 				93139E5DCD4193CB19DDB025 /* PowerUpCreator.swift in Sources */,
-				93139985E9931A3012A6B150 /* ToggleShipControlsManager.swift in Sources */,
+				93139985E9931A3012A6B150 /* ToggleShipControlsCreator.swift in Sources */,
 				931397BD1834CFFC21464D3F /* Transition+Playing.swift in Sources */,
 				93139A8885E51A1D11E5F1D6 /* HudCreator.swift in Sources */,
 				93139DB6913344090273397D /* String+EntityNames.swift in Sources */,

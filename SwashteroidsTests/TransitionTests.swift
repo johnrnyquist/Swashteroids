@@ -117,7 +117,7 @@ final class TransitionTests: XCTestCase {
         func showPauseAlert() {}
     }
 
-    class MockCreator: ToggleShipControlsManagerUseCase, ShipQuadrantsControlsManagerUseCase, ShipButtonControlsManagerUseCase {
+    class MockCreator: ToggleShipControlsCreatorUseCase, ShipQuadrantsControlsCreatorUseCase, ShipButtonControlsCreatorUseCase {
         //MARK: - ToggleShipControlsManager
         var removeToggleButtonCalled = false
 

@@ -12,13 +12,13 @@
 					<key>EndingColumnNumber</key>
 					<string>0</string>
 					<key>EndingLineNumber</key>
-					<string>46</string>
+					<string>41</string>
 					<key>StartingColumnNumber</key>
 					<string>0</string>
 					<key>StartingLineNumber</key>
-					<string>45</string>
+					<string>40</string>
 					<key>Timestamp</key>
-					<string>739585890.316049</string>
+					<string>740436582.489827</string>
 				</dict>
 				<key>rebasable-url</key>
 				<dict>
@@ -34,16 +34,16 @@
 			<key>text-context</key>
 			<dict>
 				<key>focused</key>
-				<string>                          alertPresenter: alertPresenter)
+				<string>        orientation = UIDevice.current.orientation == .landscapeRight ? -1.0 : 1.0
 </string>
 				<key>leading</key>
-				<string>                          size: scene.size,
-                          generator: generator,
+				<string>        engine = Engine()
+        tickEngineListener = Listener(engine.update)
 </string>
 				<key>trailing</key>
-				<string>        transition = Transition(engine: engine, 
-                                hudCreator: HudCreator(engine: engine, alertPresenter: alertPresenter),
-                                creator: creator, 
+				<string>        super.init()
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(orientationChanged),
 </string>
 			</dict>
 			<key>type</key>

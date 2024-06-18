@@ -20,10 +20,8 @@ final class Swashteroids: NSObject {
 
     let motionManager: CMMotionManager? = CMMotionManager()
     private let generator = UIImpactFeedbackGenerator(style: .heavy)
-    private var creator: Creator
     private var tickEngineListener: Listener
     private var tickProvider: TickProvider?
-    private var transition: Transition
     private(set) var engine: Engine
     private(set) var inputComponent = InputComponent.shared
     private(set) var orientation = 1.0
@@ -40,14 +38,6 @@ final class Swashteroids: NSObject {
         }
         engine = Engine()
         tickEngineListener = Listener(engine.update)
-        creator = Creator(engine: engine,
-                          size: scene.size,
-                          generator: generator,
-                          alertPresenter: alertPresenter)
-        transition = Transition(engine: engine, 
-                                hudCreator: HudCreator(engine: engine, alertPresenter: alertPresenter),
-                                creator: creator, 
-                                generator: generator)
         orientation = UIDevice.current.orientation == .landscapeRight ? -1.0 : 1.0
         super.init()
         NotificationCenter.default.addObserver(self,
@@ -95,17 +85,30 @@ final class Swashteroids: NSObject {
         let asteroidCreator = AsteroidCreator(engine: engine)
         let alienCreator = AlienCreator(engine: engine, size: gameSize)
         let shipCreator = ShipCreator(engine: engine, size: gameSize)
+        let toggleShipControlsCreator = ToggleShipControlsCreator(engine: engine, size: gameSize, generator: generator)
+        let shipControlQuadrantsCreator = ShipQuadrantsControlsCreator(engine: engine, size: gameSize, generator: generator)
+        let shipButtonControlsCreator = ShipButtonControlsCreator(engine: engine, size: gameSize, generator: generator)
+        let transition = Transition(engine: engine,
+                                hudCreator: HudCreator(engine: engine, alertPresenter: alertPresenter),
+                                toggleShipControlsCreator: toggleShipControlsCreator,
+                                shipControlQuadrantsCreator: shipControlQuadrantsCreator,
+                                shipButtonControlsCreator: shipButtonControlsCreator,
+                                generator: generator)
+
         engine
             // preupdate
                 .add(system: TimePlayedSystem(), priority: .preUpdate)
                 .add(system: GameplayManagerSystem(asteroidCreator: asteroidCreator,
-                                                   alienCreator: alienCreator, 
+                                                   alienCreator: alienCreator,
                                                    shipCreator: shipCreator,
                                                    size: gameSize,
                                                    scene: scene),
                      priority: .preUpdate)
                 .add(system: GameOverSystem(), priority: .preUpdate)
-                .add(system: ShipControlsSystem(creator: creator), priority: .preUpdate)
+                .add(system: ShipControlsSystem(toggleShipControlsCreator: toggleShipControlsCreator,
+                                                shipControlQuadrantsCreator: shipControlQuadrantsCreator,
+                                                shipButtonControlsCreator: shipButtonControlsCreator),
+                     priority: .preUpdate)
                 .add(system: TransitionAppStateSystem(transition: transition), priority: .preUpdate)
                 // move
                 .add(system: AccelerometerSystem(), priority: .move)
@@ -117,7 +120,7 @@ final class Swashteroids: NSObject {
                 // resolve collisions
                 .add(system: CollisionSystem(shipCreator: shipCreator,
                                              asteroidCreator: asteroidCreator,
-                                             shipButtonControlsManager: creator,
+                                             shipButtonControlsCreator: shipButtonControlsCreator,
                                              size: gameSize),
                      priority: .resolveCollisions)
                 // animate
