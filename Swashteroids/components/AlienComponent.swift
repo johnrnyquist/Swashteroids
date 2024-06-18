@@ -17,7 +17,7 @@ final class AlienComponent: Component {
     var reactionTime: TimeInterval
     var startDestination: CGPoint = .zero
     var timeSinceLastReaction: TimeInterval = 0.0
-    weak var targetingEntity: Entity?
+    weak var targetedEntity: Entity?
 
     init(reactionTime: Double, killScore: Int) {
         self.reactionTime = reactionTime

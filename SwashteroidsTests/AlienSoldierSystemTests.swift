@@ -32,8 +32,8 @@ final class AlienSoldierSystemTests: XCTestCase {
         let soldier = AlienComponent(reactionTime: 0.4, killScore: 50)
         let position = PositionComponent(x: 0, y: 0, z: .asteroids, rotationDegrees: 0)
         system.pickTarget(alienComponent: soldier, position: position)
-        XCTAssertNotNil(soldier.targetingEntity)
-        XCTAssertEqual(shipEntity, soldier.targetingEntity)
+        XCTAssertNotNil(soldier.targetedEntity)
+        XCTAssertEqual(shipEntity, soldier.targetedEntity)
     }
 
     func test_moveTowardTarget() throws {

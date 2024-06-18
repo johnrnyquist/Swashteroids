@@ -45,27 +45,29 @@ class ShipCreator: ShipCreatorUseCase {
         sprite.addChild(nacellesSprite)
         sprite.entity = player
         player.add(component: ShipComponent())
-        player.add(component: HyperspaceDriveComponent(jumps: 0))
-        player.add(component: GunComponent(offsetX: sprite.width / 2,
+              .add(component: HyperspaceDriveComponent(jumps: 0))
+              .add(component: GunComponent(offsetX: sprite.width / 2,
                                            offsetY: 0,
                                            minimumShotInterval: 0.1,
                                            torpedoLifetime: 2,
                                            ownerType: .player,
                                            ownerEntity: player,
                                            numTorpedoes: 0))
-        player.add(component: WarpDriveComponent())
-        player.add(component: PositionComponent(x: state.gameSize.width / 2,
+              .add(component: WarpDriveComponent())
+              .add(component: PositionComponent(x: state.gameSize.width / 2,
                                                 y: state.gameSize.height / 2,
                                                 z: .ship,
                                                 rotationDegrees: 0.0))
-        player.add(component: VelocityComponent(velocityX: 0.0, velocityY: 0.0, dampening: 0.0, base: 60.0))
-        player.add(component: CollidableComponent(radius: 25))
-        player.add(component: DisplayComponent(sknode: sprite))
-        player.add(component: MovementRateComponent(accelerationRate: 90, rotationRate: 100))
-        player.add(component: InputComponent.shared)
-        player.add(component: AccelerometerComponent())
-        player.add(component: ChangeShipControlsStateComponent(to: state.shipControlsState))
-        player.add(component: RepeatingAudioComponent(sound: GameScene.sound)) //HACK
+              .add(component: VelocityComponent(velocityX: 0.0, velocityY: 0.0, dampening: 0.0, base: 60.0))
+              .add(component: CollidableComponent(radius: 25))
+              .add(component: DisplayComponent(sknode: sprite))
+              .add(component: MovementRateComponent(accelerationRate: 90, rotationRate: 100))
+              .add(component: InputComponent.shared)
+              .add(component: AccelerometerComponent())
+              .add(component: ChangeShipControlsStateComponent(to: state.shipControlsState))
+              .add(component: RepeatingAudioComponent(sound: GameScene.sound)) //HACK
+              .add(component: ShootableComponent.shared)
+              .add(component: AlienWorkerTargetComponent.shared)
         switch state.shipControlsState {
         case .hidingButtons:
             player.add(component: AccelerometerComponent())

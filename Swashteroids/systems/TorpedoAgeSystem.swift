@@ -11,7 +11,7 @@
 import Foundation
 import Swash
 
-
+// TODO: this could be changed to use the LifetimeComponent
 final class TorpedoAgeSystem: ListIteratingSystem {
     private weak var engine: Engine!
     

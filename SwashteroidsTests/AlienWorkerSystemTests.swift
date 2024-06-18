@@ -42,7 +42,7 @@ final class AlienWorkerSystemTests: XCTestCase {
         let workerComponent = AlienComponent(reactionTime: 0.4, killScore: 50)
         let position = PositionComponent(x: 0, y: 0, z: .asteroids, rotationDegrees: 0)
         system.pickTarget(alienComponent: workerComponent, position: position)
-        XCTAssertNotNil(workerComponent.targetingEntity)
+        XCTAssertNotNil(workerComponent.targetedEntity)
     }
 
     func test_moveTowardTarget() throws {

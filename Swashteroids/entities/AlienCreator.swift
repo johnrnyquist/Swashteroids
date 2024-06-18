@@ -28,11 +28,11 @@ class AlienCreator: AlienCreatorUseCase {
         guard engine.findEntity(named: .player) != nil else { return }
         let entrance = pickEntrance()
         warningAliens(scene: scene, leftSide: entrance.leftSide)
-        switch engine.appStateComponent.level {
-        case 1:
+        switch totalAliens {
+        case 0...1:
             createAlienWorker(startDestination: CGPoint(x: entrance.startDestination.x, y: entrance.startDestination.y + 50),
                               endDestination: entrance.endDestination)
-        case 2:
+        case 2...3:
             switch randomness.nextBool() {
             case true:
                 createTwoWorkers(entrance: entrance)
@@ -41,7 +41,7 @@ class AlienCreator: AlienCreatorUseCase {
                                                             y: entrance.startDestination.y + 50),
                                   endDestination: entrance.endDestination)
             }
-        case 3:
+        case 4...5:
             switch randomness.nextInt(from: 1, through: 3) {
             case 1:
                 createTwoWorkers(entrance: entrance)
@@ -182,7 +182,7 @@ class AlienCreator: AlienCreatorUseCase {
                                              ownerType: .computerOpponent,
                                              ownerEntity: alienEntity,
                                              numTorpedoes: Int.max))
-                .add(component: AlienFireDownComponent.shared)
+                .add(component: AlienFiringComponent.shared)
                 .add(component: CollidableComponent(radius: 25))
                 .add(component: DisplayComponent(sknode: sprite))
         sprite.entity = alienEntity
@@ -219,9 +219,10 @@ class AlienCreator: AlienCreatorUseCase {
                                              ownerType: .computerOpponent,
                                              ownerEntity: alienEntity,
                                              numTorpedoes: Int.max))
-                .add(component: AlienFireDownComponent.shared)
+                .add(component: AlienFiringComponent.shared)
                 .add(component: CollidableComponent(radius: 25))
                 .add(component: DisplayComponent(sknode: sprite))
+                .add(component: ShootableComponent.shared)
         sprite.entity = alienEntity
         try? engine.add(entity: alienEntity)
     }

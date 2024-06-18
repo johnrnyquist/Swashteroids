@@ -9,11 +9,23 @@
 //
 
 import Swash
+import Foundation
 
 final class TreasureComponent: Component {
     var value: Int
 
     init(value: Int) {
         self.value = value
+    }
+}
+
+// TODO: Implement a system for this.
+// right now it is added to treasures.
+// I would also like to add it to torpedoes. maybe.
+final class LifetimeComponent: Component {
+    var timeRemaining: TimeInterval
+
+    init(timeRemaining: TimeInterval) {
+        self.timeRemaining = timeRemaining
     }
 }

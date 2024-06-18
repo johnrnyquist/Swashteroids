@@ -47,11 +47,11 @@ final class GameViewController: UIViewController, AlertPresenting {
         gameScene.name = "gameScene"
         gameScene.anchorPoint = .zero
         gameScene.scaleMode = .aspectFit
-        #if DEBUG
-            let seed = 1 // Hardcoded seed for debug builds
-        #else
-            let seed = Int(Date().timeIntervalSince1970) // Current time for non-debug builds
-        #endif
+//        #if DEBUG
+//            let seed = 1
+//        #else
+            let seed = Int(Date().timeIntervalSince1970)
+//        #endif
         game = Swashteroids(scene: gameScene, alertPresenter: self, seed: seed)
         print("seed \(seed)")
         gameScene.delegate = game

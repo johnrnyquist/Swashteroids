@@ -12,6 +12,15 @@ import Swash
 import Foundation
 import UIKit
 
+class DistanceComponent: Component {
+    let distance: CGFloat
+
+    init(distance: CGFloat) {
+        self.distance = distance
+        super.init()
+    }
+}
+
 class AlienSystem: System {
     func pickTarget(alienComponent: AlienComponent, position: PositionComponent) {
         preconditionFailure("\(#function) must be overridden in \(self)")
@@ -45,6 +54,7 @@ class AlienSystem: System {
             if distance < smallestDistance {
                 smallestDistance = distance
                 closestEntity = entity
+                closestEntity.add(component: DistanceComponent(distance: distance))
             }
         }
         return closestEntity
@@ -74,6 +84,7 @@ class AlienWorkerSystem: AlienSystem {
     var shipNodes: NodeList?
     var asteroidNodes: NodeList?
     var treasureNodes: NodeList?
+    var targetableNodes: NodeList?
     let randomness: Randomizing
 
     init(randomness: Randomizing = Randomness.shared) {
@@ -87,6 +98,7 @@ class AlienWorkerSystem: AlienSystem {
         shipNodes = engine.getNodeList(nodeClassType: ShipNode.self)
         asteroidNodes = engine.getNodeList(nodeClassType: AsteroidCollisionNode.self)
         treasureNodes = engine.getNodeList(nodeClassType: TreasureCollisionNode.self)
+        targetableNodes = engine.getNodeList(nodeClassType: AlienWorkerTargetNode.self)
     }
 
     override func update(time: TimeInterval) {
@@ -110,10 +122,10 @@ class AlienWorkerSystem: AlienSystem {
         let playerAlive = shipEntity != nil && shipEntity?[DeathThroesComponent.self] == nil
         //
         // Does the alien have a target? If so, is the target still alive?
-        if let _ = alienComponent.targetingEntity,
-           let name = alienComponent.targetingEntity?.name,
+        if let _ = alienComponent.targetedEntity,
+           let name = alienComponent.targetedEntity?.name,
            engine?.findEntity(named: name) == nil {
-            alienComponent.targetingEntity = nil
+            alienComponent.targetedEntity = nil
         }
         //
         // Target the ship if it's alive and it's time to react
@@ -121,7 +133,7 @@ class AlienWorkerSystem: AlienSystem {
            isTimeToReact {
             alienComponent.timeSinceLastReaction = 0
             pickTarget(alienComponent: alienComponent, position: alienPosition)
-            moveTowardTarget(alienPosition, velocity, alienComponent.targetingEntity![PositionComponent.self]!.position)
+            moveTowardTarget(alienPosition, velocity, alienComponent.targetedEntity![PositionComponent.self]!.position)
         }
         //
         // Move it off screen if player is dead, this happens ONCE
@@ -143,13 +155,17 @@ class AlienWorkerSystem: AlienSystem {
     }
 
     override func pickTarget(alienComponent: AlienComponent, position: PositionComponent) {
-        guard alienComponent.targetingEntity == nil else { return }
-        let closestAsteroid = findClosestEntity(to: position.position, node: asteroidNodes?.head)
-        let closestTreasure = findClosestEntity(to: position.position, node: treasureNodes?.head)
-        let entities = [closestAsteroid, closestTreasure].compactMap { $0 }
-        if entities.count > 0 {
-            alienComponent.targetingEntity = entities[randomness.nextInt(upTo: entities.count)]
+        guard alienComponent.targetedEntity == nil else { return }
+        if let closestTargetable = findClosestEntity(to: position.position, node: targetableNodes?.head) {
+            alienComponent.targetedEntity = closestTargetable
+            return
         }
+//        let closestAsteroid = findClosestEntity(to: position.position, node: asteroidNodes?.head)
+//        let closestTreasure = findClosestEntity(to: position.position, node: treasureNodes?.head)
+//        let entities = [closestAsteroid, closestTreasure].compactMap { $0 }
+//        if entities.count > 0 {
+//            alienComponent.targetedEntity = entities[randomness.nextInt(upTo: entities.count)]
+//        }
     }
 }
 
@@ -189,10 +205,10 @@ class AlienSoldierSystem: AlienSystem {
         let playerAlive = shipEntity != nil && shipEntity?[DeathThroesComponent.self] == nil
         //
         // Does the alien have a target? If so, is the target still alive?
-        if let _ = alienComponent.targetingEntity,
-           let name = alienComponent.targetingEntity?.name,
+        if let _ = alienComponent.targetedEntity,
+           let name = alienComponent.targetedEntity?.name,
            engine?.findEntity(named: name) == nil {
-            alienComponent.targetingEntity = nil
+            alienComponent.targetedEntity = nil
         }
         //
         // Target the ship if it's alive and it's time to react
@@ -200,7 +216,7 @@ class AlienSoldierSystem: AlienSystem {
            isTimeToReact {
             alienComponent.timeSinceLastReaction = 0
             pickTarget(alienComponent: alienComponent, position: alienPosition)
-            moveTowardTarget(alienPosition, velocity, alienComponent.targetingEntity![PositionComponent.self]!.position)
+            moveTowardTarget(alienPosition, velocity, alienComponent.targetedEntity![PositionComponent.self]!.position)
         }
         //
         // Move it off screen if player is dead, this happens ONCE
@@ -222,12 +238,12 @@ class AlienSoldierSystem: AlienSystem {
     }
 
     override func pickTarget(alienComponent: AlienComponent, position: PositionComponent) {
-        guard alienComponent.targetingEntity == nil else { return }
+        guard alienComponent.targetedEntity == nil else { return }
         let ship = shipNodes?.head?.entity
 //        let closestAsteroid = findClosestEntity(to: position.position, node: asteroidNodes?.head)
 //        let closestTreasure = findClosestEntity(to: position.position, node: treasureNodes?.head)
 //        let entities = [ship, ship, ship, ship, closestAsteroid, closestTreasure].compactMap { $0 }
-//        alienComponent.targetingEntity = findClosestObject(to: position.position, in: entities)
-        alienComponent.targetingEntity = ship
+//        alienComponent.targetedEntity = findClosestObject(to: position.position, in: entities)
+        alienComponent.targetedEntity = ship
     }
 }

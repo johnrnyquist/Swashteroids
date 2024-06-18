@@ -58,6 +58,8 @@ class AsteroidCreator: AsteroidCreatorUseCase {
                 .add(component: CollidableComponent(radius: radius))
                 .add(component: AsteroidComponent(size: size))
                 .add(component: DisplayComponent(sknode: sprite))
+                .add(component: ShootableComponent.shared)
+                .add(component: AlienWorkerTargetComponent.shared)
         sprite.entity = entity
         do {
             try engine.add(entity: entity)
