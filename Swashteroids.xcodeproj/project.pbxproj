@@ -673,39 +673,47 @@
 		8D384D902B28F30D00D5564C /* SwashteroidsTests */ = {
 			isa = PBXGroup;
 			children = (
-				8DB99F512B2BE7D700C3593A /* TestingAppDelegate.swift */,
+				8D4D4EFC2C23404300293B13 /* _Mocks */,
 				8D512A982B41B47D00C30AC7 /* AccelerometerSystemTests.swift */,
+				93139B933148A8CE373B6EE8 /* AlienCreatorUseCaseTests.swift */,
+				8D0006AB2C16601500C098CB /* AlienSoldierSystemTests.swift */,
+				8DF718C52C163576007E1942 /* AlienWorkerSystemTests.swift */,
 				8D384D992B28F3F300D5564C /* AnimationTests.swift */,
+				931390BDEBA443104F781428 /* AudioSystemTests.swift */,
 				93139BEB3AC5615963614D45 /* CollisionSystemTests.swift */,
 				931397AEAB4946A616156BF7 /* DeathThroesSystemTests.swift */,
 				93139DE76BF1939914D55E38 /* FiringSystemTests.swift */,
 				93139C3D0D48098244988F2F /* FlipSystemTest.swift */,
-				93139A6D529EF901F7F45FFD /* GameplayManagerSystemTests.swift */,
 				8DB99F582B2BF2A700C3593A /* GameOverSystemTests.swift */,
+				93139A6D529EF901F7F45FFD /* GameplayManagerSystemTests.swift */,
 				93139949CD856130C98A8834 /* HudSystemTests.swift */,
 				9313964664F31540DA9D0416 /* HyperspaceSystemTests.swift */,
 				931390C85278CB396AD27B7B /* LeftSystemTests.swift */,
 				931399F9256FB8B5F9EBA4E4 /* MovementSystemTests.swift */,
 				93139C5C73E05D316598047C /* NacelleSystemTests.swift */,
+				8D88C4832B61D3FF00B75314 /* RandomnessTests.swift */,
 				8DB99F562B2BE9EE00C3593A /* RenderSystemTests.swift */,
 				93139B1BA616F9CF29C1B194 /* RightSystemTests.swift */,
 				93139C4A1DEEA1037E802D8E /* ShipControlsSystemTests.swift */,
+				8DB99F512B2BE7D700C3593A /* TestingAppDelegate.swift */,
 				931393FE8CC28A572666583C /* ThrustSystemTests.swift */,
 				8D384D982B28F3F300D5564C /* TorpedoAgeSystemTests.swift */,
 				8DB99F5A2B2C9B4500C3593A /* TransitionAppStateSystemTests.swift */,
 				93139D4336E12C89FC8BE06B /* TransitionTests.swift */,
-				931390BDEBA443104F781428 /* AudioSystemTests.swift */,
-				93139AACD0733A9656662B03 /* MockPowerUpCreator.swift */,
-				8D88C4832B61D3FF00B75314 /* RandomnessTests.swift */,
-				93139B933148A8CE373B6EE8 /* AlienCreatorUseCaseTests.swift */,
-				8DF718C52C163576007E1942 /* AlienWorkerSystemTests.swift */,
-				8D0006AB2C16601500C098CB /* AlienSoldierSystemTests.swift */,
-				8D4D4EF12C23357D00293B13 /* MockAlertPresenter.swift */,
-				8D4D4EF52C23388700293B13 /* MockCreators.swift */,
-				8D4D4EF72C2338A200293B13 /* MockScaleManager.swift */,
-				8D4D4EF92C233C5800293B13 /* MockRandom.swift */,
 			);
 			path = SwashteroidsTests;
+			sourceTree = "<group>";
+		};
+		8D4D4EFC2C23404300293B13 /* _Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				8D4D4EF12C23357D00293B13 /* MockAlertPresenter.swift */,
+				93139AACD0733A9656662B03 /* MockPowerUpCreator.swift */,
+				8D4D4EF92C233C5800293B13 /* MockRandom.swift */,
+				8D4D4EF72C2338A200293B13 /* MockScaleManager.swift */,
+				8D4D4EF52C23388700293B13 /* MockCreators.swift */,
+			);
+			name = _Mocks;
 			sourceTree = "<group>";
 		};
 		8D6AD48B2B099F9900E258BF /* list_iterating */ = {

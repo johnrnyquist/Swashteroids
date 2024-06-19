@@ -28,7 +28,7 @@ class ShipCreator: ShipCreatorUseCase {
     }
 
     func createShip(_ state: AppStateComponent) {
-        let player = Entity(named: .player)
+        let ship = Entity(named: .player)
         let sprite = SwashScaledSpriteNode(texture: createShipTexture())
 //        sprite.physicsBody = SKPhysicsBody(rectangleOf: sprite.size.scaled(by: 0.8))//(circleOfRadius: 25 * scaleManager.SCALE_FACTOR)
 //        sprite.physicsBody?.isDynamic = true
@@ -43,43 +43,44 @@ class ShipCreator: ShipCreatorUseCase {
         nacellesSprite.isHidden = true
         nacellesSprite.name = "nacelles"
         sprite.addChild(nacellesSprite)
-        sprite.entity = player
-        player.add(component: ShipComponent())
-              .add(component: HyperspaceDriveComponent(jumps: 0))
-              .add(component: GunComponent(offsetX: sprite.width / 2,
-                                           offsetY: 0,
-                                           minimumShotInterval: 0.1,
-                                           torpedoLifetime: 2,
-                                           ownerType: .player,
-                                           ownerEntity: player,
-                                           numTorpedoes: 0))
-              .add(component: WarpDriveComponent())
-              .add(component: PositionComponent(x: state.gameSize.width / 2,
-                                                y: state.gameSize.height / 2,
-                                                z: .ship,
-                                                rotationDegrees: 0.0))
-              .add(component: VelocityComponent(velocityX: 0.0, velocityY: 0.0, dampening: 0.0, base: 60.0))
-              .add(component: CollidableComponent(radius: 25))
-              .add(component: DisplayComponent(sknode: sprite))
-              .add(component: MovementRateComponent(accelerationRate: 90, rotationRate: 100))
-              .add(component: InputComponent.shared)
-              .add(component: AccelerometerComponent())
-              .add(component: ChangeShipControlsStateComponent(to: state.shipControlsState))
-              .add(component: RepeatingAudioComponent(sound: GameScene.sound)) //HACK
-              .add(component: ShootableComponent.shared)
-              .add(component: AlienWorkerTargetComponent.shared)
+        sprite.entity = ship
+        ship
+                .add(component: ShipComponent())
+                .add(component: HyperspaceDriveComponent(jumps: 0))
+                .add(component: GunComponent(offsetX: sprite.width / 2,
+                                             offsetY: 0,
+                                             minimumShotInterval: 0.1,
+                                             torpedoLifetime: 2,
+                                             ownerType: .player,
+                                             ownerEntity: ship,
+                                             numTorpedoes: 0))
+                .add(component: WarpDriveComponent())
+                .add(component: PositionComponent(x: state.gameSize.width / 2,
+                                                  y: state.gameSize.height / 2,
+                                                  z: .ship,
+                                                  rotationDegrees: 0.0))
+                .add(component: VelocityComponent(velocityX: 0.0, velocityY: 0.0, dampening: 0.0, base: 60.0))
+                .add(component: CollidableComponent(radius: 25))
+                .add(component: DisplayComponent(sknode: sprite))
+                .add(component: MovementRateComponent(accelerationRate: 90, rotationRate: 100))
+                .add(component: InputComponent.shared)
+                .add(component: AccelerometerComponent())
+                .add(component: ChangeShipControlsStateComponent(to: state.shipControlsState))
+                .add(component: RepeatingAudioComponent(sound: GameScene.sound)) //HACK
+                .add(component: ShootableComponent.shared)
+                .add(component: AlienWorkerTargetComponent.shared)
         switch state.shipControlsState {
         case .hidingButtons:
-            player.add(component: AccelerometerComponent())
+            ship.add(component: AccelerometerComponent())
         case .showingButtons:
-            player.remove(componentClass: AccelerometerComponent.self)
+            ship.remove(componentClass: AccelerometerComponent.self)
         case .usingScreenControls:
             break
         case .usingGameController:
             break
         }
         do {
-            try engine.add(entity: player)
+            try engine.add(entity: ship)
         } catch SwashError.entityNameAlreadyInUse(let message) {
             fatalError(message)
         } catch {
@@ -101,20 +102,24 @@ class ShipCreator: ShipCreatorUseCase {
         let emitter = SKEmitterNode(fileNamed: "shipExplosion.sks")!
         spriteNode.addChild(emitter)
         spriteNode.run(fade)
+        // Stop audio
         ship[RepeatingAudioComponent.self]?.state = .shouldStop
         // Remove components
-        ship.remove(componentClass: AudioComponent.self)
-        ship.remove(componentClass: DisplayComponent.self)
-        ship.remove(componentClass: CollidableComponent.self)
-        ship.remove(componentClass: GunComponent.self)
-        ship.remove(componentClass: HyperspaceDriveComponent.self)
-        ship.remove(componentClass: InputComponent.self)
-        ship.remove(componentClass: MovementRateComponent.self)
-        // Add components
+        ship
+                .remove(componentClass: AudioComponent.self)
+                .remove(componentClass: DisplayComponent.self)
+                .remove(componentClass: CollidableComponent.self)
+                .remove(componentClass: GunComponent.self)
+                .remove(componentClass: HyperspaceDriveComponent.self)
+                .remove(componentClass: InputComponent.self)
+                .remove(componentClass: MovementRateComponent.self)
+        // Change components
         ship[VelocityComponent.self]?.angularVelocity = randomness.nextDouble(from: -100.0, through: 100.0)
-        ship.add(component: DisplayComponent(sknode: spriteNode))
-        ship.add(component: DeathThroesComponent(countdown: 3.0))
-        ship.add(component: AudioComponent(fileNamed: .explosion, actionKey: "shipExplosion"))
+        // Add components
+        ship
+                .add(component: DisplayComponent(sknode: spriteNode))
+                .add(component: DeathThroesComponent(countdown: 3.0))
+                .add(component: AudioComponent(fileNamed: .explosion, actionKey: "shipExplosion"))
     }
 
     func screenFlashRed() {
