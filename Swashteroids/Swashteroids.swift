@@ -55,11 +55,11 @@ final class Swashteroids: NSObject {
                                                   numShips: 3,
                                                   level: 0,
                                                   score: 0,
-                                                  appState: .initial,
+                                                  appState: .start,
                                                   shipControlsState: .showingButtons)
         let appStateEntity = Entity(named: .appState)
                 .add(component: appStateComponent)
-                .add(component: TransitionAppStateComponent(from: .initial, to: .start))
+                .add(component: TransitionAppStateComponent(from: .start, to: .start))
                 .add(component: TimePlayedComponent())
         try? engine.add(entity: appStateEntity)
         // Add the input entity

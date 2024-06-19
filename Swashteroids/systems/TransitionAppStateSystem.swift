@@ -36,8 +36,6 @@ final class TransitionAppStateSystem: ListIteratingSystem {
               let appStateComponent = node[AppStateComponent.self]
         else { return }
         switch transitionComponent.from {
-        case .initial:
-            break
         case .start:
             startTransition?.fromStartScreen()
         case .gameOver:
@@ -53,8 +51,6 @@ final class TransitionAppStateSystem: ListIteratingSystem {
         }
         appStateComponent.appState = transitionComponent.to
         switch transitionComponent.to {
-        case .initial:
-            break
         case .start:
             startTransition?.toStartScreen()
         case .gameOver:
