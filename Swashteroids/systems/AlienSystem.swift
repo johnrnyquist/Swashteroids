@@ -21,13 +21,14 @@ class DistanceComponent: Component {
     }
 }
 
+// TODO: This system could be split into two systems, one for finding a target and one for moving toward it.
 class AlienSystem: System {
     func pickTarget(alienComponent: AlienComponent, position: PositionComponent) {
         preconditionFailure("\(#function) must be overridden in \(self)")
     }
 
     func findClosestObject(to point: CGPoint, in entities: [Entity]) -> Entity {
-        return findClosestEntity(to: point, in: entities.map { ($0, $0[PositionComponent.self]!.position) })
+        findClosestEntity(to: point, in: entities.map { ($0, $0[PositionComponent.self]!.position) })
     }
 
     func hasReachedDestination(_ x: Double, _ endDestination: CGPoint) -> Bool {
@@ -38,14 +39,29 @@ class AlienSystem: System {
         }
     }
 
+    /// Find the entity closest to the given position.
+    /// - Parameters:
+    ///   - position: The position to compare against.
+    ///   - node: The node to start the search from.
+    /// - Returns: The entity closest to the given position.
     func findClosestEntity(to position: CGPoint, node: Node?) -> Entity? {
         guard let node = node else { return nil }
-        let entitiesWithPositions = sequence(first: node, next: { $0.next })
+        let entitiesWithPositions
+            = sequence(first: node, next: { $0.next })
                 .compactMap { $0.entity }
-                .compactMap { entity in entity[PositionComponent.self].map { (entity, $0.position) } }
+                .compactMap { entity in
+                    entity[PositionComponent.self]
+                            .map { (entity, $0.position) }
+                }
         return findClosestEntity(to: position, in: entitiesWithPositions)
     }
 
+    /// Find the entity closest to the given position.
+    /// - Note: This function adds a `DistanceComponent` to the closest entity.
+    /// - Parameters:
+    ///   - position: The position to compare against.
+    ///   - entitiesWithPositions: A list of entities and their positions as CGPoints in the form of an array of tuples.
+    /// - Returns: The entity closest to the given position.
     private func findClosestEntity(to position: CGPoint, in entitiesWithPositions: [(Entity, CGPoint)]) -> Entity {
         var closestEntity: Entity = entitiesWithPositions[0].0
         var smallestDistance: CGFloat = .greatestFiniteMagnitude
@@ -60,6 +76,7 @@ class AlienSystem: System {
         return closestEntity
     }
 
+    // Aliens move differently from the player. They can make sharp moves when rotating.
     func moveTowardTarget(_ position: PositionComponent, _ velocity: VelocityComponent, _ target: CGPoint) {
         let deltaX = position.x - target.x
         let deltaY = position.y - target.y
@@ -82,8 +99,6 @@ class AlienWorkerSystem: AlienSystem {
     var engine: Engine?
     var alienNodes: NodeList?
     var shipNodes: NodeList?
-    var asteroidNodes: NodeList?
-    var treasureNodes: NodeList?
     var targetableNodes: NodeList?
     let randomness: Randomizing
 
@@ -96,8 +111,6 @@ class AlienWorkerSystem: AlienSystem {
         self.engine = engine
         alienNodes = engine.getNodeList(nodeClassType: AlienWorkerNode.self)
         shipNodes = engine.getNodeList(nodeClassType: ShipNode.self)
-        asteroidNodes = engine.getNodeList(nodeClassType: AsteroidCollisionNode.self)
-        treasureNodes = engine.getNodeList(nodeClassType: TreasureCollisionNode.self)
         targetableNodes = engine.getNodeList(nodeClassType: AlienWorkerTargetNode.self)
     }
 
@@ -158,14 +171,7 @@ class AlienWorkerSystem: AlienSystem {
         guard alienComponent.targetedEntity == nil else { return }
         if let closestTargetable = findClosestEntity(to: position.position, node: targetableNodes?.head) {
             alienComponent.targetedEntity = closestTargetable
-            return
         }
-//        let closestAsteroid = findClosestEntity(to: position.position, node: asteroidNodes?.head)
-//        let closestTreasure = findClosestEntity(to: position.position, node: treasureNodes?.head)
-//        let entities = [closestAsteroid, closestTreasure].compactMap { $0 }
-//        if entities.count > 0 {
-//            alienComponent.targetedEntity = entities[randomness.nextInt(upTo: entities.count)]
-//        }
     }
 }
 
@@ -173,15 +179,11 @@ class AlienSoldierSystem: AlienSystem {
     var engine: Engine?
     var alienNodes: NodeList?
     var shipNodes: NodeList?
-    var asteroidNodes: NodeList?
-    var treasureNodes: NodeList?
 
     override func addToEngine(engine: Engine) {
         self.engine = engine
         alienNodes = engine.getNodeList(nodeClassType: AlienSoldierNode.self)
         shipNodes = engine.getNodeList(nodeClassType: ShipNode.self)
-        asteroidNodes = engine.getNodeList(nodeClassType: AsteroidCollisionNode.self)
-        treasureNodes = engine.getNodeList(nodeClassType: TreasureCollisionNode.self)
     }
 
     override func update(time: TimeInterval) {
@@ -240,10 +242,6 @@ class AlienSoldierSystem: AlienSystem {
     override func pickTarget(alienComponent: AlienComponent, position: PositionComponent) {
         guard alienComponent.targetedEntity == nil else { return }
         let ship = shipNodes?.head?.entity
-//        let closestAsteroid = findClosestEntity(to: position.position, node: asteroidNodes?.head)
-//        let closestTreasure = findClosestEntity(to: position.position, node: treasureNodes?.head)
-//        let entities = [ship, ship, ship, ship, closestAsteroid, closestTreasure].compactMap { $0 }
-//        alienComponent.targetedEntity = findClosestObject(to: position.position, in: entities)
         alienComponent.targetedEntity = ship
     }
 }
