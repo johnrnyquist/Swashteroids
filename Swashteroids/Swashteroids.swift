@@ -88,14 +88,14 @@ final class Swashteroids: NSObject {
         let toggleShipControlsCreator = ToggleShipControlsCreator(engine: engine, size: gameSize, generator: generator)
         let shipControlQuadrantsCreator = ShipQuadrantsControlsCreator(engine: engine, size: gameSize, generator: generator)
         let shipButtonControlsCreator = ShipButtonControlsCreator(engine: engine, size: gameSize, generator: generator)
-        let transition = Transition(engine: engine,
-                                hudCreator: HudCreator(engine: engine, alertPresenter: alertPresenter),
-                                toggleShipControlsCreator: toggleShipControlsCreator,
-                                shipControlQuadrantsCreator: shipControlQuadrantsCreator,
-                                shipButtonControlsCreator: shipButtonControlsCreator,
-                                generator: generator)
+        let transition = PlayingTransition(
+            hudCreator: HudCreator(engine: engine, alertPresenter: alertPresenter),
+            toggleShipControlsCreator: toggleShipControlsCreator,
+            shipControlQuadrantsCreator: shipControlQuadrantsCreator,
+            shipButtonControlsCreator: shipButtonControlsCreator)
         let startTransition = StartTransition(engine: engine, generator: generator)
-
+        let gameOverTransition = GameOverTransition(engine: engine, generator: generator)
+        let infoViewsTransition = InfoViewsTransition(engine: engine, generator: generator)
         engine
             // preupdate
                 .add(system: TimePlayedSystem(), priority: .preUpdate)
@@ -110,8 +110,10 @@ final class Swashteroids: NSObject {
                                                 shipControlQuadrantsCreator: shipControlQuadrantsCreator,
                                                 shipButtonControlsCreator: shipButtonControlsCreator),
                      priority: .preUpdate)
-                .add(system: TransitionAppStateSystem(transition: transition,
-                                                      startTransition: startTransition), 
+                .add(system: TransitionAppStateSystem(startTransition: startTransition,
+                                                      infoViewsTransition: infoViewsTransition,
+                                                      playingTransition: transition,
+                                                      gameOverTransition: gameOverTransition),
                      priority: .preUpdate)
                 // move
                 .add(system: AccelerometerSystem(), priority: .move)

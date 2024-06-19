@@ -12,13 +12,21 @@ import Foundation
 import Swash
 
 final class TransitionAppStateSystem: ListIteratingSystem {
-    typealias Transition = GameOverUseCase & InfoViewsUseCase & PlayingUseCase 
-    private let transition: Transition?
     private let startTransition: StartUseCase?
+    private let infoViewsTransition: InfoViewsUseCase?
+    private let playingTransition: PlayingUseCase?
+    private let gameOverTransition: GameOverUseCase?
 
-    init(transition: Transition, startTransition: StartUseCase) {
-        self.transition = transition
+    init(
+        startTransition: StartUseCase,
+        infoViewsTransition: InfoViewsUseCase,
+        playingTransition: PlayingUseCase,
+        gameOverTransition: GameOverUseCase
+    ) {
         self.startTransition = startTransition
+        self.gameOverTransition = gameOverTransition
+        self.infoViewsTransition = infoViewsTransition
+        self.playingTransition = playingTransition
         super.init(nodeClass: TransitionAppStateNode.self)
         nodeUpdateFunction = updateNode
     }
@@ -28,36 +36,36 @@ final class TransitionAppStateSystem: ListIteratingSystem {
               let appStateComponent = node[AppStateComponent.self]
         else { return }
         switch transitionComponent.from {
-            case .initial:
-                break
-            case .start:
-                startTransition?.fromStartScreen()
-            case .gameOver:
-                transition?.fromGameOverScreen()
-            case .playing:
-                transition?.fromPlayingScreen()
-            case .infoButtons:
-                transition?.fromButtonsInfoScreen()
-                appStateComponent.shipControlsState = .showingButtons
-            case .infoNoButtons:
-                transition?.fromNoButtonsInfoScreen()
-                appStateComponent.shipControlsState = .hidingButtons
+        case .initial:
+            break
+        case .start:
+            startTransition?.fromStartScreen()
+        case .gameOver:
+            gameOverTransition?.fromGameOverScreen()
+        case .playing:
+            playingTransition?.fromPlayingScreen()
+        case .infoButtons:
+            infoViewsTransition?.fromButtonsInfoScreen()
+            appStateComponent.shipControlsState = .showingButtons
+        case .infoNoButtons:
+            infoViewsTransition?.fromNoButtonsInfoScreen()
+            appStateComponent.shipControlsState = .hidingButtons
         }
         appStateComponent.appState = transitionComponent.to
         switch transitionComponent.to {
-            case .initial:
-                break
-            case .start:
-                startTransition?.toStartScreen()
-            case .gameOver:
-                transition?.toGameOverScreen()
-            case .playing:
-                appStateComponent.timePlayed = 0.0
-                transition?.toPlayingScreen(appStateComponent: appStateComponent)
-            case .infoButtons:
-                transition?.toButtonsInfoScreen()
-            case .infoNoButtons:
-                transition?.toNoButtonsInfoScreen()
+        case .initial:
+            break
+        case .start:
+            startTransition?.toStartScreen()
+        case .gameOver:
+            gameOverTransition?.toGameOverScreen()
+        case .playing:
+            appStateComponent.timePlayed = 0.0
+            playingTransition?.toPlayingScreen(appStateComponent: appStateComponent)
+        case .infoButtons:
+            infoViewsTransition?.toButtonsInfoScreen()
+        case .infoNoButtons:
+            infoViewsTransition?.toNoButtonsInfoScreen()
         }
         node.entity?.remove(componentClass: TransitionAppStateComponent.self)
     }

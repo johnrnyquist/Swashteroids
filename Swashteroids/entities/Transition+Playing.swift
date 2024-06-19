@@ -11,7 +11,23 @@
 import Swash
 import SpriteKit
 
-extension Transition: PlayingUseCase {
+class PlayingTransition: PlayingUseCase {
+    var hudCreator: HudCreatorUseCase?
+    var toggleShipControlsCreator: ToggleShipControlsCreatorUseCase?
+    var shipControlQuadrantsCreator: ShipQuadrantsControlsCreatorUseCase?
+    var shipButtonControlsCreator: ShipButtonControlsCreatorUseCase?
+
+    init(hudCreator: HudCreatorUseCase,
+         toggleShipControlsCreator: ToggleShipControlsCreatorUseCase,
+         shipControlQuadrantsCreator: ShipQuadrantsControlsCreatorUseCase,
+         shipButtonControlsCreator: ShipButtonControlsCreatorUseCase
+    ) {
+        self.hudCreator = hudCreator
+        self.toggleShipControlsCreator = toggleShipControlsCreator
+        self.shipControlQuadrantsCreator = shipControlQuadrantsCreator
+        self.shipButtonControlsCreator = shipButtonControlsCreator
+    }
+
     func fromPlayingScreen() {
         toggleShipControlsCreator?.removeToggleButton()
         shipControlQuadrantsCreator?.removeShipControlQuadrants()

@@ -11,7 +11,18 @@
 import Swash
 import SpriteKit
 
-extension Transition: InfoViewsUseCase {
+class InfoViewsTransition: InfoViewsUseCase {
+    let engine: Engine
+    let generator: UIImpactFeedbackGenerator?
+    var gameSize: CGSize {
+        engine.appStateComponent.gameSize
+    }
+
+    init(engine: Engine, generator: UIImpactFeedbackGenerator?) {
+        self.engine = engine
+        self.generator = generator
+    }
+
     //MARK: - No buttons state
     func fromNoButtonsInfoScreen() {
         engine.removeEntities(named: [.noButtonsInfoView])

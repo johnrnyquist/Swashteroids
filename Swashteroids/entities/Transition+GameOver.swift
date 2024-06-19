@@ -11,7 +11,18 @@
 import Swash
 import SpriteKit
 
-extension Transition: GameOverUseCase {
+class GameOverTransition: GameOverUseCase {
+    let engine: Engine
+    let generator: UIImpactFeedbackGenerator?
+    var gameSize: CGSize {
+        engine.appStateComponent.gameSize
+    }
+
+    init(engine: Engine, generator: UIImpactFeedbackGenerator?) {
+        self.engine = engine
+        self.generator = generator
+    }
+
     func fromGameOverScreen() {
         // Clear any existing treasures, aliens, and asteroids. 
         [TreasureCollisionNode.self, AlienCollisionNode.self, AsteroidCollisionNode.self].forEach { engine.clearEntities(of: $0) }
