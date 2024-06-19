@@ -32,19 +32,7 @@ final class AlienCreatorUseCaseTests: XCTestCase {
     override func tearDownWithError() throws {
         engine = nil
     }
-
-    class MockAlertPresenting: AlertPresenting {
-        var isAlertPresented: Bool
-
-        init() { isAlertPresented = false }
-
-        func showPauseAlert() {}
-
-        func home() {}
-
-        func resume() {}
-    }
-
+    
     func test_createAlienWorker_has_player() throws {
         let player = Entity(named: .player)
         try! engine.add(entity: player)

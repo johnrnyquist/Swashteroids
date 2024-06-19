@@ -14,11 +14,11 @@ import SpriteKit
 @testable import Swash
 
 final class ShipControlsSystemTests: XCTestCase {
-    var creator: MockCreator!
+    var creator: MockQuadrantsButtonToggleCreator!
     var engine: Engine!
 
     override func setUpWithError() throws {
-        creator = MockCreator()
+        creator = MockQuadrantsButtonToggleCreator()
         engine = Engine()
     }
 
@@ -28,13 +28,17 @@ final class ShipControlsSystemTests: XCTestCase {
     }
 
     func test_Init() throws {
-        let system = ShipControlsSystem(creator: creator)
+        let system = ShipControlsSystem(toggleShipControlsCreator: creator,
+                                        shipControlQuadrantsCreator: creator,
+                                        shipButtonControlsCreator: creator)
         XCTAssertTrue(system.nodeClass == ShipControlsStateNode.self)
         XCTAssertNotNil(system.nodeUpdateFunction)
     }
 
     func test_UpdateNode() {
-        let system = MockShipControlsSystem_DoToggleButtons(creator: creator)
+        let system = MockShipControlsSystem_DoToggleButtons(toggleShipControlsCreator: creator,
+                                                            shipControlQuadrantsCreator: creator,
+                                                            shipButtonControlsCreator: creator)
         let node = ShipControlsStateNode()
         let change = ChangeShipControlsStateComponent(to: .hidingButtons)
         node.components[ChangeShipControlsStateComponent.name] = change
@@ -55,7 +59,9 @@ final class ShipControlsSystemTests: XCTestCase {
     }
 
     func test_DoToggleButtons_ToShowingButtons_NoGunNoHyperspace() {
-        let system = ShipControlsSystem(creator: creator)
+        let system = ShipControlsSystem(toggleShipControlsCreator: creator,
+                                        shipControlQuadrantsCreator: creator,
+                                        shipButtonControlsCreator: creator)
         engine.add(system: system, priority: 1)
         //TODO: do_toggleButtons requires the ShipEntity type as it uses engine.ship. 
         let ship = Entity(named: .player)
@@ -66,8 +72,8 @@ final class ShipControlsSystemTests: XCTestCase {
                                               numShips: 0, 
                                               level: 0, 
                                               score: 0, 
-                                              appState: .initial, 
-                                              shipControlsState: .hidingButtons, 
+                                              appState: .start,
+                                              shipControlsState: .hidingButtons,
                                               randomness: Randomness.initialize(with: 1)))
         engine.replace(entity: appState)
         // SUT
@@ -81,7 +87,9 @@ final class ShipControlsSystemTests: XCTestCase {
     }
 
     func test_DoToggleButtons_ToShowingButtons_HasGun() {
-        let system = ShipControlsSystem(creator: creator)
+        let system = ShipControlsSystem(toggleShipControlsCreator: creator,
+                                        shipControlQuadrantsCreator: creator,
+                                        shipButtonControlsCreator: creator)
         engine.add(system: system, priority: 1)
         //TODO: do_toggleButtons requires the ShipEntity type as it uses engine.ship. 
         let ship = Entity(named: .player)
@@ -104,8 +112,8 @@ final class ShipControlsSystemTests: XCTestCase {
                                               numShips: 0, 
                                               level: 0, 
                                               score: 0, 
-                                              appState: .initial, 
-                                              shipControlsState: .hidingButtons, 
+                                              appState: .start,
+                                              shipControlsState: .hidingButtons,
                                               randomness: Randomness.initialize(with: 1)))
         engine.replace(entity: appState)
         // SUT
@@ -120,7 +128,9 @@ final class ShipControlsSystemTests: XCTestCase {
     }
 
     func test_DoToggleButtons_ToShowingButtons_HasHyperspace() {
-        let system = ShipControlsSystem(creator: creator)
+        let system = ShipControlsSystem(toggleShipControlsCreator: creator,
+                                        shipControlQuadrantsCreator: creator,
+                                        shipButtonControlsCreator: creator)
         engine.add(system: system, priority: 1)
         //TODO: do_toggleButtons requires the ShipEntity type as it uses engine.ship. 
         let ship = Entity(named: .player)
@@ -135,8 +145,8 @@ final class ShipControlsSystemTests: XCTestCase {
                                               numShips: 0, 
                                               level: 0, 
                                               score: 0, 
-                                              appState: .initial, 
-                                              shipControlsState: .hidingButtons, 
+                                              appState: .start,
+                                              shipControlsState: .hidingButtons,
                                               randomness: Randomness.initialize(with: 1)))
         engine.replace(entity: appState)
         // SUT
@@ -150,7 +160,9 @@ final class ShipControlsSystemTests: XCTestCase {
     }
 
     func test_DoToggleButtons_ToHidingButtons() {
-        let system = ShipControlsSystem(creator: creator)
+        let system = ShipControlsSystem(toggleShipControlsCreator: creator,
+                                        shipControlQuadrantsCreator: creator,
+                                        shipButtonControlsCreator: creator)
         engine.add(system: system, priority: 1)
         let ship = Entity()
         ship
@@ -170,8 +182,8 @@ final class ShipControlsSystemTests: XCTestCase {
                                               numShips: 0, 
                                               level: 0, 
                                               score: 0, 
-                                              appState: .initial, 
-                                              shipControlsState: .hidingButtons, 
+                                              appState: .start,
+                                              shipControlsState: .hidingButtons,
                                               randomness: Randomness.initialize(with: 1)))
         engine.replace(entity: appState)
         //
@@ -183,57 +195,5 @@ final class ShipControlsSystemTests: XCTestCase {
         XCTAssertTrue(ship.has(componentClassName: AccelerometerComponent.name))
     }
 
-    class MockCreator: ShipQuadrantsControlsCreatorUseCase, ShipButtonControlsCreatorUseCase, ToggleShipControlsCreatorUseCase {
-        //MARK: - ShipQuadrantsControlsManager
-        var createShipControlQuadrantsCalled = false
-        var removeShipControlQuadrantsCalled = false
-
-        func removeShipControlQuadrants() {
-            removeShipControlQuadrantsCalled = true
-        }
-
-        func createShipControlQuadrants() {
-            createShipControlQuadrantsCalled = true
-        }
-
-        //MARK: - ShipButtonControlsManager
-        var createShipControlButtonsCalled = false
-        var enableShipControlButtonsCalled = false
-        var removeShipControlButtonsCalled = false
-        var showFireButtonCalled = false
-        var showHyperspaceButtonCalled = false
-
-        func showFireButton() {
-            showFireButtonCalled = true
-        }
-
-        func showHyperspaceButton() {
-            showHyperspaceButtonCalled = true
-        }
-
-        func removeShipControlButtons() {
-            removeShipControlButtonsCalled = true
-        }
-
-        func createShipControlButtons() {
-            createShipControlButtonsCalled = true
-        }
-
-        func enableShipControlButtons() {
-            enableShipControlButtonsCalled = true
-        }
-
-        //MARK: - ToggleShipControlsManager
-        var createToggleButtonCalled = false
-        var removeToggleButtonCalled = false
-
-        func removeToggleButton() {
-            removeToggleButtonCalled = true
-        }
-
-        func createToggleButton(_ toggleState: Toggle) {
-            createToggleButtonCalled = true
-        }
-    }
 }
 

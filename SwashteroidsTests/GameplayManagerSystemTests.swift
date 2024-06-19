@@ -249,43 +249,4 @@ final class GameplayManagerSystemTests: XCTestCase {
             }
         }
     }
-
-    class MockScaleManager: ScaleManaging {
-        var SCALE_FACTOR: CGFloat { 1.0 }
-    }
-
-    class MockShipCreator: ShipCreatorUseCase {
-        var createShipCalled = false
-        var destroyCalled = false
-
-        func createShip(_ state: AppStateComponent) {
-            createShipCalled = true
-        }
-
-        func destroy(ship: Entity) {
-            destroyCalled = true
-        }
-    }
-
-    class MockAsteroidCreator: AsteroidCreatorUseCase {
-        var createAsteroidCalled = 0
-
-        func createAsteroid(radius: Double, x: Double, y: Double, size: AsteroidSize, level: Int) {
-            createAsteroidCalled += 1
-        }
-    }
-
-    class MockAlienCreator: AlienCreatorUseCase {
-        var createAliensCalled = false
-
-        func createAlienWorker(startDestination: CGPoint, endDestination: CGPoint) {
-        }
-
-        func createAlienSoldier(startDestination: CGPoint, endDestination: CGPoint) {
-        }
-
-        func createAliens(scene: GameScene) {
-            createAliensCalled = true
-        }
-    }
 }

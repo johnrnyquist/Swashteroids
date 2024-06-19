@@ -52,8 +52,4 @@ final class ThrustSystemTests: XCTestCase {
         XCTAssertEqual(motion.linearVelocity.x, 9.999060498015504)
         XCTAssertEqual(motion.linearVelocity.y, 0.13707354604707475)
     }
-
-    class MockScaleManager: ScaleManaging {
-        var SCALE_FACTOR: CGFloat { 1.0 }
-    }
 }

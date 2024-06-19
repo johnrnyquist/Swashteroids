@@ -14,20 +14,24 @@ import XCTest
 
 final class TransitionAppStateSystemTests: XCTestCase {
     var system: TransitionAppStateSystem!
-    var transition: Transition!
     var size: CGSize!
     var engine: Engine!
 
     override func setUpWithError() throws {
         size = CGSize(width: 1024.0, height: 768.0)
         engine = Engine()
-        transition = Transition(engine: engine)
-        system = TransitionAppStateSystem(transition: transition)
+        let creator = MockQuadrantsButtonToggleCreator()
+        system = TransitionAppStateSystem(startTransition: StartTransition(engine: engine, generator: nil),
+                                          infoViewsTransition: InfoViewsTransition(engine: engine, generator: nil), 
+                                          playingTransition: PlayingTransition(hudCreator: MockHudCreator(), 
+                                                                               toggleShipControlsCreator: creator,
+                                                                               shipControlQuadrantsCreator: creator,
+                                                                               shipButtonControlsCreator: creator),
+                                          gameOverTransition: GameOverTransition(engine: engine, generator: nil))
     }
 
     override func tearDownWithError() throws {
         system = nil
-        transition = nil
         engine = nil
         size = nil
     }
@@ -50,7 +54,7 @@ final class TransitionAppStateSystemTests: XCTestCase {
         node.components[AppStateComponent.name] = appStateComponent
         node.components[TransitionAppStateComponent.name] = transitionComponent
         let appState = Entity(named: .appState)
-            .add(component: AppStateComponent(gameSize: .zero, numShips: 0, level: 0, score: 0, appState: .initial, shipControlsState: .hidingButtons, randomness: Randomness.initialize(with: 1)))
+            .add(component: AppStateComponent(gameSize: .zero, numShips: 0, level: 0, score: 0, appState: .start, shipControlsState: .hidingButtons, randomness: Randomness.initialize(with: 1)))
         engine.replace(entity: appState)
         // SUT
         system.updateNode(node: node, time: 1)
@@ -71,7 +75,7 @@ final class TransitionAppStateSystemTests: XCTestCase {
         node.components[AppStateComponent.name] = appStateComponent
         node.components[TransitionAppStateComponent.name] = transitionComponent
         let appState = Entity(named: .appState)
-            .add(component: AppStateComponent(gameSize: .zero, numShips: 0, level: 0, score: 0, appState: .initial, shipControlsState: .hidingButtons, randomness: Randomness.initialize(with: 1)))
+            .add(component: AppStateComponent(gameSize: .zero, numShips: 0, level: 0, score: 0, appState: .start, shipControlsState: .hidingButtons, randomness: Randomness.initialize(with: 1)))
         engine.replace(entity: appState)
         // SUT
         system.updateNode(node: node, time: 1)
@@ -110,7 +114,7 @@ final class TransitionAppStateSystemTests: XCTestCase {
         node.components[AppStateComponent.name] = appStateComponent
         node.components[TransitionAppStateComponent.name] = transitionComponent
         let appState = Entity(named: .appState)
-            .add(component: AppStateComponent(gameSize: .zero, numShips: 0, level: 0, score: 0, appState: .initial, shipControlsState: .hidingButtons, randomness: Randomness.initialize(with: 1)))
+            .add(component: AppStateComponent(gameSize: .zero, numShips: 0, level: 0, score: 0, appState: .start, shipControlsState: .hidingButtons, randomness: Randomness.initialize(with: 1)))
         engine.replace(entity: appState)
         // SUT
         system.updateNode(node: node, time: 1)

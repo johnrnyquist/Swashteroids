@@ -39,7 +39,7 @@ final class MovementSystemTests: XCTestCase {
                                                 angularVelocity: 0.0,
                                                 dampening: 0.0,
                                                 base: 60.0,
-                                                scaleManager: MockScaleManager())
+                                                scaleManager: MockScaleManager_halfSize())
         node.components[PositionComponent.name] = positionComponent
         node.components[VelocityComponent.name] = motionComponent
         system.updateNode(node: node, time: 1)
@@ -55,7 +55,7 @@ final class MovementSystemTests: XCTestCase {
                                                 angularVelocity: 0.0,
                                                 dampening: 0.0,
                                                 base: 60.0,
-                                                scaleManager: MockScaleManager())
+                                                scaleManager: MockScaleManager_halfSize())
         node.components[PositionComponent.name] = positionComponent
         node.components[VelocityComponent.name] = motionComponent
         system.updateNode(node: node, time: 1)
@@ -71,7 +71,7 @@ final class MovementSystemTests: XCTestCase {
                                                 angularVelocity: 0.0,
                                                 dampening: 0.0,
                                                 base: 60.0,
-                                                scaleManager: MockScaleManager())
+                                                scaleManager: MockScaleManager_halfSize())
         node.components[PositionComponent.name] = positionComponent
         node.components[VelocityComponent.name] = motionComponent
         system.updateNode(node: node, time: 1)
@@ -87,7 +87,7 @@ final class MovementSystemTests: XCTestCase {
                                                 angularVelocity: 0.0,
                                                 dampening: 0.0,
                                                 base: 60.0,
-                                                scaleManager: MockScaleManager())
+                                                scaleManager: MockScaleManager_halfSize())
         node.components[PositionComponent.name] = positionComponent
         node.components[VelocityComponent.name] = motionComponent
         system.updateNode(node: node, time: 1)
@@ -103,7 +103,7 @@ final class MovementSystemTests: XCTestCase {
                                                 angularVelocity: 0.0,
                                                 dampening: 0.0,
                                                 base: 60.0,
-                                                scaleManager: MockScaleManager())
+                                                scaleManager: MockScaleManager_halfSize())
         node.components[PositionComponent.name] = positionComponent
         node.components[VelocityComponent.name] = motionComponent
         system.updateNode(node: node, time: 1)
@@ -158,7 +158,7 @@ final class MovementSystemTests: XCTestCase {
         XCTAssertEqual(positionComponent.rotationDegrees, 2.0)
     }
 
-    class MockScaleManager: ScaleManaging {
+    class MockScaleManager_halfSize: ScaleManaging {
         var SCALE_FACTOR: CGFloat { 0.5 }
     }
 }

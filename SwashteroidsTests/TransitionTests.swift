@@ -16,10 +16,13 @@ import XCTest
 // I knew the code being tested was an issue, the testing of it confirms it.
 // I need to rethink transitions. This may be an argument for GameplayKit transitions.
 final class TransitionTests: XCTestCase {
-    var transition: Transition!
+    var startTransition: StartUseCase!
+    var infoViewsTransition:  InfoViewsUseCase!
+    var playingTransition: PlayingUseCase!
+    var gameOverTransition: GameOverUseCase!
     var size: CGSize!
     var engine: Engine!
-    var creator: MockCreator!
+    var creator: MockQuadrantsButtonToggleCreator!
     var appStateComponent: AppStateComponent!
     var appStateEntity: Entity!
 
@@ -40,8 +43,15 @@ final class TransitionTests: XCTestCase {
         } catch {
             XCTFail("Failed to add appStateEntity")
         }
-        creator = MockCreator()
-        transition = Transition(engine: engine, hudCreator: MockHudCreator(), creator: creator)
+        creator = MockQuadrantsButtonToggleCreator()
+        // Transitions
+        startTransition = StartTransition(engine: engine, generator: nil)
+        infoViewsTransition = InfoViewsTransition(engine: engine, generator: nil)
+        gameOverTransition = GameOverTransition(engine: engine, generator: nil)
+        playingTransition = PlayingTransition(hudCreator: MockHudCreator(),
+                                              toggleShipControlsCreator: creator,
+                                              shipControlQuadrantsCreator: creator,
+                                              shipButtonControlsCreator: creator)
     }
 
     override func tearDownWithError() throws {
@@ -50,33 +60,32 @@ final class TransitionTests: XCTestCase {
         appStateComponent = nil
         appStateEntity = nil
         creator = nil
-        transition = nil
     }
 
     //TODO: This test is a little light.
     func test_ToStartScreen() {
-        transition.toStartScreen()
+        startTransition.toStartScreen()
         for entityName: EntityName in [.start, .noButtons, .withButtons] {
             XCTAssertNotNil(engine.findEntity(named: entityName))
         }
     }
 
     func test_FromStartScreen() {
-        transition.fromStartScreen()
+        startTransition.fromStartScreen()
         for entityName: EntityName in [.start, .noButtons, .withButtons] {
             XCTAssertNil(engine.findEntity(named: entityName))
         }
     }
 
     func test_FromPlayingScreen() {
-        transition.fromPlayingScreen()
+        playingTransition.fromPlayingScreen()
         XCTAssertTrue(creator.removeToggleButtonCalled)
         XCTAssertTrue(creator.removeShipControlButtonsCalled)
         XCTAssertTrue(creator.removeShipControlQuadrantsCalled)
     }
 
     func test_FromGameOverScreen() {
-        transition.fromGameOverScreen()
+        gameOverTransition.fromGameOverScreen()
         let asteroids = engine.getNodeList(nodeClassType: AsteroidCollisionNode.self)
         XCTAssertNil(asteroids.head)
         for entityName: EntityName in [.hud, .gameOver, .hyperspacePowerUp, .torpedoPowerUp] {
@@ -88,7 +97,7 @@ final class TransitionTests: XCTestCase {
     }
 
     func test_ToGameOverScreen() {
-        transition.toGameOverScreen()
+        gameOverTransition.toGameOverScreen()
         guard let gameOverEntity = engine.findEntity(named: .gameOver) else {
             XCTFail("gameOverEntity was nil")
             return
@@ -105,55 +114,5 @@ final class TransitionTests: XCTestCase {
             return
         }
         XCTAssertNotNil(display.sknode)
-    }
-
-    class MockAlertPresenter: AlertPresenting {
-        var isAlertPresented: Bool = false
-
-        func home() {}
-
-        func resume() {}
-
-        func showPauseAlert() {}
-    }
-
-    class MockCreator: ToggleShipControlsCreatorUseCase, ShipQuadrantsControlsCreatorUseCase, ShipButtonControlsCreatorUseCase {
-        //MARK: - ToggleShipControlsManager
-        var removeToggleButtonCalled = false
-
-        func createToggleButton(_ state: Toggle) {}
-
-        func removeToggleButton() {
-            removeToggleButtonCalled = true
-        }
-
-        //MARK: - ShipQuadrantsControlsManager
-        var removeShipControlQuadrantsCalled = false
-
-        func createShipControlQuadrants() {}
-
-        func removeShipControlQuadrants() {
-            removeShipControlQuadrantsCalled = true
-        }
-
-        //MARK: - ShipButtonControlsManager
-        var removeShipControlButtonsCalled = false
-
-        func showFireButton() {}
-
-        func showHyperspaceButton() {}
-
-        func enableShipControlButtons() {}
-
-        func removeShipControlButtons() {
-            removeShipControlButtonsCalled = true
-        }
-
-        func createShipControlButtons() {}
-    }
-
-    class MockHudCreator: HudCreatorUseCase {
-        func createHud(gameState: AppStateComponent) {
-        }
     }
 }

@@ -58,7 +58,7 @@ class FiringSystemTests: XCTestCase {
                                               numShips: 0, 
                                               level: 0,
                                               score: 0, 
-                                              appState: .initial,
+                                              appState: .start,
                                               shipControlsState: .hidingButtons,
                                               randomness: Randomness.initialize(with: 1)))
         engine.replace(entity: appState)
