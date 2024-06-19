@@ -94,6 +94,7 @@ final class Swashteroids: NSObject {
                                 shipControlQuadrantsCreator: shipControlQuadrantsCreator,
                                 shipButtonControlsCreator: shipButtonControlsCreator,
                                 generator: generator)
+        let startTransition = StartTransition(engine: engine, generator: generator)
 
         engine
             // preupdate
@@ -109,7 +110,9 @@ final class Swashteroids: NSObject {
                                                 shipControlQuadrantsCreator: shipControlQuadrantsCreator,
                                                 shipButtonControlsCreator: shipButtonControlsCreator),
                      priority: .preUpdate)
-                .add(system: TransitionAppStateSystem(transition: transition), priority: .preUpdate)
+                .add(system: TransitionAppStateSystem(transition: transition,
+                                                      startTransition: startTransition), 
+                     priority: .preUpdate)
                 // move
                 .add(system: AccelerometerSystem(), priority: .move)
                 .add(system: FlipSystem(), priority: .move)

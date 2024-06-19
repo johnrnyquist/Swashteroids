@@ -11,7 +11,18 @@
 import Swash
 import SpriteKit
 
-extension Transition: StartUseCase {
+class StartTransition: StartUseCase {
+    let engine: Engine
+    let generator: UIImpactFeedbackGenerator?
+    var gameSize: CGSize {
+        engine.appStateComponent.gameSize
+    }
+
+    init(engine: Engine, generator: UIImpactFeedbackGenerator? = nil) {
+        self.engine = engine
+        self.generator = generator
+    }
+
     func fromStartScreen() {
         engine.removeEntities(named: [.noButtons, .withButtons, .start])
     }

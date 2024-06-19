@@ -30,9 +30,27 @@ protocol PowerUpCreatorUseCase: AnyObject {
     func createTorpedoesPowerUp(level: Int, radius: Double)
 }
 
+protocol ShipButtonControlsCreatorUseCase: AnyObject {
+    func createShipControlButtons()
+    func enableShipControlButtons()
+    func removeShipControlButtons()
+    func showFireButton()
+    func showHyperspaceButton()
+}
+
 protocol ShipCreatorUseCase: AnyObject {
     func createShip(_ state: AppStateComponent)
     func destroy(ship: Entity)
+}
+
+protocol ShipQuadrantsControlsCreatorUseCase: AnyObject {
+    func createShipControlQuadrants()
+    func removeShipControlQuadrants()
+}
+
+protocol ToggleShipControlsCreatorUseCase: AnyObject {
+    func createToggleButton(_ toggleState: Toggle)
+    func removeToggleButton()
 }
 
 protocol TorpedoCreatorUseCase: AnyObject {
@@ -42,4 +60,3 @@ protocol TorpedoCreatorUseCase: AnyObject {
 protocol TreasureCreatorUseCase: AnyObject {
     func createTreasure(positionComponent: PositionComponent)
 }
-

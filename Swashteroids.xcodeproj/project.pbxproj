@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		8D0006AC2C16601500C098CB /* AlienSoldierSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0006AB2C16601500C098CB /* AlienSoldierSystemTests.swift */; };
 		8D0A0D2A2B4DE9C6007E9898 /* UseCases_Creator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0A0D292B4DE9C6007E9898 /* UseCases_Creator.swift */; };
-		8D0A0D2C2B4DEA71007E9898 /* UseCases_Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0A0D2B2B4DEA71007E9898 /* UseCases_Manager.swift */; };
 		8D0A0D2E2B4E0122007E9898 /* AlienSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0A0D2D2B4E0122007E9898 /* AlienSystem.swift */; };
 		8D0A0D302B4E016A007E9898 /* AlienSoldierNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0A0D2F2B4E016A007E9898 /* AlienSoldierNode.swift */; };
 		8D0A0D322B4E01C0007E9898 /* AlienCollisionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0A0D312B4E01C0007E9898 /* AlienCollisionNode.swift */; };
@@ -223,7 +222,6 @@
 /* Begin PBXFileReference section */
 		8D0006AB2C16601500C098CB /* AlienSoldierSystemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlienSoldierSystemTests.swift; sourceTree = "<group>"; };
 		8D0A0D292B4DE9C6007E9898 /* UseCases_Creator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseCases_Creator.swift; sourceTree = "<group>"; };
-		8D0A0D2B2B4DEA71007E9898 /* UseCases_Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseCases_Manager.swift; sourceTree = "<group>"; };
 		8D0A0D2D2B4E0122007E9898 /* AlienSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlienSystem.swift; sourceTree = "<group>"; };
 		8D0A0D2F2B4E016A007E9898 /* AlienSoldierNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlienSoldierNode.swift; sourceTree = "<group>"; };
 		8D0A0D312B4E01C0007E9898 /* AlienCollisionNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlienCollisionNode.swift; sourceTree = "<group>"; };
@@ -620,7 +618,6 @@
 				93139DF99E2237817263DF63 /* Transition+Playing.swift */,
 				93139349F91910D60271C8DA /* Transition+Start.swift */,
 				8D0A0D292B4DE9C6007E9898 /* UseCases_Creator.swift */,
-				8D0A0D2B2B4DEA71007E9898 /* UseCases_Manager.swift */,
 				93139178A596CCE8EED81F8F /* UseCases_Transition.swift */,
 			);
 			path = entities;
@@ -960,7 +957,6 @@
 				8D23C1AB2B02C59D00F7D878 /* HudNode.swift in Sources */,
 				8D23C1E32B02C59D00F7D878 /* StartView.swift in Sources */,
 				8D23C13E2B02C4CA00F7D878 /* GameViewController.swift in Sources */,
-				8D0A0D2C2B4DEA71007E9898 /* UseCases_Manager.swift in Sources */,
 				8D41E21D2B1F988E0031AF54 /* PowerUpComponents.swift in Sources */,
 				8DD26DC92B22D7E300DA5BC3 /* AccelerometerNode.swift in Sources */,
 				8D23C1E72B02C81D00F7D878 /* Double+extensions.swift in Sources */,

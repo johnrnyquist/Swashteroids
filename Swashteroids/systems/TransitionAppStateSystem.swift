@@ -12,11 +12,13 @@ import Foundation
 import Swash
 
 final class TransitionAppStateSystem: ListIteratingSystem {
-    typealias Transition = GameOverUseCase & InfoViewsUseCase & PlayingUseCase & StartUseCase
+    typealias Transition = GameOverUseCase & InfoViewsUseCase & PlayingUseCase 
     private let transition: Transition?
+    private let startTransition: StartUseCase?
 
-    init(transition: Transition) {
+    init(transition: Transition, startTransition: StartUseCase) {
         self.transition = transition
+        self.startTransition = startTransition
         super.init(nodeClass: TransitionAppStateNode.self)
         nodeUpdateFunction = updateNode
     }
@@ -29,7 +31,7 @@ final class TransitionAppStateSystem: ListIteratingSystem {
             case .initial:
                 break
             case .start:
-                transition?.fromStartScreen()
+                startTransition?.fromStartScreen()
             case .gameOver:
                 transition?.fromGameOverScreen()
             case .playing:
@@ -46,7 +48,7 @@ final class TransitionAppStateSystem: ListIteratingSystem {
             case .initial:
                 break
             case .start:
-                transition?.toStartScreen()
+                startTransition?.toStartScreen()
             case .gameOver:
                 transition?.toGameOverScreen()
             case .playing:
