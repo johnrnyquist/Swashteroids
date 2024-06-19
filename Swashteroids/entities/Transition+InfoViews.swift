@@ -30,9 +30,10 @@ class InfoViewsTransition: InfoViewsUseCase {
 
     func toNoButtonsInfoScreen() {
         let noButtonsInfoArt = SKScene(fileNamed: "NoButtonsInfo.sks")!
-        guard let viewSprite = noButtonsInfoArt.childNode(withName: "quadrants") as? SwashSpriteNode else {
+        guard let viewSprite = noButtonsInfoArt.childNode(withName: "quadrants") as? SwashScaledSpriteNode else {
             fatalError("Could not load 'quadrants' as SwashSpriteNode")
         }
+
         viewSprite.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         viewSprite.removeFromParent()
         let viewEntity = Entity(named: .noButtonsInfoView)
