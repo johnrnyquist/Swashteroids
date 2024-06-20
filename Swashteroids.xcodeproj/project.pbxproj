@@ -12,6 +12,7 @@
 		8D0A0D302B4E016A007E9898 /* AlienSoldierNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0A0D2F2B4E016A007E9898 /* AlienSoldierNode.swift */; };
 		8D0A0D322B4E01C0007E9898 /* AlienCollisionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0A0D312B4E01C0007E9898 /* AlienCollisionNode.swift */; };
 		8D0A0D342B4E08D4007E9898 /* alien_entrance.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D0A0D332B4E08D4007E9898 /* alien_entrance.wav */; };
+		8D1925292C24B0F800A090F9 /* AlienSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1925282C24B0F800A090F9 /* AlienSystemTests.swift */; };
 		8D23C1362B02C4CA00F7D878 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1352B02C4CA00F7D878 /* AppDelegate.swift */; };
 		8D23C13C2B02C4CA00F7D878 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C13B2B02C4CA00F7D878 /* GameScene.swift */; };
 		8D23C13E2B02C4CA00F7D878 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C13D2B02C4CA00F7D878 /* GameViewController.swift */; };
@@ -228,6 +229,7 @@
 		8D0A0D2F2B4E016A007E9898 /* AlienSoldierNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlienSoldierNode.swift; sourceTree = "<group>"; };
 		8D0A0D312B4E01C0007E9898 /* AlienCollisionNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlienCollisionNode.swift; sourceTree = "<group>"; };
 		8D0A0D332B4E08D4007E9898 /* alien_entrance.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = alien_entrance.wav; sourceTree = "<group>"; };
+		8D1925282C24B0F800A090F9 /* AlienSystemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlienSystemTests.swift; sourceTree = "<group>"; };
 		8D23C1322B02C4CA00F7D878 /* Swashteroids.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swashteroids.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D23C1352B02C4CA00F7D878 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8D23C13B2B02C4CA00F7D878 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -677,6 +679,7 @@
 				8D512A982B41B47D00C30AC7 /* AccelerometerSystemTests.swift */,
 				93139B933148A8CE373B6EE8 /* AlienCreatorUseCaseTests.swift */,
 				8D0006AB2C16601500C098CB /* AlienSoldierSystemTests.swift */,
+				8D1925282C24B0F800A090F9 /* AlienSystemTests.swift */,
 				8DF718C52C163576007E1942 /* AlienWorkerSystemTests.swift */,
 				8D384D992B28F3F300D5564C /* AnimationTests.swift */,
 				931390BDEBA443104F781428 /* AudioSystemTests.swift */,
@@ -1090,6 +1093,7 @@
 				93139D10A3929204EC8DF9BF /* FlipSystemTest.swift in Sources */,
 				8D4D4EF62C23388700293B13 /* MockCreators.swift in Sources */,
 				93139EB726F6A591F339A9E1 /* ThrustSystemTests.swift in Sources */,
+				8D1925292C24B0F800A090F9 /* AlienSystemTests.swift in Sources */,
 				9313927570EF98CB5DB23DCB /* NacelleSystemTests.swift in Sources */,
 				93139113FFD9F17E28DA721A /* DeathThroesSystemTests.swift in Sources */,
 				8D4D4EFA2C233C5800293B13 /* MockRandom.swift in Sources */,

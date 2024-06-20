@@ -1,8 +1,11 @@
 //
-//  AlienSoldierSystemTests.swift
-//  SwashteroidsTests
+// https://github.com/johnrnyquist/Swashteroids
 //
-//  Created by John Nyquist on 6/9/24.
+// Download Swashteroids from the App Store:
+// https://apps.apple.com/us/app/swashteroids/id6472061502
+//
+// Made with Swash, give it a try!
+// https://github.com/johnrnyquist/Swash
 //
 
 import XCTest

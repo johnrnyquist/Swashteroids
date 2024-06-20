@@ -157,9 +157,5 @@ final class MovementSystemTests: XCTestCase {
         XCTAssertGreaterThan(positionComponent.y, size.height - Double(numUpdates) * time)
         XCTAssertEqual(positionComponent.rotationDegrees, 2.0)
     }
-
-    class MockScaleManager_halfSize: ScaleManaging {
-        var SCALE_FACTOR: CGFloat { 0.5 }
-    }
 }
 

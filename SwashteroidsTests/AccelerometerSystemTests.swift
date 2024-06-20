@@ -57,7 +57,7 @@ final class AccelerometerSystemTests: XCTestCase {
         let position = PositionComponent(x: 0, y: 0, z: .ship, rotationDegrees: 0.0)
         let motionControls = MovementRateComponent(accelerationRate: 1.0,
                                                      rotationRate: 1.0,
-                                                     scaleManager: MockScaleManager())
+                                                     scaleManager: MockScaleManager_halfSize())
         node.components[AccelerometerComponent.name] = accelerometer
         node.components[InputComponent.name] = input
         node.components[MovementRateComponent.name] = motionControls
@@ -68,9 +68,5 @@ final class AccelerometerSystemTests: XCTestCase {
             system.nodeUpdateFunction!(node, 1)
         }
         XCTAssertEqual(position.rotationDegrees, 0.0)
-    }
-    
-    class MockScaleManager: ScaleManaging {
-        var SCALE_FACTOR: CGFloat { 0.5 }
     }
 }
