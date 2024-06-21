@@ -16,7 +16,7 @@ class AsteroidCreator: AsteroidCreatorUseCase {
     private var totalAsteroids = 0
     private weak var randomness: Randomizing!
     private weak var scaleManager: ScaleManaging!
-    
+
     init(engine: Engine,
          randomness: Randomizing = Randomness.shared,
          scaleManager: ScaleManaging = ScaleManager.shared) {
@@ -24,6 +24,7 @@ class AsteroidCreator: AsteroidCreatorUseCase {
         self.randomness = randomness
         self.scaleManager = scaleManager
     }
+
     /// Create an asteroid with the given radius, x, y, and level.
     /// 
     /// - Parameters:
@@ -48,13 +49,7 @@ class AsteroidCreator: AsteroidCreatorUseCase {
         let speedModifier = lvl * 0.1 + 1.0  // 1.1, 1.2, 1.3, 1.4
         entity
                 .add(component: PositionComponent(x: x, y: y, z: .asteroids, rotationDegrees: 0.0))
-                .add(component: VelocityComponent(velocityX: min(randomness.nextDouble(from: -82.0,
-                                                                                       through: 82.0) * speedModifier, 100.0),
-                                                  velocityY: min(randomness.nextDouble(from: -82.0,
-                                                                                       through: 82.0) * speedModifier, 100.0),
-                                                  angularVelocity: randomness.nextDouble(from: -100, through: 100),
-                                                  dampening: 0,
-                                                  base: 60.0))
+                .add(component: createVelocity(speedModifier: speedModifier))
                 .add(component: CollidableComponent(radius: radius))
                 .add(component: AsteroidComponent(size: size))
                 .add(component: DisplayComponent(sknode: sprite))
@@ -68,6 +63,23 @@ class AsteroidCreator: AsteroidCreatorUseCase {
         } catch {
             fatalError("Unexpected error: \(error).")
         }
+    }
+
+    private func createVelocity(speedModifier: Double) -> VelocityComponent {
+        var vx = 0.0
+        while abs(vx) < 3.0 || abs(vx) > (100.0 * speedModifier) {
+            vx = randomness.nextDouble(from: -82.0, through: 82.0) * speedModifier
+        }        
+        var vy = 0.0
+        while abs(vy) < 3.0 || abs(vy) > (100.0 * speedModifier) {
+            vy = randomness.nextDouble(from: -82.0, through: 82.0) * speedModifier
+        }
+        let angularVelocity = randomness.nextDouble(from: -100, through: 100)
+        return VelocityComponent(velocityX: vx,
+                                 velocityY: vy,
+                                 angularVelocity: angularVelocity,
+                                 dampening: 0,
+                                 base: 60.0)
     }
 
     func createAsteroidTexture(radius: Double, color: UIColor) -> SKTexture {

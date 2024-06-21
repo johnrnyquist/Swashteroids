@@ -22,10 +22,10 @@ final class AppStateComponent: Component {
     // Current values
     var appState: AppState {
         willSet {
-            print("willSet appState: \(appState)")
+            print("about to change appState from \(appState) to \(newValue)")
         }
         didSet {
-            print("didSet appState: \(appState)")
+            print("changed appState from \(oldValue) to \(appState)")
         }
     }
     var nextShipScore: Int

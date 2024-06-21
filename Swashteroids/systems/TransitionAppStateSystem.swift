@@ -35,34 +35,36 @@ final class TransitionAppStateSystem: ListIteratingSystem {
         guard let transitionComponent = node[TransitionAppStateComponent.self],
               let appStateComponent = node[AppStateComponent.self]
         else { return }
+        // TODO: Need to see case where to and from are both .start
         switch transitionComponent.from {
-        case .start:
-            startTransition?.fromStartScreen()
-        case .gameOver:
-            gameOverTransition?.fromGameOverScreen()
-        case .playing:
-            playingTransition?.fromPlayingScreen()
-        case .infoButtons:
-            infoViewsTransition?.fromButtonsInfoScreen()
-            appStateComponent.shipControlsState = .showingButtons
-        case .infoNoButtons:
-            infoViewsTransition?.fromNoButtonsInfoScreen()
-            appStateComponent.shipControlsState = .hidingButtons
+            case .start:
+                startTransition?.fromStartScreen()
+            case .gameOver:
+                gameOverTransition?.fromGameOverScreen()
+            case .playing:
+                playingTransition?.fromPlayingScreen()
+            case .infoButtons:
+                infoViewsTransition?.fromButtonsInfoScreen()
+                appStateComponent.shipControlsState = .showingButtons
+            case .infoNoButtons:
+                infoViewsTransition?.fromNoButtonsInfoScreen()
+                appStateComponent.shipControlsState = .hidingButtons
         }
         appStateComponent.appState = transitionComponent.to
         switch transitionComponent.to {
-        case .start:
-            startTransition?.toStartScreen()
-        case .gameOver:
-            gameOverTransition?.toGameOverScreen()
-        case .playing:
-            appStateComponent.timePlayed = 0.0
-            playingTransition?.toPlayingScreen(appStateComponent: appStateComponent)
-        case .infoButtons:
-            infoViewsTransition?.toButtonsInfoScreen()
-        case .infoNoButtons:
-            infoViewsTransition?.toNoButtonsInfoScreen()
+            case .start:
+                startTransition?.toStartScreen()
+            case .gameOver:
+                gameOverTransition?.toGameOverScreen()
+            case .playing:
+                appStateComponent.timePlayed = 0.0
+                playingTransition?.toPlayingScreen(appStateComponent: appStateComponent)
+            case .infoButtons:
+                infoViewsTransition?.toButtonsInfoScreen()
+            case .infoNoButtons:
+                infoViewsTransition?.toNoButtonsInfoScreen()
         }
         node.entity?.remove(componentClass: TransitionAppStateComponent.self)
     }
 }
+

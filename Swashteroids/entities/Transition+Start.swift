@@ -29,7 +29,6 @@ class StartTransition: StartUseCase {
 
     /// The start screen is not an entity, but composed of entities.  It is the first screen the user sees.
     func toStartScreen() {
-        engine.appStateComponent.appState = .start
         let startView = StartView(gameSize: gameSize)
         startView.name = .start
         let startEntity = Entity(named: .start)
