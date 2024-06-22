@@ -26,7 +26,7 @@ class AlienSoldierSystem: AlienSystem {
 
     // MARK: - AlienSystem overrides
     override func addToEngine(engine: Engine) {
-        self.engine = engine
+        super.addToEngine(engine: engine)
         alienSoldierNodes = engine.getNodeList(nodeClassType: AlienSoldierNode.self)
         asteroidNodes = engine.getNodeList(nodeClassType: AsteroidCollisionNode.self)
     }
@@ -49,9 +49,8 @@ class AlienSoldierSystem: AlienSystem {
         }
         //
         // Target the ship if it's alive and it's time to react
-        if playerAlive,
-           isTimeToReact {
-            alienComponent.timeSinceLastReaction = 0
+        if isTimeToReact,
+           playerAlive {
             pickTarget(alienComponent: alienComponent, position: alienPosition)
             moveTowardTarget(alienPosition, velocity, alienComponent.targetedEntity![PositionComponent.self]!.position)
             return

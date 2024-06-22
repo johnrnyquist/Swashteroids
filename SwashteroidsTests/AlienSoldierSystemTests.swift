@@ -73,7 +73,7 @@ final class AlienSoldierSystemTests: XCTestCase {
     func test_pickTarget_noTarget_onlyShip() throws {
         // ARRANGE
         let system = AlienSoldierSystem()
-        system.shipEntity = shipEntity
+        system.shipNodes = shipNodes
         let soldier = AlienComponent(cast: .soldier, reactionTime: 0.4, scoreValue: 50)
         let position = PositionComponent(x: 0, y: 0, z: .asteroids, rotationDegrees: 0)
         // ACT
@@ -105,7 +105,7 @@ final class AlienSoldierSystemTests: XCTestCase {
         asteroidNode.entity = asteroidEntity
         system.asteroidNodes = NodeList()
         system.asteroidNodes?.add(node: asteroidNode)
-        system.shipEntity = shipEntity
+        system.shipNodes = shipNodes
         let soldier = AlienComponent(cast: .soldier, reactionTime: 0.4, scoreValue: 50)
         let position = PositionComponent(x: 0, y: 0, z: .asteroids, rotationDegrees: 0)
         // ACT
@@ -137,7 +137,7 @@ final class AlienSoldierSystemTests: XCTestCase {
         asteroidNode.entity = asteroid
         system.asteroidNodes = NodeList()
         system.asteroidNodes?.add(node: asteroidNode)
-        system.shipEntity = shipEntity
+        system.shipNodes = shipNodes
         let soldier = AlienComponent(cast: .soldier, reactionTime: 0.4, scoreValue: 50)
         let position = PositionComponent(x: 0, y: 0, z: .asteroids, rotationDegrees: 0)
         // ACT

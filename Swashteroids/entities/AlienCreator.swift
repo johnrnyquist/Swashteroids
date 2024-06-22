@@ -30,6 +30,7 @@ class AlienCreator: AlienCreatorUseCase {
         warningAliens(scene: scene, leftSide: entrance.leftSide)
         engine.appStateEntity.add(component: AudioComponent(fileNamed: .alienEntrance, actionKey: "alienEntrance"))
         createSoldier(entrance: entrance)
+        createTwoWorkers(entrance: entrance)
         return
 //        switch totalAliens {
 //        case 0...1:

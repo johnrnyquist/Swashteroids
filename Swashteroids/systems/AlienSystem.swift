@@ -14,9 +14,13 @@ import UIKit
 
 // TODO: This system could be split into two systems, one for finding a target and one for moving toward it.
 class AlienSystem: System {
-    var engine: Engine?
-    var shipEntity: Entity?
+    var engine: Engine!
+    var shipNodes: NodeList!
     let randomness: Randomizing
+    var shipEntity: Entity? {
+        let node =  shipNodes?.head as? ShipNode
+        return node?.entity
+    }
 
     init(randomness: Randomizing = Randomness.shared) {
         self.randomness = randomness
@@ -25,9 +29,8 @@ class AlienSystem: System {
 
     // MARK: - System overrides
     override func addToEngine(engine: Engine) {
-        super.addToEngine(engine: engine)
         self.engine = engine
-        shipEntity = engine.ship
+        shipNodes = engine.getNodeList(nodeClassType: ShipNode.self)
     }
 
     // MARK: - AlienSystem
