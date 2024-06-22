@@ -22,6 +22,26 @@ class AlienSystemTests: XCTestCase {
         system = nil
         super.tearDown()
     }
+    
+    func test_updateAlienReactionTime_enoughToReact() {
+        // ARRANGE
+        let alienComponent = AlienComponent(cast: .worker, reactionTime: 0.4, scoreValue: 50)
+        // ACT
+        system.updateAlienReactionTime(alienComponent: alienComponent, time: 0.2)
+        system.updateAlienReactionTime(alienComponent: alienComponent, time: 0.2)
+        // ASSERT
+        XCTAssertEqual(alienComponent.timeSinceLastReaction, 0.0)
+    }
+    
+    func test_updateAlienReactionTime_notEnoughToReact() {
+        // ARRANGE
+        let alienComponent = AlienComponent(cast: .worker, reactionTime: 0.4, scoreValue: 50)
+        // ACT
+        system.updateAlienReactionTime(alienComponent: alienComponent, time: 0.1)
+        system.updateAlienReactionTime(alienComponent: alienComponent, time: 0.1)
+        // ASSERT
+        XCTAssertEqual(alienComponent.timeSinceLastReaction, 0.2)
+    }
 
     func test_HasReachedDestination() {
         // Test when endDestination.x is positive

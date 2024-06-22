@@ -14,6 +14,8 @@
 		8D0A0D342B4E08D4007E9898 /* alien_entrance.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D0A0D332B4E08D4007E9898 /* alien_entrance.wav */; };
 		8D1925292C24B0F800A090F9 /* AlienSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1925282C24B0F800A090F9 /* AlienSystemTests.swift */; };
 		8D19252B2C26242E00A090F9 /* AlienFiringSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D19252A2C26242E00A090F9 /* AlienFiringSystemTests.swift */; };
+		8D19252D2C2681B100A090F9 /* AlienSoldierSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D19252C2C2681B100A090F9 /* AlienSoldierSystem.swift */; };
+		8D19252F2C26823D00A090F9 /* AlienWorkerSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D19252E2C26823D00A090F9 /* AlienWorkerSystem.swift */; };
 		8D23C1362B02C4CA00F7D878 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1352B02C4CA00F7D878 /* AppDelegate.swift */; };
 		8D23C13C2B02C4CA00F7D878 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C13B2B02C4CA00F7D878 /* GameScene.swift */; };
 		8D23C13E2B02C4CA00F7D878 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C13D2B02C4CA00F7D878 /* GameViewController.swift */; };
@@ -232,6 +234,8 @@
 		8D0A0D332B4E08D4007E9898 /* alien_entrance.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = alien_entrance.wav; sourceTree = "<group>"; };
 		8D1925282C24B0F800A090F9 /* AlienSystemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlienSystemTests.swift; sourceTree = "<group>"; };
 		8D19252A2C26242E00A090F9 /* AlienFiringSystemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlienFiringSystemTests.swift; sourceTree = "<group>"; };
+		8D19252C2C2681B100A090F9 /* AlienSoldierSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlienSoldierSystem.swift; sourceTree = "<group>"; };
+		8D19252E2C26823D00A090F9 /* AlienWorkerSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlienWorkerSystem.swift; sourceTree = "<group>"; };
 		8D23C1322B02C4CA00F7D878 /* Swashteroids.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swashteroids.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D23C1352B02C4CA00F7D878 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8D23C13B2B02C4CA00F7D878 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -607,6 +611,8 @@
 			children = (
 				93139DB33A30E1B67842EF18 /* AlienFiringSystem.swift */,
 				8D0A0D2D2B4E0122007E9898 /* AlienSystem.swift */,
+				8D19252C2C2681B100A090F9 /* AlienSoldierSystem.swift */,
+				8D19252E2C26823D00A090F9 /* AlienWorkerSystem.swift */,
 				8D23C17C2B02C59C00F7D878 /* CollisionSystem.swift */,
 				8D23C17F2B02C59C00F7D878 /* FiringSystem.swift */,
 				8D23C1822B02C59C00F7D878 /* GameplayManagerSystem.swift */,
@@ -967,6 +973,7 @@
 				8D41E2172B1E66EE0031AF54 /* ShipControlsSystem.swift in Sources */,
 				8D6A0E012B0AB82E00F2E137 /* GameOverComponent.swift in Sources */,
 				8D23C1A42B02C59D00F7D878 /* DeathThroesNode.swift in Sources */,
+				8D19252F2C26823D00A090F9 /* AlienWorkerSystem.swift in Sources */,
 				8D23C1A82B02C59D00F7D878 /* GunPowerUpNode.swift in Sources */,
 				8D71C0472B3603CF004D6D0C /* ScaleManager.swift in Sources */,
 				8D23C1B42B02C59D00F7D878 /* AudioComponent.swift in Sources */,
@@ -1025,6 +1032,7 @@
 				93139C6BCF2ED1CDD8504B1C /* TorpedoCreator.swift in Sources */,
 				93139E5DCD4193CB19DDB025 /* PowerUpCreator.swift in Sources */,
 				93139985E9931A3012A6B150 /* ToggleShipControlsCreator.swift in Sources */,
+				8D19252D2C2681B100A090F9 /* AlienSoldierSystem.swift in Sources */,
 				93139A8885E51A1D11E5F1D6 /* HudCreator.swift in Sources */,
 				93139DB6913344090273397D /* String+EntityNames.swift in Sources */,
 				931399FC0563308E45F415FF /* GameOverSystem.swift in Sources */,

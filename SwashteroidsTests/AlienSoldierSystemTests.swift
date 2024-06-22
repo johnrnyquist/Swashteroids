@@ -73,7 +73,7 @@ final class AlienSoldierSystemTests: XCTestCase {
     func test_pickTarget_noTarget_onlyShip() throws {
         // ARRANGE
         let system = AlienSoldierSystem()
-        system.shipNodes = shipNodes
+        system.shipEntity = shipEntity
         let soldier = AlienComponent(cast: .soldier, reactionTime: 0.4, scoreValue: 50)
         let position = PositionComponent(x: 0, y: 0, z: .asteroids, rotationDegrees: 0)
         // ACT
@@ -105,7 +105,7 @@ final class AlienSoldierSystemTests: XCTestCase {
         asteroidNode.entity = asteroidEntity
         system.asteroidNodes = NodeList()
         system.asteroidNodes?.add(node: asteroidNode)
-        system.shipNodes = shipNodes
+        system.shipEntity = shipEntity
         let soldier = AlienComponent(cast: .soldier, reactionTime: 0.4, scoreValue: 50)
         let position = PositionComponent(x: 0, y: 0, z: .asteroids, rotationDegrees: 0)
         // ACT
@@ -137,7 +137,7 @@ final class AlienSoldierSystemTests: XCTestCase {
         asteroidNode.entity = asteroid
         system.asteroidNodes = NodeList()
         system.asteroidNodes?.add(node: asteroidNode)
-        system.shipNodes = shipNodes
+        system.shipEntity = shipEntity
         let soldier = AlienComponent(cast: .soldier, reactionTime: 0.4, scoreValue: 50)
         let position = PositionComponent(x: 0, y: 0, z: .asteroids, rotationDegrees: 0)
         // ACT
@@ -161,32 +161,32 @@ final class AlienSoldierSystemTests: XCTestCase {
     }
 
     func test_updateNode_playerDead() throws {
-        let system = AlienSoldierSystem_playerDead()
+        let system = Testable_AlienSoldierSystem_playerDead()
         let alienComponent = alienEntity.find(componentClass: AlienComponent.self)!
         let positionComponent = alienEntity.find(componentClass: PositionComponent.self)!
         let velocityComponent = alienEntity.find(componentClass: VelocityComponent.self)!
         // ACT
         system.updateNode(node: alienNode, time: 1)
         // ASSERT
-        XCTAssertEqual(alienComponent.timeSinceLastReaction, 1)
+        XCTAssertEqual(alienComponent.timeSinceLastReaction, 0)
         XCTAssertFalse(alienEntity.has(componentClass: GunComponent.self))
         XCTAssertEqual(positionComponent.rotationRadians, CGFloat.pi)
         XCTAssertEqual(velocityComponent.linearVelocity, .zero)
     }
 
     func test_updateNode_targetDead() throws {
-        let system = AlienSoldierSystem_targetDead()
+        let system = Testable_AlienSoldierSystem_targetDead()
         let alienComponent = alienEntity.find(componentClass: AlienComponent.self)!
         alienComponent.targetedEntity = shipEntity
         // ACT
         system.updateNode(node: alienNode, time: 1)
         // ASSERT
-        XCTAssertEqual(alienComponent.timeSinceLastReaction, 1)
+        XCTAssertEqual(alienComponent.timeSinceLastReaction, 0)
         XCTAssertNil(alienComponent.targetedEntity)
     }
 
     func test_updateNode_playerDead_noGun() throws {
-        let system = AlienSoldierSystem_playerDead()
+        let system = Testable_AlienSoldierSystem_playerDead()
         let soldier = AlienComponent(cast: .soldier, reactionTime: 0.4, scoreValue: 50)
         let alienComponent = AlienComponent(cast: .soldier, reactionTime: 0.4, scoreValue: 50)
         let positionComponent = PositionComponent(x: 0, y: 0, z: .asteroids, rotationDegrees: 0)
@@ -203,11 +203,11 @@ final class AlienSoldierSystemTests: XCTestCase {
         // ACT
         system.updateNode(node: alienNode, time: 1)
         // ASSERT
-        XCTAssertEqual(alienComponent.timeSinceLastReaction, 1)
+        XCTAssertEqual(alienComponent.timeSinceLastReaction, 0)
     }
 
     func test_updateNode_playerAlive() throws {
-        let system = AlienSoldierSystem_playerAlive()
+        let system = Testable_AlienSoldierSystem_playerAlive()
         let alienComponent = alienEntity.find(componentClass: AlienComponent.self)!
         let velocityComponent = alienEntity.find(componentClass: VelocityComponent.self)!
         // ACT
@@ -219,7 +219,8 @@ final class AlienSoldierSystemTests: XCTestCase {
         XCTAssertTrue(system.moveTowardsTargetCalled)
     }
 
-    class AlienSoldierSystem_playerAlive: AlienSoldierSystem {
+    // MARK: - Testable classes
+    class Testable_AlienSoldierSystem_playerAlive: AlienSoldierSystem {
         var pickTargetCalled = false
         var moveTowardsTargetCalled = false
         var targetedEntity: Entity?
@@ -237,11 +238,11 @@ final class AlienSoldierSystemTests: XCTestCase {
         }
     }
 
-    class AlienSoldierSystem_playerDead: AlienSoldierSystem {
+    class Testable_AlienSoldierSystem_playerDead: AlienSoldierSystem {
         override var playerAlive: Bool { false }
     }
 
-    class AlienSoldierSystem_targetDead: AlienSoldierSystem {
+    class Testable_AlienSoldierSystem_targetDead: AlienSoldierSystem {
         override func isTargetDead(_ entity: Entity?) -> Bool { true }
     }
 }
