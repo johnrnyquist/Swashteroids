@@ -32,12 +32,6 @@ class AlienWorkerSystem: AlienSystem {
     }
 
     // MARK: - AlienWorkerSystem
-    var playerDead: Bool {
-        let shipEntity = engine?.ship
-        let playerAlive = shipEntity != nil && shipEntity?[DeathThroesComponent.self] == nil
-        return !playerAlive
-    }
-
     func updateNode(node alienNode: Node, time: TimeInterval) {
         guard let alienPosition = alienNode[PositionComponent.self],
               let velocity = alienNode[VelocityComponent.self],

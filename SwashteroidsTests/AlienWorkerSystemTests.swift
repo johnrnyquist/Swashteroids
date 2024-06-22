@@ -14,7 +14,7 @@ import XCTest
 
 final class AlienWorkerSystemTests: XCTestCase {
     var alienEntity: Entity!
-    var alienNode: AlienWorkerNode!
+    var alienWorkerNode: AlienWorkerNode!
     var engine: Engine!
     var position: PositionComponent!
     var system: AlienWorkerSystem!
@@ -54,12 +54,12 @@ final class AlienWorkerSystemTests: XCTestCase {
                                                 ownerEntity: alienEntity,
                                                 numTorpedoes: 0))
         try! engine.add(entity: alienEntity)
-        alienNode = engine.getNodeList(nodeClassType: AlienWorkerNode.self).head as? AlienWorkerNode
+        alienWorkerNode = engine.getNodeList(nodeClassType: AlienWorkerNode.self).head as? AlienWorkerNode
     }
 
     override func tearDownWithError() throws {
         alienEntity = nil
-        alienNode = nil
+        alienWorkerNode = nil
         engine = nil
         position = nil
         system = nil
@@ -68,10 +68,33 @@ final class AlienWorkerSystemTests: XCTestCase {
         velocity = nil
     }
 
+    class Testable_AlienWorkerSystem_update: AlienWorkerSystem {
+        var updateNodeCalled = 0
+
+        override func updateNode(node alienNode: Node, time: TimeInterval) {
+            updateNodeCalled += 1
+        }
+    }
+
+    func test_update_oneAlien() {
+        let system = Testable_AlienWorkerSystem_update()
+        let nodes = NodeList()
+        nodes.add(node: alienWorkerNode)
+        system.alienWorkerNodes = nodes
+        system.update(time: 1)
+        XCTAssertEqual(system.updateNodeCalled, 1)
+    }
+
+    func test_update_noAlien() {
+        let system = Testable_AlienWorkerSystem_update()
+        system.update(time: 1)
+        XCTAssertEqual(system.updateNodeCalled, 0)
+    }
+
     func test_updateNode_noPlayer_hasGun() throws {
         // ARRANGE
         // ACT
-        system.updateNode(node: alienNode, time: 1)
+        system.updateNode(node: alienWorkerNode, time: 1)
         // ASSERT
         // Alien has been oriented so it will zip off the screen
         XCTAssertEqual(velocity.x, -15.0) // -15.0
@@ -87,7 +110,7 @@ final class AlienWorkerSystemTests: XCTestCase {
 
         let system = AlienWorkerSystem_hasPlayer(randomness: MockRandom())
         // ACT
-        system.updateNode(node: alienNode, time: 1)
+        system.updateNode(node: alienWorkerNode, time: 1)
         // ASSERT
         // Alien has been oriented so it will zip off the screen
         XCTAssertEqual(velocity.x, 5.0) // -15.0
@@ -99,7 +122,7 @@ final class AlienWorkerSystemTests: XCTestCase {
         // ARRANGE
         alienEntity.remove(componentClass: GunComponent.self)
         // ACT
-        system.updateNode(node: alienNode, time: 1)
+        system.updateNode(node: alienWorkerNode, time: 1)
         // ASSERT
         XCTAssertEqual(velocity.x, 5.0)
         XCTAssertEqual(velocity.y, 5.0)
@@ -114,5 +137,31 @@ final class AlienWorkerSystemTests: XCTestCase {
         XCTAssertEqual(velocity.x, 3.452669830012439)
         XCTAssertEqual(velocity.y, 3.4526698300124394)
         XCTAssertEqual(position.rotationRadians, 0.7853981633974483)
+    }
+
+    func test_handleTargeting() {
+        // ARRANGE
+        class Testable_AlienWorkerSystem_handleTargeting: AlienWorkerSystem {
+            var moveTowardTargetCalled = 0
+            var closestEntity = Entity()
+
+            override func moveTowardTarget(_ position: PositionComponent, _ velocity: VelocityComponent, _ target: CGPoint) {
+                moveTowardTargetCalled += 1
+            }
+
+            override func findClosestEntity(to position: CGPoint, node: Node?) -> Entity? {
+                closestEntity.add(component: PositionComponent(x: 0, y: 0, z: 0))
+            }
+        }
+
+        let system = Testable_AlienWorkerSystem_handleTargeting()
+        let alienComponent = alienEntity.find(componentClass: AlienComponent.self)!
+        let alienPostion = alienEntity.find(componentClass: PositionComponent.self)!
+        let velocityComponent = alienEntity.find(componentClass: VelocityComponent.self)!
+        // ACT
+        system.handleTargeting(alienComponent: alienComponent, alienPosition: alienPostion, velocity: velocityComponent)
+        // ASSERT
+        XCTAssertEqual(alienComponent.targetedEntity, system.closestEntity)
+        XCTAssertEqual(system.moveTowardTargetCalled, 1)
     }
 }

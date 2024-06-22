@@ -22,12 +22,19 @@ protocol Randomizing: AnyObject {
 /// `Randomness` is a class for generating random numbers. 
 // It is really just a wrapper around the `srand48` and `drand48` functions.
 class Randomness: Randomizing {
-    static var shared: Randomness!
+    static private var randomness: Randomness!
+    static var shared: Randomizing {
+        if let randomness {
+            return randomness
+        } else {
+            return initialize(with: Int(Date().timeIntervalSince1970))
+        }
+    }
 
     @discardableResult
     static func initialize(with seed: Int) -> Randomizing {
-        shared = Randomness(seed: seed)
-        return Randomness.shared
+        randomness = Randomness(seed: seed)
+        return randomness
     }
 
     /// Initializes a new instance of `Randomness` and sets the seed for the random number generator.

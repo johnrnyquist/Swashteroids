@@ -33,7 +33,7 @@ final class AlienCreatorUseCaseTests: XCTestCase {
         engine = nil
     }
     
-    func test_createAlienWorker_has_player() throws {
+    func test_createAlienWorker_hasPlayer() throws {
         let player = Entity(named: .player)
         try! engine.add(entity: player)
         let creator = AlienCreator(engine: engine,
@@ -43,7 +43,7 @@ final class AlienCreatorUseCaseTests: XCTestCase {
         XCTAssertNotNil(engine.findEntity(named: "alienWorkerEntity_1"))
     }
 
-    func test_createAlienWorker_no_player() throws {
+    func test_createAlienWorker_noPlayer() throws {
         let creator = AlienCreator(engine: engine,
                                    size: .zero,
                                    randomness: Randomness.initialize(with: 1))
@@ -51,7 +51,7 @@ final class AlienCreatorUseCaseTests: XCTestCase {
         XCTAssertNil(engine.findEntity(named: "alienWorkerEntity_1"))
     }
 
-    func test_createAlienSoldier_has_player() throws {
+    func test_createAlienSoldier_hasPlayer() throws {
         let player = Entity(named: .player)
         try! engine.add(entity: player)
         let creator = AlienCreator(engine: engine,
@@ -61,7 +61,7 @@ final class AlienCreatorUseCaseTests: XCTestCase {
         XCTAssertNotNil(engine.findEntity(named: "alienSoldierEntity_1"))
     }
 
-    func test_createAlienSoldier_no_player() throws {
+    func test_createAlienSoldier_noPlayer() throws {
         let creator = AlienCreator(engine: engine,
                                    size: .zero,
                                    randomness: Randomness.initialize(with: 1))

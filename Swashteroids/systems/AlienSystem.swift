@@ -18,7 +18,7 @@ class AlienSystem: System {
     var shipEntity: Entity?
     let randomness: Randomizing
 
-    init(randomness: Randomizing = Randomness.initialize(with: 1)) {
+    init(randomness: Randomizing = Randomness.shared) {
         self.randomness = randomness
         super.init()
     }
@@ -33,6 +33,9 @@ class AlienSystem: System {
     // MARK: - AlienSystem
     var playerAlive: Bool {
         shipEntity != nil && shipEntity?[DeathThroesComponent.self] == nil
+    }
+    var playerDead: Bool {
+        !playerAlive
     }
 
     func updateAlienReactionTime(alienComponent: AlienComponent, time: TimeInterval) {
@@ -102,8 +105,8 @@ class AlienSystem: System {
         }
         return closestEntity
     }
-    // Aliens move differently from the player. They can make sharp moves when rotating.
 
+    // Aliens move differently from the player. They can make sharp moves when rotating.
     func moveTowardTarget(_ position: PositionComponent, _ velocity: VelocityComponent, _ target: CGPoint) {
         let deltaX = position.x - target.x
         let deltaY = position.y - target.y
