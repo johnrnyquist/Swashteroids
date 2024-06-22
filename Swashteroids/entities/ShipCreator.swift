@@ -106,14 +106,19 @@ class ShipCreator: ShipCreatorUseCase {
         ship[RepeatingAudioComponent.self]?.state = .shouldStop
         // Remove components
         ship
+                .remove(componentClass: AlienFiringComponent.self)
                 .remove(componentClass: AudioComponent.self)
-                .remove(componentClass: DisplayComponent.self)
                 .remove(componentClass: CollidableComponent.self)
+                .remove(componentClass: DisplayComponent.self)
+                .remove(componentClass: ExitScreenComponent.self)
                 .remove(componentClass: GunComponent.self)
                 .remove(componentClass: HyperspaceDriveComponent.self)
                 .remove(componentClass: InputComponent.self)
+                .remove(componentClass: MoveToTargetComponent.self)
                 .remove(componentClass: MovementRateComponent.self)
-        // Change components
+                .remove(componentClass: ReactionTimeComponent.self)
+                .remove(componentClass: ShootableComponent.self)
+        // Change components                                
         ship[VelocityComponent.self]?.angularVelocity = randomness.nextDouble(from: -100.0, through: 100.0)
         // Add components
         ship
