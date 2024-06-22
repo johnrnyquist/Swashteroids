@@ -27,6 +27,10 @@ class MoveToTargetComponent: Component {
     init(target targetedEntity: Entity) {
         self.targetedEntity = targetedEntity
     }
+    
+    deinit {
+        print("MoveToTargetComponent deinit \(self)")
+    }
 }
 
 // TODO: Right now this is an alien-only class because of the AlienComponent

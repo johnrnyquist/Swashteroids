@@ -86,6 +86,8 @@ final class PickTargetSystem: ListIteratingSystem {
                 if let shipEntity = shipNodes.head?.entity,
                    !shipEntity.has(componentClass: DeathThroesComponent.self),
                    let targetedEntity = findClosestEntity(to: position.position, node: targetableNodes?.head) {
+                    //TODO: I should NOT have to remove the component as adding it should overwrite the previous, 
+                    // but it did not work without doing so. Oddly I do not have to do it for the soldier.
                     entity.remove(componentClass: MoveToTargetComponent.self)
                     entity.add(component: MoveToTargetComponent(target: targetedEntity))
                 } else {
@@ -97,7 +99,7 @@ final class PickTargetSystem: ListIteratingSystem {
                     entity.add(component: ExitScreenComponent())
                 }
         }
-        print("\n\(self) \(entity.name) is targeting \(entity.find(componentClass: MoveToTargetComponent.self)?.targetedEntity?.name)\n")
+//        print("\n\(self) \(entity.name) is targeting \(entity.find(componentClass: MoveToTargetComponent.self)?.targetedEntity?.name)\n")
     }
 
     /// Find the entity closest to the given position.
