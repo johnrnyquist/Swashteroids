@@ -30,7 +30,7 @@ class AlienCreator: AlienCreatorUseCase {
         warningAliens(scene: scene, leftSide: entrance.leftSide)
         engine.appStateEntity.add(component: AudioComponent(fileNamed: .alienEntrance, actionKey: "alienEntrance"))
         createSoldier(entrance: entrance)
-        createTwoWorkers(entrance: entrance)
+//        createTwoWorkers(entrance: entrance)
         return
 //        switch totalAliens {
 //        case 0...1:
@@ -165,7 +165,9 @@ class AlienCreator: AlienCreatorUseCase {
 //        sprite.physicsBody?.affectedByGravity = false
 //        sprite.physicsBody?.categoryBitMask = alienCategory
 //        sprite.physicsBody?.contactTestBitMask = asteroidCategory | playerCategory | torpedoCategory
-        let workerComponent = AlienComponent(cast: .worker, reactionTime: randomness.nextDouble(from: 0.4, through: 0.8), scoreValue: 50)
+        let workerComponent = AlienComponent(cast: .worker,
+                                             reactionTime: randomness.nextDouble(from: 0.4, through: 0.8),
+                                             scoreValue: 50)
         workerComponent.destinationStart = startDestination
         workerComponent.destinationEnd = endDestination
         let velocityX = 90.0 + Double(engine.appStateComponent.level) * 5.0 + randomness.nextDouble(from: 0.0, through: 10.0)
@@ -188,6 +190,7 @@ class AlienCreator: AlienCreatorUseCase {
                 .add(component: AlienFiringComponent.shared)
                 .add(component: CollidableComponent(radius: 25))
                 .add(component: DisplayComponent(sknode: sprite))
+                .add(component: ReactionTimeComponent(reactionTime: 0.5)) //TODO: Adjust based on level or wave
         sprite.entity = alienEntity
         try? engine.add(entity: alienEntity)
     }
@@ -202,7 +205,9 @@ class AlienCreator: AlienCreatorUseCase {
 //        sprite.physicsBody?.affectedByGravity = false
 //        sprite.physicsBody?.categoryBitMask = alienCategory
 //        sprite.physicsBody?.contactTestBitMask = asteroidCategory | playerCategory | torpedoCategory
-        let soldierComponent = AlienComponent(cast: .soldier, reactionTime: randomness.nextDouble(from: 0.4, through: 0.8), scoreValue: 350)
+        let soldierComponent = AlienComponent(cast: .soldier,
+                                              reactionTime: randomness.nextDouble(from: 0.4, through: 0.8),
+                                              scoreValue: 350)
         soldierComponent.destinationStart = startDestination
         soldierComponent.destinationEnd = endDestination
         let velocityX = 120.0 + Double(engine.appStateComponent.level) * 5.0 + randomness.nextDouble(from: 0.0, through: 10.0)
@@ -226,6 +231,7 @@ class AlienCreator: AlienCreatorUseCase {
                 .add(component: CollidableComponent(radius: 25))
                 .add(component: DisplayComponent(sknode: sprite))
                 .add(component: ShootableComponent.shared)
+                .add(component: ReactionTimeComponent(reactionTime: 0.4)) //TODO: Adjust based on level or wave
         sprite.entity = alienEntity
         try? engine.add(entity: alienEntity)
     }

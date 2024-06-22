@@ -19,6 +19,7 @@ final class AlienFiringNode: Node {
             GunComponent.name: nil_component,
             PositionComponent.name: nil_component,
             VelocityComponent.name: nil_component,
+            TargetComponent.name: nil_component,
         ]
     }
 }

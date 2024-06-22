@@ -34,17 +34,20 @@ final class AlienFiringSystem: System {
     }
 
     func updateNode(node: Node, time: TimeInterval) {
+        guard let gun = node[GunComponent.self] else { return }
+        gun.timeSinceLastShot += time
         guard let velocity = node[VelocityComponent.self],
               let position = node[PositionComponent.self],
-              let gun = node[GunComponent.self],
               let _ = node[AlienFiringComponent.self],
-              let alien = node[AlienComponent.self]
+              let alien = node[AlienComponent.self],
+              let targetComponent = node[TargetComponent.self],
+              let targetedEntity = targetComponent.targetedEntity,
+              targetedEntity.has(componentClass: DeathThroesComponent.self) == false
         else { return }
-        gun.timeSinceLastShot += time
         //
         guard gun.timeSinceLastShot >= gun.minimumShotInterval, 
               gameRect.contains(position.position),
-              targetWithinRange(alien, position)
+              targetWithinRange(targetedEntity, alien, position)
         else { return }
         //
         gun.timeSinceLastShot = 0
@@ -64,9 +67,9 @@ final class AlienFiringSystem: System {
         torpedoCreator?.createTorpedo(gun, pos, velocity)
     }
 
-    func targetWithinRange(_ alien: AlienComponent, _ position: PositionComponent) -> Bool {
-        guard let targetPosition = alien.targetedEntity?.find(componentClass: PositionComponent.self) else { return false }
-        guard let _ = alien.targetedEntity?.find(componentClass: ShootableComponent.self) else { return false }
+    func targetWithinRange(_ targetedEntity: Entity, _ alien: AlienComponent, _ position: PositionComponent) -> Bool {
+        guard let targetPosition = targetedEntity.find(componentClass: PositionComponent.self) else { return false }
+        guard let _ = targetedEntity.find(componentClass: ShootableComponent.self) else { return false }
         let distance = hypot(targetPosition.x - position.x, targetPosition.y - position.y)
         return distance < alien.maxTargetableRange
     }

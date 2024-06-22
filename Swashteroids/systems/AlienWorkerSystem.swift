@@ -15,7 +15,6 @@ import UIKit
 class AlienWorkerSystem: AlienSystem {
     var alienWorkerNodes: NodeList?
     var targetableNodes: NodeList?
-    
     // MARK: - System overrides
     override func addToEngine(engine: Engine) {
         super.addToEngine(engine: engine)
@@ -41,7 +40,6 @@ class AlienWorkerSystem: AlienSystem {
         else { return }
         updateAlienReactionTime(alienComponent: alienComponent, time: time)
         let isTimeToReact = alienComponent.timeSinceLastReaction == 0
-
         if playerDead {
             handlePlayerDeath(alienEntity: alienEntity,
                               alienComponent: alienComponent,
@@ -51,7 +49,7 @@ class AlienWorkerSystem: AlienSystem {
             handleTargeting(alienComponent: alienComponent, alienPosition: alienPosition, velocity: velocity)
         }
     }
-    
+
     func handlePlayerDeath(alienEntity: Entity, alienComponent: AlienComponent, alienPosition: PositionComponent, velocity: VelocityComponent) {
         // HACK: Using the presence of a GunComponent to determine if this is the first time detecting the player has died is not ideal. This is a temporary solution.
         if let _ = alienEntity[GunComponent.self] {

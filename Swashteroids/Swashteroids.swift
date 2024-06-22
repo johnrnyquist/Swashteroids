@@ -115,7 +115,25 @@ final class Swashteroids: NSObject {
                                                       playingTransition: transition,
                                                       gameOverTransition: gameOverTransition),
                      priority: .preUpdate)
+                // update
+                .add(system: PickTargetSystem(), priority: .update)
+                .add(system: ReactionTimeSystem(), priority: .update)
+                .add(system: ReactSystem(), priority: .update)
+                .add(system: ExitScreenSystem(), priority: .update)
+//                .add(system: AlienSoldierSystem(), priority: .update)
+                .add(system: AlienWorkerSystem(), priority: .update)
+                .add(system: AlienFiringSystem(torpedoCreator: torpedoCreator, gameSize: gameSize), priority: .update)
+                .add(system: FiringSystem(torpedoCreator: torpedoCreator), priority: .update)
+                .add(system: TorpedoAgeSystem(), priority: .update)
+                .add(system: DeathThroesSystem(), priority: .update)
+                .add(system: HyperspaceJumpSystem(engine: engine), priority: .update)
+                .add(system: NacellesSystem(), priority: .update)
+                .add(system: HudSystem(powerUpCreator: powerUpCreator), priority: .update)
+                .add(system: SplitAsteroidSystem(asteroidCreator: asteroidCreator,
+                                                 treasureCreator: treasureCreator),
+                     priority: .update)
                 // move
+                .add(system: MoveToTargetSystem(), priority: .move)
                 .add(system: AccelerometerSystem(), priority: .move)
                 .add(system: FlipSystem(), priority: .move)
                 .add(system: LeftSystem(), priority: .move)
@@ -130,19 +148,6 @@ final class Swashteroids: NSObject {
                      priority: .resolveCollisions)
                 // animate
                 .add(system: AnimationSystem(), priority: .animate)
-                // update
-                .add(system: AlienSoldierSystem(), priority: .update)
-                .add(system: AlienWorkerSystem(), priority: .update)
-                .add(system: AlienFiringSystem(torpedoCreator: torpedoCreator, gameSize: gameSize), priority: .update)
-                .add(system: FiringSystem(torpedoCreator: torpedoCreator), priority: .update)
-                .add(system: TorpedoAgeSystem(), priority: .update)
-                .add(system: DeathThroesSystem(), priority: .update)
-                .add(system: HyperspaceJumpSystem(engine: engine), priority: .update)
-                .add(system: NacellesSystem(), priority: .update)
-                .add(system: HudSystem(powerUpCreator: powerUpCreator), priority: .update)
-                .add(system: SplitAsteroidSystem(asteroidCreator: asteroidCreator,
-                                                 treasureCreator: treasureCreator),
-                     priority: .update)
                 // render
                 .add(system: AudioSystem(soundPlayer: soundPlayer), priority: .render)
                 .add(system: RepeatingAudioSystem(), priority: .render)

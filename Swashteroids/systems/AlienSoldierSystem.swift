@@ -12,6 +12,7 @@ import Swash
 import Foundation
 import UIKit
 
+// TODO: Remove once I no longer need for reference
 class AlienSoldierSystem: AlienSystem {
     var alienSoldierNodes: NodeList?
     var asteroidNodes: NodeList?
