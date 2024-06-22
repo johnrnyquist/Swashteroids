@@ -23,10 +23,6 @@ class DistanceComponent: Component {
 
 // TODO: This system could be split into two systems, one for finding a target and one for moving toward it.
 class AlienSystem: System {
-    func pickTarget(alienComponent: AlienComponent, position: PositionComponent) {
-        preconditionFailure("\(#function) must be overridden in \(self)")
-    }
-
     func findClosestObject(to point: CGPoint, in entities: [Entity]) -> Entity {
         // I could change map to a filter but it really is an error if this was called with an entity that did not have a PositionComponent
         findClosestEntity(to: point, in: entities.map { entity in
@@ -163,7 +159,7 @@ class AlienWorkerSystem: AlienSystem {
             alienComponent.timeSinceLastReaction = 0
         }
     }
-    
+
     func handlePlayerDeath(alienEntity: Entity, alienComponent: AlienComponent, alienPosition: PositionComponent, velocity: VelocityComponent) {
         // HACK: Using the presence of a GunComponent to determine if this is the first time detecting the player has died is not ideal. This is a temporary solution.
         if let _ = alienEntity[GunComponent.self] {
@@ -190,12 +186,12 @@ class AlienWorkerSystem: AlienSystem {
         guard alienEntity[GunComponent.self] != nil
         else { return }
         alienEntity.remove(componentClass: GunComponent.self)
-        alienPosition.rotationRadians = alienComponent.endDestination.x > 0 ? 0 : CGFloat.pi
-        velocity.linearVelocity = CGPoint(x: (alienComponent.endDestination.x > 0 ? velocity.exit : -velocity.exit), y: 0)
+        alienPosition.rotationRadians = alienComponent.destinationEnd.x > 0 ? 0 : CGFloat.pi
+        velocity.linearVelocity = CGPoint(x: (alienComponent.destinationEnd.x > 0 ? velocity.exit : -velocity.exit), y: 0)
     }
 
     func removeIfOffscreen(alienEntity: Entity, alienComponent: AlienComponent, alienPosition: PositionComponent) {
-        if hasReachedDestination(alienPosition.x, alienComponent.endDestination) {
+        if hasReachedDestination(alienPosition.x, alienComponent.destinationEnd) {
             engine?.remove(entity: alienEntity)
         }
     }
@@ -205,11 +201,13 @@ class AlienSoldierSystem: AlienSystem {
     var engine: Engine?
     var alienNodes: NodeList?
     var shipNodes: NodeList?
+    var asteroidNodes: NodeList?
 
     override func addToEngine(engine: Engine) {
         self.engine = engine
         alienNodes = engine.getNodeList(nodeClassType: AlienSoldierNode.self)
         shipNodes = engine.getNodeList(nodeClassType: ShipNode.self)
+        asteroidNodes = engine.getNodeList(nodeClassType: AsteroidCollisionNode.self)
     }
 
     override func update(time: TimeInterval) {
@@ -251,23 +249,35 @@ class AlienSoldierSystem: AlienSystem {
         if !playerAlive,
            alienEntity[GunComponent.self] != nil {
             alienEntity.remove(componentClass: GunComponent.self)
-            alienPosition.rotationRadians = alienComponent.endDestination.x > 0 ? 0 : CGFloat.pi
-            velocity.linearVelocity = CGPoint(x: (alienComponent.endDestination.x > 0 ? velocity.exit : -velocity.exit),
+            alienPosition.rotationRadians = alienComponent.destinationEnd.x > 0 ? 0 : CGFloat.pi
+            velocity.linearVelocity = CGPoint(x: (alienComponent.destinationEnd.x > 0 ? velocity.exit : -velocity.exit),
                                               y: 0)
             return
         }
         //
         // Remove if player is dead and it's off screen
         if !playerAlive,
-           hasReachedDestination(alienPosition.x, alienComponent.endDestination) {
+           hasReachedDestination(alienPosition.x, alienComponent.destinationEnd) {
             engine?.remove(entity: alienEntity)
             return
         }
     }
 
-    override func pickTarget(alienComponent: AlienComponent, position: PositionComponent) {
-        guard alienComponent.targetedEntity == nil else { return }
+    func pickTarget(alienComponent: AlienComponent, position: PositionComponent) {
+        // is there a ship and an asteroid?
         let ship = shipNodes?.head?.entity
-        alienComponent.targetedEntity = ship
+        if let ship,
+           let _ = asteroidNodes?.head?.entity,
+           let closestAsteroid = findClosestEntity(to: position.position, node: asteroidNodes?.head) {
+            // is ship closer than asteroid?
+            let distanceToAsteroid = position.position.distance(from: closestAsteroid[PositionComponent.self]!.position)
+            if distanceToAsteroid < alienComponent.maxTargetableRange / 2.0 {
+                alienComponent.targetedEntity = closestAsteroid
+            } else {
+                alienComponent.targetedEntity = ship
+            }
+        } else {
+            alienComponent.targetedEntity = ship // okay if ship is nil
+        } 
     }
 }

@@ -12,11 +12,11 @@ import Swash
 import SpriteKit
 
 final class AlienFiringSystem: System {
-    private var torpedoCreator: TorpedoCreatorUseCase?
-    private weak var firingNodes: NodeList?
     private let gameRect: CGRect
+    private let torpedoCreator: TorpedoCreatorUseCase?
+    private weak var firingNodes: NodeList?
 
-    init(torpedoCreator: TorpedoCreatorUseCase, gameSize: CGSize) {
+    init(torpedoCreator: TorpedoCreatorUseCase, gameSize: CGSize, scaleManager: ScaleManaging = ScaleManager.shared) {
         self.torpedoCreator = torpedoCreator
         gameRect = CGRect(origin: .zero, size: gameSize)
     }
@@ -33,7 +33,7 @@ final class AlienFiringSystem: System {
         }
     }
 
-    private func updateNode(node: Node, time: TimeInterval) {
+    func updateNode(node: Node, time: TimeInterval) {
         guard let velocity = node[VelocityComponent.self],
               let position = node[PositionComponent.self],
               let gun = node[GunComponent.self],
@@ -48,28 +48,26 @@ final class AlienFiringSystem: System {
         else { return }
         //
         gun.timeSinceLastShot = 0
-        var pos = PositionComponent(x: position.x, y: position.y, z: .asteroids, rotationDegrees: position.rotationDegrees)
-        torpedoCreator?.createTorpedo(gun, pos, velocity)
+        createTorpedo(gun: gun, position: position, velocity: velocity, rotationOffset: 0)
         // At the moment, the alien soldier only fires a total of 3 torpedoes. 
         // The additional 2 are fired at a 30 degree angle to the left and right of the original torpedo.
-        guard let _ = node.entity?[AlienSoldierComponent.self] else { return }
-        pos = PositionComponent(x: position.x,
-                                y: position.y,
-                                z: .asteroids,
-                                rotationDegrees: position.rotationDegrees + 30.0)
-        torpedoCreator?.createTorpedo(gun, pos, velocity)
-        pos = PositionComponent(x: position.x,
-                                y: position.y,
-                                z: .asteroids,
-                                rotationDegrees: position.rotationDegrees - 30.0)
+        guard alien.cast == .soldier else { return }
+        createTorpedo(gun: gun, position: position, velocity: velocity, rotationOffset: 30.0)
+        createTorpedo(gun: gun, position: position, velocity: velocity, rotationOffset: -30.0)
+    }
+
+    func createTorpedo(gun: GunComponent, position: PositionComponent, velocity: VelocityComponent, rotationOffset: CGFloat) {
+        let pos = PositionComponent(x: position.x,
+                                    y: position.y,
+                                    z: .asteroids,
+                                    rotationDegrees: position.rotationDegrees + rotationOffset)
         torpedoCreator?.createTorpedo(gun, pos, velocity)
     }
 
-    private func targetWithinRange(_ alien: AlienComponent, _ position: PositionComponent) -> Bool {
+    func targetWithinRange(_ alien: AlienComponent, _ position: PositionComponent) -> Bool {
         guard let targetPosition = alien.targetedEntity?.find(componentClass: PositionComponent.self) else { return false }
         guard let _ = alien.targetedEntity?.find(componentClass: ShootableComponent.self) else { return false }
         let distance = hypot(targetPosition.x - position.x, targetPosition.y - position.y)
-        print("distance from alien to target: \(distance)")
-        return distance < 300
+        return distance < alien.maxTargetableRange
     }
 }

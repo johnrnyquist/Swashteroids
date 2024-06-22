@@ -36,7 +36,7 @@ final class AlienWorkerSystemTests: XCTestCase {
         engine = Engine()
         system.engine = engine
         // Entity
-        let alienComponent = AlienComponent(reactionTime: 0.4, killScore: 50)
+        let alienComponent = AlienComponent(cast: .worker, reactionTime: 0.4, scoreValue: 50)
         alienComponent.targetedEntity = targetedEntity
         let alienWorkerComponent = AlienWorkerComponent()
         position = PositionComponent(x: 0, y: 0, z: .asteroids, rotationDegrees: 0)

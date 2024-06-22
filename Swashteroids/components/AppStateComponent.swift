@@ -56,8 +56,8 @@ final class AppStateComponent: Component {
     let levelBonus: Int
     let nextShipIncrement: Int
     var alienNextAppearance: TimeInterval = 0.0
-//    var alienAppearanceRateDefault: TimeInterval { 5.0 }
-    var alienAppearanceRateDefault: TimeInterval { randomness.nextDouble(from: 15.0, through: 90.0) }
+    var alienAppearanceRateDefault: TimeInterval { 7.0 }
+//    var alienAppearanceRateDefault: TimeInterval { randomness.nextDouble(from: 15.0, through: 90.0) }
     var numAliensDestroyed: Int
     var numAsteroidsMined: Int
     var numTorpedoesFired: Int

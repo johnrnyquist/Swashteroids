@@ -28,55 +28,57 @@ class AlienCreator: AlienCreatorUseCase {
         guard engine.findEntity(named: .player) != nil else { return }
         let entrance = pickEntrance()
         warningAliens(scene: scene, leftSide: entrance.leftSide)
-        switch totalAliens {
-        case 0...1:
-            createAlienWorker(startDestination: CGPoint(x: entrance.startDestination.x, y: entrance.startDestination.y + 50),
-                              endDestination: entrance.endDestination)
-        case 2...3:
-            switch randomness.nextBool() {
-            case true:
-                createTwoWorkers(entrance: entrance)
-            case false:
-                createAlienWorker(startDestination: CGPoint(x: entrance.startDestination.x,
-                                                            y: entrance.startDestination.y + 50),
-                                  endDestination: entrance.endDestination)
-            }
-        case 4...5:
-            switch randomness.nextInt(from: 1, through: 3) {
-            case 1:
-                createTwoWorkers(entrance: entrance)
-            case 2:
-                createSoldier(entrance: entrance)
-            case 3:
-                createAlienWorker(startDestination: CGPoint(x: entrance.startDestination.x,
-                                                            y: entrance.startDestination.y + 50),
-                                  endDestination: entrance.endDestination)
-            default:
-                break
-            }
-        default:
-            switch randomness.nextInt(from: 1, through: 5) {
-            case 1:
-                createTwoWorkers(entrance: entrance)
-            case 2:
-                createAlienWorker(startDestination: CGPoint(x: entrance.startDestination.x,
-                                                            y: entrance.startDestination.y + 50),
-                                  endDestination: entrance.endDestination)
-            case 3:
-                createSoldier(entrance: entrance)
-            case 4:
-                createAlienWorker(startDestination: CGPoint(x: entrance.startDestination.x,
-                                                            y: entrance.startDestination.y + 50),
-                                  endDestination: entrance.endDestination)
-                createSoldier(entrance: entrance)
-            case 5:
-                createTwoWorkers(entrance: entrance)
-                createSoldier(entrance: entrance)
-            default:
-                break
-            }
-        }
         engine.appStateEntity.add(component: AudioComponent(fileNamed: .alienEntrance, actionKey: "alienEntrance"))
+        createSoldier(entrance: entrance)
+        return
+//        switch totalAliens {
+//        case 0...1:
+//            createAlienWorker(startDestination: CGPoint(x: entrance.startDestination.x, y: entrance.startDestination.y + 50),
+//                              endDestination: entrance.endDestination)
+//        case 2...3:
+//            switch randomness.nextBool() {
+//            case true:
+//                createTwoWorkers(entrance: entrance)
+//            case false:
+//                createAlienWorker(startDestination: CGPoint(x: entrance.startDestination.x,
+//                                                            y: entrance.startDestination.y + 50),
+//                                  endDestination: entrance.endDestination)
+//            }
+//        case 4...5:
+//            switch randomness.nextInt(from: 1, through: 3) {
+//            case 1:
+//                createTwoWorkers(entrance: entrance)
+//            case 2:
+//                createSoldier(entrance: entrance)
+//            case 3:
+//                createAlienWorker(startDestination: CGPoint(x: entrance.startDestination.x,
+//                                                            y: entrance.startDestination.y + 50),
+//                                  endDestination: entrance.endDestination)
+//            default:
+//                break
+//            }
+//        default:
+//            switch randomness.nextInt(from: 1, through: 5) {
+//            case 1:
+//                createTwoWorkers(entrance: entrance)
+//            case 2:
+//                createAlienWorker(startDestination: CGPoint(x: entrance.startDestination.x,
+//                                                            y: entrance.startDestination.y + 50),
+//                                  endDestination: entrance.endDestination)
+//            case 3:
+//                createSoldier(entrance: entrance)
+//            case 4:
+//                createAlienWorker(startDestination: CGPoint(x: entrance.startDestination.x,
+//                                                            y: entrance.startDestination.y + 50),
+//                                  endDestination: entrance.endDestination)
+//                createSoldier(entrance: entrance)
+//            case 5:
+//                createTwoWorkers(entrance: entrance)
+//                createSoldier(entrance: entrance)
+//            default:
+//                break
+//            }
+//        }
     }
 
     func createSoldier(entrance: (startDestination: CGPoint, endDestination: CGPoint, leftSide: Bool)) {
@@ -162,17 +164,17 @@ class AlienCreator: AlienCreatorUseCase {
 //        sprite.physicsBody?.affectedByGravity = false
 //        sprite.physicsBody?.categoryBitMask = alienCategory
 //        sprite.physicsBody?.contactTestBitMask = asteroidCategory | playerCategory | torpedoCategory
-        let workerComponent = AlienComponent(reactionTime: randomness.nextDouble(from: 0.4, through: 0.8), killScore: 50)
-        workerComponent.startDestination = startDestination
-        workerComponent.endDestination = endDestination
+        let workerComponent = AlienComponent(cast: .worker, reactionTime: randomness.nextDouble(from: 0.4, through: 0.8), scoreValue: 50)
+        workerComponent.destinationStart = startDestination
+        workerComponent.destinationEnd = endDestination
         let velocityX = 90.0 + Double(engine.appStateComponent.level) * 5.0 + randomness.nextDouble(from: 0.0, through: 10.0)
         let alienEntity = Entity(named: "\(EntityName.alienWorker)_\(totalAliens)")
         alienEntity
                 .add(component: workerComponent)
                 .add(component: AlienWorkerComponent())
                 .add(component: VelocityComponent(velocityX: velocityX, velocityY: 0, wraps: false, base: velocityX))
-                .add(component: PositionComponent(x: workerComponent.startDestination.x,
-                                                  y: workerComponent.startDestination.y,
+                .add(component: PositionComponent(x: workerComponent.destinationStart.x,
+                                                  y: workerComponent.destinationStart.y,
                                                   z: .asteroids))
                 .add(component: GunComponent(offsetX: sprite.width / 2,
                                              offsetY: 0,
@@ -199,17 +201,17 @@ class AlienCreator: AlienCreatorUseCase {
 //        sprite.physicsBody?.affectedByGravity = false
 //        sprite.physicsBody?.categoryBitMask = alienCategory
 //        sprite.physicsBody?.contactTestBitMask = asteroidCategory | playerCategory | torpedoCategory
-        let soldierComponent = AlienComponent(reactionTime: randomness.nextDouble(from: 0.4, through: 0.8), killScore: 350)
-        soldierComponent.startDestination = startDestination
-        soldierComponent.endDestination = endDestination
+        let soldierComponent = AlienComponent(cast: .soldier, reactionTime: randomness.nextDouble(from: 0.4, through: 0.8), scoreValue: 350)
+        soldierComponent.destinationStart = startDestination
+        soldierComponent.destinationEnd = endDestination
         let velocityX = 120.0 + Double(engine.appStateComponent.level) * 5.0 + randomness.nextDouble(from: 0.0, through: 10.0)
         let alienEntity = Entity(named: "\(EntityName.alienSoldier)_\(totalAliens)")
         alienEntity
                 .add(component: soldierComponent)
                 .add(component: AlienSoldierComponent())
                 .add(component: VelocityComponent(velocityX: velocityX, velocityY: 0, wraps: false, base: velocityX))
-                .add(component: PositionComponent(x: soldierComponent.startDestination.x,
-                                                  y: soldierComponent.startDestination.y,
+                .add(component: PositionComponent(x: soldierComponent.destinationStart.x,
+                                                  y: soldierComponent.destinationStart.y,
                                                   z: .asteroids))
                 .add(component: GunComponent(offsetX: sprite.width / 2,
                                              offsetY: 0,

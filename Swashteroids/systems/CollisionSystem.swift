@@ -129,8 +129,8 @@ class CollisionSystem: System {
         if let gameStateNode = appStateNodes.head,
            let appStateComponent = gameStateNode[AppStateComponent.self],
            torpedoNode[TorpedoComponent.self]?.owner == .player,
-           let killScore = vehicleNode[AlienComponent.self]?.killScore {
-            appStateComponent.score += killScore
+           let scoreValue = vehicleNode[AlienComponent.self]?.scoreValue {
+            appStateComponent.score += scoreValue
             appStateComponent.numHits += 1
         }
     }
