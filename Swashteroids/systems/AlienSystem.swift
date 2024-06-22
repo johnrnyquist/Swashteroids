@@ -218,22 +218,28 @@ class AlienSoldierSystem: AlienSystem {
         }
     }
 
+    var playerAlive: Bool {
+        let shipEntity = shipNodes?.head?.entity
+        return shipEntity != nil && shipEntity?[DeathThroesComponent.self] == nil
+    }
+
+    func isTargetDead(_ entity: Entity?) -> Bool {
+        guard let entity = entity else { return true }
+        return engine?.findEntity(named: entity.name) == nil
+    }
+
     func updateNode(node alienNode: Node, time: TimeInterval) {
         guard let alienPosition = alienNode[PositionComponent.self],
               let velocity = alienNode[VelocityComponent.self],
               let alienComponent = alienNode[AlienComponent.self],
-              alienNode.entity?[DeathThroesComponent.self] == nil,
-              let alienEntity = alienNode.entity
+              let alienEntity = alienNode.entity,
+              alienEntity[DeathThroesComponent.self] == nil
         else { return }
         alienComponent.timeSinceLastReaction += time
         let isTimeToReact = alienComponent.timeSinceLastReaction >= alienComponent.reactionTime
-        let shipEntity = shipNodes?.head?.entity
-        let playerAlive = shipEntity != nil && shipEntity?[DeathThroesComponent.self] == nil
         //
         // Does the alien have a target? If so, is the target still alive?
-        if let _ = alienComponent.targetedEntity,
-           let name = alienComponent.targetedEntity?.name,
-           engine?.findEntity(named: name) == nil {
+        if isTargetDead(alienComponent.targetedEntity) {
             alienComponent.targetedEntity = nil
         }
         //
@@ -278,6 +284,6 @@ class AlienSoldierSystem: AlienSystem {
             }
         } else {
             alienComponent.targetedEntity = ship // okay if ship is nil
-        } 
+        }
     }
 }
