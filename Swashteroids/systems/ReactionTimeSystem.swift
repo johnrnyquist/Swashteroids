@@ -11,6 +11,31 @@
 import Foundation
 import Swash
 
+class ReactionTimeComponent: Component {
+    var reactionSpeed: TimeInterval
+    var timeSinceLastReaction: TimeInterval = 0.0
+    
+    // MARK: - Computed Properties
+    var canReact: Bool { timeSinceLastReaction >= reactionSpeed }
+
+    init(reactionSpeed: Double) {
+        self.reactionSpeed = reactionSpeed
+    }
+
+    func reacted() {
+        timeSinceLastReaction = 0
+    }
+}
+
+class ReactionTimeNode: Node {
+    required init() {
+        super.init()
+        components = [
+            ReactionTimeComponent.name: nil_component,
+        ]
+    }
+}
+
 final class ReactionTimeSystem: ListIteratingSystem {
     init() {
         super.init(nodeClass: ReactionTimeNode.self)
@@ -21,35 +46,9 @@ final class ReactionTimeSystem: ListIteratingSystem {
         guard let component = node[ReactionTimeComponent.self],
               let entity = node.entity
         else { return }
-        updateAlienReactionTime(component: component, time: time)
-        if component.timeSinceLastReaction == 0 {
-            entity.add(component: ReactComponent())
-        }
-    }
-
-    func updateAlienReactionTime(component: ReactionTimeComponent, time: TimeInterval) {
         component.timeSinceLastReaction += time
-        if component.timeSinceLastReaction >= component.reactionTime {
-            component.timeSinceLastReaction = 0
+        if component.canReact {
+            entity.add(component: MakeDecisionCompnent())
         }
-    }
-}
-
-
-class ReactionTimeComponent: Component {
-    var reactionTime: TimeInterval
-    var timeSinceLastReaction: TimeInterval = 0.0
-
-    init(reactionTime: Double) {
-        self.reactionTime = reactionTime
-    }
-}
-
-class ReactionTimeNode: Node {
-    required init() {
-        super.init()
-        components = [
-            ReactionTimeComponent.name: nil_component,
-        ]
     }
 }

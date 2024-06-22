@@ -160,7 +160,7 @@
 		931395AF8EBAE3884AD6D062 /* MoveToTargetSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139DCC274CF7D0D8BB365E /* MoveToTargetSystem.swift */; };
 		9313961BE93AEE536D58C27B /* AudioSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931390BDEBA443104F781428 /* AudioSystemTests.swift */; };
 		931396A2070DB4DA286B21D7 /* RightNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139FDF0C76049256DAE28C /* RightNode.swift */; };
-		931396B7DDF80F066196BA15 /* ReactSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931392EBF79FD204C1174E11 /* ReactSystem.swift */; };
+		931396B7DDF80F066196BA15 /* MakeDecisionSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931392EBF79FD204C1174E11 /* MakeDecisionSystem.swift */; };
 		931397073B11911E75B9BFA0 /* ShipQuadrantsControlsCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931395F838B2866767296F25 /* ShipQuadrantsControlsCreator.swift */; };
 		931397107B66C99AB0E78548 /* UseCases_Creator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931392DF56F435244258EDD3 /* UseCases_Creator.swift */; };
 		93139767DADE3701C7A4DE57 /* GameScene+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139F9D5B67C687239DF403 /* GameScene+extensions.swift */; };
@@ -192,6 +192,7 @@
 		93139BD1EDA3D1E9AEA9C1D4 /* ThrustSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931390DB9E3BECA50B2D05CF /* ThrustSystem.swift */; };
 		93139BEFEEFBB1E49B13DF7E /* Transition+Start.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139DD21263C6EFB274FB5B /* Transition+Start.swift */; };
 		93139C04A4957E1C0B521C9F /* AlienSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139A5381F70282D735E836 /* AlienSystem.swift */; };
+		93139C20B2FFD62FCF1E45B6 /* AlienWorkerTargetNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313950AEA94DBF1217EA852 /* AlienWorkerTargetNode.swift */; };
 		93139C6BCF2ED1CDD8504B1C /* TorpedoCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139A97E15CCF640A73EC56 /* TorpedoCreator.swift */; };
 		93139C71990002FF2B995C07 /* ShipButtonControlsCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931392CF258F1370304A48B7 /* ShipButtonControlsCreator.swift */; };
 		93139CB863A15BF4B1274D41 /* ShipCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139F43221229D3FBAC46D9 /* ShipCreator.swift */; };
@@ -373,7 +374,7 @@
 		931392B2F2F0077756DDF207 /* PauseAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PauseAlert.swift; sourceTree = "<group>"; };
 		931392CF258F1370304A48B7 /* ShipButtonControlsCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipButtonControlsCreator.swift; sourceTree = "<group>"; };
 		931392DF56F435244258EDD3 /* UseCases_Creator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UseCases_Creator.swift; sourceTree = "<group>"; };
-		931392EBF79FD204C1174E11 /* ReactSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReactSystem.swift; sourceTree = "<group>"; };
+		931392EBF79FD204C1174E11 /* MakeDecisionSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeDecisionSystem.swift; sourceTree = "<group>"; };
 		93139323EC193D378DF26BB7 /* RightComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightComponent.swift; sourceTree = "<group>"; };
 		9313938353DF3012CCAE66D1 /* Transition+Playing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Transition+Playing.swift"; sourceTree = "<group>"; };
 		931393DD38A84CF2E81FCCC1 /* AlienWorkerSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlienWorkerSystem.swift; sourceTree = "<group>"; };
@@ -384,6 +385,7 @@
 		931394841D0D764FD9DC0CE8 /* AlienFiringSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlienFiringSystem.swift; sourceTree = "<group>"; };
 		93139489970BEA17AF74C95E /* TouchNodes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchNodes.swift; sourceTree = "<group>"; };
 		931394D1D0B636772EE1DFF7 /* String+EntityNames.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+EntityNames.swift"; sourceTree = "<group>"; };
+		9313950AEA94DBF1217EA852 /* AlienWorkerTargetNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlienWorkerTargetNode.swift; sourceTree = "<group>"; };
 		93139548F1C806045B42CEE6 /* UseCases_Transition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UseCases_Transition.swift; sourceTree = "<group>"; };
 		9313954C85643D9FEA3B568D /* GameControllerComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameControllerComponent.swift; sourceTree = "<group>"; };
 		9313959F4B35EA9D7843BD7A /* Randomness.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Randomness.swift; sourceTree = "<group>"; };
@@ -479,7 +481,7 @@
 				93139DCC274CF7D0D8BB365E /* MoveToTargetSystem.swift */,
 				9313984EED9DBB7390E4BFF1 /* PickTargetSystem.swift */,
 				93139A6E99AFA9F956DD8A0A /* ReactionTimeSystem.swift */,
-				931392EBF79FD204C1174E11 /* ReactSystem.swift */,
+				931392EBF79FD204C1174E11 /* MakeDecisionSystem.swift */,
 			);
 			name = alien_specific;
 			sourceTree = "<group>";
@@ -540,39 +542,40 @@
 			isa = PBXGroup;
 			children = (
 				8DD26DC82B22D7E300DA5BC3 /* AccelerometerNode.swift */,
+				8D0A0D312B4E01C0007E9898 /* AlienCollisionNode.swift */,
+				9313995C9360F53AD9D2BB65 /* AlienFiringNode.swift */,
+				8D0A0D2F2B4E016A007E9898 /* AlienSoldierNode.swift */,
+				9313950AEA94DBF1217EA852 /* AlienWorkerTargetNode.swift */,
 				8D23C15A2B02C59C00F7D878 /* AnimationNode.swift */,
 				8D23C1622B02C59C00F7D878 /* AppStateNode.swift */,
 				8D23C1612B02C59C00F7D878 /* AsteroidCollisionNode.swift */,
 				8D23C1552B02C59C00F7D878 /* AudioNode.swift */,
 				8D23C1572B02C59C00F7D878 /* DeathThroesNode.swift */,
+				8D23C1632B02C59C00F7D878 /* FiringNode.swift */,
 				93139CC64C9CFC7E61D7DCFE /* FlipNode.swift */,
 				8D6A0E022B0AB84B00F2E137 /* GameOverNode.swift */,
-				8D23C1632B02C59C00F7D878 /* FiringNode.swift */,
+				93139E79623BA0A03F3FDF2B /* GunNode.swift */,
 				8D23C15B2B02C59C00F7D878 /* GunPowerUpNode.swift */,
 				8D23C15E2B02C59C00F7D878 /* HudNode.swift */,
 				8D9DEF652B059EC400064B01 /* HyperspaceJumpNode.swift */,
+				93139A9A62746DE5FA459C2B /* HyperspacePowerUpNode.swift */,
 				93139D029684C918FEDD3DC1 /* LeftNode.swift */,
 				8D23C1602B02C59C00F7D878 /* MovementNode.swift */,
-				8D23C15D2B02C59C00F7D878 /* TorpedoCollisionNode.swift */,
 				8D23C1532B02C59C00F7D878 /* RenderNode.swift */,
 				9313961CB4F5B39D06FE5B0F /* RepeatingAudioNode.swift */,
 				93139FDF0C76049256DAE28C /* RightNode.swift */,
 				8D23C1522B02C59C00F7D878 /* ShipCollisionNode.swift */,
-				8D0A0D312B4E01C0007E9898 /* AlienCollisionNode.swift */,
 				8D41E2122B1E65950031AF54 /* ShipControlsStateNode.swift */,
 				8D23C15C2B02C59C00F7D878 /* ShipEngineNode.swift */,
 				8D23C1542B02C59C00F7D878 /* ShipNode.swift */,
+				8DE66F122C14CA5000ECEE96 /* SplitAsteroidNode.swift */,
 				8D23C1592B02C59C00F7D878 /* StartNode.swift */,
 				9313988C064025FB4880FF1F /* ThrustNode.swift */,
 				8D23C1562B02C59C00F7D878 /* TorpedoAgeNode.swift */,
+				8D23C15D2B02C59C00F7D878 /* TorpedoCollisionNode.swift */,
 				93139489970BEA17AF74C95E /* TouchNodes.swift */,
 				8D41E2142B1E66820031AF54 /* TransitionAppStateNode.swift */,
-				8D0A0D2F2B4E016A007E9898 /* AlienSoldierNode.swift */,
-				93139A9A62746DE5FA459C2B /* HyperspacePowerUpNode.swift */,
 				931390993573DD02D04EE52C /* TreasureCollisionNode.swift */,
-				9313995C9360F53AD9D2BB65 /* AlienFiringNode.swift */,
-				93139E79623BA0A03F3FDF2B /* GunNode.swift */,
-				8DE66F122C14CA5000ECEE96 /* SplitAsteroidNode.swift */,
 			);
 			path = nodes;
 			sourceTree = "<group>";
@@ -1090,7 +1093,7 @@
 				93139D342AB9B2EF7FAB1C6C /* Transition+Playing.swift in Sources */,
 				93139BEFEEFBB1E49B13DF7E /* Transition+Start.swift in Sources */,
 				9313939131825EF42A421FE2 /* UseCases_Transition.swift in Sources */,
-				931396B7DDF80F066196BA15 /* ReactSystem.swift in Sources */,
+				931396B7DDF80F066196BA15 /* MakeDecisionSystem.swift in Sources */,
 				931399014B035D5448AE2D4F /* ReactionTimeSystem.swift in Sources */,
 				93139EB5B4D0B1D42C9BA6C2 /* PickTargetSystem.swift in Sources */,
 				931395AF8EBAE3884AD6D062 /* MoveToTargetSystem.swift in Sources */,
@@ -1099,6 +1102,7 @@
 				931392E31BF492A226DA4CD0 /* AlienSoldierSystem.swift in Sources */,
 				93139C04A4957E1C0B521C9F /* AlienSystem.swift in Sources */,
 				9313916BECA9EF0832A96189 /* AlienFiringSystem.swift in Sources */,
+				93139C20B2FFD62FCF1E45B6 /* AlienWorkerTargetNode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

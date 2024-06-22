@@ -11,20 +11,30 @@
 import Foundation
 import Swash
 
-// MARK: - MoveToTarget
-class TargetComponent: Component {
-    weak var targetedEntity: Entity?
+/// Added to entity to target in its own fashion
+class MoveToTargetComponent: Component {
+    weak var targetedEntity: Entity!
+    var targetAlive: Bool {
+        if let targetedEntity = targetedEntity {
+            return !targetedEntity.has(componentClass: DeathThroesComponent.self)
+        }
+        return false
+    }
+    var position: CGPoint? {
+        targetedEntity?[PositionComponent.self]?.position
+    }
 
     init(target targetedEntity: Entity) {
         self.targetedEntity = targetedEntity
     }
 }
 
+// TODO: Right now this is an alien-only class because of the AlienComponent
 class MoveToTargetNode: Node {
     required init() {
         super.init()
         components = [
-            TargetComponent.name: nil_component,
+            MoveToTargetComponent.name: nil_component,
             PositionComponent.name: nil_component,
             VelocityComponent.name: nil_component,
             AlienComponent.name: nil_component,
@@ -33,32 +43,48 @@ class MoveToTargetNode: Node {
 }
 
 final class MoveToTargetSystem: ListIteratingSystem {
+    var shipNodes: NodeList!
+
     init() {
         super.init(nodeClass: MoveToTargetNode.self)
         nodeUpdateFunction = updateNode
     }
 
+    override func addToEngine(engine: Engine) {
+        super.addToEngine(engine: engine)
+        shipNodes = engine.getNodeList(nodeClassType: ShipNode.self)
+    }
+
+    var playerDead: Bool {
+        shipNodes?.head?.entity == nil || shipNodes?.head?.entity?.has(componentClass: DeathThroesComponent.self) == true
+    }
+
     func updateNode(node: Node, time: TimeInterval) {
-        guard let targetComponent = node[TargetComponent.self],
+        guard let targetComponent = node[MoveToTargetComponent.self],
               let positionComponent = node[PositionComponent.self],
               let velocityComponent = node[VelocityComponent.self],
               let alienComponent = node[AlienComponent.self],
               let entity = node.entity
         else { return }
-        if let targetedEntity = targetComponent.targetedEntity,
-           !targetedEntity.has(componentClass: DeathThroesComponent.self) {
-            moveTowardTarget(positionComponent, velocityComponent, targetedEntity[PositionComponent.self]!.position)
-        } else {
+        if playerDead {
             positionComponent.rotationRadians = alienComponent.destinationEnd.x > 0 ? 0 : CGFloat.pi
-            velocityComponent.linearVelocity = CGPoint(x: (alienComponent.destinationEnd.x > 0 ? velocityComponent.exit : -velocityComponent.exit), y: 0)
+            velocityComponent.linearVelocity = CGPoint(x: (alienComponent.destinationEnd
+                                                                         .x > 0 ? velocityComponent.exit : -velocityComponent.exit),
+                                                       y: 0)
+            entity.remove(componentClass: GunComponent.self)
+            entity.remove(componentClass: MoveToTargetComponent.self)
             entity.add(component: ExitScreenComponent())
+            return
+        }
+        if let position = targetComponent.position {
+            moveTowardTarget(positionComponent, velocityComponent, position)
         }
     }
 
     // Aliens move differently from the player. They can make sharp moves when rotating.
-    func moveTowardTarget(_ position: PositionComponent, _ velocity: VelocityComponent, _ target: CGPoint) {
-        let deltaX = position.x - target.x
-        let deltaY = position.y - target.y
+    func moveTowardTarget(_ position: PositionComponent, _ velocity: VelocityComponent, _ targetLoc: CGPoint) {
+        let deltaX = position.x - targetLoc.x
+        let deltaY = position.y - targetLoc.y
         let angleInRadians = atan2(deltaY, deltaX)
         // Interpolate between the current rotation and the target rotation
 //        let interpolationFactor = CGFloat(0.8) // Adjust this value to change the size of rotation

@@ -116,12 +116,13 @@ final class Swashteroids: NSObject {
                                                       gameOverTransition: gameOverTransition),
                      priority: .preUpdate)
                 // update
-                .add(system: PickTargetSystem(), priority: .update)
                 .add(system: ReactionTimeSystem(), priority: .update)
-                .add(system: ReactSystem(), priority: .update)
+                .add(system: MakeDecisionSystem(), priority: .update)
+                .add(system: PickTargetSystem(), priority: .update)
+                .add(system: MoveToTargetSystem(), priority: .update)
                 .add(system: ExitScreenSystem(), priority: .update)
 //                .add(system: AlienSoldierSystem(), priority: .update)
-                .add(system: AlienWorkerSystem(), priority: .update)
+//                .add(system: AlienWorkerSystem(), priority: .update)
                 .add(system: AlienFiringSystem(torpedoCreator: torpedoCreator, gameSize: gameSize), priority: .update)
                 .add(system: FiringSystem(torpedoCreator: torpedoCreator), priority: .update)
                 .add(system: TorpedoAgeSystem(), priority: .update)
@@ -133,7 +134,6 @@ final class Swashteroids: NSObject {
                                                  treasureCreator: treasureCreator),
                      priority: .update)
                 // move
-                .add(system: MoveToTargetSystem(), priority: .move)
                 .add(system: AccelerometerSystem(), priority: .move)
                 .add(system: FlipSystem(), priority: .move)
                 .add(system: LeftSystem(), priority: .move)

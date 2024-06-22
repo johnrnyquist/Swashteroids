@@ -36,13 +36,14 @@ final class AlienFiringSystem: System {
     func updateNode(node: Node, time: TimeInterval) {
         guard let gun = node[GunComponent.self] else { return }
         gun.timeSinceLastShot += time
+        //
         guard let velocity = node[VelocityComponent.self],
               let position = node[PositionComponent.self],
               let _ = node[AlienFiringComponent.self],
               let alien = node[AlienComponent.self],
-              let targetComponent = node[TargetComponent.self],
+              let targetComponent = node[MoveToTargetComponent.self],
               let targetedEntity = targetComponent.targetedEntity,
-              targetedEntity.has(componentClass: DeathThroesComponent.self) == false
+              targetComponent.targetAlive
         else { return }
         //
         guard gun.timeSinceLastShot >= gun.minimumShotInterval, 

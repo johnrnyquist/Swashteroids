@@ -10,26 +10,26 @@
 
 import Swash
 
-final class AlienSoldierNode: Node {
-    required init() {
-        super.init()
-        components = [
-            AlienSoldierComponent.name: nil_component,
-            AlienComponent.name: nil_component,
-            PositionComponent.name: nil_component,
-            VelocityComponent.name: nil_component,
-        ]
-    }
-}
-
-final class AlienWorkerNode: Node {
-    required init() {
-        super.init()
-        components = [
-            AlienWorkerComponent.name: nil_component,
-            AlienComponent.name: nil_component,
-            PositionComponent.name: nil_component,
-            VelocityComponent.name: nil_component,
-        ]
-    }
-}
+//final class AlienSoldierNode: Node {
+//    required init() {
+//        super.init()
+//        components = [
+//            AlienSoldierComponent.name: nil_component,
+//            AlienComponent.name: nil_component,
+//            PositionComponent.name: nil_component,
+//            VelocityComponent.name: nil_component,
+//        ]
+//    }
+//}
+//
+//final class AlienWorkerNode: Node {
+//    required init() {
+//        super.init()
+//        components = [
+//            AlienWorkerComponent.name: nil_component,
+//            AlienComponent.name: nil_component,
+//            PositionComponent.name: nil_component,
+//            VelocityComponent.name: nil_component,
+//        ]
+//    }
+//}

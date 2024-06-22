@@ -10,16 +10,13 @@
 
 import Swash
 
-final class AlienFiringNode: Node {
+final class AlienWorkerTargetNode: Node {
     required init() {
         super.init()
         components = [
-            AlienComponent.name: nil_component,
-            AlienFiringComponent.name: nil_component,
-            GunComponent.name: nil_component,
+            AlienWorkerTargetComponent.name: nil_component,
             PositionComponent.name: nil_component,
-            VelocityComponent.name: nil_component,
-            MoveToTargetComponent.name: nil_component,
         ]
     }
 }
+
