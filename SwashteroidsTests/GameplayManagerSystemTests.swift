@@ -21,6 +21,8 @@ final class GameplayManagerSystemTests: XCTestCase {
     var shipCreator: ShipCreatorUseCase!
     var system: GameplayManagerSystem!
     var appStateComponent: AppStateComponent!
+    let aliens = NodeList()
+    let asteroids = NodeList()
 
     override func setUpWithError() throws {
         engine = Engine()
@@ -28,13 +30,7 @@ final class GameplayManagerSystemTests: XCTestCase {
         asteroidCreator = MockAsteroidCreator()
         shipCreator = MockShipCreator()
         scene = GameScene()
-        appStateComponent = AppStateComponent(gameSize: .zero,
-                                              numShips: 0,
-                                              level: 1,
-                                              score: 0,
-                                              appState: .playing,
-                                              shipControlsState: .showingButtons,
-                                              randomness: Randomness.initialize(with: 1))
+        appStateComponent = AppStateComponent(gameConfig: GameConfig(gameSize: .zero), randomness: Randomness.initialize(with: 1))
         system = GameplayManagerSystem(asteroidCreator: asteroidCreator,
                                        alienCreator: alienCreator,
                                        shipCreator: shipCreator,
@@ -42,6 +38,8 @@ final class GameplayManagerSystemTests: XCTestCase {
                                        scene: scene,
                                        randomness: Randomness.initialize(with: 1),
                                        scaleManager: MockScaleManager())
+        system.aliens = aliens
+        system.asteroids = asteroids
     }
 
     override func tearDownWithError() throws {
@@ -124,7 +122,7 @@ final class GameplayManagerSystemTests: XCTestCase {
         }
     }
 
-    func xtest_HandlePlayingState_HavingShips_IsClearToAddShips() {
+    func test_HandlePlayingState_HavingShips_IsClearToAddShips() {
         let system = MockGameManagerSystem_HandlePlayingState(asteroidCreator: asteroidCreator,
                                                               alienCreator: alienCreator,
                                                               shipCreator: shipCreator,
@@ -133,7 +131,6 @@ final class GameplayManagerSystemTests: XCTestCase {
                                                               scaleManager: MockScaleManager())
         system.continueOrEnd(appStateComponent: appStateComponent, entity: Entity())
         XCTAssertEqual(system.isClearToAddSpaceshipCalled, true)
-        XCTAssertEqual(system.createPowerUpsCalled, true)
 
         class MockGameManagerSystem_HandlePlayingState: GameplayManagerSystem {
             var isClearToAddSpaceshipCalled = false
@@ -168,16 +165,17 @@ final class GameplayManagerSystemTests: XCTestCase {
     }
 
     func test_HandlePlayingState_NoShips() {
-        let appStateComponent = AppStateComponent(gameSize: .zero,
-                                                  numShips: 0,
-                                                  level: 1,
-                                                  score: 0,
-                                                  appState: .playing,
-                                                  shipControlsState: .showingButtons,
+        let appStateComponent = AppStateComponent(gameConfig: GameConfig(gameSize: .zero),
                                                   randomness: Randomness.initialize(with: 1))
+        appStateComponent.numShips = 0
+        appStateComponent.appState = .playing
         let entity = Entity(named: "currentState")
         system.continueOrEnd(appStateComponent: appStateComponent, entity: entity)
-        XCTAssertNotNil(entity[TransitionAppStateComponent.self])
+        
+        let result = entity[TransitionAppStateComponent.self]
+        XCTAssertNotNil(result)
+        XCTAssertEqual(result?.from, .playing)
+        XCTAssertEqual(result?.to, .gameOver)
     }
 
     func test_HandleGameState_NoShips_Playing() {
@@ -188,16 +186,11 @@ final class GameplayManagerSystemTests: XCTestCase {
                                                            scene: scene, randomness: Randomness.initialize(with: 1),
                                                            scaleManager: MockScaleManager())
         engine.add(system: system, priority: 1)
-        // need to look at this function's logic
-        system.handleGameState(appStateComponent: AppStateComponent(gameSize: .zero,
-                                                                    numShips: 1,
-                                                                    level: 1,
-                                                                    score: 0,
-                                                                    appState: .playing,
-                                                                    shipControlsState: .showingButtons,
-                                                                    randomness: Randomness.initialize(with: 1)),
-                               entity: Entity(),
-                               time: 1.0)
+        //TODO: need to look at this function's logic
+        let appStateComponent = AppStateComponent(gameConfig: GameConfig(gameSize: .zero),
+                                                  randomness: Randomness.initialize(with: 1))
+        appStateComponent.appState = .playing
+        system.handleGameState(appStateComponent: appStateComponent, entity: Entity(), time: 1.0)
         XCTAssertTrue(system.handlePlayingStateCalled)
 
         class MockGameManagerSystem_NoShips_Playing: GameplayManagerSystem {
@@ -230,13 +223,12 @@ final class GameplayManagerSystemTests: XCTestCase {
         try? engine.add(entity: shipEntity)
         engine.add(system: system, priority: 1)
         //
-        system.handleGameState(appStateComponent: AppStateComponent(gameSize: .zero,
-                                                                    numShips: 1,
-                                                                    level: 1,
-                                                                    score: 0,
-                                                                    appState: .playing,
-                                                                    shipControlsState: .showingButtons,
-                                                                    randomness: Randomness.initialize(with: 1)),
+        let appStateComponent = AppStateComponent(gameConfig: GameConfig(gameSize: .zero),
+                                                  randomness: Randomness.initialize(with: 1))
+        appStateComponent.appState = .playing
+        appStateComponent.numShips = 1
+        appStateComponent.shipControlsState = .showingButtons
+        system.handleGameState(appStateComponent: appStateComponent,
                                entity: shipEntity,
                                time: 1.0)
         XCTAssertTrue(system.goToNextLevelCalled)

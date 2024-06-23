@@ -19,13 +19,7 @@ final class AlienCreatorUseCaseTests: XCTestCase {
     override func setUpWithError() throws {
         engine = Engine()
         let appState = Entity(named: .appState)
-        appState.add(component: AppStateComponent(gameSize: .zero,
-                                                  numShips: 0,
-                                                  level: 1,
-                                                  score: 0,
-                                                  appState: .playing,
-                                                  shipControlsState: .showingButtons,
-                                                  randomness: Randomness.initialize(with: 1)))
+        appState.add(component: AppStateComponent(gameConfig: GameConfig(gameSize: .zero)))
         try! engine.add(entity: appState)
     }
 

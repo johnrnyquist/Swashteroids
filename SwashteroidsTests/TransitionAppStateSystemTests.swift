@@ -22,8 +22,8 @@ final class TransitionAppStateSystemTests: XCTestCase {
         engine = Engine()
         let creator = MockQuadrantsButtonToggleCreator()
         system = TransitionAppStateSystem(startTransition: StartTransition(engine: engine, generator: nil),
-                                          infoViewsTransition: InfoViewsTransition(engine: engine, generator: nil), 
-                                          playingTransition: PlayingTransition(hudCreator: MockHudCreator(), 
+                                          infoViewsTransition: InfoViewsTransition(engine: engine, generator: nil),
+                                          playingTransition: PlayingTransition(hudCreator: MockHudCreator(),
                                                                                toggleShipControlsCreator: creator,
                                                                                shipControlQuadrantsCreator: creator,
                                                                                shipButtonControlsCreator: creator),
@@ -43,18 +43,17 @@ final class TransitionAppStateSystemTests: XCTestCase {
 
     func test_UpdateNodeFromStartToInfoNoButtons() throws {
         let node = TransitionAppStateNode()
-        let appStateComponent = AppStateComponent(gameSize: size,
-                                                  numShips: 0,
-                                                  level: 0,
-                                                  score: 0,
-                                                  appState: .start,
-                                                  shipControlsState: .hidingButtons,
+        let appStateComponent = AppStateComponent(gameConfig: GameConfig(gameSize: .zero),
                                                   randomness: Randomness.initialize(with: 1))
+        appStateComponent.numShips = 0
+        appStateComponent.level = 0
+        appStateComponent.score = 0
+        appStateComponent.shipControlsState = .hidingButtons
         let transitionComponent = TransitionAppStateComponent(from: .start, to: .infoNoButtons)
         node.components[AppStateComponent.name] = appStateComponent
         node.components[TransitionAppStateComponent.name] = transitionComponent
         let appState = Entity(named: .appState)
-            .add(component: AppStateComponent(gameSize: .zero, numShips: 0, level: 0, score: 0, appState: .start, shipControlsState: .hidingButtons, randomness: Randomness.initialize(with: 1)))
+                .add(component: appStateComponent)
         engine.replace(entity: appState)
         // SUT
         system.updateNode(node: node, time: 1)
@@ -64,18 +63,16 @@ final class TransitionAppStateSystemTests: XCTestCase {
 
     func test_UpdateNodeFromStartToInfoButtons() throws {
         let node = TransitionAppStateNode()
-        let appStateComponent = AppStateComponent(gameSize: size,
-                                                  numShips: 0,
-                                                  level: 0,
-                                                  score: 0,
-                                                  appState: .start,
-                                                  shipControlsState: .showingButtons,
-                                                  randomness: Randomness.initialize(with: 1))
+        let appStateComponent = AppStateComponent(gameConfig: GameConfig(gameSize: .zero), randomness: Randomness.initialize(with: 1))
+        appStateComponent.numShips = 0
+        appStateComponent.level = 0
+        appStateComponent.score = 0
+
         let transitionComponent = TransitionAppStateComponent(from: .start, to: .infoButtons)
         node.components[AppStateComponent.name] = appStateComponent
         node.components[TransitionAppStateComponent.name] = transitionComponent
         let appState = Entity(named: .appState)
-            .add(component: AppStateComponent(gameSize: .zero, numShips: 0, level: 0, score: 0, appState: .start, shipControlsState: .hidingButtons, randomness: Randomness.initialize(with: 1)))
+                .add(component: appStateComponent)
         engine.replace(entity: appState)
         // SUT
         system.updateNode(node: node, time: 1)
@@ -85,13 +82,11 @@ final class TransitionAppStateSystemTests: XCTestCase {
 
     func test_UpdateNodeFromInfoButtonsToPlaying() throws {
         let node = TransitionAppStateNode()
-        let appStateComponent = AppStateComponent(gameSize: size,
-                                                  numShips: 0,
-                                                  level: 0,
-                                                  score: 0,
-                                                  appState: .infoButtons,
-                                                  shipControlsState: .showingButtons,
-                                                  randomness: Randomness.initialize(with: 1))
+        let appStateComponent = AppStateComponent(gameConfig: GameConfig(gameSize: .zero), randomness: Randomness.initialize(with: 1))
+        appStateComponent.numShips = 0
+        appStateComponent.level = 0
+        appStateComponent.score = 0
+        appStateComponent.appState = .infoButtons
         let transitionComponent = TransitionAppStateComponent(from: .infoButtons, to: .playing)
         node.components[AppStateComponent.name] = appStateComponent
         node.components[TransitionAppStateComponent.name] = transitionComponent
@@ -103,18 +98,16 @@ final class TransitionAppStateSystemTests: XCTestCase {
 
     func test_UpdateNodeFromGameOverToStart() throws {
         let node = TransitionAppStateNode()
-        let appStateComponent = AppStateComponent(gameSize: size,
-                                                  numShips: 0,
-                                                  level: 0,
-                                                  score: 0,
-                                                  appState: .gameOver,
-                                                  shipControlsState: .showingButtons,
-                                                  randomness: Randomness.initialize(with: 1))
+        let appStateComponent = AppStateComponent(gameConfig: GameConfig(gameSize: .zero), randomness: Randomness.initialize(with: 1))
+        appStateComponent.numShips = 0
+        appStateComponent.level = 0
+        appStateComponent.score = 0
+        appStateComponent.appState = .gameOver
         let transitionComponent = TransitionAppStateComponent(from: .gameOver, to: .start)
         node.components[AppStateComponent.name] = appStateComponent
         node.components[TransitionAppStateComponent.name] = transitionComponent
         let appState = Entity(named: .appState)
-            .add(component: AppStateComponent(gameSize: .zero, numShips: 0, level: 0, score: 0, appState: .start, shipControlsState: .hidingButtons, randomness: Randomness.initialize(with: 1)))
+                .add(component: appStateComponent)
         engine.replace(entity: appState)
         // SUT
         system.updateNode(node: node, time: 1)
@@ -124,13 +117,12 @@ final class TransitionAppStateSystemTests: XCTestCase {
 
     func test_UpdateNodeFromInfoNoButtonsToPlaying() throws {
         let node = TransitionAppStateNode()
-        let appStateComponent = AppStateComponent(gameSize: size,
-                                                  numShips: 0,
-                                                  level: 0,
-                                                  score: 0,
-                                                  appState: .infoNoButtons,
-                                                  shipControlsState: .hidingButtons,
-                                                  randomness: Randomness.initialize(with: 1))
+        let appStateComponent = AppStateComponent(gameConfig: GameConfig(gameSize: .zero), randomness: Randomness.initialize(with: 1))
+        appStateComponent.numShips = 0
+        appStateComponent.level = 0
+        appStateComponent.score = 0
+        appStateComponent.appState = .infoNoButtons
+        appStateComponent.shipControlsState = .hidingButtons
         let transitionComponent = TransitionAppStateComponent(from: .infoNoButtons, to: .playing)
         node.components[AppStateComponent.name] = appStateComponent
         node.components[TransitionAppStateComponent.name] = transitionComponent
@@ -141,13 +133,11 @@ final class TransitionAppStateSystemTests: XCTestCase {
     }
 
     func test_UpdateNodeFromPlayingWithButtonsToGameOver() throws {
-        let appStateComponent = AppStateComponent(gameSize: size,
-                                                  numShips: 0,
-                                                  level: 0,
-                                                  score: 0,
-                                                  appState: .playing,
-                                                  shipControlsState: .showingButtons,
-                                                  randomness: Randomness.initialize(with: 1))
+        let appStateComponent = AppStateComponent(gameConfig: GameConfig(gameSize: .zero), randomness: Randomness.initialize(with: 1))
+        appStateComponent.numShips = 0
+        appStateComponent.level = 0
+        appStateComponent.score = 0
+        appStateComponent.appState = .playing
         let appStateEntity = Entity(named: "appStateEntity")
                 .add(component: appStateComponent)
         do {

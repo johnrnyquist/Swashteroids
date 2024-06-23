@@ -11,108 +11,160 @@
 import Swash
 import Foundation
 
-final class AppStateComponent: Component {
+struct GameConfig {
+    let alienNextAppearance: TimeInterval = 0.0
+    let appState: AppState = .start
     let gameSize: CGSize
-    // Original values for resetting
-    let orig_appState: AppState
-    let orig_level: Int
-    let orig_numShips: Int
-    let orig_score: Int
-    let orig_shipControlsState: ShipControlsState
-    // Current values
-    var appState: AppState {
-        willSet {
-            print("about to change appState from \(appState) to \(newValue)")
-        }
-        didSet {
-            print("changed appState from \(oldValue) to \(appState)")
-        }
-    }
-    var nextShipScore: Int
-    var numHits: Int
-    var numShips: Int
-    var shipControlsState: ShipControlsState
-    var randomness: Randomizing
-    //
+    let level: Int = 1 //TODO: 0 or 1?
+    let levelBonus: Int = 500
+    let nextShipIncrement: Int = 5_000
+    let nextShipScore: Int = 5_000
+    let numAliensDestroyed: Int = 0
+    let numAsteroidsMined: Int = 0
+    let numHits: Int = 0
+    let numShips: Int = 3
+    let numTorpedoesFired: Int = 0
+    let numTorpedoesPlayerFired: Int = 0
+    let score: Int = 0
+    let shipControlsState: ShipControlsState = .showingButtons
+    let timePlayed: Double = 0.0
+}
+
+struct GameState {
+    var alienNextAppearance: TimeInterval
+    var appState: AppState
     var level: Int {
         didSet {
             guard level > 1 else { return }
             score += levelBonus
         }
     }
-    var score: Int {
+    var levelBonus: Int
+    var nextShipIncrement: Int
+    var nextShipScore: Int
+    var numAliensDestroyed: Int
+    var numAsteroidsMined: Int
+    var numHits: Int
+    var numShips: Int
+    var numTorpedoesFired: Int
+    var numTorpedoesPlayerFired: Int
+    var score: Int
+    var shipControlsState: ShipControlsState
+    var timePlayed: Double
+}
+
+final class AppStateComponent: Component {
+    let gameConfig: GameConfig
+    var randomness: Randomizing
+    var gameState: GameState
+    var gameSize: CGSize { gameConfig.gameSize }
+    var appState: AppState {
+        get { gameState.appState }
+        set { gameState.appState = newValue }
+    }
+    var nextShipScore: Int { gameState.nextShipScore }
+    var numHits: Int {
+        get { gameState.numHits }
+        set { gameState.numHits = newValue }
+    }
+    var numShips: Int { 
+        get { gameState.numShips }
+        set { gameState.numShips = newValue }
+    }
+    var shipControlsState: ShipControlsState {
+        get { gameState.shipControlsState }
+        set { gameState.shipControlsState = newValue }
+    }
+    var level: Int {
+        get { gameState.level }
+        set { gameState.level = newValue }
+    }
+    var score: Int = 0 {
         didSet {
-            if score >= nextShipScore {
-                numShips += 1
-                nextShipScore += nextShipIncrement
+            if gameState.score >= gameState.nextShipScore {
+                gameState.numShips += 1
+                gameState.nextShipScore += gameState.nextShipIncrement
             }
         }
     }
     var hitPercentage: Int {
-        guard numTorpedoesPlayerFired > 0 else { return 0 }
-        return Int(round(Double(numHits) / Double(numTorpedoesPlayerFired) * 100))
+        guard gameState.numTorpedoesPlayerFired > 0 else { return 0 }
+        return Int(round(Double(numHits) / Double(gameState.numTorpedoesPlayerFired) * 100))
     }
-    //MARK: - Not set from argument to init (yet)
-    let levelBonus: Int
-    let nextShipIncrement: Int
-    var alienNextAppearance: TimeInterval = 0.0
-//    var alienAppearanceRateDefault: TimeInterval { 1.0 }
-    var alienAppearanceRateDefault: TimeInterval { randomness.nextDouble(from: 15.0, through: 90.0) }
-    var numAliensDestroyed: Int
-    var numAsteroidsMined: Int
-    var numTorpedoesFired: Int
-    var numTorpedoesPlayerFired: Int
-    var timePlayed: Double
+    var levelBonus: Int { gameState.levelBonus }
+    var nextShipIncrement: Int { gameState.nextShipIncrement }
+    var alienNextAppearance: TimeInterval {
+        get { gameState.alienNextAppearance }
+        set { gameState.alienNextAppearance = newValue }
+    }
+    #if DEBUG
+        var alienAppearanceRateDefault: TimeInterval { 1.0 }
+    #else
+        var alienAppearanceRateDefault: TimeInterval { randomness.nextDouble(from: 15.0, through: 90.0) }
+    #endif
+    var numAliensDestroyed: Int {
+        get { gameState.numAliensDestroyed }
+        set { gameState.numAliensDestroyed = newValue }
+    }
+    var numAsteroidsMined: Int {
+        get { gameState.numAsteroidsMined }
+        set { gameState.numAsteroidsMined = newValue }
+    }
+    var numTorpedoesFired: Int {
+        get { gameState.numTorpedoesFired }
+        set { gameState.numTorpedoesFired = newValue }
+    }
+    var numTorpedoesPlayerFired: Int {
+        get { gameState.numTorpedoesPlayerFired }
+        set { gameState.numTorpedoesPlayerFired = newValue }
+    }
+    var timePlayed: Double {
+        get { gameState.timePlayed }
+        set { gameState.timePlayed = newValue }
+    }
 
-    init(gameSize: CGSize,
-         numShips: Int,
-         level: Int,
-         score: Int,
-         appState: AppState,
-         shipControlsState: ShipControlsState,
+    init(gameConfig: GameConfig,
          randomness: Randomizing = Randomness.shared) {
-        self.gameSize = gameSize
+        self.gameConfig = gameConfig
         self.randomness = randomness
         //
-        orig_numShips = numShips
-        orig_level = level
-        orig_score = score
-        orig_appState = appState
-        orig_shipControlsState = shipControlsState
-        self.numShips = orig_numShips
-        self.level = orig_level
-        self.score = orig_score
-        self.appState = orig_appState
-        self.shipControlsState = orig_shipControlsState
-        // constants
-        levelBonus = 500
-        nextShipIncrement = 5_000
-        //
-        nextShipScore = nextShipIncrement
-        numAliensDestroyed = 0
-        numAsteroidsMined = 0
-        numHits = 0
-        numTorpedoesFired = 0
-        numTorpedoesPlayerFired = 0
-        timePlayed = 0.0
+        gameState = GameState(
+            alienNextAppearance: gameConfig.alienNextAppearance,
+            appState: gameConfig.appState,
+            level: gameConfig.level,
+            levelBonus: gameConfig.levelBonus,
+            nextShipIncrement: gameConfig.nextShipIncrement,
+            nextShipScore: gameConfig.nextShipScore,
+            numAliensDestroyed: gameConfig.numAliensDestroyed,
+            numAsteroidsMined: gameConfig.numAsteroidsMined,
+            numHits: gameConfig.numHits,
+            numShips: gameConfig.numShips,
+            numTorpedoesFired: gameConfig.numTorpedoesFired,
+            numTorpedoesPlayerFired: gameConfig.numTorpedoesPlayerFired,
+            score: gameConfig.score,
+            shipControlsState: gameConfig.shipControlsState,
+            timePlayed: gameConfig.timePlayed
+        )
         super.init()
-        alienNextAppearance = alienAppearanceRateDefault
     }
 
     func resetGame() {
-        numShips = orig_numShips
-        level = orig_level
-        score = orig_score
-        appState = orig_appState
-        shipControlsState = orig_shipControlsState
-        //
-        alienNextAppearance = alienAppearanceRateDefault
-        nextShipScore = nextShipIncrement
-        numAliensDestroyed = 0
-        numAsteroidsMined = 0
-        numHits = 0
-        numTorpedoesFired = 0
-        numTorpedoesPlayerFired = 0
-        timePlayed = 0.0
+        gameState = GameState(
+            alienNextAppearance: gameConfig.alienNextAppearance,
+            appState: gameConfig.appState,
+            level: gameConfig.level,
+            levelBonus: gameConfig.levelBonus,
+            nextShipIncrement: gameConfig.nextShipIncrement,
+            nextShipScore: gameConfig.nextShipScore,
+            numAliensDestroyed: gameConfig.numAliensDestroyed,
+            numAsteroidsMined: gameConfig.numAsteroidsMined,
+            numHits: gameConfig.numHits,
+            numShips: gameConfig.numShips,
+            numTorpedoesFired: gameConfig.numTorpedoesFired,
+            numTorpedoesPlayerFired: gameConfig.numTorpedoesPlayerFired,
+            score: gameConfig.score,
+            shipControlsState: gameConfig.shipControlsState,
+            timePlayed: gameConfig.timePlayed
+        )
     }
 }

@@ -31,9 +31,9 @@ class GameplayManagerSystem: System {
     private var randomness: Randomizing!
     private var size: CGSize
     private var spaceshipClearanceRadius: CGFloat = 50
-    private weak var aliens: NodeList!
+    weak var aliens: NodeList!
     private weak var appStates: NodeList!
-    private weak var asteroids: NodeList!
+    weak var asteroids: NodeList!
     private weak var scene: GameScene!
     private weak var ships: NodeList!
     private weak var torpedoes: NodeList!
@@ -126,7 +126,7 @@ class GameplayManagerSystem: System {
         entity.add(component: AudioComponent(fileNamed: .levelUpSound, actionKey: "levelUp"))
         announceLevel(appStateComponent: appStateComponent)
         createAsteroids(count: appStateComponent.level,
-                        avoiding: spaceShipPosition.position, 
+                        avoiding: spaceShipPosition.position,
                         level: appStateComponent.level)
     }
 

@@ -12,7 +12,7 @@ import Foundation
 import Swash
 
 final class MoveToTargetSystem: ListIteratingSystem {
-    var shipNodes: NodeList!
+    weak var shipNodes: NodeList!
 
     init() {
         super.init(nodeClass: MoveToTargetNode.self)

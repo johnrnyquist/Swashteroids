@@ -29,13 +29,12 @@ final class TransitionTests: XCTestCase {
     override func setUpWithError() throws {
         size = CGSize(width: 1024.0, height: 768.0)
         engine = Engine()
-        appStateComponent = AppStateComponent(gameSize: .zero,
-                                              numShips: 3,
-                                              level: 4,
-                                              score: 5,
-                                              appState: .infoButtons,
-                                              shipControlsState: .hidingButtons,
-                                              randomness: Randomness.initialize(with: 1))
+        appStateComponent = AppStateComponent(gameConfig: GameConfig(gameSize: .zero), randomness: Randomness.initialize(with: 1))
+        appStateComponent.gameState.level = 4
+        appStateComponent.gameState.score = 5
+        appStateComponent.gameState.numShips = 3
+        appStateComponent.gameState.appState = .infoButtons
+        appStateComponent.gameState.shipControlsState = .hidingButtons
         appStateEntity = Entity(named: "appStateEntity")
                 .add(component: appStateComponent)
         do {
@@ -91,9 +90,9 @@ final class TransitionTests: XCTestCase {
         for entityName: EntityName in [.hud, .gameOver, .hyperspacePowerUp, .torpedoPowerUp] {
             XCTAssertNil(engine.findEntity(named: entityName))
         }
-        XCTAssertEqual(appStateComponent.score, appStateComponent.orig_score)
-        XCTAssertEqual(appStateComponent.level, appStateComponent.orig_level)
-        XCTAssertEqual(appStateComponent.numShips, appStateComponent.orig_numShips)
+        XCTAssertEqual(appStateComponent.score, appStateComponent.gameConfig.score)
+        XCTAssertEqual(appStateComponent.level, appStateComponent.gameConfig.level)
+        XCTAssertEqual(appStateComponent.numShips, appStateComponent.gameConfig.numShips)
     }
 
     func test_ToGameOverScreen() {

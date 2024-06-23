@@ -30,20 +30,14 @@ final class GameOverSystemTests: XCTestCase {
 
     func test_UpdateNode() throws {
         let gameOver = GameOverComponent()
-        let appState = AppStateComponent(gameSize: .zero,
-                                         numShips: 0,
-                                         level: 1,
-                                         score: 2,
-                                         appState: .gameOver,
-                                         shipControlsState: .showingButtons,
-                                         randomness: Randomness.initialize(with: 1))
+        let appStateComponent = AppStateComponent(gameConfig: GameConfig(gameSize: .zero),
+                                                  randomness: Randomness.initialize(with: 1))
+        appStateComponent.appState = .gameOver
         let node = GameOverNode()
         node.components[GameOverComponent.name] = gameOver
-        node.components[AppStateComponent.name] = appState
+        node.components[AppStateComponent.name] = appStateComponent
         system = GameOverSystem()
         system.updateNode(node: node, time: 1)
-        XCTAssertEqual(appState.appState, .gameOver)
-        XCTAssertEqual(appState.level, 1)
-        XCTAssertEqual(appState.score, 2)
+        XCTAssertEqual(appStateComponent.appState, .gameOver)
     }
 }

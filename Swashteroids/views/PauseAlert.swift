@@ -54,12 +54,7 @@ struct PauseAlert: View {
 
 struct PauseAlert_Previews: PreviewProvider {
     static var previews: some View {
-        PauseAlert(appState: AppStateComponent(gameSize: .zero,
-                                               numShips: 1,
-                                               level: 1,
-                                               score: 0,
-                                               appState: .playing,
-                                               shipControlsState: .showingButtons),
+        PauseAlert(appState: AppStateComponent(gameConfig: GameConfig(gameSize: .zero)),
                    home: {}, resume: {})
     }
 }
@@ -80,8 +75,8 @@ struct StatsView: View {
             Text("Play Time: \(getTime(appState.timePlayed))")
         }.foregroundColor(.white)
          .font(.custom("Futura Condensed Medium", size: 22))
-
     }
+
     func getTime(_ time: Double) -> String {
         let hours = Int(time) / 3600
         let minutes = Int(time) / 60 % 60

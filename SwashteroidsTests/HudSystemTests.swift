@@ -28,13 +28,10 @@ class HudSystemTests: XCTestCase {
     func test_UpdateNode() throws {
         let hudNode = HudNode()
         let hudComponent = HudComponent(hudView: HudView(gameSize: .zero))
-        let appStateComponent = AppStateComponent(gameSize: .zero,
-                                                  numShips: 1,
-                                                  level: 2,
-                                                  score: 3,
-                                                  appState: .playing,
-                                                  shipControlsState: .showingButtons,
-                                                  randomness: Randomness.initialize(with: 1))
+        let appStateComponent = AppStateComponent(gameConfig: GameConfig(gameSize: .zero), randomness: Randomness.initialize(with: 1))
+        appStateComponent.numShips = 1
+        appStateComponent.level = 2
+        appStateComponent.score = 3
         hudNode.components[HudComponent.name] = hudComponent
         hudNode.components[AppStateComponent.name] = appStateComponent
         system.updateNode(hudNode, 1)

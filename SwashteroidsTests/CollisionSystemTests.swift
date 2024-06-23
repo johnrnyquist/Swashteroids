@@ -32,13 +32,9 @@ class CollisionSystemTests: XCTestCase {
 
     override func setUpWithError() throws {
         engine = Engine()
-        appStateComponent = AppStateComponent(gameSize: .zero,
-                                              numShips: 1,
-                                              level: 1,
-                                              score: 0,
-                                              appState: .playing,
-                                              shipControlsState: .showingButtons,
-                                              randomness: Randomness.initialize(with: 1))
+        appStateComponent = AppStateComponent(gameConfig: GameConfig(gameSize: .zero), randomness: Randomness.initialize(with: 1))
+        appStateComponent.numShips = 1
+        appStateComponent.appState = .playing
         appStateEntity = Entity(named: .appState)
                 .add(component: appStateComponent)
         try? engine.add(entity: appStateEntity)
@@ -245,14 +241,11 @@ class CollisionSystemTests: XCTestCase {
             asteroidNode.components[component.key] = component.value
         }
         asteroidNode.entity = asteroidEntity
+        let appStateComponent = AppStateComponent(gameConfig: GameConfig(gameSize: .zero), randomness: Randomness.initialize(with: 1))
+        appStateComponent.numShips = 1
+        appStateComponent.appState = .playing
         let appState = Entity(named: .appState)
-                .add(component: AppStateComponent(gameSize: .zero,
-                                                  numShips: 1,
-                                                  level: 1,
-                                                  score: 0,
-                                                  appState: .playing,
-                                                  shipControlsState: .showingButtons,
-                                                  randomness: Randomness.initialize(with: 1)))
+                .add(component: appStateComponent)
         engine.replace(entity: appState)
         // SUT
         system.torpedoesAndAsteroids(torpedoNode: torpedoNode, asteroidNode: asteroidNode)

@@ -12,9 +12,9 @@ import Foundation
 import Swash
 
 final class PickTargetSystem: ListIteratingSystem {
-    var asteroidNodes: NodeList!
-    var shipNodes: NodeList!
-    var targetableNodes: NodeList!
+    weak var asteroidNodes: NodeList!
+    weak var shipNodes: NodeList!
+    weak var targetableNodes: NodeList!
 
     init() {
         super.init(nodeClass: PickTargetNode.self)

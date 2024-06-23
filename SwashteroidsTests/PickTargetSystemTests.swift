@@ -14,12 +14,12 @@ import XCTest
 
 class PickTargetSystemTests: XCTestCase {
     var system: PickTargetSystem!
-    var shipNodes: NodeList!
+    let shipNodes = NodeList()
 
     override func setUp() {
         super.setUp()
         system = PickTargetSystem()
-        shipNodes = NodeList()
+        system.shipNodes = shipNodes
         let shipNode = ShipNode()
         let shipComponent = ShipComponent()
         let shipPosition = PositionComponent(x: 0, y: 0, z: .ship, rotationDegrees: 0)
@@ -40,7 +40,6 @@ class PickTargetSystemTests: XCTestCase {
 
     func test_pickTarget_soldier() throws {
         // ARRANGE
-        system.shipNodes = NodeList()
         let alienComponent = AlienComponent(cast: .soldier, scoreValue: 50)
         let position = PositionComponent(x: 0, y: 0, z: .asteroids, rotationDegrees: 0)
         let velocity = VelocityComponent(velocityX: 0, velocityY: 0)
