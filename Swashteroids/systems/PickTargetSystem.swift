@@ -11,23 +11,6 @@
 import Foundation
 import Swash
 
-// MARK: - PickTarget
-class PickTargetComponent: Component {}
-
-// TODO: Right now this is an alien-only class because of the AlienComponent
-class PickTargetNode: Node {
-    required init() {
-        super.init()
-        components = [
-            PickTargetComponent.name: nil_component,
-            AlienComponent.name: nil_component,
-            PositionComponent.name: nil_component,
-            VelocityComponent.name: nil_component,
-            GunComponent.name: nil_component,
-        ]
-    }
-}
-
 final class PickTargetSystem: ListIteratingSystem {
     var asteroidNodes: NodeList!
     var shipNodes: NodeList!
@@ -58,46 +41,46 @@ final class PickTargetSystem: ListIteratingSystem {
 
     func pickTarget(entity: Entity, alienComponent: AlienComponent, position: PositionComponent, velocity: VelocityComponent) {
         switch alienComponent.cast {
-            case .soldier:
-                // is there a ship and an asteroid?
-                if let shipEntity = shipNodes.head?.entity,
-                   !shipEntity.has(componentClass: DeathThroesComponent.self),
-                   let _ = asteroidNodes?.head?.entity,
-                   let closestAsteroid = findClosestEntity(to: position.position, node: asteroidNodes?.head) {
-                    // is ship closer than asteroid?
-                    let distanceToAsteroid = position.position.distance(from: closestAsteroid[PositionComponent.self]!.position)
-                    if distanceToAsteroid < alienComponent.maxTargetableRange / 2.0 {
-                        entity.add(component: MoveToTargetComponent(target: closestAsteroid))
-                    } else {
-                        entity.add(component: MoveToTargetComponent(target: shipEntity))
-                    }
-                } else if let shipEntity = shipNodes.head?.entity,
-                          !shipEntity.has(componentClass: DeathThroesComponent.self) {
+        case .soldier:
+            // is there a ship and an asteroid?
+            if let shipEntity = shipNodes.head?.entity,
+               !shipEntity.has(componentClass: DeathThroesComponent.self),
+               let _ = asteroidNodes?.head?.entity,
+               let closestAsteroid = findClosestEntity(to: position.position, node: asteroidNodes?.head) {
+                // is ship closer than asteroid?
+                let distanceToAsteroid = position.position.distance(from: closestAsteroid[PositionComponent.self]!.position)
+                if distanceToAsteroid < alienComponent.maxTargetableRange / 2.0 {
+                    entity.add(component: MoveToTargetComponent(target: closestAsteroid))
+                } else {
                     entity.add(component: MoveToTargetComponent(target: shipEntity))
-                } else {
-                    // No ship, exit screen
-                    position.rotationRadians = alienComponent.destinationEnd.x > 0 ? 0 : CGFloat.pi
-                    velocity.linearVelocity = CGPoint(x: (alienComponent.destinationEnd.x > 0 ? velocity.exit : -velocity.exit), y: 0)
-                    entity.remove(componentClass: GunComponent.self)
-                    entity.remove(componentClass: MoveToTargetComponent.self)
-                    entity.add(component: ExitScreenComponent())
                 }
-            case .worker:
-                if let shipEntity = shipNodes.head?.entity,
-                   !shipEntity.has(componentClass: DeathThroesComponent.self),
-                   let targetedEntity = findClosestEntity(to: position.position, node: targetableNodes?.head) {
-                    //TODO: I should NOT have to remove the component as adding it should overwrite the previous, 
-                    // but it did not work without doing so. Oddly I do not have to do it for the soldier.
-                    entity.remove(componentClass: MoveToTargetComponent.self)
-                    entity.add(component: MoveToTargetComponent(target: targetedEntity))
-                } else {
-                    // Nothing to target, exit screen
-                    position.rotationRadians = alienComponent.destinationEnd.x > 0 ? 0 : CGFloat.pi
-                    velocity.linearVelocity = CGPoint(x: (alienComponent.destinationEnd.x > 0 ? velocity.exit : -velocity.exit), y: 0)
-                    entity.remove(componentClass: GunComponent.self)
-                    entity.remove(componentClass: MoveToTargetComponent.self)
-                    entity.add(component: ExitScreenComponent())
-                }
+            } else if let shipEntity = shipNodes.head?.entity,
+                      !shipEntity.has(componentClass: DeathThroesComponent.self) {
+                entity.add(component: MoveToTargetComponent(target: shipEntity))
+            } else {
+                // No ship, exit screen
+                position.rotationRadians = alienComponent.destinationEnd.x > 0 ? 0 : CGFloat.pi
+                velocity.linearVelocity = CGPoint(x: (alienComponent.destinationEnd.x > 0 ? velocity.exit : -velocity.exit), y: 0)
+                entity.remove(componentClass: GunComponent.self)
+                entity.remove(componentClass: MoveToTargetComponent.self)
+                entity.add(component: ExitScreenComponent())
+            }
+        case .worker:
+            if let shipEntity = shipNodes.head?.entity,
+               !shipEntity.has(componentClass: DeathThroesComponent.self),
+               let targetedEntity = findClosestEntity(to: position.position, node: targetableNodes?.head) {
+                //TODO: I should NOT have to remove the component as adding it should overwrite the previous, 
+                // but it did not work without doing so. Oddly I do not have to do it for the soldier.
+                entity.remove(componentClass: MoveToTargetComponent.self)
+                entity.add(component: MoveToTargetComponent(target: targetedEntity))
+            } else {
+                // Nothing to target, exit screen
+                position.rotationRadians = alienComponent.destinationEnd.x > 0 ? 0 : CGFloat.pi
+                velocity.linearVelocity = CGPoint(x: (alienComponent.destinationEnd.x > 0 ? velocity.exit : -velocity.exit), y: 0)
+                entity.remove(componentClass: GunComponent.self)
+                entity.remove(componentClass: MoveToTargetComponent.self)
+                entity.add(component: ExitScreenComponent())
+            }
         }
 //        print("\n\(self) \(entity.name) is targeting \(entity.find(componentClass: MoveToTargetComponent.self)?.targetedEntity?.name)\n")
     }

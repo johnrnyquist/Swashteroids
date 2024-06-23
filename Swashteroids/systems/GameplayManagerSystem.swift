@@ -17,8 +17,8 @@ Detects if there are no ships, if game is playing, if there are no asteroids, no
 Determines when to go to next level.
 Creates the level.
 Determines if a ship needs to be made.
-Has too many responsibilities.
  */
+//TODO: Has too many responsibilities, needs to be reconsidered.
 class GameplayManagerSystem: System {
     private let alienCreator: AlienCreatorUseCase!
     private let asteroidCreator: AsteroidCreatorUseCase!
@@ -125,7 +125,9 @@ class GameplayManagerSystem: System {
         appStateComponent.level += 1
         entity.add(component: AudioComponent(fileNamed: .levelUpSound, actionKey: "levelUp"))
         announceLevel(appStateComponent: appStateComponent)
-        createAsteroids(count: appStateComponent.level, avoiding: spaceShipPosition.position, level: appStateComponent.level)
+        createAsteroids(count: appStateComponent.level,
+                        avoiding: spaceShipPosition.position, 
+                        level: appStateComponent.level)
     }
 
     /// Detects if there is an asteroid too close to the new spaceship position

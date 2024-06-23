@@ -39,7 +39,7 @@ class TreasureCreator: TreasureCreatorUseCase {
                 .add(component: CollidableComponent(radius: 10))
                 .add(component: DisplayComponent(sknode: sprite))
                 .add(component: AlienWorkerTargetComponent.shared)
-                .add(component: LifetimeComponent(timeRemaining: 10))
+                .add(component: LifetimeComponent(timeRemaining: 30))
         sprite.entity = treasureEntity
         sprite.name = treasureEntity.name
         engine.replace(entity: treasureEntity)

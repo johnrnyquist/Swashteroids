@@ -11,31 +11,6 @@
 import Foundation
 import Swash
 
-class ReactionTimeComponent: Component {
-    var reactionSpeed: TimeInterval
-    var timeSinceLastReaction: TimeInterval = 0.0
-    
-    // MARK: - Computed Properties
-    var canReact: Bool { timeSinceLastReaction >= reactionSpeed }
-
-    init(reactionSpeed: Double) {
-        self.reactionSpeed = reactionSpeed
-    }
-
-    func reacted() {
-        timeSinceLastReaction = 0
-    }
-}
-
-class ReactionTimeNode: Node {
-    required init() {
-        super.init()
-        components = [
-            ReactionTimeComponent.name: nil_component,
-        ]
-    }
-}
-
 final class ReactionTimeSystem: ListIteratingSystem {
     init() {
         super.init(nodeClass: ReactionTimeNode.self)
@@ -48,7 +23,7 @@ final class ReactionTimeSystem: ListIteratingSystem {
         else { return }
         component.timeSinceLastReaction += time
         if component.canReact {
-            entity.add(component: MakeDecisionCompnent())
+            entity.add(component: MakeDecisionComponent())
         }
     }
 }

@@ -8,13 +8,7 @@
 // https://github.com/johnrnyquist/Swash
 //
 
-import Swash
 import Foundation
+import Swash
 
-final class TreasureComponent: Component {
-    var value: Int
-
-    init(value: Int) {
-        self.value = value
-    }
-}
+class PickTargetComponent: Component {}

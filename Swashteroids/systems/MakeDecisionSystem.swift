@@ -11,20 +11,6 @@
 import Foundation
 import Swash
 
-// MARK: - React
-class MakeDecisionCompnent: Component {}
-
-class MakeDecisionNode: Node {
-    required init() {
-        super.init()
-        components = [
-            AlienComponent.name: nil_component,
-            MakeDecisionCompnent.name: nil_component,
-            ReactionTimeComponent.name: nil_component,
-        ]
-    }
-}
-
 final class MakeDecisionSystem: ListIteratingSystem {
     init() {
         super.init(nodeClass: MakeDecisionNode.self)
@@ -32,7 +18,7 @@ final class MakeDecisionSystem: ListIteratingSystem {
     }
 
     func updateNode(node: Node, time: TimeInterval) {
-        guard let component = node[MakeDecisionCompnent.self],
+        guard let component = node[MakeDecisionComponent.self],
               let reactionTimeComponent = node[ReactionTimeComponent.self],
               let entity = node.entity
         else { return }

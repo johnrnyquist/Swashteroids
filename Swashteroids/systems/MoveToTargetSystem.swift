@@ -11,41 +11,6 @@
 import Foundation
 import Swash
 
-/// Added to entity to target in its own fashion
-class MoveToTargetComponent: Component {
-    weak var targetedEntity: Entity!
-    var targetAlive: Bool {
-        if let targetedEntity = targetedEntity {
-            return !targetedEntity.has(componentClass: DeathThroesComponent.self)
-        }
-        return false
-    }
-    var position: CGPoint? {
-        targetedEntity?[PositionComponent.self]?.position
-    }
-
-    init(target targetedEntity: Entity) {
-        self.targetedEntity = targetedEntity
-    }
-    
-    deinit {
-        print("MoveToTargetComponent deinit \(self)")
-    }
-}
-
-// TODO: Right now this is an alien-only class because of the AlienComponent
-class MoveToTargetNode: Node {
-    required init() {
-        super.init()
-        components = [
-            MoveToTargetComponent.name: nil_component,
-            PositionComponent.name: nil_component,
-            VelocityComponent.name: nil_component,
-            AlienComponent.name: nil_component,
-        ]
-    }
-}
-
 final class MoveToTargetSystem: ListIteratingSystem {
     var shipNodes: NodeList!
 

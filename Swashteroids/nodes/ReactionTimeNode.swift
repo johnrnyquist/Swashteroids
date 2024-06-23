@@ -9,12 +9,12 @@
 //
 
 import Swash
-import Foundation
 
-final class TreasureComponent: Component {
-    var value: Int
-
-    init(value: Int) {
-        self.value = value
+class ReactionTimeNode: Node {
+    required init() {
+        super.init()
+        components = [
+            ReactionTimeComponent.name: nil_component,
+        ]
     }
 }
