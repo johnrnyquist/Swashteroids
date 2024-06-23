@@ -46,9 +46,9 @@ class SplitAsteroidSystem: ListIteratingSystem {
               let asteroidComponent = asteroidEntity[AsteroidComponent.self],
               let positionComponent = asteroidEntity[PositionComponent.self]
         else { return }
-//        if randomness.nextInt(from: 1, through: 3) == 3 {
+        if randomness.nextInt(from: 1, through: 3) == 3 {
             treasureCreator.createTreasure(positionComponent: positionComponent)
-//        }
+        }
         switch asteroidComponent.size {
         case .small:
             break

@@ -22,10 +22,10 @@ class TreasureCreator: TreasureCreatorUseCase {
     }
 
     func createTreasure(positionComponent: PositionComponent) {
-        let r = randomness.nextInt(from: 1, through: 5) == 5
+        let treasureIsSpecial = randomness.nextInt(from: 1, through: 5) == 5
         let standard = (color: UIColor.systemGreen, value: treasure_standard_value)
         let special = (color: UIColor.systemPink, value: treasure_special_value)
-        let treasureData = r ? special : standard
+        let treasureData = treasureIsSpecial ? special : standard
         let sprite = SwashScaledSpriteNode(color: treasureData.color, size: CGSize(width: 12, height: 12))
         addEmitter(colored: treasureData.color, on: sprite)
         totalTreasures += 1
