@@ -43,7 +43,7 @@ class FiringSystemTests: XCTestCase {
                                torpedoLifetime: 0,
                                torpedoColor: .torpedo,
                                ownerType: .player, 
-                               ownerEntity: entity,
+                               ownerName: entity.name,
                                numTorpedoes: 20)
         let fireDown = FireDownComponent.shared
         //

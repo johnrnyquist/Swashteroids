@@ -15,6 +15,7 @@ final class AlienFiringSystem: System {
     private let gameRect: CGRect
     private let torpedoCreator: TorpedoCreatorUseCase?
     private weak var firingNodes: NodeList?
+    weak var engine: Engine!
 
     init(torpedoCreator: TorpedoCreatorUseCase, gameSize: CGSize, scaleManager: ScaleManaging = ScaleManager.shared) {
         self.torpedoCreator = torpedoCreator
@@ -22,6 +23,7 @@ final class AlienFiringSystem: System {
     }
 
     override public func addToEngine(engine: Engine) {
+        self.engine = engine
         firingNodes = engine.getNodeList(nodeClassType: AlienFiringNode.self)
     }
 
@@ -42,8 +44,8 @@ final class AlienFiringSystem: System {
               let _ = node[AlienFiringComponent.self],
               let alien = node[AlienComponent.self],
               let targetComponent = node[MoveToTargetComponent.self],
-              let targetedEntity = targetComponent.targetedEntity,
-              targetComponent.targetAlive
+              let targetedEntity = engine.findEntity(named: targetComponent.targetedEntityName),
+              targetedEntity.has(componentClass: DeathThroesComponent.self) == false
         else { return }
         //
         guard gun.timeSinceLastShot >= gun.minimumShotInterval, 

@@ -26,15 +26,16 @@ final class GunComponent: Component {
     var timeSinceLastShot: TimeInterval = Double.infinity
     var torpedoColor: UIColor = .torpedo
     var torpedoLifetime: TimeInterval = 2.0
-    weak var ownerEntity: Entity!
+    var ownerName: String
 
-    init(offsetX: Double, offsetY: Double, minimumShotInterval: TimeInterval, torpedoLifetime: TimeInterval, torpedoColor: UIColor = .torpedo, ownerType: OwnerType, ownerEntity: Entity, numTorpedoes: Int) {
+    init(offsetX: Double, offsetY: Double, minimumShotInterval: TimeInterval, torpedoLifetime: TimeInterval, 
+         torpedoColor: UIColor = .torpedo, ownerType: OwnerType, ownerName: String, numTorpedoes: Int) {
         offsetFromParent = CGPoint(x: offsetX, y: offsetY)
         self.minimumShotInterval = minimumShotInterval
         self.torpedoLifetime = torpedoLifetime
         self.torpedoColor = torpedoColor
         self.ownerType = ownerType
         self.numTorpedoes = numTorpedoes
-        self.ownerEntity = ownerEntity
+        self.ownerName = ownerName
     }
 }

@@ -15,12 +15,14 @@ import XCTest
 class PickTargetSystemTests: XCTestCase {
     var system: PickTargetSystem!
     let shipNodes = NodeList()
+    let asteroidNodes = NodeList()
 
     override func setUp() {
         super.setUp()
         system = PickTargetSystem()
         system.shipNodes = shipNodes
         let shipNode = ShipNode()
+        system.shipNodes.add(node: shipNode)
         let shipComponent = ShipComponent()
         let shipPosition = PositionComponent(x: 0, y: 0, z: .ship, rotationDegrees: 0)
         shipNode.components = [
@@ -31,6 +33,7 @@ class PickTargetSystemTests: XCTestCase {
                 .add(component: shipComponent)
                 .add(component: shipPosition)
         shipNode.entity = shipEntity
+        system.asteroidNodes = asteroidNodes
     }
 
     override func tearDown() {
@@ -50,17 +53,28 @@ class PickTargetSystemTests: XCTestCase {
 //        XCTAssertNil(alienComponent.targetedEntity)
     }
 
-    func test_pickTarget_noTarget_onlyShip() throws {
+    func test_pickTarget_shipIsClosest() throws {
         // ARRANGE
-        let system = PickTargetSystem()
-        system.shipNodes = shipNodes
-//        let soldier = AlienComponent(cast: .soldier, reactionTime: 0.4, scoreValue: 50)
+        let engine = Engine()
+        engine.add(system: system, priority: 0)
+        let alienComponent = AlienComponent(cast: .soldier, scoreValue: 50)
         let position = PositionComponent(x: 0, y: 0, z: .asteroids, rotationDegrees: 0)
+        let velocity = VelocityComponent(velocityX: 0, velocityY: 0)
+        let entity = Entity()
+                .add(component: alienComponent)
+                .add(component: position)
+                .add(component: velocity)
+        try! engine.add(entity: entity)
+        let ship = Entity()
+            .add(component: ShipComponent())
+            .add(component: PositionComponent(x: 0, y: 0, z: 0))
+        try! engine.add(entity: ship)
         // ACT
-//        system.pickTarget(alienComponent: soldier, position: position)
+        system.pickTarget(entity: entity, alienComponent: alienComponent, position: position, velocity: velocity)
+        let result = entity.find(componentClass: MoveToTargetComponent.self)
         // ASSERT
-//        XCTAssertNotNil(soldier.targetedEntity)
-//        XCTAssertEqual(shipEntity, soldier.targetedEntity)
+        XCTAssertNotNil(result)
+        XCTAssertEqual(result?.targetedEntityName, ship.name)
     }
 
     func test_pickTarget_closestAsteroid() throws {

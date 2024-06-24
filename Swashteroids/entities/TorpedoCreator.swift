@@ -54,7 +54,7 @@ class TorpedoCreator: TorpedoCreatorUseCase {
         // TorpedoComponent
         let torpedoComponent = TorpedoComponent(lifeRemaining: gunComponent.torpedoLifetime,
                                                 owner: gunComponent.ownerType,
-                                                ownerEntity: gunComponent.ownerEntity)
+                                                ownerName: gunComponent.ownerName)
         let torpedo = Entity(named: name)
         torpedo
                 .add(component: torpedoPosition)
@@ -163,6 +163,6 @@ class TorpedoCreator: TorpedoCreatorUseCase {
                 .add(component: CollidableComponent(radius: 0))
                 .add(component: TorpedoComponent(lifeRemaining: gunComponent.torpedoLifetime,
                                                  owner: gunComponent.ownerType,
-                                                 ownerEntity: gunComponent.ownerEntity))
+                                                 ownerName: gunComponent.ownerName))
     }
 }

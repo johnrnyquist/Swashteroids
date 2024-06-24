@@ -45,18 +45,17 @@ final class PickTargetSystem: ListIteratingSystem {
             // is there a ship and an asteroid?
             if let shipEntity = shipNodes.head?.entity,
                !shipEntity.has(componentClass: DeathThroesComponent.self),
-               let _ = asteroidNodes?.head?.entity,
                let closestAsteroid = findClosestEntity(to: position.position, node: asteroidNodes?.head) {
                 // is ship closer than asteroid?
                 let distanceToAsteroid = position.position.distance(from: closestAsteroid[PositionComponent.self]!.position)
                 if distanceToAsteroid < alienComponent.maxTargetableRange / 2.0 {
-                    entity.add(component: MoveToTargetComponent(target: closestAsteroid))
+                    entity.add(component: MoveToTargetComponent(target: closestAsteroid.name))
                 } else {
-                    entity.add(component: MoveToTargetComponent(target: shipEntity))
+                    entity.add(component: MoveToTargetComponent(target: shipEntity.name))
                 }
             } else if let shipEntity = shipNodes.head?.entity,
                       !shipEntity.has(componentClass: DeathThroesComponent.self) {
-                entity.add(component: MoveToTargetComponent(target: shipEntity))
+                entity.add(component: MoveToTargetComponent(target: shipEntity.name))
             } else {
                 // No ship, exit screen
                 position.rotationRadians = alienComponent.destinationEnd.x > 0 ? 0 : CGFloat.pi
@@ -72,7 +71,7 @@ final class PickTargetSystem: ListIteratingSystem {
                 //TODO: I should NOT have to remove the component as adding it should overwrite the previous, 
                 // but it did not work without doing so. Oddly I do not have to do it for the soldier.
                 entity.remove(componentClass: MoveToTargetComponent.self)
-                entity.add(component: MoveToTargetComponent(target: targetedEntity))
+                entity.add(component: MoveToTargetComponent(target: targetedEntity.name))
             } else {
                 // Nothing to target, exit screen
                 position.rotationRadians = alienComponent.destinationEnd.x > 0 ? 0 : CGFloat.pi
@@ -115,7 +114,8 @@ final class PickTargetSystem: ListIteratingSystem {
     /// - Returns: The entity closest to the given position.
     func findClosestEntity(to position: CGPoint, in entitiesWithPositions: [(entity: Entity, position: CGPoint)]) -> Entity? {
         guard !entitiesWithPositions.isEmpty else { return nil }
-        return entitiesWithPositions.min(by: { position.distance(from: $0.position) < position.distance(from: $1.position) })?.entity
+        return entitiesWithPositions.min(by: { position.distance(from: $0.position) < position.distance(from: $1.position) })?
+                                    .entity
     }
 }
 

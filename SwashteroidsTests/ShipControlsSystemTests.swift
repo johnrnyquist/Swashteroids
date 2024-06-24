@@ -100,7 +100,7 @@ final class ShipControlsSystemTests: XCTestCase {
                                              torpedoLifetime: 0,
                                              torpedoColor: .torpedo,
                                              ownerType: .player,
-                                             ownerEntity: ship,
+                                             ownerName: ship.name,
                                              numTorpedoes: 20))
         try? engine.add(entity: ship)
         let fireButton = Entity(named: .fireButton)
@@ -170,7 +170,7 @@ final class ShipControlsSystemTests: XCTestCase {
                                              torpedoLifetime: 0,
                                              torpedoColor: .torpedo,
                                              ownerType: .player,
-                                             ownerEntity: ship,
+                                             ownerName: ship.name,
                                              numTorpedoes: 20))
                 .add(component: HyperspaceDriveComponent(jumps: 20))
         try? engine.add(entity: ship)

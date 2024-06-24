@@ -13,13 +13,13 @@ import Swash
 
 final class TorpedoComponent: Component {
     var owner: OwnerType
-    weak var ownerEntity: Entity?
+    var ownerName: String
     var lifeRemaining: TimeInterval = 2.0
 
-    init(lifeRemaining: TimeInterval, owner: OwnerType, ownerEntity: Entity) {
+    init(lifeRemaining: TimeInterval, owner: OwnerType, ownerName: String) {
         self.lifeRemaining = lifeRemaining
         self.owner = owner
-        self.ownerEntity = ownerEntity
+        self.ownerName = ownerName
         super.init()
     }
 }

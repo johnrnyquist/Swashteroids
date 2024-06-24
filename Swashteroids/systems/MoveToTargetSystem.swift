@@ -13,6 +13,7 @@ import Swash
 
 final class MoveToTargetSystem: ListIteratingSystem {
     weak var shipNodes: NodeList!
+    weak var engine: Engine!
 
     init() {
         super.init(nodeClass: MoveToTargetNode.self)
@@ -21,6 +22,7 @@ final class MoveToTargetSystem: ListIteratingSystem {
 
     override func addToEngine(engine: Engine) {
         super.addToEngine(engine: engine)
+        self.engine = engine
         shipNodes = engine.getNodeList(nodeClassType: ShipNode.self)
     }
 
@@ -45,7 +47,7 @@ final class MoveToTargetSystem: ListIteratingSystem {
             entity.add(component: ExitScreenComponent())
             return
         }
-        if let position = targetComponent.position {
+        if let position = engine.findEntity(named: targetComponent.targetedEntityName)?[PositionComponent.self]?.position {
             moveTowardTarget(positionComponent, velocityComponent, position)
         }
     }

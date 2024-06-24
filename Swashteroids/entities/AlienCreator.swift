@@ -198,7 +198,7 @@ class AlienCreator: AlienCreatorUseCase {
                                              torpedoLifetime: 0.75,
                                              torpedoColor: .white,
                                              ownerType: .computerOpponent,
-                                             ownerEntity: alienEntity,
+                                             ownerName: alienEntity.name,
                                              numTorpedoes: Int.max))
                 .add(component: AlienFiringComponent.shared)
                 .add(component: CollidableComponent(radius: 25))
@@ -238,7 +238,7 @@ class AlienCreator: AlienCreatorUseCase {
                                              torpedoLifetime: 0.75,
                                              torpedoColor: .white,
                                              ownerType: .computerOpponent,
-                                             ownerEntity: alienEntity,
+                                             ownerName: alienEntity.name,
                                              numTorpedoes: Int.max))
                 .add(component: AlienFiringComponent.shared)
                 .add(component: CollidableComponent(radius: 25))

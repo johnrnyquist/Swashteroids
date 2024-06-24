@@ -22,7 +22,7 @@ final class TorpedoAgeSystemTests: XCTestCase {
     override func setUpWithError() throws {
         entity = Entity()
         engine = MockEngine()
-        component = TorpedoComponent(lifeRemaining: 1, owner: .player, ownerEntity: entity)
+        component = TorpedoComponent(lifeRemaining: 1, owner: .player, ownerName: entity.name)
         node = TorpedoAgeNode()
         node.entity = entity
         node.components[TorpedoComponent.name] = component

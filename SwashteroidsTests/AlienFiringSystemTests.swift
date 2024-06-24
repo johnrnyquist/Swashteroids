@@ -16,26 +16,28 @@ import Foundation
 final class AlienFiringSystemTests: XCTestCase {
     var system: AlienFiringSystem!
     var torpedoCreator: MockTorpedoCreator!
+    var engine: Engine!
 
     override func setUp() {
         let gameSize = CGSize(width: 1024.0, height: 768.0)
         torpedoCreator = MockTorpedoCreator()
         system = AlienFiringSystem(torpedoCreator: torpedoCreator, gameSize: gameSize)
+        engine = Engine()
+        engine.add(system: system, priority: 0)
     }
 
     override func tearDown() {
         system = nil
         torpedoCreator = nil
+        engine = nil
     }
 
-    func test_updateNode() {
+    func test_updateNode() throws {
         // ARRANGE
         let alienEntity = Entity()
         let targetedEntity = Entity()
-            .add(component: PositionComponent(x: 10, y: 0, z: 0))
-            .add(component: ShootableComponent.shared)
-        let node = AlienFiringNode()
-        node.entity = alienEntity
+                .add(component: PositionComponent(x: 10, y: 0, z: 0))
+                .add(component: ShootableComponent.shared)
         let alienComponent = AlienComponent(cast: .soldier, scoreValue: 0)
         let alienFiringComponent = AlienFiringComponent.shared
         let gunComponent = GunComponent(offsetX: 0,
@@ -43,22 +45,23 @@ final class AlienFiringSystemTests: XCTestCase {
                                         minimumShotInterval: 0,
                                         torpedoLifetime: 0,
                                         ownerType: .computerOpponent,
-                                        ownerEntity: alienEntity,
+                                        ownerName: alienEntity.name,
                                         numTorpedoes: 0)
-        let moveToTargetComponent = MoveToTargetComponent(target: targetedEntity)
+        let moveToTargetComponent = MoveToTargetComponent(target: targetedEntity.name)
         let positionComponent = PositionComponent(x: 0, y: 0, z: .asteroids, rotationDegrees: 0)
         let velocityComponent = VelocityComponent(velocityX: 0, velocityY: 0)
-        node.components = [
-            AlienComponent.name: alienComponent,
-            AlienFiringComponent.name: alienFiringComponent,
-            GunComponent.name: gunComponent,
-            MoveToTargetComponent.name: moveToTargetComponent,
-            PositionComponent.name: positionComponent,
-            VelocityComponent.name: velocityComponent,
-        ]
+        alienEntity
+                .add(component: alienComponent)
+                .add(component: alienFiringComponent)
+                .add(component: gunComponent)
+                .add(component: moveToTargetComponent)
+                .add(component: positionComponent)
+                .add(component: velocityComponent)
         gunComponent.timeSinceLastShot = gunComponent.minimumShotInterval + 1
+        try! engine.add(entity: alienEntity)
+        try! engine.add(entity: targetedEntity)
         // ACT
-        system.updateNode(node: node, time: 1.0)
+        engine.update(time: 1)
         // ASSERT
         XCTAssertEqual(torpedoCreator.createTorpedoCalled, 3)
     }

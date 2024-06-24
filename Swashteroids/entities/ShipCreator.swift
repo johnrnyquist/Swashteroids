@@ -52,7 +52,7 @@ class ShipCreator: ShipCreatorUseCase {
                                              minimumShotInterval: 0.1,
                                              torpedoLifetime: 2,
                                              ownerType: .player,
-                                             ownerEntity: ship,
+                                             ownerName: ship.name,
                                              numTorpedoes: 0))
                 .add(component: WarpDriveComponent())
                 .add(component: PositionComponent(x: state.gameSize.width / 2,

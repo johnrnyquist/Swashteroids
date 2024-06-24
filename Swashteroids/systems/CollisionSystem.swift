@@ -69,7 +69,7 @@ class CollisionSystem: System {
                                              torpedoLifetime: 2,
                                              torpedoColor: .torpedo,
                                              ownerType: .player,
-                                             ownerEntity: player,
+                                             ownerName: player.name,
                                              numTorpedoes: 20))
                 .add(component: AudioComponent(fileNamed: .powerUp,
                                                actionKey: "powerup.wav"))
@@ -107,7 +107,8 @@ class CollisionSystem: System {
 
     func torpedoAndVehicle(torpedoNode: Node, vehicleNode: Node) {
         // Shooter can’t shoot himself
-        guard let te = torpedoNode[TorpedoComponent.self]?.ownerEntity,
+        guard let teName = torpedoNode[TorpedoComponent.self]?.ownerName,
+              let te = engine.findEntity(named: teName),
               let ve = vehicleNode.entity,
               te != ve
         else { return }

@@ -13,19 +13,10 @@ import Swash
 
 /// Added to entity to target in its own fashion
 class MoveToTargetComponent: Component {
-    weak var targetedEntity: Entity!
-    var targetAlive: Bool {
-        if let targetedEntity = targetedEntity {
-            return !targetedEntity.has(componentClass: DeathThroesComponent.self)
-        }
-        return false
-    }
-    var position: CGPoint? {
-        targetedEntity?[PositionComponent.self]?.position
-    }
+    var targetedEntityName: String
 
-    init(target targetedEntity: Entity) {
-        self.targetedEntity = targetedEntity
+    init(target targetedEntity: String) {
+        self.targetedEntityName = targetedEntity
     }
 
     deinit {
