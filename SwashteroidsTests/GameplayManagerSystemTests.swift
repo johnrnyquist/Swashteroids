@@ -31,6 +31,7 @@ final class GameplayManagerSystemTests: XCTestCase {
         shipCreator = MockShipCreator()
         scene = GameScene()
         appStateComponent = AppStateComponent(gameConfig: GameConfig(gameSize: .zero), randomness: Randomness.initialize(with: 1))
+        appStateComponent.level = 1
         system = GameplayManagerSystem(asteroidCreator: asteroidCreator,
                                        alienCreator: alienCreator,
                                        shipCreator: shipCreator,

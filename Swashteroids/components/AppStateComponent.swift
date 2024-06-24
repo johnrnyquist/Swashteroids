@@ -15,7 +15,7 @@ struct GameConfig {
     let alienNextAppearance: TimeInterval = 0.0
     let appState: AppState = .start
     let gameSize: CGSize
-    let level: Int = 1 //TODO: 0 or 1?
+    let level: Int = 0
     let levelBonus: Int = 500
     let nextShipIncrement: Int = 5_000
     let nextShipScore: Int = 5_000
@@ -48,60 +48,52 @@ struct GameState {
     var numShips: Int
     var numTorpedoesFired: Int
     var numTorpedoesPlayerFired: Int
-    var score: Int
+    var score: Int {
+        didSet {
+            if score >= nextShipScore {
+                numShips += 1
+                nextShipScore += nextShipIncrement
+            }
+        }
+    }
     var shipControlsState: ShipControlsState
     var timePlayed: Double
 }
 
 final class AppStateComponent: Component {
+    //
+    //MARK: - Properties
     let gameConfig: GameConfig
-    var randomness: Randomizing
+    let randomness: Randomizing
     var gameState: GameState
+    //
+    //MARK: - Getters
     var gameSize: CGSize { gameConfig.gameSize }
+    var levelBonus: Int { gameState.levelBonus }
+    var nextShipIncrement: Int { gameState.nextShipIncrement }
+    var nextShipScore: Int { gameState.nextShipScore }
+    //
+    //MARK: - Getters+Setters
+    var alienNextAppearance: TimeInterval {
+        get { gameState.alienNextAppearance }
+        set { gameState.alienNextAppearance = newValue }
+    }
     var appState: AppState {
         get { gameState.appState }
         set { gameState.appState = newValue }
-    }
-    var nextShipScore: Int { gameState.nextShipScore }
-    var numHits: Int {
-        get { gameState.numHits }
-        set { gameState.numHits = newValue }
-    }
-    var numShips: Int { 
-        get { gameState.numShips }
-        set { gameState.numShips = newValue }
-    }
-    var shipControlsState: ShipControlsState {
-        get { gameState.shipControlsState }
-        set { gameState.shipControlsState = newValue }
     }
     var level: Int {
         get { gameState.level }
         set { gameState.level = newValue }
     }
-    var score: Int = 0 {
-        didSet {
-            if gameState.score >= gameState.nextShipScore {
-                gameState.numShips += 1
-                gameState.nextShipScore += gameState.nextShipIncrement
-            }
-        }
+    var numHits: Int {
+        get { gameState.numHits }
+        set { gameState.numHits = newValue }
     }
-    var hitPercentage: Int {
-        guard gameState.numTorpedoesPlayerFired > 0 else { return 0 }
-        return Int(round(Double(numHits) / Double(gameState.numTorpedoesPlayerFired) * 100))
+    var numShips: Int {
+        get { gameState.numShips }
+        set { gameState.numShips = newValue }
     }
-    var levelBonus: Int { gameState.levelBonus }
-    var nextShipIncrement: Int { gameState.nextShipIncrement }
-    var alienNextAppearance: TimeInterval {
-        get { gameState.alienNextAppearance }
-        set { gameState.alienNextAppearance = newValue }
-    }
-    #if DEBUG
-        var alienAppearanceRateDefault: TimeInterval { 1.0 }
-    #else
-        var alienAppearanceRateDefault: TimeInterval { randomness.nextDouble(from: 15.0, through: 90.0) }
-    #endif
     var numAliensDestroyed: Int {
         get { gameState.numAliensDestroyed }
         set { gameState.numAliensDestroyed = newValue }
@@ -118,11 +110,29 @@ final class AppStateComponent: Component {
         get { gameState.numTorpedoesPlayerFired }
         set { gameState.numTorpedoesPlayerFired = newValue }
     }
+    var score: Int {
+        get { gameState.score }
+        set { gameState.score = newValue }
+    }
+    var shipControlsState: ShipControlsState {
+        get { gameState.shipControlsState }
+        set { gameState.shipControlsState = newValue }
+    }
     var timePlayed: Double {
         get { gameState.timePlayed }
         set { gameState.timePlayed = newValue }
     }
-
+    //
+    //MARK: - Computed Properties
+    var alienAppearanceRateDefault: TimeInterval {
+        randomness.nextDouble(from: 15.0, through: 90.0)
+    }
+    var hitPercentage: Int {
+        guard gameState.numTorpedoesPlayerFired > 0 else { return 0 }
+        return Int(round(Double(numHits) / Double(gameState.numTorpedoesPlayerFired) * 100))
+    }
+    //
+    //MARK: - Initializers
     init(gameConfig: GameConfig,
          randomness: Randomizing = Randomness.shared) {
         self.gameConfig = gameConfig
@@ -148,6 +158,7 @@ final class AppStateComponent: Component {
         super.init()
     }
 
+    //MARK: - Methods
     func resetGame() {
         gameState = GameState(
             alienNextAppearance: gameConfig.alienNextAppearance,
