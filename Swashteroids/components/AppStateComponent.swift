@@ -65,7 +65,7 @@ final class AppStateComponent: Component {
     //MARK: - Properties
     let gameConfig: GameConfig
     let randomness: Randomizing
-    var gameState: GameState
+    private var gameState: GameState
     //
     //MARK: - Getters
     var gameSize: CGSize { gameConfig.gameSize }

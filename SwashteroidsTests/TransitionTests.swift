@@ -30,11 +30,11 @@ final class TransitionTests: XCTestCase {
         size = CGSize(width: 1024.0, height: 768.0)
         engine = Engine()
         appStateComponent = AppStateComponent(gameConfig: GameConfig(gameSize: .zero), randomness: Randomness.initialize(with: 1))
-        appStateComponent.gameState.level = 4
-        appStateComponent.gameState.score = 5
-        appStateComponent.gameState.numShips = 3
-        appStateComponent.gameState.appState = .infoButtons
-        appStateComponent.gameState.shipControlsState = .hidingButtons
+        appStateComponent.level = 4
+        appStateComponent.score = 5
+        appStateComponent.numShips = 3
+        appStateComponent.appState = .infoButtons
+        appStateComponent.shipControlsState = .hidingButtons
         appStateEntity = Entity(named: "appStateEntity")
                 .add(component: appStateComponent)
         do {
