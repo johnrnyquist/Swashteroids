@@ -26,13 +26,7 @@ class TorpedoCreator: TorpedoCreatorUseCase {
                                          gunComponent: gunComponent,
                                          parentPosition: position,
                                          parentVelocity: velocity)
-        do {
-            try engine.add(entity: entity)
-        } catch SwashError.entityNameAlreadyInUse(let message) {
-            fatalError(message)
-        } catch {
-            print("Unexpected error: \(error).")
-        }
+        engine.add(entity: entity)
     }
 
     // TODO: This changing of an existing component does not feel right.
@@ -138,13 +132,7 @@ class TorpedoCreator: TorpedoCreatorUseCase {
         sprite.zPosition = .asteroids
         emitter.particleColorSequence = colorSequence
         emitter.emissionAngle = position.rotationRadians + Double.pi
-        do {
-            try engine.add(entity: entity)
-        } catch SwashError.entityNameAlreadyInUse(let message) {
-            fatalError(message)
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
+        engine.add(entity: entity)
         entity
                 .add(component: PositionComponent(
                     x: cos * gunComponent.offsetFromParent.x - sin * gunComponent.offsetFromParent.y + position.x,

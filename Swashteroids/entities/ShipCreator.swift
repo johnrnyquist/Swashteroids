@@ -79,13 +79,7 @@ class ShipCreator: ShipCreatorUseCase {
         case .usingGameController:
             break
         }
-        do {
-            try engine.add(entity: ship)
-        } catch SwashError.entityNameAlreadyInUse(let message) {
-            fatalError(message)
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
+        engine.add(entity: ship)
     }
 
     /// Removes and adds components to the ship entity to put in a destroyed state.
@@ -129,7 +123,7 @@ class ShipCreator: ShipCreatorUseCase {
 
     func screenFlashRed() {
         let entity = Entity(named: "screenFlash")
-        engine.replace(entity: entity)
+        engine.add(entity: entity)
         // create a red sprite that covers the screen and has an alpha of 0.3
         let warningSprite = SKSpriteNode(color: .alienWarning, size: size)
         entity.add(component: DisplayComponent(sknode: warningSprite))

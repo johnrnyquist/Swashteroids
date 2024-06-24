@@ -42,7 +42,7 @@ class TreasureCreator: TreasureCreatorUseCase {
                 .add(component: LifetimeComponent(timeRemaining: 30))
         sprite.entity = treasureEntity
         sprite.name = treasureEntity.name
-        engine.replace(entity: treasureEntity)
+        engine.add(entity: treasureEntity)
     }
 
     func addEmitter(colored color: UIColor, on sknode: SKNode) {

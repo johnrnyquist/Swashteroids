@@ -65,10 +65,10 @@ class ShipQuadrantsControlsCreator: ShipQuadrantsControlsCreatorUseCase {
         q3Sprite.name = .q3
         q4Sprite.name = .q4
         // Add the entities to the engine
-        engine.replace(entity: q1Entity)
-        engine.replace(entity: q2Entity)
-        engine.replace(entity: q3Entity)
-        engine.replace(entity: q4Entity)
+        engine.add(entity: q1Entity)
+        engine.add(entity: q2Entity)
+        engine.add(entity: q3Entity)
+        engine.add(entity: q4Entity)
         // Configure the entities
         q1Entity
                 .add(component: DisplayComponent(sknode: q1Sprite))

@@ -29,10 +29,3 @@ final class AlienComponent: Component {
         maxTargetableRange = 300 * scaleManager.SCALE_FACTOR
     }
 }
-
-//class AlienSoldierComponent: Component {
-//}
-//
-//class AlienWorkerComponent: Component {
-//}
-//

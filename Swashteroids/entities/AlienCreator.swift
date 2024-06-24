@@ -26,69 +26,75 @@ class AlienCreator: AlienCreatorUseCase {
     //TODO: scene is passed in because warningAliens needs to add a warning sprite to the scene, need to do this better
     func createAliens(scene: GameScene) {
         guard engine.findEntity(named: .player) != nil else { return }
-//        var foundWorker = false
-//        for i in engine.entities {
-//            if i.has(componentClass: AlienComponent.self) {
-//                foundWorker = true
-//                break
-//            }
-//        }
-        let entrance = pickEntrance()
-//        if !foundWorker {
-        warningAliens(scene: scene, leftSide: entrance.leftSide)
-        engine.appStateEntity.add(component: AudioComponent(fileNamed: .alienEntrance, actionKey: "alienEntrance"))
-//        createSoldier(entrance: entrance)
-//        createWorker(entrance: entrance)
-//        }
-//        return
-        switch totalAliens {
-        case 0...1:
-            createAlienWorker(startDestination: CGPoint(x: entrance.startDestination.x, y: entrance.startDestination.y + 50),
-                              endDestination: entrance.endDestination)
-        case 2...3:
-            switch randomness.nextBool() {
-            case true:
-                createTwoWorkers(entrance: entrance)
-            case false:
-                createAlienWorker(startDestination: CGPoint(x: entrance.startDestination.x,
-                                                            y: entrance.startDestination.y + 50),
-                                  endDestination: entrance.endDestination)
-            }
-        case 4...5:
-            switch randomness.nextInt(from: 1, through: 3) {
-            case 1:
-                createTwoWorkers(entrance: entrance)
-            case 2:
-                createSoldier(entrance: entrance)
-            case 3:
-                createAlienWorker(startDestination: CGPoint(x: entrance.startDestination.x,
-                                                            y: entrance.startDestination.y + 50),
-                                  endDestination: entrance.endDestination)
-            default:
-                break
-            }
-        default:
-            switch randomness.nextInt(from: 1, through: 5) {
-            case 1:
-                createTwoWorkers(entrance: entrance)
-            case 2:
-                createAlienWorker(startDestination: CGPoint(x: entrance.startDestination.x,
-                                                            y: entrance.startDestination.y + 50),
-                                  endDestination: entrance.endDestination)
-            case 3:
-                createSoldier(entrance: entrance)
-            case 4:
-                createAlienWorker(startDestination: CGPoint(x: entrance.startDestination.x,
-                                                            y: entrance.startDestination.y + 50),
-                                  endDestination: entrance.endDestination)
-                createSoldier(entrance: entrance)
-            case 5:
-                createTwoWorkers(entrance: entrance)
-                createSoldier(entrance: entrance)
-            default:
+
+        var foundWorker = false
+        for i in engine.entities {
+            if i.has(componentClass: AlienComponent.self) {
+                foundWorker = true
                 break
             }
         }
+
+        let entrance = pickEntrance()
+
+        if !foundWorker {
+
+        warningAliens(scene: scene, leftSide: entrance.leftSide)
+        engine.appStateEntity.add(component: AudioComponent(fileNamed: .alienEntrance, actionKey: "alienEntrance"))
+
+        createSoldier(entrance: entrance)
+        createWorker(entrance: entrance)
+        }
+        return
+
+//        switch totalAliens {
+//        case 0...1:
+//            createAlienWorker(startDestination: CGPoint(x: entrance.startDestination.x, y: entrance.startDestination.y + 50),
+//                              endDestination: entrance.endDestination)
+//        case 2...3:
+//            switch randomness.nextBool() {
+//            case true:
+//                createTwoWorkers(entrance: entrance)
+//            case false:
+//                createAlienWorker(startDestination: CGPoint(x: entrance.startDestination.x,
+//                                                            y: entrance.startDestination.y + 50),
+//                                  endDestination: entrance.endDestination)
+//            }
+//        case 4...5:
+//            switch randomness.nextInt(from: 1, through: 3) {
+//            case 1:
+//                createTwoWorkers(entrance: entrance)
+//            case 2:
+//                createSoldier(entrance: entrance)
+//            case 3:
+//                createAlienWorker(startDestination: CGPoint(x: entrance.startDestination.x,
+//                                                            y: entrance.startDestination.y + 50),
+//                                  endDestination: entrance.endDestination)
+//            default:
+//                break
+//            }
+//        default:
+//            switch randomness.nextInt(from: 1, through: 5) {
+//            case 1:
+//                createTwoWorkers(entrance: entrance)
+//            case 2:
+//                createAlienWorker(startDestination: CGPoint(x: entrance.startDestination.x,
+//                                                            y: entrance.startDestination.y + 50),
+//                                  endDestination: entrance.endDestination)
+//            case 3:
+//                createSoldier(entrance: entrance)
+//            case 4:
+//                createAlienWorker(startDestination: CGPoint(x: entrance.startDestination.x,
+//                                                            y: entrance.startDestination.y + 50),
+//                                  endDestination: entrance.endDestination)
+//                createSoldier(entrance: entrance)
+//            case 5:
+//                createTwoWorkers(entrance: entrance)
+//                createSoldier(entrance: entrance)
+//            default:
+//                break
+//            }
+//        }
     }
 
     func createSoldier(entrance: (startDestination: CGPoint, endDestination: CGPoint, leftSide: Bool)) {
@@ -187,7 +193,6 @@ class AlienCreator: AlienCreatorUseCase {
         let alienEntity = Entity(named: "\(EntityName.alienWorker)_\(totalAliens)")
         alienEntity
                 .add(component: alienComponent)
-                //            .add(component: AlienWorkerComponent())
                 .add(component: VelocityComponent(velocityX: velocityX, velocityY: 0, wraps: false, base: velocityX))
                 .add(component: PositionComponent(x: alienComponent.destinationStart.x,
                                                   y: alienComponent.destinationStart.y,
@@ -205,7 +210,7 @@ class AlienCreator: AlienCreatorUseCase {
                 .add(component: DisplayComponent(sknode: sprite))
                 .add(component: ReactionTimeComponent(reactionSpeed: 0.4)) //TODO: Adjust based on level or wave
         sprite.entity = alienEntity
-        try? engine.add(entity: alienEntity)
+        engine.add(entity: alienEntity)
     }
 
     func createAlienSoldier(startDestination: CGPoint, endDestination: CGPoint) {
@@ -245,7 +250,7 @@ class AlienCreator: AlienCreatorUseCase {
                 .add(component: DisplayComponent(sknode: sprite))
                 .add(component: ReactionTimeComponent(reactionSpeed: 0.4)) //TODO: Adjust based on level or wave
         sprite.entity = alienEntity
-        try? engine.add(entity: alienEntity)
+        engine.add(entity: alienEntity)
     }
 }
 

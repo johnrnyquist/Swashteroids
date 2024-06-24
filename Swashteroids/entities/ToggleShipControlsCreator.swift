@@ -60,6 +60,6 @@ class ToggleShipControlsCreator: ToggleShipControlsCreatorUseCase {
                 if over { sprite.alpha = 0.6 } else { sprite.alpha = 0.2 }
             }
         ))
-        engine.replace(entity: toggleEntity)
+        engine.add(entity: toggleEntity)
     }
 }

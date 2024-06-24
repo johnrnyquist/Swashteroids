@@ -50,17 +50,17 @@ final class Swashteroids: NSObject {
     private func createInitialEntities(scene: GameScene) { // Add the all sounds entity
         let allSoundsEntity = Entity(named: .allSounds)
                 .add(component: AllSoundsComponent.shared)
-        try? engine.add(entity: allSoundsEntity)
+        engine.add(entity: allSoundsEntity)
         let appStateComponent = AppStateComponent(gameConfig: GameConfig(gameSize: scene.size))
         let appStateEntity = Entity(named: .appState)
                 .add(component: appStateComponent)
                 .add(component: TransitionAppStateComponent(from: .start, to: .start))
                 .add(component: TimePlayedComponent())
-        try? engine.add(entity: appStateEntity)
+        engine.add(entity: appStateEntity)
         // Add the input entity
         let inputEntity = Entity(named: .input)
                 .add(component: InputComponent.shared)
-        try? engine.add(entity: inputEntity)
+        engine.add(entity: inputEntity)
     }
 
     func usingGameController() {

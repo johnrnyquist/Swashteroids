@@ -50,10 +50,6 @@ class GameOverTransition: GameOverUseCase {
                               .add(component: TransitionAppStateComponent(from: .gameOver, to: .start))
                     }))
         gameOverView.entity = gameOverEntity
-        do {
-            try engine.add(entity: gameOverEntity)
-        } catch {
-            print(#function, #line, "WARNING: engine already contained \(gameOverEntity.name) entity!")
-        }
+        engine.add(entity: gameOverEntity)
     }
 }

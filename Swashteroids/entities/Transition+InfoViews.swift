@@ -46,7 +46,7 @@ class InfoViewsTransition: InfoViewsUseCase {
                         engine.appStateEntity.add(component: TransitionAppStateComponent(from: .infoNoButtons, to: .playing))
                     }))
         viewSprite.entity = viewEntity
-        engine.replace(entity: viewEntity)
+        engine.add(entity: viewEntity)
     }
 
     //MARK: - Buttons showing state
@@ -74,6 +74,6 @@ class InfoViewsTransition: InfoViewsUseCase {
                 }))
         viewSprite.entity = viewEntity
         viewSprite.name = .buttonsInfoView
-        engine.replace(entity: viewEntity)
+        engine.add(entity: viewEntity)
     }
 }

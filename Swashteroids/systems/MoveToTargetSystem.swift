@@ -16,6 +16,7 @@ final class MoveToTargetSystem: ListIteratingSystem {
     weak var engine: Engine!
 
     init() {
+        print("MoveToTargetSystem init")
         super.init(nodeClass: MoveToTargetNode.self)
         nodeUpdateFunction = updateNode
     }

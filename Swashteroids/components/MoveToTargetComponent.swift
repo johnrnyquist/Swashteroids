@@ -15,11 +15,8 @@ import Swash
 class MoveToTargetComponent: Component {
     var targetedEntityName: String
 
-    init(target targetedEntity: String) {
-        self.targetedEntityName = targetedEntity
-    }
-
-    deinit {
-        print("MoveToTargetComponent deinit \(self)")
+    init(target name: String) {
+        print("MoveToTargetComponent init")
+        targetedEntityName = name
     }
 }

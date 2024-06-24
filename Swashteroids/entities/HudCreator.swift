@@ -40,8 +40,8 @@ class HudCreator: HudCreatorUseCase, AlertPresenting {
                     self.alertPresenter?.showPauseAlert()
                 })
         pauseButton.entity = pause
-        engine.replace(entity: hudEntity)
-        engine.replace(entity: pause)
+        engine.add(entity: hudEntity)
+        engine.add(entity: pause)
     }
 
     func showPauseAlert() {

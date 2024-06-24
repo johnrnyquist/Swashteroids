@@ -48,7 +48,7 @@ class DeathThroesSystemTests: XCTestCase {
         let entity = Entity(named: "deathThroesEntity")
                 .add(component: deathThroes)
         node.entity = entity
-        try? engine.add(entity: entity)
+        engine.add(entity: entity)
         if system.nodeUpdateFunction == nil {
             XCTFail("nodeUpdateFunction is nil")
         } else {

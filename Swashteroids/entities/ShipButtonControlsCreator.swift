@@ -60,7 +60,7 @@ class ShipButtonControlsCreator: ShipButtonControlsCreatorUseCase {
                 .add(component: PositionComponent(x: position.x, y: position.y, z: .buttons, rotationDegrees: 0.0))
                 .add(component: DisplayComponent(sknode: button))
         button.entity = buttonEntity
-        engine.replace(entity: buttonEntity)
+        engine.add(entity: buttonEntity)
         return buttonEntity
     }
 
@@ -68,7 +68,7 @@ class ShipButtonControlsCreator: ShipButtonControlsCreatorUseCase {
     func showFireButton() {
         if let fireButtonEntity,
            engine.appStateComponent.shipControlsState == .showingButtons {
-            engine.replace(entity: fireButtonEntity)
+            engine.add(entity: fireButtonEntity)
             let fadeIn = SKAction.fadeAlpha(to: 1.0, duration: 0.2)
             let fadeOut = SKAction.fadeAlpha(to: 0.2, duration: 0.2)
             let seq = SKAction.sequence([fadeIn, fadeOut])
@@ -81,7 +81,7 @@ class ShipButtonControlsCreator: ShipButtonControlsCreatorUseCase {
     func showHyperspaceButton() {
         if let hyperspaceButtonEntity,
            engine.appStateComponent.shipControlsState == .showingButtons {
-            engine.replace(entity: hyperspaceButtonEntity)
+            engine.add(entity: hyperspaceButtonEntity)
             let fadeIn = SKAction.fadeAlpha(to: 1.0, duration: 0.2)
             let fadeOut = SKAction.fadeAlpha(to: 0.2, duration: 0.2)
             let seq = SKAction.sequence([fadeIn, fadeOut])

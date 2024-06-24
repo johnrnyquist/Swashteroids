@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -17,7 +17,6 @@
 		8D23C13E2B02C4CA00F7D878 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C13D2B02C4CA00F7D878 /* GameViewController.swift */; };
 		8D23C1432B02C4CC00F7D878 /* SwashteroidsAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C1422B02C4CC00F7D878 /* SwashteroidsAssets.xcassets */; };
 		8D23C1462B02C4CC00F7D878 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C1442B02C4CC00F7D878 /* LaunchScreen.storyboard */; };
-		8D23C14E2B02C4E800F7D878 /* Swash in Frameworks */ = {isa = PBXBuildFile; productRef = 8D23C14D2B02C4E800F7D878 /* Swash */; };
 		8D23C19D2B02C59D00F7D878 /* Swashteroids.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C14F2B02C59B00F7D878 /* Swashteroids.swift */; };
 		8D23C19E2B02C59D00F7D878 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1502B02C59B00F7D878 /* Enums.swift */; };
 		8D23C19F2B02C59D00F7D878 /* ShipCollisionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1522B02C59C00F7D878 /* ShipCollisionNode.swift */; };
@@ -97,6 +96,7 @@
 		8D512A9D2B41C15600C30AC7 /* AccelerometerSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D512A9A2B41C12000C30AC7 /* AccelerometerSystem.swift */; };
 		8D5911602B4CA6F300A31B95 /* fireflies_mod.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8D59115F2B4CA6F300A31B95 /* fireflies_mod.sks */; };
 		8D59EDDE2B139088003BD073 /* Badloc ICG.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8D59EDDD2B138ED6003BD073 /* Badloc ICG.ttf */; };
+		8D637EC32C29C92C006A2FD1 /* Swash in Frameworks */ = {isa = PBXBuildFile; productRef = 8D637EC22C29C92C006A2FD1 /* Swash */; };
 		8D651D6C2B278BB30088AEEF /* Swashteroids+SKSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D651D6B2B278BB30088AEEF /* Swashteroids+SKSceneDelegate.swift */; };
 		8D651D6E2B278C1C0088AEEF /* Swashteroids+TouchDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D651D6D2B278C1C0088AEEF /* Swashteroids+TouchDelegate.swift */; };
 		8D688FBD2B0680D900056CD3 /* hyperspace.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D688FBC2B0680D900056CD3 /* hyperspace.wav */; };
@@ -121,6 +121,7 @@
 		8D8F24B62B51D47700B2E223 /* UIColor+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8F24B52B51D47700B2E223 /* UIColor+extensions.swift */; };
 		8D8F24BA2B5204B100B2E223 /* treasure_special.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D8F24B82B5204B100B2E223 /* treasure_special.wav */; };
 		8D8F24BB2B5204B100B2E223 /* treasure_standard.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D8F24B92B5204B100B2E223 /* treasure_standard.wav */; };
+		8D98697E2C29DDB600A48A96 /* Swash in Frameworks */ = {isa = PBXBuildFile; productRef = 8D98697D2C29DDB600A48A96 /* Swash */; };
 		8D9DEF642B059E3800064B01 /* DoHyperspaceJumpComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9DEF632B059E3800064B01 /* DoHyperspaceJumpComponent.swift */; };
 		8D9DEF662B059EC400064B01 /* HyperspaceJumpNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9DEF652B059EC400064B01 /* HyperspaceJumpNode.swift */; };
 		8D9DEF682B059F2800064B01 /* HyperspaceJumpSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9DEF672B059F2800064B01 /* HyperspaceJumpSystem.swift */; };
@@ -474,7 +475,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D23C14E2B02C4E800F7D878 /* Swash in Frameworks */,
+				8D637EC32C29C92C006A2FD1 /* Swash in Frameworks */,
+				8D98697E2C29DDB600A48A96 /* Swash in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -864,7 +866,8 @@
 			);
 			name = Swashteroids;
 			packageProductDependencies = (
-				8D23C14D2B02C4E800F7D878 /* Swash */,
+				8D637EC22C29C92C006A2FD1 /* Swash */,
+				8D98697D2C29DDB600A48A96 /* Swash */,
 			);
 			productName = Swashteroids;
 			productReference = 8D23C1322B02C4CA00F7D878 /* Swashteroids.app */;
@@ -917,7 +920,7 @@
 			);
 			mainGroup = 8D23C1292B02C4C900F7D878;
 			packageReferences = (
-				8D23C14C2B02C4E800F7D878 /* XCRemoteSwiftPackageReference "Swash" */,
+				8D98697C2C29DDB600A48A96 /* XCLocalSwiftPackageReference "../../Swash_Swift_Package/Swash" */,
 			);
 			productRefGroup = 8D23C1332B02C4CA00F7D878 /* Products */;
 			projectDirPath = "";
@@ -1469,21 +1472,20 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		8D23C14C2B02C4E800F7D878 /* XCRemoteSwiftPackageReference "Swash" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/johnrnyquist/Swash.git";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
+/* Begin XCLocalSwiftPackageReference section */
+		8D98697C2C29DDB600A48A96 /* XCLocalSwiftPackageReference "../../Swash_Swift_Package/Swash" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../Swash_Swift_Package/Swash;
 		};
-/* End XCRemoteSwiftPackageReference section */
+/* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		8D23C14D2B02C4E800F7D878 /* Swash */ = {
+		8D637EC22C29C92C006A2FD1 /* Swash */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 8D23C14C2B02C4E800F7D878 /* XCRemoteSwiftPackageReference "Swash" */;
+			productName = Swash;
+		};
+		8D98697D2C29DDB600A48A96 /* Swash */ = {
+			isa = XCSwiftPackageProductDependency;
 			productName = Swash;
 		};
 /* End XCSwiftPackageProductDependency section */

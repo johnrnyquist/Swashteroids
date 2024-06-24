@@ -41,7 +41,7 @@ final class RenderSystemTests: XCTestCase {
         let entity = Entity()
                 .add(component: display)
                 .add(component: position)
-        try? engine.add(entity: entity)
+        engine.add(entity: entity)
         sprite.entity = entity
         engine.add(system: system, priority: 1)
         system.update(time: 1)
@@ -69,7 +69,7 @@ final class RenderSystemTests: XCTestCase {
         entity
                 .add(component: display)
                 .add(component: position)
-        try? engine.add(entity: entity)
+        engine.add(entity: entity)
         engine.add(system: system, priority: 1)
         XCTAssertTrue(container.children.count == 1)
     }
@@ -81,7 +81,7 @@ final class RenderSystemTests: XCTestCase {
         entity
                 .add(component: DisplayComponent(sknode: sprite))
                 .add(component: PositionComponent(x: 0, y: 0, z: .ship))
-        try? engine.add(entity: entity)
+        engine.add(entity: entity)
         XCTAssertNotNil(sprite.parent)
         engine.remove(entity: entity)
         XCTAssertNil(sprite.parent)

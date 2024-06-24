@@ -66,7 +66,7 @@ final class ShipControlsSystemTests: XCTestCase {
         //TODO: do_toggleButtons requires the ShipEntity type as it uses engine.ship. 
         let ship = Entity(named: .player)
                 .add(component: AccelerometerComponent())
-        try? engine.add(entity: ship)
+        engine.add(entity: ship)
         let appStateComponent = AppStateComponent(gameConfig: GameConfig(gameSize: .zero),
                                                   randomness: Randomness.initialize(with: 1))
         appStateComponent.numShips = 0
@@ -74,7 +74,7 @@ final class ShipControlsSystemTests: XCTestCase {
         appStateComponent.shipControlsState = .hidingButtons
         let appState = Entity(named: .appState)
                 .add(component: appStateComponent)
-        engine.replace(entity: appState)
+        engine.add(entity: appState)
         // SUT
         system.handleChange(to: .showingButtons)
         //
@@ -102,10 +102,10 @@ final class ShipControlsSystemTests: XCTestCase {
                                              ownerType: .player,
                                              ownerName: ship.name,
                                              numTorpedoes: 20))
-        try? engine.add(entity: ship)
+        engine.add(entity: ship)
         let fireButton = Entity(named: .fireButton)
                 .add(component: DisplayComponent(sknode: SwashSpriteNode()))
-        try? engine.add(entity: fireButton)
+        engine.add(entity: fireButton)
         let appStateComponent = AppStateComponent(gameConfig: GameConfig(gameSize: .zero),
                                                   randomness: Randomness.initialize(with: 1))
         appStateComponent.numShips = 0
@@ -113,7 +113,7 @@ final class ShipControlsSystemTests: XCTestCase {
         appStateComponent.shipControlsState = .hidingButtons
         let appState = Entity(named: .appState)
                 .add(component: appStateComponent)
-        engine.replace(entity: appState)
+        engine.add(entity: appState)
         // SUT
         system.handleChange(to: .showingButtons)
         //
@@ -134,10 +134,10 @@ final class ShipControlsSystemTests: XCTestCase {
         let ship = Entity(named: .player)
                 .add(component: AccelerometerComponent())
                 .add(component: HyperspaceDriveComponent(jumps: 20))
-        try? engine.add(entity: ship)
+        engine.add(entity: ship)
         let hyperspaceButton = Entity(named: .hyperspaceButton)
                 .add(component: DisplayComponent(sknode: SwashScaledSpriteNode()))
-        try? engine.add(entity: hyperspaceButton)
+        engine.add(entity: hyperspaceButton)
         let appStateComponent = AppStateComponent(gameConfig: GameConfig(gameSize: .zero),
                                                   randomness: Randomness.initialize(with: 1))
         appStateComponent.numShips = 0
@@ -145,7 +145,7 @@ final class ShipControlsSystemTests: XCTestCase {
         appStateComponent.shipControlsState = .hidingButtons
         let appState = Entity(named: .appState)
                 .add(component: appStateComponent)
-        engine.replace(entity: appState)
+        engine.add(entity: appState)
         // SUT
         system.handleChange(to: .showingButtons)
         //
@@ -173,7 +173,7 @@ final class ShipControlsSystemTests: XCTestCase {
                                              ownerName: ship.name,
                                              numTorpedoes: 20))
                 .add(component: HyperspaceDriveComponent(jumps: 20))
-        try? engine.add(entity: ship)
+        engine.add(entity: ship)
         let appStateComponent = AppStateComponent(gameConfig: GameConfig(gameSize: .zero), randomness: Randomness.initialize(with: 1))
         appStateComponent.numShips = 0
         appStateComponent.level = 0
@@ -181,7 +181,7 @@ final class ShipControlsSystemTests: XCTestCase {
 
         let appState = Entity(named: .appState)
                 .add(component: appStateComponent)
-        engine.replace(entity: appState)
+        engine.add(entity: appState)
         //
         system.handleChange(to: .hidingButtons)
         XCTAssertTrue(creator.createShipControlQuadrantsCalled)

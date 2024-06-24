@@ -48,14 +48,14 @@ final class PickTargetSystem: ListIteratingSystem {
                let closestAsteroid = findClosestEntity(to: position.position, node: asteroidNodes?.head) {
                 // is ship closer than asteroid?
                 let distanceToAsteroid = position.position.distance(from: closestAsteroid[PositionComponent.self]!.position)
-                if distanceToAsteroid < alienComponent.maxTargetableRange / 2.0 {
-                    entity.add(component: MoveToTargetComponent(target: closestAsteroid.name))
+                if distanceToAsteroid < alienComponent.maxTargetableRange/1.5 {
+                    updateMoveToTarget(entity: entity, targetedEntity: closestAsteroid)
                 } else {
-                    entity.add(component: MoveToTargetComponent(target: shipEntity.name))
+                    updateMoveToTarget(entity: entity, targetedEntity: shipEntity)
                 }
             } else if let shipEntity = shipNodes.head?.entity,
                       !shipEntity.has(componentClass: DeathThroesComponent.self) {
-                entity.add(component: MoveToTargetComponent(target: shipEntity.name))
+                updateMoveToTarget(entity: entity, targetedEntity: shipEntity)
             } else {
                 // No ship, exit screen
                 position.rotationRadians = alienComponent.destinationEnd.x > 0 ? 0 : CGFloat.pi
@@ -70,8 +70,7 @@ final class PickTargetSystem: ListIteratingSystem {
                let targetedEntity = findClosestEntity(to: position.position, node: targetableNodes?.head) {
                 //TODO: I should NOT have to remove the component as adding it should overwrite the previous, 
                 // but it did not work without doing so. Oddly I do not have to do it for the soldier.
-                entity.remove(componentClass: MoveToTargetComponent.self)
-                entity.add(component: MoveToTargetComponent(target: targetedEntity.name))
+                updateMoveToTarget(entity: entity, targetedEntity: targetedEntity)
             } else {
                 // Nothing to target, exit screen
                 position.rotationRadians = alienComponent.destinationEnd.x > 0 ? 0 : CGFloat.pi
@@ -82,6 +81,14 @@ final class PickTargetSystem: ListIteratingSystem {
             }
         }
 //        print("\n\(self) \(entity.name) is targeting \(entity.find(componentClass: MoveToTargetComponent.self)?.targetedEntity?.name)\n")
+    }
+
+    private func updateMoveToTarget(entity: Entity, targetedEntity: Entity) {
+        if let move =  entity.find(componentClass: MoveToTargetComponent.self) {
+            move.targetedEntityName = targetedEntity.name
+        } else {
+            entity.add(component: MoveToTargetComponent(target: targetedEntity.name))
+        }
     }
 
     /// Find the entity closest to the given position.

@@ -71,7 +71,7 @@ class PowerUpCreator: PowerUpCreatorUseCase {
                 .add(component: positionComponent)
                 .add(component: velocityComponent)
                 .add(component: CollidableComponent(radius: radius))
-        self.engine.replace(entity: entity)
+        self.engine.add(entity: entity)
         sprite.alpha = 0.0
         let alphaUp = SKAction.fadeAlpha(to: 1.0, duration: 0.5)
         let scaleUp = SKAction.scale(to: sprite.scale * 2.0, duration: 0.3)

@@ -56,7 +56,7 @@ class FiringSystemTests: XCTestCase {
         let appStateComponent = AppStateComponent(gameConfig: GameConfig(gameSize: .zero), randomness: Randomness.initialize(with: 1))
         let appState = Entity(named: .appState)
             .add(component: appStateComponent)
-        engine.replace(entity: appState)
+        engine.add(entity: appState)
         // SUT
         system.update(time: time)
         //

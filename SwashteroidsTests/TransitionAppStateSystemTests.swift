@@ -54,7 +54,7 @@ final class TransitionAppStateSystemTests: XCTestCase {
         node.components[TransitionAppStateComponent.name] = transitionComponent
         let appState = Entity(named: .appState)
                 .add(component: appStateComponent)
-        engine.replace(entity: appState)
+        engine.add(entity: appState)
         // SUT
         system.updateNode(node: node, time: 1)
         //
@@ -73,7 +73,7 @@ final class TransitionAppStateSystemTests: XCTestCase {
         node.components[TransitionAppStateComponent.name] = transitionComponent
         let appState = Entity(named: .appState)
                 .add(component: appStateComponent)
-        engine.replace(entity: appState)
+        engine.add(entity: appState)
         // SUT
         system.updateNode(node: node, time: 1)
         //
@@ -108,7 +108,7 @@ final class TransitionAppStateSystemTests: XCTestCase {
         node.components[TransitionAppStateComponent.name] = transitionComponent
         let appState = Entity(named: .appState)
                 .add(component: appStateComponent)
-        engine.replace(entity: appState)
+        engine.add(entity: appState)
         // SUT
         system.updateNode(node: node, time: 1)
         //
@@ -140,11 +140,7 @@ final class TransitionAppStateSystemTests: XCTestCase {
         appStateComponent.appState = .playing
         let appStateEntity = Entity(named: "appStateEntity")
                 .add(component: appStateComponent)
-        do {
-            try engine.add(entity: appStateEntity)
-        } catch {
-            XCTFail("Failed to add appStateEntity")
-        }
+        engine.add(entity: appStateEntity)
         let transitionComponent = TransitionAppStateComponent(from: .playing, to: .gameOver)
         let node = TransitionAppStateNode()
         node.components[AppStateComponent.name] = appStateComponent

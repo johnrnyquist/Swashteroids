@@ -37,11 +37,7 @@ final class TransitionTests: XCTestCase {
         appStateComponent.shipControlsState = .hidingButtons
         appStateEntity = Entity(named: "appStateEntity")
                 .add(component: appStateComponent)
-        do {
-            try engine.add(entity: appStateEntity)
-        } catch {
-            XCTFail("Failed to add appStateEntity")
-        }
+        engine.add(entity: appStateEntity)
         creator = MockQuadrantsButtonToggleCreator()
         // Transitions
         startTransition = StartTransition(engine: engine, generator: nil)

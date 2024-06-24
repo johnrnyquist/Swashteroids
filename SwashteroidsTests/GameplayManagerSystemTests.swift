@@ -57,7 +57,7 @@ final class GameplayManagerSystemTests: XCTestCase {
                                                     scaleManager: MockScaleManager()))
                 .add(component: PositionComponent(x: 0, y: 0, z: .asteroids))
                 .add(component: VelocityComponent(velocityX: 0, velocityY: 0, base: 60.0))
-        try? engine.add(entity: asteroid)
+        engine.add(entity: asteroid)
         let suggestedShipLocation = CGPoint(x: 100, y: 100)
         let result = system.isClearToAddSpaceship(at: suggestedShipLocation)
         XCTAssertTrue(result)
@@ -71,7 +71,7 @@ final class GameplayManagerSystemTests: XCTestCase {
                                                     scaleManager: MockScaleManager()))
                 .add(component: PositionComponent(x: 0, y: 0, z: .asteroids))
                 .add(component: VelocityComponent(velocityX: 0, velocityY: 0, base: 60.0))
-        try? engine.add(entity: asteroid)
+        engine.add(entity: asteroid)
         let suggestedShipLocation = CGPoint(x: 0, y: 0)
         // SUT
         let result = system.isClearToAddSpaceship(at: suggestedShipLocation)
@@ -102,7 +102,7 @@ final class GameplayManagerSystemTests: XCTestCase {
         let shipEntity = Entity(named: .player)
                 .add(component: PositionComponent(x: 0, y: 0, z: .ship))
                 .add(component: ShipComponent())
-        try? engine.add(entity: shipEntity)
+        engine.add(entity: shipEntity)
         engine.add(system: system, priority: 1)
         system.goToNextLevel(appStateComponent: appStateComponent, entity: shipEntity)
         XCTAssertEqual(appStateComponent.level, 2)
@@ -221,7 +221,7 @@ final class GameplayManagerSystemTests: XCTestCase {
         let shipEntity = Entity(named: .player)
                 .add(component: PositionComponent(x: 0, y: 0, z: .ship))
                 .add(component: ShipComponent())
-        try? engine.add(entity: shipEntity)
+        engine.add(entity: shipEntity)
         engine.add(system: system, priority: 1)
         //
         let appStateComponent = AppStateComponent(gameConfig: GameConfig(gameSize: .zero),

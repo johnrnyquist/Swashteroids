@@ -33,7 +33,7 @@ class StartTransition: StartUseCase {
         startView.name = .start
         let startEntity = Entity(named: .start)
         startView.entity = startEntity
-        engine.replace(entity: startEntity)
+        engine.add(entity: startEntity)
         startEntity
                 .add(component: DisplayComponent(sknode: startView))
                 .add(component: PositionComponent(x: 0, y: 0, z: .top, rotationDegrees: 0))
@@ -55,8 +55,8 @@ class StartTransition: StartUseCase {
         noButtonsSprite.entity = noButtons
         buttonsSprite.entity = withButtons
         // add entities to engine
-        engine.replace(entity: noButtons)
-        engine.replace(entity: withButtons)
+        engine.add(entity: noButtons)
+        engine.add(entity: withButtons)
         // the button to tap if you want to play with no buttons on the screen
         noButtons
                 .add(component: DisplayComponent(sknode: noButtonsSprite))

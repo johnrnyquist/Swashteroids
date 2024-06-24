@@ -56,13 +56,7 @@ class AsteroidCreator: AsteroidCreatorUseCase {
                 .add(component: ShootableComponent.shared)
                 .add(component: AlienWorkerTargetComponent.shared)
         sprite.entity = entity
-        do {
-            try engine.add(entity: entity)
-        } catch SwashError.entityNameAlreadyInUse(let message) {
-            fatalError(message)
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
+        engine.add(entity: entity)
     }
 
     private func createVelocity(speedModifier: Double) -> VelocityComponent {
