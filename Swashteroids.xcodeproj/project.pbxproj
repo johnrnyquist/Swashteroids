@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8D0006AC2C16601500C098CB /* AlienSoldierSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0006AB2C16601500C098CB /* AlienSoldierSystemTests.swift */; };
 		8D0A0D322B4E01C0007E9898 /* AlienCollisionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0A0D312B4E01C0007E9898 /* AlienCollisionNode.swift */; };
 		8D0A0D342B4E08D4007E9898 /* alien_entrance.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D0A0D332B4E08D4007E9898 /* alien_entrance.wav */; };
 		8D1925292C24B0F800A090F9 /* PickTargetSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1925282C24B0F800A090F9 /* PickTargetSystemTests.swift */; };
@@ -138,7 +137,6 @@
 		8DE66F0F2C14C9BF00ECEE96 /* SplitAsteroidUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139921E04E8DBE2DF6800B /* SplitAsteroidUseCase.swift */; };
 		8DE66F112C14CA1500ECEE96 /* SplitAsteroidComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE66F102C14CA1500ECEE96 /* SplitAsteroidComponent.swift */; };
 		8DE66F132C14CA5000ECEE96 /* SplitAsteroidNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE66F122C14CA5000ECEE96 /* SplitAsteroidNode.swift */; };
-		8DF718C62C163576007E1942 /* AlienWorkerSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF718C52C163576007E1942 /* AlienWorkerSystemTests.swift */; };
 		931390FD65B5AF82D24FEB32 /* CollisionSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139BEB3AC5615963614D45 /* CollisionSystemTests.swift */; };
 		93139113FFD9F17E28DA721A /* DeathThroesSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931397AEAB4946A616156BF7 /* DeathThroesSystemTests.swift */; };
 		931391652E9BD1A49E925FB4 /* ReactionTimeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139927DCF5E5DC2AE98363 /* ReactionTimeNode.swift */; };
@@ -243,7 +241,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		8D0006AB2C16601500C098CB /* AlienSoldierSystemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlienSoldierSystemTests.swift; sourceTree = "<group>"; };
 		8D0A0D312B4E01C0007E9898 /* AlienCollisionNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlienCollisionNode.swift; sourceTree = "<group>"; };
 		8D0A0D332B4E08D4007E9898 /* alien_entrance.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = alien_entrance.wav; sourceTree = "<group>"; };
 		8D1925282C24B0F800A090F9 /* PickTargetSystemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickTargetSystemTests.swift; sourceTree = "<group>"; };
@@ -373,7 +370,6 @@
 		8DD26DCA2B22D80600DA5BC3 /* AccelerometerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccelerometerComponent.swift; sourceTree = "<group>"; };
 		8DE66F102C14CA1500ECEE96 /* SplitAsteroidComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitAsteroidComponent.swift; sourceTree = "<group>"; };
 		8DE66F122C14CA5000ECEE96 /* SplitAsteroidNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitAsteroidNode.swift; sourceTree = "<group>"; };
-		8DF718C52C163576007E1942 /* AlienWorkerSystemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlienWorkerSystemTests.swift; sourceTree = "<group>"; };
 		931390044D76A66DFCED70FA /* MoveToTargetSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveToTargetSystemTests.swift; sourceTree = "<group>"; };
 		93139054E0404F880A6C7CE8 /* MoveToTargetComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveToTargetComponent.swift; sourceTree = "<group>"; };
 		931390993573DD02D04EE52C /* TreasureCollisionNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreasureCollisionNode.swift; sourceTree = "<group>"; };
@@ -757,9 +753,7 @@
 				8D512A982B41B47D00C30AC7 /* AccelerometerSystemTests.swift */,
 				93139B933148A8CE373B6EE8 /* AlienCreatorUseCaseTests.swift */,
 				8D19252A2C26242E00A090F9 /* AlienFiringSystemTests.swift */,
-				8D0006AB2C16601500C098CB /* AlienSoldierSystemTests.swift */,
 				8D1925282C24B0F800A090F9 /* PickTargetSystemTests.swift */,
-				8DF718C52C163576007E1942 /* AlienWorkerSystemTests.swift */,
 				8D384D992B28F3F300D5564C /* AnimationTests.swift */,
 				931390BDEBA443104F781428 /* AudioSystemTests.swift */,
 				93139BEB3AC5615963614D45 /* CollisionSystemTests.swift */,
@@ -1152,7 +1146,6 @@
 				8D19252B2C26242E00A090F9 /* AlienFiringSystemTests.swift in Sources */,
 				8DB99F522B2BE7D700C3593A /* TestingAppDelegate.swift in Sources */,
 				8DB99F572B2BE9EE00C3593A /* RenderSystemTests.swift in Sources */,
-				8D0006AC2C16601500C098CB /* AlienSoldierSystemTests.swift in Sources */,
 				8D384D9A2B28F3F300D5564C /* TorpedoAgeSystemTests.swift in Sources */,
 				8DB99F592B2BF2A700C3593A /* GameOverSystemTests.swift in Sources */,
 				93139BC5661C918BD0158277 /* HyperspaceSystemTests.swift in Sources */,
@@ -1174,7 +1167,6 @@
 				931394AC921BF3C3D7CABD13 /* FiringSystemTests.swift in Sources */,
 				93139D4F7B05532BC0F56A6C /* GameplayManagerSystemTests.swift in Sources */,
 				93139AF6101463528E309EA7 /* ShipControlsSystemTests.swift in Sources */,
-				8DF718C62C163576007E1942 /* AlienWorkerSystemTests.swift in Sources */,
 				931390FD65B5AF82D24FEB32 /* CollisionSystemTests.swift in Sources */,
 				8D88C4842B61D3FF00B75314 /* RandomnessTests.swift in Sources */,
 				9313961BE93AEE536D58C27B /* AudioSystemTests.swift in Sources */,

@@ -52,7 +52,7 @@ class FiringSystemTests: XCTestCase {
                 .add(component: position)
                 .add(component: gun)
                 .add(component: fireDown)
-        try! engine.add(entity: entity)
+        engine.add(entity: entity)
         let appStateComponent = AppStateComponent(gameConfig: GameConfig(gameSize: .zero), randomness: Randomness.initialize(with: 1))
         let appState = Entity(named: .appState)
             .add(component: appStateComponent)

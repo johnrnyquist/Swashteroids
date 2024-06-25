@@ -3,10 +3,58 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "Signaler2.dispatch(_:_:):Signaler2.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ListenerNodePool.get():ListenerNodePool.swift">
+      </ContextState>
+      <ContextState
+         contextName = "Signaler.add(_:):Signaler.swift">
+      </ContextState>
+      <ContextState
+         contextName = "Component.deinit:Component.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ComponentMatchingFamily.componentRemovedFrom(entity:componentClassName:):ComponentMatchingFamily.swift">
+      </ContextState>
+      <ContextState
+         contextName = "Node.deinit:Node.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "Self.name">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "MovementSystem.updateNode(node:time:):MovementSystem.swift">
          <PersistentStrings>
             <PersistentString
                value = "motion.velocity.x">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "NodePool.cache(node:):NodePool.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "nodeClassType">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ComponentMatchingFamily.addIfMatch(entity:):ComponentMatchingFamily.swift">
+      </ContextState>
+      <ContextState
+         contextName = "NodePool.get():NodePool.swift">
+      </ContextState>
+      <ContextState
+         contextName = "Engine.componentRemoved(entity:componentClassName:):Engine.swift">
+      </ContextState>
+      <ContextState
+         contextName = "MakeDecisionSystem.updateNode(node:time:):MakeDecisionSystem.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "entity.has(componentClass: MakeDecisionComponent.self)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

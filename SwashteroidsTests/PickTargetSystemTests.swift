@@ -64,11 +64,11 @@ class PickTargetSystemTests: XCTestCase {
                 .add(component: alienComponent)
                 .add(component: position)
                 .add(component: velocity)
-        try! engine.add(entity: entity)
+        engine.add(entity: entity)
         let ship = Entity()
             .add(component: ShipComponent())
             .add(component: PositionComponent(x: 0, y: 0, z: 0))
-        try! engine.add(entity: ship)
+        engine.add(entity: ship)
         // ACT
         system.pickTarget(entity: entity, alienComponent: alienComponent, position: position, velocity: velocity)
         let result = entity.find(componentClass: MoveToTargetComponent.self)
@@ -97,7 +97,7 @@ class PickTargetSystemTests: XCTestCase {
             VelocityComponent.name: velocityComponent,
         ]
         asteroidNode.entity = asteroidEntity
-        system.asteroidNodes = NodeList()
+        system.asteroidNodes = asteroidNodes
         system.asteroidNodes?.add(node: asteroidNode)
         system.shipNodes = shipNodes
 //        let soldier = AlienComponent(cast: .soldier, reactionTime: 0.4, scoreValue: 50)
@@ -129,7 +129,7 @@ class PickTargetSystemTests: XCTestCase {
             VelocityComponent.name: velocityComponent,
         ]
         asteroidNode.entity = asteroid
-        system.asteroidNodes = NodeList()
+        system.asteroidNodes = asteroidNodes
         system.asteroidNodes?.add(node: asteroidNode)
         system.shipNodes = shipNodes
 //        let soldier = AlienComponent(cast: .soldier, reactionTime: 0.4, scoreValue: 50)

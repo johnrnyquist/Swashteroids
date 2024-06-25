@@ -20,7 +20,7 @@ final class AlienCreatorUseCaseTests: XCTestCase {
         engine = Engine()
         let appState = Entity(named: .appState)
         appState.add(component: AppStateComponent(gameConfig: GameConfig(gameSize: .zero)))
-        try! engine.add(entity: appState)
+        engine.add(entity: appState)
     }
 
     override func tearDownWithError() throws {
@@ -29,7 +29,7 @@ final class AlienCreatorUseCaseTests: XCTestCase {
     
     func test_createAlienWorker_hasPlayer() throws {
         let player = Entity(named: .player)
-        try! engine.add(entity: player)
+        engine.add(entity: player)
         let creator = AlienCreator(engine: engine,
                                    size: .zero,
                                    randomness: Randomness.initialize(with: 1))
@@ -47,7 +47,7 @@ final class AlienCreatorUseCaseTests: XCTestCase {
 
     func test_createAlienSoldier_hasPlayer() throws {
         let player = Entity(named: .player)
-        try! engine.add(entity: player)
+        engine.add(entity: player)
         let creator = AlienCreator(engine: engine,
                                    size: .zero,
                                    randomness: Randomness.initialize(with: 1))

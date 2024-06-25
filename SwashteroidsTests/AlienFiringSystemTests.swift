@@ -47,7 +47,7 @@ final class AlienFiringSystemTests: XCTestCase {
                                         ownerType: .computerOpponent,
                                         ownerName: alienEntity.name,
                                         numTorpedoes: 0)
-        let moveToTargetComponent = MoveToTargetComponent(target: targetedEntity.name)
+        let moveToTargetComponent = MoveToTargetComponent(hunterName: alienEntity.name, targetName: targetedEntity.name)
         let positionComponent = PositionComponent(x: 0, y: 0, z: .asteroids, rotationDegrees: 0)
         let velocityComponent = VelocityComponent(velocityX: 0, velocityY: 0)
         alienEntity
@@ -58,8 +58,8 @@ final class AlienFiringSystemTests: XCTestCase {
                 .add(component: positionComponent)
                 .add(component: velocityComponent)
         gunComponent.timeSinceLastShot = gunComponent.minimumShotInterval + 1
-        try! engine.add(entity: alienEntity)
-        try! engine.add(entity: targetedEntity)
+        engine.add(entity: alienEntity)
+        engine.add(entity: targetedEntity)
         // ACT
         engine.update(time: 1)
         // ASSERT
