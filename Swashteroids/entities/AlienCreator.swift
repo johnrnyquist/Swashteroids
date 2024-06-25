@@ -36,16 +36,16 @@ class AlienCreator: AlienCreatorUseCase {
 //        }
 //        if !foundWorker {
 
-        let entrance = pickEntrance()
-        warningAliens(scene: scene, leftSide: entrance.leftSide)
-        engine.appStateEntity.add(component: AudioComponent(fileNamed: .alienEntrance, actionKey: "alienEntrance"))
+            let entrance = pickEntrance()
+            warningAliens(scene: scene, leftSide: entrance.leftSide)
+            engine.appStateEntity.add(component: AudioComponent(fileNamed: .alienEntrance, actionKey: "alienEntrance"))
 
-//        createTwoWorkers(entrance: entrance)
-//        createSoldier(entrance: entrance)
-//        createWorker(entrance: entrance)
-//
+            //        createTwoWorkers(entrance: entrance)
+            //        createSoldier(entrance: entrance)
+//            createWorker(entrance: entrance)
+//        }
 //        return
-
+//
         switch totalAliens {
         case 0...1:
             createAlienWorker(startDestination: CGPoint(x: entrance.startDestination.x, y: entrance.startDestination.y + 50),
