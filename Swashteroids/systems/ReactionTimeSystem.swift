@@ -18,12 +18,13 @@ final class ReactionTimeSystem: ListIteratingSystem {
     }
 
     func updateNode(node: Node, time: TimeInterval) {
-        guard let component = node[ReactionTimeComponent.self],
+        guard let reactionTimeComponent = node[ReactionTimeComponent.self],
               let entity = node.entity
         else { return }
-        component.timeSinceLastReaction += time
-        if component.canReact {
-            entity.add(component: MakeDecisionComponent())
+        reactionTimeComponent.timeSinceLastReaction += time
+        if reactionTimeComponent.canReact {
+            entity.add(component: PickTargetComponent())
+            reactionTimeComponent.reacted()
         }
     }
 }
