@@ -31,13 +31,13 @@ final class PickTargetSystem: ListIteratingSystem {
     }
 
     func updateNode(node: Node, time: TimeInterval) {
-        guard let component = node[PickTargetComponent.self],
+        guard let _ = node[PickTargetComponent.self],
               let alienComponent = node[AlienComponent.self],
               let positionComponent = node[PositionComponent.self],
               let velocityComponent = node[VelocityComponent.self],
               let entity = node.entity
         else { return }
-        entity.remove(componentClass: type(of: component))
+        entity.remove(componentClass: PickTargetComponent.self)
         pickTarget(entity: entity, alienComponent: alienComponent, position: positionComponent, velocity: velocityComponent)
     }
 
