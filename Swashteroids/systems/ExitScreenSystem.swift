@@ -40,13 +40,13 @@ final class ExitScreenSystem: ListIteratingSystem {
     }
 
     func updateNode(node: Node, time: TimeInterval) {
-        guard let component = node[ExitScreenComponent.self],
+        guard let _ = node[ExitScreenComponent.self],
               let position = node[PositionComponent.self],
               let alienComponent = node[AlienComponent.self],
               let entity = node.entity
         else { return }
         if hasReachedDestination(position.x, alienComponent.destinationEnd) {
-            entity.remove(componentClass: type(of: component))
+            entity.remove(componentClass: ExitScreenComponent.self)
             engine?.remove(entity: entity)
         }
     }
