@@ -126,7 +126,7 @@ final class AppStateComponent: Component {
     //MARK: - Computed Properties
     var alienAppearanceRateDefault: TimeInterval {
 //        return 1.0
-        return randomness.nextDouble(from: 15.0, through: 90.0)
+        return randomness.nextDouble(from: 1.0, through: 15.0)
     }
     var hitPercentage: Int {
         guard gameState.numTorpedoesPlayerFired > 0 else { return 0 }
