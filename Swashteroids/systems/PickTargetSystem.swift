@@ -15,6 +15,7 @@ final class PickTargetSystem: ListIteratingSystem {
     weak var asteroidNodes: NodeList!
     weak var shipNodes: NodeList!
     weak var targetableNodes: NodeList!
+    weak var engine: Engine!
 
     init() {
         super.init(nodeClass: PickTargetNode.self)
@@ -23,6 +24,7 @@ final class PickTargetSystem: ListIteratingSystem {
 
     override func addToEngine(engine: Engine) {
         super.addToEngine(engine: engine)
+        self.engine = engine
         asteroidNodes = engine.getNodeList(nodeClassType: AsteroidCollisionNode.self)
         shipNodes = engine.getNodeList(nodeClassType: ShipNode.self)
         targetableNodes = engine.getNodeList(nodeClassType: AlienWorkerTargetNode.self)
@@ -48,7 +50,7 @@ final class PickTargetSystem: ListIteratingSystem {
                let closestAsteroid = findClosestEntity(to: position.position, node: asteroidNodes?.head) {
                 // is ship closer than asteroid?
                 let distanceToAsteroid = position.position.distance(from: closestAsteroid[PositionComponent.self]!.position)
-                if distanceToAsteroid < alienComponent.maxTargetableRange/1.5 {
+                if distanceToAsteroid < alienComponent.maxTargetableRange / 1.5 {
                     updateMoveToTarget(entity: entity, targetedEntity: closestAsteroid)
                 } else {
                     updateMoveToTarget(entity: entity, targetedEntity: shipEntity)
@@ -65,12 +67,25 @@ final class PickTargetSystem: ListIteratingSystem {
                 entity.add(component: ExitScreenComponent())
             }
         case .worker:
+            let excludedEntityNames: [String]
+            // does the alien already have a target?
+            if let currentTarget = entity.find(componentClass: MoveToTargetComponent.self)?.targetedEntityName {
+                // exclude the current target from the search
+                excludedEntityNames = engine.findComponents(componentClass: MoveToTargetComponent.self)
+                                                .map(\.targetedEntityName)
+                                                .filter { $0 != currentTarget }
+            } else {
+                excludedEntityNames = []
+            }
             if let shipEntity = shipNodes.head?.entity,
                !shipEntity.has(componentClass: DeathThroesComponent.self),
-               let targetedEntity = findClosestEntity(to: position.position, node: targetableNodes?.head) {
-                //TODO: I should NOT have to remove the component as adding it should overwrite the previous, 
-                // but it did not work without doing so. Oddly I do not have to do it for the soldier.
+               let targetedEntity = findClosestEntity(to: position.position,
+                                                      node: targetableNodes?.head,
+                                                      excludingEntities: excludedEntityNames) {
                 updateMoveToTarget(entity: entity, targetedEntity: targetedEntity)
+            } else if let shipEntity = shipNodes.head?.entity,
+                      !shipEntity.has(componentClass: DeathThroesComponent.self) {
+                updateMoveToTarget(entity: entity, targetedEntity: shipEntity)
             } else {
                 // Nothing to target, exit screen
                 position.rotationRadians = alienComponent.destinationEnd.x > 0 ? 0 : CGFloat.pi
@@ -84,10 +99,10 @@ final class PickTargetSystem: ListIteratingSystem {
     }
 
     private func updateMoveToTarget(entity: Entity, targetedEntity: Entity) {
-        if let move =  entity.find(componentClass: MoveToTargetComponent.self) {
-            move.targetedEntityName = targetedEntity.name
+        if let moveToTargetComponent = entity.find(componentClass: MoveToTargetComponent.self) {
+            moveToTargetComponent.targetedEntityName = targetedEntity.name
         } else {
-            entity.add(component: MoveToTargetComponent(target: targetedEntity.name))
+            entity.add(component: MoveToTargetComponent(hunterName: entity.name, targetName: targetedEntity.name))
         }
     }
 
@@ -96,15 +111,17 @@ final class PickTargetSystem: ListIteratingSystem {
     /// - Parameters:
     ///   - position: The position to compare against.
     ///   - node: The node to start the search from.
+    ///   - excludedEntities: An optional array of entity names to exclude from the search.
     /// - Returns: The entity closest to the given position.
-    func findClosestEntity(to position: CGPoint, node: Node?) -> Entity? {
+    func findClosestEntity(to position: CGPoint, node: Node?, excludingEntities excludedEntityNames: [String] = []) -> Entity? {
         guard let node = node else { return nil }
         // Create a sequence of nodes starting from the given node
         let nodeSequence = sequence(first: node, next: { $0.next })
         // Extract entities and their positions from the sequence of nodes
         let entitiesWithPositions = nodeSequence.compactMap { node -> (entity: Entity, position: CGPoint)? in
             guard let entity = node.entity,
-                  let positionComponent = entity[PositionComponent.self] else {
+                  let positionComponent = entity[PositionComponent.self],
+                  !excludedEntityNames.contains(entity.name) else {
                 return nil
             }
             return (entity: entity, position: positionComponent.position)

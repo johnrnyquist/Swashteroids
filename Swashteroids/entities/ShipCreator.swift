@@ -69,6 +69,7 @@ class ShipCreator: ShipCreatorUseCase {
                 .add(component: RepeatingAudioComponent(sound: GameScene.sound)) //HACK
                 .add(component: ShootableComponent.shared)
                 .add(component: AlienWorkerTargetComponent.shared)
+
         switch state.shipControlsState {
         case .hidingButtons:
             ship.add(component: AccelerometerComponent())

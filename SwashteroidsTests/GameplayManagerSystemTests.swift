@@ -172,7 +172,6 @@ final class GameplayManagerSystemTests: XCTestCase {
         appStateComponent.appState = .playing
         let entity = Entity(named: "currentState")
         system.continueOrEnd(appStateComponent: appStateComponent, entity: entity)
-        
         let result = entity[TransitionAppStateComponent.self]
         XCTAssertNotNil(result)
         XCTAssertEqual(result?.from, .playing)

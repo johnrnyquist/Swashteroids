@@ -11,12 +11,12 @@
 import Foundation
 import Swash
 
-/// Added to entity to target in its own fashion
 class MoveToTargetComponent: Component {
+    let hunterEntityName: String
     var targetedEntityName: String
 
-    init(target name: String) {
-        print("MoveToTargetComponent init")
-        targetedEntityName = name
+    init(hunterName: String, targetName: String) {
+        hunterEntityName = hunterName
+        targetedEntityName = targetName
     }
 }

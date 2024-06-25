@@ -920,7 +920,7 @@
 			);
 			mainGroup = 8D23C1292B02C4C900F7D878;
 			packageReferences = (
-				8D98697C2C29DDB600A48A96 /* XCLocalSwiftPackageReference "../../Swash_Swift_Package/Swash" */,
+				8DD341462C2B3821003B23F5 /* XCLocalSwiftPackageReference "../../Swash_Swift_Package/Swash" */,
 			);
 			productRefGroup = 8D23C1332B02C4CA00F7D878 /* Products */;
 			projectDirPath = "";
@@ -1473,7 +1473,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		8D98697C2C29DDB600A48A96 /* XCLocalSwiftPackageReference "../../Swash_Swift_Package/Swash" */ = {
+		8DD341462C2B3821003B23F5 /* XCLocalSwiftPackageReference "../../Swash_Swift_Package/Swash" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../../Swash_Swift_Package/Swash;
 		};
