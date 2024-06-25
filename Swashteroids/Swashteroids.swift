@@ -113,7 +113,6 @@ final class Swashteroids: NSObject {
                 // update
                 .add(system: LifetimeSystem(), priority: .update)
                 .add(system: ReactionTimeSystem(), priority: .update)
-                .add(system: MakeDecisionSystem(), priority: .update)
                 .add(system: PickTargetSystem(), priority: .update)
                 .add(system: MoveToTargetSystem(), priority: .update)
                 .add(system: ExitScreenSystem(), priority: .update)
