@@ -10,27 +10,6 @@
 
 import SwiftUI
 
-struct ButtonView: View {
-    var label: String
-    var action: () -> Void
-    var body: some View {
-        Button(action: action) {
-            HStack {
-                Spacer()
-                Text(label)
-                        .foregroundColor(.white)
-                        .font(.custom("Futura Condensed Medium", size: 32))
-                        .padding(.vertical, 5)
-                Spacer()
-            }
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color.white, lineWidth: 2)
-                    )
-        }
-    }
-}
-
 struct PauseAlert: View {
     var appState: AppStateComponent
     var home: () -> Void
@@ -49,13 +28,6 @@ struct PauseAlert: View {
              RoundedRectangle(cornerRadius: 20)
                      .stroke(Color.white, lineWidth: 2)
          )
-    }
-}
-
-struct PauseAlert_Previews: PreviewProvider {
-    static var previews: some View {
-        PauseAlert(appState: AppStateComponent(gameConfig: GameConfig(gameSize: .zero)),
-                   home: {}, resume: {})
     }
 }
 
@@ -89,5 +61,33 @@ struct StatsView: View {
 //        } else {
 //            return String(format: "%02i", seconds)
 //        }
+    }
+}
+
+struct ButtonView: View {
+    var label: String
+    var action: () -> Void
+    var body: some View {
+        Button(action: action) {
+            HStack {
+                Spacer()
+                Text(label)
+                        .foregroundColor(.white)
+                        .font(.custom("Futura Condensed Medium", size: 32))
+                        .padding(.vertical, 5)
+                Spacer()
+            }
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.white, lineWidth: 2)
+                    )
+        }
+    }
+}
+
+struct PauseAlert_Previews: PreviewProvider {
+    static var previews: some View {
+        PauseAlert(appState: AppStateComponent(gameConfig: GameConfig(gameSize: .zero)),
+                   home: {}, resume: {})
     }
 }
