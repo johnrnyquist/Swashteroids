@@ -36,14 +36,4 @@ extension Engine {
     var input: Entity? {
         findEntity(named: .input)
     }
-
-    func removeEntities(named names: [EntityName]) {
-        for name in names {
-            if let entity = findEntity(named: name) {
-                remove(entity: entity)
-            } else {
-                print(#function, #line, "NOTE: engine did not contain `\(name)` entity!")
-            }
-        }
-    }
 }
