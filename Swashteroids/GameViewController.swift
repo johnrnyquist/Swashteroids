@@ -20,17 +20,13 @@ protocol AlertPresenting: AnyObject {
 }
 
 final class GameViewController: UIViewController, AlertPresenting {
-    var skView: SKView!
-    var gameScene: GameScene!
+    var skView: SKView?
+    var gameScene: GameScene?
     var game: Swashteroids?
     var isAlertPresented = false //HACK: this is a hack to prevent the game from starting when the app returns from background.
 
     override func loadView() {
         skView = SKView()
-        skView.showsPhysics = true
-        skView.ignoresSiblingOrder = true // true is more optimized rendering, but must set zPosition
-        skView.isUserInteractionEnabled = true
-        skView.isMultipleTouchEnabled = true
         view = skView
     }
 
@@ -39,49 +35,63 @@ final class GameViewController: UIViewController, AlertPresenting {
     }
 
     func startNewGame() {
-        gameScene = nil
+        setupSKView()
+        createGameScene()
+        initializeGame()
+        presentGameScene()
+    }
+
+    private func setupSKView() {
+        skView?.showsPhysics = true
+        skView?.ignoresSiblingOrder = true // true is more optimized rendering, but must set zPosition
+        skView?.isUserInteractionEnabled = true
+        skView?.isMultipleTouchEnabled = true
+    }
+
+    private func createGameScene() {
         let screenSize = UIScreen.main.bounds
-        let screenWidth = screenSize.width
-        let screenHeight = screenSize.height
-        gameScene = GameScene(size: CGSize(width: screenWidth, height: screenHeight))
-        gameScene.name = "gameScene"
-        gameScene.anchorPoint = .zero
-        gameScene.scaleMode = .aspectFit
-//        #if DEBUG
-//            let seed = 1
-//        #else
-            let seed = Int(Date().timeIntervalSince1970)
-//        #endif
+        gameScene = GameScene(size: screenSize.size)
+        gameScene?.name = "gameScene"
+        gameScene?.anchorPoint = .zero
+        gameScene?.scaleMode = .aspectFit
+    }
+
+    private func initializeGame() {
+        guard let gameScene else { fatalError("gameScene is nil") }
+        let seed = Int(Date().timeIntervalSince1970)
         game = Swashteroids(scene: gameScene, alertPresenter: self, seed: seed)
-        print("seed \(seed)")
         gameScene.delegate = game
         gameScene.touchDelegate = game
         gameScene.physicsWorld.contactDelegate = game
         gameScene.physicsWorld.gravity = CGVector(dx: 0, dy: 0)
         game?.start()
-        skView.presentScene(gameScene)
+    }
+
+    private func presentGameScene() {
+        skView?.presentScene(gameScene)
     }
 
     func home() {
-            dismiss(animated: true, completion: { [unowned self] in
-                isAlertPresented = false
-                startNewGame()
-            })
+        dismiss(animated: true, completion: { [unowned self] in
+            isAlertPresented = false
+            startNewGame()
+        })
     }
 
     func resume() {
-            dismiss(animated: true, completion: { [unowned self] in
-                isAlertPresented = false
-                game?.start()
-            })
+        dismiss(animated: true, completion: { [unowned self] in
+            isAlertPresented = false
+            game?.start()
+        })
     }
 
     @IBAction func showPauseAlert() {
-        game?.stop()
-        if game?.engine.appStateComponent.appState == .playing ||
-            game?.engine.appStateComponent.appState == .gameOver {
+        guard let game else { fatalError("game is nil") }
+        game.stop()
+        if game.engine.appStateComponent.appState == .playing ||
+           game.engine.appStateComponent.appState == .gameOver {
             let alertView = PauseAlert(
-                appState: game!.engine.appStateComponent, //HACK
+                appState: game.engine.appStateComponent, //HACK
                 home: self.home,
                 resume: self.resume)
             let hostingController = UIHostingController(rootView: alertView)
@@ -105,16 +115,16 @@ final class GameViewController: UIViewController, AlertPresenting {
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         switch UIDevice.current.orientation {
-            case .landscapeLeft:
-                print("landscapeLeft")
-            case .portrait:
-                print("portrait")
-            case .landscapeRight:
-                print("landscapeRight")
-            case .portraitUpsideDown:
-                print("portraitUpsideDown")
-            default:
-                break
+        case .landscapeLeft:
+            print("landscapeLeft")
+        case .portrait:
+            print("portrait")
+        case .landscapeRight:
+            print("landscapeRight")
+        case .portraitUpsideDown:
+            print("portraitUpsideDown")
+        default:
+            break
         }
     }
 }
@@ -125,7 +135,6 @@ final class GameViewController: UIViewController, AlertPresenting {
 // let asteroidCategory: UInt32 = 0x1 << 2
 // let torpedoCategory: UInt32 = 0x1 << 3
 // let powerUpCategory: UInt32 = 0x1 << 4
-
 extension Swashteroids: SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
         print(#function)
