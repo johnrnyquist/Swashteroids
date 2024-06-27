@@ -95,7 +95,6 @@ final class PickTargetSystem: ListIteratingSystem {
                 entity.add(component: ExitScreenComponent())
             }
         }
-//        print("\n\(self) \(entity.name) is targeting \(entity.find(componentClass: MoveToTargetComponent.self)?.targetedEntity?.name)\n")
     }
 
     private func updateMoveToTarget(entity: Entity, targetedEntity: Entity) {

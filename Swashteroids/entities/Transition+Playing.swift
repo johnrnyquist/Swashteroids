@@ -12,10 +12,10 @@ import Swash
 import SpriteKit
 
 class PlayingTransition: PlayingUseCase {
-    var hudCreator: HudCreatorUseCase?
-    var toggleShipControlsCreator: ToggleShipControlsCreatorUseCase?
-    var shipControlQuadrantsCreator: ShipQuadrantsControlsCreatorUseCase?
-    var shipButtonControlsCreator: ShipButtonControlsCreatorUseCase?
+    weak var hudCreator: HudCreatorUseCase?
+    weak var toggleShipControlsCreator: ToggleShipControlsCreatorUseCase?
+    weak var shipControlQuadrantsCreator: ShipQuadrantsControlsCreatorUseCase?
+    weak var shipButtonControlsCreator: ShipButtonControlsCreatorUseCase?
 
     init(hudCreator: HudCreatorUseCase,
          toggleShipControlsCreator: ToggleShipControlsCreatorUseCase,
@@ -36,7 +36,7 @@ class PlayingTransition: PlayingUseCase {
 
     func toPlayingScreen(appStateComponent: AppStateComponent) {
         hudCreator?.createHud(gameState: appStateComponent)
-        if appStateComponent.shipControlsState == .hidingButtons {
+        if appStateComponent.shipControlsState == .usingAccelerometer {
             toggleShipControlsCreator?.createToggleButton(.off)
             shipControlQuadrantsCreator?.createShipControlQuadrants()
         } else {

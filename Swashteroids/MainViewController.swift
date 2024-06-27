@@ -27,7 +27,7 @@ class MainViewController: UIViewController {
         gameViewController.view.frame = view.bounds
         gameViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         // Initialize the settings view controller but don't add it yet
-        settingsViewController = UIHostingController(rootView: SettingsView { () -> Void in self.hideSettings() })
+        settingsViewController = UIHostingController(rootView: SettingsView() )
     }
 
     func appWillResignActive() {

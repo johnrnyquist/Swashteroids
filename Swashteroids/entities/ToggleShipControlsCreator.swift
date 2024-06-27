@@ -45,7 +45,7 @@ class ToggleShipControlsCreator: ToggleShipControlsCreatorUseCase {
                 .add(component: TouchableComponent())
         sprite.entity = toggleEntity
         // Add the button behavior
-        let toState: ShipControlsState = toggleState == .on ? .hidingButtons : .showingButtons
+        let toState: ShipControlsState = toggleState == .on ? .usingAccelerometer : .usingScreenControls
         toggleEntity.add(component: ButtonBehaviorComponent(
             touchDown: { [unowned self] sprite in
                 generator?.impactOccurred()

@@ -15,8 +15,10 @@ import CoreMotion
 final class Swashteroids: NSObject {
     lazy private var tickEngineListener = Listener(engine.update)
     let motionManager: CMMotionManager? = CMMotionManager()
+    private let gameSize: CGSize
     private let generator = UIImpactFeedbackGenerator(style: .heavy)
     private var tickProvider: TickProvider?
+    private(set) var creatorManager: CreatorManager!
     private(set) var engine = Engine()
     private(set) var inputComponent = InputComponent.shared
     private(set) var orientation = 1.0
@@ -25,6 +27,7 @@ final class Swashteroids: NSObject {
 
     init(scene: GameScene, alertPresenter: AlertPresenting, seed: Int = 0) {
         self.scene = scene
+        gameSize = scene.size
         self.alertPresenter = alertPresenter
         if seed == 0 {
             Randomness.initialize(with: Int(Date().timeIntervalSince1970))
@@ -37,6 +40,7 @@ final class Swashteroids: NSObject {
                                                selector: #selector(orientationChanged),
                                                name: UIDevice.orientationDidChangeNotification, object: nil)
         createInitialEntities(scene: scene)
+        creatorManager = CreatorManager(engine: engine, gameSize: gameSize, alertPresenter: alertPresenter, generator: generator)
         createSystems(scene: scene)
     }
 
@@ -69,38 +73,28 @@ final class Swashteroids: NSObject {
     }
 
     private func createSystems(scene: GameScene) {
-        let gameSize = scene.size
         let soundPlayer = scene
-        let torpedoCreator = TorpedoCreator(engine: engine)
-        let treasureCreator = TreasureCreator(engine: engine)
-        let powerUpCreator = PowerUpCreator(engine: engine, size: gameSize)
-        let asteroidCreator = AsteroidCreator(engine: engine)
-        let alienCreator = AlienCreator(engine: engine, size: gameSize)
-        let shipCreator = ShipCreator(engine: engine, size: gameSize)
-        let toggleShipControlsCreator = ToggleShipControlsCreator(engine: engine, size: gameSize, generator: generator)
-        let shipControlQuadrantsCreator = ShipQuadrantsControlsCreator(engine: engine, size: gameSize, generator: generator)
-        let shipButtonControlsCreator = ShipButtonControlsCreator(engine: engine, size: gameSize, generator: generator)
         let transition = PlayingTransition(
-            hudCreator: HudCreator(engine: engine, alertPresenter: alertPresenter),
-            toggleShipControlsCreator: toggleShipControlsCreator,
-            shipControlQuadrantsCreator: shipControlQuadrantsCreator,
-            shipButtonControlsCreator: shipButtonControlsCreator)
+            hudCreator: creatorManager.hudCreator,
+            toggleShipControlsCreator: creatorManager.toggleShipControlsCreator,
+            shipControlQuadrantsCreator: creatorManager.shipControlQuadrantsCreator,
+            shipButtonControlsCreator: creatorManager.shipButtonControlsCreator)
         let startTransition = StartTransition(engine: engine, generator: generator)
         let gameOverTransition = GameOverTransition(engine: engine, generator: generator)
         let infoViewsTransition = InfoViewsTransition(engine: engine, generator: generator)
         engine
             // preupdate
                 .add(system: TimePlayedSystem(), priority: .preUpdate)
-                .add(system: GameplayManagerSystem(asteroidCreator: asteroidCreator,
-                                                   alienCreator: alienCreator,
-                                                   shipCreator: shipCreator,
+                .add(system: GameplayManagerSystem(asteroidCreator: creatorManager.asteroidCreator,
+                                                   alienCreator: creatorManager.alienCreator,
+                                                   shipCreator: creatorManager.shipCreator,
                                                    size: gameSize,
                                                    scene: scene),
                      priority: .preUpdate)
                 .add(system: GameOverSystem(), priority: .preUpdate)
-                .add(system: ShipControlsSystem(toggleShipControlsCreator: toggleShipControlsCreator,
-                                                shipControlQuadrantsCreator: shipControlQuadrantsCreator,
-                                                shipButtonControlsCreator: shipButtonControlsCreator),
+                .add(system: ShipControlsSystem(toggleShipControlsCreator: creatorManager.toggleShipControlsCreator,
+                                                shipControlQuadrantsCreator: creatorManager.shipControlQuadrantsCreator,
+                                                shipButtonControlsCreator: creatorManager.shipButtonControlsCreator),
                      priority: .preUpdate)
                 .add(system: TransitionAppStateSystem(startTransition: startTransition,
                                                       infoViewsTransition: infoViewsTransition,
@@ -113,15 +107,15 @@ final class Swashteroids: NSObject {
                 .add(system: PickTargetSystem(), priority: .update)
                 .add(system: MoveToTargetSystem(), priority: .update)
                 .add(system: ExitScreenSystem(), priority: .update)
-                .add(system: AlienFiringSystem(torpedoCreator: torpedoCreator, gameSize: gameSize), priority: .update)
-                .add(system: FiringSystem(torpedoCreator: torpedoCreator), priority: .update)
+                .add(system: AlienFiringSystem(torpedoCreator: creatorManager.torpedoCreator, gameSize: gameSize), priority: .update)
+                .add(system: FiringSystem(torpedoCreator: creatorManager.torpedoCreator), priority: .update)
                 .add(system: TorpedoAgeSystem(), priority: .update)
                 .add(system: DeathThroesSystem(), priority: .update)
                 .add(system: HyperspaceJumpSystem(engine: engine), priority: .update)
                 .add(system: NacellesSystem(), priority: .update)
-                .add(system: HudSystem(powerUpCreator: powerUpCreator), priority: .update)
-                .add(system: SplitAsteroidSystem(asteroidCreator: asteroidCreator,
-                                                 treasureCreator: treasureCreator),
+                .add(system: HudSystem(powerUpCreator: creatorManager.powerUpCreator), priority: .update)
+                .add(system: SplitAsteroidSystem(asteroidCreator: creatorManager.asteroidCreator,
+                                                 treasureCreator: creatorManager.treasureCreator),
                      priority: .update)
                 // move
                 .add(system: AccelerometerSystem(), priority: .move)
@@ -131,9 +125,9 @@ final class Swashteroids: NSObject {
                 .add(system: RightSystem(), priority: .move)
                 .add(system: ThrustSystem(), priority: .move)
                 // resolve collisions
-                .add(system: CollisionSystem(shipCreator: shipCreator,
-                                             asteroidCreator: asteroidCreator,
-                                             shipButtonControlsCreator: shipButtonControlsCreator,
+                .add(system: CollisionSystem(shipCreator: creatorManager.shipCreator,
+                                             asteroidCreator: creatorManager.asteroidCreator,
+                                             shipButtonControlsCreator: creatorManager.shipButtonControlsCreator,
                                              size: gameSize),
                      priority: .resolveCollisions)
                 // animate

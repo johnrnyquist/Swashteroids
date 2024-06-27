@@ -30,12 +30,12 @@ class ShipCreator: ShipCreatorUseCase {
     func createShip(_ state: AppStateComponent) {
         let ship = Entity(named: .player)
         let sprite = SwashScaledSpriteNode(texture: createShipTexture())
-//        sprite.physicsBody = SKPhysicsBody(rectangleOf: sprite.size.scaled(by: 0.8))//(circleOfRadius: 25 * scaleManager.SCALE_FACTOR)
-//        sprite.physicsBody?.isDynamic = true
-//        sprite.physicsBody?.affectedByGravity = false
-//        sprite.physicsBody?.categoryBitMask = playerCategory
-//        sprite.physicsBody?.contactTestBitMask = asteroidCategory | alienCategory | torpedoCategory
-//        sprite.physicsBody?.collisionBitMask = 0
+        //        sprite.physicsBody = SKPhysicsBody(rectangleOf: sprite.size.scaled(by: 0.8))//(circleOfRadius: 25 * scaleManager.SCALE_FACTOR)
+        //        sprite.physicsBody?.isDynamic = true
+        //        sprite.physicsBody?.affectedByGravity = false
+        //        sprite.physicsBody?.categoryBitMask = playerCategory
+        //        sprite.physicsBody?.contactTestBitMask = asteroidCategory | alienCategory | torpedoCategory
+        //        sprite.physicsBody?.collisionBitMask = 0
         sprite.name = .player
         sprite.zPosition = .ship
         let nacellesSprite = SKSpriteNode(texture: createNacelleTexture())
@@ -69,15 +69,14 @@ class ShipCreator: ShipCreatorUseCase {
                 .add(component: RepeatingAudioComponent(sound: GameScene.sound)) //HACK
                 .add(component: ShootableComponent.shared)
                 .add(component: AlienWorkerTargetComponent.shared)
-
         switch state.shipControlsState {
-        case .hidingButtons:
+        case .usingAccelerometer:
             ship.add(component: AccelerometerComponent())
-        case .showingButtons:
-            ship.remove(componentClass: AccelerometerComponent.self)
         case .usingScreenControls:
+            ship.remove(componentClass: AccelerometerComponent.self)
             break
         case .usingGameController:
+            ship.remove(componentClass: AccelerometerComponent.self)
             break
         }
         engine.add(entity: ship)
@@ -113,7 +112,7 @@ class ShipCreator: ShipCreatorUseCase {
                 .remove(componentClass: MovementRateComponent.self)
                 .remove(componentClass: ReactionTimeComponent.self)
                 .remove(componentClass: ShootableComponent.self)
-        // Change components                                
+        // Change components
         ship[VelocityComponent.self]?.angularVelocity = randomness.nextDouble(from: -100.0, through: 100.0)
         // Add components
         ship
@@ -149,3 +148,4 @@ class ShipCreator: ShipCreatorUseCase {
         warningSprite.run(sequence)
     }
 }
+

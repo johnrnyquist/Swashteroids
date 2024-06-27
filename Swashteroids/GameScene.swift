@@ -16,7 +16,6 @@ extension GameScene: SoundPlaying {}
 
 class GameScene: SKScene {
     deinit {
-        print("GameScene deinit")
         removeAllActions()
         removeFromParent()
         removeAllChildren()
@@ -91,7 +90,6 @@ class GameScene: SKScene {
             //Check to see whether it is an extended Game Controller (Such as a Nimbus)
             if controller.extendedGamepad != nil,
                let game = delegate as? Swashteroids {
-                print("Extended Gamepad")
                 game.engine.appStateEntity.add(component: GameControllerComponent())
                 game.usingGameController()
                 setupControllerControls(controller: controller)
@@ -121,10 +119,13 @@ class GameScene: SKScene {
 
     func controllerInputDetected(pad: GCExtendedGamepad, element: GCControllerElement, index: Int) {
         print("Controller: \(index), Element: \(element)")
+        print(element.localizedName)
+        print(element.sfSymbolsName)
+        print(element.aliases)
+        print(element.collection)
+        print("----")
         let game = (delegate as! Swashteroids)
         let gameControllerComponent = GameControllerComponent()
-        
-        print("appState: \(game.engine.appStateComponent.appState)")
         if game.engine.appStateComponent.appState == .start {
             if pad.buttonA.isPressed {
                 gameControllerComponent.add(command: .buttonA)
@@ -253,6 +254,33 @@ enum GameControllerInput {
     case dpadDown
     case dpadLeft
     case dpadRight
+    var description: String {
+        switch self {
+        case .rightThumbstickUp: return "rightThumbstickUp"
+        case .rightThumbstickDown: return "rightThumbstickDown"
+        case .rightThumbstickLeft: return "rightThumbstickLeft"
+        case .rightThumbstickRight: return "rightThumbstickRight"
+        case .rightThumbstickButtonPressed: return "rightThumbstickButtonPressed"
+        case .leftThumbstickUp: return "leftThumbstickUp"
+        case .leftThumbstickDown: return "leftThumbstickDown"
+        case .leftThumbstickLeft: return "leftThumbstickLeft"
+        case .leftThumbstickRight: return "leftThumbstickRight"
+        case .leftThumbstickButtonPressed: return "leftThumbstickButtonPressed"
+        case .rightTrigger: return "rightTrigger"
+        case .leftTrigger: return "leftTrigger"
+        case .rightShoulder: return "rightShoulder"
+        case .leftShoulder: return "leftShoulder"
+        case .buttonA: return "buttonA"
+        case .buttonB: return "buttonB"
+        case .buttonX: return "buttonX"
+        case .buttonY: return "buttonY"
+        case .buttonMenu: return "buttonMenu"
+        case .dpadUp: return "dpadUp"
+        case .dpadDown: return "dpadDown"
+        case .dpadLeft: return "dpadLeft"
+        case .dpadRight: return "dpadRight"
+        }
+    }
 }
 
 class GameControllerComponent: Component {

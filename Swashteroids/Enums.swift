@@ -16,6 +16,35 @@ var LARGE_ASTEROID_RADIUS = 54.0
 var MEDIUM_ASTEROID_RADIUS = 27.0
 var SMALL_ASTEROID_RADIUS = 13.5
 var POWER_UP_RADIUS = 7.0
+
+enum Functionality: String, CaseIterable {
+    // Playing
+    case fire = "Fire"
+    case thrust = "Thrust"
+    case hyperspace = "Hyperspace"
+    case left = "Left"
+    case right = "Right"
+    case pause = "Pause"
+    case flip = "Flip"
+    // Alert
+    case home = "Home"
+    case resume = "Resume"
+    case settings = "Settings"
+    // Start
+    case buttons = "Buttons"
+    case noButtons = "No Buttons"
+    // Info
+    case `continue` = "Continue"
+}
+
+//TODO: Refactor global variable 
+var screenSpecificFunctionalities: [AppState: [Functionality]] = [
+    .start: [.buttons, .noButtons],
+    .infoButtons: [.continue],
+    .infoNoButtons: [.continue],
+    .playing: [.fire, .thrust, .hyperspace, .left, .right, .pause, .flip],
+    .gameOver: [.pause, .home, .settings, .resume]
+]
 // TODO: Is this AppState or GameState? Start, playing, gameover, paused all seem like game states. infoButtons and infoNoButtons seem like app states.
 enum AppState {
     case start
@@ -27,8 +56,7 @@ enum AppState {
 
 /// The state of the ship controls. Either showing or hiding. 
 enum ShipControlsState {
-    case showingButtons
-    case hidingButtons
+    case usingAccelerometer
     case usingGameController
     case usingScreenControls
 }

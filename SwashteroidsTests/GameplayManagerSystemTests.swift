@@ -227,7 +227,7 @@ final class GameplayManagerSystemTests: XCTestCase {
                                                   randomness: Randomness.initialize(with: 1))
         appStateComponent.appState = .playing
         appStateComponent.numShips = 1
-        appStateComponent.shipControlsState = .showingButtons
+        appStateComponent.shipControlsState = .usingScreenControls
         system.handleGameState(appStateComponent: appStateComponent,
                                entity: shipEntity,
                                time: 1.0)

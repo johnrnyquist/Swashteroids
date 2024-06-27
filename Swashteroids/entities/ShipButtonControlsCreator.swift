@@ -67,7 +67,7 @@ class ShipButtonControlsCreator: ShipButtonControlsCreatorUseCase {
     // HACK
     func showFireButton() {
         if let fireButtonEntity,
-           engine.appStateComponent.shipControlsState == .showingButtons {
+           engine.appStateComponent.shipControlsState == .usingScreenControls {
             engine.add(entity: fireButtonEntity)
             let fadeIn = SKAction.fadeAlpha(to: 1.0, duration: 0.2)
             let fadeOut = SKAction.fadeAlpha(to: 0.2, duration: 0.2)
@@ -80,7 +80,7 @@ class ShipButtonControlsCreator: ShipButtonControlsCreatorUseCase {
     // HACK 
     func showHyperspaceButton() {
         if let hyperspaceButtonEntity,
-           engine.appStateComponent.shipControlsState == .showingButtons {
+           engine.appStateComponent.shipControlsState == .usingScreenControls {
             engine.add(entity: hyperspaceButtonEntity)
             let fadeIn = SKAction.fadeAlpha(to: 1.0, duration: 0.2)
             let fadeOut = SKAction.fadeAlpha(to: 0.2, duration: 0.2)

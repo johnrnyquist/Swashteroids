@@ -13,7 +13,6 @@ import Swash
 // TODO: Right now this is an alien-only class because of the AlienComponent
 class MoveToTargetNode: Node {
     required init() {
-        print("MoveToTargetNode init")
         super.init()
         components = [
             MoveToTargetComponent.name: nil_component,

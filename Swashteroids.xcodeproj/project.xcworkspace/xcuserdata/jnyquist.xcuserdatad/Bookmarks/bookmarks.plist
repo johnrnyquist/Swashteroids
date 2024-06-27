@@ -18,7 +18,7 @@
 					<key>StartingLineNumber</key>
 					<string>40</string>
 					<key>Timestamp</key>
-					<string>740436582.489827</string>
+					<string>741203296.792626</string>
 				</dict>
 				<key>rebasable-url</key>
 				<dict>
@@ -34,16 +34,16 @@
 			<key>text-context</key>
 			<dict>
 				<key>focused</key>
-				<string>        orientation = UIDevice.current.orientation == .landscapeRight ? -1.0 : 1.0
+				<string>                                               name: UIDevice.orientationDidChangeNotification, object: nil)
 </string>
 				<key>leading</key>
-				<string>        engine = Engine()
-        tickEngineListener = Listener(engine.update)
+				<string>        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(orientationChanged),
 </string>
 				<key>trailing</key>
-				<string>        super.init()
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(orientationChanged),
+				<string>        createInitialEntities(scene: scene)
+        creatorManager = CreatorManager(engine: engine, gameSize: gameSize, alertPresenter: alertPresenter, generator: generator)
+        createSystems(scene: scene)
 </string>
 			</dict>
 			<key>type</key>

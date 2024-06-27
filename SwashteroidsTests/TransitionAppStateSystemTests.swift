@@ -48,7 +48,7 @@ final class TransitionAppStateSystemTests: XCTestCase {
         appStateComponent.numShips = 0
         appStateComponent.level = 0
         appStateComponent.score = 0
-        appStateComponent.shipControlsState = .hidingButtons
+        appStateComponent.shipControlsState = .usingAccelerometer
         let transitionComponent = TransitionAppStateComponent(from: .start, to: .infoNoButtons)
         node.components[AppStateComponent.name] = appStateComponent
         node.components[TransitionAppStateComponent.name] = transitionComponent
@@ -122,7 +122,7 @@ final class TransitionAppStateSystemTests: XCTestCase {
         appStateComponent.level = 0
         appStateComponent.score = 0
         appStateComponent.appState = .infoNoButtons
-        appStateComponent.shipControlsState = .hidingButtons
+        appStateComponent.shipControlsState = .usingAccelerometer
         let transitionComponent = TransitionAppStateComponent(from: .infoNoButtons, to: .playing)
         node.components[AppStateComponent.name] = appStateComponent
         node.components[TransitionAppStateComponent.name] = transitionComponent

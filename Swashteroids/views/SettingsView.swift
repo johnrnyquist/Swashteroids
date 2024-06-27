@@ -8,19 +8,46 @@
 import SwiftUI
 
 struct SettingsView: View {
-    var onTap: () -> Void
-
+    @State private var buttonMappings: [Functionality: GameControllerInput] = [:] // This should be loaded from persistent storage
+    @State private var currentMapping: Functionality? = nil
+    @State private var currentAppState: AppState = .playing // Replace with the actual current AppState
     var body: some View {
-        ZStack {
-            Color.clear
-                .contentShape(Rectangle())
-                .onTapGesture {
-                    onTap()
+        VStack {
+            Text("Settings")
+                .font(.title)
+                .padding()
+            Picker("App State", selection: $currentAppState) {
+                List(screenSpecificFunctionalities[currentAppState] ?? [], id: \.self) { functionality in
+                    HStack {
+                        Text(functionality.rawValue)
+                        Spacer()
+                        Button(action: {
+                            currentMapping = functionality
+                        }) {
+                            Text(buttonMappings[functionality]?.description ?? "Not Set")
+                        }
+                    }
                 }
-            Text("Hello, World!")
+                .onReceive(GameController.shared.$lastButtonPressed) { button in
+                    guard let mapping = currentMapping else { return }
+                    buttonMappings[mapping] = button
+                    currentMapping = nil
+                    // Save buttonMappings to persistent storage here
+                }
+            }
         }
     }
 }
+
 #Preview {
-    SettingsView(onTap: {})
+    SettingsView()
+}
+
+import Combine
+
+class GameController: ObservableObject {
+    static let shared = GameController()
+    @Published var lastButtonPressed: GameControllerInput?
+
+    private init() {}
 }

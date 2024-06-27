@@ -34,7 +34,7 @@ final class TransitionTests: XCTestCase {
         appStateComponent.score = 5
         appStateComponent.numShips = 3
         appStateComponent.appState = .infoButtons
-        appStateComponent.shipControlsState = .hidingButtons
+        appStateComponent.shipControlsState = .usingAccelerometer
         appStateEntity = Entity(named: "appStateEntity")
                 .add(component: appStateComponent)
         engine.add(entity: appStateEntity)

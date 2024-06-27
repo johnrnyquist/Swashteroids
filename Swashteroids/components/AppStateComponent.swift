@@ -26,7 +26,7 @@ struct GameConfig {
     let numTorpedoesFired: Int = 0
     let numTorpedoesPlayerFired: Int = 0
     let score: Int = 0
-    let shipControlsState: ShipControlsState = .showingButtons
+    let shipControlsState: ShipControlsState = .usingScreenControls
     let timePlayed: Double = 0.0
 }
 

@@ -45,10 +45,10 @@ final class TransitionAppStateSystem: ListIteratingSystem {
                 playingTransition?.fromPlayingScreen()
             case .infoButtons:
                 infoViewsTransition?.fromButtonsInfoScreen()
-                appStateComponent.shipControlsState = .showingButtons
+                appStateComponent.shipControlsState = .usingScreenControls
             case .infoNoButtons:
                 infoViewsTransition?.fromNoButtonsInfoScreen()
-                appStateComponent.shipControlsState = .hidingButtons
+                appStateComponent.shipControlsState = .usingAccelerometer
         }
         appStateComponent.appState = transitionComponent.to
         switch transitionComponent.to {

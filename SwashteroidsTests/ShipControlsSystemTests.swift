@@ -40,7 +40,7 @@ final class ShipControlsSystemTests: XCTestCase {
                                                             shipControlQuadrantsCreator: creator,
                                                             shipButtonControlsCreator: creator)
         let node = ShipControlsStateNode()
-        let change = ChangeShipControlsStateComponent(to: .hidingButtons)
+        let change = ChangeShipControlsStateComponent(to: .usingAccelerometer)
         node.components[ChangeShipControlsStateComponent.name] = change
         let entity = Entity()
                 .add(component: change)
@@ -71,12 +71,12 @@ final class ShipControlsSystemTests: XCTestCase {
                                                   randomness: Randomness.initialize(with: 1))
         appStateComponent.numShips = 0
         appStateComponent.level = 0
-        appStateComponent.shipControlsState = .hidingButtons
+        appStateComponent.shipControlsState = .usingAccelerometer
         let appState = Entity(named: .appState)
                 .add(component: appStateComponent)
         engine.add(entity: appState)
         // SUT
-        system.handleChange(to: .showingButtons)
+        system.handleChange(to: .usingScreenControls)
         //
         XCTAssertTrue(creator.createShipControlButtonsCalled)
         XCTAssertTrue(creator.enableShipControlButtonsCalled)
@@ -110,12 +110,12 @@ final class ShipControlsSystemTests: XCTestCase {
                                                   randomness: Randomness.initialize(with: 1))
         appStateComponent.numShips = 0
         appStateComponent.level = 0
-        appStateComponent.shipControlsState = .hidingButtons
+        appStateComponent.shipControlsState = .usingAccelerometer
         let appState = Entity(named: .appState)
                 .add(component: appStateComponent)
         engine.add(entity: appState)
         // SUT
-        system.handleChange(to: .showingButtons)
+        system.handleChange(to: .usingScreenControls)
         //
         XCTAssertTrue(creator.createShipControlButtonsCalled)
         XCTAssertTrue(creator.enableShipControlButtonsCalled)
@@ -142,12 +142,12 @@ final class ShipControlsSystemTests: XCTestCase {
                                                   randomness: Randomness.initialize(with: 1))
         appStateComponent.numShips = 0
         appStateComponent.level = 0
-        appStateComponent.shipControlsState = .hidingButtons
+        appStateComponent.shipControlsState = .usingAccelerometer
         let appState = Entity(named: .appState)
                 .add(component: appStateComponent)
         engine.add(entity: appState)
         // SUT
-        system.handleChange(to: .showingButtons)
+        system.handleChange(to: .usingScreenControls)
         //
         XCTAssertTrue(creator.enableShipControlButtonsCalled)
         XCTAssertTrue(creator.removeToggleButtonCalled)
@@ -177,13 +177,13 @@ final class ShipControlsSystemTests: XCTestCase {
         let appStateComponent = AppStateComponent(gameConfig: GameConfig(gameSize: .zero), randomness: Randomness.initialize(with: 1))
         appStateComponent.numShips = 0
         appStateComponent.level = 0
-        appStateComponent.shipControlsState = .hidingButtons
+        appStateComponent.shipControlsState = .usingAccelerometer
 
         let appState = Entity(named: .appState)
                 .add(component: appStateComponent)
         engine.add(entity: appState)
         //
-        system.handleChange(to: .hidingButtons)
+        system.handleChange(to: .usingAccelerometer)
         XCTAssertTrue(creator.createShipControlQuadrantsCalled)
         XCTAssertTrue(creator.removeShipControlButtonsCalled)
         XCTAssertTrue(creator.removeToggleButtonCalled)
