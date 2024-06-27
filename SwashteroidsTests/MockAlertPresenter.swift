@@ -11,6 +11,10 @@
 @testable import Swashteroids
 
 class MockAlertPresenter: AlertPresenting {
+    func showSettings() {}
+    
+    func hideSettings() {}
+    
     var isAlertPresented: Bool = false
 
     func home() {}

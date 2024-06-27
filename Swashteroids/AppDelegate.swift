@@ -14,7 +14,7 @@ import AVFoundation
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
-    var gameViewController: GameViewController!
+    var mainViewController: MainViewController!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         do {
@@ -24,8 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         window = UIWindow(frame: UIScreen.main.bounds)
         if let window {
-            gameViewController = GameViewController()
-            window.rootViewController = gameViewController
+            mainViewController = MainViewController()
+            window.rootViewController = mainViewController
             window.makeKeyAndVisible()
             return true
         } else {
@@ -39,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. 
         // Games should use this method to pause the game.
-        gameViewController.appWillResignActive()
+        mainViewController.appWillResignActive()
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
@@ -55,7 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. 
         // If the application was previously in the background, optionally refresh the user interface.
-        gameViewController.appDidBecomeActive()
+        mainViewController.appDidBecomeActive()
     }
 }
 

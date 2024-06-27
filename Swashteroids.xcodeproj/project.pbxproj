@@ -132,6 +132,10 @@
 		8DB99F592B2BF2A700C3593A /* GameOverSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB99F582B2BF2A700C3593A /* GameOverSystemTests.swift */; };
 		8DB99F5B2B2C9B4500C3593A /* TransitionAppStateSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB99F5A2B2C9B4500C3593A /* TransitionAppStateSystemTests.swift */; };
 		8DB99F7B2B2E8BE400C3593A /* MovementSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931399F9256FB8B5F9EBA4E4 /* MovementSystemTests.swift */; };
+		8DC1A0DD2C2CE52E0009698B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC1A0DC2C2CE52E0009698B /* SettingsView.swift */; };
+		8DC1A0DF2C2CECBA0009698B /* Swash in Frameworks */ = {isa = PBXBuildFile; productRef = 8DC1A0DE2C2CECBA0009698B /* Swash */; };
+		8DC1A0E12C2CECE70009698B /* Swash in Frameworks */ = {isa = PBXBuildFile; productRef = 8DC1A0E02C2CECE70009698B /* Swash */; };
+		8DC1A0E42C2CED200009698B /* Swash in Frameworks */ = {isa = PBXBuildFile; productRef = 8DC1A0E32C2CED200009698B /* Swash */; };
 		8DD26DC92B22D7E300DA5BC3 /* AccelerometerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD26DC82B22D7E300DA5BC3 /* AccelerometerNode.swift */; };
 		8DD26DCB2B22D80600DA5BC3 /* AccelerometerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD26DCA2B22D80600DA5BC3 /* AccelerometerComponent.swift */; };
 		8DE66F0F2C14C9BF00ECEE96 /* SplitAsteroidUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139921E04E8DBE2DF6800B /* SplitAsteroidUseCase.swift */; };
@@ -189,6 +193,7 @@
 		931399C749E2BD0BE4E247A0 /* ApplyThrustComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931397D7C84D4E580EB51E4D /* ApplyThrustComponent.swift */; };
 		931399FC0563308E45F415FF /* GameOverSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313941564944F14B4041467 /* GameOverSystem.swift */; };
 		931399FEBA1404DE9F734910 /* MovementRateComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139A62ACBE6CDFC10158E7 /* MovementRateComponent.swift */; };
+		93139A4E995B83F09F4B5870 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931396EDAB7F922881C226E2 /* MainViewController.swift */; };
 		93139A8885E51A1D11E5F1D6 /* HudCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931397F86C674AD22210D173 /* HudCreator.swift */; };
 		93139A9EC82B1613E385C4DF /* CGFloat+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139AFE6A68E0D9B149BA93 /* CGFloat+extensions.swift */; };
 		93139AF6101463528E309EA7 /* ShipControlsSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139C4A1DEEA1037E802D8E /* ShipControlsSystemTests.swift */; };
@@ -366,6 +371,7 @@
 		8DB99F562B2BE9EE00C3593A /* RenderSystemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderSystemTests.swift; sourceTree = "<group>"; };
 		8DB99F582B2BF2A700C3593A /* GameOverSystemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverSystemTests.swift; sourceTree = "<group>"; };
 		8DB99F5A2B2C9B4500C3593A /* TransitionAppStateSystemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionAppStateSystemTests.swift; sourceTree = "<group>"; };
+		8DC1A0DC2C2CE52E0009698B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		8DD26DC82B22D7E300DA5BC3 /* AccelerometerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccelerometerNode.swift; sourceTree = "<group>"; };
 		8DD26DCA2B22D80600DA5BC3 /* AccelerometerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccelerometerComponent.swift; sourceTree = "<group>"; };
 		8DE66F102C14CA1500ECEE96 /* SplitAsteroidComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitAsteroidComponent.swift; sourceTree = "<group>"; };
@@ -404,6 +410,7 @@
 		9313962E5C5B4402DC06E899 /* TimePlayedSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimePlayedSystem.swift; sourceTree = "<group>"; };
 		9313964664F31540DA9D0416 /* HyperspaceSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HyperspaceSystemTests.swift; sourceTree = "<group>"; };
 		931396DD35CCD39E8E4EDB16 /* InputComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputComponent.swift; sourceTree = "<group>"; };
+		931396EDAB7F922881C226E2 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		93139735B7C5C32A3DA6CB9D /* TouchComponents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchComponents.swift; sourceTree = "<group>"; };
 		9313979ABDA67BAEA7682AC7 /* AllSoundsComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllSoundsComponent.swift; sourceTree = "<group>"; };
 		931397AEAB4946A616156BF7 /* DeathThroesSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeathThroesSystemTests.swift; sourceTree = "<group>"; };
@@ -471,8 +478,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8DC1A0DF2C2CECBA0009698B /* Swash in Frameworks */,
+				8DC1A0E42C2CED200009698B /* Swash in Frameworks */,
 				8D637EC32C29C92C006A2FD1 /* Swash in Frameworks */,
 				8D98697E2C29DDB600A48A96 /* Swash in Frameworks */,
+				8DC1A0E12C2CECE70009698B /* Swash in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -527,6 +537,7 @@
 				8D23C1422B02C4CC00F7D878 /* SwashteroidsAssets.xcassets */,
 				8DB99F532B2BE81800C3593A /* main.swift */,
 				8D23C1352B02C4CA00F7D878 /* AppDelegate.swift */,
+				931396EDAB7F922881C226E2 /* MainViewController.swift */,
 				8D23C13D2B02C4CA00F7D878 /* GameViewController.swift */,
 				8D23C13B2B02C4CA00F7D878 /* GameScene.swift */,
 				8D23C14F2B02C59B00F7D878 /* Swashteroids.swift */,
@@ -733,6 +744,7 @@
 				8D23C19B2B02C59D00F7D878 /* PowerUpsViews.swift */,
 				8D23C1442B02C4CC00F7D878 /* LaunchScreen.storyboard */,
 				8D88FE022B535D0D00937FF1 /* GameOverView2.swift */,
+				8DC1A0DC2C2CE52E0009698B /* SettingsView.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -862,6 +874,9 @@
 			packageProductDependencies = (
 				8D637EC22C29C92C006A2FD1 /* Swash */,
 				8D98697D2C29DDB600A48A96 /* Swash */,
+				8DC1A0DE2C2CECBA0009698B /* Swash */,
+				8DC1A0E02C2CECE70009698B /* Swash */,
+				8DC1A0E32C2CED200009698B /* Swash */,
 			);
 			productName = Swashteroids;
 			productReference = 8D23C1322B02C4CA00F7D878 /* Swashteroids.app */;
@@ -914,7 +929,7 @@
 			);
 			mainGroup = 8D23C1292B02C4C900F7D878;
 			packageReferences = (
-				8DD341462C2B3821003B23F5 /* XCLocalSwiftPackageReference "../../Swash_Swift_Package/Swash" */,
+				8DC1A0E22C2CED200009698B /* XCLocalSwiftPackageReference "../../Swash_Swift_Package/Swash" */,
 			);
 			productRefGroup = 8D23C1332B02C4CA00F7D878 /* Products */;
 			projectDirPath = "";
@@ -1102,6 +1117,7 @@
 				9313935D542E2721BFFADDC1 /* TreasureCreator.swift in Sources */,
 				931392438E0382586D8988D5 /* AlienFiringNode.swift in Sources */,
 				931391D71C321C0A29A57949 /* GunNode.swift in Sources */,
+				8DC1A0DD2C2CE52E0009698B /* SettingsView.swift in Sources */,
 				931398B178A3200C9AA53ED2 /* AlienFiringComponent.swift in Sources */,
 				93139E360C9751C14F46F8DA /* AlienComponent.swift in Sources */,
 				9313945BF406DE5979CDEA51 /* Randomness.swift in Sources */,
@@ -1134,6 +1150,7 @@
 				9313970ECC8B60836E4DEBBF /* LifetimeComponent.swift in Sources */,
 				93139C0A43A137745BD44CD1 /* LifetimeNode.swift in Sources */,
 				9313917FE9D368946329230A /* LifetimeSystem.swift in Sources */,
+				93139A4E995B83F09F4B5870 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1465,7 +1482,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		8DD341462C2B3821003B23F5 /* XCLocalSwiftPackageReference "../../Swash_Swift_Package/Swash" */ = {
+		8DC1A0E22C2CED200009698B /* XCLocalSwiftPackageReference "../../Swash_Swift_Package/Swash" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../../Swash_Swift_Package/Swash;
 		};
@@ -1477,6 +1494,18 @@
 			productName = Swash;
 		};
 		8D98697D2C29DDB600A48A96 /* Swash */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Swash;
+		};
+		8DC1A0DE2C2CECBA0009698B /* Swash */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Swash;
+		};
+		8DC1A0E02C2CECE70009698B /* Swash */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Swash;
+		};
+		8DC1A0E32C2CED200009698B /* Swash */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Swash;
 		};

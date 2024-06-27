@@ -64,5 +64,13 @@ class HudCreator: HudCreatorUseCase, AlertPresenting {
     func resume() {
         alertPresenter?.resume()
     }
+    
+    func showSettings() {
+        alertPresenter?.showSettings()
+    }
+    
+    func hideSettings() {
+        alertPresenter?.hideSettings()
+    }
 }
 

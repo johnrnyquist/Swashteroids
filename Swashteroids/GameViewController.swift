@@ -17,6 +17,8 @@ protocol AlertPresenting: AnyObject {
     var isAlertPresented: Bool { get set }
     func home()
     func resume()
+    func showSettings()
+    func hideSettings()
 }
 
 final class GameViewController: UIViewController, AlertPresenting {
@@ -24,6 +26,7 @@ final class GameViewController: UIViewController, AlertPresenting {
     var gameScene: GameScene?
     var swashteroids: Swashteroids?
     var isAlertPresented = false //HACK: this is a hack to prevent the game from starting when the app returns from background.
+    var alertPresenter: AlertPresenting?
 
     override func loadView() {
         skView = SKView()
@@ -71,6 +74,36 @@ final class GameViewController: UIViewController, AlertPresenting {
         skView?.presentScene(gameScene)
     }
 
+    //MARK: - AlertPresenting
+    @IBAction func showPauseAlert() {
+        guard let swashteroids else { fatalError("game is nil") }
+        swashteroids.stop()
+        if swashteroids.engine.appStateComponent.appState == .playing ||
+            swashteroids.engine.appStateComponent.appState == .gameOver {
+            let alertView = PauseAlert(
+                appState: swashteroids.engine.appStateComponent, //HACK
+                home: home,
+                resume: resume)
+            let hostingController = UIHostingController(rootView: alertView)
+            hostingController.modalPresentationStyle = .overCurrentContext
+            hostingController.view.backgroundColor = UIColor(white: 1, alpha: 0.0)
+            present(hostingController, animated: true, completion: nil)
+            isAlertPresented = true
+        }
+    }
+
+    func showSettings() {
+        dismiss(animated: true, completion: { [unowned self] in
+            alertPresenter?.showSettings()
+        })
+    }
+
+    func hideSettings() {
+        dismiss(animated: true, completion: { [unowned self] in
+            alertPresenter?.hideSettings()
+        })
+    }
+
     func home() {
         dismiss(animated: true, completion: { [unowned self] in
             isAlertPresented = false
@@ -85,23 +118,6 @@ final class GameViewController: UIViewController, AlertPresenting {
         })
     }
 
-    @IBAction func showPauseAlert() {
-        guard let swashteroids else { fatalError("game is nil") }
-        swashteroids.stop()
-        if swashteroids.engine.appStateComponent.appState == .playing ||
-           swashteroids.engine.appStateComponent.appState == .gameOver {
-            let alertView = PauseAlert(
-                appState: swashteroids.engine.appStateComponent, //HACK
-                home: home,
-                resume: resume)
-            let hostingController = UIHostingController(rootView: alertView)
-            hostingController.modalPresentationStyle = .overCurrentContext
-            hostingController.view.backgroundColor = UIColor(white: 1, alpha: 0.0)
-            present(hostingController, animated: true, completion: nil)
-            isAlertPresented = true
-        }
-    }
-
     func appDidBecomeActive() {
         if isAlertPresented == false {
             swashteroids?.start()
@@ -111,32 +127,6 @@ final class GameViewController: UIViewController, AlertPresenting {
     func appWillResignActive() {
         printAllComponents()
         showPauseAlert()
-    }
-
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            .allButUpsideDown
-        } else {
-            .all
-        }
-    }
-    override var prefersStatusBarHidden: Bool {
-        true
-    }
-
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        switch UIDevice.current.orientation {
-        case .landscapeLeft:
-            print("landscapeLeft")
-        case .portrait:
-            print("portrait")
-        case .landscapeRight:
-            print("landscapeRight")
-        case .portraitUpsideDown:
-            print("portraitUpsideDown")
-        default:
-            break
-        }
     }
 
     func printAllComponents() {
@@ -173,3 +163,4 @@ extension Swashteroids: SKPhysicsContactDelegate {
         print(#function)
     }
 }
+
