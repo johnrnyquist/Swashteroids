@@ -13,16 +13,11 @@ import SpriteKit
 import CoreMotion
 
 final class Swashteroids: NSObject {
-    deinit {
-        print("Swashteroids deinit")
-        NotificationCenter.default.removeObserver(self)
-    }
-
+    lazy private var tickEngineListener = Listener(engine.update)
     let motionManager: CMMotionManager? = CMMotionManager()
     private let generator = UIImpactFeedbackGenerator(style: .heavy)
-    private var tickEngineListener: Listener
     private var tickProvider: TickProvider?
-    private(set) var engine: Engine
+    private(set) var engine = Engine()
     private(set) var inputComponent = InputComponent.shared
     private(set) var orientation = 1.0
     private(set) weak var scene: GameScene!
@@ -36,8 +31,6 @@ final class Swashteroids: NSObject {
         } else {
             Randomness.initialize(with: seed)
         }
-        engine = Engine()
-        tickEngineListener = Listener(engine.update)
         orientation = UIDevice.current.orientation == .landscapeRight ? -1.0 : 1.0
         super.init()
         NotificationCenter.default.addObserver(self,
@@ -45,6 +38,10 @@ final class Swashteroids: NSObject {
                                                name: UIDevice.orientationDidChangeNotification, object: nil)
         createInitialEntities(scene: scene)
         createSystems(scene: scene)
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 
     private func createInitialEntities(scene: GameScene) { // Add the all sounds entity
