@@ -92,11 +92,11 @@ class CollisionSystem: System {
 
     func torpedoesAndAsteroids(torpedoNode: Node, asteroidNode: Node) {
         if let entity = torpedoNode.entity { engine.remove(entity: entity) }
-        let level = appStateNodes.head?[AppStateComponent.self]?.level ?? 1
+        let level = appStateNodes.head?[SwashteroidsStateComponent.self]?.level ?? 1
         if let entity = asteroidNode.entity {
             entity.add(component: SplitAsteroidComponent(level: level, splits: 2))
             if let gameStateNode = appStateNodes.head,
-               let appStateComponent = gameStateNode[AppStateComponent.self],
+               let appStateComponent = gameStateNode[SwashteroidsStateComponent.self],
                torpedoNode[TorpedoComponent.self]?.owner == .player {
                 appStateComponent.score += 25
                 appStateComponent.numHits += 1
@@ -121,14 +121,14 @@ class CollisionSystem: System {
         }
         if let torpedo = torpedoNode.entity { engine.remove(entity: torpedo) }
         if ve[ShipComponent.self] != nil {
-            appStateNodes.head?[AppStateComponent.self]?.numShips -= 1
+            appStateNodes.head?[SwashteroidsStateComponent.self]?.numShips -= 1
         } else {
-            appStateNodes.head?[AppStateComponent.self]?.numAliensDestroyed += 1
+            appStateNodes.head?[SwashteroidsStateComponent.self]?.numAliensDestroyed += 1
         }
         shipCreator.destroy(ship: ve)
         //TODO: refactor the below
         if let gameStateNode = appStateNodes.head,
-           let appStateComponent = gameStateNode[AppStateComponent.self],
+           let appStateComponent = gameStateNode[SwashteroidsStateComponent.self],
            torpedoNode[TorpedoComponent.self]?.owner == .player,
            let scoreValue = vehicleNode[AlienComponent.self]?.scoreValue {
             appStateComponent.score += scoreValue
@@ -147,11 +147,11 @@ class CollisionSystem: System {
         if vehicleNode.entity?
                       .has(componentClassName: DeathThroesComponent.name) == false { //HACK not sure I like this check
             if vehicleNode.entity?[ShipComponent.self] != nil {
-                appStateNodes.head?[AppStateComponent.self]?.numShips -= 1
+                appStateNodes.head?[SwashteroidsStateComponent.self]?.numShips -= 1
             }
             shipCreator.destroy(ship: vehicleNode.entity!)
         }
-        let level = appStateNodes.head?[AppStateComponent.self]?.level ?? 1
+        let level = appStateNodes.head?[SwashteroidsStateComponent.self]?.level ?? 1
         if let entity = asteroidNode.entity {
             entity.add(component: SplitAsteroidComponent(level: level, splits: 2))
         }
@@ -162,7 +162,7 @@ class CollisionSystem: System {
         if
             let _ = vehicleNode[ShipComponent.self], // it’s the player
             let ship = vehicleNode.entity,
-            let appState = appStateNodes.head?[AppStateComponent.self],
+            let appState = appStateNodes.head?[SwashteroidsStateComponent.self],
             let value = treasureNode[TreasureComponent.self]?.value {
             appState.score += value
             if value == treasure_special_value {
@@ -187,7 +187,7 @@ class CollisionSystem: System {
         shipCreator.destroy(ship: shipEntity)
         shipCreator.destroy(ship: alienEntity)
         if let appState = appStateNodes.head,
-           let component = appState[AppStateComponent.self] {
+           let component = appState[SwashteroidsStateComponent.self] {
             component.numShips -= 1
         }
     }

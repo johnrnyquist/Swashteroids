@@ -20,7 +20,7 @@ final class GameplayManagerSystemTests: XCTestCase {
     var asteroidCreator: MockAsteroidCreator!
     var shipCreator: ShipCreatorUseCase!
     var system: GameplayManagerSystem!
-    var appStateComponent: AppStateComponent!
+    var appStateComponent: SwashteroidsStateComponent!
     let aliens = NodeList()
     let asteroids = NodeList()
 
@@ -30,7 +30,7 @@ final class GameplayManagerSystemTests: XCTestCase {
         asteroidCreator = MockAsteroidCreator()
         shipCreator = MockShipCreator()
         scene = GameScene()
-        appStateComponent = AppStateComponent(gameConfig: GameConfig(gameSize: .zero), randomness: Randomness.initialize(with: 1))
+        appStateComponent = SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero), randomness: Randomness.initialize(with: 1))
         appStateComponent.level = 1
         system = GameplayManagerSystem(asteroidCreator: asteroidCreator,
                                        alienCreator: alienCreator,
@@ -113,7 +113,7 @@ final class GameplayManagerSystemTests: XCTestCase {
             var announceLevelCalled = false
             var createAsteroidsCalled = 0
 
-            override func announceLevel(appStateComponent: AppStateComponent) {
+            override func announceLevel(appStateComponent: SwashteroidsStateComponent) {
                 announceLevelCalled = true
             }
 
@@ -166,10 +166,10 @@ final class GameplayManagerSystemTests: XCTestCase {
     }
 
     func test_HandlePlayingState_NoShips() {
-        let appStateComponent = AppStateComponent(gameConfig: GameConfig(gameSize: .zero),
+        let appStateComponent = SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero),
                                                   randomness: Randomness.initialize(with: 1))
         appStateComponent.numShips = 0
-        appStateComponent.appState = .playing
+        appStateComponent.swashteroidsState = .playing
         let entity = Entity(named: "currentState")
         system.continueOrEnd(appStateComponent: appStateComponent, entity: entity)
         let result = entity[TransitionAppStateComponent.self]
@@ -187,16 +187,16 @@ final class GameplayManagerSystemTests: XCTestCase {
                                                            scaleManager: MockScaleManager())
         engine.add(system: system, priority: 1)
         //TODO: need to look at this function's logic
-        let appStateComponent = AppStateComponent(gameConfig: GameConfig(gameSize: .zero),
+        let appStateComponent = SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero),
                                                   randomness: Randomness.initialize(with: 1))
-        appStateComponent.appState = .playing
+        appStateComponent.swashteroidsState = .playing
         system.handleGameState(appStateComponent: appStateComponent, entity: Entity(), time: 1.0)
         XCTAssertTrue(system.handlePlayingStateCalled)
 
         class MockGameManagerSystem_NoShips_Playing: GameplayManagerSystem {
             var handlePlayingStateCalled = false
 
-            override func continueOrEnd(appStateComponent: AppStateComponent, entity: Entity) {
+            override func continueOrEnd(appStateComponent: SwashteroidsStateComponent, entity: Entity) {
                 handlePlayingStateCalled = true
             }
         }
@@ -223,9 +223,9 @@ final class GameplayManagerSystemTests: XCTestCase {
         engine.add(entity: shipEntity)
         engine.add(system: system, priority: 1)
         //
-        let appStateComponent = AppStateComponent(gameConfig: GameConfig(gameSize: .zero),
+        let appStateComponent = SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero),
                                                   randomness: Randomness.initialize(with: 1))
-        appStateComponent.appState = .playing
+        appStateComponent.swashteroidsState = .playing
         appStateComponent.numShips = 1
         appStateComponent.shipControlsState = .usingScreenControls
         system.handleGameState(appStateComponent: appStateComponent,
@@ -236,7 +236,7 @@ final class GameplayManagerSystemTests: XCTestCase {
         class MockGameManagerSystem_NoAsteroidsTorpedoes: GameplayManagerSystem {
             var goToNextLevelCalled = false
 
-            override func goToNextLevel(appStateComponent: AppStateComponent, entity: Entity) {
+            override func goToNextLevel(appStateComponent: SwashteroidsStateComponent, entity: Entity) {
                 goToNextLevelCalled = true
             }
         }

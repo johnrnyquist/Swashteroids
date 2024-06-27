@@ -27,8 +27,8 @@ extension Engine {
         return entity
     }
     // This is a convenience method for accessing the appState component. Because I’m weak. 
-    var appStateComponent: AppStateComponent {
-        guard let component = appStateEntity.find(componentClass: AppStateComponent.self) else {
+    var appStateComponent: SwashteroidsStateComponent {
+        guard let component = appStateEntity.find(componentClass: SwashteroidsStateComponent.self) else {
             fatalError("appState entity did not contain AppStateComponent!")
         }
         return component

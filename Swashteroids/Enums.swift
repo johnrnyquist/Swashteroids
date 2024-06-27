@@ -37,21 +37,26 @@ enum Functionality: String, CaseIterable {
     case `continue` = "Continue"
 }
 
-//TODO: Refactor global variable 
-var screenSpecificFunctionalities: [AppState: [Functionality]] = [
-    .start: [.buttons, .noButtons],
-    .infoButtons: [.continue],
-    .infoNoButtons: [.continue],
-    .playing: [.fire, .thrust, .hyperspace, .left, .right, .pause, .flip],
-    .gameOver: [.pause, .home, .settings, .resume]
-]
-// TODO: Is this AppState or GameState? Start, playing, gameover, paused all seem like game states. infoButtons and infoNoButtons seem like app states.
-enum AppState {
+enum SwashteroidsState {
     case start
     case infoButtons
     case infoNoButtons
     case playing
     case gameOver
+    var functionalities: [Functionality] {
+        switch self {
+            case .start: 
+                return [.buttons, .noButtons]
+            case .infoButtons: 
+                return [.continue]
+            case .infoNoButtons: 
+                return [.continue]
+            case .playing: 
+                return [.fire, .thrust, .hyperspace, .left, .right, .pause, .flip]
+            case .gameOver: 
+                return [.pause, .home, .settings, .resume]
+        }
+    }
 }
 
 /// The state of the ship controls. Either showing or hiding. 

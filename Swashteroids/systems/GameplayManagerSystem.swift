@@ -74,13 +74,13 @@ class GameplayManagerSystem: System {
     override func update(time: TimeInterval) {
         guard let currentStateNode = appStates.head as? AppStateNode,
               let entity = currentStateNode.entity,
-              let appStateComponent = currentStateNode[AppStateComponent.self],
-              appStateComponent.appState == .playing //JRN: Or I could add/remove this system based on appState
+              let appStateComponent = currentStateNode[SwashteroidsStateComponent.self],
+              appStateComponent.swashteroidsState == .playing //JRN: Or I could add/remove this system based on appState
         else { return }
         handleGameState(appStateComponent: appStateComponent, entity: entity, time: time)
     }
 
-    func handleAlienAppearances(appStateComponent: AppStateComponent, time: TimeInterval) {
+    func handleAlienAppearances(appStateComponent: SwashteroidsStateComponent, time: TimeInterval) {
         appStateComponent.alienNextAppearance -= time
         if appStateComponent.alienNextAppearance <= 0 {
             appStateComponent.alienNextAppearance = appStateComponent.alienAppearanceRateDefault
@@ -91,7 +91,7 @@ class GameplayManagerSystem: System {
     // MARK: - Game Logic
     /// If there are no ships and is playing, handle it. 
     /// If there are no asteroids, no torpedoes and there is a ship then you finished the level, go to the next.
-    func handleGameState(appStateComponent: AppStateComponent, entity: Entity, time: TimeInterval) {
+    func handleGameState(appStateComponent: SwashteroidsStateComponent, entity: Entity, time: TimeInterval) {
         handleAlienAppearances(appStateComponent: appStateComponent, time: time)
         // No ships in the NodeList, but we're still playing.
         if ships.empty {
@@ -105,7 +105,7 @@ class GameplayManagerSystem: System {
     }
 
     /// If we have ships, make one. Otherwise, go to game over state.
-    func continueOrEnd(appStateComponent: AppStateComponent, entity: Entity) {
+    func continueOrEnd(appStateComponent: SwashteroidsStateComponent, entity: Entity) {
         // If we have any ships left, make another and some power-ups
         if appStateComponent.numShips > 0 {
             let newSpaceshipPosition = CGPoint(x: size.width * spaceshipPositionRatio,
@@ -119,7 +119,7 @@ class GameplayManagerSystem: System {
     }
 
     /// Go to the next level, announce it, create asteroids
-    func goToNextLevel(appStateComponent: AppStateComponent, entity: Entity) {
+    func goToNextLevel(appStateComponent: SwashteroidsStateComponent, entity: Entity) {
         guard let shipNode = ships.head,
               let spaceShipPosition = shipNode[PositionComponent.self] else { return }
         appStateComponent.level += 1
@@ -175,7 +175,7 @@ class GameplayManagerSystem: System {
     }
 
     /// Announce the level
-    func announceLevel(appStateComponent: AppStateComponent) {
+    func announceLevel(appStateComponent: SwashteroidsStateComponent) {
         let levelText = SKLabelNode(text: "Level \(appStateComponent.level)")
         configureLevelText(levelText)
         scene.addChild(levelText)

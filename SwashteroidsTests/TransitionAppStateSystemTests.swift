@@ -43,14 +43,14 @@ final class TransitionAppStateSystemTests: XCTestCase {
 
     func test_UpdateNodeFromStartToInfoNoButtons() throws {
         let node = TransitionAppStateNode()
-        let appStateComponent = AppStateComponent(gameConfig: GameConfig(gameSize: .zero),
+        let appStateComponent = SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero),
                                                   randomness: Randomness.initialize(with: 1))
         appStateComponent.numShips = 0
         appStateComponent.level = 0
         appStateComponent.score = 0
         appStateComponent.shipControlsState = .usingAccelerometer
         let transitionComponent = TransitionAppStateComponent(from: .start, to: .infoNoButtons)
-        node.components[AppStateComponent.name] = appStateComponent
+        node.components[SwashteroidsStateComponent.name] = appStateComponent
         node.components[TransitionAppStateComponent.name] = transitionComponent
         let appState = Entity(named: .appState)
                 .add(component: appStateComponent)
@@ -58,18 +58,18 @@ final class TransitionAppStateSystemTests: XCTestCase {
         // SUT
         system.updateNode(node: node, time: 1)
         //
-        XCTAssertEqual(appStateComponent.appState, .infoNoButtons)
+        XCTAssertEqual(appStateComponent.swashteroidsState, .infoNoButtons)
     }
 
     func test_UpdateNodeFromStartToInfoButtons() throws {
         let node = TransitionAppStateNode()
-        let appStateComponent = AppStateComponent(gameConfig: GameConfig(gameSize: .zero), randomness: Randomness.initialize(with: 1))
+        let appStateComponent = SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero), randomness: Randomness.initialize(with: 1))
         appStateComponent.numShips = 0
         appStateComponent.level = 0
         appStateComponent.score = 0
 
         let transitionComponent = TransitionAppStateComponent(from: .start, to: .infoButtons)
-        node.components[AppStateComponent.name] = appStateComponent
+        node.components[SwashteroidsStateComponent.name] = appStateComponent
         node.components[TransitionAppStateComponent.name] = transitionComponent
         let appState = Entity(named: .appState)
                 .add(component: appStateComponent)
@@ -77,34 +77,34 @@ final class TransitionAppStateSystemTests: XCTestCase {
         // SUT
         system.updateNode(node: node, time: 1)
         //
-        XCTAssertEqual(appStateComponent.appState, .infoButtons)
+        XCTAssertEqual(appStateComponent.swashteroidsState, .infoButtons)
     }
 
     func test_UpdateNodeFromInfoButtonsToPlaying() throws {
         let node = TransitionAppStateNode()
-        let appStateComponent = AppStateComponent(gameConfig: GameConfig(gameSize: .zero), randomness: Randomness.initialize(with: 1))
+        let appStateComponent = SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero), randomness: Randomness.initialize(with: 1))
         appStateComponent.numShips = 0
         appStateComponent.level = 0
         appStateComponent.score = 0
-        appStateComponent.appState = .infoButtons
+        appStateComponent.swashteroidsState = .infoButtons
         let transitionComponent = TransitionAppStateComponent(from: .infoButtons, to: .playing)
-        node.components[AppStateComponent.name] = appStateComponent
+        node.components[SwashteroidsStateComponent.name] = appStateComponent
         node.components[TransitionAppStateComponent.name] = transitionComponent
         // SUT
         system.updateNode(node: node, time: 1)
         //
-        XCTAssertEqual(appStateComponent.appState, .playing)
+        XCTAssertEqual(appStateComponent.swashteroidsState, .playing)
     }
 
     func test_UpdateNodeFromGameOverToStart() throws {
         let node = TransitionAppStateNode()
-        let appStateComponent = AppStateComponent(gameConfig: GameConfig(gameSize: .zero), randomness: Randomness.initialize(with: 1))
+        let appStateComponent = SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero), randomness: Randomness.initialize(with: 1))
         appStateComponent.numShips = 0
         appStateComponent.level = 0
         appStateComponent.score = 0
-        appStateComponent.appState = .gameOver
+        appStateComponent.swashteroidsState = .gameOver
         let transitionComponent = TransitionAppStateComponent(from: .gameOver, to: .start)
-        node.components[AppStateComponent.name] = appStateComponent
+        node.components[SwashteroidsStateComponent.name] = appStateComponent
         node.components[TransitionAppStateComponent.name] = transitionComponent
         let appState = Entity(named: .appState)
                 .add(component: appStateComponent)
@@ -112,42 +112,42 @@ final class TransitionAppStateSystemTests: XCTestCase {
         // SUT
         system.updateNode(node: node, time: 1)
         //
-        XCTAssertEqual(appStateComponent.appState, .start)
+        XCTAssertEqual(appStateComponent.swashteroidsState, .start)
     }
 
     func test_UpdateNodeFromInfoNoButtonsToPlaying() throws {
         let node = TransitionAppStateNode()
-        let appStateComponent = AppStateComponent(gameConfig: GameConfig(gameSize: .zero), randomness: Randomness.initialize(with: 1))
+        let appStateComponent = SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero), randomness: Randomness.initialize(with: 1))
         appStateComponent.numShips = 0
         appStateComponent.level = 0
         appStateComponent.score = 0
-        appStateComponent.appState = .infoNoButtons
+        appStateComponent.swashteroidsState = .infoNoButtons
         appStateComponent.shipControlsState = .usingAccelerometer
         let transitionComponent = TransitionAppStateComponent(from: .infoNoButtons, to: .playing)
-        node.components[AppStateComponent.name] = appStateComponent
+        node.components[SwashteroidsStateComponent.name] = appStateComponent
         node.components[TransitionAppStateComponent.name] = transitionComponent
         // SUT
         system.updateNode(node: node, time: 1)
         //
-        XCTAssertEqual(appStateComponent.appState, .playing)
+        XCTAssertEqual(appStateComponent.swashteroidsState, .playing)
     }
 
     func test_UpdateNodeFromPlayingWithButtonsToGameOver() throws {
-        let appStateComponent = AppStateComponent(gameConfig: GameConfig(gameSize: .zero), randomness: Randomness.initialize(with: 1))
+        let appStateComponent = SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero), randomness: Randomness.initialize(with: 1))
         appStateComponent.numShips = 0
         appStateComponent.level = 0
         appStateComponent.score = 0
-        appStateComponent.appState = .playing
+        appStateComponent.swashteroidsState = .playing
         let appStateEntity = Entity(named: "appStateEntity")
                 .add(component: appStateComponent)
         engine.add(entity: appStateEntity)
         let transitionComponent = TransitionAppStateComponent(from: .playing, to: .gameOver)
         let node = TransitionAppStateNode()
-        node.components[AppStateComponent.name] = appStateComponent
+        node.components[SwashteroidsStateComponent.name] = appStateComponent
         node.components[TransitionAppStateComponent.name] = transitionComponent
         // SUT
         system.updateNode(node: node, time: 1)
         //
-        XCTAssertEqual(appStateComponent.appState, .gameOver)
+        XCTAssertEqual(appStateComponent.swashteroidsState, .gameOver)
     }
 }

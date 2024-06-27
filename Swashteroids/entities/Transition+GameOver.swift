@@ -28,7 +28,7 @@ class GameOverTransition: GameOverUseCase {
         [TreasureCollisionNode.self, AlienCollisionNode.self, AsteroidCollisionNode.self].forEach { engine.clearEntities(of: $0) }
         // Clear entities with unique names.
         engine.removeEntities(named: [.hud, .gameOver, .hyperspacePowerUp, .torpedoPowerUp, .pauseButton])
-        engine.appStateComponent.resetGame()
+        engine.appStateComponent.resetPlaying()
     }
 
     func toGameOverScreen() {

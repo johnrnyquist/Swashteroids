@@ -67,7 +67,7 @@ final class ShipControlsSystemTests: XCTestCase {
         let ship = Entity(named: .player)
                 .add(component: AccelerometerComponent())
         engine.add(entity: ship)
-        let appStateComponent = AppStateComponent(gameConfig: GameConfig(gameSize: .zero),
+        let appStateComponent = SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero),
                                                   randomness: Randomness.initialize(with: 1))
         appStateComponent.numShips = 0
         appStateComponent.level = 0
@@ -106,7 +106,7 @@ final class ShipControlsSystemTests: XCTestCase {
         let fireButton = Entity(named: .fireButton)
                 .add(component: DisplayComponent(sknode: SwashSpriteNode()))
         engine.add(entity: fireButton)
-        let appStateComponent = AppStateComponent(gameConfig: GameConfig(gameSize: .zero),
+        let appStateComponent = SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero),
                                                   randomness: Randomness.initialize(with: 1))
         appStateComponent.numShips = 0
         appStateComponent.level = 0
@@ -138,7 +138,7 @@ final class ShipControlsSystemTests: XCTestCase {
         let hyperspaceButton = Entity(named: .hyperspaceButton)
                 .add(component: DisplayComponent(sknode: SwashScaledSpriteNode()))
         engine.add(entity: hyperspaceButton)
-        let appStateComponent = AppStateComponent(gameConfig: GameConfig(gameSize: .zero),
+        let appStateComponent = SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero),
                                                   randomness: Randomness.initialize(with: 1))
         appStateComponent.numShips = 0
         appStateComponent.level = 0
@@ -174,7 +174,7 @@ final class ShipControlsSystemTests: XCTestCase {
                                              numTorpedoes: 20))
                 .add(component: HyperspaceDriveComponent(jumps: 20))
         engine.add(entity: ship)
-        let appStateComponent = AppStateComponent(gameConfig: GameConfig(gameSize: .zero), randomness: Randomness.initialize(with: 1))
+        let appStateComponent = SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero), randomness: Randomness.initialize(with: 1))
         appStateComponent.numShips = 0
         appStateComponent.level = 0
         appStateComponent.shipControlsState = .usingAccelerometer

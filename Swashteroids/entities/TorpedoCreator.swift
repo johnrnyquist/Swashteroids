@@ -104,7 +104,7 @@ class TorpedoCreator: TorpedoCreatorUseCase {
         //TODO: this should be re-thought
         var name = "torpedo_"
         guard let appStateEntity = engine.findEntity(named: .appState),
-              let appStateComponent = appStateEntity[AppStateComponent.self]
+              let appStateComponent = appStateEntity[SwashteroidsStateComponent.self]
         else {
             fatalError("Could not find AppStateComponent.")
         }

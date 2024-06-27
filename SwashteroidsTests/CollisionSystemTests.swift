@@ -15,7 +15,7 @@ import XCTest
 
 class CollisionSystemTests: XCTestCase {
     var alienEntity: Entity!
-    var appStateComponent: AppStateComponent!
+    var appStateComponent: SwashteroidsStateComponent!
     var appStateEntity: Entity!
     var asteroidEntity: Entity!
     var engine: Engine!
@@ -32,9 +32,9 @@ class CollisionSystemTests: XCTestCase {
 
     override func setUpWithError() throws {
         engine = Engine()
-        appStateComponent = AppStateComponent(gameConfig: GameConfig(gameSize: .zero), randomness: Randomness.initialize(with: 1))
+        appStateComponent = SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero), randomness: Randomness.initialize(with: 1))
         appStateComponent.numShips = 1
-        appStateComponent.appState = .playing
+        appStateComponent.swashteroidsState = .playing
         appStateEntity = Entity(named: .appState)
                 .add(component: appStateComponent)
         engine.add(entity: appStateEntity)
@@ -241,9 +241,9 @@ class CollisionSystemTests: XCTestCase {
             asteroidNode.components[component.key] = component.value
         }
         asteroidNode.entity = asteroidEntity
-        let appStateComponent = AppStateComponent(gameConfig: GameConfig(gameSize: .zero), randomness: Randomness.initialize(with: 1))
+        let appStateComponent = SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero), randomness: Randomness.initialize(with: 1))
         appStateComponent.numShips = 1
-        appStateComponent.appState = .playing
+        appStateComponent.swashteroidsState = .playing
         let appState = Entity(named: .appState)
                 .add(component: appStateComponent)
         engine.add(entity: appState)

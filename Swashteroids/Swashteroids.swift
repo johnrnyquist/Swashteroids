@@ -12,67 +12,8 @@ import Swash
 import SpriteKit
 import CoreMotion
 
-final class Swashteroids: NSObject {
-    lazy private var tickEngineListener = Listener(engine.update)
-    let motionManager: CMMotionManager? = CMMotionManager()
-    private let gameSize: CGSize
-    private let generator = UIImpactFeedbackGenerator(style: .heavy)
-    private var tickProvider: TickProvider?
-    private(set) var creatorManager: CreatorManager!
-    private(set) var engine = Engine()
-    private(set) var inputComponent = InputComponent.shared
-    private(set) var orientation = 1.0
-    private(set) weak var scene: GameScene!
-    weak var alertPresenter: AlertPresenting!
-
-    init(scene: GameScene, alertPresenter: AlertPresenting, seed: Int = 0) {
-        self.scene = scene
-        gameSize = scene.size
-        self.alertPresenter = alertPresenter
-        if seed == 0 {
-            Randomness.initialize(with: Int(Date().timeIntervalSince1970))
-        } else {
-            Randomness.initialize(with: seed)
-        }
-        orientation = UIDevice.current.orientation == .landscapeRight ? -1.0 : 1.0
-        super.init()
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(orientationChanged),
-                                               name: UIDevice.orientationDidChangeNotification, object: nil)
-        createInitialEntities(scene: scene)
-        creatorManager = CreatorManager(engine: engine, gameSize: gameSize, alertPresenter: alertPresenter, generator: generator)
-        createSystems(scene: scene)
-    }
-
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-
-    private func createInitialEntities(scene: GameScene) { // Add the all sounds entity
-        let allSoundsEntity = Entity(named: .allSounds)
-                .add(component: AllSoundsComponent.shared)
-        engine.add(entity: allSoundsEntity)
-        let appStateComponent = AppStateComponent(gameConfig: GameConfig(gameSize: scene.size))
-        let appStateEntity = Entity(named: .appState)
-                .add(component: appStateComponent)
-                .add(component: TransitionAppStateComponent(from: .start, to: .start))
-                .add(component: TimePlayedComponent())
-        engine.add(entity: appStateEntity)
-        // Add the input entity
-        let inputEntity = Entity(named: .input)
-                .add(component: InputComponent.shared)
-        engine.add(entity: inputEntity)
-    }
-
-    func usingGameController() {
-        engine.appStateEntity.add(component: ChangeShipControlsStateComponent(to: .usingGameController))
-    }
-
-    func usingScreenControls() {
-        engine.appStateEntity.add(component: ChangeShipControlsStateComponent(to: .usingScreenControls))
-    }
-
-    private func createSystems(scene: GameScene) {
+class SystemsManager {
+    init(scene: GameScene, engine: Engine, creatorManager: CreatorsManager, generator: UIImpactFeedbackGenerator) {
         let soundPlayer = scene
         let transition = PlayingTransition(
             hudCreator: creatorManager.hudCreator,
@@ -88,7 +29,7 @@ final class Swashteroids: NSObject {
                 .add(system: GameplayManagerSystem(asteroidCreator: creatorManager.asteroidCreator,
                                                    alienCreator: creatorManager.alienCreator,
                                                    shipCreator: creatorManager.shipCreator,
-                                                   size: gameSize,
+                                                   size: scene.size,
                                                    scene: scene),
                      priority: .preUpdate)
                 .add(system: GameOverSystem(), priority: .preUpdate)
@@ -107,7 +48,8 @@ final class Swashteroids: NSObject {
                 .add(system: PickTargetSystem(), priority: .update)
                 .add(system: MoveToTargetSystem(), priority: .update)
                 .add(system: ExitScreenSystem(), priority: .update)
-                .add(system: AlienFiringSystem(torpedoCreator: creatorManager.torpedoCreator, gameSize: gameSize), priority: .update)
+                .add(system: AlienFiringSystem(torpedoCreator: creatorManager.torpedoCreator, gameSize: scene.size),
+                     priority: .update)
                 .add(system: FiringSystem(torpedoCreator: creatorManager.torpedoCreator), priority: .update)
                 .add(system: TorpedoAgeSystem(), priority: .update)
                 .add(system: DeathThroesSystem(), priority: .update)
@@ -121,14 +63,14 @@ final class Swashteroids: NSObject {
                 .add(system: AccelerometerSystem(), priority: .move)
                 .add(system: FlipSystem(), priority: .move)
                 .add(system: LeftSystem(), priority: .move)
-                .add(system: MovementSystem(gameSize: gameSize), priority: .move)
+                .add(system: MovementSystem(gameSize: scene.size), priority: .move)
                 .add(system: RightSystem(), priority: .move)
                 .add(system: ThrustSystem(), priority: .move)
                 // resolve collisions
                 .add(system: CollisionSystem(shipCreator: creatorManager.shipCreator,
                                              asteroidCreator: creatorManager.asteroidCreator,
                                              shipButtonControlsCreator: creatorManager.shipButtonControlsCreator,
-                                             size: gameSize),
+                                             size: scene.size),
                      priority: .resolveCollisions)
                 // animate
                 .add(system: AnimationSystem(), priority: .animate)
@@ -136,6 +78,67 @@ final class Swashteroids: NSObject {
                 .add(system: AudioSystem(soundPlayer: soundPlayer), priority: .render)
                 .add(system: RepeatingAudioSystem(), priority: .render)
                 .add(system: RenderSystem(scene: scene), priority: .render)
+    }
+}
+
+final class Swashteroids: NSObject {
+    lazy private var tickEngineListener = Listener(engine.update)
+    let motionManager: CMMotionManager? = CMMotionManager()
+    private let generator = UIImpactFeedbackGenerator(style: .heavy)
+    private var tickProvider: TickProvider?
+    private(set) var engine = Engine()
+    private(set) var inputComponent = InputComponent.shared
+    private(set) var manager_creators: CreatorsManager!
+    private(set) var manager_systems: SystemsManager!
+    private(set) var orientation = 1.0
+    private(set) weak var scene: GameScene!
+    weak var alertPresenter: AlertPresenting!
+
+    init(scene: GameScene, alertPresenter: AlertPresenting, seed: Int = 0) {
+        self.scene = scene
+        self.alertPresenter = alertPresenter
+        if seed == 0 {
+            Randomness.initialize(with: Int(Date().timeIntervalSince1970))
+        } else {
+            Randomness.initialize(with: seed)
+        }
+        orientation = UIDevice.current.orientation == .landscapeRight ? -1.0 : 1.0
+        super.init()
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(orientationChanged),
+                                               name: UIDevice.orientationDidChangeNotification, object: nil)
+        createInitialEntities(scene: scene)
+        manager_creators = CreatorsManager(engine: engine,
+                                           gameSize: scene.size,
+                                           alertPresenter: alertPresenter,
+                                           generator: generator)
+        manager_systems = SystemsManager(scene: scene, engine: engine, creatorManager: manager_creators, generator: generator)
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
+    private func createInitialEntities(scene: GameScene) {
+        let allSoundsEntity = Entity(named: .allSounds)
+                .add(component: AllSoundsComponent.shared)
+        let appStateEntity = Entity(named: .appState)
+                .add(component: SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: scene.size)))
+                .add(component: TransitionAppStateComponent(from: .start, to: .start))
+                .add(component: TimePlayedComponent())
+        let inputEntity = Entity(named: .input)
+                .add(component: InputComponent.shared)
+        engine.add(entity: allSoundsEntity)
+        engine.add(entity: appStateEntity)
+        engine.add(entity: inputEntity)
+    }
+
+    func usingGameController() {
+        engine.appStateEntity.add(component: ChangeShipControlsStateComponent(to: .usingGameController))
+    }
+
+    func usingScreenControls() {
+        engine.appStateEntity.add(component: ChangeShipControlsStateComponent(to: .usingScreenControls))
     }
 
     func start() {

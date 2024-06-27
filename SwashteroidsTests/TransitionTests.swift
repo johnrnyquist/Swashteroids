@@ -23,17 +23,17 @@ final class TransitionTests: XCTestCase {
     var size: CGSize!
     var engine: Engine!
     var creator: MockQuadrantsButtonToggleCreator!
-    var appStateComponent: AppStateComponent!
+    var appStateComponent: SwashteroidsStateComponent!
     var appStateEntity: Entity!
 
     override func setUpWithError() throws {
         size = CGSize(width: 1024.0, height: 768.0)
         engine = Engine()
-        appStateComponent = AppStateComponent(gameConfig: GameConfig(gameSize: .zero), randomness: Randomness.initialize(with: 1))
+        appStateComponent = SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero), randomness: Randomness.initialize(with: 1))
         appStateComponent.level = 4
         appStateComponent.score = 5
         appStateComponent.numShips = 3
-        appStateComponent.appState = .infoButtons
+        appStateComponent.swashteroidsState = .infoButtons
         appStateComponent.shipControlsState = .usingAccelerometer
         appStateEntity = Entity(named: "appStateEntity")
                 .add(component: appStateComponent)
@@ -86,9 +86,9 @@ final class TransitionTests: XCTestCase {
         for entityName: EntityName in [.hud, .gameOver, .hyperspacePowerUp, .torpedoPowerUp] {
             XCTAssertNil(engine.findEntity(named: entityName))
         }
-        XCTAssertEqual(appStateComponent.score, appStateComponent.gameConfig.score)
-        XCTAssertEqual(appStateComponent.level, appStateComponent.gameConfig.level)
-        XCTAssertEqual(appStateComponent.numShips, appStateComponent.gameConfig.numShips)
+        XCTAssertEqual(appStateComponent.score, appStateComponent.config.score)
+        XCTAssertEqual(appStateComponent.level, appStateComponent.config.level)
+        XCTAssertEqual(appStateComponent.numShips, appStateComponent.config.numShips)
     }
 
     func test_ToGameOverScreen() {
@@ -101,7 +101,7 @@ final class TransitionTests: XCTestCase {
         XCTAssertTrue(gameOverEntity.has(componentClassName: DisplayComponent.name))
         XCTAssertTrue(gameOverEntity.has(componentClassName: PositionComponent.name))
         XCTAssertTrue(gameOverEntity.has(componentClassName: TouchableComponent.name))
-        XCTAssertTrue(gameOverEntity.has(componentClassName: AppStateComponent.name))
+        XCTAssertTrue(gameOverEntity.has(componentClassName: SwashteroidsStateComponent.name))
         XCTAssertTrue(gameOverEntity.has(componentClassName: ButtonBehaviorComponent.name))
         guard let display = gameOverEntity[DisplayComponent.self]
         else {

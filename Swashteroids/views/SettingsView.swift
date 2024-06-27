@@ -10,14 +10,14 @@ import SwiftUI
 struct SettingsView: View {
     @State private var buttonMappings: [Functionality: GameControllerInput] = [:] // This should be loaded from persistent storage
     @State private var currentMapping: Functionality? = nil
-    @State private var currentAppState: AppState = .playing // Replace with the actual current AppState
+    @State private var currentAppState: SwashteroidsState = .playing // Replace with the actual current AppState
     var body: some View {
         VStack {
             Text("Settings")
-                .font(.title)
-                .padding()
-            Picker("App State", selection: $currentAppState) {
-                List(screenSpecificFunctionalities[currentAppState] ?? [], id: \.self) { functionality in
+                    .font(.title)
+                    .padding()
+            Picker("Swashteroids State", selection: $currentAppState) {
+                List(currentAppState.functionalities, id: \.self) { functionality in
                     HStack {
                         Text(functionality.rawValue)
                         Spacer()
@@ -28,12 +28,12 @@ struct SettingsView: View {
                         }
                     }
                 }
-                .onReceive(GameController.shared.$lastButtonPressed) { button in
-                    guard let mapping = currentMapping else { return }
-                    buttonMappings[mapping] = button
-                    currentMapping = nil
-                    // Save buttonMappings to persistent storage here
-                }
+                        .onReceive(GameController.shared.$lastButtonPressed) { button in
+                            guard let mapping = currentMapping else { return }
+                            buttonMappings[mapping] = button
+                            currentMapping = nil
+                            // Save buttonMappings to persistent storage here
+                        }
             }
         }
     }

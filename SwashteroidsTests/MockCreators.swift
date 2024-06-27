@@ -35,7 +35,7 @@ class MockAsteroidCreator: AsteroidCreatorUseCase {
 }
 
 class MockHudCreator: HudCreatorUseCase {
-    func createHud(gameState: AppStateComponent) {
+    func createHud(gameState: SwashteroidsStateComponent) {
     }
 }
 
@@ -55,7 +55,7 @@ class MockShipCreator: ShipCreatorUseCase {
     var createShipCalled = false
     var destroyCalled = false
 
-    func createShip(_ state: AppStateComponent) {
+    func createShip(_ state: SwashteroidsStateComponent) {
         createShipCalled = true
     }
 

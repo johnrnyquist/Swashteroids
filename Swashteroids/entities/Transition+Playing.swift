@@ -34,7 +34,7 @@ class PlayingTransition: PlayingUseCase {
         shipButtonControlsCreator?.removeShipControlButtons()
     }
 
-    func toPlayingScreen(appStateComponent: AppStateComponent) {
+    func toPlayingScreen(appStateComponent: SwashteroidsStateComponent) {
         hudCreator?.createHud(gameState: appStateComponent)
         if appStateComponent.shipControlsState == .usingAccelerometer {
             toggleShipControlsCreator?.createToggleButton(.off)

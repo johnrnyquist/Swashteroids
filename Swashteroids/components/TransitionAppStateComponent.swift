@@ -11,10 +11,10 @@
 import Swash
 
 final class TransitionAppStateComponent: Component {
-    var from: AppState
-    var to: AppState
+    var from: SwashteroidsState
+    var to: SwashteroidsState
 
-    init(from: AppState, to: AppState) {
+    init(from: SwashteroidsState, to: SwashteroidsState) {
         self.from = from
         self.to = to
     }

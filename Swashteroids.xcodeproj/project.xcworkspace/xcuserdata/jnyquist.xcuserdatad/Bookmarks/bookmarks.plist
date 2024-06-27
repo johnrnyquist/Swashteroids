@@ -34,16 +34,16 @@
 			<key>text-context</key>
 			<dict>
 				<key>focused</key>
-				<string>                                               name: UIDevice.orientationDidChangeNotification, object: nil)
+				<string>                                                      infoViewsTransition: infoViewsTransition,
 </string>
 				<key>leading</key>
-				<string>        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(orientationChanged),
+				<string>                     priority: .preUpdate)
+                .add(system: TransitionAppStateSystem(startTransition: startTransition,
 </string>
 				<key>trailing</key>
-				<string>        createInitialEntities(scene: scene)
-        creatorManager = CreatorManager(engine: engine, gameSize: gameSize, alertPresenter: alertPresenter, generator: generator)
-        createSystems(scene: scene)
+				<string>                                                      playingTransition: transition,
+                                                      gameOverTransition: gameOverTransition),
+                     priority: .preUpdate)
 </string>
 			</dict>
 			<key>type</key>

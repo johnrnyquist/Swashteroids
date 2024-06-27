@@ -78,8 +78,8 @@ final class GameViewController: UIViewController, AlertPresenting {
     @IBAction func showPauseAlert() {
         guard let swashteroids else { fatalError("game is nil") }
         swashteroids.stop()
-        if swashteroids.engine.appStateComponent.appState == .playing ||
-            swashteroids.engine.appStateComponent.appState == .gameOver {
+        if swashteroids.engine.appStateComponent.swashteroidsState == .playing ||
+            swashteroids.engine.appStateComponent.swashteroidsState == .gameOver {
             let alertView = PauseAlert(
                 appState: swashteroids.engine.appStateComponent, //HACK
                 home: home,

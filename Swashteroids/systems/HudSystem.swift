@@ -74,7 +74,7 @@ final class HudSystem: System {
 
     func updateNode(_ hudNode: Node, _ time: TimeInterval) {
         guard let hudComponent = hudNode[HudComponent.self],
-              let appStateComponent = hudNode[AppStateComponent.self]
+              let appStateComponent = hudNode[SwashteroidsStateComponent.self]
         else { return }
         hudComponent.hudView.setNumShips(appStateComponent.numShips)
         hudComponent.hudView.setScore(appStateComponent.score)

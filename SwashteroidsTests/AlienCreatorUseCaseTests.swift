@@ -19,7 +19,7 @@ final class AlienCreatorUseCaseTests: XCTestCase {
     override func setUpWithError() throws {
         engine = Engine()
         let appState = Entity(named: .appState)
-        appState.add(component: AppStateComponent(gameConfig: GameConfig(gameSize: .zero)))
+        appState.add(component: SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero)))
         engine.add(entity: appState)
     }
 

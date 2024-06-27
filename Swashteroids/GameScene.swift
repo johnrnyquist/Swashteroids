@@ -118,15 +118,18 @@ class GameScene: SKScene {
     var timeSinceHyperspace = 0.0
 
     func controllerInputDetected(pad: GCExtendedGamepad, element: GCControllerElement, index: Int) {
-        print("Controller: \(index), Element: \(element)")
-        print(element.localizedName)
-        print(element.sfSymbolsName)
-        print(element.aliases)
-        print(element.collection)
+        print("----")
+        print("Controller:              \(index), Element: \(element)")
+        print("localizedName:           \(element.localizedName!)")
+        print("unmappedLocalizedName:   \(element.unmappedLocalizedName!)")
+        print("sfSymbolsName:           \(element.sfSymbolsName!)")
+        print("unmappedSfSymbolsName:   \(element.unmappedSfSymbolsName!)")
+        print("aliases:                 \(element.aliases)")
+        print("collection:              \(element.collection)")
         print("----")
         let game = (delegate as! Swashteroids)
         let gameControllerComponent = GameControllerComponent()
-        if game.engine.appStateComponent.appState == .start {
+        if game.engine.appStateComponent.swashteroidsState == .start {
             if pad.buttonA.isPressed {
                 gameControllerComponent.add(command: .buttonA)
                 game.engine.appStateEntity.add(component: ChangeShipControlsStateComponent(to: .usingGameController))
@@ -134,7 +137,7 @@ class GameScene: SKScene {
                 return
             }
         }
-        if game.engine.appStateComponent.appState == .gameOver {
+        if game.engine.appStateComponent.swashteroidsState == .gameOver {
             if pad.buttonY.isPressed {
                 gameControllerComponent.add(command: .buttonY)
                 game.engine.appStateEntity.add(component: ChangeShipControlsStateComponent(to: .usingGameController))
@@ -157,7 +160,7 @@ class GameScene: SKScene {
                 return
             }
         }
-        if game.engine.appStateComponent.appState == .playing {
+        if game.engine.appStateComponent.swashteroidsState == .playing {
             if !game.alertPresenter.isAlertPresented,
                pad.buttonY.isPressed {
                 gameControllerComponent.add(command: .buttonY)
@@ -231,54 +234,74 @@ class GameScene: SKScene {
 }
 
 enum GameControllerInput {
-    case rightThumbstickUp
-    case rightThumbstickDown
-    case rightThumbstickLeft
-    case rightThumbstickRight
-    case rightThumbstickButtonPressed
-    case leftThumbstickUp
-    case leftThumbstickDown
-    case leftThumbstickLeft
-    case leftThumbstickRight
-    case leftThumbstickButtonPressed
-    case rightTrigger
-    case leftTrigger
-    case rightShoulder
-    case leftShoulder
+    /*
+Element: Button A (value: 0.000, pressed: 0)
+Element: Button B (value: 1.000, pressed: 1)
+Element: Button Menu (value: 1.000, pressed: 1)
+Element: Button Options (value: 1.000, pressed: 1)
+Element: Button X (value: 0.000, pressed: 0)
+Element: Button Y (value: 0.000, pressed: 0)
+Element: Direction Pad (x: +1.000, y: +0.000)
+Element: Direction Pad (x: -0.000, y: +0.000)
+Element: Direction Pad (x: -0.000, y: +1.000)
+Element: Direction Pad (x: -0.000, y: -1.000)
+Element: Direction Pad (x: -1.000, y: +0.000)
+Element: Left Shoulder (value: 0.000, pressed: 0)
+Element: Left Thumbstick (x: +0.001, y: +0.009)
+Element: Left Trigger (value: 0.000, pressed: 0)
+Element: Right Shoulder (value: 0.000, pressed: 0)
+Element: Right Thumbstick (x: +0.002, y: -0.008)
+Element: Right Thumbstick Button (value: 0.000, pressed: 0)
+Element: Right Trigger (value: 0.000, pressed: 0)
+     */
     case buttonA
     case buttonB
+    case buttonMenu
     case buttonX
     case buttonY
-    case buttonMenu
-    case dpadUp
     case dpadDown
     case dpadLeft
     case dpadRight
+    case dpadUp
+    case leftShoulder
+    case leftThumbstickButtonPressed
+    case leftThumbstickDown
+    case leftThumbstickLeft
+    case leftThumbstickRight
+    case leftThumbstickUp
+    case leftTrigger
+    case rightShoulder
+    case rightThumbstickButtonPressed
+    case rightThumbstickDown
+    case rightThumbstickLeft
+    case rightThumbstickRight
+    case rightThumbstickUp
+    case rightTrigger
     var description: String {
         switch self {
-        case .rightThumbstickUp: return "rightThumbstickUp"
-        case .rightThumbstickDown: return "rightThumbstickDown"
-        case .rightThumbstickLeft: return "rightThumbstickLeft"
-        case .rightThumbstickRight: return "rightThumbstickRight"
-        case .rightThumbstickButtonPressed: return "rightThumbstickButtonPressed"
-        case .leftThumbstickUp: return "leftThumbstickUp"
-        case .leftThumbstickDown: return "leftThumbstickDown"
-        case .leftThumbstickLeft: return "leftThumbstickLeft"
-        case .leftThumbstickRight: return "leftThumbstickRight"
-        case .leftThumbstickButtonPressed: return "leftThumbstickButtonPressed"
-        case .rightTrigger: return "rightTrigger"
-        case .leftTrigger: return "leftTrigger"
-        case .rightShoulder: return "rightShoulder"
-        case .leftShoulder: return "leftShoulder"
-        case .buttonA: return "buttonA"
-        case .buttonB: return "buttonB"
-        case .buttonX: return "buttonX"
-        case .buttonY: return "buttonY"
-        case .buttonMenu: return "buttonMenu"
-        case .dpadUp: return "dpadUp"
-        case .dpadDown: return "dpadDown"
-        case .dpadLeft: return "dpadLeft"
-        case .dpadRight: return "dpadRight"
+            case .buttonA: return "buttonA"
+            case .buttonB: return "buttonB"
+            case .buttonMenu: return "buttonMenu"
+            case .buttonX: return "buttonX"
+            case .buttonY: return "buttonY"
+            case .dpadDown: return "dpadDown"
+            case .dpadLeft: return "dpadLeft"
+            case .dpadRight: return "dpadRight"
+            case .dpadUp: return "dpadUp"
+            case .leftShoulder: return "leftShoulder"
+            case .leftThumbstickButtonPressed: return "leftThumbstickButtonPressed"
+            case .leftThumbstickDown: return "leftThumbstickDown"
+            case .leftThumbstickLeft: return "leftThumbstickLeft"
+            case .leftThumbstickRight: return "leftThumbstickRight"
+            case .leftThumbstickUp: return "leftThumbstickUp"
+            case .leftTrigger: return "leftTrigger"
+            case .rightShoulder: return "rightShoulder"
+            case .rightThumbstickButtonPressed: return "rightThumbstickButtonPressed"
+            case .rightThumbstickDown: return "rightThumbstickDown"
+            case .rightThumbstickLeft: return "rightThumbstickLeft"
+            case .rightThumbstickRight: return "rightThumbstickRight"
+            case .rightThumbstickUp: return "rightThumbstickUp"
+            case .rightTrigger: return "rightTrigger"
         }
     }
 }
