@@ -107,14 +107,4 @@ class MockScene: GameScene {
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {}
 
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {}
-
-    override func setUpControllerObservers() {}
-
-    override func connectControllers() {}
-
-    override func controllerDisconnected() {}
-
-    override func setupControllerControls(controller: GCController) {}
-
-    override func controllerInputDetected(pad: GCExtendedGamepad, element: GCControllerElement, index: Int) {}
 }

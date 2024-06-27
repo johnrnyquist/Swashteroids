@@ -68,7 +68,7 @@ class GameScene: SKScene {
         set {}
     }
     //MARK:- GAME CONTROLLER -------------------------
-    func setUpControllerObservers() {
+    private func setUpControllerObservers() {
         print(#function)
         NotificationCenter.default
                           .addObserver(self,
@@ -83,7 +83,7 @@ class GameScene: SKScene {
         connectControllers()
     }
 
-    @objc func connectControllers() {
+    @objc private func connectControllers() {
         print(#function)
         for controller in GCController.controllers() {
             print(controller.vendorName ?? "Unknown Vendor")
@@ -93,22 +93,24 @@ class GameScene: SKScene {
                 game.engine.appStateEntity.add(component: GameControllerComponent())
                 game.usingGameController()
                 setupControllerControls(controller: controller)
+                if game.engine.appStateComponent.swashteroidsState == .infoButtons ||
+                    game.engine.appStateComponent.swashteroidsState == .infoNoButtons {
+                    (game.alertPresenter as? GameViewController)?.startNewGame() //HACK
+                }
                 break
             }
         }
     }
 
-    @objc func controllerDisconnected() {
+    @objc private func controllerDisconnected() {
         print(#function)
         let game = (delegate as! Swashteroids)
         game.engine.appStateEntity.remove(componentClass: GameControllerComponent.self)
         game.usingScreenControls()
     }
 
-    func setupControllerControls(controller: GCController) {
-        //Function that check the controller when anything is moved or pressed on it
+    private func setupControllerControls(controller: GCController) {
         controller.extendedGamepad?.valueChangedHandler = { [weak self] (pad: GCExtendedGamepad, element: GCControllerElement) in
-            // Add movement in here for sprites of the controllers
             self?.controllerInputDetected(pad: pad, element: element, index: controller.playerIndex.rawValue)
         }
     }
@@ -116,68 +118,46 @@ class GameScene: SKScene {
     var timeSinceFired = 0.0
     var timeSinceFlip = 0.0
     var timeSinceHyperspace = 0.0
+    var game: Swashteroids { (delegate as! Swashteroids) }
 
-    func controllerInputDetected(pad: GCExtendedGamepad, element: GCControllerElement, index: Int) {
-        print("----")
-        print("Controller:              \(index), Element: \(element)")
-        print("localizedName:           \(element.localizedName!)")
-        print("unmappedLocalizedName:   \(element.unmappedLocalizedName!)")
-        print("sfSymbolsName:           \(element.sfSymbolsName!)")
-        print("unmappedSfSymbolsName:   \(element.unmappedSfSymbolsName!)")
-        print("aliases:                 \(element.aliases)")
-        print("collection:              \(element.collection)")
-        print("----")
-        let game = (delegate as! Swashteroids)
+    private func controllerInputDetected(pad: GCExtendedGamepad, element: GCControllerElement, index: Int) {
+        printControllerInfo(element: element, index: index)
         let gameControllerComponent = GameControllerComponent()
-        if game.engine.appStateComponent.swashteroidsState == .start {
-            if pad.buttonA.isPressed {
-                gameControllerComponent.add(command: .buttonA)
-                game.engine.appStateEntity.add(component: ChangeShipControlsStateComponent(to: .usingGameController))
-                game.engine.appStateEntity.add(component: TransitionAppStateComponent(from: .start, to: .playing))
-                return
-            }
+        switch game.engine.appStateComponent.swashteroidsState {
+            case .start:
+                handleStartState(pad: pad)
+            case .infoButtons, .infoNoButtons:
+                break
+            case .gameOver:
+                handleAlertState(pad: pad)
+            case .playing:
+                handleAlertState(pad: pad)
+                handlePlayingState(pad: pad)
         }
-        if game.engine.appStateComponent.swashteroidsState == .gameOver {
-            if pad.buttonY.isPressed {
-                gameControllerComponent.add(command: .buttonY)
-                game.engine.appStateEntity.add(component: ChangeShipControlsStateComponent(to: .usingGameController))
-                game.engine.appStateEntity.add(component: TransitionAppStateComponent(from: .gameOver, to: .start))
-                return
-            }
-            if pad.buttonA.isPressed && !game.alertPresenter.isAlertPresented {
-                gameControllerComponent.add(command: .buttonA)
-                game.alertPresenter.showPauseAlert()
-                return
-            }
-            if pad.buttonX.isPressed {
-                gameControllerComponent.add(command: .buttonX)
-                game.alertPresenter.home()
-                return
-            }
-            if pad.buttonB.isPressed {
-                gameControllerComponent.add(command: .buttonB)
-                game.alertPresenter.resume()
-                return
-            }
+        print(gameControllerComponent.commands)
+    }
+
+    private func handleStartState(pad: GCExtendedGamepad) {
+        game.engine.appStateEntity.add(component: TransitionAppStateComponent(from: .start, to: .playing))
+    }
+    
+    private func handleAlertState(pad: GCExtendedGamepad) {
+        if game.alertPresenter.isAlertPresented == false,
+           pad.buttonY.isPressed {
+            game.alertPresenter.showPauseAlert()
+            return
+        } else if game.alertPresenter.isAlertPresented,
+                  pad.buttonX.isPressed {
+            game.alertPresenter.home()
+            return
+        } else if game.alertPresenter.isAlertPresented,
+                  (pad.buttonB.isPressed || pad.buttonY.isPressed) {
+            game.alertPresenter.resume()
+            return
         }
-        if game.engine.appStateComponent.swashteroidsState == .playing {
-            if !game.alertPresenter.isAlertPresented,
-               pad.buttonY.isPressed {
-                gameControllerComponent.add(command: .buttonY)
-                game.alertPresenter.showPauseAlert()
-                return
-            } else if game.alertPresenter.isAlertPresented,
-                      pad.buttonX.isPressed {
-                gameControllerComponent.add(command: .buttonX)
-                game.alertPresenter.home()
-                return
-            } else if game.alertPresenter.isAlertPresented,
-                      pad.buttonB.isPressed {
-                gameControllerComponent.add(command: .buttonB)
-                game.alertPresenter.resume()
-                return
-            }
-        }
+    }
+
+    private func handlePlayingState(pad: GCExtendedGamepad) {
         let deltaTime = game.currentTime - previousTime
         previousTime = game.currentTime
         timeSinceFired += deltaTime
@@ -185,13 +165,11 @@ class GameScene: SKScene {
         timeSinceHyperspace += deltaTime
         // HYPERSPACE
         if timeSinceHyperspace > 0.5 && (pad.rightShoulder.isPressed && pad.rightShoulder.value == 1.0) {
-            gameControllerComponent.add(command: .rightShoulder)
             timeSinceHyperspace = 0.0
             game.engine.ship?.add(component: DoHyperspaceJumpComponent(size: size))
         }
         // FLIP
         if timeSinceFlip > 0.2 && (pad.leftShoulder.isPressed && pad.leftShoulder.value == 1.0) {
-            gameControllerComponent.add(command: .leftShoulder)
             timeSinceFlip = 0.0
             game.engine.ship?.add(component: FlipComponent.shared)
         }
@@ -199,28 +177,24 @@ class GameScene: SKScene {
         if timeSinceFired > 0.2 {
             if pad.rightTrigger.isPressed,
                pad.rightTrigger.value == 1.0 {
-                gameControllerComponent.add(command: .rightTrigger)
                 timeSinceFired = 0.0
                 game.engine.ship?.add(component: FireDownComponent.shared)
             }
         }
         // TURN LEFT
         if pad.leftThumbstick.left.isPressed || pad.dpad.left.isPressed {
-            gameControllerComponent.add(command: .leftThumbstickLeft) //TODO: Need to get dpad.left in another test
             game.engine.ship?.add(component: LeftComponent.shared)
         } else {
             game.engine.ship?.remove(componentClass: LeftComponent.self)
         }
         // TURN RIGHT
         if pad.leftThumbstick.right.isPressed || pad.dpad.right.isPressed {
-            gameControllerComponent.add(command: .leftThumbstickRight) //TODO: Need to get dpad.right in another test
             game.engine.ship?.add(component: RightComponent.shared)
         } else {
             game.engine.ship?.remove(componentClass: RightComponent.self)
         }
         // THRUST
         if pad.rightThumbstick.up.isPressed {
-            gameControllerComponent.add(command: .rightThumbstickUp)
             game.engine.ship?.add(component: ApplyThrustComponent.shared)
             game.engine.ship?[WarpDriveComponent.self]?.isThrusting = true
             game.engine.ship?[RepeatingAudioComponent.self]?.state = .shouldBegin
@@ -229,30 +203,64 @@ class GameScene: SKScene {
             game.engine.ship?[WarpDriveComponent.self]?.isThrusting = false
             game.engine.ship?[RepeatingAudioComponent.self]?.state = .shouldStop
         }
-        print(gameControllerComponent.commands)
+    }
+
+    private func printControllerInfo(element: GCControllerElement, index: Int) {
+        print("----")
+        print("Controller:              \(index), Element: \(element)")
+        print("localizedName:           \(element.localizedName!)")
+        print("unmappedLocalizedName:   \(element.unmappedLocalizedName!)")
+        print("sfSymbolsName:           \(element.sfSymbolsName!)")
+        print("unmappedSfSymbolsName:   \(element.unmappedSfSymbolsName!)")
+        print("aliases:                 \(element.aliases)")
+        print("isAnalog:                \(element.isAnalog)")
+        print("----")
     }
 }
 
 enum GameControllerInput {
     /*
-Element: Button A (value: 0.000, pressed: 0)
-Element: Button B (value: 1.000, pressed: 1)
-Element: Button Menu (value: 1.000, pressed: 1)
-Element: Button Options (value: 1.000, pressed: 1)
-Element: Button X (value: 0.000, pressed: 0)
-Element: Button Y (value: 0.000, pressed: 0)
-Element: Direction Pad (x: +1.000, y: +0.000)
-Element: Direction Pad (x: -0.000, y: +0.000)
-Element: Direction Pad (x: -0.000, y: +1.000)
-Element: Direction Pad (x: -0.000, y: -1.000)
-Element: Direction Pad (x: -1.000, y: +0.000)
-Element: Left Shoulder (value: 0.000, pressed: 0)
-Element: Left Thumbstick (x: +0.001, y: +0.009)
-Element: Left Trigger (value: 0.000, pressed: 0)
-Element: Right Shoulder (value: 0.000, pressed: 0)
-Element: Right Thumbstick (x: +0.002, y: -0.008)
-Element: Right Thumbstick Button (value: 0.000, pressed: 0)
-Element: Right Trigger (value: 0.000, pressed: 0)
+Digital Elements:  
+    Button A
+    Button B
+    Button Menu
+    Button Options
+    Button X
+    Button Y
+    Direction Pad
+    Left Shoulder
+    Right Shoulder
+    Left Thumbstick Button
+    Right Thumbstick Button
+     
+Analog Elements:  
+    Left Thumbstick (x and y)
+    Right Thumbstick (x and y)
+    Left Trigger
+    Right Trigger
+     */
+    /*
+Analog:
+    Element: Button A (value: 0.000, pressed: 0)
+    Element: Button B (value: 1.000, pressed: 1)
+    Element: Button Menu (value: 1.000, pressed: 1)
+    Element: Button Options (value: 1.000, pressed: 1)
+    Element: Button X (value: 0.000, pressed: 0)
+    Element: Button Y (value: 0.000, pressed: 0)
+    Element: Direction Pad (x: +1.000, y: +0.000)
+    Element: Direction Pad (x: -0.000, y: +0.000)
+    Element: Direction Pad (x: -0.000, y: +1.000)
+    Element: Direction Pad (x: -0.000, y: -1.000)
+    Element: Direction Pad (x: -1.000, y: +0.000)
+    Element: Left Shoulder (value: 0.000, pressed: 0)
+    Element: Right Shoulder (value: 0.000, pressed: 0)
+    Element: Right Thumbstick Button (value: 0.000, pressed: 0)
+     
+Digital:
+    Element: Left Thumbstick (x: +0.001, y: +0.009)
+    Element: Left Trigger (value: 0.000, pressed: 0)
+    Element: Right Thumbstick (x: +0.002, y: -0.008)
+    Element: Right Trigger (value: 0.000, pressed: 0)
      */
     case buttonA
     case buttonB
