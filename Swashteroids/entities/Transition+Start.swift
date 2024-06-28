@@ -10,7 +10,6 @@
 
 import Swash
 import SpriteKit
-import GameController
 
 class StartTransition: StartUseCase {
     let engine: Engine
@@ -28,14 +27,6 @@ class StartTransition: StartUseCase {
         engine.removeEntities(named: [.noButtons, .withButtons, .start])
     }
 
-    func isGameControllerConnected() -> Bool {
-        guard let controller = GCController.controllers().first,
-              let controllerName = controller.vendorName,
-              controllerName != "Gamepad"
-        else { return false }
-        return controller.isAttachedToDevice
-    }
-
     /// The start screen is not an entity, but composed of entities.  It is the first screen the user sees.
     func toStartScreen() {
         print("toStartScreen")
@@ -51,7 +42,7 @@ class StartTransition: StartUseCase {
 //        if engine.appStateEntity.has(componentClass: GameControllerComponent.self) {
 //            return
 //        }
-        if isGameControllerConnected() { return }
+        if GameController.isGameControllerConnected() { return }
         // BUTTONS
         let noButtonsSprite = startView.noButtons
         let buttonsSprite = startView.buttons

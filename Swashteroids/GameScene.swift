@@ -15,22 +15,24 @@ import GameController
 extension GameScene: SoundPlaying {}
 
 class GameScene: SKScene {
+    static var sound = SKAudioNode(fileNamed: SoundFileNames.thrust.rawValue) //HACK HACK HACK
+    weak var touchDelegate: TouchDelegate?
+    var gameControllerManager: GameControllerManager!
+
     deinit {
         removeAllActions()
         removeFromParent()
         removeAllChildren()
         NotificationCenter.default.removeObserver(self)
+        gameControllerManager = nil
     }
 
-    static var sound = SKAudioNode(fileNamed: SoundFileNames.thrust.rawValue) //HACK HACK HACK
-    weak var touchDelegate: TouchDelegate?
-    var previousTime = 0.0
 //    var cameraNode: SKCameraNode!
     override func didMove(to view: SKView) {
         print(#function)
         super.didMove(to: view)
-        setUpControllerObservers()
-        //HACK to get around the SpriteKit bug where repeated sounds have a popping noise
+        gameControllerManager = GameControllerManager(game: delegate as! Swashteroids, size: size)
+        //BEGIN_HACK to get around the SpriteKit bug where repeated sounds have a popping noise
         GameScene.sound.run(SKAction.changeVolume(to: 0, duration: 0))
         let addAudioNodeAction = SKAction.run { [weak self] in
             GameScene.sound.removeFromParent()
@@ -67,23 +69,37 @@ class GameScene: SKScene {
         get { true }
         set {}
     }
-    //MARK:- GAME CONTROLLER -------------------------
+}
+
+class GameControllerManager: NSObject {
+    var previousTime = 0.0
+    var timeSinceFired = 0.0
+    var timeSinceFlip = 0.0
+    var timeSinceHyperspace = 0.0
+    weak var game: Swashteroids!
+    var size: CGSize
+
+    init(game: Swashteroids, size: CGSize) {
+        self.game = game
+        self.size = size
+        super.init()
+        setUpControllerObservers()
+    }
+
     private func setUpControllerObservers() {
         print(#function)
-        #if targetEnvironment(simulator)
-        print("Game Controller not available on the simulator")
-        #else
-        NotificationCenter.default
-                          .addObserver(self,
-                                       selector: #selector(self.connectControllers),
-                                       name: NSNotification.Name.GCControllerDidConnect,
-                                       object: nil)
-        NotificationCenter.default
-                          .addObserver(self,
-                                       selector: #selector(self.controllerDisconnected),
-                                       name: NSNotification.Name.GCControllerDidDisconnect,
-                                       object: nil)
-        #endif
+        if GameController.isGameControllerConnected() {
+            NotificationCenter.default
+                              .addObserver(self,
+                                           selector: #selector(self.connectControllers),
+                                           name: NSNotification.Name.GCControllerDidConnect,
+                                           object: nil)
+            NotificationCenter.default
+                              .addObserver(self,
+                                           selector: #selector(self.controllerDisconnected),
+                                           name: NSNotification.Name.GCControllerDidDisconnect,
+                                           object: nil)
+        }
     }
 
     @objc private func connectControllers() {
@@ -91,13 +107,12 @@ class GameScene: SKScene {
         for controller in GCController.controllers() {
             print(controller.vendorName ?? "Unknown Vendor")
             //Check to see whether it is an extended Game Controller (Such as a Nimbus)
-            if controller.extendedGamepad != nil,
-               let game = delegate as? Swashteroids {
+            if controller.extendedGamepad != nil {
                 game.engine.appStateEntity.add(component: GameControllerComponent())
                 game.usingGameController()
                 setupControllerControls(controller: controller)
                 if game.engine.appStateComponent.swashteroidsState == .infoButtons ||
-                    game.engine.appStateComponent.swashteroidsState == .infoNoButtons {
+                   game.engine.appStateComponent.swashteroidsState == .infoNoButtons {
                     (game.alertPresenter as? GameViewController)?.startNewGame() //HACK
                 }
                 break
@@ -107,22 +122,17 @@ class GameScene: SKScene {
 
     @objc private func controllerDisconnected() {
         print(#function)
-        let game = (delegate as! Swashteroids)
         game.engine.appStateEntity.remove(componentClass: GameControllerComponent.self)
         game.usingScreenControls()
     }
 
     private func setupControllerControls(controller: GCController) {
         print(#function)
-        controller.extendedGamepad?.valueChangedHandler = { [weak self] (pad: GCExtendedGamepad, element: GCControllerElement) in
+        controller.extendedGamepad?
+                  .valueChangedHandler = { [weak self] (pad: GCExtendedGamepad, element: GCControllerElement) in
             self?.controllerInputDetected(pad: pad, element: element, index: controller.playerIndex.rawValue)
         }
     }
-
-    var timeSinceFired = 0.0
-    var timeSinceFlip = 0.0
-    var timeSinceHyperspace = 0.0
-    var game: Swashteroids { (delegate as! Swashteroids) }
 
     private func controllerInputDetected(pad: GCExtendedGamepad, element: GCControllerElement, index: Int) {
         printControllerInfo(element: element, index: index)
@@ -144,7 +154,7 @@ class GameScene: SKScene {
     private func handleStartState(pad: GCExtendedGamepad) {
         game.engine.appStateEntity.add(component: TransitionAppStateComponent(from: .start, to: .playing))
     }
-    
+
     private func handleAlertState(pad: GCExtendedGamepad) {
         if game.alertPresenter.isAlertPresented == false,
            pad.buttonY.isPressed {
@@ -222,7 +232,8 @@ class GameScene: SKScene {
     }
 }
 
-enum GameControllerInput {
+struct GameControllerInput: CustomStringConvertible, Equatable {
+    var description: String { "GameControllerInput" }
     /*
 Digital Elements:  
     Button A
@@ -266,56 +277,6 @@ Digital:
     Element: Right Thumbstick (x: +0.002, y: -0.008)
     Element: Right Trigger (value: 0.000, pressed: 0)
      */
-    case buttonA
-    case buttonB
-    case buttonMenu
-    case buttonX
-    case buttonY
-    case dpadDown
-    case dpadLeft
-    case dpadRight
-    case dpadUp
-    case leftShoulder
-    case leftThumbstickButtonPressed
-    case leftThumbstickDown
-    case leftThumbstickLeft
-    case leftThumbstickRight
-    case leftThumbstickUp
-    case leftTrigger
-    case rightShoulder
-    case rightThumbstickButtonPressed
-    case rightThumbstickDown
-    case rightThumbstickLeft
-    case rightThumbstickRight
-    case rightThumbstickUp
-    case rightTrigger
-    var description: String {
-        switch self {
-            case .buttonA: return "buttonA"
-            case .buttonB: return "buttonB"
-            case .buttonMenu: return "buttonMenu"
-            case .buttonX: return "buttonX"
-            case .buttonY: return "buttonY"
-            case .dpadDown: return "dpadDown"
-            case .dpadLeft: return "dpadLeft"
-            case .dpadRight: return "dpadRight"
-            case .dpadUp: return "dpadUp"
-            case .leftShoulder: return "leftShoulder"
-            case .leftThumbstickButtonPressed: return "leftThumbstickButtonPressed"
-            case .leftThumbstickDown: return "leftThumbstickDown"
-            case .leftThumbstickLeft: return "leftThumbstickLeft"
-            case .leftThumbstickRight: return "leftThumbstickRight"
-            case .leftThumbstickUp: return "leftThumbstickUp"
-            case .leftTrigger: return "leftTrigger"
-            case .rightShoulder: return "rightShoulder"
-            case .rightThumbstickButtonPressed: return "rightThumbstickButtonPressed"
-            case .rightThumbstickDown: return "rightThumbstickDown"
-            case .rightThumbstickLeft: return "rightThumbstickLeft"
-            case .rightThumbstickRight: return "rightThumbstickRight"
-            case .rightThumbstickUp: return "rightThumbstickUp"
-            case .rightTrigger: return "rightTrigger"
-        }
-    }
 }
 
 class GameControllerComponent: Component {

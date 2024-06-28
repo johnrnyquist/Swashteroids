@@ -128,6 +128,7 @@
 		8DD26DC92B22D7E300DA5BC3 /* AccelerometerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD26DC82B22D7E300DA5BC3 /* AccelerometerNode.swift */; };
 		8DD26DCB2B22D80600DA5BC3 /* AccelerometerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD26DCA2B22D80600DA5BC3 /* AccelerometerComponent.swift */; };
 		8DDD71522C2E232700290D2D /* Swash in Frameworks */ = {isa = PBXBuildFile; productRef = 8DDD71512C2E232700290D2D /* Swash */; };
+		8DDD71542C2F3D7500290D2D /* GCController+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD71532C2F3D7500290D2D /* GCController+extensions.swift */; };
 		8DE66F0F2C14C9BF00ECEE96 /* SplitAsteroidUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139921E04E8DBE2DF6800B /* SplitAsteroidUseCase.swift */; };
 		8DE66F112C14CA1500ECEE96 /* SplitAsteroidComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE66F102C14CA1500ECEE96 /* SplitAsteroidComponent.swift */; };
 		8DE66F132C14CA5000ECEE96 /* SplitAsteroidNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE66F122C14CA5000ECEE96 /* SplitAsteroidNode.swift */; };
@@ -367,6 +368,7 @@
 		8DC1A0DC2C2CE52E0009698B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		8DD26DC82B22D7E300DA5BC3 /* AccelerometerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccelerometerNode.swift; sourceTree = "<group>"; };
 		8DD26DCA2B22D80600DA5BC3 /* AccelerometerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccelerometerComponent.swift; sourceTree = "<group>"; };
+		8DDD71532C2F3D7500290D2D /* GCController+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GCController+extensions.swift"; sourceTree = "<group>"; };
 		8DE66F102C14CA1500ECEE96 /* SplitAsteroidComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitAsteroidComponent.swift; sourceTree = "<group>"; };
 		8DE66F122C14CA5000ECEE96 /* SplitAsteroidNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitAsteroidNode.swift; sourceTree = "<group>"; };
 		931390044D76A66DFCED70FA /* MoveToTargetSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveToTargetSystemTests.swift; sourceTree = "<group>"; };
@@ -804,6 +806,7 @@
 				8D714E2D2B3535DC009E1586 /* SKSpriteNode+extensions.swift */,
 				931394D1D0B636772EE1DFF7 /* String+EntityNames.swift */,
 				8D8F24B52B51D47700B2E223 /* UIColor+extensions.swift */,
+				8DDD71532C2F3D7500290D2D /* GCController+extensions.swift */,
 			);
 			name = extensions;
 			sourceTree = "<group>";
@@ -1043,6 +1046,7 @@
 				8D23C1E02B02C59D00F7D878 /* HudView.swift in Sources */,
 				8D23C1A02B02C59D00F7D878 /* RenderNode.swift in Sources */,
 				8D23C1AF2B02C59D00F7D878 /* SwashteroidsStateNode.swift in Sources */,
+				8DDD71542C2F3D7500290D2D /* GCController+extensions.swift in Sources */,
 				8D23C1B72B02C59D00F7D878 /* ShipComponent.swift in Sources */,
 				8D6A0DFF2B0AB64A00F2E137 /* GameOverView.swift in Sources */,
 				8D23C1AD2B02C59D00F7D878 /* MovementNode.swift in Sources */,
