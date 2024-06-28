@@ -12,37 +12,43 @@ import Foundation
 import Swash
 import SpriteKit
 
-final class HudSystem: System {
+final class HudSystem: ListIteratingSystem {
     private weak var gunNodes: NodeList?
-    private weak var hudNodes: NodeList?
     private weak var hyperspaceNodes: NodeList?
     private weak var engine: Engine?
-    private var powerUpCreator: PowerUpCreatorUseCase?
+    private weak var powerUpCreator: PowerUpCreatorUseCase?
 
     init(powerUpCreator: PowerUpCreatorUseCase) {
+        super.init(nodeClass: HudNode.self)
         self.powerUpCreator = powerUpCreator
+        nodeUpdateFunction = updateNode
     }
 
     override public func addToEngine(engine: Engine) {
+        super.addToEngine(engine: engine)
         self.engine = engine
         gunNodes = engine.getNodeList(nodeClassType: GunNode.self)
-        hudNodes = engine.getNodeList(nodeClassType: HudNode.self)
         hyperspaceNodes = engine.getNodeList(nodeClassType: HyperspaceNode.self)
     }
 
-    override public func update(time: TimeInterval) {
-        guard let hudNode = hudNodes?.head else { return }
-        updateNode(hudNode, time)
+    func updateNode(_ hudNode: Node, _ time: TimeInterval) {
+        guard let hudComponent = hudNode[HudComponent.self],
+              let appStateComponent = engine?.appStateComponent
+        else { return }
+        hudComponent.hudView.setNumShips(appStateComponent.numShips)
+        hudComponent.hudView.setScore(appStateComponent.score)
+        hudComponent.hudView.setLevel(appStateComponent.level)
+        //
         guard let gunNodes else { return }
         var gunNode = gunNodes.head
         while let currentGunNode = gunNode {
             updateForGunNode(currentGunNode[GunComponent.self], gunNode?.entity, hudNode)
             gunNode = currentGunNode.next
         }
-        guard let hyperspaceNode = hyperspaceNodes?.head else { return } 
+        guard let hyperspaceNode = hyperspaceNodes?.head else { return }
         updateForHyperspaceNode(hyperspaceNode[HyperspaceDriveComponent.self], hudNode)
     }
-    
+
     func updateForHyperspaceNode(_ hyperspaceComponent: HyperspaceDriveComponent?, _ hudNode: Node?) {
         if let hyperspaceComponent {
             hudNode?[HudComponent.self]?.hudView.setJumps(hyperspaceComponent.jumps)
@@ -70,15 +76,6 @@ final class HudSystem: System {
                 }
             }
         }
-    }
-
-    func updateNode(_ hudNode: Node, _ time: TimeInterval) {
-        guard let hudComponent = hudNode[HudComponent.self],
-              let appStateComponent = hudNode[SwashteroidsStateComponent.self]
-        else { return }
-        hudComponent.hudView.setNumShips(appStateComponent.numShips)
-        hudComponent.hudView.setScore(appStateComponent.score)
-        hudComponent.hudView.setLevel(appStateComponent.level)
     }
 }
 

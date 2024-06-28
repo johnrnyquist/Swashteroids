@@ -43,8 +43,7 @@ final class TransitionAppStateSystemTests: XCTestCase {
 
     func test_UpdateNodeFromStartToInfoNoButtons() throws {
         let node = TransitionAppStateNode()
-        let appStateComponent = SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero),
-                                                  randomness: Randomness.initialize(with: 1))
+        let appStateComponent = SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero))
         appStateComponent.numShips = 0
         appStateComponent.level = 0
         appStateComponent.score = 0
@@ -63,7 +62,7 @@ final class TransitionAppStateSystemTests: XCTestCase {
 
     func test_UpdateNodeFromStartToInfoButtons() throws {
         let node = TransitionAppStateNode()
-        let appStateComponent = SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero), randomness: Randomness.initialize(with: 1))
+        let appStateComponent = SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero))
         appStateComponent.numShips = 0
         appStateComponent.level = 0
         appStateComponent.score = 0
@@ -82,7 +81,7 @@ final class TransitionAppStateSystemTests: XCTestCase {
 
     func test_UpdateNodeFromInfoButtonsToPlaying() throws {
         let node = TransitionAppStateNode()
-        let appStateComponent = SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero), randomness: Randomness.initialize(with: 1))
+        let appStateComponent = SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero))
         appStateComponent.numShips = 0
         appStateComponent.level = 0
         appStateComponent.score = 0
@@ -98,7 +97,7 @@ final class TransitionAppStateSystemTests: XCTestCase {
 
     func test_UpdateNodeFromGameOverToStart() throws {
         let node = TransitionAppStateNode()
-        let appStateComponent = SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero), randomness: Randomness.initialize(with: 1))
+        let appStateComponent = SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero))
         appStateComponent.numShips = 0
         appStateComponent.level = 0
         appStateComponent.score = 0
@@ -117,7 +116,7 @@ final class TransitionAppStateSystemTests: XCTestCase {
 
     func test_UpdateNodeFromInfoNoButtonsToPlaying() throws {
         let node = TransitionAppStateNode()
-        let appStateComponent = SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero), randomness: Randomness.initialize(with: 1))
+        let appStateComponent = SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero))
         appStateComponent.numShips = 0
         appStateComponent.level = 0
         appStateComponent.score = 0
@@ -133,7 +132,7 @@ final class TransitionAppStateSystemTests: XCTestCase {
     }
 
     func test_UpdateNodeFromPlayingWithButtonsToGameOver() throws {
-        let appStateComponent = SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero), randomness: Randomness.initialize(with: 1))
+        let appStateComponent = SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero))
         appStateComponent.numShips = 0
         appStateComponent.level = 0
         appStateComponent.score = 0

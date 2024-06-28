@@ -11,30 +11,23 @@
 import Swash
 import SpriteKit
 
-final class AlienFiringSystem: System {
+final class AlienFiringSystem: ListIteratingSystem {
     private let gameRect: CGRect
-    private let torpedoCreator: TorpedoCreatorUseCase?
-    private weak var firingNodes: NodeList?
-    weak var engine: Engine!
+    private weak var torpedoCreator: TorpedoCreatorUseCase?
+    private weak var engine: Engine!
 
     init(torpedoCreator: TorpedoCreatorUseCase, gameSize: CGSize, scaleManager: ScaleManaging = ScaleManager.shared) {
-        self.torpedoCreator = torpedoCreator
         gameRect = CGRect(origin: .zero, size: gameSize)
+        self.torpedoCreator = torpedoCreator
+        super.init(nodeClass: AlienFiringNode.self)
+        nodeUpdateFunction = updateNode
     }
 
     override public func addToEngine(engine: Engine) {
+        super.addToEngine(engine: engine)
         self.engine = engine
-        firingNodes = engine.getNodeList(nodeClassType: AlienFiringNode.self)
     }
-
-    override public func update(time: TimeInterval) {
-        var node = firingNodes?.head
-        while let currentNode = node {
-            updateNode(node: currentNode, time: time)
-            node = currentNode.next
-        }
-    }
-
+    
     func updateNode(node: Node, time: TimeInterval) {
         guard let gun = node[GunComponent.self] else { return }
         gun.timeSinceLastShot += time

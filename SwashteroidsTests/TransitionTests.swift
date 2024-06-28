@@ -29,7 +29,7 @@ final class TransitionTests: XCTestCase {
     override func setUpWithError() throws {
         size = CGSize(width: 1024.0, height: 768.0)
         engine = Engine()
-        appStateComponent = SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero), randomness: Randomness.initialize(with: 1))
+        appStateComponent = SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero))
         appStateComponent.level = 4
         appStateComponent.score = 5
         appStateComponent.numShips = 3

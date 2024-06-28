@@ -1,0 +1,15 @@
+{
+  "originHash" : "96be89965051676c2dab530a89edecd28e253231e4d6a68246c462d2d8543dec",
+  "pins" : [
+    {
+      "identity" : "swash",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/johnrnyquist/Swash",
+      "state" : {
+        "branch" : "main",
+        "revision" : "7ecec04d2eff6df2ecad1ad04d22d5d0de615e17"
+      }
+    }
+  ],
+  "version" : 3
+}

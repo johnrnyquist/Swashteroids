@@ -70,6 +70,9 @@ class GameScene: SKScene {
     //MARK:- GAME CONTROLLER -------------------------
     private func setUpControllerObservers() {
         print(#function)
+        #if targetEnvironment(simulator)
+        print("Game Controller not available on the simulator")
+        #else
         NotificationCenter.default
                           .addObserver(self,
                                        selector: #selector(self.connectControllers),
@@ -80,7 +83,7 @@ class GameScene: SKScene {
                                        selector: #selector(self.controllerDisconnected),
                                        name: NSNotification.Name.GCControllerDidDisconnect,
                                        object: nil)
-        connectControllers()
+        #endif
     }
 
     @objc private func connectControllers() {
@@ -110,6 +113,7 @@ class GameScene: SKScene {
     }
 
     private func setupControllerControls(controller: GCController) {
+        print(#function)
         controller.extendedGamepad?.valueChangedHandler = { [weak self] (pad: GCExtendedGamepad, element: GCControllerElement) in
             self?.controllerInputDetected(pad: pad, element: element, index: controller.playerIndex.rawValue)
         }

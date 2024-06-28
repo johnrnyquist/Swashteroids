@@ -30,7 +30,7 @@ final class GameplayManagerSystemTests: XCTestCase {
         asteroidCreator = MockAsteroidCreator()
         shipCreator = MockShipCreator()
         scene = GameScene()
-        appStateComponent = SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero), randomness: Randomness.initialize(with: 1))
+        appStateComponent = SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero))
         appStateComponent.level = 1
         system = GameplayManagerSystem(asteroidCreator: asteroidCreator,
                                        alienCreator: alienCreator,
@@ -166,8 +166,7 @@ final class GameplayManagerSystemTests: XCTestCase {
     }
 
     func test_HandlePlayingState_NoShips() {
-        let appStateComponent = SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero),
-                                                  randomness: Randomness.initialize(with: 1))
+        let appStateComponent = SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero))
         appStateComponent.numShips = 0
         appStateComponent.swashteroidsState = .playing
         let entity = Entity(named: "currentState")
@@ -187,8 +186,7 @@ final class GameplayManagerSystemTests: XCTestCase {
                                                            scaleManager: MockScaleManager())
         engine.add(system: system, priority: 1)
         //TODO: need to look at this function's logic
-        let appStateComponent = SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero),
-                                                  randomness: Randomness.initialize(with: 1))
+        let appStateComponent = SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero))
         appStateComponent.swashteroidsState = .playing
         system.handleGameState(appStateComponent: appStateComponent, entity: Entity(), time: 1.0)
         XCTAssertTrue(system.handlePlayingStateCalled)
@@ -223,8 +221,7 @@ final class GameplayManagerSystemTests: XCTestCase {
         engine.add(entity: shipEntity)
         engine.add(system: system, priority: 1)
         //
-        let appStateComponent = SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero),
-                                                  randomness: Randomness.initialize(with: 1))
+        let appStateComponent = SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero))
         appStateComponent.swashteroidsState = .playing
         appStateComponent.numShips = 1
         appStateComponent.shipControlsState = .usingScreenControls

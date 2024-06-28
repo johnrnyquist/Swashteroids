@@ -30,8 +30,7 @@ final class GameOverSystemTests: XCTestCase {
 
     func test_UpdateNode() throws {
         let gameOver = GameOverComponent()
-        let appStateComponent = SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero),
-                                                  randomness: Randomness.initialize(with: 1))
+        let appStateComponent = SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero))
         appStateComponent.swashteroidsState = .gameOver
         let node = GameOverNode()
         node.components[GameOverComponent.name] = gameOver

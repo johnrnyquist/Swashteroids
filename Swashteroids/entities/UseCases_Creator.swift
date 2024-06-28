@@ -12,7 +12,7 @@ import Foundation
 import Swash
 
 protocol AlienCreatorUseCase: AnyObject {
-    func createAliens(scene: GameScene)
+    func createAliens()
 }
 
 protocol AsteroidCreatorUseCase: AnyObject {

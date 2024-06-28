@@ -18,7 +18,7 @@ let treasure_special_value = 350
 /// This class is an argument for switching to the SpriteKit physics engine.
 class CollisionSystem: System {
     private let asteroidCreator: AsteroidCreatorUseCase
-    private let randomness: Randomizing
+    private weak var randomness: Randomizing!
     private let scaleManager: ScaleManaging
     private let shipCreator: ShipCreatorUseCase
     private var size: CGSize
@@ -49,7 +49,7 @@ class CollisionSystem: System {
 
     override public func addToEngine(engine: Engine) {
         self.engine = engine
-        appStateNodes = engine.getNodeList(nodeClassType: AppStateNode.self)
+        appStateNodes = engine.getNodeList(nodeClassType: SwashteroidsStateNode.self)
         ships = engine.getNodeList(nodeClassType: ShipCollisionNode.self)
         aliens = engine.getNodeList(nodeClassType: AlienCollisionNode.self)
         asteroids = engine.getNodeList(nodeClassType: AsteroidCollisionNode.self)
@@ -57,6 +57,20 @@ class CollisionSystem: System {
         torpedoPowerUp = engine.getNodeList(nodeClassType: GunPowerUpNode.self)
         hyperspacePowerUp = engine.getNodeList(nodeClassType: HyperspacePowerUpNode.self)
         treasures = engine.getNodeList(nodeClassType: TreasureCollisionNode.self)
+    }
+
+    /// 
+    /// - Parameter time: The time since the last update
+    override public func update(time: TimeInterval) {
+        collisionCheck(nodeA: ships.head, nodeB: torpedoPowerUp.head, action: shipAndTorpedoPowerUp)
+        collisionCheck(nodeA: ships.head, nodeB: hyperspacePowerUp.head, action: shipAndHyperspacePowerUp)
+        collisionCheck(nodeA: torpedoes.head, nodeB: asteroids.head, action: torpedoesAndAsteroids)
+        for vehicle in [ships.head, aliens.head] {
+            collisionCheck(nodeA: torpedoes.head, nodeB: vehicle, action: torpedoAndVehicle)
+            collisionCheck(nodeA: vehicle, nodeB: asteroids.head, action: vehiclesAndAsteroids)
+            collisionCheck(nodeA: vehicle, nodeB: treasures.head, action: vehiclesAndTreasures)
+        }
+        collisionCheck(nodeA: ships.head, nodeB: aliens.head, action: shipsAndAliens)
     }
 
     func shipAndTorpedoPowerUp(shipNode: Node, torpedoPowerUpNode: Node) {
@@ -190,20 +204,6 @@ class CollisionSystem: System {
            let component = appState[SwashteroidsStateComponent.self] {
             component.numShips -= 1
         }
-    }
-
-    /// 
-    /// - Parameter time: The time since the last update
-    override public func update(time: TimeInterval) {
-        collisionCheck(nodeA: ships.head, nodeB: torpedoPowerUp.head, action: shipAndTorpedoPowerUp)
-        collisionCheck(nodeA: ships.head, nodeB: hyperspacePowerUp.head, action: shipAndHyperspacePowerUp)
-        collisionCheck(nodeA: torpedoes.head, nodeB: asteroids.head, action: torpedoesAndAsteroids)
-        for vehicle in [ships.head, aliens.head] {
-            collisionCheck(nodeA: torpedoes.head, nodeB: vehicle, action: torpedoAndVehicle)
-            collisionCheck(nodeA: vehicle, nodeB: asteroids.head, action: vehiclesAndAsteroids)
-            collisionCheck(nodeA: vehicle, nodeB: treasures.head, action: vehiclesAndTreasures)
-        }
-        collisionCheck(nodeA: ships.head, nodeB: aliens.head, action: shipsAndAliens)
     }
 
     func collisionCheck(nodeA: Node?, nodeB: Node?, action: (Node, Node) -> Void) {

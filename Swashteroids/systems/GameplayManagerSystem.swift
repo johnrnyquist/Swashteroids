@@ -20,43 +20,35 @@ Determines if a ship needs to be made.
  */
 //TODO: Has too many responsibilities, needs to be reconsidered.
 class GameplayManagerSystem: System {
-    private let alienCreator: AlienCreatorUseCase!
-    private let asteroidCreator: AsteroidCreatorUseCase!
-    private let hudTextFontName = "Futura Condensed Medium"
     private let minimumLevel = 1
-    private let shipCreator: ShipCreatorUseCase!
     private let spaceshipPositionRatio: CGFloat = 0.5
-    private var hudTextFontSize: CGFloat = 64
-    private var minimumAsteroidDistance: CGFloat = 80
-    private var randomness: Randomizing!
-    private var size: CGSize
     private var spaceshipClearanceRadius: CGFloat = 50
-    weak var aliens: NodeList!
+    private weak var alienCreator: AlienCreatorUseCase!
     private weak var appStates: NodeList!
-    weak var asteroids: NodeList!
+    private weak var asteroidCreator: AsteroidCreatorUseCase!
+    private weak var randomness: Randomizing!
     private weak var scene: GameScene!
+    private weak var shipCreator: ShipCreatorUseCase!
     private weak var ships: NodeList!
     private weak var torpedoes: NodeList!
+    weak var aliens: NodeList!
+    weak var asteroids: NodeList!
 
     init(asteroidCreator: AsteroidCreatorUseCase,
          alienCreator: AlienCreatorUseCase,
          shipCreator: ShipCreatorUseCase,
-         size: CGSize,
          scene: GameScene,
-         randomness: Randomizing = Randomness.shared,
-         scaleManager: ScaleManaging = ScaleManager.shared) {
+         randomness: Randomizing = Randomness.shared) {
         self.asteroidCreator = asteroidCreator
         self.alienCreator = alienCreator
         self.shipCreator = shipCreator
-        self.size = size
         self.scene = scene
         self.randomness = randomness
-        hudTextFontSize *= scaleManager.SCALE_FACTOR
     }
 
     // MARK: - System Overrides
     override func addToEngine(engine: Engine) {
-        appStates = engine.getNodeList(nodeClassType: AppStateNode.self)
+        appStates = engine.getNodeList(nodeClassType: SwashteroidsStateNode.self)
         ships = engine.getNodeList(nodeClassType: ShipNode.self)
         asteroids = engine.getNodeList(nodeClassType: AsteroidCollisionNode.self)
         torpedoes = engine.getNodeList(nodeClassType: TorpedoCollisionNode.self)
@@ -72,35 +64,21 @@ class GameplayManagerSystem: System {
     }
 
     override func update(time: TimeInterval) {
-        guard let currentStateNode = appStates.head as? AppStateNode,
+        guard let currentStateNode = appStates.head as? SwashteroidsStateNode,
               let entity = currentStateNode.entity,
               let appStateComponent = currentStateNode[SwashteroidsStateComponent.self],
-              appStateComponent.swashteroidsState == .playing //JRN: Or I could add/remove this system based on appState
+              appStateComponent.swashteroidsState == .playing
         else { return }
         handleGameState(appStateComponent: appStateComponent, entity: entity, time: time)
-    }
-
-    func handleAlienAppearances(appStateComponent: SwashteroidsStateComponent, time: TimeInterval) {
-        appStateComponent.alienNextAppearance -= time
-        if appStateComponent.alienNextAppearance <= 0 {
-            appStateComponent.alienNextAppearance = appStateComponent.alienAppearanceRateDefault
-            alienCreator.createAliens(scene: scene)
-        }
     }
 
     // MARK: - Game Logic
     /// If there are no ships and is playing, handle it. 
     /// If there are no asteroids, no torpedoes and there is a ship then you finished the level, go to the next.
     func handleGameState(appStateComponent: SwashteroidsStateComponent, entity: Entity, time: TimeInterval) {
-        handleAlienAppearances(appStateComponent: appStateComponent, time: time)
         // No ships in the NodeList, but we're still playing.
         if ships.empty {
             continueOrEnd(appStateComponent: appStateComponent, entity: entity)
-        }
-        // No asteroids or torpedoes but we have a ship, so start a new level.
-        if asteroids.empty,
-           appStateComponent.numShips > 0 {
-            goToNextLevel(appStateComponent: appStateComponent, entity: entity)
         }
     }
 
@@ -108,26 +86,14 @@ class GameplayManagerSystem: System {
     func continueOrEnd(appStateComponent: SwashteroidsStateComponent, entity: Entity) {
         // If we have any ships left, make another and some power-ups
         if appStateComponent.numShips > 0 {
-            let newSpaceshipPosition = CGPoint(x: size.width * spaceshipPositionRatio,
-                                               y: size.height * spaceshipPositionRatio)
+            let newSpaceshipPosition = CGPoint(x: scene.size.width * spaceshipPositionRatio,
+                                               y: scene.size.height * spaceshipPositionRatio)
             if isClearToAddSpaceship(at: newSpaceshipPosition) {
                 shipCreator.createShip(appStateComponent)
             }
         } else { // GAME OVER!
             entity.add(component: TransitionAppStateComponent(from: .playing, to: .gameOver))
         }
-    }
-
-    /// Go to the next level, announce it, create asteroids
-    func goToNextLevel(appStateComponent: SwashteroidsStateComponent, entity: Entity) {
-        guard let shipNode = ships.head,
-              let spaceShipPosition = shipNode[PositionComponent.self] else { return }
-        appStateComponent.level += 1
-        entity.add(component: AudioComponent(fileNamed: .levelUpSound, actionKey: "levelUp"))
-        announceLevel(appStateComponent: appStateComponent)
-        createAsteroids(count: appStateComponent.level,
-                        avoiding: spaceShipPosition.position,
-                        level: appStateComponent.level)
     }
 
     /// Detects if there is an asteroid too close to the new spaceship position
@@ -144,65 +110,6 @@ class GameplayManagerSystem: System {
             currentAsteroidNode = asteroid.next
         }
         return true
-    }
-
-    /// Create asteroids
-    func createAsteroids(count: Int, avoiding positionToAvoid: CGPoint, level: Int) {
-        for _ in 0..<count {
-            var position: CGPoint
-            repeat {
-                position = randomPosition()
-            } while (position.distance(from: positionToAvoid) <= minimumAsteroidDistance)
-            asteroidCreator.createAsteroid(radius: LARGE_ASTEROID_RADIUS,
-                                           x: position.x,
-                                           y: position.y,
-                                           size: .large,
-                                           level: level)
-        }
-    }
-
-    /// Create a random position on the screen
-    func randomPosition() -> CGPoint {
-        let isVertical = randomness.nextBool()
-        let isPositive = randomness.nextBool()
-        if isVertical {
-            let y = isPositive ? Double(size.height) : 0.0
-            return CGPoint(x: randomness.nextDouble(from: 0.0, through: 1.0) * size.width, y: y)
-        } else {
-            let x = isPositive ? Double(size.width) : 0.0
-            return CGPoint(x: x, y: randomness.nextDouble(from: 0.0, through: 1.0) * size.height)
-        }
-    }
-
-    /// Announce the level
-    func announceLevel(appStateComponent: SwashteroidsStateComponent) {
-        let levelText = SKLabelNode(text: "Level \(appStateComponent.level)")
-        configureLevelText(levelText)
-        scene.addChild(levelText)
-        animateLevelText(levelText)
-    }
-
-    // MARK: - HUD Helpers
-    /// Configure the level text
-    func configureLevelText(_ levelText: SKLabelNode) {
-        levelText.horizontalAlignmentMode = .center
-        levelText.fontName = hudTextFontName
-        levelText.fontColor = .hudText
-        levelText.fontSize = hudTextFontSize
-        levelText.position = CGPoint(x: size.width / 2, y: size.height / 2 * 1.2)
-        levelText.zPosition = .top
-    }
-
-    /// Animate the level text
-    func animateLevelText(_ levelText: SKLabelNode) {
-        let zoomInAction = SKAction.scale(to: 2.0, duration: 0.5)
-        zoomInAction.timingMode = .easeIn
-        let waitAction = SKAction.wait(forDuration: 1.0)
-        let fade = SKAction.fadeOut(withDuration: 0.25)
-        let sequence = SKAction.sequence([zoomInAction, waitAction, fade])
-        levelText.run(sequence) {
-            levelText.removeFromParent()
-        }
     }
 }
 

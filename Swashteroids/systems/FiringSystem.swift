@@ -12,29 +12,28 @@ import Foundation
 import Swash
 import SpriteKit
 
-final class FiringSystem: System {
+final class FiringSystem: ListIteratingSystem {
     private weak var torpedoCreator: TorpedoCreatorUseCase?
-    private weak var firingNodes: NodeList?
     private weak var engine: Engine?
     
     init(torpedoCreator: TorpedoCreatorUseCase) {
+        super.init(nodeClass: FiringNode.self)
         self.torpedoCreator = torpedoCreator
+        nodeUpdateFunction = updateNode
     }
 
     override public func addToEngine(engine: Engine) {
-        firingNodes = engine.getNodeList(nodeClassType: FiringNode.self)
+        super.addToEngine(engine: engine)
         self.engine = engine
     }
-
-    override public func update(time: TimeInterval) {
-        var node = firingNodes?.head
-        while let currentNode = node {
-            updateNode(node: currentNode, time: time)
-            node = currentNode.next
-        }
+    
+    override public func removeFromEngine(engine: Engine) {
+        super.removeFromEngine(engine: engine)
+        self.engine = nil
+        torpedoCreator = nil
     }
 
-    private func updateNode(node: Node, time: TimeInterval) {
+    func updateNode(node: Node, time: TimeInterval) {
         guard let velocity = node[VelocityComponent.self],
               let position = node[PositionComponent.self],
               let gun = node[GunComponent.self],

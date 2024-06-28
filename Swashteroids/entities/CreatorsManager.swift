@@ -23,8 +23,8 @@ class CreatorsManager {
     let torpedoCreator: TorpedoCreatorUseCase
     let treasureCreator: TreasureCreatorUseCase
 
-    init(engine: Engine, gameSize: CGSize, alertPresenter: AlertPresenting, generator: UIImpactFeedbackGenerator) {
-        alienCreator = AlienCreator(engine: engine, size: gameSize)
+    init(engine: Engine, gameSize: CGSize, alertPresenter: AlertPresenting, generator: UIImpactFeedbackGenerator, scene: GameScene) {
+        alienCreator = AlienCreator(scene: scene, engine: engine, size: gameSize)
         asteroidCreator = AsteroidCreator(engine: engine)
         hudCreator = HudCreator(engine: engine, alertPresenter: alertPresenter)
         powerUpCreator = PowerUpCreator(engine: engine, size: gameSize)

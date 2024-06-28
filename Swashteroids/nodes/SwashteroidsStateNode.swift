@@ -10,7 +10,7 @@
 
 import Swash
 
-final class AppStateNode: Node {
+final class SwashteroidsStateNode: Node {
     required init() {
         super.init()
         components = [

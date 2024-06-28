@@ -29,7 +29,6 @@ class SystemsManager {
                 .add(system: GameplayManagerSystem(asteroidCreator: creatorManager.asteroidCreator,
                                                    alienCreator: creatorManager.alienCreator,
                                                    shipCreator: creatorManager.shipCreator,
-                                                   size: scene.size,
                                                    scene: scene),
                      priority: .preUpdate)
                 .add(system: GameOverSystem(), priority: .preUpdate)
@@ -43,6 +42,7 @@ class SystemsManager {
                                                       gameOverTransition: gameOverTransition),
                      priority: .preUpdate)
                 // update
+                .add(system: AlienAppearancesSystem(alienCreator: creatorManager.alienCreator), priority: .update)
                 .add(system: LifetimeSystem(), priority: .update)
                 .add(system: ReactionTimeSystem(), priority: .update)
                 .add(system: PickTargetSystem(), priority: .update)
@@ -59,6 +59,7 @@ class SystemsManager {
                 .add(system: SplitAsteroidSystem(asteroidCreator: creatorManager.asteroidCreator,
                                                  treasureCreator: creatorManager.treasureCreator),
                      priority: .update)
+                .add(system: LevelManagementSystem(asteroidCreator: creatorManager.asteroidCreator, scene: scene), priority: .update)
                 // move
                 .add(system: AccelerometerSystem(), priority: .move)
                 .add(system: FlipSystem(), priority: .move)
@@ -111,7 +112,8 @@ final class Swashteroids: NSObject {
         manager_creators = CreatorsManager(engine: engine,
                                            gameSize: scene.size,
                                            alertPresenter: alertPresenter,
-                                           generator: generator)
+                                           generator: generator,
+                                           scene: scene)
         manager_systems = SystemsManager(scene: scene, engine: engine, creatorManager: manager_creators, generator: generator)
     }
 
@@ -126,6 +128,7 @@ final class Swashteroids: NSObject {
                 .add(component: SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: scene.size)))
                 .add(component: TransitionAppStateComponent(from: .start, to: .start))
                 .add(component: TimePlayedComponent())
+                .add(component: AlienAppearancesComponent.shared) //HACK
         let inputEntity = Entity(named: .input)
                 .add(component: InputComponent.shared)
         engine.add(entity: allSoundsEntity)

@@ -121,7 +121,7 @@ final class SwashteroidsStateComponent: Component {
     //
     //MARK: - Computed Properties
     var alienAppearanceRateDefault: TimeInterval {
-//        return 1.0
+//        return 5.0
         return randomness.nextDouble(from: 15.0, through: 90.0)
     }
     var hitPercentage: Int {
@@ -130,8 +130,7 @@ final class SwashteroidsStateComponent: Component {
     }
     //
     //MARK: - Initializers
-    init(config: SwashteroidsConfig,
-         randomness: Randomizing = Randomness.shared) {
+    init(config: SwashteroidsConfig, randomness: Randomizing = Randomness.shared) {
         self.config = config
         self.randomness = randomness
         swashteroidsState = config.swashteroidsState
