@@ -12,9 +12,14 @@ import Foundation
 import Combine
 import GameController
 
-class GameControllerManager: NSObject {
-    @Published var lastButtonPressed: String?
+enum GamePadManagerMode {
+    case game
+    case settings
+}
 
+class GamePadManager: NSObject {
+    @Published var lastElementPressed: GCControllerElement?
+    var mode: GamePadManagerMode = .game
     var previousTime = 0.0
     var timeSinceFired = 0.0
     var timeSinceFlip = 0.0
@@ -26,32 +31,39 @@ class GameControllerManager: NSObject {
         self.game = game
         self.size = size
         super.init()
-        setUpControllerObservers()
+        setupObservers()
     }
 
-    private func setUpControllerObservers() {
+    deinit {
+        print(self, #function)
+        NotificationCenter.default.removeObserver(self)
+    }
+
+    private func setupObservers() {
         print(#function)
         NotificationCenter.default
                           .addObserver(self,
-                                       selector: #selector(self.connectControllers),
+                                       selector: #selector(controllerDidConnect),
                                        name: NSNotification.Name.GCControllerDidConnect,
                                        object: nil)
         NotificationCenter.default
                           .addObserver(self,
-                                       selector: #selector(self.controllerDisconnected),
+                                       selector: #selector(controllerDidDisconnect),
                                        name: NSNotification.Name.GCControllerDidDisconnect,
                                        object: nil)
     }
 
-    @objc private func connectControllers() {
+    @objc private func controllerDidConnect() {
         print(#function)
         for controller in GCController.controllers() {
             print(controller.vendorName ?? "Unknown Vendor")
             //Check to see whether it is an extended Game Controller (Such as a Nimbus)
-            if controller.extendedGamepad != nil {
-                game.engine.appStateEntity.add(component: GameControllerComponent())
+            if let pad = controller.extendedGamepad {
+                buttonElements = allButtonElements(from: pad)
+                dpadElements = allDpadElements(from: pad)
+                game.engine.appStateEntity.add(component: GamePadComponent())
                 game.usingGameController()
-                setupControllerControls(controller: controller)
+                pad.valueChangedHandler = controllerInputDetected
                 if game.engine.appStateComponent.swashteroidsState == .infoButtons ||
                    game.engine.appStateComponent.swashteroidsState == .infoNoButtons {
                     (game.alertPresenter as? GameViewController)?.startNewGame() //HACK
@@ -61,51 +73,79 @@ class GameControllerManager: NSObject {
         }
     }
 
-    @objc private func controllerDisconnected() {
+    @objc private func controllerDidDisconnect() {
         print(#function)
-        game.engine.appStateEntity.remove(componentClass: GameControllerComponent.self)
+        game.engine.appStateEntity.remove(componentClass: GamePadComponent.self)
         game.usingScreenControls()
     }
 
-    func getAllElements(gamepad: GCExtendedGamepad) -> [String: Any] {
-        var elements: [String: Any] = [:]
-        elements["buttonA"] = gamepad.buttonA
-        elements["buttonB"] = gamepad.buttonB
-        elements["buttonX"] = gamepad.buttonX
-        elements["buttonY"] = gamepad.buttonY
-        elements["dpad"] = gamepad.dpad
-        elements["leftShoulder"] = gamepad.leftShoulder
-        elements["rightShoulder"] = gamepad.rightShoulder
-        elements["leftThumbstick"] = gamepad.leftThumbstick
-        elements["rightThumbstick"] = gamepad.rightThumbstick
-        elements["leftTrigger"] = gamepad.leftTrigger
-        elements["rightTrigger"] = gamepad.rightTrigger
-        elements["buttonHome"] = gamepad.buttonHome
-        elements["buttonMenu"] = gamepad.buttonMenu
-        return elements
-    }
-
-    private func setupControllerControls(controller: GCController) {
-        print(#function)
-        controller
-                .extendedGamepad?
-                .valueChangedHandler = { [weak self] (pad: GCExtendedGamepad, element: GCControllerElement) in
-            self?.controllerInputDetected(pad: pad, element: element, index: controller.playerIndex.rawValue)
+    private func execute(_ command: GameCommand) {
+        print(#function, command)
+        switch command {
+            case .fire:
+                break
+            case .thrust:
+                break
+            case .hyperspace:
+                break
+            case .left:
+                break
+            case .right:
+                break
+            case .pause:
+                break
+            case .flip:
+                break
+            case .home:
+                break
+            case .settings:
+                break
+            case .resume:
+                break
+            case .continue:
+                break
+            case .buttons:
+                break
+            case .noButtons:
+                break
         }
     }
 
-    private func controllerInputDetected(pad: GCExtendedGamepad, element: GCControllerElement, index: Int) {
-        let elements = getAllElements(gamepad: pad)
-        for (elementName, elementValue) in elements {
-            if let buttonInput = elementValue as? GCControllerButtonInput, buttonInput.isPressed {
-                lastButtonPressed = elementName // Set the name of the pressed button
-                if let mappedFunctionality = buttonMappings[elementName] {
-                    executeFunctionality(mappedFunctionality)
+    var elementNameToGameCommand: [String: GameCommand] =
+        [
+            "Button A": .pause,
+            "Button B": .resume,
+            "Button X": .home,
+            "Button Y": .settings,
+            "Button Menu": .pause,
+            "Button Options": .settings,
+            "Direction Pad": .pause,
+            "Left Shoulder": .pause,
+            "Right Shoulder": .hyperspace,
+            "Left Thumbstick": .left,
+            "Right Thumbstick": .thrust,
+            "Left Trigger": .flip,
+            "Right Trigger": .fire,
+            "Button Home": .pause
+        ]
+
+    private func controllerInputDetected(pad: GCExtendedGamepad, element: GCControllerElement) {
+        lastElementPressed = element
+        switch mode {
+            case .game:
+                for (buttonName, buttonInput) in buttonElements where element == buttonInput && buttonInput.isPressed {
+                    if let command = elementNameToGameCommand[buttonName] {
+                        execute(command)
+                    }
                 }
-            }
+                for (dpadName, dpadInput) in dpadElements where element == dpadInput {
+                    if let command = elementNameToGameCommand[dpadName] {
+                        execute(command)
+                    }
+                }
+            case .settings:
+                break
         }
-        printControllerInfo(element: element, index: index)
-        let gameControllerComponent = GameControllerComponent()
         switch game.engine.appStateComponent.swashteroidsState {
             case .start:
                 handleStartState(pad: pad)
@@ -117,7 +157,6 @@ class GameControllerManager: NSObject {
                 handleAlertState(pad: pad)
                 handlePlayingState(pad: pad)
         }
-        print(gameControllerComponent.commands)
     }
 
     private func handleStartState(pad: GCExtendedGamepad) {
@@ -141,56 +180,143 @@ class GameControllerManager: NSObject {
     }
 
     private func handlePlayingState(pad: GCExtendedGamepad) {
+        func hyperSpace() {
+            if timeSinceHyperspace > 0.5 {
+                timeSinceHyperspace = 0.0
+                game.engine.ship?.add(component: DoHyperspaceJumpComponent(size: size))
+            }
+        }
+
+        func flip() {
+            if timeSinceFlip > 0.2 {
+                timeSinceFlip = 0.0
+                game.engine.ship?.add(component: FlipComponent.shared)
+            }
+        }
+
+        func fire() {
+            if timeSinceFired > 0.2 {
+                timeSinceFired = 0.0
+                game.engine.ship?.add(component: FireDownComponent.shared)
+            }
+        }
+
+        func turn_left() {
+            if game.engine.ship?.has(componentClass: RightComponent.self) == false {
+                game.engine.ship?.add(component: LeftComponent.shared)
+            }
+        }
+
+        func turn_right() {
+            if game.engine.ship?.has(componentClass: LeftComponent.self) == false {
+                game.engine.ship?.add(component: RightComponent.shared)
+            }
+        }
+
+        func turn_right_off() {
+            game.engine.ship?.remove(componentClass: RightComponent.self)
+        }
+
+        func turn_left_off() {
+            game.engine.ship?.remove(componentClass: LeftComponent.self)
+        }
+
+        func thrust() {
+            game.engine.ship?.add(component: ApplyThrustComponent.shared)
+            game.engine.ship?[WarpDriveComponent.self]?.isThrusting = true
+            game.engine.ship?[RepeatingAudioComponent.self]?.state = .shouldBegin
+        }
+
+        func thrust_off() {
+            game.engine.ship?.remove(componentClass: ApplyThrustComponent.self)
+            game.engine.ship?[WarpDriveComponent.self]?.isThrusting = false
+            game.engine.ship?[RepeatingAudioComponent.self]?.state = .shouldStop
+        }
+
         let deltaTime = game.currentTime - previousTime
         previousTime = game.currentTime
         timeSinceFired += deltaTime
         timeSinceFlip += deltaTime
         timeSinceHyperspace += deltaTime
         // HYPERSPACE
-        if timeSinceHyperspace > 0.5 && (pad.rightShoulder.isPressed && pad.rightShoulder.value == 1.0) {
-            timeSinceHyperspace = 0.0
-            game.engine.ship?.add(component: DoHyperspaceJumpComponent(size: size))
+        if pad.rightShoulder.isPressed && pad.rightShoulder.value == 1.0 {
+            hyperSpace()
         }
         // FLIP
-        if timeSinceFlip > 0.2 && (pad.leftShoulder.isPressed && pad.leftShoulder.value == 1.0) {
-            timeSinceFlip = 0.0
-            game.engine.ship?.add(component: FlipComponent.shared)
+        if pad.leftShoulder.isPressed && pad.leftShoulder.value == 1.0 {
+            flip()
         }
         // FIRE
-        if timeSinceFired > 0.2 {
-            if pad.rightTrigger.isPressed,
-               pad.rightTrigger.value == 1.0 {
-                timeSinceFired = 0.0
-                game.engine.ship?.add(component: FireDownComponent.shared)
-            }
+        if pad.rightTrigger.isPressed,
+           pad.rightTrigger.value == 1.0 {
+            fire()
         }
         // TURN LEFT
         if pad.leftThumbstick.left.isPressed || pad.dpad.left.isPressed {
-            game.engine.ship?.add(component: LeftComponent.shared)
+            turn_left()
         } else {
-            game.engine.ship?.remove(componentClass: LeftComponent.self)
+            turn_left_off()
         }
         // TURN RIGHT
         if pad.leftThumbstick.right.isPressed || pad.dpad.right.isPressed {
-            game.engine.ship?.add(component: RightComponent.shared)
+            turn_right()
         } else {
-            game.engine.ship?.remove(componentClass: RightComponent.self)
+            turn_right_off()
         }
         // THRUST
         if pad.rightThumbstick.up.isPressed {
-            game.engine.ship?.add(component: ApplyThrustComponent.shared)
-            game.engine.ship?[WarpDriveComponent.self]?.isThrusting = true
-            game.engine.ship?[RepeatingAudioComponent.self]?.state = .shouldBegin
+            thrust()
         } else {
-            game.engine.ship?.remove(componentClass: ApplyThrustComponent.self)
-            game.engine.ship?[WarpDriveComponent.self]?.isThrusting = false
-            game.engine.ship?[RepeatingAudioComponent.self]?.state = .shouldStop
+            thrust_off()
         }
     }
 
-    private func printControllerInfo(element: GCControllerElement, index: Int) {
+    typealias ElementName = String
+    typealias ElementSymbolName = String
+    var buttonElements: [ElementName: GCControllerButtonInput] = [:]
+    var dpadElements: [ElementName: GCControllerDirectionPad] = [:]
+
+    func allButtonElements(from pad: GCExtendedGamepad) -> [ElementName: GCControllerButtonInput] {
+        var elements: [ElementName: GCControllerButtonInput] = [:]
+        elements["Button A"] = pad.buttonA
+        elements["Button B"] = pad.buttonB
+        elements["Button Menu"] = pad.buttonMenu
+        elements["Button X"] = pad.buttonX
+        elements["Button Y"] = pad.buttonY
+        elements["Left Shoulder"] = pad.leftShoulder
+        elements["Left Trigger"] = pad.leftTrigger
+        elements["Right Shoulder"] = pad.rightShoulder
+        elements["Right Trigger"] = pad.rightTrigger
+        return elements
+    }
+
+    func allDpadElements(from pad: GCExtendedGamepad) -> [ElementName: GCControllerDirectionPad] {
+        var elements: [ElementName: GCControllerDirectionPad] = [:]
+        elements["Direction Pad"] = pad.dpad
+        elements["Left Thumbstick"] = pad.leftThumbstick
+        elements["Right Thumbstick"] = pad.rightThumbstick
+        return elements
+    }
+
+    let elementNameToSymbolName: [ElementName: ElementSymbolName] = [
+        "Button A": "a.circle",
+        "Button B": "b.circle",
+        "Button Menu": "line.horizontal.3.circle",
+        "Button Options": "house.circle",
+        "Button X": "x.circle",
+        "Button Y": "y.circle",
+        "Direction Pad": "dpad",
+        "Left Shoulder": "l1.rectangle.roundedbottom",
+        "Left Thumbstick": "l.joystick",
+        "Left Trigger": "l2.rectangle.roundedtop",
+        "Right Shoulder": "r1.rectangle.roundedbottom",
+        "Right Thumbstick": "r.joystick",
+        "Right Trigger": "r2.rectangle.roundedtop"
+    ]
+
+    private func printElementInfo(element: GCControllerElement) {
         print("----")
-        print("Controller:              \(index), Element: \(element)")
+        print("Element:                 \(element)")
         print("localizedName:           \(element.localizedName!)")
         print("unmappedLocalizedName:   \(element.unmappedLocalizedName!)")
         print("sfSymbolsName:           \(element.sfSymbolsName!)")
@@ -201,7 +327,9 @@ class GameControllerManager: NSObject {
     }
 }
 
-class GameControllerComponent: Component {
+import Swash
+
+class GamePadComponent: Component {
     var commands: [String] = []
 
     func add(command: String) {
@@ -222,4 +350,5 @@ class GameControllerComponent: Component {
         commands.removeAll()
     }
 }
+
 

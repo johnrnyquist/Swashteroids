@@ -17,48 +17,6 @@ var MEDIUM_ASTEROID_RADIUS = 27.0
 var SMALL_ASTEROID_RADIUS = 13.5
 var POWER_UP_RADIUS = 7.0
 
-enum Functionality: String, CaseIterable {
-    // Playing
-    case fire = "Fire"
-    case thrust = "Thrust"
-    case hyperspace = "Hyperspace"
-    case left = "Left"
-    case right = "Right"
-    case pause = "Pause"
-    case flip = "Flip"
-    // Alert
-    case home = "Home"
-    case resume = "Resume"
-    case settings = "Settings"
-    // Start
-    case buttons = "Buttons"
-    case noButtons = "No Buttons"
-    // Info
-    case `continue` = "Continue"
-}
-
-enum SwashteroidsState {
-    case start
-    case infoButtons
-    case infoNoButtons
-    case playing
-    case gameOver
-    var functionalities: [Functionality] {
-        switch self {
-            case .start: 
-                return [.buttons, .noButtons]
-            case .infoButtons: 
-                return [.continue]
-            case .infoNoButtons: 
-                return [.continue]
-            case .playing: 
-                return [.fire, .thrust, .hyperspace, .left, .right, .pause, .flip]
-            case .gameOver: 
-                return [.pause, .home, .settings, .resume]
-        }
-    }
-}
-
 /// The state of the ship controls. Either showing or hiding. 
 enum ShipControlsState {
     case usingAccelerometer

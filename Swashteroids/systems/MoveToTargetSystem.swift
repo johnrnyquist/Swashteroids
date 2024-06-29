@@ -40,33 +40,36 @@ final class MoveToTargetSystem: ListIteratingSystem {
         if playerDead {
             positionComponent.rotationRadians = alienComponent.destinationEnd.x > 0 ? 0 : CGFloat.pi
             velocityComponent.linearVelocity = CGPoint(x: (alienComponent.destinationEnd
-                                                                         .x > 0 ? velocityComponent.exit : -velocityComponent.exit),
+                                                                         .x > 0 ? velocityComponent.exitSpeed : -velocityComponent.exitSpeed),
                                                        y: 0)
             entity.remove(componentClass: GunComponent.self)
             entity.remove(componentClass: MoveToTargetComponent.self)
             entity.add(component: ExitScreenComponent())
             return
         }
-        if let position = engine.findEntity(named: targetComponent.targetedEntityName)?[PositionComponent.self]?.position {
-            moveTowardTarget(positionComponent, velocityComponent, position)
+        if let targetPoint = engine.findEntity(named: targetComponent.targetedEntityName)?[PositionComponent.self]?.position {
+            moveTowardTarget(cast: alienComponent.cast,
+                             position: positionComponent,
+                             velocity: velocityComponent,
+                             targetPoint: targetPoint)
         }
     }
 
     // Aliens move differently from the player. They can make sharp moves when rotating.
-    func moveTowardTarget(_ position: PositionComponent, _ velocity: VelocityComponent, _ targetLoc: CGPoint) {
-        let deltaX = position.x - targetLoc.x
-        let deltaY = position.y - targetLoc.y
+    func moveTowardTarget(cast: AlienCast, position: PositionComponent, velocity: VelocityComponent, targetPoint: CGPoint) {
+        let deltaX = position.x - targetPoint.x
+        let deltaY = position.y - targetPoint.y
         let angleInRadians = atan2(deltaY, deltaX)
         // Interpolate between the current rotation and the target rotation
-//        let interpolationFactor = CGFloat(0.8) // Adjust this value to change the size of rotation
-//        let currentAngleInRadians = position.rotationRadians - CGFloat.pi
-//        let angleDifference = angleInRadians - currentAngleInRadians
-//        let angleDifferenceNormalized = atan2(sin(angleDifference), cos(angleDifference)) // Normalize to [-pi, pi]
-//        let newAngleInRadians = currentAngleInRadians + angleDifferenceNormalized * interpolationFactor
+        let interpolationFactor = CGFloat(cast.rotationSpeed) // Adjust this value to change the size of rotation
+        let currentAngleInRadians = position.rotationRadians - CGFloat.pi
+        let angleDifference = angleInRadians - currentAngleInRadians
+        let angleDifferenceNormalized = atan2(sin(angleDifference), cos(angleDifference)) // Normalize to [-pi, pi]
+        let newAngleInRadians = currentAngleInRadians + angleDifferenceNormalized * interpolationFactor
         //
-        velocity.linearVelocity = CGPoint(x: -cos(angleInRadians) * velocity.base, y: -sin(angleInRadians) * velocity.base)
-        position.rotationRadians = angleInRadians + CGFloat.pi
-//        velocity.linearVelocity = CGPoint(x: -cos(newAngleInRadians) * velocity.base, y: -sin(newAngleInRadians) * velocity.base)
-//        position.rotationRadians = newAngleInRadians + CGFloat.pi
+//        velocity.linearVelocity = CGPoint(x: -cos(angleInRadians) * velocity.base, y: -sin(angleInRadians) * velocity.base)
+//        position.rotationRadians = angleInRadians + CGFloat.pi
+        velocity.linearVelocity = CGPoint(x: -cos(newAngleInRadians) * velocity.base, y: -sin(newAngleInRadians) * velocity.base)
+        position.rotationRadians = newAngleInRadians + CGFloat.pi
     }
 }

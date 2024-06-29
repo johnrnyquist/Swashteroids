@@ -166,6 +166,7 @@
 		9313970ECC8B60836E4DEBBF /* LifetimeComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931390A6FDA46C0B8EFE6218 /* LifetimeComponent.swift */; };
 		931397107B66C99AB0E78548 /* UseCases_Creator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931392DF56F435244258EDD3 /* UseCases_Creator.swift */; };
 		931397331CB4B456762FBEE7 /* PickTargetNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139C76E92BDD6C851476EC /* PickTargetNode.swift */; };
+		9313973A5076963CC0C269A5 /* GamePadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139397EA8AF9AD7F1837D4 /* GamePadManager.swift */; };
 		93139767DADE3701C7A4DE57 /* GameScene+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139F9D5B67C687239DF403 /* GameScene+extensions.swift */; };
 		9313980591ADC1AE59CE15CF /* MakeDecisionSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139298C85B9795950A5BA6 /* MakeDecisionSystemTests.swift */; };
 		93139837E8C25570F6134663 /* RepeatingAudioNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313961CB4F5B39D06FE5B0F /* RepeatingAudioNode.swift */; };
@@ -387,6 +388,7 @@
 		93139323EC193D378DF26BB7 /* RightComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightComponent.swift; sourceTree = "<group>"; };
 		93139358A724D53199935722 /* PickTargetComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickTargetComponent.swift; sourceTree = "<group>"; };
 		9313938353DF3012CCAE66D1 /* Transition+Playing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Transition+Playing.swift"; sourceTree = "<group>"; };
+		93139397EA8AF9AD7F1837D4 /* GamePadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GamePadManager.swift; sourceTree = "<group>"; };
 		931393FE8CC28A572666583C /* ThrustSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThrustSystemTests.swift; sourceTree = "<group>"; };
 		93139406E9C8BCF53204C6FC /* TickProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TickProvider.swift; sourceTree = "<group>"; };
 		93139489970BEA17AF74C95E /* TouchNodes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchNodes.swift; sourceTree = "<group>"; };
@@ -562,6 +564,7 @@
 				8D23C18C2B02C59D00F7D878 /* sounds */,
 				8D8F24B72B51D4B100B2E223 /* extensions */,
 				8D59EDDD2B138ED6003BD073 /* Badloc ICG.ttf */,
+				93139397EA8AF9AD7F1837D4 /* GamePadManager.swift */,
 			);
 			path = Swashteroids;
 			sourceTree = "<group>";
@@ -1186,6 +1189,7 @@
 				931398C2D1DD1F1813892505 /* HudSystem.swift in Sources */,
 				93139290D68BDC61CC936C0E /* AlienAppearancesSystem.swift in Sources */,
 				93139A6C0DBE796C7456682D /* LevelManagementSystem.swift in Sources */,
+				9313973A5076963CC0C269A5 /* GamePadManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

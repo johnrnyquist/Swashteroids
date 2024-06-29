@@ -15,7 +15,7 @@ final class VelocityComponent: Component {
     var angularVelocity: Double
     var base: Double
     var dampening: Double
-    var exit: Double
+    var exitSpeed: Double
     var linearVelocity = CGPoint()
     var wraps: Bool
     var x: Double {
@@ -39,9 +39,10 @@ final class VelocityComponent: Component {
         self.angularVelocity = angularVelocity
         self.dampening = dampening
         self.wraps = wraps
+        
         if let base { self.base = base * scaleManager.SCALE_FACTOR }
         else { self.base = velocityX * scaleManager.SCALE_FACTOR }
-        exit = self.base * 3.0
+        exitSpeed = self.base * 3.0 //TODO: exit speed is only applicable to aliens
     }
 }
 

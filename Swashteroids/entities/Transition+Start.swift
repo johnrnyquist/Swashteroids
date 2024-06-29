@@ -42,7 +42,6 @@ class StartTransition: StartUseCase {
 //        if engine.appStateEntity.has(componentClass: GameControllerComponent.self) {
 //            return
 //        }
-        if GameController.isGameControllerConnected() { return }
         // BUTTONS
         let noButtonsSprite = startView.noButtons
         let buttonsSprite = startView.buttons

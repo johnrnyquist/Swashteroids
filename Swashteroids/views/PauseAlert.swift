@@ -9,11 +9,13 @@
 //
 
 import SwiftUI
+import GameController
 
 struct PauseAlert: View {
     var appState: SwashteroidsStateComponent
     var home: () -> Void
     var resume: () -> Void
+    var showSettings: () -> Void
     var body: some View {
         VStack(spacing: 10) {
             StatsView(appState: appState)
@@ -21,7 +23,11 @@ struct PauseAlert: View {
                 ButtonView(label: "Home", action: home)
                 ButtonView(label: "Resume", action: resume)
             }.padding(.horizontal, 20)
-        }.frame(width: 320, height: 270)
+            if GCController.isGameControllerConnected() {
+                ButtonView(label: "Settings", action: showSettings)
+                        .padding(.horizontal, 20)
+            }
+        }.frame(width: 320, height: 320)
          .background(Color.black)
          .cornerRadius(20)
          .overlay(
@@ -46,7 +52,7 @@ struct StatsView: View {
             Text("Hit Percentage: \(appState.hitPercentage.formattedWithCommas)%")
             Text("Play Time: \(getTime(appState.timePlayed))")
         }.foregroundColor(.white)
-         .font(.custom("Futura Condensed Medium", size: 22))
+         .font(.custom("Futura Condensed Medium", size: 24))
     }
 
     func getTime(_ time: Double) -> String {
@@ -73,7 +79,7 @@ struct ButtonView: View {
                 Spacer()
                 Text(label)
                         .foregroundColor(.white)
-                        .font(.custom("Futura Condensed Medium", size: 32))
+                        .font(.custom("Futura Condensed Medium", size: 22))
                         .padding(.vertical, 5)
                 Spacer()
             }
@@ -88,6 +94,6 @@ struct ButtonView: View {
 struct PauseAlert_Previews: PreviewProvider {
     static var previews: some View {
         PauseAlert(appState: SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero)),
-                   home: {}, resume: {})
+                   home: {}, resume: {}, showSettings: {})
     }
 }

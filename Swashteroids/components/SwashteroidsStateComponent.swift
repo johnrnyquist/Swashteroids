@@ -13,7 +13,7 @@ import Foundation
 
 struct SwashteroidsConfig {
     let alienNextAppearance: TimeInterval = 0.0
-    let swashteroidsState: SwashteroidsState = .start
+    let swashteroidsState: GameState = .start
     let gameSize: CGSize
     let level: Int = 0
     let levelBonus: Int = 500
@@ -62,7 +62,7 @@ struct Playing {
 final class SwashteroidsStateComponent: Component {
     //
     //MARK: - Properties
-    var swashteroidsState: SwashteroidsState
+    var swashteroidsState: GameState
     let config: SwashteroidsConfig
     let randomness: Randomizing
     private var playing: Playing

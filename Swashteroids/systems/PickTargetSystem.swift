@@ -61,7 +61,7 @@ final class PickTargetSystem: ListIteratingSystem {
             } else {
                 // No ship, exit screen
                 position.rotationRadians = alienComponent.destinationEnd.x > 0 ? 0 : CGFloat.pi
-                velocity.linearVelocity = CGPoint(x: (alienComponent.destinationEnd.x > 0 ? velocity.exit : -velocity.exit), y: 0)
+                velocity.linearVelocity = CGPoint(x: (alienComponent.destinationEnd.x > 0 ? velocity.exitSpeed : -velocity.exitSpeed), y: 0)
                 entity.remove(componentClass: GunComponent.self)
                 entity.remove(componentClass: MoveToTargetComponent.self)
                 entity.add(component: ExitScreenComponent())
@@ -89,7 +89,7 @@ final class PickTargetSystem: ListIteratingSystem {
             } else {
                 // Nothing to target, exit screen
                 position.rotationRadians = alienComponent.destinationEnd.x > 0 ? 0 : CGFloat.pi
-                velocity.linearVelocity = CGPoint(x: (alienComponent.destinationEnd.x > 0 ? velocity.exit : -velocity.exit), y: 0)
+                velocity.linearVelocity = CGPoint(x: (alienComponent.destinationEnd.x > 0 ? velocity.exitSpeed : -velocity.exitSpeed), y: 0)
                 entity.remove(componentClass: GunComponent.self)
                 entity.remove(componentClass: MoveToTargetComponent.self)
                 entity.add(component: ExitScreenComponent())

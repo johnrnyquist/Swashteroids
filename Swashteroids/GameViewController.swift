@@ -23,10 +23,11 @@ protocol AlertPresenting: AnyObject {
 
 final class GameViewController: UIViewController, AlertPresenting {
     var skView: SKView?
-    var gameScene: GameScene?
+    var gameScene: GameScene!
     var swashteroids: Swashteroids?
     var isAlertPresented = false //HACK: this is a hack to prevent the game from starting when the app returns from background.
     var alertPresenter: AlertPresenting?
+    var gamePadManager: GamePadManager!
 
     override func loadView() {
         skView = SKView()
@@ -41,6 +42,7 @@ final class GameViewController: UIViewController, AlertPresenting {
         skView_setup()
         gameScene_create()
         swashteroids_create()
+        gamePadManager = GamePadManager(game: swashteroids!, size: gameScene.size)
         gameScene_present()
     }
 
@@ -54,13 +56,12 @@ final class GameViewController: UIViewController, AlertPresenting {
     private func gameScene_create() {
         let screenSize = UIScreen.main.bounds
         gameScene = GameScene(size: screenSize.size)
-        gameScene?.name = "gameScene"
-        gameScene?.anchorPoint = .zero
-        gameScene?.scaleMode = .aspectFit
+        gameScene.name = "gameScene"
+        gameScene.anchorPoint = .zero
+        gameScene.scaleMode = .aspectFit
     }
 
     private func swashteroids_create() {
-        guard let gameScene else { fatalError("gameScene is nil") }
         let seed = Int(Date().timeIntervalSince1970)
         swashteroids = Swashteroids(scene: gameScene, alertPresenter: self, seed: seed)
         gameScene.delegate = swashteroids
@@ -79,11 +80,12 @@ final class GameViewController: UIViewController, AlertPresenting {
         guard let swashteroids else { fatalError("game is nil") }
         swashteroids.stop()
         if swashteroids.engine.appStateComponent.swashteroidsState == .playing ||
-            swashteroids.engine.appStateComponent.swashteroidsState == .gameOver {
+           swashteroids.engine.appStateComponent.swashteroidsState == .gameOver {
             let alertView = PauseAlert(
                 appState: swashteroids.engine.appStateComponent, //HACK
                 home: home,
-                resume: resume)
+                resume: resume,
+                showSettings: showSettings)
             let hostingController = UIHostingController(rootView: alertView)
             hostingController.modalPresentationStyle = .overCurrentContext
             hostingController.view.backgroundColor = UIColor(white: 1, alpha: 0.0)

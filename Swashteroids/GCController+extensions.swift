@@ -7,12 +7,15 @@
 
 import GameController
 
-extension GameController {
+extension GCController {
     static func isGameControllerConnected() -> Bool {
         guard let controller = GCController.controllers().first,
               let controllerName = controller.vendorName,
               controllerName != "Gamepad"
-        else { return false }
+        else {
+            print("NO CONTROLLERS DETECTED", GCController.controllers())
+            return false
+        }
         return controller.isAttachedToDevice
     }
 }

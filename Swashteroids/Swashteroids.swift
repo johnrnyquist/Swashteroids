@@ -25,6 +25,12 @@ class SystemsManager {
         let infoViewsTransition = InfoViewsTransition(engine: engine, generator: generator)
         engine
             // preupdate
+                .add(system: HyperspaceJumpSystem(engine: engine), priority: .preUpdate)
+                .add(system: FiringSystem(torpedoCreator: creatorManager.torpedoCreator), priority: .preUpdate)
+                .add(system: FlipSystem(), priority: .preUpdate)
+                .add(system: LeftSystem(), priority: .preUpdate)
+                .add(system: RightSystem(), priority: .preUpdate)
+                .add(system: ThrustSystem(), priority: .preUpdate)
                 .add(system: TimePlayedSystem(), priority: .preUpdate)
                 .add(system: GameplayManagerSystem(asteroidCreator: creatorManager.asteroidCreator,
                                                    alienCreator: creatorManager.alienCreator,
@@ -50,23 +56,18 @@ class SystemsManager {
                 .add(system: ExitScreenSystem(), priority: .update)
                 .add(system: AlienFiringSystem(torpedoCreator: creatorManager.torpedoCreator, gameSize: scene.size),
                      priority: .update)
-                .add(system: FiringSystem(torpedoCreator: creatorManager.torpedoCreator), priority: .update)
                 .add(system: TorpedoAgeSystem(), priority: .update)
                 .add(system: DeathThroesSystem(), priority: .update)
-                .add(system: HyperspaceJumpSystem(engine: engine), priority: .update)
                 .add(system: NacellesSystem(), priority: .update)
                 .add(system: HudSystem(powerUpCreator: creatorManager.powerUpCreator), priority: .update)
                 .add(system: SplitAsteroidSystem(asteroidCreator: creatorManager.asteroidCreator,
                                                  treasureCreator: creatorManager.treasureCreator),
                      priority: .update)
-                .add(system: LevelManagementSystem(asteroidCreator: creatorManager.asteroidCreator, scene: scene), priority: .update)
+                .add(system: LevelManagementSystem(asteroidCreator: creatorManager.asteroidCreator, scene: scene),
+                     priority: .update)
                 // move
                 .add(system: AccelerometerSystem(), priority: .move)
-                .add(system: FlipSystem(), priority: .move)
-                .add(system: LeftSystem(), priority: .move)
                 .add(system: MovementSystem(gameSize: scene.size), priority: .move)
-                .add(system: RightSystem(), priority: .move)
-                .add(system: ThrustSystem(), priority: .move)
                 // resolve collisions
                 .add(system: CollisionSystem(shipCreator: creatorManager.shipCreator,
                                              asteroidCreator: creatorManager.asteroidCreator,

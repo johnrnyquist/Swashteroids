@@ -185,9 +185,7 @@ class AlienCreator: AlienCreatorUseCase {
         //        sprite.physicsBody?.affectedByGravity = false
         //        sprite.physicsBody?.categoryBitMask = alienCategory
         //        sprite.physicsBody?.contactTestBitMask = asteroidCategory | playerCategory | torpedoCategory
-        let alienComponent = AlienComponent(cast: .worker,
-//                                             reactionTime: randomness.nextDouble(from: 0.4, through: 0.8),
-                                            scoreValue: 50)
+        let alienComponent = AlienComponent(cast: .worker)
         alienComponent.destinationStart = startDestination
         alienComponent.destinationEnd = endDestination
         let velocityX = 90.0 + Double(engine.appStateComponent.level) * 5.0 + randomness.nextDouble(from: 0.0, through: 10.0)
@@ -224,9 +222,7 @@ class AlienCreator: AlienCreatorUseCase {
         //        sprite.physicsBody?.affectedByGravity = false
         //        sprite.physicsBody?.categoryBitMask = alienCategory
         //        sprite.physicsBody?.contactTestBitMask = asteroidCategory | playerCategory | torpedoCategory
-        let alienComponent = AlienComponent(cast: .soldier,
-//                                              reactionTime: randomness.nextDouble(from: 0.4, through: 0.8),
-                                            scoreValue: 350)
+        let alienComponent = AlienComponent(cast: .soldier)
         alienComponent.destinationStart = startDestination
         alienComponent.destinationEnd = endDestination
         let velocityX = 120.0 + Double(engine.appStateComponent.level) * 5.0 + randomness.nextDouble(from: 0.0, through: 10.0)

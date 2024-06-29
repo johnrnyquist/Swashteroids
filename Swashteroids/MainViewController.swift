@@ -27,7 +27,10 @@ class MainViewController: UIViewController {
         gameViewController.view.frame = view.bounds
         gameViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         // Initialize the settings view controller but don't add it yet
-        settingsViewController = UIHostingController(rootView: SettingsView() )
+        settingsViewController = UIHostingController(rootView:
+                                                     SettingsView(
+                                                         hide: gameViewController.hideSettings,
+                                                         gamePadManager: gameViewController.gamePadManager)) //HACK
     }
 
     func appWillResignActive() {
@@ -53,16 +56,16 @@ class MainViewController: UIViewController {
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         switch UIDevice.current.orientation {
-        case .landscapeLeft:
-            print("landscapeLeft")
-        case .portrait:
-            print("portrait")
-        case .landscapeRight:
-            print("landscapeRight")
-        case .portraitUpsideDown:
-            print("portraitUpsideDown")
-        default:
-            break
+            case .landscapeLeft:
+                print("landscapeLeft")
+            case .portrait:
+                print("portrait")
+            case .landscapeRight:
+                print("landscapeRight")
+            case .portraitUpsideDown:
+                print("portraitUpsideDown")
+            default:
+                break
         }
     }
 }
@@ -94,12 +97,14 @@ extension MainViewController: AlertPresenting {
 
     func showSettings() {
         // Present the settings view controller
+        gameViewController.gamePadManager.mode = .settings
         present(settingsViewController, animated: true, completion: nil)
     }
 
     func hideSettings() {
         // Dismiss the settings view controller
         settingsViewController.dismiss(animated: true, completion: nil)
+        gameViewController.gamePadManager.mode = .game
         showPauseAlert()
     }
 }
