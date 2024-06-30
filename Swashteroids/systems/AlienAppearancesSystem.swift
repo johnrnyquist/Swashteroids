@@ -23,7 +23,7 @@ class AlienAppearancesNode: Node {
     required init() {
         super.init()
         components = [
-            SwashteroidsStateComponent.name: nil_component,
+            GameStateComponent.name: nil_component,
             AlienAppearancesComponent.name: nil_component,
         ]
     }
@@ -46,7 +46,7 @@ class AlienAppearancesSystem: ListIteratingSystem {
 
     func updateNode(node: Node, time: TimeInterval) {
         guard
-            let appStateComponent = node[SwashteroidsStateComponent.self],
+            let appStateComponent = node[GameStateComponent.self],
             appStateComponent.swashteroidsState == .playing
         else { return }
         appStateComponent.alienNextAppearance -= time

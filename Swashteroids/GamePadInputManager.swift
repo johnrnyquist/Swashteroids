@@ -12,13 +12,33 @@ import Foundation
 import Combine
 import GameController
 
-enum GamePadManagerMode {
+enum GamePadInputManagerMode {
     case game
+    case alert
     case settings
+    case start
 }
 
-class GamePadManager: NSObject, ObservableObject {
-    @Published var gameCommandToElementName: [GameCommand: String?] = GamePadManager.defaultMappings
+enum GameCommand: String, CaseIterable {
+    // Playing
+    case fire = "Fire"
+    case thrust = "Thrust"
+    case hyperspace = "Hyperspace"
+    case left = "Left"
+    case right = "Right"
+    case pause = "Pause"
+    case flip = "Flip"
+    // Alert
+    case home = "Home"
+    case resume = "Resume"
+    case settings = "Settings"
+    // Start
+    // Info
+    case `continue` = "Continue"
+}
+
+class GamePadInputManager: NSObject, ObservableObject {
+    @Published var gameCommandToElementName: [GameCommand: String?] = GamePadInputManager.defaultMappings
     @Published var lastElementPressed: String?
     static let defaultMappings: [GameCommand: String?] = [
         // always available in game
@@ -35,13 +55,11 @@ class GamePadManager: NSObject, ObservableObject {
         .resume: "B Button",
         .settings: "Y Button",
         // start 
-        .buttons: "X Button",
-        .noButtons: "B Button",
         // info screens
         .continue: "A Button",
     ]
     weak var game: Swashteroids!
-    var mode: GamePadManagerMode = .game
+    var mode: GamePadInputManagerMode = .game
     var previousTime = 0.0
     var timeSinceFired = 0.0
     var timeSinceFlip = 0.0
@@ -54,6 +72,11 @@ class GamePadManager: NSObject, ObservableObject {
         super.init()
         setupObservers()
         gameCommandToElementName = loadSettings()
+    }
+
+    deinit {
+        print(self, #function)
+        NotificationCenter.default.removeObserver(self)
     }
 
     func findKey(forValue value: String, in dictionary: [GameCommand: String?]) -> GameCommand? {
@@ -71,12 +94,7 @@ class GamePadManager: NSObject, ObservableObject {
         if let retrievedDict = defaults.dictionary(forKey: "GameCommandDict") as? [String: String] {
             result = retrievedDict.compactMapKeys { GameCommand(rawValue: $0) }
         }
-        return result ?? GamePadManager.defaultMappings
-    }
-
-    deinit {
-        print(self, #function)
-        NotificationCenter.default.removeObserver(self)
+        return result ?? GamePadInputManager.defaultMappings
     }
 
     private func setupObservers() {
@@ -120,7 +138,8 @@ class GamePadManager: NSObject, ObservableObject {
     }
 
     func fire(_ button: GCControllerButtonInput) {
-        if button.isPressed, button.value == 1.0,
+        if button.isPressed,
+           button.value > 0.5,
            timeSinceFired > 0.2 {
             timeSinceFired = 0.0
             game.engine.ship?.add(component: FireDownComponent.shared)
@@ -128,7 +147,8 @@ class GamePadManager: NSObject, ObservableObject {
     }
 
     func hyperSpace(_ button: GCControllerButtonInput) {
-        if button.isPressed, button.value == 1.0,
+        if button.isPressed,
+           button.value  > 0.5,
            timeSinceHyperspace > 0.5 {
             timeSinceHyperspace = 0.0
             game.engine.ship?.add(component: DoHyperspaceJumpComponent(size: size))
@@ -136,7 +156,8 @@ class GamePadManager: NSObject, ObservableObject {
     }
 
     func flip(_ button: GCControllerButtonInput) {
-        if button.isPressed, button.value == 1.0,
+        if button.isPressed,
+           button.value > 0.5,
            timeSinceFlip > 0.2 {
             timeSinceFlip = 0.0
             game.engine.ship?.add(component: FlipComponent.shared)
@@ -175,6 +196,12 @@ class GamePadManager: NSObject, ObservableObject {
         }
     }
 
+    func `continue`(_ button: GCControllerButtonInput) {
+        if button.isPressed {
+            game.engine.appStateEntity.add(component: TransitionAppStateComponent(from: .start, to: .playing))
+        }
+    }
+
     private func execute(command: GameCommand, for button: GCControllerButtonInput) {
         print(#function, command)
         let deltaTime = game.currentTime - previousTime
@@ -188,14 +215,12 @@ class GamePadManager: NSObject, ObservableObject {
             case .hyperspace: hyperSpace(button)
             case .left: turn_left(button)
             case .right: turn_right(button)
-            case .pause: break
+            case .pause: game.alertPresenter.showPauseAlert()
             case .flip: flip(button)
-            case .home: break
-            case .settings: break
-            case .resume: break
-            case .continue: break
-            case .buttons: break
-            case .noButtons: break
+            case .home: game.alertPresenter.home()
+            case .settings: game.alertPresenter.showSettings()
+            case .resume: game.alertPresenter.resume()
+            case .continue: `continue`(button)
         }
     }
 

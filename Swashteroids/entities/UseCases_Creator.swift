@@ -20,7 +20,7 @@ protocol AsteroidCreatorUseCase: AnyObject {
 }
 
 protocol HudCreatorUseCase: AnyObject {
-    func createHud(gameState: SwashteroidsStateComponent)
+    func createHud(gameState: GameStateComponent)
 }
 
 protocol PowerUpCreatorUseCase: AnyObject {
@@ -39,7 +39,7 @@ protocol ShipButtonControlsCreatorUseCase: AnyObject {
 }
 
 protocol ShipCreatorUseCase: AnyObject {
-    func createShip(_ state: SwashteroidsStateComponent)
+    func createShip(_ state: GameStateComponent)
     func destroy(ship: Entity)
 }
 

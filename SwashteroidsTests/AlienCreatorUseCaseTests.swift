@@ -21,7 +21,7 @@ final class AlienCreatorUseCaseTests: XCTestCase {
         engine = Engine()
         gameScene = GameScene(size: .zero)
         let appState = Entity(named: .appState)
-        appState.add(component: SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero)))
+        appState.add(component: GameStateComponent(config: SwashteroidsConfig(gameSize: .zero)))
         engine.add(entity: appState)
     }
 

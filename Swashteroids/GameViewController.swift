@@ -24,10 +24,10 @@ protocol AlertPresenting: AnyObject {
 final class GameViewController: UIViewController, AlertPresenting {
     var skView: SKView?
     var gameScene: GameScene!
-    var swashteroids: Swashteroids?
+    var swashteroids: Swashteroids!
     var isAlertPresented = false //HACK: this is a hack to prevent the game from starting when the app returns from background.
-    var alertPresenter: AlertPresenting?
-    var gamePadManager: GamePadManager!
+    var gamePadManager: GamePadInputManager!
+    var settingsViewController: UIHostingController<SettingsView>!
 
     override func loadView() {
         skView = SKView()
@@ -40,10 +40,15 @@ final class GameViewController: UIViewController, AlertPresenting {
 
     func startNewGame() {
         skView_setup()
-        gameScene_create()
-        swashteroids_create()
-        gamePadManager = GamePadManager(game: swashteroids!, size: gameScene.size)
+        gameScene = gameScene_create()
+        swashteroids = swashteroids_create()
+        if let gamePadManager {
+            gamePadManager.game = swashteroids
+        } else {
+            gamePadManager = GamePadInputManager(game: swashteroids, size: gameScene.size)
+        }
         gameScene_present()
+        swashteroids?.start()
     }
 
     private func skView_setup() {
@@ -53,22 +58,23 @@ final class GameViewController: UIViewController, AlertPresenting {
         skView?.isMultipleTouchEnabled = true
     }
 
-    private func gameScene_create() {
+    private func gameScene_create() -> GameScene {
         let screenSize = UIScreen.main.bounds
-        gameScene = GameScene(size: screenSize.size)
+        let gameScene = GameScene(size: screenSize.size)
         gameScene.name = "gameScene"
         gameScene.anchorPoint = .zero
         gameScene.scaleMode = .aspectFit
+        return gameScene
     }
 
-    private func swashteroids_create() {
+    private func swashteroids_create() -> Swashteroids {
         let seed = Int(Date().timeIntervalSince1970)
-        swashteroids = Swashteroids(scene: gameScene, alertPresenter: self, seed: seed)
+        let swashteroids = Swashteroids(scene: gameScene, alertPresenter: self, seed: seed)
         gameScene.delegate = swashteroids
         gameScene.touchDelegate = swashteroids
         gameScene.physicsWorld.contactDelegate = swashteroids
         gameScene.physicsWorld.gravity = CGVector(dx: 0, dy: 0)
-        swashteroids?.start()
+        return swashteroids
     }
 
     private func gameScene_present() {
@@ -96,13 +102,19 @@ final class GameViewController: UIViewController, AlertPresenting {
 
     func showSettings() {
         dismiss(animated: true, completion: { [unowned self] in
-            alertPresenter?.showSettings()
+            gamePadManager.mode = .settings
+            let settingsViewController = UIHostingController(rootView:
+                                                             SettingsView(
+                                                                 gamePadManager: gamePadManager,
+                                                                 hide: hideSettings))
+            present(settingsViewController, animated: true, completion: nil)
         })
     }
 
     func hideSettings() {
-        dismiss(animated: true, completion: { [unowned self] in
-            alertPresenter?.hideSettings()
+        dismiss(animated: true, completion: { [weak self] in
+            self?.gamePadManager.mode = .game
+            self?.showPauseAlert()
         })
     }
 
@@ -140,6 +152,32 @@ final class GameViewController: UIViewController, AlertPresenting {
                 }
                 print("---")
             }
+        }
+    }
+
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            .allButUpsideDown
+        } else {
+            .all
+        }
+    }
+    override var prefersStatusBarHidden: Bool {
+        true
+    }
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        switch UIDevice.current.orientation {
+            case .landscapeLeft:
+                print("landscapeLeft")
+            case .portrait:
+                print("portrait")
+            case .landscapeRight:
+                print("landscapeRight")
+            case .portraitUpsideDown:
+                print("portraitUpsideDown")
+            default:
+                break
         }
     }
 }

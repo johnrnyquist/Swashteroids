@@ -126,7 +126,7 @@ final class Swashteroids: NSObject {
         let allSoundsEntity = Entity(named: .allSounds)
                 .add(component: AllSoundsComponent.shared)
         let appStateEntity = Entity(named: .appState)
-                .add(component: SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: scene.size)))
+                .add(component: GameStateComponent(config: SwashteroidsConfig(gameSize: scene.size)))
                 .add(component: TransitionAppStateComponent(from: .start, to: .start))
                 .add(component: TimePlayedComponent())
                 .add(component: AlienAppearancesComponent.shared) //HACK

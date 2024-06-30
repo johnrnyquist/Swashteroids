@@ -14,7 +14,7 @@ final class GameOverNode: Node {
 	required init() {
 		super.init()
 		components = [
-			SwashteroidsStateComponent.name: nil_component,
+			GameStateComponent.name: nil_component,
 			GameOverComponent.name: nil_component,
 		]
 	}

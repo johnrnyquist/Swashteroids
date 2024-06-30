@@ -59,7 +59,7 @@ struct Playing {
     var timePlayed: Double
 }
 
-final class SwashteroidsStateComponent: Component {
+final class GameStateComponent: Component {
     //
     //MARK: - Properties
     var swashteroidsState: GameState

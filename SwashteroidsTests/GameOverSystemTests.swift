@@ -30,11 +30,11 @@ final class GameOverSystemTests: XCTestCase {
 
     func test_UpdateNode() throws {
         let gameOver = GameOverComponent()
-        let appStateComponent = SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero))
+        let appStateComponent = GameStateComponent(config: SwashteroidsConfig(gameSize: .zero))
         appStateComponent.swashteroidsState = .gameOver
         let node = GameOverNode()
         node.components[GameOverComponent.name] = gameOver
-        node.components[SwashteroidsStateComponent.name] = appStateComponent
+        node.components[GameStateComponent.name] = appStateComponent
         system = GameOverSystem()
         system.updateNode(node: node, time: 1)
         XCTAssertEqual(appStateComponent.swashteroidsState, .gameOver)

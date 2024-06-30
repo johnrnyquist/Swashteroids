@@ -33,7 +33,7 @@ final class TransitionAppStateSystem: ListIteratingSystem {
 
     func updateNode(node: Node, time: TimeInterval) {
         guard let transitionComponent = node[TransitionAppStateComponent.self],
-              let appStateComponent = node[SwashteroidsStateComponent.self]
+              let appStateComponent = node[GameStateComponent.self]
         else { return }
         // TODO: Need to see case where to and from are both .start
         switch transitionComponent.from {

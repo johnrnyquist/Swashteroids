@@ -12,7 +12,7 @@ import SwiftUI
 import GameController
 
 struct PauseAlert: View {
-    var appState: SwashteroidsStateComponent
+    var appState: GameStateComponent
     var home: () -> Void
     var resume: () -> Void
     var showSettings: () -> Void
@@ -38,7 +38,7 @@ struct PauseAlert: View {
 }
 
 struct StatsView: View {
-    var appState: SwashteroidsStateComponent
+    var appState: GameStateComponent
     var body: some View {
         VStack(spacing: 0) {
             HStack {
@@ -93,7 +93,7 @@ struct ButtonView: View {
 
 struct PauseAlert_Previews: PreviewProvider {
     static var previews: some View {
-        PauseAlert(appState: SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero)),
+        PauseAlert(appState: GameStateComponent(config: SwashteroidsConfig(gameSize: .zero)),
                    home: {}, resume: {}, showSettings: {})
     }
 }

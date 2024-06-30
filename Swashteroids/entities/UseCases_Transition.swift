@@ -24,7 +24,7 @@ protocol InfoViewsUseCase: AnyObject {
 
 protocol PlayingUseCase: AnyObject {
     func fromPlayingScreen()
-    func toPlayingScreen(appStateComponent: SwashteroidsStateComponent)
+    func toPlayingScreen(appStateComponent: GameStateComponent)
 }
 
 protocol StartUseCase: AnyObject {

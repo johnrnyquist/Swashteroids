@@ -53,7 +53,7 @@ class FiringSystemTests: XCTestCase {
                 .add(component: gun)
                 .add(component: fireDown)
         engine.add(entity: entity)
-        let appStateComponent = SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero))
+        let appStateComponent = GameStateComponent(config: SwashteroidsConfig(gameSize: .zero))
         let appState = Entity(named: .appState)
             .add(component: appStateComponent)
         engine.add(entity: appState)

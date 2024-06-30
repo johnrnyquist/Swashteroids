@@ -23,7 +23,7 @@ class HudSystemTests: XCTestCase {
         engine = Engine()
         engine.add(system: system, priority: 1)
         let entity = Entity(named: .appState)
-        entity.add(component: SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero)))
+        entity.add(component: GameStateComponent(config: SwashteroidsConfig(gameSize: .zero)))
         engine.add(entity: entity)
     }
 

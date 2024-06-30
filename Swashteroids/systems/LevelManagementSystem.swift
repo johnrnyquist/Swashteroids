@@ -16,7 +16,7 @@ class LevelManagementNode: Node {
     required init() {
         super.init()
         components = [
-            SwashteroidsStateComponent.name: nil_component,
+            GameStateComponent.name: nil_component,
         ]
     }
 }
@@ -52,7 +52,7 @@ class LevelManagementSystem: ListIteratingSystem {
     }
 
     func updateNode(node: Node, time: TimeInterval) {
-        guard let appStateComponent = node[SwashteroidsStateComponent.self],
+        guard let appStateComponent = node[GameStateComponent.self],
               let entity = node.entity
         else { return }
         if asteroids.empty,
@@ -62,7 +62,7 @@ class LevelManagementSystem: ListIteratingSystem {
     }
 
     /// Go to the next level, announce it, create asteroids
-    func goToNextLevel(appStateComponent: SwashteroidsStateComponent, entity: Entity) {
+    func goToNextLevel(appStateComponent: GameStateComponent, entity: Entity) {
         guard let shipNode = ships.head,
               let spaceShipPosition = shipNode[PositionComponent.self] else { return }
         appStateComponent.level += 1
@@ -104,7 +104,7 @@ class LevelManagementSystem: ListIteratingSystem {
     }
 
     /// Announce the level
-    func announceLevel(appStateComponent: SwashteroidsStateComponent) {
+    func announceLevel(appStateComponent: GameStateComponent) {
         let levelText = SKLabelNode(text: "Level \(appStateComponent.level)")
         configureLevelText(levelText)
         scene.addChild(levelText)

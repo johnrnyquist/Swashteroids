@@ -14,9 +14,6 @@ extension Engine {
     var ship: Entity? {
         findEntity(named: .player)
     }
-    var gameOver: Entity? {
-        findEntity(named: .gameOver)
-    }
     var hud: Entity? {
         findEntity(named: .hud)
     }
@@ -27,13 +24,10 @@ extension Engine {
         return entity
     }
     // This is a convenience method for accessing the appState component. Because I’m weak. 
-    var appStateComponent: SwashteroidsStateComponent {
-        guard let component = appStateEntity.find(componentClass: SwashteroidsStateComponent.self) else {
-            fatalError("appState entity did not contain AppStateComponent!")
+    var appStateComponent: GameStateComponent {
+        guard let component = appStateEntity.find(componentClass: GameStateComponent.self) else {
+            fatalError("appStateEntity did not contain GameStateComponent!")
         }
         return component
-    }
-    var input: Entity? {
-        findEntity(named: .input)
     }
 }

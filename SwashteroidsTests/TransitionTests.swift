@@ -23,13 +23,13 @@ final class TransitionTests: XCTestCase {
     var size: CGSize!
     var engine: Engine!
     var creator: MockQuadrantsButtonToggleCreator!
-    var appStateComponent: SwashteroidsStateComponent!
+    var appStateComponent: GameStateComponent!
     var appStateEntity: Entity!
 
     override func setUpWithError() throws {
         size = CGSize(width: 1024.0, height: 768.0)
         engine = Engine()
-        appStateComponent = SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero))
+        appStateComponent = GameStateComponent(config: SwashteroidsConfig(gameSize: .zero))
         appStateComponent.level = 4
         appStateComponent.score = 5
         appStateComponent.numShips = 3
@@ -101,7 +101,7 @@ final class TransitionTests: XCTestCase {
         XCTAssertTrue(gameOverEntity.has(componentClassName: DisplayComponent.name))
         XCTAssertTrue(gameOverEntity.has(componentClassName: PositionComponent.name))
         XCTAssertTrue(gameOverEntity.has(componentClassName: TouchableComponent.name))
-        XCTAssertTrue(gameOverEntity.has(componentClassName: SwashteroidsStateComponent.name))
+        XCTAssertTrue(gameOverEntity.has(componentClassName: GameStateComponent.name))
         XCTAssertTrue(gameOverEntity.has(componentClassName: ButtonBehaviorComponent.name))
         guard let display = gameOverEntity[DisplayComponent.self]
         else {

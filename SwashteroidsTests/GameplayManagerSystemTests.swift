@@ -20,7 +20,7 @@ final class GameplayManagerSystemTests: XCTestCase {
     var asteroidCreator: MockAsteroidCreator!
     var shipCreator: ShipCreatorUseCase!
     var system: GameplayManagerSystem!
-    var appStateComponent: SwashteroidsStateComponent!
+    var appStateComponent: GameStateComponent!
     let aliens = NodeList()
     let asteroids = NodeList()
 
@@ -30,7 +30,7 @@ final class GameplayManagerSystemTests: XCTestCase {
         asteroidCreator = MockAsteroidCreator()
         shipCreator = MockShipCreator()
         scene = GameScene()
-        appStateComponent = SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero))
+        appStateComponent = GameStateComponent(config: SwashteroidsConfig(gameSize: .zero))
         appStateComponent.level = 1
         system = GameplayManagerSystem(asteroidCreator: asteroidCreator, alienCreator: alienCreator, shipCreator: shipCreator, scene: scene)
         system.aliens = aliens
@@ -160,7 +160,7 @@ final class GameplayManagerSystemTests: XCTestCase {
 //    }
 
     func test_HandlePlayingState_NoShips() {
-        let appStateComponent = SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero))
+        let appStateComponent = GameStateComponent(config: SwashteroidsConfig(gameSize: .zero))
         appStateComponent.numShips = 0
         appStateComponent.swashteroidsState = .playing
         let entity = Entity(named: "currentState")

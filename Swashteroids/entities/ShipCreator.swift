@@ -27,7 +27,7 @@ class ShipCreator: ShipCreatorUseCase {
         self.randomness = randomness
     }
 
-    func createShip(_ state: SwashteroidsStateComponent) {
+    func createShip(_ state: GameStateComponent) {
         let ship = Entity(named: .player)
         let sprite = SwashScaledSpriteNode(texture: createShipTexture())
         //        sprite.physicsBody = SKPhysicsBody(rectangleOf: sprite.size.scaled(by: 0.8))//(circleOfRadius: 25 * scaleManager.SCALE_FACTOR)

@@ -8,6 +8,7 @@
 import GameController
 
 extension GCController {
+    //TODO: There is a more ECS way to do this, but I'm tired.
     static func isGameControllerConnected() -> Bool {
         guard let controller = GCController.controllers().first,
               controller.isAttachedToDevice == true,

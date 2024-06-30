@@ -20,7 +20,7 @@ class HudCreator: HudCreatorUseCase, AlertPresenting {
         self.alertPresenter = alertPresenter
     }
 
-    func createHud(gameState: SwashteroidsStateComponent) {
+    func createHud(gameState: GameStateComponent) {
         let view = HudView(gameSize: gameState.gameSize)
         view.name = "hud"
         let hudEntity = Entity(named: .hud)

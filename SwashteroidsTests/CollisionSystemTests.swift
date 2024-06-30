@@ -15,7 +15,7 @@ import XCTest
 
 class CollisionSystemTests: XCTestCase {
     var alienEntity: Entity!
-    var appStateComponent: SwashteroidsStateComponent!
+    var appStateComponent: GameStateComponent!
     var appStateEntity: Entity!
     var asteroidEntity: Entity!
     var engine: Engine!
@@ -32,7 +32,7 @@ class CollisionSystemTests: XCTestCase {
 
     override func setUpWithError() throws {
         engine = Engine()
-        appStateComponent = SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero))
+        appStateComponent = GameStateComponent(config: SwashteroidsConfig(gameSize: .zero))
         appStateComponent.numShips = 1
         appStateComponent.swashteroidsState = .playing
         appStateEntity = Entity(named: .appState)
@@ -241,7 +241,7 @@ class CollisionSystemTests: XCTestCase {
             asteroidNode.components[component.key] = component.value
         }
         asteroidNode.entity = asteroidEntity
-        let appStateComponent = SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero))
+        let appStateComponent = GameStateComponent(config: SwashteroidsConfig(gameSize: .zero))
         appStateComponent.numShips = 1
         appStateComponent.swashteroidsState = .playing
         let appState = Entity(named: .appState)

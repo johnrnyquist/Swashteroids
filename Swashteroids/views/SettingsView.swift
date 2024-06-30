@@ -7,26 +7,6 @@
 
 import SwiftUI
 
-enum GameCommand: String, CaseIterable {
-    // Playing
-    case fire = "Fire"
-    case thrust = "Thrust"
-    case hyperspace = "Hyperspace"
-    case left = "Left"
-    case right = "Right"
-    case pause = "Pause"
-    case flip = "Flip"
-    // Alert
-    case home = "Home"
-    case resume = "Resume"
-    case settings = "Settings"
-    // Start
-    case buttons = "Buttons"
-    case noButtons = "No Buttons"
-    // Info
-    case `continue` = "Continue"
-}
-
 enum GameState: String, CaseIterable {
     case start = "Start Screen"
     case infoButtons = "Buttons Information Screen"
@@ -36,7 +16,7 @@ enum GameState: String, CaseIterable {
     var commandsPerScreen: [GameCommand] {
         switch self {
             case .start:
-                return [.buttons, .noButtons]
+                return [.continue]
             case .infoButtons:
                 return [.continue]
             case .infoNoButtons:
@@ -50,7 +30,7 @@ enum GameState: String, CaseIterable {
 }
 
 struct SettingsView: View {
-    @ObservedObject var gamePadManager: GamePadManager
+    @ObservedObject var gamePadManager: GamePadInputManager
     @State private var curCommand: GameCommand? = nil
     @State private var currentAppState: GameState = .playing
     @State private var showAlert = false
@@ -118,7 +98,7 @@ struct SettingsView: View {
                 }
                 Spacer()
                 Button("Reset to Defaults") {
-                    gamePadManager.gameCommandToElementName = GamePadManager.defaultMappings
+                    gamePadManager.gameCommandToElementName = GamePadInputManager.defaultMappings
                 }
             }.padding()
         }.alert(isPresented: $showAlert) {
@@ -146,9 +126,9 @@ struct SettingsView: View {
 }
 
 public let nil_string: String? = nil
-#Preview {
-    SettingsView(gamePadManager: GamePadManager(game: Swashteroids(scene: GameScene(),
-                                                                   alertPresenter: MockAlertPresenter()),
-                                                size: CGSize(width: 100, height: 100)),
-                 hide: {})
-}
+//#Preview {
+//    SettingsView(gamePadManager: GamePadInputManager(game: Swashteroids(scene: GameScene(),
+//                                                                   alertPresenter: MockAlertPresenter()),
+//                                                size: CGSize(width: 100, height: 100)),
+//                 hide: {})
+//}

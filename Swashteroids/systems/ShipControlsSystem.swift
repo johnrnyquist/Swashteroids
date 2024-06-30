@@ -87,6 +87,7 @@ class ShipControlsSystem: ListIteratingSystem {
         engine.ship?.remove(componentClass: AccelerometerComponent.self)
         shipButtonControlsCreator.removeShipControlButtons()
         toggleShipControlsCreator.removeToggleButton()
+        engine.removeEntities(named: [.noButtons, .withButtons])
     }
 
     private func usingAccelerometer() {

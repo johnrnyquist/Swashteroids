@@ -18,7 +18,7 @@ final class GameOverSystem: ListIteratingSystem {
     }
 
     func updateNode(node: Node, time: TimeInterval) {
-        guard let _ = node[SwashteroidsStateComponent.self],
+        guard let _ = node[GameStateComponent.self],
               let _ = node[GameOverComponent.self]
         else { return }
     }
