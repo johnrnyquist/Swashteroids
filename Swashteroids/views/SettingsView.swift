@@ -50,15 +50,10 @@ enum GameState: String, CaseIterable {
 }
 
 struct SettingsView: View {
-    @State private var gameCommandToElementName: [GameCommand: String] = [:] // This should be loaded from persistent storage
-
-    
-    @State private var currentMapping: GameCommand? = nil
+    @ObservedObject var gamePadManager: GamePadManager
+    @State private var curCommand: GameCommand? = nil
     @State private var currentAppState: GameState = .playing
-
     let hide: () -> Void
-    let gamePadManager: GamePadManager?
-
     var body: some View {
         VStack {
             HStack {
@@ -79,29 +74,33 @@ struct SettingsView: View {
                     Text(command.rawValue)
                     Spacer()
                     Button(action: {
-                        currentMapping = command
+                        curCommand = command
                     }) {
                         HStack {
-                            if let sfSymbolName = gamePadManager!.elementNameToSymbolName[gameCommandToElementName[command] ?? ""] {
+                            if let commandName = gamePadManager.gameCommandToElementName[command],
+                               let sfSymbolName = gamePadManager.elementNameToSymbolName[commandName  ?? "exclamationmark.octagon.fill"] {
                                 Image(systemName: sfSymbolName)
                             }
-                            Text(gameCommandToElementName[command] ?? "Not Set")
+                            Text((gamePadManager.gameCommandToElementName[command] ?? "Test") ?? "Test2")
                         }
                     }
                 }
-            }.onReceive(gamePadManager!.$lastElementPressed) { element in
-                guard let mapping = currentMapping,
-                      let element else { return }
-                gameCommandToElementName[mapping] = element.localizedName!
-                currentMapping = nil
-                print("Button \(element.localizedName!  ) set for \(mapping)")
+            }.onReceive(gamePadManager.$lastElementPressed) { str in
+                guard let command = curCommand,
+                      let str else { return }
+                gamePadManager.gameCommandToElementName[command] = str
+                curCommand = nil
+                print("Updated \(command.rawValue) to \(str)")
             }
         }
     }
 }
 
 #Preview {
-    SettingsView(hide: {}, gamePadManager: nil)
+    SettingsView(gamePadManager: GamePadManager(game: Swashteroids(scene: GameScene(),
+                                                                   alertPresenter: MockAlertPresenter()),
+                                                size: CGSize(width: 100, height: 100)),
+                 hide: {})
 }
 
 import Combine

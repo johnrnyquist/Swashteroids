@@ -78,13 +78,13 @@
 		8D41E21D2B1F988E0031AF54 /* PowerUpComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D41E21C2B1F988E0031AF54 /* PowerUpComponents.swift */; };
 		8D41E21F2B1FA2D00031AF54 /* Entity+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D41E21E2B1FA2D00031AF54 /* Entity+extension.swift */; };
 		8D4627662B251761007F01E6 /* powerup.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D4627652B251761007F01E6 /* powerup.wav */; };
-		8D4D4EF22C23357D00293B13 /* MockAlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4D4EF12C23357D00293B13 /* MockAlertPresenter.swift */; };
 		8D4D4EF62C23388700293B13 /* MockCreators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4D4EF52C23388700293B13 /* MockCreators.swift */; };
 		8D4D4EF82C2338A200293B13 /* MockScaleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4D4EF72C2338A200293B13 /* MockScaleManager.swift */; };
 		8D4D4EFA2C233C5800293B13 /* MockRandom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4D4EF92C233C5800293B13 /* MockRandom.swift */; };
 		8D512A992B41B47D00C30AC7 /* AccelerometerSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D512A982B41B47D00C30AC7 /* AccelerometerSystemTests.swift */; };
 		8D5911602B4CA6F300A31B95 /* fireflies_mod.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8D59115F2B4CA6F300A31B95 /* fireflies_mod.sks */; };
 		8D59EDDE2B139088003BD073 /* Badloc ICG.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8D59EDDD2B138ED6003BD073 /* Badloc ICG.ttf */; };
+		8D61B9972C30EC06004F453B /* MockAlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4D4EF12C23357D00293B13 /* MockAlertPresenter.swift */; };
 		8D637EC32C29C92C006A2FD1 /* Swash in Frameworks */ = {isa = PBXBuildFile; productRef = 8D637EC22C29C92C006A2FD1 /* Swash */; };
 		8D651D6C2B278BB30088AEEF /* Swashteroids+SKSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D651D6B2B278BB30088AEEF /* Swashteroids+SKSceneDelegate.swift */; };
 		8D651D6E2B278C1C0088AEEF /* Swashteroids+TouchDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D651D6D2B278C1C0088AEEF /* Swashteroids+TouchDelegate.swift */; };
@@ -565,6 +565,7 @@
 				8D8F24B72B51D4B100B2E223 /* extensions */,
 				8D59EDDD2B138ED6003BD073 /* Badloc ICG.ttf */,
 				93139397EA8AF9AD7F1837D4 /* GamePadManager.swift */,
+				8D4D4EF12C23357D00293B13 /* MockAlertPresenter.swift */,
 			);
 			path = Swashteroids;
 			sourceTree = "<group>";
@@ -785,7 +786,6 @@
 		8D4D4EFC2C23404300293B13 /* _Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				8D4D4EF12C23357D00293B13 /* MockAlertPresenter.swift */,
 				93139AACD0733A9656662B03 /* MockPowerUpCreator.swift */,
 				8D4D4EF92C233C5800293B13 /* MockRandom.swift */,
 				8D4D4EF72C2338A200293B13 /* MockScaleManager.swift */,
@@ -1032,6 +1032,7 @@
 				8D651D6C2B278BB30088AEEF /* Swashteroids+SKSceneDelegate.swift in Sources */,
 				8D41E2112B1E64530031AF54 /* ChangeShipControlsStateComponent.swift in Sources */,
 				8D23C19D2B02C59D00F7D878 /* Swashteroids.swift in Sources */,
+				8D61B9972C30EC06004F453B /* MockAlertPresenter.swift in Sources */,
 				8D23C1B02B02C59D00F7D878 /* FiringNode.swift in Sources */,
 				8D23C1B92B02C59D00F7D878 /* DeathThroesComponent.swift in Sources */,
 				8D41E2152B1E66820031AF54 /* TransitionAppStateNode.swift in Sources */,
@@ -1210,7 +1211,6 @@
 				8D512A992B41B47D00C30AC7 /* AccelerometerSystemTests.swift in Sources */,
 				931399BCC437F101AA0DA3CB /* HudSystemTests.swift in Sources */,
 				93139F65DD1FA0CE5A373FB0 /* LeftSystemTests.swift in Sources */,
-				8D4D4EF22C23357D00293B13 /* MockAlertPresenter.swift in Sources */,
 				93139F8A1021EE54E773A085 /* RightSystemTests.swift in Sources */,
 				93139D10A3929204EC8DF9BF /* FlipSystemTest.swift in Sources */,
 				8D4D4EF62C23388700293B13 /* MockCreators.swift in Sources */,

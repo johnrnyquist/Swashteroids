@@ -57,7 +57,7 @@ class PickTargetSystemTests: XCTestCase {
         // ARRANGE
         let engine = Engine()
         engine.add(system: system, priority: 0)
-        let alienComponent = AlienComponent(cast: <#T##AlienCast##Swashteroids.AlienCast#>, scaleManager: ScaleManager.shared)
+        let alienComponent = AlienComponent(cast: .worker, scaleManager: ScaleManager.shared)
         let position = PositionComponent(x: 0, y: 0, z: .asteroids, rotationDegrees: 0)
         let velocity = VelocityComponent(velocityX: 0, velocityY: 0)
         let entity = Entity()

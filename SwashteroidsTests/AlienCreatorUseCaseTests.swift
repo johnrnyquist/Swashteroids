@@ -15,9 +15,11 @@ import SpriteKit
 
 final class AlienCreatorUseCaseTests: XCTestCase {
     var engine: Engine!
+    var gameScene: GameScene!
 
     override func setUpWithError() throws {
         engine = Engine()
+        gameScene = GameScene(size: .zero)
         let appState = Entity(named: .appState)
         appState.add(component: SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero)))
         engine.add(entity: appState)
@@ -25,12 +27,13 @@ final class AlienCreatorUseCaseTests: XCTestCase {
 
     override func tearDownWithError() throws {
         engine = nil
+        gameScene = nil
     }
     
     func test_createAlienWorker_hasPlayer() throws {
         let player = Entity(named: .player)
         engine.add(entity: player)
-        let creator = AlienCreator(engine: engine,
+        let creator = AlienCreator(scene: gameScene, engine: engine,
                                    size: .zero,
                                    randomness: Randomness.initialize(with: 1))
         creator.createAlienWorker(startDestination: .zero, endDestination: .zero)
@@ -38,7 +41,7 @@ final class AlienCreatorUseCaseTests: XCTestCase {
     }
 
     func test_createAlienWorker_noPlayer() throws {
-        let creator = AlienCreator(engine: engine,
+        let creator = AlienCreator(scene: gameScene, engine: engine,
                                    size: .zero,
                                    randomness: Randomness.initialize(with: 1))
         creator.createAlienWorker(startDestination: .zero, endDestination: .zero)
@@ -48,7 +51,7 @@ final class AlienCreatorUseCaseTests: XCTestCase {
     func test_createAlienSoldier_hasPlayer() throws {
         let player = Entity(named: .player)
         engine.add(entity: player)
-        let creator = AlienCreator(engine: engine,
+        let creator = AlienCreator(scene: gameScene, engine: engine,
                                    size: .zero,
                                    randomness: Randomness.initialize(with: 1))
         creator.createAlienSoldier(startDestination: .zero, endDestination: .zero)
@@ -56,7 +59,7 @@ final class AlienCreatorUseCaseTests: XCTestCase {
     }
 
     func test_createAlienSoldier_noPlayer() throws {
-        let creator = AlienCreator(engine: engine,
+        let creator = AlienCreator(scene: gameScene, engine: engine,
                                    size: .zero,
                                    randomness: Randomness.initialize(with: 1))
         creator.createAlienSoldier(startDestination: .zero, endDestination: .zero)

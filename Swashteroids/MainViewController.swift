@@ -29,8 +29,8 @@ class MainViewController: UIViewController {
         // Initialize the settings view controller but don't add it yet
         settingsViewController = UIHostingController(rootView:
                                                      SettingsView(
-                                                         hide: gameViewController.hideSettings,
-                                                         gamePadManager: gameViewController.gamePadManager)) //HACK
+                                                        gamePadManager: gameViewController.gamePadManager, 
+                                                        hide: gameViewController.hideSettings)) //HACK
     }
 
     func appWillResignActive() {

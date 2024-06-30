@@ -17,14 +17,14 @@ enum GamePadManagerMode {
     case settings
 }
 
-class GamePadManager: NSObject {
-    @Published var lastElementPressed: GCControllerElement?
+class GamePadManager: NSObject, ObservableObject {
+    @Published var lastElementPressed: String?
+    weak var game: Swashteroids!
     var mode: GamePadManagerMode = .game
     var previousTime = 0.0
     var timeSinceFired = 0.0
     var timeSinceFlip = 0.0
     var timeSinceHyperspace = 0.0
-    weak var game: Swashteroids!
     var size: CGSize
 
     init(game: Swashteroids, size: CGSize) {
@@ -59,8 +59,8 @@ class GamePadManager: NSObject {
             print(controller.vendorName ?? "Unknown Vendor")
             //Check to see whether it is an extended Game Controller (Such as a Nimbus)
             if let pad = controller.extendedGamepad {
-                buttonElements = allButtonElements(from: pad)
-                dpadElements = allDpadElements(from: pad)
+//                buttonElements = allButtonElements(from: pad)
+//                dpadElements = allDpadElements(from: pad)
                 game.engine.appStateEntity.add(component: GamePadComponent())
                 game.usingGameController()
                 pad.valueChangedHandler = controllerInputDetected
@@ -111,52 +111,102 @@ class GamePadManager: NSObject {
         }
     }
 
-    var elementNameToGameCommand: [String: GameCommand] =
-        [
-            "Button A": .pause,
-            "Button B": .resume,
-            "Button X": .home,
-            "Button Y": .settings,
-            "Button Menu": .pause,
-            "Button Options": .settings,
-            "Direction Pad": .pause,
-            "Left Shoulder": .pause,
-            "Right Shoulder": .hyperspace,
-            "Left Thumbstick": .left,
-            "Right Thumbstick": .thrust,
-            "Left Trigger": .flip,
-            "Right Trigger": .fire,
-            "Button Home": .pause
-        ]
+    func resolveInput(pad: GCExtendedGamepad, element: GCControllerElement) -> String? {
+        print("ELEMENT NAME", element.localizedName!)
+        var result: String? = nil
+        if let button = element as? GCControllerButtonInput {
+            if button.isPressed {
+                print("button \(button.localizedName!) is pressed")
+            } else {
+                print("button \(button.localizedName!) is not pressed")
+            }
+            result = button.localizedName!
+        } else if let dpad = element as? GCControllerDirectionPad {
+            switch dpad {
+                case pad.dpad:
+                    if pad.dpad.left.isPressed {
+                        print(pad.dpad.left.sfSymbolsName)
+                        result = pad.dpad.left.localizedName
+                    } else if pad.dpad.right.isPressed {
+                        print(pad.dpad.right.sfSymbolsName)
+                        result = pad.dpad.right.localizedName
+                    } else if pad.dpad.up.isPressed {
+                        print(pad.dpad.up.sfSymbolsName)
+                        result = pad.dpad.up.localizedName
+                    } else if pad.dpad.down.isPressed {
+                        print(pad.dpad.down.sfSymbolsName)
+                        result = pad.dpad.down.localizedName
+                    } else {
+                        print("no direction")
+                    }
+                case pad.leftThumbstick:
+                    if pad.leftThumbstick.left.isPressed {
+                        print(pad.leftThumbstick.left.sfSymbolsName)
+                        result = pad.leftThumbstick.left.localizedName
+                    } else if pad.leftThumbstick.right.isPressed {
+                        print(pad.leftThumbstick.right.sfSymbolsName)
+                        result = pad.leftThumbstick.right.localizedName
+                    } else if pad.leftThumbstick.up.isPressed {
+                        print(pad.leftThumbstick.up.sfSymbolsName)
+                        result = pad.leftThumbstick.up.localizedName
+                    } else if pad.leftThumbstick.down.isPressed {
+                        print(pad.leftThumbstick.down.sfSymbolsName)
+                        result = pad.leftThumbstick.down.localizedName
+                    } else {
+                        print("no direction")
+                    }
+                case pad.rightThumbstick:
+                    print("rightThumbstick \(pad.rightThumbstick.localizedName!)")
+                    if pad.rightThumbstick.left.isPressed {
+                        print(pad.rightThumbstick.left.sfSymbolsName)
+                        result = pad.rightThumbstick.left.localizedName
+                    } else if pad.rightThumbstick.right.isPressed {
+                        print(pad.rightThumbstick.right.sfSymbolsName)
+                        result = pad.rightThumbstick.right.localizedName
+                    } else if pad.rightThumbstick.up.isPressed {
+                        print(pad.rightThumbstick.up.sfSymbolsName)
+                        result = pad.rightThumbstick.up.localizedName
+                    } else if pad.rightThumbstick.down.isPressed {
+                        print(pad.rightThumbstick.down.sfSymbolsName)
+                        result = pad.rightThumbstick.down.localizedName
+                    } else {
+                        print("no direction")
+                    }
+                default:
+                    break
+            }
+        }
+        return result
+    }
 
     private func controllerInputDetected(pad: GCExtendedGamepad, element: GCControllerElement) {
-        lastElementPressed = element
-        switch mode {
-            case .game:
-                for (buttonName, buttonInput) in buttonElements where element == buttonInput && buttonInput.isPressed {
-                    if let command = elementNameToGameCommand[buttonName] {
-                        execute(command)
-                    }
-                }
-                for (dpadName, dpadInput) in dpadElements where element == dpadInput {
-                    if let command = elementNameToGameCommand[dpadName] {
-                        execute(command)
-                    }
-                }
-            case .settings:
-                break
-        }
-        switch game.engine.appStateComponent.swashteroidsState {
-            case .start:
-                handleStartState(pad: pad)
-            case .infoButtons, .infoNoButtons:
-                break
-            case .gameOver:
-                handleAlertState(pad: pad)
-            case .playing:
-                handleAlertState(pad: pad)
-                handlePlayingState(pad: pad)
-        }
+        lastElementPressed = resolveInput(pad: pad, element: element)
+//        switch mode {
+//            case .game:
+//                for (buttonName, buttonInput) in buttonElements where element == buttonInput && buttonInput.isPressed {
+//                    if let command = elementNameToGameCommand[buttonName] {
+//                        execute(command)
+//                    }
+//                }
+//                for (dpadName, dpadInput) in dpadElements where element == dpadInput {
+//                    if let command = elementNameToGameCommand[dpadName] {
+//                        execute(command)
+//                    }
+//                }
+//            case .settings:
+//                break
+//        }
+//        switch game.engine.appStateComponent.swashteroidsState {
+//            case .start:
+//                handleStartState(pad: pad)
+//            case .infoButtons, .infoNoButtons:
+//                break
+//            case .gameOver:
+//                handleAlertState(pad: pad)
+//            case .playing:
+//                handleAlertState(pad: pad)
+//                handlePlayingState(pad: pad)
+//        }
     }
 
     private func handleStartState(pad: GCExtendedGamepad) {
@@ -180,6 +230,12 @@ class GamePadManager: NSObject {
     }
 
     private func handlePlayingState(pad: GCExtendedGamepad) {
+        let deltaTime = game.currentTime - previousTime
+        previousTime = game.currentTime
+        timeSinceFired += deltaTime
+        timeSinceFlip += deltaTime
+        timeSinceHyperspace += deltaTime
+
         func hyperSpace() {
             if timeSinceHyperspace > 0.5 {
                 timeSinceHyperspace = 0.0
@@ -207,14 +263,14 @@ class GamePadManager: NSObject {
             }
         }
 
+        func turn_right_off() {
+            game.engine.ship?.remove(componentClass: RightComponent.self)
+        }
+
         func turn_right() {
             if game.engine.ship?.has(componentClass: LeftComponent.self) == false {
                 game.engine.ship?.add(component: RightComponent.shared)
             }
-        }
-
-        func turn_right_off() {
-            game.engine.ship?.remove(componentClass: RightComponent.self)
         }
 
         func turn_left_off() {
@@ -233,11 +289,6 @@ class GamePadManager: NSObject {
             game.engine.ship?[RepeatingAudioComponent.self]?.state = .shouldStop
         }
 
-        let deltaTime = game.currentTime - previousTime
-        previousTime = game.currentTime
-        timeSinceFired += deltaTime
-        timeSinceFlip += deltaTime
-        timeSinceHyperspace += deltaTime
         // HYPERSPACE
         if pad.rightShoulder.isPressed && pad.rightShoulder.value == 1.0 {
             hyperSpace()
@@ -273,58 +324,74 @@ class GamePadManager: NSObject {
 
     typealias ElementName = String
     typealias ElementSymbolName = String
-    var buttonElements: [ElementName: GCControllerButtonInput] = [:]
-    var dpadElements: [ElementName: GCControllerDirectionPad] = [:]
 
-    func allButtonElements(from pad: GCExtendedGamepad) -> [ElementName: GCControllerButtonInput] {
-        var elements: [ElementName: GCControllerButtonInput] = [:]
-        elements["Button A"] = pad.buttonA
-        elements["Button B"] = pad.buttonB
-        elements["Button Menu"] = pad.buttonMenu
-        elements["Button X"] = pad.buttonX
-        elements["Button Y"] = pad.buttonY
-        elements["Left Shoulder"] = pad.leftShoulder
-        elements["Left Trigger"] = pad.leftTrigger
-        elements["Right Shoulder"] = pad.rightShoulder
-        elements["Right Trigger"] = pad.rightTrigger
-        return elements
-    }
-
-    func allDpadElements(from pad: GCExtendedGamepad) -> [ElementName: GCControllerDirectionPad] {
-        var elements: [ElementName: GCControllerDirectionPad] = [:]
-        elements["Direction Pad"] = pad.dpad
-        elements["Left Thumbstick"] = pad.leftThumbstick
-        elements["Right Thumbstick"] = pad.rightThumbstick
-        return elements
-    }
-
-    let elementNameToSymbolName: [ElementName: ElementSymbolName] = [
-        "Button A": "a.circle",
-        "Button B": "b.circle",
-        "Button Menu": "line.horizontal.3.circle",
-        "Button Options": "house.circle",
-        "Button X": "x.circle",
-        "Button Y": "y.circle",
-        "Direction Pad": "dpad",
-        "Left Shoulder": "l1.rectangle.roundedbottom",
-        "Left Thumbstick": "l.joystick",
-        "Left Trigger": "l2.rectangle.roundedtop",
-        "Right Shoulder": "r1.rectangle.roundedbottom",
-        "Right Thumbstick": "r.joystick",
-        "Right Trigger": "r2.rectangle.roundedtop"
+    @Published var gameCommandToElementName: [GameCommand: String?] = [
+        .fire: "R2 Button",
+        .thrust: "Right Thumbstick (Up)",
+        .hyperspace: "R1 Button",
+        .left: "Left Thumbstick (Left)",
+        .right: "Left Thumbstick (Right)",
+        .pause: "Menu Button",
+        .flip: "L1 Button",
+        .home: "X Button",
+        .settings: "Y Button",
+        .resume: "B Button",
+        .continue: "A Button",
     ]
-
-    private func printElementInfo(element: GCControllerElement) {
-        print("----")
-        print("Element:                 \(element)")
-        print("localizedName:           \(element.localizedName!)")
-        print("unmappedLocalizedName:   \(element.unmappedLocalizedName!)")
-        print("sfSymbolsName:           \(element.sfSymbolsName!)")
-        print("unmappedSfSymbolsName:   \(element.unmappedSfSymbolsName!)")
-        print("aliases:                 \(element.aliases)")
-        print("isAnalog:                \(element.isAnalog)")
-        print("----")
-    }
+    @Published var elementNameToGameCommand: [String: GameCommand?] =
+        [
+            "A Button": .continue,
+            "B Button": .resume,
+            "X Button": .home,
+            "Y Button": .settings,
+            "Menu Button": .pause,
+            "Options Button": .pause,
+            "Direction Pad Left": .pause,
+            "Direction Pad Right": .pause,
+            "Direction Pad Up": .pause,
+            "Direction Pad Downn": .pause,
+            "L1 Button": .flip,
+            "R1 Button": .hyperspace,
+            "Left Thumbstick (Left)": .left,
+            "Left Thumbstick (Right)": .right,
+            "Left Thumbstick (Up)": nil,
+            "Left Thumbstick (Down)": nil,
+            "Left Thumbstick Button": .pause,
+            "Right Thumbstick (Left)": nil,
+            "Right Thumbstick (Right)": nil,
+            "Right Thumbstick (Up)": .thrust,
+            "Right Thumbstick (Down)": nil,
+            "Right Thumbstick Button": .pause,
+            "L2 Button": .flip,
+            "R2 Button": .fire,
+        ]
+    let elementNameToSymbolName: [ElementName: ElementSymbolName] = [
+        "A Button": "a.circle",
+        "B Button": "b.circle",
+        "Direction Pad": "dpad",
+        "L1 Button": "l1.rectangle.roundedbottom",
+        "L2 Button": "l2.rectangle.roundedtop",
+        "Menu Button": "line.horizontal.3.circle",
+        "Options Button": "house.circle",
+        "R1 Button": "r1.rectangle.roundedbottom",
+        "R2 Button": "r2.rectangle.roundedtop",
+        "X Button": "x.circle",
+        "Y Button": "y.circle",
+        "Left Thumbstick (Left)": "l.joystick.tilt.left",
+        "Left Thumbstick (Right)": "l.joystick.tilt.right",
+        "Left Thumbstick (Up)": "l.joystick.tilt.up",
+        "Left Thumbstick (Down)": "l.joystick.tilt.down",
+        "Left Thumbstick Button": "l.joystick.press.down",
+        "Right Thumbstick (Left)": "r.joystick.tilt.left",
+        "Right Thumbstick (Right)": "r.joystick.tilt.right",
+        "Right Thumbstick (Up)": "r.joystick.tilt.up",
+        "Right Thumbstick (Down)": "r.joystick.tilt.down",
+        "Right Thumbstick Button": "r.joystick.press.down",
+        "Direction Pad (Left)": "dpad.left.filled",
+        "Direction Pad (Right)": "dpad.right.filled",
+        "Direction Pad (Up)": "dpad.up.filled",
+        "Direction Pad (Downn)": "dpad.down.filled",
+    ]
 }
 
 import Swash

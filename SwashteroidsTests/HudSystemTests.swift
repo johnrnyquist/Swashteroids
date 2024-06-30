@@ -15,10 +15,16 @@ import XCTest
 class HudSystemTests: XCTestCase {
     var system: HudSystem!
     var powerUpCreator: PowerUpCreatorUseCase!
+    var engine: Engine!
 
     override func setUpWithError() throws {
         powerUpCreator = MockPowerUpCreator()
         system = HudSystem(powerUpCreator: powerUpCreator)
+        engine = Engine()
+        engine.add(system: system, priority: 1)
+        let entity = Entity(named: .appState)
+        entity.add(component: SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero)))
+        engine.add(entity: entity)
     }
 
     override func tearDownWithError() throws {
@@ -28,12 +34,12 @@ class HudSystemTests: XCTestCase {
     func test_UpdateNode() throws {
         let hudNode = HudNode()
         let hudComponent = HudComponent(hudView: HudView(gameSize: .zero))
-        let appStateComponent = SwashteroidsStateComponent(config: SwashteroidsConfig(gameSize: .zero))
+        let appStateComponent = engine.appStateComponent
         appStateComponent.numShips = 1
         appStateComponent.level = 2
         appStateComponent.score = 3
         hudNode.components[HudComponent.name] = hudComponent
-        hudNode.components[SwashteroidsStateComponent.name] = appStateComponent
+//        hudNode.components[SwashteroidsStateComponent.name] = appStateComponent
         system.updateNode(hudNode, 1)
         XCTAssertEqual(hudComponent.hudView.getNumShipsText(), "SHIPS: 1")
         XCTAssertEqual(hudComponent.hudView.getLevelText(), "LEVEL: 2")
