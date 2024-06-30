@@ -68,37 +68,49 @@ struct SettingsView: View {
                 }.padding(0)
                  .padding(.top, 20)
                  .padding(.trailing, 20)
+                 .disabled(gamePadManager.gameCommandToElementName.contains { $0.value == nil })
             }
             Text("Settings")
                     .padding(0)
                     .font(.title)
-            Text("Tap a button to assign a function to it.")
-                    .padding(0)
-                    .font(.subheadline)
+            HStack {
+                Text(gamePadManager.gameCommandToElementName.contains { $0.value == nil }
+                     ? "Tap a button to assign a function to it. "
+                     : "Tap a button to assign a function to it.")
+                        .padding(0)
+                        .font(.subheadline)
+                Text(gamePadManager.gameCommandToElementName.contains { $0.value == nil }
+                     ? "All values on all screens must be set."
+                     : "")
+                        .padding(0)
+                        .font(.subheadline)
+                        .foregroundColor(.red)
+            }
             Picker("Swashteroids State", selection: $currentAppState) {
                 ForEach(GameState.allCases, id: \.self) { state in
                     Text(state.rawValue).tag(state)
                 }
             }.padding(0)
             List(currentAppState.commandsPerScreen, id: \.self) { command in
-                HStack {
-                    Text(command.rawValue)
-                    Spacer()
-                    Button(action: {
-                        curCommand = command
-                        showAlert = true
-                    }) {
-                        HStack {
-                            if let commandName = gamePadManager.gameCommandToElementName[command],
-                               let sfSymbolName = gamePadManager.elementNameToSymbolName[
-                                   commandName ?? "exclamationmark.octagon.fill"
-                                   ] {
-                                Image(systemName: sfSymbolName)
-                            }
-                            Text((gamePadManager.gameCommandToElementName[command] ?? "Not Set") ?? "Not Set")
+                Button(action: {
+                    curCommand = command
+                    showAlert = true
+                }, label: {
+                    HStack {
+                        Text(command.rawValue)
+                        Spacer()
+                        if let elementName = gamePadManager.gameCommandToElementName[command],
+                           let sfSymbolName = gamePadManager.elementNameToSymbolName[
+                               elementName ?? "exclamationmark.octagon.fill"
+                               ] {
+                            Image(systemName: sfSymbolName)
+                        } else {
+                            Image(systemName: "exclamationmark.octagon.fill")
+                                .foregroundColor(.red)
                         }
+                        Text((gamePadManager.gameCommandToElementName[command] ?? "Not Set") ?? "Not Set")
                     }
-                }
+                })
             }
             HStack {
                 Button("Reset to Previous") {
@@ -110,23 +122,30 @@ struct SettingsView: View {
                 }
             }.padding()
         }.alert(isPresented: $showAlert) {
-             Alert(
-                 title: Text("Assign Function"),
-                 message: Text("Press a button on your game controller to assign to '\(curCommand?.rawValue ?? "Test")'"),
-                 dismissButton: .cancel(Text("Cancel"))
-             )
-         }
-         .onReceive(gamePadManager.$lastElementPressed) { str in
-             guard let command = curCommand,
-                   let str else { return }
-             gamePadManager.gameCommandToElementName[command] = str
-             curCommand = nil
-             showAlert = false
-             print("Updated \(command.rawValue) to \(str)")
-         }
+            Alert(
+                title: Text("Assign Function"),
+                message: Text("Press a button on your game controller to assign to '\(curCommand?.rawValue ?? "Test")'"),
+                dismissButton: .cancel(Text("Cancel"))
+            )
+        }.onReceive(gamePadManager.$lastElementPressed) { str in
+            guard let command = curCommand,
+                  let str = str else { return }
+            // Iterate over the dictionary and nil out the previous place where str was used
+            for (key, value) in gamePadManager.gameCommandToElementName {
+                if value == str {
+                    gamePadManager.gameCommandToElementName[key] = nil_string
+                }
+            }
+            // Assign the new str to the current command
+            gamePadManager.gameCommandToElementName[command] = str
+            curCommand = nil
+            showAlert = false
+            print("Updated \(command.rawValue) to \(str)")
+        }
     }
 }
 
+public let nil_string: String? = nil
 #Preview {
     SettingsView(gamePadManager: GamePadManager(game: Swashteroids(scene: GameScene(),
                                                                    alertPresenter: MockAlertPresenter()),

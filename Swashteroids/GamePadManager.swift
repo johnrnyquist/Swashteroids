@@ -34,7 +34,10 @@ class GamePadManager: NSObject, ObservableObject {
         .home: "X Button",
         .resume: "B Button",
         .settings: "Y Button",
-        // start and info screens
+        // start 
+        .buttons: "X Button",
+        .noButtons: "B Button",
+        // info screens
         .continue: "A Button",
     ]
     weak var game: Swashteroids!
@@ -116,60 +119,68 @@ class GamePadManager: NSObject, ObservableObject {
         game.usingScreenControls()
     }
 
-    func fire() {
-        if timeSinceFired > 0.2 {
+    func fire(isPressed: Bool) {
+        if isPressed,
+           timeSinceFired > 0.2 {
             timeSinceFired = 0.0
             game.engine.ship?.add(component: FireDownComponent.shared)
+        } else {
+            game.engine.ship?.remove(componentClass: FireDownComponent.self)
         }
     }
 
-    func thrust() {
-        game.engine.ship?.add(component: ApplyThrustComponent.shared)
-        game.engine.ship?[WarpDriveComponent.self]?.isThrusting = true
-        game.engine.ship?[RepeatingAudioComponent.self]?.state = .shouldBegin
+    func thrust(isPressed: Bool) {
+        if isPressed {
+            game.engine.ship?.add(component: ApplyThrustComponent.shared)
+            game.engine.ship?[WarpDriveComponent.self]?.isThrusting = true
+            game.engine.ship?[RepeatingAudioComponent.self]?.state = .shouldBegin
+        } else {
+            game.engine.ship?.remove(componentClass: ApplyThrustComponent.self)
+            game.engine.ship?[WarpDriveComponent.self]?.isThrusting = false
+            game.engine.ship?[RepeatingAudioComponent.self]?.state = .shouldStop
+        }
     }
 
-    func hyperSpace() {
-        if timeSinceHyperspace > 0.5 {
+    func hyperSpace(isPressed: Bool) {
+        if isPressed,
+           timeSinceHyperspace > 0.5 {
             timeSinceHyperspace = 0.0
             game.engine.ship?.add(component: DoHyperspaceJumpComponent(size: size))
+        } else {
+            game.engine.ship?.remove(componentClass: DoHyperspaceJumpComponent.self)
         }
     }
 
-    func flip() {
+    func flip(isPressed: Bool) {
         if timeSinceFlip > 0.2 {
             timeSinceFlip = 0.0
             game.engine.ship?.add(component: FlipComponent.shared)
+        } else {
+            game.engine.ship?.remove(componentClass: FlipComponent.self)
         }
     }
 
-    func turn_left() {
-        if game.engine.ship?.has(componentClass: RightComponent.self) == false {
-            game.engine.ship?.add(component: LeftComponent.shared)
+    func turn_left(isPressed: Bool) {
+        if isPressed {
+            if game.engine.ship?.has(componentClass: RightComponent.self) == false {
+                game.engine.ship?.add(component: LeftComponent.shared)
+            } else {
+                game.engine.ship?.remove(componentClass: LeftComponent.self)
+            }
         }
     }
 
-    func turn_right_off() {
-        game.engine.ship?.remove(componentClass: RightComponent.self)
-    }
-
-    func turn_right() {
-        if game.engine.ship?.has(componentClass: LeftComponent.self) == false {
-            game.engine.ship?.add(component: RightComponent.shared)
+    func turn_right(isPressed: Bool) {
+        if isPressed {
+            if game.engine.ship?.has(componentClass: LeftComponent.self) == false {
+                game.engine.ship?.add(component: RightComponent.shared)
+            } else {
+                game.engine.ship?.remove(componentClass: RightComponent.self)
+            }
         }
     }
 
-    func turn_left_off() {
-        game.engine.ship?.remove(componentClass: LeftComponent.self)
-    }
-
-    func thrust_off() {
-        game.engine.ship?.remove(componentClass: ApplyThrustComponent.self)
-        game.engine.ship?[WarpDriveComponent.self]?.isThrusting = false
-        game.engine.ship?[RepeatingAudioComponent.self]?.state = .shouldStop
-    }
-
-    private func execute(_ command: GameCommand) {
+    private func execute(command: GameCommand, for button: GCControllerButtonInput) {
         print(#function, command)
         let deltaTime = game.currentTime - previousTime
         previousTime = game.currentTime
@@ -177,13 +188,13 @@ class GamePadManager: NSObject, ObservableObject {
         timeSinceFlip += deltaTime
         timeSinceHyperspace += deltaTime
         switch command {
-            case .fire: fire()
-            case .thrust: thrust()
-            case .hyperspace: hyperSpace()
-            case .left: turn_left()
-            case .right: turn_right()
+            case .fire: fire(isPressed: button.isPressed)
+            case .thrust: thrust(isPressed: button.isPressed)
+            case .hyperspace: hyperSpace(isPressed: button.isPressed)
+            case .left: turn_left(isPressed: button.isPressed)
+            case .right: turn_right(isPressed: button.isPressed)
             case .pause: break
-            case .flip: flip()
+            case .flip: flip(isPressed: button.isPressed)
             case .home: break
             case .settings: break
             case .resume: break
@@ -259,31 +270,34 @@ class GamePadManager: NSObject, ObservableObject {
     }
 
     private func controllerInputDetected(pad: GCExtendedGamepad, element: GCControllerElement) {
+         
+
+
+
+
+
+
+
         let buttons = resolveInput(pad: pad, element: element)
         lastElementPressed = buttons.last?.localizedName
-//        guard let elementName = lastElementPressed,
-//              let command = findKey(forValue: elementName, in: gameCommandToElementName),
-//              mode == .game
-//        else {
-//            return
-//        }
-//        for button in buttons {
-//            if let elementName = button.localizedName,
-//               let command = findKey(forValue: elementName, in: gameCommandToElementName) {
-//                execute(command)
-//            }
-//        }
-        switch game.engine.appStateComponent.swashteroidsState {
-            case .start:
-                handleStartState(pad: pad)
-            case .infoButtons, .infoNoButtons:
-                break
-            case .gameOver:
-                handleAlertState(pad: pad)
-            case .playing:
-                handleAlertState(pad: pad)
-                handlePlayingState(pad: pad)
+
+        for button in buttons {
+            if let elementName = button.localizedName,
+               let command = findKey(forValue: elementName, in: gameCommandToElementName) {
+                execute(command: command, for: button)
+            }
         }
+//        switch game.engine.appStateComponent.swashteroidsState {
+//            case .start:
+//                handleStartState(pad: pad)
+//            case .infoButtons, .infoNoButtons:
+//                break
+//            case .gameOver:
+//                handleAlertState(pad: pad)
+//            case .playing:
+//                handleAlertState(pad: pad)
+//                handlePlayingState(pad: pad)
+//        }
     }
 
     private func handleStartState(pad: GCExtendedGamepad) {
@@ -307,41 +321,41 @@ class GamePadManager: NSObject, ObservableObject {
     }
 
     private func handlePlayingState(pad: GCExtendedGamepad) {
-        let deltaTime = game.currentTime - previousTime
-        previousTime = game.currentTime
-        timeSinceFired += deltaTime
-        timeSinceFlip += deltaTime
-        timeSinceHyperspace += deltaTime
-        // HYPERSPACE
-        if pad.rightShoulder.isPressed {
-            hyperSpace()
-        }
-        // FLIP
-        if pad.leftShoulder.isPressed {
-            flip()
-        }
-        // FIRE
-        if pad.rightTrigger.isPressed {
-            fire()
-        }
-        // TURN LEFT
-        if pad.leftThumbstick.left.isPressed  {
-            turn_left()
-        } else {
-            turn_left_off()
-        }
-        // TURN RIGHT
-        if pad.leftThumbstick.right.isPressed  {
-            turn_right()
-        } else {
-            turn_right_off()
-        }
-        // THRUST
-        if pad.rightThumbstick.up.isPressed {
-            thrust()
-        } else {
-            thrust_off()
-        }
+//        let deltaTime = game.currentTime - previousTime
+//        previousTime = game.currentTime
+//        timeSinceFired += deltaTime
+//        timeSinceFlip += deltaTime
+//        timeSinceHyperspace += deltaTime
+//        // HYPERSPACE
+//        if pad.rightShoulder.isPressed {
+//            hyperSpace()
+//        }
+//        // FLIP
+//        if pad.leftShoulder.isPressed {
+//            flip()
+//        }
+//        // FIRE
+//        if pad.rightTrigger.isPressed {
+//            fire()
+//        }
+//        // TURN LEFT
+//        if pad.leftThumbstick.left.isPressed {
+//            turn_left()
+//        } else {
+//            turn_left_off()
+//        }
+//        // TURN RIGHT
+//        if pad.leftThumbstick.right.isPressed {
+//            turn_right()
+//        } else {
+//            turn_right_off()
+//        }
+//        // THRUST
+//        if pad.rightThumbstick.up.isPressed {
+//            thrust()
+//        } else {
+//            thrust_off()
+//        }
     }
 
     typealias ElementName = String
