@@ -119,18 +119,32 @@ class GamePadManager: NSObject, ObservableObject {
         game.usingScreenControls()
     }
 
-    func fire(isPressed: Bool) {
-        if isPressed,
+    func fire(_ button: GCControllerButtonInput) {
+        if button.isPressed, button.value == 1.0,
            timeSinceFired > 0.2 {
             timeSinceFired = 0.0
             game.engine.ship?.add(component: FireDownComponent.shared)
-        } else {
-            game.engine.ship?.remove(componentClass: FireDownComponent.self)
         }
     }
 
-    func thrust(isPressed: Bool) {
-        if isPressed {
+    func hyperSpace(_ button: GCControllerButtonInput) {
+        if button.isPressed, button.value == 1.0,
+           timeSinceHyperspace > 0.5 {
+            timeSinceHyperspace = 0.0
+            game.engine.ship?.add(component: DoHyperspaceJumpComponent(size: size))
+        }
+    }
+
+    func flip(_ button: GCControllerButtonInput) {
+        if button.isPressed, button.value == 1.0,
+           timeSinceFlip > 0.2 {
+            timeSinceFlip = 0.0
+            game.engine.ship?.add(component: FlipComponent.shared)
+        }
+    }
+
+    func thrust(_ button: GCControllerButtonInput) {
+        if button.isPressed {
             game.engine.ship?.add(component: ApplyThrustComponent.shared)
             game.engine.ship?[WarpDriveComponent.self]?.isThrusting = true
             game.engine.ship?[RepeatingAudioComponent.self]?.state = .shouldBegin
@@ -141,42 +155,23 @@ class GamePadManager: NSObject, ObservableObject {
         }
     }
 
-    func hyperSpace(isPressed: Bool) {
-        if isPressed,
-           timeSinceHyperspace > 0.5 {
-            timeSinceHyperspace = 0.0
-            game.engine.ship?.add(component: DoHyperspaceJumpComponent(size: size))
-        } else {
-            game.engine.ship?.remove(componentClass: DoHyperspaceJumpComponent.self)
-        }
-    }
-
-    func flip(isPressed: Bool) {
-        if timeSinceFlip > 0.2 {
-            timeSinceFlip = 0.0
-            game.engine.ship?.add(component: FlipComponent.shared)
-        } else {
-            game.engine.ship?.remove(componentClass: FlipComponent.self)
-        }
-    }
-
-    func turn_left(isPressed: Bool) {
-        if isPressed {
+    func turn_left(_ button: GCControllerButtonInput) {
+        if button.isPressed {
             if game.engine.ship?.has(componentClass: RightComponent.self) == false {
                 game.engine.ship?.add(component: LeftComponent.shared)
-            } else {
-                game.engine.ship?.remove(componentClass: LeftComponent.self)
             }
+        } else {
+            game.engine.ship?.remove(componentClass: LeftComponent.self)
         }
     }
 
-    func turn_right(isPressed: Bool) {
-        if isPressed {
+    func turn_right(_ button: GCControllerButtonInput) {
+        if button.isPressed {
             if game.engine.ship?.has(componentClass: LeftComponent.self) == false {
                 game.engine.ship?.add(component: RightComponent.shared)
-            } else {
-                game.engine.ship?.remove(componentClass: RightComponent.self)
             }
+        } else {
+            game.engine.ship?.remove(componentClass: RightComponent.self)
         }
     }
 
@@ -188,13 +183,13 @@ class GamePadManager: NSObject, ObservableObject {
         timeSinceFlip += deltaTime
         timeSinceHyperspace += deltaTime
         switch command {
-            case .fire: fire(isPressed: button.isPressed)
-            case .thrust: thrust(isPressed: button.isPressed)
-            case .hyperspace: hyperSpace(isPressed: button.isPressed)
-            case .left: turn_left(isPressed: button.isPressed)
-            case .right: turn_right(isPressed: button.isPressed)
+            case .fire: fire(button)
+            case .thrust: thrust(button)
+            case .hyperspace: hyperSpace(button)
+            case .left: turn_left(button)
+            case .right: turn_right(button)
             case .pause: break
-            case .flip: flip(isPressed: button.isPressed)
+            case .flip: flip(button)
             case .home: break
             case .settings: break
             case .resume: break
@@ -204,10 +199,10 @@ class GamePadManager: NSObject, ObservableObject {
         }
     }
 
-    func resolveInput(pad: GCExtendedGamepad, element: GCControllerElement) -> [GCControllerButtonInput] {
+    func allButtons(pad: GCExtendedGamepad, element: GCControllerElement) -> [GCControllerButtonInput] {
         print("element", element.localizedName!)
-        var button: GCControllerButtonInput? = element as? GCControllerButtonInput
-        var buttons: [GCControllerButtonInput?] = []
+        let button: GCControllerButtonInput? = element as? GCControllerButtonInput
+        var buttons: [GCControllerButtonInput] = []
         if let button { // element is a button
             if button.isPressed {
                 buttons.append(button)
@@ -215,72 +210,82 @@ class GamePadManager: NSObject, ObservableObject {
         } else if let dpad = element as? GCControllerDirectionPad { // element is a dpad
             switch dpad { // what kind of dpad
                 case pad.dpad: // these are exclusive positions
+                    buttons.append(pad.dpad.left)
+                    buttons.append(pad.dpad.right)
+                    buttons.append(pad.dpad.up)
+                    buttons.append(pad.dpad.down)
+                case pad.leftThumbstick: // these are non-exclusive positions
+                    buttons.append(pad.leftThumbstick.left)
+                    buttons.append(pad.leftThumbstick.right)
+                    buttons.append(pad.leftThumbstick.up)
+                    buttons.append(pad.leftThumbstick.down)
+                case pad.rightThumbstick: // these are non-exclusive positions
+                    buttons.append(pad.rightThumbstick.left)
+                    buttons.append(pad.rightThumbstick.right)
+                    buttons.append(pad.rightThumbstick.up)
+                    buttons.append(pad.rightThumbstick.down)
+                default:
+                    break
+            }
+        }
+        return buttons
+    }
+
+    func getLastPressedName(pad: GCExtendedGamepad, element: GCControllerElement) -> String? {
+        print("element", element.localizedName!)
+        var button: GCControllerButtonInput? = element as? GCControllerButtonInput
+        if let button { // element is a button
+            if button.isPressed {
+                return button.localizedName
+            }
+        } else if let dpad = element as? GCControllerDirectionPad { // element is a dpad
+            switch dpad { // what kind of dpad
+                case pad.dpad: // these are exclusive positions
                     if pad.dpad.left.isPressed {
                         button = pad.dpad.left
-                        buttons.append(button)
                     } else if pad.dpad.right.isPressed {
                         button = pad.dpad.right
-                        buttons.append(button)
                     } else if pad.dpad.up.isPressed {
                         button = pad.dpad.up
-                        buttons.append(button)
                     } else if pad.dpad.down.isPressed {
                         button = pad.dpad.down
-                        buttons.append(button)
                     }
                 case pad.leftThumbstick: // these are non-exclusive positions
                     if pad.leftThumbstick.left.isPressed {
                         button = pad.leftThumbstick.left
-                        buttons.append(button)
                     }
                     if pad.leftThumbstick.right.isPressed {
                         button = pad.leftThumbstick.right
-                        buttons.append(button)
                     }
                     if pad.leftThumbstick.up.isPressed {
                         button = pad.leftThumbstick.up
-                        buttons.append(button)
                     }
                     if pad.leftThumbstick.down.isPressed {
                         button = pad.leftThumbstick.down
-                        buttons.append(button)
                     }
                 case pad.rightThumbstick: // these are non-exclusive positions
                     if pad.rightThumbstick.left.isPressed {
                         button = pad.rightThumbstick.left
-                        buttons.append(button)
                     }
                     if pad.rightThumbstick.right.isPressed {
                         button = pad.rightThumbstick.right
-                        buttons.append(button)
                     }
                     if pad.rightThumbstick.up.isPressed {
                         button = pad.rightThumbstick.up
-                        buttons.append(button)
                     }
                     if pad.rightThumbstick.down.isPressed {
                         button = pad.rightThumbstick.down
-                        buttons.append(button)
                     }
                 default:
                     break
             }
         }
-        return buttons.compactMap { $0 }
+        return button?.localizedName
     }
 
     private func controllerInputDetected(pad: GCExtendedGamepad, element: GCControllerElement) {
-         
-
-
-
-
-
-
-
-        let buttons = resolveInput(pad: pad, element: element)
-        lastElementPressed = buttons.last?.localizedName
-
+        let buttons = allButtons(pad: pad, element: element)
+        lastElementPressed = getLastPressedName(pad: pad, element: element)
         for button in buttons {
             if let elementName = button.localizedName,
                let command = findKey(forValue: elementName, in: gameCommandToElementName) {
