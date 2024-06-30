@@ -134,6 +134,7 @@
 		8DE66F132C14CA5000ECEE96 /* SplitAsteroidNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE66F122C14CA5000ECEE96 /* SplitAsteroidNode.swift */; };
 		931390FD65B5AF82D24FEB32 /* CollisionSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139BEB3AC5615963614D45 /* CollisionSystemTests.swift */; };
 		93139113FFD9F17E28DA721A /* DeathThroesSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931397AEAB4946A616156BF7 /* DeathThroesSystemTests.swift */; };
+		9313913D152F44CFF69D3EDC /* Dictionary+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139A5C099B78460F248810 /* Dictionary+extensions.swift */; };
 		931391652E9BD1A49E925FB4 /* ReactionTimeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139927DCF5E5DC2AE98363 /* ReactionTimeNode.swift */; };
 		931391D71C321C0A29A57949 /* GunNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139E79623BA0A03F3FDF2B /* GunNode.swift */; };
 		931392438E0382586D8988D5 /* AlienFiringNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313995C9360F53AD9D2BB65 /* AlienFiringNode.swift */; };
@@ -431,6 +432,7 @@
 		931399A8022AF1B7FCC53B49 /* RepeatingAudioComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatingAudioComponent.swift; sourceTree = "<group>"; };
 		931399EE25531368708F9E58 /* NacellesSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NacellesSystem.swift; sourceTree = "<group>"; };
 		931399F9256FB8B5F9EBA4E4 /* MovementSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovementSystemTests.swift; sourceTree = "<group>"; };
+		93139A5C099B78460F248810 /* Dictionary+extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+extensions.swift"; sourceTree = "<group>"; };
 		93139A62ACBE6CDFC10158E7 /* MovementRateComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovementRateComponent.swift; sourceTree = "<group>"; };
 		93139A6D529EF901F7F45FFD /* GameplayManagerSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameplayManagerSystemTests.swift; sourceTree = "<group>"; };
 		93139A6E99AFA9F956DD8A0A /* ReactionTimeSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReactionTimeSystem.swift; sourceTree = "<group>"; };
@@ -810,6 +812,7 @@
 				931394D1D0B636772EE1DFF7 /* String+EntityNames.swift */,
 				8D8F24B52B51D47700B2E223 /* UIColor+extensions.swift */,
 				8DDD71532C2F3D7500290D2D /* GCController+extensions.swift */,
+				93139A5C099B78460F248810 /* Dictionary+extensions.swift */,
 			);
 			name = extensions;
 			sourceTree = "<group>";
@@ -1191,6 +1194,7 @@
 				93139290D68BDC61CC936C0E /* AlienAppearancesSystem.swift in Sources */,
 				93139A6C0DBE796C7456682D /* LevelManagementSystem.swift in Sources */,
 				9313973A5076963CC0C269A5 /* GamePadManager.swift in Sources */,
+				9313913D152F44CFF69D3EDC /* Dictionary+extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

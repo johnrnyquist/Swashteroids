@@ -8,8 +8,6 @@
 // https://github.com/johnrnyquist/Swash
 //
 
-@testable import Swashteroids
-
 class MockAlertPresenter: AlertPresenting {
     func showSettings() {}
     

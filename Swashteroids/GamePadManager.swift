@@ -18,7 +18,25 @@ enum GamePadManagerMode {
 }
 
 class GamePadManager: NSObject, ObservableObject {
+    @Published var gameCommandToElementName: [GameCommand: String?] = GamePadManager.defaultMappings
     @Published var lastElementPressed: String?
+    static let defaultMappings: [GameCommand: String?] = [
+        // always available in game
+        .left: "Left Thumbstick (Left)",
+        .right: "Left Thumbstick (Right)",
+        .thrust: "Right Thumbstick (Up)",
+        .flip: "L1 Button",
+        .pause: "Menu Button",
+        // sometimes available in game. power ups
+        .fire: "R2 Button",
+        .hyperspace: "R1 Button",
+        // when alert is up
+        .home: "X Button",
+        .resume: "B Button",
+        .settings: "Y Button",
+        // start and info screens
+        .continue: "A Button",
+    ]
     weak var game: Swashteroids!
     var mode: GamePadManagerMode = .game
     var previousTime = 0.0
@@ -32,6 +50,25 @@ class GamePadManager: NSObject, ObservableObject {
         self.size = size
         super.init()
         setupObservers()
+        gameCommandToElementName = loadSettings()
+    }
+
+    func findKey(forValue value: String, in dictionary: [GameCommand: String?]) -> GameCommand? {
+        for (key, val) in dictionary {
+            if val == value {
+                return key
+            }
+        }
+        return nil
+    }
+
+    func loadSettings() -> [GameCommand: String?] {
+        let defaults = UserDefaults.standard
+        var result: [GameCommand: String?]?
+        if let retrievedDict = defaults.dictionary(forKey: "GameCommandDict") as? [String: String] {
+            result = retrievedDict.compactMapKeys { GameCommand(rawValue: $0) }
+        }
+        return result ?? GamePadManager.defaultMappings
     }
 
     deinit {
@@ -59,8 +96,8 @@ class GamePadManager: NSObject, ObservableObject {
             print(controller.vendorName ?? "Unknown Vendor")
             //Check to see whether it is an extended Game Controller (Such as a Nimbus)
             if let pad = controller.extendedGamepad {
-//                buttonElements = allButtonElements(from: pad)
-//                dpadElements = allDpadElements(from: pad)
+                //                buttonElements = allButtonElements(from: pad)
+                //                dpadElements = allDpadElements(from: pad)
                 game.engine.appStateEntity.add(component: GamePadComponent())
                 game.usingGameController()
                 pad.valueChangedHandler = controllerInputDetected
@@ -79,134 +116,174 @@ class GamePadManager: NSObject, ObservableObject {
         game.usingScreenControls()
     }
 
-    private func execute(_ command: GameCommand) {
-        print(#function, command)
-        switch command {
-            case .fire:
-                break
-            case .thrust:
-                break
-            case .hyperspace:
-                break
-            case .left:
-                break
-            case .right:
-                break
-            case .pause:
-                break
-            case .flip:
-                break
-            case .home:
-                break
-            case .settings:
-                break
-            case .resume:
-                break
-            case .continue:
-                break
-            case .buttons:
-                break
-            case .noButtons:
-                break
+    func fire() {
+        if timeSinceFired > 0.2 {
+            timeSinceFired = 0.0
+            game.engine.ship?.add(component: FireDownComponent.shared)
         }
     }
 
-    func resolveInput(pad: GCExtendedGamepad, element: GCControllerElement) -> String? {
-        print("ELEMENT NAME", element.localizedName!)
-        var result: String? = nil
-        if let button = element as? GCControllerButtonInput {
+    func thrust() {
+        game.engine.ship?.add(component: ApplyThrustComponent.shared)
+        game.engine.ship?[WarpDriveComponent.self]?.isThrusting = true
+        game.engine.ship?[RepeatingAudioComponent.self]?.state = .shouldBegin
+    }
+
+    func hyperSpace() {
+        if timeSinceHyperspace > 0.5 {
+            timeSinceHyperspace = 0.0
+            game.engine.ship?.add(component: DoHyperspaceJumpComponent(size: size))
+        }
+    }
+
+    func flip() {
+        if timeSinceFlip > 0.2 {
+            timeSinceFlip = 0.0
+            game.engine.ship?.add(component: FlipComponent.shared)
+        }
+    }
+
+    func turn_left() {
+        if game.engine.ship?.has(componentClass: RightComponent.self) == false {
+            game.engine.ship?.add(component: LeftComponent.shared)
+        }
+    }
+
+    func turn_right_off() {
+        game.engine.ship?.remove(componentClass: RightComponent.self)
+    }
+
+    func turn_right() {
+        if game.engine.ship?.has(componentClass: LeftComponent.self) == false {
+            game.engine.ship?.add(component: RightComponent.shared)
+        }
+    }
+
+    func turn_left_off() {
+        game.engine.ship?.remove(componentClass: LeftComponent.self)
+    }
+
+    func thrust_off() {
+        game.engine.ship?.remove(componentClass: ApplyThrustComponent.self)
+        game.engine.ship?[WarpDriveComponent.self]?.isThrusting = false
+        game.engine.ship?[RepeatingAudioComponent.self]?.state = .shouldStop
+    }
+
+    private func execute(_ command: GameCommand) {
+        print(#function, command)
+        let deltaTime = game.currentTime - previousTime
+        previousTime = game.currentTime
+        timeSinceFired += deltaTime
+        timeSinceFlip += deltaTime
+        timeSinceHyperspace += deltaTime
+        switch command {
+            case .fire: fire()
+            case .thrust: thrust()
+            case .hyperspace: hyperSpace()
+            case .left: turn_left()
+            case .right: turn_right()
+            case .pause: break
+            case .flip: flip()
+            case .home: break
+            case .settings: break
+            case .resume: break
+            case .continue: break
+            case .buttons: break
+            case .noButtons: break
+        }
+    }
+
+    func resolveInput(pad: GCExtendedGamepad, element: GCControllerElement) -> [GCControllerButtonInput] {
+        print("element", element.localizedName!)
+        var button: GCControllerButtonInput? = element as? GCControllerButtonInput
+        var buttons: [GCControllerButtonInput?] = []
+        if let button { // element is a button
             if button.isPressed {
-                print("button \(button.localizedName!) is pressed")
-            } else {
-                print("button \(button.localizedName!) is not pressed")
+                buttons.append(button)
             }
-            result = button.localizedName!
-        } else if let dpad = element as? GCControllerDirectionPad {
-            switch dpad {
-                case pad.dpad:
+        } else if let dpad = element as? GCControllerDirectionPad { // element is a dpad
+            switch dpad { // what kind of dpad
+                case pad.dpad: // these are exclusive positions
                     if pad.dpad.left.isPressed {
-                        print(pad.dpad.left.sfSymbolsName)
-                        result = pad.dpad.left.localizedName
+                        button = pad.dpad.left
+                        buttons.append(button)
                     } else if pad.dpad.right.isPressed {
-                        print(pad.dpad.right.sfSymbolsName)
-                        result = pad.dpad.right.localizedName
+                        button = pad.dpad.right
+                        buttons.append(button)
                     } else if pad.dpad.up.isPressed {
-                        print(pad.dpad.up.sfSymbolsName)
-                        result = pad.dpad.up.localizedName
+                        button = pad.dpad.up
+                        buttons.append(button)
                     } else if pad.dpad.down.isPressed {
-                        print(pad.dpad.down.sfSymbolsName)
-                        result = pad.dpad.down.localizedName
-                    } else {
-                        print("no direction")
+                        button = pad.dpad.down
+                        buttons.append(button)
                     }
-                case pad.leftThumbstick:
+                case pad.leftThumbstick: // these are non-exclusive positions
                     if pad.leftThumbstick.left.isPressed {
-                        print(pad.leftThumbstick.left.sfSymbolsName)
-                        result = pad.leftThumbstick.left.localizedName
-                    } else if pad.leftThumbstick.right.isPressed {
-                        print(pad.leftThumbstick.right.sfSymbolsName)
-                        result = pad.leftThumbstick.right.localizedName
-                    } else if pad.leftThumbstick.up.isPressed {
-                        print(pad.leftThumbstick.up.sfSymbolsName)
-                        result = pad.leftThumbstick.up.localizedName
-                    } else if pad.leftThumbstick.down.isPressed {
-                        print(pad.leftThumbstick.down.sfSymbolsName)
-                        result = pad.leftThumbstick.down.localizedName
-                    } else {
-                        print("no direction")
+                        button = pad.leftThumbstick.left
+                        buttons.append(button)
                     }
-                case pad.rightThumbstick:
-                    print("rightThumbstick \(pad.rightThumbstick.localizedName!)")
+                    if pad.leftThumbstick.right.isPressed {
+                        button = pad.leftThumbstick.right
+                        buttons.append(button)
+                    }
+                    if pad.leftThumbstick.up.isPressed {
+                        button = pad.leftThumbstick.up
+                        buttons.append(button)
+                    }
+                    if pad.leftThumbstick.down.isPressed {
+                        button = pad.leftThumbstick.down
+                        buttons.append(button)
+                    }
+                case pad.rightThumbstick: // these are non-exclusive positions
                     if pad.rightThumbstick.left.isPressed {
-                        print(pad.rightThumbstick.left.sfSymbolsName)
-                        result = pad.rightThumbstick.left.localizedName
-                    } else if pad.rightThumbstick.right.isPressed {
-                        print(pad.rightThumbstick.right.sfSymbolsName)
-                        result = pad.rightThumbstick.right.localizedName
-                    } else if pad.rightThumbstick.up.isPressed {
-                        print(pad.rightThumbstick.up.sfSymbolsName)
-                        result = pad.rightThumbstick.up.localizedName
-                    } else if pad.rightThumbstick.down.isPressed {
-                        print(pad.rightThumbstick.down.sfSymbolsName)
-                        result = pad.rightThumbstick.down.localizedName
-                    } else {
-                        print("no direction")
+                        button = pad.rightThumbstick.left
+                        buttons.append(button)
+                    }
+                    if pad.rightThumbstick.right.isPressed {
+                        button = pad.rightThumbstick.right
+                        buttons.append(button)
+                    }
+                    if pad.rightThumbstick.up.isPressed {
+                        button = pad.rightThumbstick.up
+                        buttons.append(button)
+                    }
+                    if pad.rightThumbstick.down.isPressed {
+                        button = pad.rightThumbstick.down
+                        buttons.append(button)
                     }
                 default:
                     break
             }
         }
-        return result
+        return buttons.compactMap { $0 }
     }
 
     private func controllerInputDetected(pad: GCExtendedGamepad, element: GCControllerElement) {
-        lastElementPressed = resolveInput(pad: pad, element: element)
-//        switch mode {
-//            case .game:
-//                for (buttonName, buttonInput) in buttonElements where element == buttonInput && buttonInput.isPressed {
-//                    if let command = elementNameToGameCommand[buttonName] {
-//                        execute(command)
-//                    }
-//                }
-//                for (dpadName, dpadInput) in dpadElements where element == dpadInput {
-//                    if let command = elementNameToGameCommand[dpadName] {
-//                        execute(command)
-//                    }
-//                }
-//            case .settings:
-//                break
+        let buttons = resolveInput(pad: pad, element: element)
+        lastElementPressed = buttons.last?.localizedName
+//        guard let elementName = lastElementPressed,
+//              let command = findKey(forValue: elementName, in: gameCommandToElementName),
+//              mode == .game
+//        else {
+//            return
 //        }
-//        switch game.engine.appStateComponent.swashteroidsState {
-//            case .start:
-//                handleStartState(pad: pad)
-//            case .infoButtons, .infoNoButtons:
-//                break
-//            case .gameOver:
-//                handleAlertState(pad: pad)
-//            case .playing:
-//                handleAlertState(pad: pad)
-//                handlePlayingState(pad: pad)
+//        for button in buttons {
+//            if let elementName = button.localizedName,
+//               let command = findKey(forValue: elementName, in: gameCommandToElementName) {
+//                execute(command)
+//            }
 //        }
+        switch game.engine.appStateComponent.swashteroidsState {
+            case .start:
+                handleStartState(pad: pad)
+            case .infoButtons, .infoNoButtons:
+                break
+            case .gameOver:
+                handleAlertState(pad: pad)
+            case .playing:
+                handleAlertState(pad: pad)
+                handlePlayingState(pad: pad)
+        }
     }
 
     private func handleStartState(pad: GCExtendedGamepad) {
@@ -235,81 +312,26 @@ class GamePadManager: NSObject, ObservableObject {
         timeSinceFired += deltaTime
         timeSinceFlip += deltaTime
         timeSinceHyperspace += deltaTime
-
-        func hyperSpace() {
-            if timeSinceHyperspace > 0.5 {
-                timeSinceHyperspace = 0.0
-                game.engine.ship?.add(component: DoHyperspaceJumpComponent(size: size))
-            }
-        }
-
-        func flip() {
-            if timeSinceFlip > 0.2 {
-                timeSinceFlip = 0.0
-                game.engine.ship?.add(component: FlipComponent.shared)
-            }
-        }
-
-        func fire() {
-            if timeSinceFired > 0.2 {
-                timeSinceFired = 0.0
-                game.engine.ship?.add(component: FireDownComponent.shared)
-            }
-        }
-
-        func turn_left() {
-            if game.engine.ship?.has(componentClass: RightComponent.self) == false {
-                game.engine.ship?.add(component: LeftComponent.shared)
-            }
-        }
-
-        func turn_right_off() {
-            game.engine.ship?.remove(componentClass: RightComponent.self)
-        }
-
-        func turn_right() {
-            if game.engine.ship?.has(componentClass: LeftComponent.self) == false {
-                game.engine.ship?.add(component: RightComponent.shared)
-            }
-        }
-
-        func turn_left_off() {
-            game.engine.ship?.remove(componentClass: LeftComponent.self)
-        }
-
-        func thrust() {
-            game.engine.ship?.add(component: ApplyThrustComponent.shared)
-            game.engine.ship?[WarpDriveComponent.self]?.isThrusting = true
-            game.engine.ship?[RepeatingAudioComponent.self]?.state = .shouldBegin
-        }
-
-        func thrust_off() {
-            game.engine.ship?.remove(componentClass: ApplyThrustComponent.self)
-            game.engine.ship?[WarpDriveComponent.self]?.isThrusting = false
-            game.engine.ship?[RepeatingAudioComponent.self]?.state = .shouldStop
-        }
-
         // HYPERSPACE
-        if pad.rightShoulder.isPressed && pad.rightShoulder.value == 1.0 {
+        if pad.rightShoulder.isPressed {
             hyperSpace()
         }
         // FLIP
-        if pad.leftShoulder.isPressed && pad.leftShoulder.value == 1.0 {
+        if pad.leftShoulder.isPressed {
             flip()
         }
         // FIRE
-        if pad.rightTrigger.isPressed,
-           pad.rightTrigger.value == 1.0 {
+        if pad.rightTrigger.isPressed {
             fire()
         }
         // TURN LEFT
-        if pad.leftThumbstick.left.isPressed || pad.dpad.left.isPressed {
+        if pad.leftThumbstick.left.isPressed  {
             turn_left()
         } else {
             turn_left_off()
         }
         // TURN RIGHT
-        if pad.leftThumbstick.right.isPressed || pad.dpad.right.isPressed {
+        if pad.leftThumbstick.right.isPressed  {
             turn_right()
         } else {
             turn_right_off()
@@ -324,73 +346,32 @@ class GamePadManager: NSObject, ObservableObject {
 
     typealias ElementName = String
     typealias ElementSymbolName = String
-
-    @Published var gameCommandToElementName: [GameCommand: String?] = [
-        .fire: "R2 Button",
-        .thrust: "Right Thumbstick (Up)",
-        .hyperspace: "R1 Button",
-        .left: "Left Thumbstick (Left)",
-        .right: "Left Thumbstick (Right)",
-        .pause: "Menu Button",
-        .flip: "L1 Button",
-        .home: "X Button",
-        .settings: "Y Button",
-        .resume: "B Button",
-        .continue: "A Button",
-    ]
-    @Published var elementNameToGameCommand: [String: GameCommand?] =
-        [
-            "A Button": .continue,
-            "B Button": .resume,
-            "X Button": .home,
-            "Y Button": .settings,
-            "Menu Button": .pause,
-            "Options Button": .pause,
-            "Direction Pad Left": .pause,
-            "Direction Pad Right": .pause,
-            "Direction Pad Up": .pause,
-            "Direction Pad Downn": .pause,
-            "L1 Button": .flip,
-            "R1 Button": .hyperspace,
-            "Left Thumbstick (Left)": .left,
-            "Left Thumbstick (Right)": .right,
-            "Left Thumbstick (Up)": nil,
-            "Left Thumbstick (Down)": nil,
-            "Left Thumbstick Button": .pause,
-            "Right Thumbstick (Left)": nil,
-            "Right Thumbstick (Right)": nil,
-            "Right Thumbstick (Up)": .thrust,
-            "Right Thumbstick (Down)": nil,
-            "Right Thumbstick Button": .pause,
-            "L2 Button": .flip,
-            "R2 Button": .fire,
-        ]
     let elementNameToSymbolName: [ElementName: ElementSymbolName] = [
         "A Button": "a.circle",
         "B Button": "b.circle",
-        "Direction Pad": "dpad",
-        "L1 Button": "l1.rectangle.roundedbottom",
-        "L2 Button": "l2.rectangle.roundedtop",
-        "Menu Button": "line.horizontal.3.circle",
-        "Options Button": "house.circle",
-        "R1 Button": "r1.rectangle.roundedbottom",
-        "R2 Button": "r2.rectangle.roundedtop",
-        "X Button": "x.circle",
-        "Y Button": "y.circle",
-        "Left Thumbstick (Left)": "l.joystick.tilt.left",
-        "Left Thumbstick (Right)": "l.joystick.tilt.right",
-        "Left Thumbstick (Up)": "l.joystick.tilt.up",
-        "Left Thumbstick (Down)": "l.joystick.tilt.down",
-        "Left Thumbstick Button": "l.joystick.press.down",
-        "Right Thumbstick (Left)": "r.joystick.tilt.left",
-        "Right Thumbstick (Right)": "r.joystick.tilt.right",
-        "Right Thumbstick (Up)": "r.joystick.tilt.up",
-        "Right Thumbstick (Down)": "r.joystick.tilt.down",
-        "Right Thumbstick Button": "r.joystick.press.down",
+        "Direction Pad (Down)": "dpad.down.filled",
         "Direction Pad (Left)": "dpad.left.filled",
         "Direction Pad (Right)": "dpad.right.filled",
         "Direction Pad (Up)": "dpad.up.filled",
-        "Direction Pad (Downn)": "dpad.down.filled",
+        "Direction Pad": "dpad",
+        "L1 Button": "l1.rectangle.roundedbottom",
+        "L2 Button": "l2.rectangle.roundedtop",
+        "Left Thumbstick (Down)": "l.joystick.tilt.down",
+        "Left Thumbstick (Left)": "l.joystick.tilt.left",
+        "Left Thumbstick (Right)": "l.joystick.tilt.right",
+        "Left Thumbstick (Up)": "l.joystick.tilt.up",
+        "Left Thumbstick Button": "l.joystick.press.down",
+        "Menu Button": "line.3.horizontal.circle",
+        "Options Button": "house.circle",
+        "R1 Button": "r1.rectangle.roundedbottom",
+        "R2 Button": "r2.rectangle.roundedtop",
+        "Right Thumbstick (Down)": "r.joystick.tilt.down",
+        "Right Thumbstick (Left)": "r.joystick.tilt.left",
+        "Right Thumbstick (Right)": "r.joystick.tilt.right",
+        "Right Thumbstick (Up)": "r.joystick.tilt.up",
+        "Right Thumbstick Button": "r.joystick.press.down",
+        "X Button": "x.circle",
+        "Y Button": "y.circle",
     ]
 }
 
@@ -417,5 +398,6 @@ class GamePadComponent: Component {
         commands.removeAll()
     }
 }
+
 
 

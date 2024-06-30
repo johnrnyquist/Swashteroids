@@ -53,46 +53,77 @@ struct SettingsView: View {
     @ObservedObject var gamePadManager: GamePadManager
     @State private var curCommand: GameCommand? = nil
     @State private var currentAppState: GameState = .playing
+    @State private var showAlert = false
     let hide: () -> Void
     var body: some View {
         VStack {
             HStack {
                 Spacer()
                 Button("Done") {
+                    // Save to UserDefaults
+                    let defaults = UserDefaults.standard
+                    let dictionary = gamePadManager.gameCommandToElementName.mapKeys { $0.rawValue }
+                    defaults.set(dictionary, forKey: "GameCommandDict")
                     hide()
-                }.padding()
+                }.padding(0)
+                 .padding(.top, 20)
+                 .padding(.trailing, 20)
             }
             Text("Settings")
+                    .padding(0)
                     .font(.title)
+            Text("Tap a button to assign a function to it.")
+                    .padding(0)
+                    .font(.subheadline)
             Picker("Swashteroids State", selection: $currentAppState) {
                 ForEach(GameState.allCases, id: \.self) { state in
                     Text(state.rawValue).tag(state)
                 }
-            }
+            }.padding(0)
             List(currentAppState.commandsPerScreen, id: \.self) { command in
                 HStack {
                     Text(command.rawValue)
                     Spacer()
                     Button(action: {
                         curCommand = command
+                        showAlert = true
                     }) {
                         HStack {
                             if let commandName = gamePadManager.gameCommandToElementName[command],
-                               let sfSymbolName = gamePadManager.elementNameToSymbolName[commandName  ?? "exclamationmark.octagon.fill"] {
+                               let sfSymbolName = gamePadManager.elementNameToSymbolName[
+                                   commandName ?? "exclamationmark.octagon.fill"
+                                   ] {
                                 Image(systemName: sfSymbolName)
                             }
-                            Text((gamePadManager.gameCommandToElementName[command] ?? "Test") ?? "Test2")
+                            Text((gamePadManager.gameCommandToElementName[command] ?? "Not Set") ?? "Not Set")
                         }
                     }
                 }
-            }.onReceive(gamePadManager.$lastElementPressed) { str in
-                guard let command = curCommand,
-                      let str else { return }
-                gamePadManager.gameCommandToElementName[command] = str
-                curCommand = nil
-                print("Updated \(command.rawValue) to \(str)")
             }
-        }
+            HStack {
+                Button("Reset to Previous") {
+                    gamePadManager.gameCommandToElementName = gamePadManager.loadSettings()
+                }
+                Spacer()
+                Button("Reset to Defaults") {
+                    gamePadManager.gameCommandToElementName = GamePadManager.defaultMappings
+                }
+            }.padding()
+        }.alert(isPresented: $showAlert) {
+             Alert(
+                 title: Text("Assign Function"),
+                 message: Text("Press a button on your game controller to assign to '\(curCommand?.rawValue ?? "Test")'"),
+                 dismissButton: .cancel(Text("Cancel"))
+             )
+         }
+         .onReceive(gamePadManager.$lastElementPressed) { str in
+             guard let command = curCommand,
+                   let str else { return }
+             gamePadManager.gameCommandToElementName[command] = str
+             curCommand = nil
+             showAlert = false
+             print("Updated \(command.rawValue) to \(str)")
+         }
     }
 }
 
@@ -102,5 +133,3 @@ struct SettingsView: View {
                                                 size: CGSize(width: 100, height: 100)),
                  hide: {})
 }
-
-import Combine

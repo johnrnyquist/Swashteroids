@@ -10,6 +10,7 @@ import GameController
 extension GCController {
     static func isGameControllerConnected() -> Bool {
         guard let controller = GCController.controllers().first,
+              controller.isAttachedToDevice == true,
               let controllerName = controller.vendorName,
               controllerName != "Gamepad"
         else {

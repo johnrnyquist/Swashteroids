@@ -17,7 +17,6 @@ final class HyperspacePowerUpNode: Node {
             CollidableComponent.name: nil_component,
             PositionComponent.name: nil_component,
             HyperspacePowerUpComponent.name: nil_component,
-            DisplayComponent.name: nil_component,
         ]
     }
 }

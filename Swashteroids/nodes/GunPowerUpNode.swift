@@ -17,7 +17,6 @@ final class GunPowerUpNode: Node {
             CollidableComponent.name: nil_component,
             PositionComponent.name: nil_component,
             GunPowerUpComponent.name: nil_component,
-            DisplayComponent.name: nil_component,
         ]
     }
 }
