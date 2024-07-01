@@ -12,15 +12,6 @@ import UIKit
 import SpriteKit
 import SwiftUI
 
-protocol AlertPresenting: AnyObject {
-    func showPauseAlert()
-    var isAlertPresented: Bool { get set }
-    func home()
-    func resume()
-    func showSettings()
-    func hideSettings()
-}
-
 final class GameViewController: UIViewController, AlertPresenting {
     var skView: SKView?
     var gameScene: GameScene!
