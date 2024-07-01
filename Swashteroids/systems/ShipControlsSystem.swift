@@ -42,7 +42,7 @@ class ShipControlsSystem: ListIteratingSystem {
     }
 
     func handleChange(to: ShipControlsState) {
-        engine.appStateComponent.shipControlsState = to
+        engine.gameStateComponent.shipControlsState = to
         switch to {
         case .usingAccelerometer:
             print("ShipControlsSystem: usingAccelerometer")
@@ -59,19 +59,19 @@ class ShipControlsSystem: ListIteratingSystem {
     }
 
     private func usingScreenControls() {
-        engine.ship?.remove(componentClass: AccelerometerComponent.self)
+        engine.playerEntity?.remove(componentClass: AccelerometerComponent.self)
         shipControlQuadrantsCreator.removeShipControlQuadrants()
         shipButtonControlsCreator.createShipControlButtons()
         shipButtonControlsCreator.enableShipControlButtons()
         // HACK alpha for fire and hyperspace is set to 0.0 in Creator+ShipControlButtonsManager.swift
-        if let ship = engine.ship,
+        if let ship = engine.playerEntity,
            ship.has(componentClassName: GunComponent.name) {
             if let fireButton = engine.findEntity(named: .fireButton),
                let sprite = fireButton.sprite {
                 sprite.alpha = 0.2
             }
         }
-        if let ship = engine.ship,
+        if let ship = engine.playerEntity,
            ship.has(componentClassName: HyperspaceDriveComponent.name) {
             if let hyperspaceButton = engine.findEntity(named: .hyperspaceButton),
                let sprite = hyperspaceButton.sprite {
@@ -84,14 +84,14 @@ class ShipControlsSystem: ListIteratingSystem {
 
     private func usingGameController() {
         shipControlQuadrantsCreator.removeShipControlQuadrants()
-        engine.ship?.remove(componentClass: AccelerometerComponent.self)
+        engine.playerEntity?.remove(componentClass: AccelerometerComponent.self)
         shipButtonControlsCreator.removeShipControlButtons()
         toggleShipControlsCreator.removeToggleButton()
         engine.removeEntities(named: [.noButtons, .withButtons])
     }
 
     private func usingAccelerometer() {
-        engine.ship?.add(component: AccelerometerComponent())
+        engine.playerEntity?.add(component: AccelerometerComponent())
         shipControlQuadrantsCreator.createShipControlQuadrants()
         shipButtonControlsCreator.removeShipControlButtons()
         toggleShipControlsCreator.removeToggleButton()

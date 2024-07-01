@@ -50,7 +50,7 @@ final class TransitionAppStateSystem: ListIteratingSystem {
                 infoViewsTransition?.fromNoButtonsInfoScreen()
                 appStateComponent.shipControlsState = .usingAccelerometer
         }
-        appStateComponent.swashteroidsState = transitionComponent.to
+        appStateComponent.gameState = transitionComponent.to
         switch transitionComponent.to {
             case .start:
                 startTransition?.toStartScreen()

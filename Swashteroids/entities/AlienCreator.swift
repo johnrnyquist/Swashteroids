@@ -41,7 +41,7 @@ class AlienCreator: AlienCreatorUseCase {
 //        if !foundWorker {
         let entrance = pickEntrance()
         warningAliens(scene: scene, leftSide: entrance.leftSide)
-        engine.appStateEntity.add(component: AudioComponent(fileNamed: .alienEntrance, actionKey: "alienEntrance"))
+        engine.gameStateEntity.add(component: AudioComponent(fileNamed: .alienEntrance, actionKey: "alienEntrance"))
         //        createTwoWorkers(entrance: entrance)
         //        createSoldier(entrance: entrance)
 //            createWorker(entrance: entrance)
@@ -188,7 +188,7 @@ class AlienCreator: AlienCreatorUseCase {
         let alienComponent = AlienComponent(cast: .worker)
         alienComponent.destinationStart = startDestination
         alienComponent.destinationEnd = endDestination
-        let velocityX = 90.0 + Double(engine.appStateComponent.level) * 5.0 + randomness.nextDouble(from: 0.0, through: 10.0)
+        let velocityX = 90.0 + Double(engine.gameStateComponent.level) * 5.0 + randomness.nextDouble(from: 0.0, through: 10.0)
         let alienEntity = Entity(named: "\(EntityName.alienWorker)_\(totalAliens)")
         alienEntity
                 .add(component: alienComponent)
@@ -225,7 +225,7 @@ class AlienCreator: AlienCreatorUseCase {
         let alienComponent = AlienComponent(cast: .soldier)
         alienComponent.destinationStart = startDestination
         alienComponent.destinationEnd = endDestination
-        let velocityX = 120.0 + Double(engine.appStateComponent.level) * 5.0 + randomness.nextDouble(from: 0.0, through: 10.0)
+        let velocityX = 120.0 + Double(engine.gameStateComponent.level) * 5.0 + randomness.nextDouble(from: 0.0, through: 10.0)
         let alienEntity = Entity(named: "\(EntityName.alienSoldier)_\(totalAliens)")
         alienEntity
                 .add(component: alienComponent)

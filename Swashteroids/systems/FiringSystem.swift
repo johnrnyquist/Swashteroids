@@ -39,11 +39,14 @@ final class FiringSystem: ListIteratingSystem {
               let gun = node[GunComponent.self],
               let _ = node[FireDownComponent.self]
         else { return }
+        gun.timeSinceLastShot += time
+        guard gun.timeSinceLastShot >= gun.minimumShotInterval else { return }
+        gun.timeSinceLastShot = 0
         node.entity?.remove(componentClass: FireDownComponent.self)
         let pos = PositionComponent(x: position.x, y: position.y, z: .asteroids, rotationDegrees: position.rotationDegrees)
         torpedoCreator?.createTorpedo(gun, pos, velocity)
         gun.numTorpedoes -= 1
-        if let appState = engine?.appStateComponent {
+        if let appState = engine?.gameStateComponent {
             appState.numTorpedoesPlayerFired += 1
         }
     }

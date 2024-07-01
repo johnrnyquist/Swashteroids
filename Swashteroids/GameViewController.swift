@@ -12,6 +12,11 @@ import UIKit
 import SpriteKit
 import SwiftUI
 
+enum CurrentViewController {
+    case game
+    case settings
+}
+
 final class GameViewController: UIViewController, AlertPresenting {
     var skView: SKView?
     var gameScene: GameScene!
@@ -76,10 +81,10 @@ final class GameViewController: UIViewController, AlertPresenting {
     @IBAction func showPauseAlert() {
         guard let swashteroids else { fatalError("game is nil") }
         swashteroids.stop()
-        if swashteroids.engine.appStateComponent.swashteroidsState == .playing ||
-           swashteroids.engine.appStateComponent.swashteroidsState == .gameOver {
+        if swashteroids.engine.gameStateComponent.gameState == .playing ||
+           swashteroids.engine.gameStateComponent.gameState == .gameOver {
             let alertView = PauseAlert(
-                appState: swashteroids.engine.appStateComponent, //HACK
+                appState: swashteroids.engine.gameStateComponent, //HACK
                 home: home,
                 resume: resume,
                 showSettings: showSettings)

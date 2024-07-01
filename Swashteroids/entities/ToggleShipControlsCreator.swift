@@ -23,7 +23,7 @@ class ToggleShipControlsCreator: ToggleShipControlsCreatorUseCase {
          scaleManager: ScaleManaging = ScaleManager.shared) {
         self.engine = engine
         self.generator = generator
-        self.size = engine.appStateComponent.gameSize
+        self.size = engine.gameStateComponent.gameSize
         self.scaleManager = ScaleManager.shared
     }
     
@@ -49,7 +49,7 @@ class ToggleShipControlsCreator: ToggleShipControlsCreatorUseCase {
         toggleEntity.add(component: ButtonBehaviorComponent(
             touchDown: { [unowned self] sprite in
                 generator?.impactOccurred()
-                engine.appStateComponent.shipControlsState = toState //HACK remove? Add TransitionAppStateComponent?
+                engine.gameStateComponent.shipControlsState = toState //HACK remove? Add TransitionAppStateComponent?
                 engine.hud?.add(component: ChangeShipControlsStateComponent(to: toState))
                 engine.hud?.add(component: AudioComponent(fileNamed: .toggle,
                                                           actionKey: "toggle\(toggleState.rawValue)"))

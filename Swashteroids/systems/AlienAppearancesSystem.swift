@@ -47,7 +47,7 @@ class AlienAppearancesSystem: ListIteratingSystem {
     func updateNode(node: Node, time: TimeInterval) {
         guard
             let appStateComponent = node[GameStateComponent.self],
-            appStateComponent.swashteroidsState == .playing
+            appStateComponent.gameState == .playing
         else { return }
         appStateComponent.alienNextAppearance -= time
         if appStateComponent.alienNextAppearance <= 0 {

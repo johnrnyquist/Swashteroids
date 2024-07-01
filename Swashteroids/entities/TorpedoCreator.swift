@@ -31,8 +31,8 @@ class TorpedoCreator: TorpedoCreatorUseCase {
 
     // TODO: This changing of an existing component does not feel right.
     func generateTorpedoName() -> String {
-        engine.appStateComponent.numTorpedoesFired += 1
-        return "torpedo_\(engine.appStateComponent.numTorpedoesFired)"
+        engine.gameStateComponent.numTorpedoesFired += 1
+        return "torpedo_\(engine.gameStateComponent.numTorpedoesFired)"
     }
 
     func createTorpedoEntity(named name: String, gunComponent: GunComponent, parentPosition: PositionComponent, parentVelocity: VelocityComponent) -> Entity {

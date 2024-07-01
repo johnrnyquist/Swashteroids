@@ -13,16 +13,16 @@ enum GameState: String, CaseIterable {
     case infoNoButtons = "No Buttons Information Screen"
     case playing = "Playing Screen"
     case gameOver = "Game Over Screen"
-    var commandsPerScreen: [GameCommand] {
+    var commandsPerState: [GameCommand] {
         switch self {
             case .start:
-                return [.continue]
+                return [.play]
             case .infoButtons:
-                return [.continue]
+                return [.play]
             case .infoNoButtons:
-                return [.continue]
+                return [.play]
             case .playing:
-                return [.fire, .thrust, .hyperspace, .left, .right, .pause, .flip]
+                return [.fire, .thrust, .hyperspace, .left, .right, .pause, .flip, .home, .settings, .resume]
             case .gameOver:
                 return [.pause, .home, .settings, .resume]
         }
@@ -42,24 +42,24 @@ struct SettingsView: View {
                 Button("Done") {
                     // Save to UserDefaults
                     let defaults = UserDefaults.standard
-                    let dictionary = gamePadManager.gameCommandToElementName.mapKeys { $0.rawValue }
+                    let dictionary = gamePadManager.gameCommandToButtonName.mapKeys { $0.rawValue }
                     defaults.set(dictionary, forKey: "GameCommandDict")
                     hide()
                 }.padding(0)
                  .padding(.top, 20)
                  .padding(.trailing, 20)
-                 .disabled(gamePadManager.gameCommandToElementName.contains { $0.value == nil })
+                 .disabled(gamePadManager.gameCommandToButtonName.contains { $0.value == nil })
             }
-            Text("Settings")
+            Text("Controller Settings")
                     .padding(0)
                     .font(.title)
             HStack {
-                Text(gamePadManager.gameCommandToElementName.contains { $0.value == nil }
+                Text(gamePadManager.gameCommandToButtonName.contains { $0.value == nil }
                      ? "Tap a button to assign a function to it. "
                      : "Tap a button to assign a function to it.")
                         .padding(0)
                         .font(.subheadline)
-                Text(gamePadManager.gameCommandToElementName.contains { $0.value == nil }
+                Text(gamePadManager.gameCommandToButtonName.contains { $0.value == nil }
                      ? "All values on all screens must be set."
                      : "")
                         .padding(0)
@@ -71,7 +71,7 @@ struct SettingsView: View {
                     Text(state.rawValue).tag(state)
                 }
             }.padding(0)
-            List(currentAppState.commandsPerScreen, id: \.self) { command in
+            List(currentAppState.commandsPerState, id: \.self) { command in
                 Button(action: {
                     curCommand = command
                     showAlert = true
@@ -79,26 +79,23 @@ struct SettingsView: View {
                     HStack {
                         Text(command.rawValue)
                         Spacer()
-                        if let elementName = gamePadManager.gameCommandToElementName[command],
-                           let sfSymbolName = gamePadManager.elementNameToSymbolName[
-                               elementName ?? "exclamationmark.octagon.fill"
-                               ] {
+                        if let sfSymbolName = gamePadManager.gameCommandToSymbolName(command) {
                             Image(systemName: sfSymbolName)
                         } else {
                             Image(systemName: "exclamationmark.octagon.fill")
-                                .foregroundColor(.red)
+                                    .foregroundColor(.red)
                         }
-                        Text((gamePadManager.gameCommandToElementName[command] ?? "Not Set") ?? "Not Set")
+                        Text((gamePadManager.gameCommandToButtonName[command] ?? "Not Set") ?? "Not Set")
                     }
                 })
             }
             HStack {
                 Button("Reset to Previous") {
-                    gamePadManager.gameCommandToElementName = gamePadManager.loadSettings()
+                    gamePadManager.gameCommandToButtonName = gamePadManager.loadSettings()
                 }
                 Spacer()
                 Button("Reset to Defaults") {
-                    gamePadManager.gameCommandToElementName = GamePadInputManager.defaultMappings
+                    gamePadManager.gameCommandToButtonName = GamePadInputManager.defaultMappings
                 }
             }.padding()
         }.alert(isPresented: $showAlert) {
@@ -107,20 +104,21 @@ struct SettingsView: View {
                 message: Text("Press a button on your game controller to assign to '\(curCommand?.rawValue ?? "Test")'"),
                 dismissButton: .cancel(Text("Cancel"))
             )
-        }.onReceive(gamePadManager.$lastElementPressed) { str in
+        }.onReceive(gamePadManager.$lastPressedButton) { button in
             guard let command = curCommand,
-                  let str = str else { return }
-            // Iterate over the dictionary and nil out the previous place where str was used
-            for (key, value) in gamePadManager.gameCommandToElementName {
-                if value == str {
-                    gamePadManager.gameCommandToElementName[key] = nil_string
+                  let localizedName = button?.localizedName
+            else { return }
+            // Iterate over the dictionary and nil out the previous place where localizedName was used
+            for (command, buttonName) in gamePadManager.gameCommandToButtonName where gamePadManager.game.gameState.commandsPerState.contains(command) {
+                if buttonName == localizedName {
+                    gamePadManager.gameCommandToButtonName[command] = nil_string
                 }
             }
             // Assign the new str to the current command
-            gamePadManager.gameCommandToElementName[command] = str
+            gamePadManager.gameCommandToButtonName[command] = localizedName
             curCommand = nil
             showAlert = false
-            print("Updated \(command.rawValue) to \(str)")
+            print("Updated \(command.rawValue) to \(localizedName)")
         }
     }
 }

@@ -95,6 +95,9 @@ final class Swashteroids: NSObject {
     private(set) var orientation = 1.0
     private(set) weak var scene: GameScene!
     weak var alertPresenter: AlertPresenting!
+    public var gameState: GameState {
+        engine.gameStateComponent.gameState
+    }
 
     init(scene: GameScene, alertPresenter: AlertPresenting, seed: Int = 0) {
         self.scene = scene
@@ -126,7 +129,7 @@ final class Swashteroids: NSObject {
         let allSoundsEntity = Entity(named: .allSounds)
                 .add(component: AllSoundsComponent.shared)
         let appStateEntity = Entity(named: .appState)
-                .add(component: GameStateComponent(config: SwashteroidsConfig(gameSize: scene.size)))
+                .add(component: GameStateComponent(config: GameConfig(gameSize: scene.size)))
                 .add(component: TransitionAppStateComponent(from: .start, to: .start))
                 .add(component: TimePlayedComponent())
                 .add(component: AlienAppearancesComponent.shared) //HACK
@@ -138,11 +141,11 @@ final class Swashteroids: NSObject {
     }
 
     func usingGameController() {
-        engine.appStateEntity.add(component: ChangeShipControlsStateComponent(to: .usingGameController))
+        engine.gameStateEntity.add(component: ChangeShipControlsStateComponent(to: .usingGameController))
     }
 
     func usingScreenControls() {
-        engine.appStateEntity.add(component: ChangeShipControlsStateComponent(to: .usingScreenControls))
+        engine.gameStateEntity.add(component: ChangeShipControlsStateComponent(to: .usingScreenControls))
     }
 
     func start() {
@@ -169,4 +172,8 @@ final class Swashteroids: NSObject {
     @objc func orientationChanged(_ notification: Notification) {
         orientation = UIDevice.current.orientation == .landscapeRight ? -1.0 : 1.0
     }
+}
+
+extension Swashteroids {
+    
 }

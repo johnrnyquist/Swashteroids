@@ -15,7 +15,7 @@ class GameOverTransition: GameOverUseCase {
     let engine: Engine
     let generator: UIImpactFeedbackGenerator?
     var gameSize: CGSize {
-        engine.appStateComponent.gameSize
+        engine.gameStateComponent.gameSize
     }
 
     init(engine: Engine, generator: UIImpactFeedbackGenerator?) {
@@ -28,11 +28,11 @@ class GameOverTransition: GameOverUseCase {
         [TreasureCollisionNode.self, AlienCollisionNode.self, AsteroidCollisionNode.self].forEach { engine.clearEntities(of: $0) }
         // Clear entities with unique names.
         engine.removeEntities(named: [.hud, .gameOver, .hyperspacePowerUp, .torpedoPowerUp, .pauseButton])
-        engine.appStateComponent.resetPlaying()
+        engine.gameStateComponent.resetPlaying()
     }
 
     func toGameOverScreen() {
-        let gameOverView = GameOverView(gameSize: gameSize, hitPercent: engine.appStateComponent.hitPercentage)
+        let gameOverView = GameOverView(gameSize: gameSize, hitPercent: engine.gameStateComponent.hitPercentage)
         gameOverView.name = "gameOverView"
         let gameOverEntity = Entity(named: .gameOver)
                 .add(component: GameOverComponent())
@@ -42,11 +42,11 @@ class GameOverTransition: GameOverUseCase {
                                                   z: .gameOver,
                                                   rotationDegrees: 0))
                 .add(component: TouchableComponent())
-                .add(component: engine.appStateComponent)
+                .add(component: engine.gameStateComponent)
                 .add(component: ButtonBehaviorComponent(
                     touchDown: { [unowned self] sprite in
                         generator?.impactOccurred()
-                        engine.appStateEntity
+                        engine.gameStateEntity
                               .add(component: TransitionAppStateComponent(from: .gameOver, to: .start))
                     }))
         gameOverView.entity = gameOverEntity

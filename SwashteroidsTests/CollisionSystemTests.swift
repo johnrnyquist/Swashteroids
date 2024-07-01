@@ -32,9 +32,9 @@ class CollisionSystemTests: XCTestCase {
 
     override func setUpWithError() throws {
         engine = Engine()
-        appStateComponent = GameStateComponent(config: SwashteroidsConfig(gameSize: .zero))
+        appStateComponent = GameStateComponent(config: GameConfig(gameSize: .zero))
         appStateComponent.numShips = 1
-        appStateComponent.swashteroidsState = .playing
+        appStateComponent.gameState = .playing
         appStateEntity = Entity(named: .appState)
                 .add(component: appStateComponent)
         engine.add(entity: appStateEntity)
@@ -241,9 +241,9 @@ class CollisionSystemTests: XCTestCase {
             asteroidNode.components[component.key] = component.value
         }
         asteroidNode.entity = asteroidEntity
-        let appStateComponent = GameStateComponent(config: SwashteroidsConfig(gameSize: .zero))
+        let appStateComponent = GameStateComponent(config: GameConfig(gameSize: .zero))
         appStateComponent.numShips = 1
-        appStateComponent.swashteroidsState = .playing
+        appStateComponent.gameState = .playing
         let appState = Entity(named: .appState)
                 .add(component: appStateComponent)
         engine.add(entity: appState)

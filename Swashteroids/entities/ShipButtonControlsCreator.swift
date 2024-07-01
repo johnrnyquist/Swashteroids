@@ -67,7 +67,7 @@ class ShipButtonControlsCreator: ShipButtonControlsCreatorUseCase {
     // HACK
     func showFireButton() {
         if let fireButtonEntity,
-           engine.appStateComponent.shipControlsState == .usingScreenControls {
+           engine.gameStateComponent.shipControlsState == .usingScreenControls {
             engine.add(entity: fireButtonEntity)
             let fadeIn = SKAction.fadeAlpha(to: 1.0, duration: 0.2)
             let fadeOut = SKAction.fadeAlpha(to: 0.2, duration: 0.2)
@@ -80,7 +80,7 @@ class ShipButtonControlsCreator: ShipButtonControlsCreatorUseCase {
     // HACK 
     func showHyperspaceButton() {
         if let hyperspaceButtonEntity,
-           engine.appStateComponent.shipControlsState == .usingScreenControls {
+           engine.gameStateComponent.shipControlsState == .usingScreenControls {
             engine.add(entity: hyperspaceButtonEntity)
             let fadeIn = SKAction.fadeAlpha(to: 1.0, duration: 0.2)
             let fadeOut = SKAction.fadeAlpha(to: 0.2, duration: 0.2)
@@ -151,7 +151,7 @@ class ShipButtonControlsCreator: ShipButtonControlsCreatorUseCase {
                 touchDown: { [unowned self] sprite in
                     sprite.alpha = 0.6
                     generator?.impactOccurred()
-                    engine.ship?.add(component: FlipComponent.shared)
+                    engine.playerEntity?.add(component: FlipComponent.shared)
                 },
                 touchUp: { sprite in sprite.alpha = 0.2 },
                 touchUpOutside: { sprite in sprite.alpha = 0.2 },
@@ -165,7 +165,7 @@ class ShipButtonControlsCreator: ShipButtonControlsCreatorUseCase {
                       touchDown: { [unowned self] sprite in
                           sprite.alpha = 0.6
                           generator?.impactOccurred()
-                          engine.ship?.add(component: DoHyperspaceJumpComponent(size: size))
+                          engine.playerEntity?.add(component: DoHyperspaceJumpComponent(size: size))
                       },
                       touchUp: { sprite in sprite.alpha = 0.2 },
                       touchUpOutside: { sprite in sprite.alpha = 0.2 },
@@ -178,23 +178,23 @@ class ShipButtonControlsCreator: ShipButtonControlsCreatorUseCase {
                 touchDown: { [unowned self] sprite in
                     sprite.alpha = 0.6
                     generator?.impactOccurred()
-                    self.engine.ship?.add(component: LeftComponent.shared)
+                    self.engine.playerEntity?.add(component: LeftComponent.shared)
                 },
                 touchUp: { sprite in
                     sprite.alpha = 0.2
-                    self.engine.ship?.remove(componentClass: LeftComponent.self)
+                    self.engine.playerEntity?.remove(componentClass: LeftComponent.self)
                 },
                 touchUpOutside: { sprite in
                     sprite.alpha = 0.2
-                    self.engine.ship?.remove(componentClass: LeftComponent.self)
+                    self.engine.playerEntity?.remove(componentClass: LeftComponent.self)
                 },
                 touchMoved: { sprite, over in
                     if over {
                         sprite.alpha = 0.6
-                        self.engine.ship?.add(component: LeftComponent.shared)
+                        self.engine.playerEntity?.add(component: LeftComponent.shared)
                     } else {
                         sprite.alpha = 0.2
-                        self.engine.ship?.remove(componentClass: LeftComponent.self)
+                        self.engine.playerEntity?.remove(componentClass: LeftComponent.self)
                     }
                 }
             ))
@@ -203,19 +203,19 @@ class ShipButtonControlsCreator: ShipButtonControlsCreatorUseCase {
                  touchDown: { [unowned self] sprite in
                      sprite.alpha = 0.6
                      generator?.impactOccurred()
-                     self.engine.ship?.add(component: RightComponent.shared)
+                     self.engine.playerEntity?.add(component: RightComponent.shared)
                  },
                  touchUp: { sprite in
-                     sprite.alpha = 0.2; self.engine.ship?.remove(componentClass: RightComponent.self)
+                     sprite.alpha = 0.2; self.engine.playerEntity?.remove(componentClass: RightComponent.self)
                  },
                  touchUpOutside: { sprite in
-                     sprite.alpha = 0.2; self.engine.ship?.remove(componentClass: RightComponent.self)
+                     sprite.alpha = 0.2; self.engine.playerEntity?.remove(componentClass: RightComponent.self)
                  },
                  touchMoved: { sprite, over in
                      if over {
-                         sprite.alpha = 0.6; self.engine.ship?.add(component: RightComponent.shared)
+                         sprite.alpha = 0.6; self.engine.playerEntity?.add(component: RightComponent.shared)
                      } else {
-                         sprite.alpha = 0.2; self.engine.ship?.remove(componentClass: RightComponent.self)
+                         sprite.alpha = 0.2; self.engine.playerEntity?.remove(componentClass: RightComponent.self)
                      }
                  }
              ))
@@ -224,7 +224,7 @@ class ShipButtonControlsCreator: ShipButtonControlsCreatorUseCase {
                   touchDown: { [unowned self] sprite in
                       sprite.alpha = 0.6
                       generator?.impactOccurred()
-                      if let ship = self.engine.ship {
+                      if let ship = self.engine.playerEntity {
                           ship.add(component: ApplyThrustComponent.shared)
                           ship[WarpDriveComponent.self]?.isThrusting = true
                           ship[RepeatingAudioComponent.self]?.state = .shouldBegin
@@ -232,7 +232,7 @@ class ShipButtonControlsCreator: ShipButtonControlsCreatorUseCase {
                   },
                   touchUp: { sprite in
                       sprite.alpha = 0.2
-                      if let ship = self.engine.ship {
+                      if let ship = self.engine.playerEntity {
                           ship.remove(componentClass: ApplyThrustComponent.self)
                           ship[WarpDriveComponent.self]?.isThrusting = false
                           ship[RepeatingAudioComponent.self]?.state = .shouldStop
@@ -240,7 +240,7 @@ class ShipButtonControlsCreator: ShipButtonControlsCreatorUseCase {
                   },
                   touchUpOutside: { sprite in
                       sprite.alpha = 0.2
-                      if let ship = self.engine.ship {
+                      if let ship = self.engine.playerEntity {
                           ship.remove(componentClass: ApplyThrustComponent.self)
                           ship[WarpDriveComponent.self]?.isThrusting = false
                           ship[RepeatingAudioComponent.self]?.state = .shouldStop
@@ -249,14 +249,14 @@ class ShipButtonControlsCreator: ShipButtonControlsCreatorUseCase {
                   touchMoved: { sprite, over in
                       if over {
                           sprite.alpha = 0.6
-                          if let ship = self.engine.ship {
+                          if let ship = self.engine.playerEntity {
                               ship.add(component: ApplyThrustComponent.shared)
                               ship[WarpDriveComponent.self]?.isThrusting = true
                               ship[RepeatingAudioComponent.self]?.state = .shouldBegin
                           }
                       } else {
                           sprite.alpha = 0.2
-                          if let ship = self.engine.ship {
+                          if let ship = self.engine.playerEntity {
                               ship.remove(componentClass: ApplyThrustComponent.self)
                               ship[WarpDriveComponent.self]?.isThrusting = false
                               ship[RepeatingAudioComponent.self]?.state = .shouldStop
@@ -270,7 +270,7 @@ class ShipButtonControlsCreator: ShipButtonControlsCreatorUseCase {
                 touchDown: { [unowned self] sprite in
                     sprite.alpha = 0.6
                     generator?.impactOccurred()
-                    engine.ship?.add(component: FireDownComponent.shared)
+                    engine.playerEntity?.add(component: FireDownComponent.shared)
                 },
                 touchUp: { sprite in
                     sprite.alpha = 0.2

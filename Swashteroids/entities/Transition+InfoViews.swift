@@ -15,7 +15,7 @@ class InfoViewsTransition: InfoViewsUseCase {
     let engine: Engine
     let generator: UIImpactFeedbackGenerator?
     var gameSize: CGSize {
-        engine.appStateComponent.gameSize
+        engine.gameStateComponent.gameSize
     }
 
     init(engine: Engine, generator: UIImpactFeedbackGenerator?) {
@@ -43,7 +43,7 @@ class InfoViewsTransition: InfoViewsUseCase {
                 .add(component: ButtonBehaviorComponent(
                     touchDown: { [unowned self] sprite in
                         generator?.impactOccurred()
-                        engine.appStateEntity.add(component: TransitionAppStateComponent(from: .infoNoButtons, to: .playing))
+                        engine.gameStateEntity.add(component: TransitionAppStateComponent(from: .infoNoButtons, to: .playing))
                     }))
         viewSprite.entity = viewEntity
         engine.add(entity: viewEntity)
@@ -70,7 +70,7 @@ class InfoViewsTransition: InfoViewsUseCase {
                 .add(component: TouchableComponent())
                 .add(component: ButtonBehaviorComponent(touchDown: { [unowned self] sprite in
                     generator?.impactOccurred()
-                    engine.appStateEntity.add(component: TransitionAppStateComponent(from: .infoButtons, to: .playing))
+                    engine.gameStateEntity.add(component: TransitionAppStateComponent(from: .infoButtons, to: .playing))
                 }))
         viewSprite.entity = viewEntity
         viewSprite.name = .buttonsInfoView

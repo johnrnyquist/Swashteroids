@@ -23,7 +23,7 @@ class HudSystemTests: XCTestCase {
         engine = Engine()
         engine.add(system: system, priority: 1)
         let entity = Entity(named: .appState)
-        entity.add(component: GameStateComponent(config: SwashteroidsConfig(gameSize: .zero)))
+        entity.add(component: GameStateComponent(config: GameConfig(gameSize: .zero)))
         engine.add(entity: entity)
     }
 
@@ -34,7 +34,7 @@ class HudSystemTests: XCTestCase {
     func test_UpdateNode() throws {
         let hudNode = HudNode()
         let hudComponent = HudComponent(hudView: HudView(gameSize: .zero))
-        let appStateComponent = engine.appStateComponent
+        let appStateComponent = engine.gameStateComponent
         appStateComponent.numShips = 1
         appStateComponent.level = 2
         appStateComponent.score = 3

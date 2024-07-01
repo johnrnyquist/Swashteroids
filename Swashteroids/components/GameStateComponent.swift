@@ -11,7 +11,7 @@
 import Swash
 import Foundation
 
-struct SwashteroidsConfig {
+struct GameConfig {
     let alienNextAppearance: TimeInterval = 0.0
     let swashteroidsState: GameState = .start
     let gameSize: CGSize
@@ -62,8 +62,8 @@ struct Playing {
 final class GameStateComponent: Component {
     //
     //MARK: - Properties
-    var swashteroidsState: GameState
-    let config: SwashteroidsConfig
+    var gameState: GameState
+    let config: GameConfig
     let randomness: Randomizing
     private var playing: Playing
     //
@@ -130,10 +130,10 @@ final class GameStateComponent: Component {
     }
     //
     //MARK: - Initializers
-    init(config: SwashteroidsConfig, randomness: Randomizing = Randomness.shared) {
+    init(config: GameConfig, randomness: Randomizing = Randomness.shared) {
         self.config = config
         self.randomness = randomness
-        swashteroidsState = config.swashteroidsState
+        gameState = config.swashteroidsState
         //
         playing = Playing(
             alienNextAppearance: config.alienNextAppearance,

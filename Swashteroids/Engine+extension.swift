@@ -11,21 +11,21 @@
 import Swash
 
 extension Engine {
-    var ship: Entity? {
+    var playerEntity: Entity? {
         findEntity(named: .player)
     }
     var hud: Entity? {
         findEntity(named: .hud)
     }
-    var appStateEntity: Entity {
+    var gameStateEntity: Entity {
         guard let entity = findEntity(named: .appState) else {
             fatalError("Engine did not contain `appState` entity!")
         }
         return entity
     }
     // This is a convenience method for accessing the appState component. Because I’m weak. 
-    var appStateComponent: GameStateComponent {
-        guard let component = appStateEntity.find(componentClass: GameStateComponent.self) else {
+    var gameStateComponent: GameStateComponent {
+        guard let component = gameStateEntity.find(componentClass: GameStateComponent.self) else {
             fatalError("appStateEntity did not contain GameStateComponent!")
         }
         return component

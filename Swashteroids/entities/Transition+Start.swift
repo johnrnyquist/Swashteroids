@@ -15,7 +15,7 @@ class StartTransition: StartUseCase {
     let engine: Engine
     let generator: UIImpactFeedbackGenerator?
     var gameSize: CGSize {
-        engine.appStateComponent.gameSize
+        engine.gameStateComponent.gameSize
     }
 
     init(engine: Engine, generator: UIImpactFeedbackGenerator? = nil) {
@@ -69,7 +69,7 @@ class StartTransition: StartUseCase {
                     },
                     touchUp: { [unowned self] sprite in
                         sprite.alpha = 0.2
-                        engine.appStateEntity.add(component: TransitionAppStateComponent(from: .start, to: .infoNoButtons))
+                        engine.gameStateEntity.add(component: TransitionAppStateComponent(from: .start, to: .infoNoButtons))
                     },
                     touchUpOutside: { sprite in
                         sprite.alpha = 0.2
@@ -89,7 +89,7 @@ class StartTransition: StartUseCase {
                     },
                     touchUp: { [unowned self] sprite in
                         sprite.alpha = 0.2
-                        engine.appStateEntity.add(component: TransitionAppStateComponent(from: .start, to: .infoButtons))
+                        engine.gameStateEntity.add(component: TransitionAppStateComponent(from: .start, to: .infoButtons))
                     },
                     touchUpOutside: { sprite in
                         sprite.alpha = 0.2

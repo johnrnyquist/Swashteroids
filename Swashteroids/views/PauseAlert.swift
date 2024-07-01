@@ -24,7 +24,7 @@ struct PauseAlert: View {
                 ButtonView(label: "Resume", action: resume)
             }.padding(.horizontal, 20)
             if GCController.isGameControllerConnected() {
-                ButtonView(label: "Settings", action: showSettings)
+                ButtonView(label: "Controller Settings", action: showSettings)
                         .padding(.horizontal, 20)
             }
         }.frame(width: 320, height: 320)
@@ -93,7 +93,7 @@ struct ButtonView: View {
 
 struct PauseAlert_Previews: PreviewProvider {
     static var previews: some View {
-        PauseAlert(appState: GameStateComponent(config: SwashteroidsConfig(gameSize: .zero)),
+        PauseAlert(appState: GameStateComponent(config: GameConfig(gameSize: .zero)),
                    home: {}, resume: {}, showSettings: {})
     }
 }

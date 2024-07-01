@@ -33,7 +33,7 @@ final class HudSystem: ListIteratingSystem {
 
     func updateNode(_ hudNode: Node, _ time: TimeInterval) {
         guard let hudComponent = hudNode[HudComponent.self],
-              let appStateComponent = engine?.appStateComponent
+              let appStateComponent = engine?.gameStateComponent
         else { return }
         hudComponent.hudView.setNumShips(appStateComponent.numShips)
         hudComponent.hudView.setScore(appStateComponent.score)
@@ -56,7 +56,7 @@ final class HudSystem: ListIteratingSystem {
                 hyperspaceNodes?.head?.entity?.remove(componentClass: HyperspaceDriveComponent.self)
                 powerUpCreator?.createHyperspacePowerUp(level: 1) //TODO: get real level
                 if let hyperspaceButton = engine?.findEntity(named: .hyperspaceButton),
-                   engine?.appStateComponent.shipControlsState == .usingScreenControls { //HACK
+                   engine?.gameStateComponent.shipControlsState == .usingScreenControls { //HACK
                     engine?.remove(entity: hyperspaceButton)
                 }
             }
@@ -71,7 +71,7 @@ final class HudSystem: ListIteratingSystem {
                 shipEntity?.remove(componentClass: GunComponent.self)
                 powerUpCreator?.createTorpedoesPowerUp(level: 1) //TODO: get real level 
                 if let fireButton = engine?.findEntity(named: .fireButton),
-                   engine?.appStateComponent.shipControlsState == .usingScreenControls { //HACK
+                   engine?.gameStateComponent.shipControlsState == .usingScreenControls { //HACK
                     engine?.remove(entity: fireButton)
                 }
             }

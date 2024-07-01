@@ -77,9 +77,9 @@ class ShipQuadrantsControlsCreator: ShipQuadrantsControlsCreatorUseCase {
                 .add(component: ButtonBehaviorComponent(
                     touchDown: { [unowned self] sprite in
                         generator?.impactOccurred()
-                        if let ship = self.engine.ship,
+                        if let ship = self.engine.playerEntity,
                            ship.has(componentClassName: HyperspaceDriveComponent.name) {
-                            engine.ship?.add(component: DoHyperspaceJumpComponent(size: size))
+                            engine.playerEntity?.add(component: DoHyperspaceJumpComponent(size: size))
                         }
                     },
                     touchUp: { _ in },
@@ -93,7 +93,7 @@ class ShipQuadrantsControlsCreator: ShipQuadrantsControlsCreatorUseCase {
                 .add(component: ButtonBehaviorComponent(
                     touchDown: { [unowned self] sprite in
                         generator?.impactOccurred()
-                        engine.ship?.add(component: FlipComponent.shared)
+                        engine.playerEntity?.add(component: FlipComponent.shared)
                     },
                     touchUp: { _ in },
                     touchUpOutside: { _ in },
@@ -106,21 +106,21 @@ class ShipQuadrantsControlsCreator: ShipQuadrantsControlsCreatorUseCase {
                 .add(component: ButtonBehaviorComponent(
                     touchDown: { [unowned self] sprite in
                         generator?.impactOccurred()
-                        if let ship = self.engine.ship {
+                        if let ship = self.engine.playerEntity {
                             ship.add(component: ApplyThrustComponent.shared)
                             ship[WarpDriveComponent.self]?.isThrusting = true
                             ship[RepeatingAudioComponent.self]?.state = .shouldBegin
                         }
                     },
                     touchUp: { sprite in
-                        if let ship = self.engine.ship {
+                        if let ship = self.engine.playerEntity {
                             ship.remove(componentClass: ApplyThrustComponent.self)
                             ship[WarpDriveComponent.self]?.isThrusting = false
                             ship[RepeatingAudioComponent.self]?.state = .shouldStop
                         }
                     },
                     touchUpOutside: { sprite in
-                        if let ship = self.engine.ship {
+                        if let ship = self.engine.playerEntity {
                             ship.remove(componentClass: ApplyThrustComponent.self)
                             ship[WarpDriveComponent.self]?.isThrusting = false
                             ship[RepeatingAudioComponent.self]?.state = .shouldStop
@@ -128,13 +128,13 @@ class ShipQuadrantsControlsCreator: ShipQuadrantsControlsCreatorUseCase {
                     },
                     touchMoved: { sprite, over in
                         if over {
-                            if let ship = self.engine.ship {
+                            if let ship = self.engine.playerEntity {
                                 ship.add(component: ApplyThrustComponent.shared)
                                 ship[WarpDriveComponent.self]?.isThrusting = true
                                 ship[RepeatingAudioComponent.self]?.state = .shouldBegin
                             }
                         } else {
-                            if let ship = self.engine.ship {
+                            if let ship = self.engine.playerEntity {
                                 ship.remove(componentClass: ApplyThrustComponent.self)
                                 ship[WarpDriveComponent.self]?.isThrusting = false
                                 ship[RepeatingAudioComponent.self]?.state = .shouldStop
@@ -149,7 +149,7 @@ class ShipQuadrantsControlsCreator: ShipQuadrantsControlsCreatorUseCase {
                 .add(component: ButtonBehaviorComponent(
                     touchDown: { [unowned self] sprite in
                         generator?.impactOccurred()
-                        engine.ship?.add(component: FireDownComponent.shared)
+                        engine.playerEntity?.add(component: FireDownComponent.shared)
                     },
                     touchUp: { sprite in
                     },
