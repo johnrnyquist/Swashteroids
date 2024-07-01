@@ -11,6 +11,7 @@
 import Swash
 import SpriteKit
 import CoreMotion
+import GameController
 
 class SystemsManager {
     init(scene: GameScene, engine: Engine, creatorManager: CreatorsManager, generator: UIImpactFeedbackGenerator) {
@@ -20,7 +21,7 @@ class SystemsManager {
             toggleShipControlsCreator: creatorManager.toggleShipControlsCreator,
             shipControlQuadrantsCreator: creatorManager.shipControlQuadrantsCreator,
             shipButtonControlsCreator: creatorManager.shipButtonControlsCreator)
-        let startTransition = StartTransition(engine: engine, generator: generator)
+        let startTransition = StartTransition(engine: engine, startButtonsCreator: creatorManager.startButtonsCreator)
         let gameOverTransition = GameOverTransition(engine: engine, generator: generator)
         let infoViewsTransition = InfoViewsTransition(engine: engine, generator: generator)
         engine
@@ -40,8 +41,9 @@ class SystemsManager {
                 .add(system: GameOverSystem(), priority: .preUpdate)
                 .add(system: ShipControlsSystem(toggleShipControlsCreator: creatorManager.toggleShipControlsCreator,
                                                 shipControlQuadrantsCreator: creatorManager.shipControlQuadrantsCreator,
-                                                shipButtonControlsCreator: creatorManager.shipButtonControlsCreator),
-                     priority: .preUpdate)
+                                                shipButtonControlsCreator: creatorManager.shipButtonControlsCreator,
+                                                startButtonsCreator: creatorManager.startButtonsCreator),
+                     priority: .update)
                 .add(system: TransitionAppStateSystem(startTransition: startTransition,
                                                       infoViewsTransition: infoViewsTransition,
                                                       playingTransition: transition,
@@ -96,7 +98,10 @@ final class Swashteroids: NSObject {
     private(set) weak var scene: GameScene!
     weak var alertPresenter: AlertPresenting!
     public var gameState: GameState {
-        engine.gameStateComponent.gameState
+        gameStateComponent.gameState
+    }
+    public var gameStateComponent: GameStateComponent {
+        engine.gameStateComponent
     }
 
     init(scene: GameScene, alertPresenter: AlertPresenting, seed: Int = 0) {
@@ -130,7 +135,7 @@ final class Swashteroids: NSObject {
                 .add(component: AllSoundsComponent.shared)
         let appStateEntity = Entity(named: .appState)
                 .add(component: GameStateComponent(config: GameConfig(gameSize: scene.size)))
-                .add(component: TransitionAppStateComponent(from: .start, to: .start))
+                .add(component: ChangeGameStateComponent(from: .start, to: .start))
                 .add(component: TimePlayedComponent())
                 .add(component: AlienAppearancesComponent.shared) //HACK
         let inputEntity = Entity(named: .input)
@@ -149,6 +154,10 @@ final class Swashteroids: NSObject {
     }
 
     func start() {
+        if GCController.isGameControllerConnected() {
+            usingGameController()
+        }
+
         motionManager?.startAccelerometerUpdates()
         tickProvider = TickProvider()
         tickProvider?.add(tickEngineListener) // Then engine listens for ticks

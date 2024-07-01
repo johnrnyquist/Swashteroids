@@ -47,7 +47,7 @@ class GameOverTransition: GameOverUseCase {
                     touchDown: { [unowned self] sprite in
                         generator?.impactOccurred()
                         engine.gameStateEntity
-                              .add(component: TransitionAppStateComponent(from: .gameOver, to: .start))
+                              .add(component: ChangeGameStateComponent(from: .gameOver, to: .start))
                     }))
         gameOverView.entity = gameOverEntity
         engine.add(entity: gameOverEntity)

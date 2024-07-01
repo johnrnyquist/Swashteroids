@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum GameState: String, CaseIterable {
+public enum GameState: String, CaseIterable {
     case start = "Start Screen"
     case infoButtons = "Buttons Information Screen"
     case infoNoButtons = "No Buttons Information Screen"

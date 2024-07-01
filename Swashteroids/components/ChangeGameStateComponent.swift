@@ -10,7 +10,7 @@
 
 import Swash
 
-final class TransitionAppStateComponent: Component {
+final class ChangeGameStateComponent: Component {
     var from: GameState
     var to: GameState
 

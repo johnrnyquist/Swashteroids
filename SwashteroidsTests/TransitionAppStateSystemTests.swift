@@ -48,9 +48,9 @@ final class TransitionAppStateSystemTests: XCTestCase {
         appStateComponent.level = 0
         appStateComponent.score = 0
         appStateComponent.shipControlsState = .usingAccelerometer
-        let transitionComponent = TransitionAppStateComponent(from: .start, to: .infoNoButtons)
+        let transitionComponent = ChangeGameStateComponent(from: .start, to: .infoNoButtons)
         node.components[GameStateComponent.name] = appStateComponent
-        node.components[TransitionAppStateComponent.name] = transitionComponent
+        node.components[ChangeGameStateComponent.name] = transitionComponent
         let appState = Entity(named: .appState)
                 .add(component: appStateComponent)
         engine.add(entity: appState)
@@ -67,9 +67,9 @@ final class TransitionAppStateSystemTests: XCTestCase {
         appStateComponent.level = 0
         appStateComponent.score = 0
 
-        let transitionComponent = TransitionAppStateComponent(from: .start, to: .infoButtons)
+        let transitionComponent = ChangeGameStateComponent(from: .start, to: .infoButtons)
         node.components[GameStateComponent.name] = appStateComponent
-        node.components[TransitionAppStateComponent.name] = transitionComponent
+        node.components[ChangeGameStateComponent.name] = transitionComponent
         let appState = Entity(named: .appState)
                 .add(component: appStateComponent)
         engine.add(entity: appState)
@@ -86,9 +86,9 @@ final class TransitionAppStateSystemTests: XCTestCase {
         appStateComponent.level = 0
         appStateComponent.score = 0
         appStateComponent.gameState = .infoButtons
-        let transitionComponent = TransitionAppStateComponent(from: .infoButtons, to: .playing)
+        let transitionComponent = ChangeGameStateComponent(from: .infoButtons, to: .playing)
         node.components[GameStateComponent.name] = appStateComponent
-        node.components[TransitionAppStateComponent.name] = transitionComponent
+        node.components[ChangeGameStateComponent.name] = transitionComponent
         // SUT
         system.updateNode(node: node, time: 1)
         //
@@ -102,9 +102,9 @@ final class TransitionAppStateSystemTests: XCTestCase {
         appStateComponent.level = 0
         appStateComponent.score = 0
         appStateComponent.gameState = .gameOver
-        let transitionComponent = TransitionAppStateComponent(from: .gameOver, to: .start)
+        let transitionComponent = ChangeGameStateComponent(from: .gameOver, to: .start)
         node.components[GameStateComponent.name] = appStateComponent
-        node.components[TransitionAppStateComponent.name] = transitionComponent
+        node.components[ChangeGameStateComponent.name] = transitionComponent
         let appState = Entity(named: .appState)
                 .add(component: appStateComponent)
         engine.add(entity: appState)
@@ -122,9 +122,9 @@ final class TransitionAppStateSystemTests: XCTestCase {
         appStateComponent.score = 0
         appStateComponent.gameState = .infoNoButtons
         appStateComponent.shipControlsState = .usingAccelerometer
-        let transitionComponent = TransitionAppStateComponent(from: .infoNoButtons, to: .playing)
+        let transitionComponent = ChangeGameStateComponent(from: .infoNoButtons, to: .playing)
         node.components[GameStateComponent.name] = appStateComponent
-        node.components[TransitionAppStateComponent.name] = transitionComponent
+        node.components[ChangeGameStateComponent.name] = transitionComponent
         // SUT
         system.updateNode(node: node, time: 1)
         //
@@ -140,10 +140,10 @@ final class TransitionAppStateSystemTests: XCTestCase {
         let appStateEntity = Entity(named: "appStateEntity")
                 .add(component: appStateComponent)
         engine.add(entity: appStateEntity)
-        let transitionComponent = TransitionAppStateComponent(from: .playing, to: .gameOver)
+        let transitionComponent = ChangeGameStateComponent(from: .playing, to: .gameOver)
         let node = TransitionAppStateNode()
         node.components[GameStateComponent.name] = appStateComponent
-        node.components[TransitionAppStateComponent.name] = transitionComponent
+        node.components[ChangeGameStateComponent.name] = transitionComponent
         // SUT
         system.updateNode(node: node, time: 1)
         //

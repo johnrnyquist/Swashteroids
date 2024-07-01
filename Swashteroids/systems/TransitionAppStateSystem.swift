@@ -32,7 +32,7 @@ final class TransitionAppStateSystem: ListIteratingSystem {
     }
 
     func updateNode(node: Node, time: TimeInterval) {
-        guard let transitionComponent = node[TransitionAppStateComponent.self],
+        guard let transitionComponent = node[ChangeGameStateComponent.self],
               let appStateComponent = node[GameStateComponent.self]
         else { return }
         // TODO: Need to see case where to and from are both .start
@@ -64,7 +64,7 @@ final class TransitionAppStateSystem: ListIteratingSystem {
             case .infoNoButtons:
                 infoViewsTransition?.toNoButtonsInfoScreen()
         }
-        node.entity?.remove(componentClass: TransitionAppStateComponent.self)
+        node.entity?.remove(componentClass: ChangeGameStateComponent.self)
     }
 }
 

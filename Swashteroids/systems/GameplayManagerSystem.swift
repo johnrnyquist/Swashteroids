@@ -92,7 +92,7 @@ class GameplayManagerSystem: System {
                 shipCreator.createShip(appStateComponent)
             }
         } else { // GAME OVER!
-            entity.add(component: TransitionAppStateComponent(from: .playing, to: .gameOver))
+            entity.add(component: ChangeGameStateComponent(from: .playing, to: .gameOver))
         }
     }
 

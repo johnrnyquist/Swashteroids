@@ -15,7 +15,7 @@ final class TransitionAppStateNode: Node {
 		super.init()
 		components = [
 			GameStateComponent.name: nil_component,
-			TransitionAppStateComponent.name: nil_component,
+			ChangeGameStateComponent.name: nil_component,
 		]
 	}
 }

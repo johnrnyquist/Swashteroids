@@ -11,6 +11,7 @@
 import UIKit
 import SpriteKit
 import SwiftUI
+import GameController
 
 enum CurrentViewController {
     case game
@@ -18,12 +19,12 @@ enum CurrentViewController {
 }
 
 final class GameViewController: UIViewController, AlertPresenting {
-    var skView: SKView?
-    var gameScene: GameScene!
-    var swashteroids: Swashteroids!
+    private var skView: SKView?
+    private var gameScene: GameScene!
+    private var game: Swashteroids!
+    private var gamePadManager: GamePadInputManager!
+    private var settingsViewController: UIHostingController<SettingsView>!
     var isAlertPresented = false //HACK: this is a hack to prevent the game from starting when the app returns from background.
-    var gamePadManager: GamePadInputManager!
-    var settingsViewController: UIHostingController<SettingsView>!
 
     override func loadView() {
         skView = SKView()
@@ -31,24 +32,24 @@ final class GameViewController: UIViewController, AlertPresenting {
     }
 
     override func viewDidLoad() {
-        startNewGame()
+        skView_setup()
+       startNewGame()
     }
 
     func startNewGame() {
-        skView_setup()
         gameScene = gameScene_create()
-        swashteroids = swashteroids_create()
+        game = swashteroids_create()
         if let gamePadManager {
-            gamePadManager.game = swashteroids
+            gamePadManager.game = game
         } else {
-            gamePadManager = GamePadInputManager(game: swashteroids, size: gameScene.size)
+            gamePadManager = GamePadInputManager(game: game, size: gameScene.size)
         }
         gameScene_present()
-        swashteroids?.start()
+        game?.start()
     }
 
     private func skView_setup() {
-        skView?.showsPhysics = true
+        skView?.showsPhysics = false
         skView?.ignoresSiblingOrder = true // true is more optimized rendering, but must set zPosition
         skView?.isUserInteractionEnabled = true
         skView?.isMultipleTouchEnabled = true
@@ -79,12 +80,12 @@ final class GameViewController: UIViewController, AlertPresenting {
 
     //MARK: - AlertPresenting
     @IBAction func showPauseAlert() {
-        guard let swashteroids else { fatalError("game is nil") }
-        swashteroids.stop()
-        if swashteroids.engine.gameStateComponent.gameState == .playing ||
-           swashteroids.engine.gameStateComponent.gameState == .gameOver {
+        guard let game else { fatalError("game is nil") }
+        game.stop()
+        if game.engine.gameStateComponent.gameState == .playing ||
+           game.engine.gameStateComponent.gameState == .gameOver {
             let alertView = PauseAlert(
-                appState: swashteroids.engine.gameStateComponent, //HACK
+                appState: game.engine.gameStateComponent, //HACK
                 home: home,
                 resume: resume,
                 showSettings: showSettings)
@@ -124,13 +125,13 @@ final class GameViewController: UIViewController, AlertPresenting {
     func resume() {
         dismiss(animated: true, completion: { [unowned self] in
             isAlertPresented = false
-            swashteroids?.start()
+            game?.start()
         })
     }
 
     func appDidBecomeActive() {
         if isAlertPresented == false {
-            swashteroids?.start()
+            game?.start()
         }
     }
 
@@ -140,7 +141,7 @@ final class GameViewController: UIViewController, AlertPresenting {
     }
 
     func printAllComponents() {
-        if let entities = swashteroids?.engine.entities {
+        if let entities = game?.engine.entities {
             for entity in entities {
                 print(entity.name)
                 for component in entity.components {

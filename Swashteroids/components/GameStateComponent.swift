@@ -60,9 +60,8 @@ struct Playing {
 }
 
 final class GameStateComponent: Component {
-    //
     //MARK: - Properties
-    var gameState: GameState
+    var gameState: GameState 
     let config: GameConfig
     let randomness: Randomizing
     private var playing: Playing

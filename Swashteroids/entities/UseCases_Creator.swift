@@ -60,3 +60,10 @@ protocol TorpedoCreatorUseCase: AnyObject {
 protocol TreasureCreatorUseCase: AnyObject {
     func createTreasure(positionComponent: PositionComponent)
 }
+
+protocol StartButtonsCreatorUseCase: AnyObject {
+    func createStart()
+    func removeStart()
+    func createStartButtons()
+    func removeStartButtons()
+}
