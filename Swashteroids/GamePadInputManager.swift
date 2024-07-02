@@ -12,6 +12,10 @@ import Foundation
 import Combine
 import GameController
 
+protocol GameStateObserver {
+    func onGameStateChange(state: GameState)
+}
+
 enum GameCommand: String, CaseIterable {
     // Playing
     case fire = "Fire"
@@ -49,7 +53,7 @@ let buttonTypes: [GameCommand: ButtonTypes] = [
     .play: .inputOnce,
 ]
 
-class GamePadInputManager: NSObject, ObservableObject {
+class GamePadInputManager: NSObject, ObservableObject, GameStateObserver {
     typealias ButtonName = String
     typealias SymbolName = String
     @Published var gameCommandToButtonName: [GameCommand: ButtonName?] = defaultMappings

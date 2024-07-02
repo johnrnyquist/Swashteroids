@@ -189,6 +189,7 @@
 		93139999C782AFD3B2ACD018 /* TransitionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139D4336E12C89FC8BE06B /* TransitionTests.swift */; };
 		931399BCC437F101AA0DA3CB /* HudSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139949CD856130C98A8834 /* HudSystemTests.swift */; };
 		931399C749E2BD0BE4E247A0 /* ApplyThrustComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931397D7C84D4E580EB51E4D /* ApplyThrustComponent.swift */; };
+		931399CD2A31C40FAF304E01 /* HapticFeedbackComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931394FCE0983D687FBC93BC /* HapticFeedbackComponent.swift */; };
 		931399FEBA1404DE9F734910 /* MovementRateComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139A62ACBE6CDFC10158E7 /* MovementRateComponent.swift */; };
 		93139A6C0DBE796C7456682D /* LevelManagementSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313963E69F992809FDF553A /* LevelManagementSystem.swift */; };
 		93139A8885E51A1D11E5F1D6 /* HudCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931397F86C674AD22210D173 /* HudCreator.swift */; };
@@ -396,6 +397,7 @@
 		93139489970BEA17AF74C95E /* TouchNodes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchNodes.swift; sourceTree = "<group>"; };
 		9313949E284EC7C41EFB7FD5 /* LeftSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftSystem.swift; sourceTree = "<group>"; };
 		931394D1D0B636772EE1DFF7 /* String+EntityNames.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+EntityNames.swift"; sourceTree = "<group>"; };
+		931394FCE0983D687FBC93BC /* HapticFeedbackComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HapticFeedbackComponent.swift; sourceTree = "<group>"; };
 		9313950AEA94DBF1217EA852 /* AlienWorkerTargetNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlienWorkerTargetNode.swift; sourceTree = "<group>"; };
 		93139548F1C806045B42CEE6 /* UseCases_Transition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UseCases_Transition.swift; sourceTree = "<group>"; };
 		9313954C85643D9FEA3B568D /* GameControllerComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameControllerComponent.swift; sourceTree = "<group>"; };
@@ -627,6 +629,7 @@
 				931397D7C84D4E580EB51E4D /* ApplyThrustComponent.swift */,
 				8D23C16A2B02C59C00F7D878 /* AsteroidComponent.swift */,
 				8D23C1682B02C59C00F7D878 /* AudioComponent.swift */,
+				8DB409EB2B1D3C6F008DE4EB /* ChangeGameStateComponent.swift */,
 				8D41E2102B1E64530031AF54 /* ChangeShipControlsStateComponent.swift */,
 				8D23C1742B02C59C00F7D878 /* CollidableComponent.swift */,
 				8D23C16D2B02C59C00F7D878 /* DeathThroesComponent.swift */,
@@ -657,10 +660,10 @@
 				8D23C1752B02C59C00F7D878 /* StartComponent.swift */,
 				8D23C1652B02C59C00F7D878 /* TorpedoComponent.swift */,
 				93139735B7C5C32A3DA6CB9D /* TouchComponents.swift */,
-				8DB409EB2B1D3C6F008DE4EB /* ChangeGameStateComponent.swift */,
 				931395FA04809CC11F1BF287 /* TreasureComponent.swift */,
 				8D23C16C2B02C59C00F7D878 /* VelocityComponent.swift */,
 				8D23C1662B02C59C00F7D878 /* WarpDriveComponent.swift */,
+				931394FCE0983D687FBC93BC /* HapticFeedbackComponent.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -1219,6 +1222,7 @@
 				9313973A5076963CC0C269A5 /* GamePadInputManager.swift in Sources */,
 				9313913D152F44CFF69D3EDC /* Dictionary+extensions.swift in Sources */,
 				93139064D7538345A09AE45E /* StartButtonsCreator.swift in Sources */,
+				931399CD2A31C40FAF304E01 /* HapticFeedbackComponent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
