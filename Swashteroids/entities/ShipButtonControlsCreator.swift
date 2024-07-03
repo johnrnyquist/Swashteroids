@@ -145,146 +145,31 @@ class ShipButtonControlsCreator: ShipButtonControlsCreatorUseCase {
             print(#function, #line, "WARNING: could not find all buttons in engine")
             return
         }
-        // Set up the ship control buttons
         flip.add(component: TouchableComponent())
-            .add(component: ButtonBehaviorComponent(
-                touchDown: { [unowned self] sprite in
-                    sprite.alpha = 0.6
-                    generator?.impactOccurred()
-                    engine.playerEntity?.add(component: FlipComponent.shared)
-                },
-                touchUp: { sprite in sprite.alpha = 0.2 },
-                touchUpOutside: { sprite in sprite.alpha = 0.2 },
-                touchMoved: { sprite, over in
-                    if over { sprite.alpha = 0.6 } else { sprite.alpha = 0.2 }
-                }
-            ))
+            .add(component: ButtonComponent())
+            .add(component: HapticFeedbackComponent.shared)
+            .add(component: ButtonFlipComponent())
         hyperspace.sprite?.alpha = 0.0 //HACK to hide this button until you get the power-up
         hyperspace.add(component: TouchableComponent())
-                  .add(component: ButtonBehaviorComponent(
-                      touchDown: { [unowned self] sprite in
-                          sprite.alpha = 0.6
-                          generator?.impactOccurred()
-                          engine.playerEntity?.add(component: DoHyperspaceJumpComponent(size: size))
-                      },
-                      touchUp: { sprite in sprite.alpha = 0.2 },
-                      touchUpOutside: { sprite in sprite.alpha = 0.2 },
-                      touchMoved: { sprite, over in
-                          if over { sprite.alpha = 0.6 } else { sprite.alpha = 0.2 }
-                      }
-                  ))
+                  .add(component: ButtonComponent())
+                  .add(component: HapticFeedbackComponent.shared)
+                  .add(component: ButtonHyperSpaceComponent())
         left.add(component: TouchableComponent())
-            .add(component: ButtonBehaviorComponent(
-                touchDown: { [unowned self] sprite in
-                    sprite.alpha = 0.6
-                    generator?.impactOccurred()
-                    self.engine.playerEntity?.add(component: LeftComponent.shared)
-                },
-                touchUp: { sprite in
-                    sprite.alpha = 0.2
-                    self.engine.playerEntity?.remove(componentClass: LeftComponent.self)
-                },
-                touchUpOutside: { sprite in
-                    sprite.alpha = 0.2
-                    self.engine.playerEntity?.remove(componentClass: LeftComponent.self)
-                },
-                touchMoved: { sprite, over in
-                    if over {
-                        sprite.alpha = 0.6
-                        self.engine.playerEntity?.add(component: LeftComponent.shared)
-                    } else {
-                        sprite.alpha = 0.2
-                        self.engine.playerEntity?.remove(componentClass: LeftComponent.self)
-                    }
-                }
-            ))
+            .add(component: ButtonComponent())
+            .add(component: HapticFeedbackComponent.shared)
+            .add(component: ButtonLeftComponent())
         right.add(component: TouchableComponent())
-             .add(component: ButtonBehaviorComponent(
-                 touchDown: { [unowned self] sprite in
-                     sprite.alpha = 0.6
-                     generator?.impactOccurred()
-                     self.engine.playerEntity?.add(component: RightComponent.shared)
-                 },
-                 touchUp: { sprite in
-                     sprite.alpha = 0.2; self.engine.playerEntity?.remove(componentClass: RightComponent.self)
-                 },
-                 touchUpOutside: { sprite in
-                     sprite.alpha = 0.2; self.engine.playerEntity?.remove(componentClass: RightComponent.self)
-                 },
-                 touchMoved: { sprite, over in
-                     if over {
-                         sprite.alpha = 0.6; self.engine.playerEntity?.add(component: RightComponent.shared)
-                     } else {
-                         sprite.alpha = 0.2; self.engine.playerEntity?.remove(componentClass: RightComponent.self)
-                     }
-                 }
-             ))
+             .add(component: ButtonComponent())
+             .add(component: HapticFeedbackComponent.shared)
+             .add(component: ButtonRightComponent())
         thrust.add(component: TouchableComponent())
-              .add(component: ButtonBehaviorComponent(
-                  touchDown: { [unowned self] sprite in
-                      sprite.alpha = 0.6
-                      generator?.impactOccurred()
-                      if let ship = self.engine.playerEntity {
-                          ship.add(component: ApplyThrustComponent.shared)
-                          ship[WarpDriveComponent.self]?.isThrusting = true
-                          ship[RepeatingAudioComponent.self]?.state = .shouldBegin
-                      }
-                  },
-                  touchUp: { sprite in
-                      sprite.alpha = 0.2
-                      if let ship = self.engine.playerEntity {
-                          ship.remove(componentClass: ApplyThrustComponent.self)
-                          ship[WarpDriveComponent.self]?.isThrusting = false
-                          ship[RepeatingAudioComponent.self]?.state = .shouldStop
-                      }
-                  },
-                  touchUpOutside: { sprite in
-                      sprite.alpha = 0.2
-                      if let ship = self.engine.playerEntity {
-                          ship.remove(componentClass: ApplyThrustComponent.self)
-                          ship[WarpDriveComponent.self]?.isThrusting = false
-                          ship[RepeatingAudioComponent.self]?.state = .shouldStop
-                      }
-                  },
-                  touchMoved: { sprite, over in
-                      if over {
-                          sprite.alpha = 0.6
-                          if let ship = self.engine.playerEntity {
-                              ship.add(component: ApplyThrustComponent.shared)
-                              ship[WarpDriveComponent.self]?.isThrusting = true
-                              ship[RepeatingAudioComponent.self]?.state = .shouldBegin
-                          }
-                      } else {
-                          sprite.alpha = 0.2
-                          if let ship = self.engine.playerEntity {
-                              ship.remove(componentClass: ApplyThrustComponent.self)
-                              ship[WarpDriveComponent.self]?.isThrusting = false
-                              ship[RepeatingAudioComponent.self]?.state = .shouldStop
-                          }
-                      }
-                  }
-              ))
+              .add(component: ButtonComponent())
+              .add(component: HapticFeedbackComponent.shared)
+              .add(component: ButtonThrustComponent())
         fire.sprite?.alpha = 0.0 //HACK to hide this button until you get the power-up
         fire.add(component: TouchableComponent())
-            .add(component: ButtonBehaviorComponent(
-                touchDown: { [unowned self] sprite in
-                    sprite.alpha = 0.6
-                    generator?.impactOccurred()
-                    engine.playerEntity?.add(component: FireDownComponent.shared)
-                },
-                touchUp: { sprite in
-                    sprite.alpha = 0.2
-                },
-                touchUpOutside: { sprite in
-                    sprite.alpha = 0.2
-                },
-                touchMoved: { sprite, over in
-                    if over {
-                        sprite.alpha = 0.6
-                    } else {
-                        sprite.alpha = 0.2
-                    }
-                }
-            ))
+            .add(component: ButtonComponent())
+            .add(component: HapticFeedbackComponent.shared)
+            .add(component: ButtonFireComponent())
     }
 }

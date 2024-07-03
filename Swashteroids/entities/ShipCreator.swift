@@ -63,15 +63,14 @@ class ShipCreator: ShipCreatorUseCase {
                 .add(component: CollidableComponent(radius: 25))
                 .add(component: DisplayComponent(sknode: sprite))
                 .add(component: MovementRateComponent(accelerationRate: 90, rotationRate: 100))
-                .add(component: InputComponent.shared)
-                .add(component: AccelerometerComponent())
+                .add(component: AccelerometerComponent.shared)
                 .add(component: ChangeShipControlsStateComponent(to: state.shipControlsState))
                 .add(component: RepeatingAudioComponent(sound: GameScene.sound)) //HACK
                 .add(component: ShootableComponent.shared)
                 .add(component: AlienWorkerTargetComponent.shared)
         switch state.shipControlsState {
         case .usingAccelerometer:
-            ship.add(component: AccelerometerComponent())
+                ship.add(component: AccelerometerComponent.shared)
         case .usingScreenControls:
             ship.remove(componentClass: AccelerometerComponent.self)
             break
@@ -107,7 +106,7 @@ class ShipCreator: ShipCreatorUseCase {
                 .remove(componentClass: ExitScreenComponent.self)
                 .remove(componentClass: GunComponent.self)
                 .remove(componentClass: HyperspaceDriveComponent.self)
-                .remove(componentClass: InputComponent.self)
+//                .remove(componentClass: InputComponent.self)
                 .remove(componentClass: MoveToTargetComponent.self)
                 .remove(componentClass: MovementRateComponent.self)
                 .remove(componentClass: ReactionTimeComponent.self)

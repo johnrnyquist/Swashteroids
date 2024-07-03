@@ -18,7 +18,7 @@ class HapticFeedbackComponent: Component {
 
     private override init() {}
     
-    func hapticFeedback() {
+    func impact() {
             generator.impactOccurred()
     }
 }

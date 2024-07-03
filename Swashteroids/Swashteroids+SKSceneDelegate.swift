@@ -28,14 +28,14 @@ extension Swashteroids: SKSceneDelegate {
     }
 
     func rotateLeft(by amount: Double) {
-        inputComponent.rotate = (true, amount)
+        accelerometerComponent.rotate = (true, amount)
     }
 
     func rotateRight(by amount: Double) {
-        inputComponent.rotate = (true, amount)
+        accelerometerComponent.rotate = (true, amount)
     }
 
     func clearRotate() {
-        inputComponent.rotate = (false, 0.0)
+        accelerometerComponent.rotate = (false, 0.0)
     }
 }

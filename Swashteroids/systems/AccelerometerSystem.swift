@@ -19,7 +19,7 @@ final class AccelerometerSystem: ListIteratingSystem {
     }
 
     private func updateNode(node: Node, time: TimeInterval) {
-        guard let input = node[InputComponent.self],
+        guard let input = node[AccelerometerComponent.self],
               input.rotate.isDown,
               let position = node[PositionComponent.self],
               let control = node[MovementRateComponent.self]

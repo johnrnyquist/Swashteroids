@@ -8,7 +8,7 @@
 // https://github.com/johnrnyquist/Swash
 //
 
-class MockAlertPresenter: AlertPresenting {
+class MockAlertPresenter: PauseAlertPresenting {
     func showSettings() {}
     
     func hideSettings() {}

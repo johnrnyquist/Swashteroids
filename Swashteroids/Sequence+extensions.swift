@@ -8,7 +8,13 @@
 // https://github.com/johnrnyquist/Swash
 //
 
-import Swash
+import Foundation
 
-// Not using at the moment
-final class StartComponent: Component {}
+extension Sequence {
+    @discardableResult
+    func printEach(_ prefix: String = "") -> [Element] {
+        let array = Array(self)
+        array.forEach { print("\(prefix)\($0)") }
+        return array
+    }
+}

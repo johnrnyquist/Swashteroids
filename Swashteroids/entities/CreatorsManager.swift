@@ -24,7 +24,7 @@ class CreatorsManager {
     let treasureCreator: TreasureCreatorUseCase
     let startButtonsCreator: StartButtonsCreatorUseCase
 
-    init(engine: Engine, gameSize: CGSize, alertPresenter: AlertPresenting, generator: UIImpactFeedbackGenerator, scene: GameScene) {
+    init(engine: Engine, gameSize: CGSize, alertPresenter: PauseAlertPresenting, generator: UIImpactFeedbackGenerator, scene: GameScene) {
         alienCreator = AlienCreator(scene: scene, engine: engine, size: gameSize)
         asteroidCreator = AsteroidCreator(engine: engine)
         hudCreator = HudCreator(engine: engine, alertPresenter: alertPresenter)

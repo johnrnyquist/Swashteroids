@@ -11,11 +11,11 @@
 import Swash
 import SpriteKit
 
-class HudCreator: HudCreatorUseCase, AlertPresenting {
+class HudCreator: HudCreatorUseCase, PauseAlertPresenting {
     private weak var engine: Engine!
-    private weak var alertPresenter: AlertPresenting?
+    private weak var alertPresenter: PauseAlertPresenting?
 
-    init(engine: Engine, alertPresenter: AlertPresenting) {
+    init(engine: Engine, alertPresenter: PauseAlertPresenting) {
         self.engine = engine
         self.alertPresenter = alertPresenter
     }
@@ -35,7 +35,10 @@ class HudCreator: HudCreatorUseCase, AlertPresenting {
         let pause = Entity(named: .pauseButton) //HACK
                 .add(component: position)
                 .add(component: DisplayComponent(sknode: pauseButton))
+                .add(component: ButtonPauseComponent())
                 .add(component: TouchableComponent())
+                .add(component: ButtonComponent())
+                .add(component: HapticFeedbackComponent.shared)
                 .add(component: ButtonBehaviorComponent { node in
                     self.alertPresenter?.showPauseAlert()
                 })

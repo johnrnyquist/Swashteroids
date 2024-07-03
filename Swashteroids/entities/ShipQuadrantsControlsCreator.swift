@@ -30,16 +30,16 @@ class ShipQuadrantsControlsCreator: ShipQuadrantsControlsCreatorUseCase {
     func createQuadrantSprite(quadrant: Int, entity: Entity) -> SwashSpriteNode {
         let position: CGPoint
         switch quadrant {
-        case 1:
-            position = CGPoint(x: 0, y: size.height / 2)
-        case 2:
-            position = CGPoint(x: size.width / 2, y: size.height / 2)
-        case 3:
-            position = CGPoint(x: 0, y: 0)
-        case 4:
-            position = CGPoint(x: size.width / 2, y: 0)
-        default:
-            position = .zero
+            case 1:
+                position = CGPoint(x: 0, y: size.height / 2)
+            case 2:
+                position = CGPoint(x: size.width / 2, y: size.height / 2)
+            case 3:
+                position = CGPoint(x: 0, y: 0)
+            case 4:
+                position = CGPoint(x: size.width / 2, y: 0)
+            default:
+                position = .zero
         }
         let quadrantSprite = SwashSpriteNode(color: .black, size: CGSize(width: size.width / 2, height: size.height / 2))
         quadrantSprite.anchorPoint = CGPoint(x: 0, y: 0)
@@ -74,92 +74,25 @@ class ShipQuadrantsControlsCreator: ShipQuadrantsControlsCreatorUseCase {
                 .add(component: DisplayComponent(sknode: q1Sprite))
                 .add(component: PositionComponent(x: q1Sprite.x, y: q1Sprite.y, z: .bottom, rotationDegrees: 0))
                 .add(component: TouchableComponent())
-                .add(component: ButtonBehaviorComponent(
-                    touchDown: { [unowned self] sprite in
-                        generator?.impactOccurred()
-                        if let ship = self.engine.playerEntity,
-                           ship.has(componentClassName: HyperspaceDriveComponent.name) {
-                            engine.playerEntity?.add(component: DoHyperspaceJumpComponent(size: size))
-                        }
-                    },
-                    touchUp: { _ in },
-                    touchUpOutside: { _ in },
-                    touchMoved: { _, _ in }
-                ))
+                .add(component: HapticFeedbackComponent.shared)
+                .add(component: QuadrantComponent(quadrant: .q1))
         q2Entity
                 .add(component: DisplayComponent(sknode: q2Sprite))
                 .add(component: PositionComponent(x: q2Sprite.x, y: q2Sprite.y, z: .bottom, rotationDegrees: 0))
                 .add(component: TouchableComponent())
-                .add(component: ButtonBehaviorComponent(
-                    touchDown: { [unowned self] sprite in
-                        generator?.impactOccurred()
-                        engine.playerEntity?.add(component: FlipComponent.shared)
-                    },
-                    touchUp: { _ in },
-                    touchUpOutside: { _ in },
-                    touchMoved: { _, _ in }
-                ))
+                .add(component: HapticFeedbackComponent.shared)
+                .add(component: QuadrantComponent(quadrant: .q2))
         q3Entity
                 .add(component: DisplayComponent(sknode: q3Sprite))
                 .add(component: PositionComponent(x: q3Sprite.x, y: q3Sprite.y, z: .bottom, rotationDegrees: 0))
                 .add(component: TouchableComponent())
-                .add(component: ButtonBehaviorComponent(
-                    touchDown: { [unowned self] sprite in
-                        generator?.impactOccurred()
-                        if let ship = self.engine.playerEntity {
-                            ship.add(component: ApplyThrustComponent.shared)
-                            ship[WarpDriveComponent.self]?.isThrusting = true
-                            ship[RepeatingAudioComponent.self]?.state = .shouldBegin
-                        }
-                    },
-                    touchUp: { sprite in
-                        if let ship = self.engine.playerEntity {
-                            ship.remove(componentClass: ApplyThrustComponent.self)
-                            ship[WarpDriveComponent.self]?.isThrusting = false
-                            ship[RepeatingAudioComponent.self]?.state = .shouldStop
-                        }
-                    },
-                    touchUpOutside: { sprite in
-                        if let ship = self.engine.playerEntity {
-                            ship.remove(componentClass: ApplyThrustComponent.self)
-                            ship[WarpDriveComponent.self]?.isThrusting = false
-                            ship[RepeatingAudioComponent.self]?.state = .shouldStop
-                        }
-                    },
-                    touchMoved: { sprite, over in
-                        if over {
-                            if let ship = self.engine.playerEntity {
-                                ship.add(component: ApplyThrustComponent.shared)
-                                ship[WarpDriveComponent.self]?.isThrusting = true
-                                ship[RepeatingAudioComponent.self]?.state = .shouldBegin
-                            }
-                        } else {
-                            if let ship = self.engine.playerEntity {
-                                ship.remove(componentClass: ApplyThrustComponent.self)
-                                ship[WarpDriveComponent.self]?.isThrusting = false
-                                ship[RepeatingAudioComponent.self]?.state = .shouldStop
-                            }
-                        }
-                    }
-                ))
+                .add(component: HapticFeedbackComponent.shared)
+                .add(component: QuadrantComponent(quadrant: .q3))
         q4Entity
                 .add(component: DisplayComponent(sknode: q4Sprite))
                 .add(component: PositionComponent(x: q4Sprite.x, y: q4Sprite.y, z: .bottom, rotationDegrees: 0))
                 .add(component: TouchableComponent())
-                .add(component: ButtonBehaviorComponent(
-                    touchDown: { [unowned self] sprite in
-                        generator?.impactOccurred()
-                        engine.playerEntity?.add(component: FireDownComponent.shared)
-                    },
-                    touchUp: { sprite in
-                    },
-                    touchUpOutside: { sprite in
-                    },
-                    touchMoved: { sprite, over in
-                        if over {
-                        } else {
-                        }
-                    }
-                ))
+                .add(component: HapticFeedbackComponent.shared)
+                .add(component: QuadrantComponent(quadrant: .q4))
     }
 }

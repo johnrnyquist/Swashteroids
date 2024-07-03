@@ -13,20 +13,20 @@ import SpriteKit
 
 class ToggleShipControlsCreator: ToggleShipControlsCreatorUseCase {
     private let engine: Engine
-    private let scaleManager: ScaleManaging 
-    private let size: CGSize 
+    private let scaleManager: ScaleManaging
+    private let size: CGSize
     private var generator: UIImpactFeedbackGenerator?
-    
-    init(engine: Engine, 
-         size: CGSize, 
-         generator: UIImpactFeedbackGenerator?, 
+
+    init(engine: Engine,
+         size: CGSize,
+         generator: UIImpactFeedbackGenerator?,
          scaleManager: ScaleManaging = ScaleManager.shared) {
         self.engine = engine
         self.generator = generator
         self.size = engine.gameStateComponent.gameSize
         self.scaleManager = ScaleManager.shared
     }
-    
+
     func removeToggleButton() {
         guard let entity = engine.findEntity(named: .toggleButton) else { return }
         engine.remove(entity: entity)
@@ -43,23 +43,10 @@ class ToggleShipControlsCreator: ToggleShipControlsCreatorUseCase {
                 .add(component: PositionComponent(x: x, y: y, z: .buttons))
                 .add(component: DisplayComponent(sknode: sprite))
                 .add(component: TouchableComponent())
+                .add(component: HapticFeedbackComponent.shared)
+                .add(component: ButtonToggleComponent())
+                .add(component: ButtonComponent())
         sprite.entity = toggleEntity
-        // Add the button behavior
-        let toState: ShipControlsState = toggleState == .on ? .usingAccelerometer : .usingScreenControls
-        toggleEntity.add(component: ButtonBehaviorComponent(
-            touchDown: { [unowned self] sprite in
-                generator?.impactOccurred()
-                engine.gameStateComponent.shipControlsState = toState //HACK remove? Add TransitionAppStateComponent?
-                engine.hud?.add(component: ChangeShipControlsStateComponent(to: toState))
-                engine.hud?.add(component: AudioComponent(fileNamed: .toggle,
-                                                          actionKey: "toggle\(toggleState.rawValue)"))
-            },
-            touchUp: { sprite in sprite.alpha = 0.2 },
-            touchUpOutside: { sprite in sprite.alpha = 0.2 },
-            touchMoved: { sprite, over in
-                if over { sprite.alpha = 0.6 } else { sprite.alpha = 0.2 }
-            }
-        ))
         engine.add(entity: toggleEntity)
     }
 }

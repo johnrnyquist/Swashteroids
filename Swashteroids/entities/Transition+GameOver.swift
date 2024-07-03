@@ -36,19 +36,16 @@ class GameOverTransition: GameOverUseCase {
         gameOverView.name = "gameOverView"
         let gameOverEntity = Entity(named: .gameOver)
                 .add(component: GameOverComponent())
+                .add(component: ButtonGameOverToHomeComponent())
                 .add(component: DisplayComponent(sknode: gameOverView))
                 .add(component: PositionComponent(x: gameSize.width / 2,
                                                   y: gameSize.height / 2,
                                                   z: .gameOver,
                                                   rotationDegrees: 0))
-                .add(component: TouchableComponent())
                 .add(component: engine.gameStateComponent)
-                .add(component: ButtonBehaviorComponent(
-                    touchDown: { [unowned self] sprite in
-                        generator?.impactOccurred()
-                        engine.gameStateEntity
-                              .add(component: ChangeGameStateComponent(from: .gameOver, to: .start))
-                    }))
+                .add(component: TouchableComponent())
+                .add(component: ButtonComponent())
+                .add(component: HapticFeedbackComponent.shared)
         gameOverView.entity = gameOverEntity
         engine.add(entity: gameOverEntity)
     }

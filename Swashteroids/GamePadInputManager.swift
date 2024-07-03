@@ -183,7 +183,7 @@ class GamePadInputManager: NSObject, ObservableObject, GameStateObserver {
             print(controller.productCategory)
             //Check to see whether it is an extended Game Controller (Such as a Nimbus)
             if let pad = controller.extendedGamepad {
-                game.usingGameController()
+                game.usingGamePad()
                 setupOnPressed(pad: pad, dictionary: commandToClosure_playing)
                 break
             }

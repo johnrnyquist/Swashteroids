@@ -31,14 +31,14 @@ final class AccelerometerSystemTests: XCTestCase {
     func test_RotateIsDown() throws {
         let node = AccelerometerNode()
         let accelerometer = AccelerometerComponent()
-        let input = InputComponent.shared
+        let input = AccelerometerComponent.shared
         input.rotate = (true, 1.0)
         let position = PositionComponent(x: 0, y: 0, z: .ship, rotationDegrees: 0.0)
         let motionControls = MovementRateComponent(accelerationRate: 1.0,
                                                      rotationRate: 1.0,
                                                      scaleManager: MockScaleManager())
         node.components[AccelerometerComponent.name] = accelerometer
-        node.components[InputComponent.name] = input
+        node.components[AccelerometerComponent.name] = input
         node.components[MovementRateComponent.name] = motionControls
         node.components[PositionComponent.name] = position
         if system.nodeUpdateFunction == nil {
@@ -52,14 +52,14 @@ final class AccelerometerSystemTests: XCTestCase {
     func test_RotateIsNotDown() throws {
         let node = AccelerometerNode()
         let accelerometer = AccelerometerComponent()
-        let input = InputComponent.shared
+        let input = AccelerometerComponent.shared
         input.rotate = (false, 0.0)
         let position = PositionComponent(x: 0, y: 0, z: .ship, rotationDegrees: 0.0)
         let motionControls = MovementRateComponent(accelerationRate: 1.0,
                                                      rotationRate: 1.0,
                                                      scaleManager: MockScaleManager_halfSize())
         node.components[AccelerometerComponent.name] = accelerometer
-        node.components[InputComponent.name] = input
+        node.components[AccelerometerComponent.name] = input
         node.components[MovementRateComponent.name] = motionControls
         node.components[PositionComponent.name] = position
         if system.nodeUpdateFunction == nil {

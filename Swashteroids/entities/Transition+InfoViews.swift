@@ -33,18 +33,15 @@ class InfoViewsTransition: InfoViewsUseCase {
         guard let viewSprite = noButtonsInfoArt.childNode(withName: "quadrants") as? SwashScaledSpriteNode else {
             fatalError("Could not load 'quadrants' as SwashSpriteNode")
         }
-
         viewSprite.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         viewSprite.removeFromParent()
         let viewEntity = Entity(named: .noButtonsInfoView)
+                .add(component: ButtonWithAccelerometerInfoComponent())
+                .add(component: ButtonComponent())
                 .add(component: DisplayComponent(sknode: viewSprite))
                 .add(component: PositionComponent(x: gameSize.width / 2, y: gameSize.height / 2, z: .buttons, rotationDegrees: 0))
                 .add(component: TouchableComponent())
-                .add(component: ButtonBehaviorComponent(
-                    touchDown: { [unowned self] sprite in
-                        generator?.impactOccurred()
-                        engine.gameStateEntity.add(component: ChangeGameStateComponent(from: .infoNoButtons, to: .playing))
-                    }))
+                .add(component: HapticFeedbackComponent.shared)
         viewSprite.entity = viewEntity
         engine.add(entity: viewEntity)
     }
@@ -57,7 +54,7 @@ class InfoViewsTransition: InfoViewsUseCase {
     func toButtonsInfoScreen() {
         let viewSprite = SwashSpriteNode(color: .background,
                                          size: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
-        let artSprite = SKSpriteNode(imageNamed: "infoButtons")
+        let artSprite = SwashSpriteNode(imageNamed: "infoButtons")
         viewSprite.addChild(artSprite)
         let screenSize = UIScreen.main.bounds.size
         let scaleX = screenSize.width / artSprite.size.width
@@ -65,13 +62,12 @@ class InfoViewsTransition: InfoViewsUseCase {
         let scale = min(scaleX, scaleY)
         artSprite.scale = scale
         let viewEntity = Entity(named: .buttonsInfoView)
+                .add(component: ButtonWithButtonsInfoComponent())
+                .add(component: ButtonComponent())
                 .add(component: DisplayComponent(sknode: viewSprite))
                 .add(component: PositionComponent(x: gameSize.width / 2, y: gameSize.height / 2, z: .buttons, rotationDegrees: 0))
                 .add(component: TouchableComponent())
-                .add(component: ButtonBehaviorComponent(touchDown: { [unowned self] sprite in
-                    generator?.impactOccurred()
-                    engine.gameStateEntity.add(component: ChangeGameStateComponent(from: .infoButtons, to: .playing))
-                }))
+                .add(component: HapticFeedbackComponent.shared)
         viewSprite.entity = viewEntity
         viewSprite.name = .buttonsInfoView
         engine.add(entity: viewEntity)

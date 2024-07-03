@@ -57,43 +57,20 @@ class StartButtonsCreator: StartButtonsCreatorUseCase {
         engine.add(entity: withButtons)
         // the button to tap if you want to play with no buttons on the screen
         noButtons
+                .add(component: ButtonWithAccelerometerComponent())
+                .add(component: ButtonComponent())
+                .add(component: TouchableComponent())
+                .add(component: HapticFeedbackComponent.shared)
                 .add(component: DisplayComponent(sknode: noButtonsSprite))
                 .add(component: PositionComponent(x: noButtonsSprite.x, y: noButtonsSprite.y, z: Layer.top, rotationDegrees: 0))
-                .add(component: TouchableComponent())
-                .add(component: ButtonBehaviorComponent(
-                    touchDown: { [unowned self] sprite in
-                        generator?.impactOccurred(); sprite.alpha = 0.6
-                    },
-                    touchUp: { [unowned self] sprite in
-                        sprite.alpha = 0.2
-                        engine.gameStateEntity.add(component: ChangeGameStateComponent(from: .start, to: .infoNoButtons))
-                    },
-                    touchUpOutside: { sprite in
-                        sprite.alpha = 0.2
-                    },
-                    touchMoved: { sprite, over in
-                        if over { sprite.alpha = 0.6 } else { sprite.alpha = 0.2 }
-                    }))
         // the button to tap if you want to play with buttons on the screen
         withButtons
+                .add(component: ButtonWithButtonsComponent())
+                .add(component: ButtonComponent())
+                .add(component: TouchableComponent())
+                .add(component: HapticFeedbackComponent.shared)
                 .add(component: DisplayComponent(sknode: buttonsSprite))
                 .add(component: PositionComponent(x: buttonsSprite.x, y: buttonsSprite.y, z: Layer.top, rotationDegrees: 0))
-                .add(component: TouchableComponent())
-                .add(component: ButtonBehaviorComponent(
-                    touchDown: { [unowned self] sprite in
-                        generator?.impactOccurred()
-                        sprite.alpha = 0.6
-                    },
-                    touchUp: { [unowned self] sprite in
-                        sprite.alpha = 0.2
-                        engine.gameStateEntity.add(component: ChangeGameStateComponent(from: .start, to: .infoButtons))
-                    },
-                    touchUpOutside: { sprite in
-                        sprite.alpha = 0.2
-                    },
-                    touchMoved: { sprite, over in
-                        if over { sprite.alpha = 0.6 } else { sprite.alpha = 0.2 }
-                    }))
     }
 
     func removeStartButtons() {

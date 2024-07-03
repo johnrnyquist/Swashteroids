@@ -14,7 +14,11 @@ import CoreMotion
 import GameController
 
 class SystemsManager {
-    init(scene: GameScene, engine: Engine, creatorManager: CreatorsManager, generator: UIImpactFeedbackGenerator) {
+    init(scene: GameScene,
+         engine: Engine,
+         creatorManager: CreatorsManager,
+         generator: UIImpactFeedbackGenerator,
+         alertPresenter: PauseAlertPresenting) {
         let soundPlayer = scene
         let transition = PlayingTransition(
             hudCreator: creatorManager.hudCreator,
@@ -26,6 +30,8 @@ class SystemsManager {
         let infoViewsTransition = InfoViewsTransition(engine: engine, generator: generator)
         engine
             // preupdate
+                .add(system: TouchedButtonSystem(), priority: .preUpdate)
+                .add(system: TouchedQuadrantSystem(), priority: .preUpdate)
                 .add(system: HyperspaceJumpSystem(engine: engine), priority: .preUpdate)
                 .add(system: FiringSystem(torpedoCreator: creatorManager.torpedoCreator), priority: .preUpdate)
                 .add(system: FlipSystem(), priority: .preUpdate)
@@ -50,6 +56,7 @@ class SystemsManager {
                                                       gameOverTransition: gameOverTransition),
                      priority: .preUpdate)
                 // update
+                .add(system: AlertPresentingSystem(alertPresenting: alertPresenter), priority: .update)
                 .add(system: AlienAppearancesSystem(alienCreator: creatorManager.alienCreator), priority: .update)
                 .add(system: LifetimeSystem(), priority: .update)
                 .add(system: ReactionTimeSystem(), priority: .update)
@@ -91,12 +98,12 @@ final class Swashteroids: NSObject {
     private let generator = UIImpactFeedbackGenerator(style: .heavy)
     private var tickProvider: TickProvider?
     private(set) var engine = Engine()
-    private(set) var inputComponent = InputComponent.shared
+    private(set) var accelerometerComponent = AccelerometerComponent.shared // using in SKSceneDelegate extension
     private(set) var manager_creators: CreatorsManager!
     private(set) var manager_systems: SystemsManager!
     private(set) var orientation = 1.0
     private(set) weak var scene: GameScene!
-    weak var alertPresenter: AlertPresenting!
+    weak var alertPresenter: PauseAlertPresenting!
     public var gameState: GameState {
         gameStateComponent.gameState
     }
@@ -104,7 +111,7 @@ final class Swashteroids: NSObject {
         engine.gameStateComponent
     }
 
-    init(scene: GameScene, alertPresenter: AlertPresenting, seed: Int = 0) {
+    init(scene: GameScene, alertPresenter: PauseAlertPresenting, seed: Int = 0) {
         self.scene = scene
         self.alertPresenter = alertPresenter
         if seed == 0 {
@@ -123,7 +130,11 @@ final class Swashteroids: NSObject {
                                            alertPresenter: alertPresenter,
                                            generator: generator,
                                            scene: scene)
-        manager_systems = SystemsManager(scene: scene, engine: engine, creatorManager: manager_creators, generator: generator)
+        manager_systems = SystemsManager(scene: scene,
+                                         engine: engine,
+                                         creatorManager: manager_creators,
+                                         generator: generator,
+                                         alertPresenter: alertPresenter)
     }
 
     deinit {
@@ -138,14 +149,14 @@ final class Swashteroids: NSObject {
                 .add(component: ChangeGameStateComponent(from: .start, to: .start))
                 .add(component: TimePlayedComponent())
                 .add(component: AlienAppearancesComponent.shared) //HACK
-        let inputEntity = Entity(named: .input)
-                .add(component: InputComponent.shared)
+//        let inputEntity = Entity(named: .input)
+//                .add(component: InputComponent.shared)
         engine.add(entity: allSoundsEntity)
         engine.add(entity: appStateEntity)
-        engine.add(entity: inputEntity)
+//        engine.add(entity: inputEntity)
     }
 
-    func usingGameController() {
+    func usingGamePad() {
         engine.gameStateEntity.add(component: ChangeShipControlsStateComponent(to: .usingGameController))
     }
 
@@ -154,10 +165,7 @@ final class Swashteroids: NSObject {
     }
 
     func start() {
-        if GCController.isGameControllerConnected() {
-            usingGameController()
-        }
-
+        usingScreenControls()
         motionManager?.startAccelerometerUpdates()
         tickProvider = TickProvider()
         tickProvider?.add(tickEngineListener) // Then engine listens for ticks
@@ -184,5 +192,4 @@ final class Swashteroids: NSObject {
 }
 
 extension Swashteroids {
-    
 }

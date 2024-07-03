@@ -8,7 +8,7 @@
 // https://github.com/johnrnyquist/Swash
 //
 
-protocol AlertPresenting: AnyObject {
+protocol PauseAlertPresenting: AnyObject {
     func showPauseAlert()
     var isAlertPresented: Bool { get set }
     func home()

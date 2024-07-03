@@ -18,7 +18,7 @@ enum CurrentViewController {
     case settings
 }
 
-final class GameViewController: UIViewController, AlertPresenting {
+final class GameViewController: UIViewController, PauseAlertPresenting {
     private var skView: SKView?
     private var gameScene: GameScene!
     private var game: Swashteroids!

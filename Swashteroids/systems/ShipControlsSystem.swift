@@ -97,7 +97,7 @@ class ShipControlsSystem: ListIteratingSystem {
 
     private func usingAccelerometer() {
         if engine.gameStateComponent.gameState == .playing {
-            engine.playerEntity?.add(component: AccelerometerComponent())
+            engine.playerEntity?.add(component: AccelerometerComponent.shared)
             shipControlQuadrantsCreator.createShipControlQuadrants()
             shipButtonControlsCreator.removeShipControlButtons()
             toggleShipControlsCreator.removeToggleButton()
