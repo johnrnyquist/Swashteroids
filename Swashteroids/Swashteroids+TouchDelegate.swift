@@ -49,41 +49,45 @@ protocol TouchDelegate: AnyObject {
 //        }
 //    }
 //}
+
 import Swash
 
-var touchedComponents: [UITouch: TouchedComponent] = [:] //HACK
+var touchedComponents: [Int: TouchedComponent] = [:] //HACK
+
 extension Swashteroids: TouchDelegate {
     func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        touches.forEach { touch in
+        for touch in touches {
             let location = touch.location(in: scene)
-            scene.nodes(at: location)
-                .compactMap { $0 as? SwashSpriteNode }
-                .compactMap { $0.entity }
-                .filter { $0.has(componentClassName: TouchableComponent.name) }
-                .forEach { entity in
-                    let component = TouchedComponent(touch: touch, state: .began)
+            scene.nodes(at: location).forEach({ sknode in
+                if let entity = (sknode as? SwashSpriteNode)?.entity,
+                   entity.has(componentClass: TouchableComponent.self) {
+                    let component = TouchedComponent(touch: touch.hash, state: .began, locationInScene: location)
                     entity.add(component: component)
-                    touchedComponents[touch] = component
+                    touchedComponents[touch.hash] = component
                 }
+            })
         }
     }
+
     func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         touches.forEach { touch in
-            touchedComponents[touch]?.state = .ended
-            touchedComponents.removeValue(forKey: touch)
+            print("TouchDelegate", #function)
+                touchedComponents[touch.hash]?.locationInScene = touch.location(in: scene)
+                touchedComponents[touch.hash]?.state = .ended
         }
     }
 
     func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         touches.forEach { touch in
-            touchedComponents[touch]?.state = .moved
+            touchedComponents[touch.hash]?.locationInScene = touch.location(in: scene)
+            touchedComponents[touch.hash]?.state = .moved
         }
     }
 
     func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         touches.forEach { touch in
-            touchedComponents[touch]?.state = .cancelled
-            touchedComponents.removeValue(forKey: touch)
+                touchedComponents[touch.hash]?.locationInScene = touch.location(in: scene)
+                touchedComponents[touch.hash]?.state = .cancelled
         }
     }
 }

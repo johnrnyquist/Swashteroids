@@ -52,9 +52,6 @@ class StartButtonsCreator: StartButtonsCreatorUseCase {
         // assign entities to sprites
         noButtonsSprite.entity = noButtons
         buttonsSprite.entity = withButtons
-        // add entities to engine
-        engine.add(entity: noButtons)
-        engine.add(entity: withButtons)
         // the button to tap if you want to play with no buttons on the screen
         noButtons
                 .add(component: ButtonWithAccelerometerComponent())
@@ -71,6 +68,9 @@ class StartButtonsCreator: StartButtonsCreatorUseCase {
                 .add(component: HapticFeedbackComponent.shared)
                 .add(component: DisplayComponent(sknode: buttonsSprite))
                 .add(component: PositionComponent(x: buttonsSprite.x, y: buttonsSprite.y, z: Layer.top, rotationDegrees: 0))
+        // add entities to engine
+        engine.add(entity: noButtons)
+        engine.add(entity: withButtons)
     }
 
     func removeStartButtons() {

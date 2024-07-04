@@ -29,12 +29,14 @@ class QuadrantComponent: Component {
 }
 
 final class TouchedComponent: Component {
-    var touch: UITouch?
+    var touch: Int
     var state: TouchState
+    var locationInScene: CGPoint
 
-    init(touch: UITouch, state: TouchState) {
+    init(touch: Int, state: TouchState, locationInScene: CGPoint) {
         self.touch = touch
         self.state = state
+        self.locationInScene = locationInScene
     }
 }
 
@@ -85,13 +87,15 @@ class TouchedButtonSystem: ListIteratingSystem {
             let touchedComponent = node[TouchedComponent.self],
             let displayComponent = node[DisplayComponent.self],
             let hapticFeedbackComponent = node[HapticFeedbackComponent.self],
-            let touch = touchedComponent.touch,
             let sprite = displayComponent.sprite,
             let scene = sprite.scene,
             let buttonEntity = node.entity
         else { return }
-        let location = touch.location(in: scene)
+        let location = touchedComponent.locationInScene
+
+//        let location = touch.location(in: scene)
         let over = sprite.contains(location)
+
         // handle the button's functionality
         // HACK I've improved things from an ECS POV by pulling this code from the components into a system but I do not like the big if statement
         switch touchedComponent.state {
@@ -124,12 +128,7 @@ class TouchedButtonSystem: ListIteratingSystem {
                     engine.playerEntity?.add(component: ChangeGameStateComponent(from: .gameOver, to: .start))
                 } else if buttonEntity.has(componentClass: ButtonPauseComponent.self) {
                     buttonEntity.add(component: AlertPresentingComponent(state: .showPauseAlert))
-                } else if buttonEntity.has(componentClass: ButtonHomeComponent.self) {
-                    // alert presenter handles these
-                } else if buttonEntity.has(componentClass: ButtonResumeComponent.self) {
-                    // alert presenter handles these
-                } else if buttonEntity.has(componentClass: ButtonSettingsComponent.self) {
-                    // alert presenter handles these
+                    print(self, "AlertPresentingComponent: showPauseAlert")
                 } else if buttonEntity.has(componentClass: ButtonToggleComponent.self) {
                     let curState = engine.shipControlsState
                     let toggleState: Toggle = curState == .usingAccelerometer ? .off : .on
@@ -181,14 +180,15 @@ class TouchedButtonSystem: ListIteratingSystem {
             case .none:
                 break
         }
-        // handle the button's look
+
+        // handle the button's look and remove on ended
         switch touchedComponent.state {
             case .began:
                 sprite.alpha = 0.6
                 hapticFeedbackComponent.impact()
             case .ended, .cancelled:
                 sprite.alpha = 0.2
-                touchedComponent.touch = nil
+                touchedComponents.removeValue(forKey: touchedComponent.touch)
                 buttonEntity.remove(componentClass: TouchedComponent.self)
             case .moved:
                 if over {
@@ -199,6 +199,7 @@ class TouchedButtonSystem: ListIteratingSystem {
             case .none:
                 break
         }
+
         touchedComponent.state = .none
     }
 }
@@ -227,12 +228,11 @@ class TouchedQuadrantSystem: ListIteratingSystem {
             let touchedComponent = node[TouchedComponent.self],
             let displayComponent = node[DisplayComponent.self],
             let hapticFeedbackComponent = node[HapticFeedbackComponent.self],
-            let touch = touchedComponent.touch,
             let sprite = displayComponent.sprite,
             let scene = sprite.scene,
             let buttonEntity = node.entity
         else { return }
-        let location = touch.location(in: scene)
+        let location = touchedComponent.locationInScene
         let over = sprite.contains(location)
         switch touchedComponent.state {
             case .began:
@@ -257,7 +257,6 @@ class TouchedQuadrantSystem: ListIteratingSystem {
                         break
                 }
             case .ended, .cancelled:
-                touchedComponent.touch = nil
                 buttonEntity.remove(componentClass: TouchedComponent.self)
                 switch quadrantComponent.quadrant {
                     case .q3:

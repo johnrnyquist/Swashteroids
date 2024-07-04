@@ -18,7 +18,7 @@ enum OwnerType {
 }
 
 final class GunComponent: Component {
-    var minimumShotInterval: TimeInterval = 0.25
+    var minimumShotInterval: TimeInterval = 0.2
     var numTorpedoes: Int
     var offsetFromParent = CGPoint(x: 21, y: 0)
     var ownerType: OwnerType

@@ -14,7 +14,6 @@ final class AccelerometerNode: Node {
 	required init() {
 		super.init()
 		components = [
-//			AccelerometerComponent.name: nil_component,
 			AccelerometerComponent.name: nil_component,
 			MovementRateComponent.name: nil_component,
 			PositionComponent.name: nil_component,

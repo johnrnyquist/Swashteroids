@@ -32,6 +32,7 @@ class SystemsManager {
             // preupdate
                 .add(system: TouchedButtonSystem(), priority: .preUpdate)
                 .add(system: TouchedQuadrantSystem(), priority: .preUpdate)
+                .add(system: AlertPresentingSystem(alertPresenting: alertPresenter), priority: .preUpdate)
                 .add(system: HyperspaceJumpSystem(engine: engine), priority: .preUpdate)
                 .add(system: FiringSystem(torpedoCreator: creatorManager.torpedoCreator), priority: .preUpdate)
                 .add(system: FlipSystem(), priority: .preUpdate)
@@ -56,7 +57,6 @@ class SystemsManager {
                                                       gameOverTransition: gameOverTransition),
                      priority: .preUpdate)
                 // update
-                .add(system: AlertPresentingSystem(alertPresenting: alertPresenter), priority: .update)
                 .add(system: AlienAppearancesSystem(alienCreator: creatorManager.alienCreator), priority: .update)
                 .add(system: LifetimeSystem(), priority: .update)
                 .add(system: ReactionTimeSystem(), priority: .update)
@@ -157,7 +157,9 @@ final class Swashteroids: NSObject {
     }
 
     func usingGamePad() {
-        engine.gameStateEntity.add(component: ChangeShipControlsStateComponent(to: .usingGameController))
+        if GCController.isGameControllerConnected() {
+            engine.gameStateEntity.add(component: ChangeShipControlsStateComponent(to: .usingGameController))
+        }
     }
 
     func usingScreenControls() {
@@ -165,7 +167,6 @@ final class Swashteroids: NSObject {
     }
 
     func start() {
-        usingScreenControls()
         motionManager?.startAccelerometerUpdates()
         tickProvider = TickProvider()
         tickProvider?.add(tickEngineListener) // Then engine listens for ticks
@@ -189,7 +190,4 @@ final class Swashteroids: NSObject {
     @objc func orientationChanged(_ notification: Notification) {
         orientation = UIDevice.current.orientation == .landscapeRight ? -1.0 : 1.0
     }
-}
-
-extension Swashteroids {
 }

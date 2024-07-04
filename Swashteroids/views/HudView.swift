@@ -46,19 +46,19 @@ class HudView: SKNode {
         pauseButtonArt = SKSpriteNode(imageNamed: "pause")
         pauseButtonArt.size = CGSize(width: scoreLabel.fontSize, height: scoreLabel.fontSize)
         pauseButtonArt.anchorPoint = CGPoint(x: 1, y: 0)
-        pauseButtonArt.position = CGPoint(x: gameSize.width - textXPadding, y: textY)
+        pauseButtonArt.position = CGPoint(x: gameSize.width - textXPadding - 10, y: textY)
         pauseButtonArt.zPosition = .top
         addChild(pauseButtonArt)
         //
         // pauseButton is used by an Entity
-        pauseButton = SwashSpriteNode(color: .clear, size: CGSize(width: 100, height: 100 ))
+        pauseButton = SwashSpriteNode(color: .clear, size: CGSize(width: 100, height: 60 ))
         pauseButton.anchorPoint = CGPoint(x: 1, y: 1)
         pauseButton.x = gameSize.width 
         pauseButton.y = gameSize.height
         pauseButton.zPosition = .buttons
         addChild(pauseButton)
         //
-        levelLabel = createLabel(x: gameSize.width - pauseButtonArt.width - textXPadding * 3, y: textY, alignment: .right)
+        levelLabel = createLabel(x: gameSize.width - pauseButtonArt.width - textXPadding * 3 - 10, y: textY, alignment: .right)
         addChild(levelLabel)
         addChild(scoreLabel)
         addChild(shipsLabel)
