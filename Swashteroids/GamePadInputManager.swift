@@ -12,7 +12,7 @@ import Foundation
 import Combine
 import GameController
 
-protocol GameStateObserver {
+protocol GameStateObserver: AnyObject {
     func onGameStateChange(state: GameState)
 }
 

@@ -16,7 +16,7 @@ final class TransitionAppStateSystem: ListIteratingSystem {
     private let infoViewsTransition: InfoViewsUseCase?
     private let playingTransition: PlayingUseCase?
     private let gameOverTransition: GameOverUseCase?
-    weak var gamePadManager: GamePadInputManager?
+    weak var gamePadManager: GameStateObserver?
 
     init(
         startTransition: StartUseCase,
