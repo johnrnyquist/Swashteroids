@@ -16,6 +16,13 @@ struct PauseAlert: View {
     var home: () -> Void
     var resume: () -> Void
     var showSettings: () -> Void
+    private var dynamicHeight: CGFloat {
+        var height: CGFloat = 320
+        if !GCController.isGameControllerConnected() {
+            height -= 50 
+        }
+        return height
+    }
     var body: some View {
         VStack(spacing: 10) {
             StatsView(appState: appState)
@@ -27,7 +34,7 @@ struct PauseAlert: View {
                 ButtonView(label: "Controller Settings", action: showSettings)
                         .padding(.horizontal, 20)
             }
-        }.frame(width: 320, height: 320)
+        }.frame(width: 320, height: dynamicHeight)
          .background(Color.black)
          .cornerRadius(20)
          .overlay(

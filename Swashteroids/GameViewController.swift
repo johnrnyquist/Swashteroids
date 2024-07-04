@@ -66,7 +66,7 @@ final class GameViewController: UIViewController, PauseAlertPresenting {
 
     private func swashteroids_create() -> Swashteroids {
         let seed = Int(Date().timeIntervalSince1970)
-        let swashteroids = Swashteroids(scene: gameScene, alertPresenter: self, seed: seed)
+        let swashteroids = Swashteroids(scene: gameScene, alertPresenter: self, seed: seed, touchManager: TouchManager(scene: gameScene))
         gameScene.delegate = swashteroids
         gameScene.touchDelegate = swashteroids
         gameScene.physicsWorld.contactDelegate = swashteroids

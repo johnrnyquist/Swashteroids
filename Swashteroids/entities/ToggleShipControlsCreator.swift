@@ -40,7 +40,7 @@ class ToggleShipControlsCreator: ToggleShipControlsCreatorUseCase {
         let x = size.width / 2
         let y = 90.0 * scaleManager.SCALE_FACTOR
         let toggleEntity = Entity(named: .toggleButton)
-                .add(component: PositionComponent(x: x, y: y, z: .buttons))
+                .add(component: PositionComponent(x: x, y: y, z: .top))
                 .add(component: DisplayComponent(sknode: sprite))
                 .add(component: TouchableComponent())
                 .add(component: HapticFeedbackComponent.shared)

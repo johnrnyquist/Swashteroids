@@ -18,7 +18,8 @@ class SystemsManager {
          engine: Engine,
          creatorManager: CreatorsManager,
          generator: UIImpactFeedbackGenerator,
-         alertPresenter: PauseAlertPresenting) {
+         alertPresenter: PauseAlertPresenting,
+    touchManager: TouchManager) {
         let soundPlayer = scene
         let transition = PlayingTransition(
             hudCreator: creatorManager.hudCreator,
@@ -26,12 +27,12 @@ class SystemsManager {
             shipControlQuadrantsCreator: creatorManager.shipControlQuadrantsCreator,
             shipButtonControlsCreator: creatorManager.shipButtonControlsCreator)
         let startTransition = StartTransition(engine: engine, startButtonsCreator: creatorManager.startButtonsCreator)
-        let gameOverTransition = GameOverTransition(engine: engine, generator: generator)
+        let gameOverTransition = GameOverTransition(engine: engine, alert: alertPresenter, generator: generator)
         let infoViewsTransition = InfoViewsTransition(engine: engine, generator: generator)
         engine
             // preupdate
-                .add(system: TouchedButtonSystem(), priority: .preUpdate)
-                .add(system: TouchedQuadrantSystem(), priority: .preUpdate)
+                .add(system: TouchedButtonSystem(touchManager: touchManager), priority: .preUpdate)
+                .add(system: TouchedQuadrantSystem(touchManager: touchManager), priority: .preUpdate)
                 .add(system: AlertPresentingSystem(alertPresenting: alertPresenter), priority: .preUpdate)
                 .add(system: HyperspaceJumpSystem(engine: engine), priority: .preUpdate)
                 .add(system: FiringSystem(torpedoCreator: creatorManager.torpedoCreator), priority: .preUpdate)
@@ -110,9 +111,11 @@ final class Swashteroids: NSObject {
     public var gameStateComponent: GameStateComponent {
         engine.gameStateComponent
     }
-
-    init(scene: GameScene, alertPresenter: PauseAlertPresenting, seed: Int = 0) {
+    var touchManager: TouchManager
+    
+    init(scene: GameScene, alertPresenter: PauseAlertPresenting, seed: Int = 0, touchManager: TouchManager) {
         self.scene = scene
+        self.touchManager = touchManager
         self.alertPresenter = alertPresenter
         if seed == 0 {
             Randomness.initialize(with: Int(Date().timeIntervalSince1970))
@@ -134,7 +137,8 @@ final class Swashteroids: NSObject {
                                          engine: engine,
                                          creatorManager: manager_creators,
                                          generator: generator,
-                                         alertPresenter: alertPresenter)
+                                         alertPresenter: alertPresenter,
+                                         touchManager: touchManager)
     }
 
     deinit {

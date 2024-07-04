@@ -29,14 +29,25 @@ class QuadrantComponent: Component {
 }
 
 final class TouchedComponent: Component {
-    var touch: Int
-    var state: TouchState
+    let id: Int
+    let num: Int
+    var state: TouchState {
+        didSet {
+            if state != oldValue {
+                print("TouchedComponent: num: \(num), state: \(state)")
+            }
+        }
+    }
+    let firstLocation: CGPoint
     var locationInScene: CGPoint
 
-    init(touch: Int, state: TouchState, locationInScene: CGPoint) {
-        self.touch = touch
+    init(id: Int, num: Int, state: TouchState, locationInScene: CGPoint) {
+        self.id = id
+        self.num = num
         self.state = state
+        self.firstLocation = locationInScene
         self.locationInScene = locationInScene
+        print("TouchedComponent: num: \(num), state: \(state)")
     }
 }
 
@@ -66,8 +77,10 @@ class TouchedButtonNode: Node {
 
 class TouchedButtonSystem: ListIteratingSystem {
     private weak var engine: Engine!
+    private weak var touchManager: TouchManager!
 
-    init() {
+    init(touchManager: TouchManager) {
+        self.touchManager = touchManager
         super.init(nodeClass: TouchedButtonNode.self)
         nodeUpdateFunction = updateNode
     }
@@ -92,8 +105,6 @@ class TouchedButtonSystem: ListIteratingSystem {
             let buttonEntity = node.entity
         else { return }
         let location = touchedComponent.locationInScene
-
-//        let location = touch.location(in: scene)
         let over = sprite.contains(location)
 
         // handle the button's functionality
@@ -125,7 +136,7 @@ class TouchedButtonSystem: ListIteratingSystem {
                 } else if buttonEntity.has(componentClass: ButtonHyperSpaceComponent.self) {
                     engine.playerEntity?.add(component: DoHyperspaceJumpComponent(size: scene.size))
                 } else if buttonEntity.has(componentClass: ButtonGameOverToHomeComponent.self) {
-                    engine.playerEntity?.add(component: ChangeGameStateComponent(from: .gameOver, to: .start))
+                    engine.gameStateEntity.add(component: ChangeGameStateComponent(from: .gameOver, to: .start))
                 } else if buttonEntity.has(componentClass: ButtonPauseComponent.self) {
                     buttonEntity.add(component: AlertPresentingComponent(state: .showPauseAlert))
                     print(self, "AlertPresentingComponent: showPauseAlert")
@@ -186,28 +197,31 @@ class TouchedButtonSystem: ListIteratingSystem {
             case .began:
                 sprite.alpha = 0.6
                 hapticFeedbackComponent.impact()
-            case .ended, .cancelled:
+                touchedComponent.state = .none
+          case .ended, .cancelled:
                 sprite.alpha = 0.2
-                touchedComponents.removeValue(forKey: touchedComponent.touch)
+                touchManager.remove(touchedComponent.id)
                 buttonEntity.remove(componentClass: TouchedComponent.self)
-            case .moved:
+       case .moved:
                 if over {
                     sprite.alpha = 0.6
                 } else {
                     sprite.alpha = 0.2
                 }
+                touchedComponent.state = .none
             case .none:
                 break
         }
 
-        touchedComponent.state = .none
     }
 }
 
 class TouchedQuadrantSystem: ListIteratingSystem {
     private weak var engine: Engine!
+    private weak var touchManager: TouchManager!
 
-    init() {
+    init(touchManager: TouchManager) {
+        self.touchManager = touchManager
         super.init(nodeClass: TouchedQuadrantNode.self)
         nodeUpdateFunction = updateNode
     }
@@ -239,6 +253,7 @@ class TouchedQuadrantSystem: ListIteratingSystem {
                 hapticFeedbackComponent.impact()
                 switch quadrantComponent.quadrant {
                     case .q1:
+                        //TODO: Should this check be here?
                         if let ship = self.engine.playerEntity,
                            ship.has(componentClassName: HyperspaceDriveComponent.name) {
                             engine.playerEntity?.add(component: DoHyperspaceJumpComponent(size: scene.size))
@@ -256,7 +271,9 @@ class TouchedQuadrantSystem: ListIteratingSystem {
                     default:
                         break
                 }
+                touchedComponent.state = .none
             case .ended, .cancelled:
+                touchManager.remove(touchedComponent.id)
                 buttonEntity.remove(componentClass: TouchedComponent.self)
                 switch quadrantComponent.quadrant {
                     case .q3:
@@ -270,41 +287,11 @@ class TouchedQuadrantSystem: ListIteratingSystem {
                 }
             case .moved:
                 if over {
-                    switch quadrantComponent.quadrant {
-                        case .q1:
-                            if let ship = self.engine.playerEntity,
-                               ship.has(componentClassName: HyperspaceDriveComponent.name) {
-                                engine.playerEntity?.add(component: DoHyperspaceJumpComponent(size: scene.size))
-                            }
-                        case .q2:
-                            engine.playerEntity?.add(component: FlipComponent.shared)
-                        case .q3:
-                            if let ship = self.engine.playerEntity {
-                                ship.add(component: ApplyThrustComponent.shared)
-                                ship[WarpDriveComponent.self]?.isThrusting = true
-                                ship[RepeatingAudioComponent.self]?.state = .shouldBegin
-                            }
-                        case .q4:
-                            engine.playerEntity?.add(component: FireDownComponent.shared)
-                        default:
-                            break
-                    }
                 } else {
-                    switch quadrantComponent.quadrant {
-                        case .q3:
-                            if let ship = self.engine.playerEntity,
-                               ship.has(componentClassName: ApplyThrustComponent.name) {
-                                ship.remove(componentClass: ApplyThrustComponent.self)
-                                ship[WarpDriveComponent.self]?.isThrusting = false
-                                ship[RepeatingAudioComponent.self]?.state = .shouldStop
-                            }
-                        default:
-                            break
-                    }
                 }
-            case .none:
+                touchedComponent.state = .none
+           case .none:
                 break
         }
-        touchedComponent.state = .none
     }
 }
