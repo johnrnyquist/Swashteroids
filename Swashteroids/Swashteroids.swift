@@ -14,12 +14,14 @@ import CoreMotion
 import GameController
 
 class SystemsManager {
+    private(set) var transitionAppStateSystem: TransitionAppStateSystem
+    
     init(scene: GameScene,
          engine: Engine,
          creatorManager: CreatorsManager,
          generator: UIImpactFeedbackGenerator,
          alertPresenter: PauseAlertPresenting,
-    touchManager: TouchManager) {
+         touchManager: TouchManager) {
         let soundPlayer = scene
         let transition = PlayingTransition(
             hudCreator: creatorManager.hudCreator,
@@ -29,6 +31,10 @@ class SystemsManager {
         let startTransition = StartTransition(engine: engine, startButtonsCreator: creatorManager.startButtonsCreator)
         let gameOverTransition = GameOverTransition(engine: engine, alert: alertPresenter, generator: generator)
         let infoViewsTransition = InfoViewsTransition(engine: engine, generator: generator)
+        transitionAppStateSystem = TransitionAppStateSystem(startTransition: startTransition,
+                                                            infoViewsTransition: infoViewsTransition,
+                                                            playingTransition: transition,
+                                                            gameOverTransition: gameOverTransition)
         engine
             // preupdate
                 .add(system: TouchedButtonSystem(touchManager: touchManager), priority: .preUpdate)
@@ -52,10 +58,7 @@ class SystemsManager {
                                                 shipButtonControlsCreator: creatorManager.shipButtonControlsCreator,
                                                 startButtonsCreator: creatorManager.startButtonsCreator),
                      priority: .update)
-                .add(system: TransitionAppStateSystem(startTransition: startTransition,
-                                                      infoViewsTransition: infoViewsTransition,
-                                                      playingTransition: transition,
-                                                      gameOverTransition: gameOverTransition),
+                .add(system: transitionAppStateSystem,
                      priority: .preUpdate)
                 // update
                 .add(system: AlienAppearancesSystem(alienCreator: creatorManager.alienCreator), priority: .update)
@@ -94,6 +97,11 @@ class SystemsManager {
 }
 
 final class Swashteroids: NSObject {
+    public var gamePadManager: GamePadInputManager? {
+        didSet {
+            manager_systems.transitionAppStateSystem.gamePadManager = gamePadManager //HACK
+        }
+    }
     lazy private var tickEngineListener = Listener(engine.update)
     let motionManager: CMMotionManager? = CMMotionManager()
     private let generator = UIImpactFeedbackGenerator(style: .heavy)
@@ -112,7 +120,7 @@ final class Swashteroids: NSObject {
         engine.gameStateComponent
     }
     var touchManager: TouchManager
-    
+
     init(scene: GameScene, alertPresenter: PauseAlertPresenting, seed: Int = 0, touchManager: TouchManager) {
         self.scene = scene
         self.touchManager = touchManager
