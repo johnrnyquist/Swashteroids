@@ -44,7 +44,8 @@ struct SettingsView: View {
                     let defaults = UserDefaults.standard
                     let dictionary = gamePadManager.gameCommandToButtonName.mapKeys { $0.rawValue }
                     defaults.set(dictionary, forKey: "GameCommandDict")
-                    hide()
+                    gamePadManager.updateMappings()
+                   hide()
                 }.padding(0)
                  .padding(.top, 20)
                  .padding(.trailing, 20)

@@ -56,17 +56,8 @@ let buttonTypes: [GameCommand: ButtonTypes] = [
 class GamePadInputManager: NSObject, ObservableObject, GameStateObserver {
     typealias ButtonName = String
     typealias SymbolName = String
-    @Published var gameCommandToButtonName: [GameCommand: ButtonName?] = defaultMappings
+    @Published var gameCommandToButtonName: [GameCommand: ButtonName?] 
     @Published var lastPressedButton: GCControllerButtonInput?
-
-    func gameCommandToSymbolName(_ command: GameCommand) -> SymbolName? {
-        guard let buttonName = gameCommandToButtonName[command],
-              let buttonName else {
-            return nil
-        }
-        return buttonNameToSymbolName[buttonName]
-    }
-
     static let defaultMappings: [GameCommand: ButtonName?] = [
         // always available in game
         .left: "Left Thumbstick (Left)",
@@ -115,13 +106,19 @@ class GamePadInputManager: NSObject, ObservableObject, GameStateObserver {
         "X Button": "x.circle",
         "Y Button": "y.circle",
     ]
+    var commandToClosure_playing: [GameCommand: GCControllerButtonValueChangedHandler] = [:]
+    var commandToClosure_start: [GameCommand: GCControllerButtonValueChangedHandler] = [:]
+    var commandToClosure_alert: [GameCommand: GCControllerButtonValueChangedHandler] = [:]
+    let leftThumbstickButtons = ["Left Thumbstick (Left)", "Left Thumbstick (Right)", "Left Thumbstick (Up)", "Left Thumbstick (Down)"]
+    let rightThumbstickButtons = ["Right Thumbstick (Left)", "Right Thumbstick (Right)", "Right Thumbstick (Up)", "Right Thumbstick (Down)"]
+    let dpadButtons = ["Direction Pad (Left)", "Direction Pad (Right)", "Direction Pad (Up)", "Direction Pad (Down)"]
 
     init(game: Swashteroids, size: CGSize) {
         self.game = game
         self.size = size
+        gameCommandToButtonName = [:]
         super.init()
         setupObservers()
-        gameCommandToButtonName = loadSettings()
     }
 
     deinit {
@@ -130,6 +127,7 @@ class GamePadInputManager: NSObject, ObservableObject, GameStateObserver {
     }
 
     private func setupObservers() {
+        print(#function)
         NotificationCenter.default
                           .addObserver(self,
                                        selector: #selector(controllerDidConnect),
@@ -142,42 +140,14 @@ class GamePadInputManager: NSObject, ObservableObject, GameStateObserver {
                                        object: nil)
     }
 
-    var commandToClosure_playing: [GameCommand: GCControllerButtonValueChangedHandler] = [:]
-    var commandToClosure_start: [GameCommand: GCControllerButtonValueChangedHandler] = [:]
-    var commandToClosure_alert: [GameCommand: GCControllerButtonValueChangedHandler] = [:]
-
-    func loadSettings() -> [GameCommand: ButtonName?] {
-        let defaults = UserDefaults.standard
-        var result: [GameCommand: ButtonName?]?
-        if let retrievedDict = defaults.dictionary(forKey: "GameCommandDict") as? [String: String] {
-            result = retrievedDict.compactMapKeys { GameCommand(rawValue: $0) }
-            print("LOADED SETTINGS:", result ?? "nil")
-        } else {
-            print("NO SETTINGS FOUND, USING DEFAULTS")
-        }
-        var mappings = GamePadInputManager.defaultMappings
-        if let result {
-            mappings = result
-        }
-        for (command, _) in mappings {
-            commandToClosure_playing[command] = getHandlerPlayingState(command)
-            commandToClosure_start[command] = getHandlerStartState()
-            commandToClosure_alert[command] = getHandlerAlertState(command)
-        }
-        return mappings
-    }
-
-    private func findKey(forValue value: String, in dictionary: [GameCommand: ButtonName?]) -> GameCommand? {
-        for (key, val) in dictionary {
-            if val == value {
-                return key
-            }
-        }
-        return nil
+    var pad: GCExtendedGamepad {
+        GCController.controllers().first!.extendedGamepad!
     }
 
     @objc private func controllerDidConnect() {
         print(#function)
+        print(#function)
+        controllers:
         for controller in GCController.controllers() {
             print(controller.vendorName ?? "Unknown Vendor")
             print(controller.productCategory)
@@ -185,167 +155,18 @@ class GamePadInputManager: NSObject, ObservableObject, GameStateObserver {
             if let pad = controller.extendedGamepad {
                 game.gamePadManager = self
                 game.usingGamePad()
-                pad.valueChangedHandler = { (pad, element) in
+                pad.valueChangedHandler = { [unowned self] (pad, element) in
                     // this will execute after a value change handler on a button executes
-                    print(pad, element)
+                    if mode == .settings {
+                        print("Mode is settings")
+                        lastPressedButton = getButton(from: pad, element: element)
+                        print("lastPressedButton", lastPressedButton?.localizedName ?? "nil")
+                    }
                 }
-                setupOnPressed(pad: pad, dictionary: commandToClosure_start)
-                break
+                gameCommandToButtonName = loadSettings()
+                updateMappings()
+                break controllers
             }
-        }
-    }
-    
-    func onGameStateChange(state: GameState) {
-        switch state {
-            case .start:
-                for controller in GCController.controllers() {
-                    if let pad = controller.extendedGamepad {
-                        setupOnPressed(pad: pad, dictionary: commandToClosure_start)
-                    }
-                }
-            case .playing:
-                for controller in GCController.controllers() {
-                    if let pad = controller.extendedGamepad {
-                        setupOnPressed(pad: pad, dictionary: commandToClosure_playing)
-                    }
-                }
-//            case .alert:
-//                for controller in GCController.controllers() {
-//                    if let pad = controller.extendedGamepad {
-//                        setupOnPressed(pad: pad, dictionary: commandToClosure_alert)
-//                    }
-//                }
-            default: break
-        }
-    }
-
-    func setupOnPressed(pad: GCExtendedGamepad, dictionary: [GameCommand: GCControllerButtonValueChangedHandler]) {
-        pad.buttonA.pressedChangedHandler = { [unowned self] button, value, pressed in
-            print(self, button, value, pressed)
-        }
-        pad.buttonB.pressedChangedHandler = { [unowned self] button, value, pressed in
-            print(self, button, value, pressed)
-        }
-        pad.buttonX.pressedChangedHandler = { [unowned self] button, value, pressed in
-            print(self, button, value, pressed)
-        }
-        pad.buttonY.pressedChangedHandler = { [unowned self] button, value, pressed in
-            print(self, button, value, pressed)
-        }
-        pad.leftShoulder.pressedChangedHandler = { [unowned self] button, value, pressed in
-            print(self, button, value, pressed)
-        }
-        pad.rightShoulder.pressedChangedHandler = { [unowned self] button, value, pressed in
-            print(self, button, value, pressed)
-        }
-        pad.leftTrigger.pressedChangedHandler = { [unowned self] button, value, pressed in
-            print(self, button, value, pressed)
-        }
-        pad.rightTrigger.pressedChangedHandler = { [unowned self] button, value, pressed in
-            print(self, button, value, pressed)
-        }
-        pad.leftThumbstick.left.pressedChangedHandler = { [unowned self] button, value, pressed in
-            print(self, button, value, pressed)
-        }
-        pad.leftThumbstick.right.pressedChangedHandler = { [unowned self] button, value, pressed in
-            print(self, button, value, pressed)
-        }
-        pad.leftThumbstick.up.pressedChangedHandler = { [unowned self] button, value, pressed in
-            print(self, button, value, pressed)
-        }
-        pad.leftThumbstick.down.pressedChangedHandler = { [unowned self] button, value, pressed in
-            print(self, button, value, pressed)
-        }
-        pad.rightThumbstick.left.pressedChangedHandler = { [unowned self] button, value, pressed in
-            print(self, button, value, pressed)
-        }
-        pad.rightThumbstick.right.pressedChangedHandler = { [unowned self] button, value, pressed in
-            print(self, button, value, pressed)
-        }
-        pad.rightThumbstick.up.pressedChangedHandler = { [unowned self] button, value, pressed in
-            print(self, button, value, pressed)
-        }
-        pad.rightThumbstick.down.pressedChangedHandler = { [unowned self] button, value, pressed in
-            print(self, button, value, pressed)
-        }
-        pad.buttonMenu.pressedChangedHandler = { [unowned self] button, value, pressed in
-            print(self, button, value, pressed)
-        }
-        pad.dpad.up.pressedChangedHandler = { [unowned self] button, value, pressed in
-            print(self, button, value, pressed)
-        }
-        pad.dpad.down.pressedChangedHandler = { [unowned self] button, value, pressed in
-            print(self, button, value, pressed)
-        }
-        pad.dpad.left.pressedChangedHandler = { [unowned self] button, value, pressed in
-            print(self, button, value, pressed)
-        }
-        pad.dpad.right.pressedChangedHandler = { [unowned self] button, value, pressed in
-            print(self, button, value, pressed)
-        }
-        // Get real values, overwriting the above
-        if let command = gameCommandFromButtonName(pad.buttonA.localizedName!) {
-            pad.buttonA.pressedChangedHandler = dictionary[command]
-        }
-        if let command = gameCommandFromButtonName(pad.buttonB.localizedName!) {
-            pad.buttonB.pressedChangedHandler = dictionary[command]
-        }
-        if let command = gameCommandFromButtonName(pad.buttonX.localizedName!) {
-            pad.buttonX.pressedChangedHandler = dictionary[command]
-        }
-        if let command = gameCommandFromButtonName(pad.buttonY.localizedName!) {
-            pad.buttonY.pressedChangedHandler = dictionary[command]
-        }
-        if let command = gameCommandFromButtonName(pad.leftShoulder.localizedName!) {
-            pad.leftShoulder.pressedChangedHandler = dictionary[command]
-        }
-        if let command = gameCommandFromButtonName(pad.rightShoulder.localizedName!) {
-            pad.rightShoulder.pressedChangedHandler = dictionary[command]
-        }
-        if let command = gameCommandFromButtonName(pad.leftTrigger.localizedName!) {
-            pad.leftTrigger.pressedChangedHandler = dictionary[command]
-        }
-        if let command = gameCommandFromButtonName(pad.rightTrigger.localizedName!) {
-            pad.rightTrigger.pressedChangedHandler = dictionary[command]
-        }
-        if let command = gameCommandFromButtonName(pad.buttonMenu.localizedName!) {
-            pad.buttonMenu.pressedChangedHandler = dictionary[command]
-        }
-        if let command = gameCommandFromButtonName(pad.dpad.up.localizedName!) {
-            pad.dpad.up.pressedChangedHandler = dictionary[command]
-        }
-        if let command = gameCommandFromButtonName(pad.dpad.down.localizedName!) {
-            pad.dpad.down.pressedChangedHandler = dictionary[command]
-        }
-        if let command = gameCommandFromButtonName(pad.dpad.left.localizedName!) {
-            pad.dpad.left.pressedChangedHandler = dictionary[command]
-        }
-        if let command = gameCommandFromButtonName(pad.dpad.right.localizedName!) {
-            pad.dpad.right.pressedChangedHandler = dictionary[command]
-        }
-        if let command = gameCommandFromButtonName(pad.leftThumbstick.left.localizedName!) {
-            pad.leftThumbstick.left.pressedChangedHandler = dictionary[command]
-        }
-        if let command = gameCommandFromButtonName(pad.leftThumbstick.right.localizedName!) {
-            pad.leftThumbstick.right.pressedChangedHandler = dictionary[command]
-        }
-        if let command = gameCommandFromButtonName(pad.leftThumbstick.up.localizedName!) {
-            pad.leftThumbstick.up.pressedChangedHandler = dictionary[command]
-        }
-        if let command = gameCommandFromButtonName(pad.leftThumbstick.down.localizedName!) {
-            pad.leftThumbstick.down.pressedChangedHandler = dictionary[command]
-        }
-        if let command = gameCommandFromButtonName(pad.rightThumbstick.left.localizedName!) {
-            pad.rightThumbstick.left.pressedChangedHandler = dictionary[command]
-        }
-        if let command = gameCommandFromButtonName(pad.rightThumbstick.right.localizedName!) {
-            pad.rightThumbstick.right.pressedChangedHandler = dictionary[command]
-        }
-        if let command = gameCommandFromButtonName(pad.rightThumbstick.up.localizedName!) {
-            pad.rightThumbstick.up.pressedChangedHandler = dictionary[command]
-        }
-        if let command = gameCommandFromButtonName(pad.rightThumbstick.down.localizedName!) {
-            pad.rightThumbstick.down.pressedChangedHandler = dictionary[command]
         }
     }
 
@@ -354,34 +175,188 @@ class GamePadInputManager: NSObject, ObservableObject, GameStateObserver {
         game.usingScreenControls()
     }
 
-    func gameCommandFromButtonName(_ buttonName: String) -> GameCommand? {
-        var keys = [GameCommand]()
-        for (key, value) in gameCommandToButtonName {
-            if value == buttonName {
-                keys.append(key)
-            }
+    func gameCommandToSymbolName(_ command: GameCommand) -> SymbolName? {
+        print(#function)
+        guard let buttonName = gameCommandToButtonName[command],
+              let buttonName else {
+            return nil
         }
-        let commands = game.gameState.commandsPerState
-        for key in keys {
-            if commands.contains(key) {
+        return buttonNameToSymbolName[buttonName]
+    }
+
+    func updateMappings() {
+        print(#function)
+        mapCommandsToClosures(using: gameCommandToButtonName)
+        assignHandlersForCurrentState(pad: pad)
+    }
+
+    private func mapCommandsToClosures(using mappings: [GameCommand: ButtonName?]) {
+        print(#function)
+        commandToClosure_playing = [:]
+        commandToClosure_start = [:]
+        commandToClosure_alert = [:]
+        for (command, _) in mappings {
+            commandToClosure_playing[command] = getHandlerPlayingState(command)
+            commandToClosure_start[command] = getHandlerStartState()
+            commandToClosure_alert[command] = getHandlerAlertState(command)
+        }
+    }
+
+    func loadSettings() -> [GameCommand: ButtonName?] {
+        print(#function)
+        var result: [GameCommand: ButtonName?]?
+        if let retrievedDict = UserDefaults.standard.dictionary(forKey: "GameCommandDict") as? [String: String] {
+            result = retrievedDict.compactMapKeys { GameCommand(rawValue: $0) }
+            print("LOADED SETTINGS:", result ?? "nil")
+        } else {
+            print("NO SETTINGS FOUND, USING DEFAULTS")
+        }
+        var mappings: [GameCommand: ButtonName?]
+        if let result {
+            mappings = result
+        } else {
+            mappings = GamePadInputManager.defaultMappings
+        }
+        return mappings
+    }
+
+    private func findKey(forValue value: String, in dictionary: [GameCommand: ButtonName?]) -> GameCommand? {
+        print(#function)
+        for (key, val) in dictionary {
+            if val == value {
                 return key
             }
         }
         return nil
     }
 
-    let leftThumbstickButtons = ["Left Thumbstick (Left)", "Left Thumbstick (Right)", "Left Thumbstick (Up)", "Left Thumbstick (Down)"]
-    let rightThumbstickButtons = ["Right Thumbstick (Left)", "Right Thumbstick (Right)", "Right Thumbstick (Up)", "Right Thumbstick (Down)"]
-    let dpadButtons = ["Direction Pad (Left)", "Direction Pad (Right)", "Direction Pad (Up)", "Direction Pad (Down)"]
-    
+    func getButton(from pad: GCExtendedGamepad, element: GCControllerElement) -> GCControllerButtonInput? {
+        print(#function)
+        var button: GCControllerButtonInput? = element as? GCControllerButtonInput
+        if let button { // element is a button
+            return button
+        } else if let dpad = element as? GCControllerDirectionPad { // element is a dpad
+            switch dpad { // what kind of dpad
+                case pad.dpad: // these are exclusive positions
+                    if pad.dpad.left.isPressed {
+                        button = pad.dpad.left
+                    } else if pad.dpad.right.isPressed {
+                        button = pad.dpad.right
+                    } else if pad.dpad.up.isPressed {
+                        button = pad.dpad.up
+                    } else if pad.dpad.down.isPressed {
+                        button = pad.dpad.down
+                    }
+                case pad.leftThumbstick: // these are non-exclusive positions
+                    if pad.leftThumbstick.left.isPressed {
+                        button = pad.leftThumbstick.left
+                    }
+                    if pad.leftThumbstick.right.isPressed {
+                        button = pad.leftThumbstick.right
+                    }
+                    if pad.leftThumbstick.up.isPressed {
+                        button = pad.leftThumbstick.up
+                    }
+                    if pad.leftThumbstick.down.isPressed {
+                        button = pad.leftThumbstick.down
+                    }
+                case pad.rightThumbstick: // these are non-exclusive positions
+                    if pad.rightThumbstick.left.isPressed {
+                        button = pad.rightThumbstick.left
+                    }
+                    if pad.rightThumbstick.right.isPressed {
+                        button = pad.rightThumbstick.right
+                    }
+                    if pad.rightThumbstick.up.isPressed {
+                        button = pad.rightThumbstick.up
+                    }
+                    if pad.rightThumbstick.down.isPressed {
+                        button = pad.rightThumbstick.down
+                    }
+                default:
+                    break
+            }
+        }
+        return button
+    }
+
+    func onGameStateChange(state: GameState) {
+        print(#function)
+        updateMappings()
+    }
+
+    private func assignClosuresToHandlers(pad: GCExtendedGamepad, dictionary: [GameCommand: GCControllerButtonValueChangedHandler]) {
+        print(#function)
+        pad.allButtons.forEach { button in
+            guard let command = gameCommandFromButtonName(button.localizedName!),
+                  let handler = dictionary[command] else {
+                return
+            }
+            button.pressedChangedHandler = handler
+        }
+    }
+
+    func gameCommandFromButtonName(_ buttonName: String) -> GameCommand? {
+        print(#function)
+        for (key, value) in gameCommandToButtonName where value == buttonName {
+            if game.gameState.commandsPerState.contains(key) {
+                return key
+            }
+        }
+        return nil
+    }
+
+    // Centralized method to assign closures to handlers based on the current game state
+    private func assignHandlersForCurrentState(pad: GCExtendedGamepad) {
+        print(#function)
+        let dictionary = getDictionaryForCurrentState()
+        setupHandlers(pad: pad, with: dictionary)
+    }
+
+    // Helper method to get the appropriate dictionary of closures based on the current game state
+    private func getDictionaryForCurrentState() -> [GameCommand: GCControllerButtonValueChangedHandler] {
+        print(#function)
+        switch game.gameState {
+            case .start:
+                return commandToClosure_start
+            case .playing:
+                return commandToClosure_playing
+            default:
+                return [:]
+        }
+    }
+
+    // Generic method to setup handlers for a given pad and dictionary of commands to closures
+    private func setupHandlers(pad: GCExtendedGamepad, with dictionary: [GameCommand: GCControllerButtonValueChangedHandler]) {
+        print(#function)
+        setupDefaultHandlers(pad: pad) // clear existing
+        pad.allButtons.forEach { button in
+            if let command = gameCommandFromButtonName(button.localizedName!),
+               let handler = dictionary[command] {
+                button.pressedChangedHandler = handler
+            }
+        }
+    }
+
+    // Simplified default handlers setup, potentially for debugging or default actions
+    private func setupDefaultHandlers(pad: GCExtendedGamepad) {
+        print(#function)
+        pad.allButtons.forEach { button in
+            button.pressedChangedHandler = { [unowned self] _, _, _ in
+                print("Default handler for \(button.localizedName!)")
+            }
+        }
+    }
+
     private func getHandlerStartState() -> GCControllerButtonValueChangedHandler {
-        { [weak self] (_ button: GCControllerButtonInput, _ value: Float, _ pressed: Bool) -> Void in
+        print(#function)
+        return { [weak self] (_ button: GCControllerButtonInput, _ value: Float, _ pressed: Bool) -> Void in
             self?.game.engine.gameStateEntity.add(component: ChangeGameStateComponent(from: .start, to: .playing))
         }
     }
 
     private func getHandlerAlertState(_ command: GameCommand) -> GCControllerButtonValueChangedHandler {
-        if game.alertPresenter.isAlertPresented {
+        print(#function, command)
             switch command {
                 case .home:
                     return { [weak self] (_ button: GCControllerButtonInput, _ value: Float, _ pressed: Bool) -> Void in
@@ -397,13 +372,13 @@ class GamePadInputManager: NSObject, ObservableObject, GameStateObserver {
                     }
                 default: break
             }
-        }
         return { (_ button: GCControllerButtonInput, _ value: Float, _ pressed: Bool) -> Void in
             print("COMMAND \(command) NOT MAPPED")
         }
     }
 
     private func getHandlerPlayingState(_ command: GameCommand) -> GCControllerButtonValueChangedHandler {
+        print(#function, command)
         switch command {
             case .fire: return fire
             case .thrust: return thrust
@@ -421,24 +396,28 @@ class GamePadInputManager: NSObject, ObservableObject, GameStateObserver {
 
     //MARK: - Game Commands
     private func fire(_ button: GCControllerButtonInput, _ value: Float, _ pressed: Bool) {
+        print(#function)
         if pressed {
             game.engine.playerEntity?.add(component: FireDownComponent.shared)
         }
     }
 
     private func hyperSpace(_ button: GCControllerButtonInput, _ value: Float, _ pressed: Bool) {
+        print(#function)
         if pressed {
             game.engine.playerEntity?.add(component: DoHyperspaceJumpComponent(size: size))
         }
     }
 
     private func flip(_ button: GCControllerButtonInput, _ value: Float, _ pressed: Bool) {
+        print(#function)
         if pressed {
             game.engine.playerEntity?.add(component: FlipComponent.shared)
         }
     }
 
     private func thrust(_ button: GCControllerButtonInput, _ value: Float, _ pressed: Bool) {
+        print(#function)
         if pressed {
             game.engine.playerEntity?.add(component: ApplyThrustComponent.shared)
             game.engine.playerEntity?[WarpDriveComponent.self]?.isThrusting = true
@@ -451,6 +430,7 @@ class GamePadInputManager: NSObject, ObservableObject, GameStateObserver {
     }
 
     private func turn_left(_ button: GCControllerButtonInput, _ value: Float, _ pressed: Bool) {
+        print(#function)
         if pressed {
             if game.engine.playerEntity?.has(componentClass: RightComponent.self) == false {
                 game.engine.playerEntity?.add(component: LeftComponent.shared)
@@ -461,6 +441,7 @@ class GamePadInputManager: NSObject, ObservableObject, GameStateObserver {
     }
 
     private func turn_right(_ button: GCControllerButtonInput, _ value: Float, _ pressed: Bool) {
+        print(#function)
         if pressed {
             if game.engine.playerEntity?.has(componentClass: LeftComponent.self) == false {
                 game.engine.playerEntity?.add(component: RightComponent.shared)
@@ -471,12 +452,14 @@ class GamePadInputManager: NSObject, ObservableObject, GameStateObserver {
     }
 
     private func pauseAlert(_ button: GCControllerButtonInput, _ value: Float, _ pressed: Bool) {
+        print(#function)
         if pressed {
             game.alertPresenter.showPauseAlert() //HACK
         }
     }
 
     private func `continue`(_ button: GCControllerButtonInput, _ value: Float, _ pressed: Bool) {
+        print(#function)
         if pressed {
             game.engine.gameStateEntity.add(component: ChangeGameStateComponent(from: .start, to: .playing))
         }
