@@ -7,8 +7,6 @@
 // Made with Swash, give it a try!
 // https://github.com/johnrnyquist/Swash
 //
-
-
 extension Double {
     func clamped(v1: Double, v2: Double) -> Double {
         let min = v1 < v2 ? v1 : v2

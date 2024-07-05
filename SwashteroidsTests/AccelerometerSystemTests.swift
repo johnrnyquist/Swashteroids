@@ -33,7 +33,7 @@ final class AccelerometerSystemTests: XCTestCase {
         let accelerometer = AccelerometerComponent()
         let input = AccelerometerComponent.shared
         input.rotate = (true, 1.0)
-        let position = PositionComponent(x: 0, y: 0, z: .ship, rotationDegrees: 0.0)
+        let position = PositionComponent(x: 0, y: 0, z: .player, rotationDegrees: 0.0)
         let motionControls = MovementRateComponent(accelerationRate: 1.0,
                                                      rotationRate: 1.0,
                                                      scaleManager: MockScaleManager())
@@ -54,7 +54,7 @@ final class AccelerometerSystemTests: XCTestCase {
         let accelerometer = AccelerometerComponent()
         let input = AccelerometerComponent.shared
         input.rotate = (false, 0.0)
-        let position = PositionComponent(x: 0, y: 0, z: .ship, rotationDegrees: 0.0)
+        let position = PositionComponent(x: 0, y: 0, z: .player, rotationDegrees: 0.0)
         let motionControls = MovementRateComponent(accelerationRate: 1.0,
                                                      rotationRate: 1.0,
                                                      scaleManager: MockScaleManager_halfSize())

@@ -14,13 +14,14 @@ import Foundation
 enum AlienCast {
     case soldier
     case worker
-    //TODO: this may not be the best place for this
+    /// Each cast has a different rotation speed.
     var rotationSpeed: Double {
         switch self {
             case .soldier: return 0.1
             case .worker: return 0.05
         }
     }
+    /// Each cast has a different score value.
     var scoreValue: Int {
         switch self {
             case .soldier: return 350

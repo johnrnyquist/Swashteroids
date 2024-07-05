@@ -10,16 +10,16 @@
 
 import Foundation
 
-extension CGRect {
+extension CGSize {
     mutating func scale(by factor: CGFloat) {
-        self.size.width *= factor
-        self.size.height *= factor
+        self.width *= factor
+        self.height *= factor
     }
 
-    func scaled(by factor: CGFloat) -> CGRect {
-        var newRect = self
-        newRect.size.width *= factor
-        newRect.size.height *= factor
-        return newRect
+    func scaled(by factor: CGFloat) -> CGSize {
+        var newSize = self
+        newSize.width *= factor
+        newSize.height *= factor
+        return newSize
     }
 }

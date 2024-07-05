@@ -36,7 +36,6 @@ final class TransitionAppStateSystem: ListIteratingSystem {
         guard let transitionComponent = node[ChangeGameStateComponent.self],
               let appStateComponent = node[GameStateComponent.self]
         else { return }
-        // TODO: Need to see case where to and from are both .start
         switch transitionComponent.from {
             case .start:
                 startTransition?.fromStartScreen()

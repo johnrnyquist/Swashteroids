@@ -31,7 +31,7 @@ final class LeftSystemTests: XCTestCase {
     func test_UpdateNode() throws {
         let node = LeftNode()
         let left = LeftComponent.shared
-        let position = PositionComponent(x: 0, y: 0, z: .ship, rotationDegrees: 0.0)
+        let position = PositionComponent(x: 0, y: 0, z: .player, rotationDegrees: 0.0)
         let motionControls = MovementRateComponent(accelerationRate: 0.0,
                                                      rotationRate: 1.0)
         node.components[LeftComponent.name] = left

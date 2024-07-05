@@ -11,7 +11,7 @@
 import Swash
 import SpriteKit
 
-class ShipQuadrantsControlsCreator: ShipQuadrantsControlsCreatorUseCase {
+class QuadrantsControlsCreator: QuadrantsControlsCreatorUseCase {
     private var engine: Engine
     private var size: CGSize
     private var generator: UIImpactFeedbackGenerator?
@@ -22,7 +22,7 @@ class ShipQuadrantsControlsCreator: ShipQuadrantsControlsCreatorUseCase {
         self.generator = generator
     }
 
-    func removeShipControlQuadrants() {
+    func removeQuadrantControls() {
         let quadrants: [EntityName] = [.q1, .q2, .q3, .q4]
         engine.removeEntities(named: quadrants)
     }
@@ -49,7 +49,7 @@ class ShipQuadrantsControlsCreator: ShipQuadrantsControlsCreatorUseCase {
     }
 
     /// Instead of visible buttons, the player will be able to touch quadrants on the screen to control the ship.
-    func createShipControlQuadrants() {
+    func createQuadrantControls() {
         // Create the entities
         let q1Entity = Entity(named: .q1)
         let q2Entity = Entity(named: .q2)

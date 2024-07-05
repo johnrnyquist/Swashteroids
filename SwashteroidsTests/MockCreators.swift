@@ -54,7 +54,7 @@ class MockShipButtonControlsCreator: ShipButtonControlsCreatorUseCase {
     func showHyperspaceButton() {}
 }
 
-class MockShipCreator: ShipCreatorUseCase {
+class MockPlayerCreator: PlayerCreatorUseCase {
     var createShipCalled = false
     var destroyCalled = false
 
@@ -62,21 +62,21 @@ class MockShipCreator: ShipCreatorUseCase {
         createShipCalled = true
     }
 
-    func destroy(ship: Entity) {
+    func destroy(entity: Entity) {
         destroyCalled = true
     }
 }
 
-class MockQuadrantsButtonToggleCreator: ShipQuadrantsControlsCreatorUseCase, ShipButtonControlsCreatorUseCase, ToggleShipControlsCreatorUseCase {
+class MockQuadrantsButtonToggleCreator: QuadrantsControlsCreatorUseCase, ShipButtonControlsCreatorUseCase, ToggleShipControlsCreatorUseCase {
     //MARK: - ShipQuadrantsControlsManager
     var createShipControlQuadrantsCalled = false
     var removeShipControlQuadrantsCalled = false
 
-    func removeShipControlQuadrants() {
+    func removeQuadrantControls() {
         removeShipControlQuadrantsCalled = true
     }
 
-    func createShipControlQuadrants() {
+    func createQuadrantControls() {
         createShipControlQuadrantsCalled = true
     }
 

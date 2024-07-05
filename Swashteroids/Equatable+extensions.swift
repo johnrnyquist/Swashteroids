@@ -9,8 +9,9 @@
 //
 
 import Foundation
-import GameController
 
-extension GameScene {
-    
+extension Equatable where Self: AnyObject {
+    static func ==(lhs: Self, rhs: Self) -> Bool {
+        return lhs === rhs
+    }
 }

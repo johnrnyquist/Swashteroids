@@ -28,7 +28,6 @@ class AlienCreator: AlienCreatorUseCase {
         self.randomness = randomness
     }
 
-    //TODO: scene is passed in because warningAliens needs to add a warning sprite to the scene, need to do this better
     func createAliens() {
         guard engine.findEntity(named: .player) != nil else { return }
 //        var foundWorker = false
@@ -143,7 +142,6 @@ class AlienCreator: AlienCreatorUseCase {
 
     // TODO: Fix this, it's a hack. Adding to the scene should not be done in a Creator, it should be in a System.
     func warningAliens(scene: GameScene, leftSide: Bool) {
-        //HACK for immediate gratification
         let warningSprite: SKSpriteNode
         if leftSide {
             warningSprite = SKSpriteNode(imageNamed: "gradientLeft")
@@ -207,7 +205,7 @@ class AlienCreator: AlienCreatorUseCase {
                 .add(component: AlienFiringComponent.shared)
                 .add(component: CollidableComponent(radius: 25))
                 .add(component: DisplayComponent(sknode: sprite))
-                .add(component: ReactionTimeComponent(reactionSpeed: 0.4)) //TODO: Adjust based on level or wave
+                .add(component: ReactionTimeComponent(reactionSpeed: 0.4)) //TODO: Adjust based on level, wave, and/or cast
         sprite.entity = alienEntity
         engine.add(entity: alienEntity)
     }
@@ -245,7 +243,7 @@ class AlienCreator: AlienCreatorUseCase {
                 .add(component: AlienFiringComponent.shared)
                 .add(component: CollidableComponent(radius: 25))
                 .add(component: DisplayComponent(sknode: sprite))
-                .add(component: ReactionTimeComponent(reactionSpeed: 0.4)) //TODO: Adjust based on level or wave
+                .add(component: ReactionTimeComponent(reactionSpeed: 0.4)) //TODO: Adjust based on level, wave, and/or cast
         sprite.entity = alienEntity
         engine.add(entity: alienEntity)
     }

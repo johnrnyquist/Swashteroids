@@ -29,7 +29,7 @@ class TorpedoCreator: TorpedoCreatorUseCase {
         engine.add(entity: entity)
     }
 
-    // TODO: This changing of an existing component does not feel right.
+    // HACK: This changing of an existing component does not feel right.
     func generateTorpedoName() -> String {
         engine.gameStateComponent.numTorpedoesFired += 1
         return "torpedo_\(engine.gameStateComponent.numTorpedoesFired)"

@@ -38,14 +38,14 @@ protocol ShipButtonControlsCreatorUseCase: AnyObject {
     func showHyperspaceButton()
 }
 
-protocol ShipCreatorUseCase: AnyObject {
+protocol PlayerCreatorUseCase: AnyObject {
     func createShip(_ state: GameStateComponent)
-    func destroy(ship: Entity)
+    func destroy(entity: Entity)
 }
 
-protocol ShipQuadrantsControlsCreatorUseCase: AnyObject {
-    func createShipControlQuadrants()
-    func removeShipControlQuadrants()
+protocol QuadrantsControlsCreatorUseCase: AnyObject {
+    func createQuadrantControls()
+    func removeQuadrantControls()
 }
 
 protocol ToggleShipControlsCreatorUseCase: AnyObject {

@@ -11,7 +11,7 @@
 import Swash
 import SpriteKit
 
-class ShipCreator: ShipCreatorUseCase {
+class PlayerCreator: PlayerCreatorUseCase {
     let engine: Engine
     let size: CGSize
     let randomness: Randomizing
@@ -37,7 +37,7 @@ class ShipCreator: ShipCreatorUseCase {
         //        sprite.physicsBody?.contactTestBitMask = asteroidCategory | alienCategory | torpedoCategory
         //        sprite.physicsBody?.collisionBitMask = 0
         sprite.name = .player
-        sprite.zPosition = .ship
+        sprite.zPosition = .player
         let nacellesSprite = SKSpriteNode(texture: createNacelleTexture())
         nacellesSprite.zPosition = sprite.zPosition + 0.1 //HACK
         nacellesSprite.isHidden = true
@@ -45,7 +45,7 @@ class ShipCreator: ShipCreatorUseCase {
         sprite.addChild(nacellesSprite)
         sprite.entity = ship
         ship
-                .add(component: ShipComponent())
+                .add(component: PlayerComponent())
                 .add(component: HyperspaceDriveComponent(jumps: 0))
                 .add(component: GunComponent(offsetX: sprite.width / 2,
                                              offsetY: 0,
@@ -57,7 +57,7 @@ class ShipCreator: ShipCreatorUseCase {
                 .add(component: WarpDriveComponent())
                 .add(component: PositionComponent(x: state.gameSize.width / 2,
                                                   y: state.gameSize.height / 2,
-                                                  z: .ship,
+                                                  z: .player,
                                                   rotationDegrees: 0.0))
                 .add(component: VelocityComponent(velocityX: 0.0, velocityY: 0.0, dampening: 0.0, base: 60.0))
                 .add(component: CollidableComponent(radius: 25))
@@ -83,12 +83,13 @@ class ShipCreator: ShipCreatorUseCase {
 
     /// Removes and adds components to the ship entity to put in a destroyed state.
     /// Also adds a flaming particle emitter to the ship sprite.
-    func destroy(ship: Entity) {
-        if ship.has(componentClassName: ShipComponent.name) == true {
+    /// Used on both player and aliens right now.
+    func destroy(entity: Entity) {
+        if entity.has(componentClassName: PlayerComponent.name) == true {
             screenFlashRed()
         }
         // Visual effects
-        let spriteNode = ship[DisplayComponent.self]!.sprite! //HACK
+        let spriteNode = entity[DisplayComponent.self]!.sprite! //HACK
         spriteNode.color = .red
         spriteNode.colorBlendFactor = 1.0
         let fade = SKAction.fadeOut(withDuration: 3.0)
@@ -96,9 +97,9 @@ class ShipCreator: ShipCreatorUseCase {
         spriteNode.addChild(emitter)
         spriteNode.run(fade)
         // Stop audio
-        ship[RepeatingAudioComponent.self]?.state = .shouldStop
+        entity[RepeatingAudioComponent.self]?.state = .shouldStop
         // Remove components
-        ship
+        entity
                 .remove(componentClass: AlienFiringComponent.self)
                 .remove(componentClass: AudioComponent.self)
                 .remove(componentClass: CollidableComponent.self)
@@ -112,9 +113,9 @@ class ShipCreator: ShipCreatorUseCase {
                 .remove(componentClass: ReactionTimeComponent.self)
                 .remove(componentClass: ShootableComponent.self)
         // Change components
-        ship[VelocityComponent.self]?.angularVelocity = randomness.nextDouble(from: -100.0, through: 100.0)
+        entity[VelocityComponent.self]?.angularVelocity = randomness.nextDouble(from: -100.0, through: 100.0)
         // Add components
-        ship
+        entity
                 .add(component: DisplayComponent(sknode: spriteNode))
                 .add(component: DeathThroesComponent(countdown: 3.0))
                 .add(component: AudioComponent(name: "shipExplosion", fileName: .explosion))

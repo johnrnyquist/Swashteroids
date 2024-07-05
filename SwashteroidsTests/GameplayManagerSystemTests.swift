@@ -18,7 +18,7 @@ final class GameplayManagerSystemTests: XCTestCase {
     var scene: GameScene!
     var alienCreator: MockAlienCreator!
     var asteroidCreator: MockAsteroidCreator!
-    var shipCreator: ShipCreatorUseCase!
+    var shipCreator: PlayerCreatorUseCase!
     var system: GameplayManagerSystem!
     var appStateComponent: GameStateComponent!
     let aliens = NodeList()
@@ -28,11 +28,11 @@ final class GameplayManagerSystemTests: XCTestCase {
         engine = Engine()
         alienCreator = MockAlienCreator()
         asteroidCreator = MockAsteroidCreator()
-        shipCreator = MockShipCreator()
+        shipCreator = MockPlayerCreator()
         scene = GameScene()
         appStateComponent = GameStateComponent(config: GameConfig(gameSize: .zero))
         appStateComponent.level = 1
-        system = GameplayManagerSystem(asteroidCreator: asteroidCreator, alienCreator: alienCreator, shipCreator: shipCreator, scene: scene)
+        system = GameplayManagerSystem(asteroidCreator: asteroidCreator, alienCreator: alienCreator, playerCreator: shipCreator, scene: scene)
         system.aliens = aliens
         system.asteroids = asteroids
     }
@@ -121,7 +121,7 @@ final class GameplayManagerSystemTests: XCTestCase {
     func test_HandlePlayingState_HavingShips_IsClearToAddShips() {
         let system = MockGameManagerSystem_HandlePlayingState(asteroidCreator: asteroidCreator,
                                                               alienCreator: alienCreator,
-                                                              shipCreator: shipCreator,
+                                                              playerCreator: shipCreator,
                                                               scene: scene,
                                                               randomness: Randomness.initialize(with: 1))
         system.continueOrEnd(appStateComponent: appStateComponent, entity: Entity())

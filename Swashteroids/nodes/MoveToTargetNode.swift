@@ -10,15 +10,15 @@
 
 import Swash
 
-// TODO: Right now this is an alien-only class because of the AlienComponent
+// Right now this is an alien-only class because of the AlienComponent
 class MoveToTargetNode: Node {
     required init() {
         super.init()
         components = [
+            AlienComponent.name: nil_component,
             MoveToTargetComponent.name: nil_component,
             PositionComponent.name: nil_component,
             VelocityComponent.name: nil_component,
-            AlienComponent.name: nil_component,
         ]
     }
 }

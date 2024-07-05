@@ -20,19 +20,19 @@ class PickTargetSystemTests: XCTestCase {
     override func setUp() {
         super.setUp()
         system = PickTargetSystem()
-        system.shipNodes = shipNodes
-        let shipNode = ShipNode()
-        system.shipNodes.add(node: shipNode)
-        let shipComponent = ShipComponent()
-        let shipPosition = PositionComponent(x: 0, y: 0, z: .ship, rotationDegrees: 0)
-        shipNode.components = [
-            ShipComponent.name: shipComponent,
+        system.playerNodes = shipNodes
+        let playerNode = PlayerNode()
+        system.playerNodes.add(node: playerNode)
+        let playerComponent = PlayerComponent()
+        let shipPosition = PositionComponent(x: 0, y: 0, z: .player, rotationDegrees: 0)
+        playerNode.components = [
+            PlayerComponent.name: playerComponent,
             PositionComponent.name: shipPosition,
         ]
         let shipEntity = Entity()
-                .add(component: shipComponent)
+                .add(component: playerComponent)
                 .add(component: shipPosition)
-        shipNode.entity = shipEntity
+        playerNode.entity = shipEntity
         system.asteroidNodes = asteroidNodes
     }
 
@@ -66,7 +66,7 @@ class PickTargetSystemTests: XCTestCase {
                 .add(component: velocity)
         engine.add(entity: entity)
         let ship = Entity()
-            .add(component: ShipComponent())
+            .add(component: PlayerComponent())
             .add(component: PositionComponent(x: 0, y: 0, z: 0))
         engine.add(entity: ship)
         // ACT
@@ -99,7 +99,7 @@ class PickTargetSystemTests: XCTestCase {
         asteroidNode.entity = asteroidEntity
         system.asteroidNodes = asteroidNodes
         system.asteroidNodes?.add(node: asteroidNode)
-        system.shipNodes = shipNodes
+        system.playerNodes = shipNodes
 //        let soldier = AlienComponent(cast: .soldier, reactionTime: 0.4, scoreValue: 50)
         let position = PositionComponent(x: 0, y: 0, z: .asteroids, rotationDegrees: 0)
         // ACT
@@ -131,7 +131,7 @@ class PickTargetSystemTests: XCTestCase {
         asteroidNode.entity = asteroid
         system.asteroidNodes = asteroidNodes
         system.asteroidNodes?.add(node: asteroidNode)
-        system.shipNodes = shipNodes
+        system.playerNodes = shipNodes
 //        let soldier = AlienComponent(cast: .soldier, reactionTime: 0.4, scoreValue: 50)
         let position = PositionComponent(x: 0, y: 0, z: .asteroids, rotationDegrees: 0)
         // ACT

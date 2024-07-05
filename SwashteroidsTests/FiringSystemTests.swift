@@ -36,7 +36,7 @@ class FiringSystemTests: XCTestCase {
         //
         let entity = Entity()
         let motion = VelocityComponent(velocityX: 0, velocityY: 0, base: 60.0)
-        let position = PositionComponent(x: 0, y: 0, z: .ship)
+        let position = PositionComponent(x: 0, y: 0, z: .player)
         let gun = GunComponent(offsetX: 0,
                                offsetY: 0,
                                minimumShotInterval: minimumShotInterval,

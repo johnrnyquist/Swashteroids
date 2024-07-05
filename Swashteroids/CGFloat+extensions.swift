@@ -17,7 +17,7 @@ extension Layer {
     static let asteroids: Layer = 2
     static let gameOver: Layer = 2.5
     static let torpedoes: Layer = 3
-    static let ship: Layer = 4
+    static let player: Layer = 4
     static let hud: Layer = 5
     static let buttons: Layer = 6
     static let top: Layer = 7

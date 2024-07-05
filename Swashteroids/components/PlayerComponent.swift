@@ -8,10 +8,6 @@
 // https://github.com/johnrnyquist/Swash
 //
 
-import Foundation
+import Swash
 
-extension Hashable where Self: AnyObject {
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(ObjectIdentifier(self))
-    }
-}
+final class PlayerComponent: Component {}

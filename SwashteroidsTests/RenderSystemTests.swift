@@ -37,7 +37,7 @@ final class RenderSystemTests: XCTestCase {
     func test_Update() {
         let sprite = SwashScaledSpriteNode()
         let display = DisplayComponent(sknode: sprite)
-        let position = PositionComponent(x: 1, y: 2, z: .ship)
+        let position = PositionComponent(x: 1, y: 2, z: .player)
         let entity = Entity()
                 .add(component: display)
                 .add(component: position)
@@ -65,7 +65,7 @@ final class RenderSystemTests: XCTestCase {
         let entity = Entity()
         let sprite = SwashScaledSpriteNode()
         let display = DisplayComponent(sknode: sprite)
-        let position = PositionComponent(x: 0, y: 0, z: .ship)
+        let position = PositionComponent(x: 0, y: 0, z: .player)
         entity
                 .add(component: display)
                 .add(component: position)
@@ -80,7 +80,7 @@ final class RenderSystemTests: XCTestCase {
         let entity = Entity()
         entity
                 .add(component: DisplayComponent(sknode: sprite))
-                .add(component: PositionComponent(x: 0, y: 0, z: .ship))
+                .add(component: PositionComponent(x: 0, y: 0, z: .player))
         engine.add(entity: entity)
         XCTAssertNotNil(sprite.parent)
         engine.remove(entity: entity)

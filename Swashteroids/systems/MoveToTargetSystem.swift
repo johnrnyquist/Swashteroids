@@ -12,7 +12,7 @@ import Foundation
 import Swash
 
 final class MoveToTargetSystem: ListIteratingSystem {
-    weak var shipNodes: NodeList!
+    weak var playerNodes: NodeList!
     weak var engine: Engine!
 
     init() {
@@ -23,11 +23,11 @@ final class MoveToTargetSystem: ListIteratingSystem {
     override func addToEngine(engine: Engine) {
         super.addToEngine(engine: engine)
         self.engine = engine
-        shipNodes = engine.getNodeList(nodeClassType: ShipNode.self)
+        playerNodes = engine.getNodeList(nodeClassType: PlayerNode.self)
     }
 
     var playerDead: Bool {
-        shipNodes?.head?.entity == nil || shipNodes?.head?.entity?.has(componentClass: DeathThroesComponent.self) == true
+        playerNodes?.head?.entity == nil || playerNodes?.head?.entity?.has(componentClass: DeathThroesComponent.self) == true
     }
 
     func updateNode(node: Node, time: TimeInterval) {

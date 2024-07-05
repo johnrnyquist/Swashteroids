@@ -31,7 +31,7 @@ final class FlipSystemTests: XCTestCase {
     func test_UpdateNode() throws {
         let node = FlipNode()
         let initialRotation = 10.0
-        let position = PositionComponent(x: 0, y: 0, z: .ship, rotationDegrees: initialRotation)
+        let position = PositionComponent(x: 0, y: 0, z: .player, rotationDegrees: initialRotation)
         let flip = FlipComponent.shared
         let entity = Entity(named: .flipButton)
                 .add(component: flip)

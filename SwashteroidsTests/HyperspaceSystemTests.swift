@@ -36,7 +36,7 @@ final class HyperspaceSystemTests: XCTestCase {
         node.entity = entity
         let hyperEngine = HyperspaceDriveComponent(jumps: 20)
         let hyperJump = DoHyperspaceJumpComponent(size: .zero, randomness: Randomness.initialize(with: 1))
-        let position = PositionComponent(x: 0, y: 0, z: .ship)
+        let position = PositionComponent(x: 0, y: 0, z: .player)
         let display = DisplayComponent(sknode: SwashScaledSpriteNode())
         entity.add(component: hyperEngine)
         entity.add(component: hyperJump)

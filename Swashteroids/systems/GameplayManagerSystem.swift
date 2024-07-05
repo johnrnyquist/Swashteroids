@@ -21,27 +21,27 @@ Determines if a ship needs to be made.
 //TODO: Has too many responsibilities, needs to be reconsidered.
 class GameplayManagerSystem: System {
     private let minimumLevel = 1
-    private let spaceshipPositionRatio: CGFloat = 0.5
-    private var spaceshipClearanceRadius: CGFloat = 50
+    private let shipPositionRatio: CGFloat = 0.5
+    private var shipClearanceRadius: CGFloat = 50
     private weak var alienCreator: AlienCreatorUseCase!
     private weak var appStates: NodeList!
     private weak var asteroidCreator: AsteroidCreatorUseCase!
     private weak var randomness: Randomizing!
     private weak var scene: GameScene!
-    private weak var shipCreator: ShipCreatorUseCase!
-    private weak var ships: NodeList!
+    private weak var playerCreator: PlayerCreatorUseCase!
+    private weak var players: NodeList!
     private weak var torpedoes: NodeList!
     weak var aliens: NodeList!
     weak var asteroids: NodeList!
 
     init(asteroidCreator: AsteroidCreatorUseCase,
          alienCreator: AlienCreatorUseCase,
-         shipCreator: ShipCreatorUseCase,
+         playerCreator: PlayerCreatorUseCase,
          scene: GameScene,
          randomness: Randomizing = Randomness.shared) {
         self.asteroidCreator = asteroidCreator
         self.alienCreator = alienCreator
-        self.shipCreator = shipCreator
+        self.playerCreator = playerCreator
         self.scene = scene
         self.randomness = randomness
     }
@@ -49,7 +49,7 @@ class GameplayManagerSystem: System {
     // MARK: - System Overrides
     override func addToEngine(engine: Engine) {
         appStates = engine.getNodeList(nodeClassType: SwashteroidsStateNode.self)
-        ships = engine.getNodeList(nodeClassType: ShipNode.self)
+        players = engine.getNodeList(nodeClassType: PlayerNode.self)
         asteroids = engine.getNodeList(nodeClassType: AsteroidCollisionNode.self)
         torpedoes = engine.getNodeList(nodeClassType: TorpedoCollisionNode.self)
         aliens = engine.getNodeList(nodeClassType: AlienCollisionNode.self)
@@ -57,7 +57,7 @@ class GameplayManagerSystem: System {
 
     override func removeFromEngine(engine: Engine) {
         appStates = nil
-        ships = nil
+        players = nil
         asteroids = nil
         torpedoes = nil
         aliens = nil
@@ -77,7 +77,7 @@ class GameplayManagerSystem: System {
     /// If there are no asteroids, no torpedoes and there is a ship then you finished the level, go to the next.
     func handleGameState(appStateComponent: GameStateComponent, entity: Entity, time: TimeInterval) {
         // No ships in the NodeList, but we're still playing.
-        if ships.empty {
+        if players.empty {
             continueOrEnd(appStateComponent: appStateComponent, entity: entity)
         }
     }
@@ -86,10 +86,10 @@ class GameplayManagerSystem: System {
     func continueOrEnd(appStateComponent: GameStateComponent, entity: Entity) {
         // If we have any ships left, make another and some power-ups
         if appStateComponent.numShips > 0 {
-            let newSpaceshipPosition = CGPoint(x: scene.size.width * spaceshipPositionRatio,
-                                               y: scene.size.height * spaceshipPositionRatio)
+            let newSpaceshipPosition = CGPoint(x: scene.size.width * shipPositionRatio,
+                                               y: scene.size.height * shipPositionRatio)
             if isClearToAddSpaceship(at: newSpaceshipPosition) {
-                shipCreator.createShip(appStateComponent)
+                playerCreator.createShip(appStateComponent)
             }
         } else { // GAME OVER!
             entity.add(component: ChangeGameStateComponent(from: .playing, to: .gameOver))
@@ -103,7 +103,7 @@ class GameplayManagerSystem: System {
         while let asteroid = currentAsteroidNode {
             if let positionComponent = asteroid[PositionComponent.self],
                let collisionComponent = asteroid[CollidableComponent.self] {
-                if positionComponent.position.distance(from: position) <= collisionComponent.radius + spaceshipClearanceRadius {
+                if positionComponent.position.distance(from: position) <= collisionComponent.radius + shipClearanceRadius {
                     return false
                 }
             }

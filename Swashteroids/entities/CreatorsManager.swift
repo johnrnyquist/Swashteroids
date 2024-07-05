@@ -17,8 +17,8 @@ class CreatorsManager {
     let hudCreator: HudCreatorUseCase
     let powerUpCreator: PowerUpCreatorUseCase
     let shipButtonControlsCreator: ShipButtonControlsCreatorUseCase
-    let shipControlQuadrantsCreator: ShipQuadrantsControlsCreatorUseCase
-    let shipCreator: ShipCreatorUseCase
+    let shipControlQuadrantsCreator: QuadrantsControlsCreatorUseCase
+    let shipCreator: PlayerCreatorUseCase
     let toggleShipControlsCreator: ToggleShipControlsCreatorUseCase
     let torpedoCreator: TorpedoCreatorUseCase
     let treasureCreator: TreasureCreatorUseCase
@@ -30,8 +30,8 @@ class CreatorsManager {
         hudCreator = HudCreator(engine: engine, alertPresenter: alertPresenter)
         powerUpCreator = PowerUpCreator(engine: engine, size: gameSize)
         shipButtonControlsCreator = ShipButtonControlsCreator(engine: engine, size: gameSize, generator: generator)
-        shipControlQuadrantsCreator = ShipQuadrantsControlsCreator(engine: engine, size: gameSize, generator: generator)
-        shipCreator = ShipCreator(engine: engine, size: gameSize)
+        shipControlQuadrantsCreator = QuadrantsControlsCreator(engine: engine, size: gameSize, generator: generator)
+        shipCreator = PlayerCreator(engine: engine, size: gameSize)
         toggleShipControlsCreator = ToggleShipControlsCreator(engine: engine, size: gameSize, generator: generator)
         torpedoCreator = TorpedoCreator(engine: engine)
         treasureCreator = TreasureCreator(engine: engine)

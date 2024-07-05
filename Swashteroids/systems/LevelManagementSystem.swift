@@ -25,7 +25,7 @@ class LevelManagementSystem: ListIteratingSystem {
     private weak var engine: Engine!
     private weak var asteroidCreator: AsteroidCreatorUseCase!
     private var asteroids: NodeList!
-    private var ships: NodeList!
+    private var players: NodeList!
     private var minimumAsteroidDistance: CGFloat = 80
     private weak var randomness: Randomizing!
     private weak var scene: GameScene!
@@ -48,7 +48,7 @@ class LevelManagementSystem: ListIteratingSystem {
         super.addToEngine(engine: engine)
         self.engine = engine
         asteroids = engine.getNodeList(nodeClassType: AsteroidCollisionNode.self)
-        ships = engine.getNodeList(nodeClassType: ShipNode.self)
+        players = engine.getNodeList(nodeClassType: PlayerNode.self)
     }
 
     func updateNode(node: Node, time: TimeInterval) {
@@ -63,13 +63,13 @@ class LevelManagementSystem: ListIteratingSystem {
 
     /// Go to the next level, announce it, create asteroids
     func goToNextLevel(appStateComponent: GameStateComponent, entity: Entity) {
-        guard let shipNode = ships.head,
-              let spaceShipPosition = shipNode[PositionComponent.self] else { return }
+        guard let playerNode = players.head,
+              let playerPosition = playerNode[PositionComponent.self] else { return }
         appStateComponent.level += 1
         entity.add(component: AudioComponent(name: "levelUp", fileName: .levelUpSound))
         announceLevel(appStateComponent: appStateComponent)
         createAsteroids(count: appStateComponent.level,
-                        avoiding: spaceShipPosition.position,
+                        avoiding: playerPosition.position,
                         level: appStateComponent.level)
     }
 

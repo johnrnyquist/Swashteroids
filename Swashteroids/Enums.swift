@@ -11,7 +11,7 @@
 import Swash
 import Foundation
 
-// HACK 
+// TODO: Replace global variables with a struct or class 
 var LARGE_ASTEROID_RADIUS = 54.0
 var MEDIUM_ASTEROID_RADIUS = 27.0
 var SMALL_ASTEROID_RADIUS = 13.5

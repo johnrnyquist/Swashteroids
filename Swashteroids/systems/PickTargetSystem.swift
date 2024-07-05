@@ -13,7 +13,7 @@ import Swash
 
 final class PickTargetSystem: ListIteratingSystem {
     weak var asteroidNodes: NodeList!
-    weak var shipNodes: NodeList!
+    weak var playerNodes: NodeList!
     weak var targetableNodes: NodeList!
     weak var engine: Engine!
 
@@ -26,7 +26,7 @@ final class PickTargetSystem: ListIteratingSystem {
         super.addToEngine(engine: engine)
         self.engine = engine
         asteroidNodes = engine.getNodeList(nodeClassType: AsteroidCollisionNode.self)
-        shipNodes = engine.getNodeList(nodeClassType: ShipNode.self)
+        playerNodes = engine.getNodeList(nodeClassType: PlayerNode.self)
         targetableNodes = engine.getNodeList(nodeClassType: AlienWorkerTargetNode.self)
     }
 
@@ -45,7 +45,7 @@ final class PickTargetSystem: ListIteratingSystem {
         switch alienComponent.cast {
         case .soldier:
             // is there a ship and an asteroid?
-            if let shipEntity = shipNodes.head?.entity,
+            if let shipEntity = playerNodes.head?.entity,
                !shipEntity.has(componentClass: DeathThroesComponent.self),
                let closestAsteroid = findClosestEntity(to: position.position, node: asteroidNodes?.head) {
                 // is ship closer than asteroid?
@@ -55,7 +55,7 @@ final class PickTargetSystem: ListIteratingSystem {
                 } else {
                     updateMoveToTarget(entity: entity, targetedEntity: shipEntity)
                 }
-            } else if let shipEntity = shipNodes.head?.entity,
+            } else if let shipEntity = playerNodes.head?.entity,
                       !shipEntity.has(componentClass: DeathThroesComponent.self) {
                 updateMoveToTarget(entity: entity, targetedEntity: shipEntity)
             } else {
@@ -77,13 +77,13 @@ final class PickTargetSystem: ListIteratingSystem {
             } else {
                 excludedEntityNames = []
             }
-            if let shipEntity = shipNodes.head?.entity,
+            if let shipEntity = playerNodes.head?.entity,
                !shipEntity.has(componentClass: DeathThroesComponent.self),
                let targetedEntity = findClosestEntity(to: position.position,
                                                       node: targetableNodes?.head,
                                                       excludingEntities: excludedEntityNames) {
                 updateMoveToTarget(entity: entity, targetedEntity: targetedEntity)
-            } else if let shipEntity = shipNodes.head?.entity,
+            } else if let shipEntity = playerNodes.head?.entity,
                       !shipEntity.has(componentClass: DeathThroesComponent.self) {
                 updateMoveToTarget(entity: entity, targetedEntity: shipEntity)
             } else {

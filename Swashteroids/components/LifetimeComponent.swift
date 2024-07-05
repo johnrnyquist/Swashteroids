@@ -11,9 +11,8 @@
 import Foundation
 import Swash
 
-// TODO: Implement a system for this.
 // right now it is added to treasures.
-// I would also like to add it to torpedoes. maybe.
+// I might add it to torpedoes.
 final class LifetimeComponent: Component {
     var timeRemaining: TimeInterval
 

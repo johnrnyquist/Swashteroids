@@ -31,12 +31,18 @@ class QuadrantComponent: Component {
 final class TouchedComponent: Component {
     let id: Int
     let num: Int
+    var processed = false
+    var requestedEnd = false
+    private var _state: TouchState
     var state: TouchState {
-        didSet {
-            if state != oldValue {
-                print("TouchedComponent: num: \(num), state: \(state)")
+        set {
+            if processed {
+                _state = newValue
+            } else if newValue == .ended || newValue == .cancelled {
+                requestedEnd = true
             }
         }
+        get { _state }
     }
     let firstLocation: CGPoint
     var locationInScene: CGPoint
@@ -44,10 +50,9 @@ final class TouchedComponent: Component {
     init(id: Int, num: Int, state: TouchState, locationInScene: CGPoint) {
         self.id = id
         self.num = num
-        self.state = state
+        self._state = state
         self.firstLocation = locationInScene
         self.locationInScene = locationInScene
-        print("TouchedComponent: num: \(num), state: \(state)")
     }
 }
 
@@ -106,7 +111,6 @@ class TouchedButtonSystem: ListIteratingSystem {
         else { return }
         let location = touchedComponent.locationInScene
         let over = sprite.contains(location)
-
         // handle the button's functionality
         // HACK I've improved things from an ECS POV by pulling this code from the components into a system but I do not like the big if statement
         switch touchedComponent.state {
@@ -139,7 +143,6 @@ class TouchedButtonSystem: ListIteratingSystem {
                     engine.gameStateEntity.add(component: ChangeGameStateComponent(from: .gameOver, to: .start))
                 } else if buttonEntity.has(componentClass: ButtonPauseComponent.self) {
                     buttonEntity.add(component: AlertPresentingComponent(state: .showPauseAlert))
-                    print(self, "AlertPresentingComponent: showPauseAlert")
                 } else if buttonEntity.has(componentClass: ButtonToggleComponent.self) {
                     let curState = engine.shipControlsState
                     let toggleState: Toggle = curState == .usingAccelerometer ? .off : .on
@@ -190,18 +193,24 @@ class TouchedButtonSystem: ListIteratingSystem {
             case .none:
                 break
         }
-
         // handle the button's look and remove on ended
         switch touchedComponent.state {
             case .began:
                 sprite.alpha = 0.6
                 hapticFeedbackComponent.impact()
-                touchedComponent.state = .none
-          case .ended, .cancelled:
+                touchedComponent.processed = true
+                if touchedComponent.requestedEnd {
+                    touchedComponent.state = .ended
+                } else {
+                    touchedComponent.state = .none
+                }
+            case .ended, .cancelled:
+                guard touchedComponent.processed
+                else { return }
                 sprite.alpha = 0.2
                 touchManager.remove(touchedComponent.id)
                 buttonEntity.remove(componentClass: TouchedComponent.self)
-       case .moved:
+            case .moved:
                 if over {
                     sprite.alpha = 0.6
                 } else {
@@ -209,9 +218,11 @@ class TouchedButtonSystem: ListIteratingSystem {
                 }
                 touchedComponent.state = .none
             case .none:
+                if touchedComponent.requestedEnd {
+                    touchedComponent.state = .ended
+                }
                 break
         }
-
     }
 }
 
@@ -249,7 +260,6 @@ class TouchedQuadrantSystem: ListIteratingSystem {
         let over = sprite.contains(location)
         switch touchedComponent.state {
             case .began:
-                hapticFeedbackComponent.impact()
                 switch quadrantComponent.quadrant {
                     case .q1:
                         //TODO: Should this check be here?
@@ -270,10 +280,7 @@ class TouchedQuadrantSystem: ListIteratingSystem {
                     default:
                         break
                 }
-                touchedComponent.state = .none
             case .ended, .cancelled:
-                touchManager.remove(touchedComponent.id)
-                buttonEntity.remove(componentClass: TouchedComponent.self)
                 switch quadrantComponent.quadrant {
                     case .q3:
                         if let ship = self.engine.playerEntity {
@@ -288,9 +295,35 @@ class TouchedQuadrantSystem: ListIteratingSystem {
                 if over {
                 } else {
                 }
-                touchedComponent.state = .none
-           case .none:
+            case .none:
                 break
         }
+
+        switch touchedComponent.state {
+            case .began:
+                hapticFeedbackComponent.impact()
+                touchedComponent.processed = true
+                if touchedComponent.requestedEnd {
+                    touchedComponent.state = .ended
+                } else {
+                    touchedComponent.state = .none
+                }
+            case .ended, .cancelled:
+                guard touchedComponent.processed
+                else { return }
+                touchManager.remove(touchedComponent.id)
+                buttonEntity.remove(componentClass: TouchedComponent.self)
+            case .moved:
+                if over {
+                } else {
+                }
+                touchedComponent.state = .none
+            case .none:
+                if touchedComponent.requestedEnd {
+                    touchedComponent.state = .ended
+                }
+                break
+        }
+
     }
 }

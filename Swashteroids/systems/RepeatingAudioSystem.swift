@@ -22,15 +22,19 @@ final class RepeatingAudioSystem: ListIteratingSystem {
         guard let audio = node[RepeatingAudioComponent.self]
         else { return }
         switch audio.state {
-        case .shouldBegin:
-            audio.state = .playing
-            audio.sound?.play(numberOfLoops: -1)
-        case .shouldStop:
-            audio.state = .notPlaying
-                audio.sound?.stop()
-        case .notPlaying, .playing:
-            break
+            case .shouldBegin:
+                audio.state = .playing
+                if audio.sound?.playing == false {
+                    audio.sound?.play(numberOfLoops: -1)
+                }
+                audio.sound?.volume = 1
+            case .shouldStop:
+                audio.state = .notPlaying
+                audio.sound?.volume = 0
+            case .notPlaying, .playing:
+                break
         }
     }
 }
+
 

@@ -18,8 +18,8 @@ class ShipButtonControlsCreator: ShipButtonControlsCreatorUseCase {
     var buttonPaddingLeft = 30.0
     var buttonPaddingRight = 30.0
     var firstRowButtonPaddingY = 30.0
-    var fireButtonEntity: Entity? //HACK
-    var hyperspaceButtonEntity: Entity? //HACK
+    var fireButtonEntity: Entity? //HACK Creator should NOT be holding onto this reference!
+    var hyperspaceButtonEntity: Entity? //HACK Creator should NOT be holding onto this reference!
     var scaleManager: ScaleManaging
     weak var generator: UIImpactFeedbackGenerator?
 

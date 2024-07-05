@@ -48,7 +48,7 @@ class SystemsManager {
                 .add(system: TimePlayedSystem(), priority: .preUpdate)
                 .add(system: GameplayManagerSystem(asteroidCreator: creatorManager.asteroidCreator,
                                                    alienCreator: creatorManager.alienCreator,
-                                                   shipCreator: creatorManager.shipCreator,
+                                                   playerCreator: creatorManager.shipCreator,
                                                    scene: scene),
                      priority: .preUpdate)
                 .add(system: GameOverSystem(), priority: .preUpdate)
@@ -157,7 +157,7 @@ final class Swashteroids: NSObject {
                 .add(component: GameStateComponent(config: GameConfig(gameSize: scene.size)))
                 .add(component: ChangeGameStateComponent(from: .start, to: .start))
                 .add(component: TimePlayedComponent())
-                .add(component: AlienAppearancesComponent.shared) //HACK
+                .add(component: AlienAppearancesComponent.shared) //TODO: find a better place for this
         engine.add(entity: appStateEntity)
     }
 

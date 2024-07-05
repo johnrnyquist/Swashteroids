@@ -23,8 +23,8 @@ enum GameCommand: String, CaseIterable {
     case hyperspace = "Hyperspace"
     case left = "Left"
     case right = "Right"
-    case pause = "Pause"
     case flip = "Flip"
+    case pause = "Pause"
     // Alert
     case home = "Home"
     case resume = "Resume"

@@ -62,6 +62,7 @@ final class TouchManager {
     }
 
     func began(_ touch: UITouch) {
+        print("BEGAN")
         let location = touch.location(in: scene)
         let nodes = scene.nodes(at: location)
         guard !nodes.isEmpty else { return }
@@ -77,6 +78,7 @@ final class TouchManager {
     }
 
     func ended(_ touch: UITouch) {
+        print("ENDED")
         touchedComponents[touch.hash]?.locationInScene = touch.location(in: scene)
         touchedComponents[touch.hash]?.state = .ended
     }
@@ -87,6 +89,7 @@ final class TouchManager {
     }
 
     func remove(_ id: Int) {
+        print("REMOVED")
         touchedComponents.removeValue(forKey: id)
     }
 }

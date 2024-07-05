@@ -27,7 +27,7 @@ class CollisionSystemTests: XCTestCase {
     var treasureEntity: Entity!
     var system: CollisionSystem!
     var shipButtonControlsCreator: MockShipButtonControlsCreator!
-    var shipCreator: MockShipCreator!
+    var shipCreator: MockPlayerCreator!
     var asteroidCreator: MockAsteroidCreator!
 
     override func setUpWithError() throws {
@@ -39,15 +39,15 @@ class CollisionSystemTests: XCTestCase {
                 .add(component: appStateComponent)
         engine.add(entity: appStateEntity)
         shipEntity = Entity(named: .player)
-                .add(component: ShipComponent())
-                .add(component: PositionComponent(x: 0, y: 0, z: .ship, rotationDegrees: 0.0))
+                .add(component: PlayerComponent())
+                .add(component: PositionComponent(x: 0, y: 0, z: .player, rotationDegrees: 0.0))
                 .add(component: VelocityComponent(velocityX: 0.0, velocityY: 0.0, dampening: 0.0, base: 60.0))
                 .add(component: CollidableComponent(radius: 25))
                 .add(component: DisplayComponent(sknode: SwashSpriteNode()))
         engine.add(entity: shipEntity)
         alienEntity = Entity(named: .alienSoldier)
                 .add(component: AlienComponent(cast: .soldier, scaleManager: ScaleManager.shared))
-                .add(component: PositionComponent(x: 0, y: 0, z: .ship, rotationDegrees: 0.0))
+                .add(component: PositionComponent(x: 0, y: 0, z: .player, rotationDegrees: 0.0))
                 .add(component: VelocityComponent(velocityX: 0.0, velocityY: 0.0, dampening: 0.0, base: 60.0))
                 .add(component: CollidableComponent(radius: 25))
         engine.add(entity: alienEntity)
@@ -88,7 +88,7 @@ class CollisionSystemTests: XCTestCase {
                 .add(component: CollidableComponent(radius: 10, scaleManager: MockScaleManager()))
                 .add(component: PositionComponent(x: 0, y: 0, z: 0))
         shipButtonControlsCreator = MockShipButtonControlsCreator()
-        shipCreator = MockShipCreator()
+        shipCreator = MockPlayerCreator()
         asteroidCreator = MockAsteroidCreator()
         system = CollisionSystem(shipCreator: shipCreator,
                                  asteroidCreator: asteroidCreator,
@@ -177,7 +177,7 @@ class CollisionSystemTests: XCTestCase {
         }
         torpedoNode.entity = torpedoEntity_alien
         torpedoEntity_alien[TorpedoComponent.self]?.owner = .computerOpponent
-        let shipCollisionNode = ShipCollisionNode()
+        let shipCollisionNode = PlayerCollisionNode()
         for component in shipEntity.componentClassNameInstanceMap {
             shipCollisionNode.components[component.key] = component.value
         }
@@ -191,7 +191,7 @@ class CollisionSystemTests: XCTestCase {
 
     func test_shipAndTorpedoPowerUp() {
         engine.add(system: system, priority: 1)
-        let shipCollisionNode = ShipCollisionNode()
+        let shipCollisionNode = PlayerCollisionNode()
         for component in shipEntity.componentClassNameInstanceMap {
             shipCollisionNode.components[component.key] = component.value
         }
@@ -211,7 +211,7 @@ class CollisionSystemTests: XCTestCase {
 
     func test_shipAndHyperspacePowerUp() {
         engine.add(system: system, priority: 1)
-        let shipCollisionNode: Node = ShipCollisionNode()
+        let shipCollisionNode: Node = PlayerCollisionNode()
         for component in shipEntity.componentClassNameInstanceMap {
             shipCollisionNode.components[component.key] = component.value
         }
@@ -256,7 +256,7 @@ class CollisionSystemTests: XCTestCase {
 
     func test_vehiclesAndAsteroids_Player() {
         engine.add(system: system, priority: 1)
-        let shipCollisionNode = ShipCollisionNode()
+        let shipCollisionNode = PlayerCollisionNode()
         shipCollisionNode.entity = shipEntity
         for component in shipEntity.componentClassNameInstanceMap {
             shipCollisionNode.components[component.key] = component.value
@@ -276,7 +276,7 @@ class CollisionSystemTests: XCTestCase {
 
     func test_vehiclesAndTreasures() {
         engine.add(system: system, priority: 1)
-        let shipCollisionNode = ShipCollisionNode()
+        let shipCollisionNode = PlayerCollisionNode()
         for component in shipEntity.componentClassNameInstanceMap {
             shipCollisionNode.components[component.key] = component.value
         }
@@ -294,7 +294,7 @@ class CollisionSystemTests: XCTestCase {
 
     func test_shipsAndAliens() {
         engine.add(system: system, priority: 1)
-        let shipCollisionNode = ShipCollisionNode()
+        let shipCollisionNode = PlayerCollisionNode()
         for component in shipEntity.componentClassNameInstanceMap {
             shipCollisionNode.components[component.key] = component.value
         }
@@ -312,7 +312,7 @@ class CollisionSystemTests: XCTestCase {
     }
 
     func test_collisionCheck() {
-        let nodeA = ShipCollisionNode()
+        let nodeA = PlayerCollisionNode()
         for component in shipEntity.componentClassNameInstanceMap {
             nodeA.components[component.key] = component.value
         }

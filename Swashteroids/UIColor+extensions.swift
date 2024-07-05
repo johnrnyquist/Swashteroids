@@ -24,9 +24,7 @@ extension UIColor {
         }
         return self
     }
-}
 
-extension UIColor {
     func shiftHue(by percentage: CGFloat) -> UIColor {
         var h: CGFloat = 0, s: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
         if getHue(&h, saturation: &s, brightness: &b, alpha: &a) {

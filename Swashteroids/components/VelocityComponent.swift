@@ -42,7 +42,7 @@ final class VelocityComponent: Component {
         
         if let base { self.base = base * scaleManager.SCALE_FACTOR }
         else { self.base = velocityX * scaleManager.SCALE_FACTOR }
-        exitSpeed = self.base * 3.0 //TODO: exit speed is only applicable to aliens
+        exitSpeed = self.base * 3.0 //TODO: move this as exit speed is only applicable to aliens, not the player.
     }
 }
 

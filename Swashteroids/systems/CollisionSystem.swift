@@ -20,7 +20,7 @@ class CollisionSystem: System {
     private let asteroidCreator: AsteroidCreatorUseCase
     private weak var randomness: Randomizing!
     private let scaleManager: ScaleManaging
-    private let shipCreator: ShipCreatorUseCase
+    private let playerCreator: PlayerCreatorUseCase
     private var size: CGSize
     private weak var aliens: NodeList!
     private weak var appStateNodes: NodeList!
@@ -28,18 +28,18 @@ class CollisionSystem: System {
     private weak var engine: Engine!
     private weak var hyperspacePowerUp: NodeList!
     private weak var shipButtonControlsCreator: ShipButtonControlsCreatorUseCase!
-    private weak var ships: NodeList!
+    private weak var players: NodeList!
     private weak var torpedoPowerUp: NodeList!
     private weak var torpedoes: NodeList!
     private weak var treasures: NodeList!
 
-    init(shipCreator: ShipCreatorUseCase,
+    init(shipCreator: PlayerCreatorUseCase,
          asteroidCreator: AsteroidCreatorUseCase,
          shipButtonControlsCreator: ShipButtonControlsCreatorUseCase,
          size: CGSize,
          randomness: Randomizing = Randomness.shared,
          scaleManager: ScaleManaging = ScaleManager.shared) {
-        self.shipCreator = shipCreator
+        self.playerCreator = shipCreator
         self.asteroidCreator = asteroidCreator
         self.shipButtonControlsCreator = shipButtonControlsCreator
         self.size = size
@@ -50,7 +50,7 @@ class CollisionSystem: System {
     override public func addToEngine(engine: Engine) {
         self.engine = engine
         appStateNodes = engine.getNodeList(nodeClassType: SwashteroidsStateNode.self)
-        ships = engine.getNodeList(nodeClassType: ShipCollisionNode.self)
+        players = engine.getNodeList(nodeClassType: PlayerCollisionNode.self)
         aliens = engine.getNodeList(nodeClassType: AlienCollisionNode.self)
         asteroids = engine.getNodeList(nodeClassType: AsteroidCollisionNode.self)
         torpedoes = engine.getNodeList(nodeClassType: TorpedoCollisionNode.self)
@@ -62,15 +62,15 @@ class CollisionSystem: System {
     /// 
     /// - Parameter time: The time since the last update
     override public func update(time: TimeInterval) {
-        collisionCheck(nodeA: ships.head, nodeB: torpedoPowerUp.head, action: shipAndTorpedoPowerUp)
-        collisionCheck(nodeA: ships.head, nodeB: hyperspacePowerUp.head, action: shipAndHyperspacePowerUp)
+        collisionCheck(nodeA: players.head, nodeB: torpedoPowerUp.head, action: shipAndTorpedoPowerUp)
+        collisionCheck(nodeA: players.head, nodeB: hyperspacePowerUp.head, action: shipAndHyperspacePowerUp)
         collisionCheck(nodeA: torpedoes.head, nodeB: asteroids.head, action: torpedoesAndAsteroids)
-        for vehicle in [ships.head, aliens.head] {
+        for vehicle in [players.head, aliens.head] {
             collisionCheck(nodeA: torpedoes.head, nodeB: vehicle, action: torpedoAndVehicle)
             collisionCheck(nodeA: vehicle, nodeB: asteroids.head, action: vehiclesAndAsteroids)
             collisionCheck(nodeA: vehicle, nodeB: treasures.head, action: vehiclesAndTreasures)
         }
-        collisionCheck(nodeA: ships.head, nodeB: aliens.head, action: shipsAndAliens)
+        collisionCheck(nodeA: players.head, nodeB: aliens.head, action: shipsAndAliens)
     }
 
     func shipAndTorpedoPowerUp(shipNode: Node, torpedoPowerUpNode: Node) {
@@ -129,17 +129,17 @@ class CollisionSystem: System {
         let torpedoOwner = torpedoNode[TorpedoComponent.self]!.owner
         switch torpedoOwner {
         case .player:
-            if let _ = ve[ShipComponent.self] { return }
+            if let _ = ve[PlayerComponent.self] { return }
         case .computerOpponent:
             if let _ = ve[AlienComponent.self] { return }
         }
         if let torpedo = torpedoNode.entity { engine.remove(entity: torpedo) }
-        if ve[ShipComponent.self] != nil {
+        if ve[PlayerComponent.self] != nil {
             appStateNodes.head?[GameStateComponent.self]?.numShips -= 1
         } else {
             appStateNodes.head?[GameStateComponent.self]?.numAliensDestroyed += 1
         }
-        shipCreator.destroy(ship: ve)
+        playerCreator.destroy(entity: ve)
         //TODO: refactor the below
         if let gameStateNode = appStateNodes.head,
            let appStateComponent = gameStateNode[GameStateComponent.self],
@@ -160,10 +160,10 @@ class CollisionSystem: System {
         // A ship in its death throes can still hit an asteroid. 
         if vehicleNode.entity?
                       .has(componentClassName: DeathThroesComponent.name) == false { //HACK not sure I like this check
-            if vehicleNode.entity?[ShipComponent.self] != nil {
+            if vehicleNode.entity?[PlayerComponent.self] != nil {
                 appStateNodes.head?[GameStateComponent.self]?.numShips -= 1
             }
-            shipCreator.destroy(ship: vehicleNode.entity!)
+            playerCreator.destroy(entity: vehicleNode.entity!)
         }
         let level = appStateNodes.head?[GameStateComponent.self]?.level ?? 1
         if let entity = asteroidNode.entity {
@@ -174,7 +174,7 @@ class CollisionSystem: System {
     func vehiclesAndTreasures(vehicleNode: Node, treasureNode: Node) {
         engine.remove(entity: treasureNode.entity!)
         if
-            let _ = vehicleNode[ShipComponent.self], // it’s the player
+            let _ = vehicleNode[PlayerComponent.self], // it’s the player
             let ship = vehicleNode.entity,
             let appState = appStateNodes.head?[GameStateComponent.self],
             let value = treasureNode[TreasureComponent.self]?.value {
@@ -198,8 +198,8 @@ class CollisionSystem: System {
         alienEntity.remove(componentClass: VelocityComponent.self)
         shipEntity.add(component: alienVelocity)
         alienEntity.add(component: shipVelocity)
-        shipCreator.destroy(ship: shipEntity)
-        shipCreator.destroy(ship: alienEntity)
+        playerCreator.destroy(entity: shipEntity)
+        playerCreator.destroy(entity: alienEntity)
         if let appState = appStateNodes.head,
            let component = appState[GameStateComponent.self] {
             component.numShips -= 1
@@ -230,7 +230,7 @@ class CollisionSystem: System {
 
     override public func removeFromEngine(engine: Engine) {
         appStateNodes = nil
-        ships = nil
+        players = nil
         asteroids = nil
         torpedoes = nil
         torpedoPowerUp = nil

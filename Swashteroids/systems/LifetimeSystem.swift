@@ -13,6 +13,8 @@ import Swash
 import SpriteKit
 
 /// A system that removes entities after a certain amount of time.
+/// Right now, this is really a TREASURE system because of the fading out action.
+/// Need to rethink this.
 final class LifetimeSystem: ListIteratingSystem {
     private var engine: Engine!
 

@@ -24,7 +24,8 @@ final class GameViewController: UIViewController, PauseAlertPresenting {
     private var game: Swashteroids!
     private var gamePadManager: GamePadInputManager!
     private var settingsViewController: UIHostingController<SettingsView>!
-    var isAlertPresented = false //HACK: this is a hack to prevent the game from starting when the app returns from background.
+    /// Flag to prevent the game from starting when the app returns from background.
+    var isAlertPresented = false 
 
     override func loadView() {
         skView = SKView()
@@ -85,7 +86,7 @@ final class GameViewController: UIViewController, PauseAlertPresenting {
         if game.engine.gameStateComponent.gameState == .playing ||
            game.engine.gameStateComponent.gameState == .gameOver {
             let alertView = PauseAlert(
-                appState: game.engine.gameStateComponent, //HACK
+                appState: game.gameStateComponent,
                 home: home,
                 resume: resume,
                 showSettings: showSettings)

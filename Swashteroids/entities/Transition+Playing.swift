@@ -14,12 +14,12 @@ import SpriteKit
 class PlayingTransition: PlayingUseCase {
     weak var hudCreator: HudCreatorUseCase?
     weak var toggleShipControlsCreator: ToggleShipControlsCreatorUseCase?
-    weak var shipControlQuadrantsCreator: ShipQuadrantsControlsCreatorUseCase?
+    weak var shipControlQuadrantsCreator: QuadrantsControlsCreatorUseCase?
     weak var shipButtonControlsCreator: ShipButtonControlsCreatorUseCase?
 
     init(hudCreator: HudCreatorUseCase,
          toggleShipControlsCreator: ToggleShipControlsCreatorUseCase,
-         shipControlQuadrantsCreator: ShipQuadrantsControlsCreatorUseCase,
+         shipControlQuadrantsCreator: QuadrantsControlsCreatorUseCase,
          shipButtonControlsCreator: ShipButtonControlsCreatorUseCase
     ) {
         self.hudCreator = hudCreator
@@ -30,7 +30,7 @@ class PlayingTransition: PlayingUseCase {
 
     func fromPlayingScreen() {
         toggleShipControlsCreator?.removeToggleButton()
-        shipControlQuadrantsCreator?.removeShipControlQuadrants()
+        shipControlQuadrantsCreator?.removeQuadrantControls()
         shipButtonControlsCreator?.removeShipControlButtons()
     }
 
@@ -38,7 +38,7 @@ class PlayingTransition: PlayingUseCase {
         hudCreator?.createHud(gameState: appStateComponent)
         if appStateComponent.shipControlsState == .usingAccelerometer {
             toggleShipControlsCreator?.createToggleButton(.off)
-            shipControlQuadrantsCreator?.createShipControlQuadrants()
+            shipControlQuadrantsCreator?.createQuadrantControls()
         } else {
             toggleShipControlsCreator?.createToggleButton(.on)
         }
