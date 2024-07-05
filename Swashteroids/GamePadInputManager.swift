@@ -185,7 +185,8 @@ class GamePadInputManager: NSObject, ObservableObject, GameStateObserver {
             if let pad = controller.extendedGamepad {
                 game.gamePadManager = self
                 game.usingGamePad()
-                pad.valueChangedHandler = { [unowned self] (pad, element) in
+                pad.valueChangedHandler = { (pad, element) in
+                    // this will execute after a value change handler on a button executes
                     print(pad, element)
                 }
                 setupOnPressed(pad: pad, dictionary: commandToClosure_start)

@@ -36,17 +36,3 @@ enum RepeatingSoundState {
     case shouldStop
 }
 
-enum SoundFileName: String, CaseIterable {
-    case alienEntrance = "alien_entrance.wav"
-    case explosion = "bang_large.wav"
-    case levelUpSound = "braam-6150.wav"
-    case launchTorpedo = "fire.wav"
-    case hyperspace = "hyperspace.wav"
-    case powerUp = "powerup.wav"
-    case powerUpAppearance = "powerup_appearance.wav"
-    case thrust = "thrust.wav"
-    case toggle = "toggle.wav"
-    case treasure = "treasure.wav"
-    case treasureSpecial = "treasure_special.wav"
-    case treasureStandard = "treasure_standard.wav"
-}

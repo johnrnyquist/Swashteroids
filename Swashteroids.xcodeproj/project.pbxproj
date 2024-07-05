@@ -166,6 +166,7 @@
 		9313966752D333AF0D13BDA5 /* AlertPresentingSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931397C38072F0E64E4C6A38 /* AlertPresentingSystem.swift */; };
 		93139685D7989EDB5860D704 /* DeathThroesSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139DAEBBD9BE19DC446051 /* DeathThroesSystem.swift */; };
 		931396A2070DB4DA286B21D7 /* RightNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139FDF0C76049256DAE28C /* RightNode.swift */; };
+		931396AF5AFDC6659C91000F /* String+SoundFileName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139933EFC2AE82B11922C6 /* String+SoundFileName.swift */; };
 		931396B7DDF80F066196BA15 /* MakeDecisionSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931392EBF79FD204C1174E11 /* MakeDecisionSystem.swift */; };
 		931397073B11911E75B9BFA0 /* ShipQuadrantsControlsCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931395F838B2866767296F25 /* ShipQuadrantsControlsCreator.swift */; };
 		9313970ECC8B60836E4DEBBF /* LifetimeComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931390A6FDA46C0B8EFE6218 /* LifetimeComponent.swift */; };
@@ -431,6 +432,7 @@
 		9313988C064025FB4880FF1F /* ThrustNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThrustNode.swift; sourceTree = "<group>"; };
 		93139921E04E8DBE2DF6800B /* SplitAsteroidUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitAsteroidUseCase.swift; sourceTree = "<group>"; };
 		93139927DCF5E5DC2AE98363 /* ReactionTimeNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReactionTimeNode.swift; sourceTree = "<group>"; };
+		93139933EFC2AE82B11922C6 /* String+SoundFileName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+SoundFileName.swift"; sourceTree = "<group>"; };
 		93139949CD856130C98A8834 /* HudSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudSystemTests.swift; sourceTree = "<group>"; };
 		9313995C9360F53AD9D2BB65 /* AlienFiringNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlienFiringNode.swift; sourceTree = "<group>"; };
 		9313996FDF7208F45DD67644 /* AlienFiringComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlienFiringComponent.swift; sourceTree = "<group>"; };
@@ -576,6 +578,7 @@
 				8D23C18C2B02C59D00F7D878 /* sounds */,
 				8D8F24B72B51D4B100B2E223 /* extensions */,
 				8D59EDDD2B138ED6003BD073 /* Badloc ICG.ttf */,
+				93139933EFC2AE82B11922C6 /* String+SoundFileName.swift */,
 			);
 			path = Swashteroids;
 			sourceTree = "<group>";
@@ -1247,6 +1250,7 @@
 				93139B0DBC3E222D982D6420 /* TouchableComponent.swift in Sources */,
 				9313953EA0F8B372247B5B83 /* Sequence+extensions.swift in Sources */,
 				9313966752D333AF0D13BDA5 /* AlertPresentingSystem.swift in Sources */,
+				931396AF5AFDC6659C91000F /* String+SoundFileName.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

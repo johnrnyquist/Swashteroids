@@ -19,7 +19,6 @@ protocol SoundPlaying: AnyObject {
 
 final class AudioSystem: ListIteratingSystem {
     init() {
-        Sound.enabled = true
         super.init(nodeClass: AudioNode.self)
         nodeUpdateFunction = updateNode
     }

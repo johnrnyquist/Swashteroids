@@ -10,15 +10,14 @@
 
 import SpriteKit
 import Swash
-import SwiftySound
 
 final class AudioComponent: Component {
+    let name: String
     let fileName: String
-    let key: String
 
-    init(key: String, fileName fullFilename: String) {
-        self.key = key
-        self.fileName = fullFilename
+    init(name: String, fileName: SoundFileName) {
+        self.name = name
+        self.fileName = fileName
         super.init()
     }
 }

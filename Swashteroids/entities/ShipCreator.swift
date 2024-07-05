@@ -65,7 +65,7 @@ class ShipCreator: ShipCreatorUseCase {
                 .add(component: MovementRateComponent(accelerationRate: 90, rotationRate: 100))
                 .add(component: AccelerometerComponent.shared)
                 .add(component: ChangeShipControlsStateComponent(to: state.shipControlsState))
-                .add(component: RepeatingAudioComponent(key: "thrust", fileName: SoundFileName.thrust.rawValue)) 
+                .add(component: RepeatingAudioComponent(name: "thrust", fileName: .thrust))
                 .add(component: ShootableComponent.shared)
                 .add(component: AlienWorkerTargetComponent.shared)
         switch state.shipControlsState {
@@ -117,7 +117,7 @@ class ShipCreator: ShipCreatorUseCase {
         ship
                 .add(component: DisplayComponent(sknode: spriteNode))
                 .add(component: DeathThroesComponent(countdown: 3.0))
-                .add(component: AudioComponent(key: "shipExplosion", fileName: SoundFileName.explosion.rawValue))
+                .add(component: AudioComponent(name: "shipExplosion", fileName: .explosion))
     }
 
     func screenFlashRed() {

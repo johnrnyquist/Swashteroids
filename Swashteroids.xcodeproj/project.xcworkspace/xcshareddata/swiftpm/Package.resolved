@@ -1,5 +1,4 @@
 {
-  "originHash" : "3d91407143f013d57be6b4eeb9d97b6c8cb6987e9f983efd4b3345760b5e14b5",
   "pins" : [
     {
       "identity" : "swash",
@@ -7,7 +6,7 @@
       "location" : "https://github.com/johnrnyquist/Swash",
       "state" : {
         "branch" : "main",
-        "revision" : "1ba72e1af46f7cd17f155393fa4b497d6598366e"
+        "revision" : "423c09d98d3a692dabb9e08c7d418b9603baca0f"
       }
     },
     {
@@ -20,5 +19,5 @@
       }
     }
   ],
-  "version" : 3
+  "version" : 2
 }
