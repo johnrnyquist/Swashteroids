@@ -28,7 +28,6 @@ final class AudioSystem: ListIteratingSystem {
         guard let audioComponent = node[AudioComponent.self]
         else { return }
         Sound.play(file: audioComponent.fileName)
-//        audioComponent.sound?.play() // should work but does not
         node.entity?.remove(componentClass: AudioComponent.self)
     }
 }

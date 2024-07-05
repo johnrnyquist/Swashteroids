@@ -15,19 +15,10 @@ import SwiftySound
 final class AudioComponent: Component {
     let fileName: String
     let key: String
-    var sound: Sound?
 
     init(key: String, fileName fullFilename: String) {
         self.key = key
         self.fileName = fullFilename
-        let components = fullFilename.components(separatedBy: ".")
-        if components.count == 2, let name = components.first, let ext = components.last {
-            if let url = Bundle.main.url(forResource: name, withExtension: ext) {
-                self.sound = Sound(url: url)
-            } else {
-                print("File `\(name)` not found.")
-            }
-        }
         super.init()
     }
 }
