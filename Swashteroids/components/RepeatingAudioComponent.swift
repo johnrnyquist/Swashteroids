@@ -10,14 +10,21 @@
 
 import Swash
 import SpriteKit
+import SwiftySound
 
 final class RepeatingAudioComponent: Component {
     var state: RepeatingSoundState = .notPlaying
-    weak var sound: SKAudioNode?
+    var sound: Sound?
 
-    init(sound: SKAudioNode) {
-        self.sound = sound
-        self.sound?.autoplayLooped = true
+    init(sound fullFilename: String) {
+        let components = fullFilename.components(separatedBy: ".")
+        if components.count == 2, let name = components.first, let ext = components.last {
+            if let url = Bundle.main.url(forResource: name, withExtension: ext) {
+                self.sound = Sound(url: url)
+            } else {
+                print("File `\(name)` not found.")
+            }
+        }
         super.init()
     }
 }

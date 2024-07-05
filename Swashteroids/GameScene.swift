@@ -15,7 +15,6 @@ import GameController
 extension GameScene: SoundPlaying {}
 
 class GameScene: SKScene {
-    static var sound = SKAudioNode(fileNamed: SoundFileNames.thrust.rawValue) //HACK HACK HACK
     weak var touchDelegate: TouchDelegate?
 
     deinit {
@@ -29,14 +28,6 @@ class GameScene: SKScene {
     override func didMove(to view: SKView) {
         print(#function)
         super.didMove(to: view)
-        //BEGIN_HACK to get around the SpriteKit bug where repeated sounds have a popping noise
-        GameScene.sound.run(SKAction.changeVolume(to: 0, duration: 0))
-        let addAudioNodeAction = SKAction.run { [weak self] in
-            GameScene.sound.removeFromParent()
-            self?.addChild(GameScene.sound)
-        }
-        run(addAudioNodeAction)
-        //END_HACK
         backgroundColor = .background
 //        cameraNode = SKCameraNode()
 //        camera = cameraNode

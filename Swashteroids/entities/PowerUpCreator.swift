@@ -77,8 +77,7 @@ class PowerUpCreator: PowerUpCreatorUseCase {
         let scaleUp = SKAction.scale(to: sprite.scale * 2.0, duration: 0.3)
         let scaleDown = SKAction.scale(to: sprite.scale, duration: 0.3)
         let waitToMake = SKAction.wait(forDuration: randomness.nextDouble(from: 4.0, through: 6.0))
-        let action = SKAction.run { entity.add(component: AudioComponent(fileNamed: .powerUpAppearance,
-                                                                         actionKey: "newPowerUp")) }
+        let action = SKAction.run { entity.add(component: AudioComponent(key: "newPowerUp", fileName: SoundFileName.powerUpAppearance.rawValue)) }
         let sequence = SKAction.sequence([waitToMake, alphaUp, action, scaleUp, scaleDown])
         sprite.run(sequence)
     }

@@ -86,8 +86,7 @@ class CollisionSystem: System {
                                              ownerType: .player,
                                              ownerName: player.name,
                                              numTorpedoes: 20))
-                .add(component: AudioComponent(fileNamed: .powerUp,
-                                               actionKey: "powerup.wav"))
+                .add(component: AudioComponent(key: "powerup.wav", fileName: SoundFileName.powerUp.rawValue))
         //HACK for immediate gratification
         shipButtonControlsCreator.showFireButton()
         //END_HACK
@@ -99,8 +98,7 @@ class CollisionSystem: System {
         player.remove(componentClass: HyperspaceDriveComponent.self) //HACK to prevent having one in the chamber
         player
                 .add(component: HyperspaceDriveComponent(jumps: 5))
-                .add(component: AudioComponent(fileNamed: .powerUp,
-                                               actionKey: "powerup.wav"))
+                .add(component: AudioComponent(key: "powerup.wav", fileName: SoundFileName.powerUp.rawValue))
         //HACK for immediate gratification
         shipButtonControlsCreator.showHyperspaceButton()
         //END_HACK
@@ -182,9 +180,9 @@ class CollisionSystem: System {
             let value = treasureNode[TreasureComponent.self]?.value {
             appState.score += value
             if value == treasure_special_value {
-                ship.add(component: AudioComponent(fileNamed: .treasureSpecial, actionKey: "treasure"))
+                ship.add(component: AudioComponent(key: "treasure", fileName: SoundFileName.treasureSpecial.rawValue))
             } else {
-                ship.add(component: AudioComponent(fileNamed: .treasureStandard, actionKey: "treasure"))
+                ship.add(component: AudioComponent(key: "treasure", fileName: SoundFileName.treasureStandard.rawValue))
             }
         }
     }

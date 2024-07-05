@@ -10,6 +10,7 @@
 
 import Swash
 import SpriteKit
+import SwiftySound
 
 final class RepeatingAudioSystem: ListIteratingSystem {
     init() {
@@ -23,10 +24,10 @@ final class RepeatingAudioSystem: ListIteratingSystem {
         switch audio.state {
         case .shouldBegin:
             audio.state = .playing
-            audio.sound?.run(SKAction.changeVolume(to: 1, duration: 0))
+            audio.sound?.play(numberOfLoops: -1)
         case .shouldStop:
             audio.state = .notPlaying
-            audio.sound?.run(SKAction.changeVolume(to: 0, duration: 0))
+                audio.sound?.stop()
         case .notPlaying, .playing:
             break
         }

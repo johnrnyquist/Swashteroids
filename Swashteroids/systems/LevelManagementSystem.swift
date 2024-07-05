@@ -66,7 +66,7 @@ class LevelManagementSystem: ListIteratingSystem {
         guard let shipNode = ships.head,
               let spaceShipPosition = shipNode[PositionComponent.self] else { return }
         appStateComponent.level += 1
-        entity.add(component: AudioComponent(fileNamed: .levelUpSound, actionKey: "levelUp"))
+        entity.add(component: AudioComponent(key: "levelUp", fileName: SoundFileName.levelUpSound.rawValue))
         announceLevel(appStateComponent: appStateComponent)
         createAsteroids(count: appStateComponent.level,
                         avoiding: spaceShipPosition.position,

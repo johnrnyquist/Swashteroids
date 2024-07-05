@@ -31,7 +31,7 @@ final class HyperspaceJumpSystem: ListIteratingSystem {
         position.y = hyperspace.y
         node.entity?.remove(componentClass: DoHyperspaceJumpComponent.self)
         hyperspaceDrive.jumps -= 1
-        node.entity?.add(component: AudioComponent(fileNamed: .hyperspace, actionKey: "hyperspace.wav"))
+        node.entity?.add(component: AudioComponent(key: "hyperspace", fileName: SoundFileName.hyperspace.rawValue))
         doHyperspaceEffect(on: sprite)
     }
 

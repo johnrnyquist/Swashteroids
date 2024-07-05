@@ -54,7 +54,7 @@ class TorpedoCreator: TorpedoCreatorUseCase {
                 .add(component: torpedoPosition)
                 .add(component: torpedoVelocity)
                 .add(component: displayComponent)
-                .add(component: AudioComponent(fileNamed: .launchTorpedo, actionKey: name))
+                .add(component: AudioComponent(key: name, fileName: SoundFileName.launchTorpedo.rawValue))
                 .add(component: CollidableComponent(radius: 0))
                 .add(component: torpedoComponent)
         sprite.entity = torpedo
@@ -147,7 +147,7 @@ class TorpedoCreator: TorpedoCreatorUseCase {
                                                   dampening: 0 + velocity.dampening,
                                                   base: 60.0))
                 .add(component: DisplayComponent(sknode: sprite))
-                .add(component: AudioComponent(fileNamed: .launchTorpedo, actionKey: name))
+                .add(component: AudioComponent(key: name, fileName: SoundFileName.launchTorpedo.rawValue))
                 .add(component: CollidableComponent(radius: 0))
                 .add(component: TorpedoComponent(lifeRemaining: gunComponent.torpedoLifetime,
                                                  owner: gunComponent.ownerType,

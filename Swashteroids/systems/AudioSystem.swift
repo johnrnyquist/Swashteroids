@@ -10,6 +10,7 @@
 
 import SpriteKit
 import Swash
+import SwiftySound
 
 protocol SoundPlaying: AnyObject {
     func action(forKey: String) -> SKAction?
@@ -17,10 +18,8 @@ protocol SoundPlaying: AnyObject {
 }
 
 final class AudioSystem: ListIteratingSystem {
-    private weak var soundPlayer: SoundPlaying?
-
-    init(soundPlayer: SoundPlaying) {
-        self.soundPlayer = soundPlayer
+    init() {
+        Sound.enabled = true
         super.init(nodeClass: AudioNode.self)
         nodeUpdateFunction = updateNode
     }
@@ -28,13 +27,8 @@ final class AudioSystem: ListIteratingSystem {
     func updateNode(node: Node, time: TimeInterval) {
         guard let audioComponent = node[AudioComponent.self]
         else { return }
-        for (soundKey, soundAction) in audioComponent.playlist {
-            if let _ = soundPlayer?.action(forKey: soundKey) {
-                continue // I never hit this, but it's here just in case
-            }
-            soundPlayer?.run(soundAction, withKey: soundKey)
-        }
-        audioComponent.clearPlaylist()
+        Sound.play(file: audioComponent.fileName)
+//        audioComponent.sound?.play() // should work but does not
         node.entity?.remove(componentClass: AudioComponent.self)
     }
 }

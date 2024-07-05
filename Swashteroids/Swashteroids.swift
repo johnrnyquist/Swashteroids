@@ -22,7 +22,6 @@ class SystemsManager {
          generator: UIImpactFeedbackGenerator,
          alertPresenter: PauseAlertPresenting,
          touchManager: TouchManager) {
-        let soundPlayer = scene
         let transition = PlayingTransition(
             hudCreator: creatorManager.hudCreator,
             toggleShipControlsCreator: creatorManager.toggleShipControlsCreator,
@@ -90,7 +89,7 @@ class SystemsManager {
                 // animate
                 .add(system: AnimationSystem(), priority: .animate)
                 // render
-                .add(system: AudioSystem(soundPlayer: soundPlayer), priority: .render)
+                .add(system: AudioSystem(), priority: .render)
                 .add(system: RepeatingAudioSystem(), priority: .render)
                 .add(system: RenderSystem(scene: scene), priority: .render)
     }
@@ -154,18 +153,12 @@ final class Swashteroids: NSObject {
     }
 
     private func createInitialEntities(scene: GameScene) {
-        let allSoundsEntity = Entity(named: .allSounds)
-                .add(component: AllSoundsComponent.shared)
         let appStateEntity = Entity(named: .appState)
                 .add(component: GameStateComponent(config: GameConfig(gameSize: scene.size)))
                 .add(component: ChangeGameStateComponent(from: .start, to: .start))
                 .add(component: TimePlayedComponent())
                 .add(component: AlienAppearancesComponent.shared) //HACK
-//        let inputEntity = Entity(named: .input)
-//                .add(component: InputComponent.shared)
-        engine.add(entity: allSoundsEntity)
         engine.add(entity: appStateEntity)
-//        engine.add(entity: inputEntity)
     }
 
     func usingGamePad() {

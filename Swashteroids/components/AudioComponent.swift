@@ -10,24 +10,24 @@
 
 import SpriteKit
 import Swash
+import SwiftySound
 
-/// Entities with this component will play this sounds in its playlist immediately from the AudioSystem.
 final class AudioComponent: Component {
-    private(set) var playlist: [String: SKAction] = [:]
+    let fileName: String
+    let key: String
+    var sound: Sound?
 
-    init(fileNamed name: SoundFileNames, actionKey key: String) {
-        super.init()
-        addSoundAction(fileNamed: name, actionKey: key)
-    }
-
-    /// If you want to run more than one sound with this component, add the next sound with this method.
-    func addSoundAction(fileNamed name: SoundFileNames, actionKey: String) {
-        if let action = AllSoundsComponent.shared.soundActions[name.rawValue] {
-            playlist[actionKey] = action
+    init(key: String, fileName fullFilename: String) {
+        self.key = key
+        self.fileName = fullFilename
+        let components = fullFilename.components(separatedBy: ".")
+        if components.count == 2, let name = components.first, let ext = components.last {
+            if let url = Bundle.main.url(forResource: name, withExtension: ext) {
+                self.sound = Sound(url: url)
+            } else {
+                print("File `\(name)` not found.")
+            }
         }
-    }
-
-    func clearPlaylist() {
-        playlist.removeAll()
+        super.init()
     }
 }

@@ -126,6 +126,7 @@
 		8DC1A0E12C2CECE70009698B /* Swash in Frameworks */ = {isa = PBXBuildFile; productRef = 8DC1A0E02C2CECE70009698B /* Swash */; };
 		8DC1A0E42C2CED200009698B /* Swash in Frameworks */ = {isa = PBXBuildFile; productRef = 8DC1A0E32C2CED200009698B /* Swash */; };
 		8DD26DC92B22D7E300DA5BC3 /* AccelerometerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD26DC82B22D7E300DA5BC3 /* AccelerometerNode.swift */; };
+		8DDB04EA2C376AE20029248B /* SwiftySound in Frameworks */ = {isa = PBXBuildFile; productRef = 8DDB04E92C376AE20029248B /* SwiftySound */; };
 		8DDD71522C2E232700290D2D /* Swash in Frameworks */ = {isa = PBXBuildFile; productRef = 8DDD71512C2E232700290D2D /* Swash */; };
 		8DDD71542C2F3D7500290D2D /* GCController+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD71532C2F3D7500290D2D /* GCController+extensions.swift */; };
 		8DE66F0F2C14C9BF00ECEE96 /* SplitAsteroidUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139921E04E8DBE2DF6800B /* SplitAsteroidUseCase.swift */; };
@@ -505,6 +506,7 @@
 				8DDD71522C2E232700290D2D /* Swash in Frameworks */,
 				8D98697E2C29DDB600A48A96 /* Swash in Frameworks */,
 				8DC1A0E12C2CECE70009698B /* Swash in Frameworks */,
+				8DDB04EA2C376AE20029248B /* SwiftySound in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -958,6 +960,7 @@
 				8DC1A0E02C2CECE70009698B /* Swash */,
 				8DC1A0E32C2CED200009698B /* Swash */,
 				8DDD71512C2E232700290D2D /* Swash */,
+				8DDB04E92C376AE20029248B /* SwiftySound */,
 			);
 			productName = Swashteroids;
 			productReference = 8D23C1322B02C4CA00F7D878 /* Swashteroids.app */;
@@ -1011,6 +1014,7 @@
 			mainGroup = 8D23C1292B02C4C900F7D878;
 			packageReferences = (
 				8DDD71502C2E232700290D2D /* XCRemoteSwiftPackageReference "Swash" */,
+				8DDB04E82C376AE20029248B /* XCRemoteSwiftPackageReference "SwiftySound" */,
 			);
 			productRefGroup = 8D23C1332B02C4CA00F7D878 /* Products */;
 			projectDirPath = "";
@@ -1573,6 +1577,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		8DDB04E82C376AE20029248B /* XCRemoteSwiftPackageReference "SwiftySound" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/adamcichy/SwiftySound.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.3.0;
+			};
+		};
 		8DDD71502C2E232700290D2D /* XCRemoteSwiftPackageReference "Swash" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/johnrnyquist/Swash";
@@ -1603,6 +1615,11 @@
 		8DC1A0E32C2CED200009698B /* Swash */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Swash;
+		};
+		8DDB04E92C376AE20029248B /* SwiftySound */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8DDB04E82C376AE20029248B /* XCRemoteSwiftPackageReference "SwiftySound" */;
+			productName = SwiftySound;
 		};
 		8DDD71512C2E232700290D2D /* Swash */ = {
 			isa = XCSwiftPackageProductDependency;
