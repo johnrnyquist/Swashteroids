@@ -20,7 +20,7 @@ enum CurrentViewController {
 
 final class GameViewController: UIViewController, PauseAlertPresenting {
     private var skView: SKView?
-    private var gameScene: GameScene!
+    private var scene: GameScene!
     private var game: Swashteroids!
     private var gamepadManager: GamepadInputManager!
     private var settingsViewController: UIHostingController<SettingsView>!
@@ -48,10 +48,10 @@ final class GameViewController: UIViewController, PauseAlertPresenting {
     }
 
     func startNewGame() {
-        gameScene = gameScene_create()
+        scene = scene_create()
         game = swashteroids_create()
         gamepadManager = gamepadManager_create()
-        gameScene_present()
+        scene_present()
         game?.start()
     }
 
@@ -59,12 +59,12 @@ final class GameViewController: UIViewController, PauseAlertPresenting {
         if let gamepadManager {
             gamepadManager.game = game
         } else {
-            gamepadManager = GamepadInputManager(game: game, size: gameScene.size)
+            gamepadManager = GamepadInputManager(game: game, size: scene.size)
         }
         return gamepadManager
     }
 
-    private func gameScene_create() -> GameScene {
+    private func scene_create() -> GameScene {
         let screenSize = UIScreen.main.bounds
         let gameScene = GameScene(size: screenSize.size)
         gameScene.anchorPoint = .zero
@@ -74,19 +74,24 @@ final class GameViewController: UIViewController, PauseAlertPresenting {
 
     private func swashteroids_create() -> Swashteroids {
         let seed = Int(Date().timeIntervalSince1970)
-        let swashteroids = Swashteroids(scene: gameScene,
+        var config = GameConfig(gameSize: scene.size)
+        if let gamepadManager {
+            config.shipControlsState = .usingGamepad
+        }
+        let swashteroids = Swashteroids(config: config,
+                                        scene: scene,
                                         alertPresenter: self,
                                         seed: seed,
-                                        touchManager: TouchManager(scene: gameScene))
-        gameScene.delegate = swashteroids //SKSceneDelegate
-        gameScene.touchDelegate = swashteroids //TouchDelegate
-        gameScene.physicsWorld.contactDelegate = swashteroids //SKPhysicsContactDelegate
-        gameScene.physicsWorld.gravity = CGVector(dx: 0, dy: 0)
+                                        touchManager: TouchManager(scene: scene))
+        scene.delegate = swashteroids //SKSceneDelegate
+        scene.touchDelegate = swashteroids //TouchDelegate
+        scene.physicsWorld.contactDelegate = swashteroids //SKPhysicsContactDelegate
+        scene.physicsWorld.gravity = CGVector(dx: 0, dy: 0)
         return swashteroids
     }
 
-    private func gameScene_present() {
-        skView?.presentScene(gameScene)
+    private func scene_present() {
+        skView?.presentScene(scene)
     }
 
     //MARK: - AlertPresenting

@@ -88,8 +88,8 @@ final class StartView: SwashSpriteNode {
         addChild(leftRocks)
         addChild(rightRocks)
         addChild(ship)
-        addChild(buttons)
-        addChild(noButtons)
+//        addChild(buttons)
+//        addChild(noButtons)
         addChild(title)
         addChild(versionInfo)
     }

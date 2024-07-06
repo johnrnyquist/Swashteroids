@@ -33,8 +33,10 @@ class StartScreenCreator: StartScreenCreatorUseCase {
                 .add(component: DisplayComponent(sknode: startView))
                 .add(component: PositionComponent(x: 0, y: 0, z: .top, rotationDegrees: 0))
         if engine.gameStateComponent.shipControlsState == .usingGamepad {
+            removeStartButtons()
             createGamepadIndicator()
         } else {
+            removeGamepadIndicator()
             createStartButtons()
         }
     }

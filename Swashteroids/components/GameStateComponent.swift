@@ -12,22 +12,22 @@ import Swash
 import Foundation
 
 struct GameConfig {
-    let alienNextAppearance: TimeInterval = 0.0
-    let swashteroidsState: GameScreen = .start
-    let gameSize: CGSize
-    let level: Int = 0
-    let levelBonus: Int = 500
-    let nextShipIncrement: Int = 5_000
-    let nextShipScore: Int = 5_000
-    let numAliensDestroyed: Int = 0
-    let numAsteroidsMined: Int = 0
-    let numHits: Int = 0
-    let numShips: Int = 3
-    let numTorpedoesFired: Int = 0
-    let numTorpedoesPlayerFired: Int = 0
-    let score: Int = 0
-    let shipControlsState: ShipControlsState = .usingScreenControls
-    let timePlayed: Double = 0.0
+    var alienNextAppearance: TimeInterval = 0.0
+    var swashteroidsState: GameScreen = .start
+    var gameSize: CGSize
+    var level: Int = 0
+    var levelBonus: Int = 500
+    var nextShipIncrement: Int = 5_000
+    var nextShipScore: Int = 5_000
+    var numAliensDestroyed: Int = 0
+    var numAsteroidsMined: Int = 0
+    var numHits: Int = 0
+    var numShips: Int = 3
+    var numTorpedoesFired: Int = 0
+    var numTorpedoesPlayerFired: Int = 0
+    var score: Int = 0
+    var shipControlsState: ShipControlsState = .usingScreenControls
+    var timePlayed: Double = 0.0
 }
 
 struct Playing {

@@ -13,19 +13,19 @@ import SpriteKit
 
 class StartTransition: StartUseCase {
     let engine: Engine
-    let startButtonsCreator: StartScreenCreatorUseCase
+    let startScreenCreator: StartScreenCreatorUseCase
 
-    init(engine: Engine, startButtonsCreator: StartScreenCreatorUseCase) {
+    init(engine: Engine, startScreenCreator: StartScreenCreatorUseCase) {
         self.engine = engine
-        self.startButtonsCreator = startButtonsCreator
+        self.startScreenCreator = startScreenCreator
     }
 
     func fromStartScreen() {
-        startButtonsCreator.removeStartScreen()
+        startScreenCreator.removeStartScreen()
     }
 
     /// The start screen is not an entity, but composed of entities.  It is the first screen the user sees.
     func toStartScreen() {
-        startButtonsCreator.createStartScreen()
+        startScreenCreator.createStartScreen()
     }
 }

@@ -26,7 +26,7 @@ class SystemsManager {
             toggleShipControlsCreator: creatorManager.toggleShipControlsCreator,
             shipControlQuadrantsCreator: creatorManager.shipControlQuadrantsCreator,
             shipButtonControlsCreator: creatorManager.shipButtonControlsCreator)
-        let startTransition = StartTransition(engine: engine, startButtonsCreator: creatorManager.startButtonsCreator)
+        let startTransition = StartTransition(engine: engine, startScreenCreator: creatorManager.startScreenCreator)
         let gameOverTransition = GameOverTransition(engine: engine, alert: alertPresenter)
         let infoViewsTransition = InfoViewsTransition(engine: engine)
         transitionAppStateSystem = TransitionAppStateSystem(startTransition: startTransition,
@@ -54,7 +54,7 @@ class SystemsManager {
                 .add(system: ShipControlsSystem(toggleShipControlsCreator: creatorManager.toggleShipControlsCreator,
                                                 shipControlQuadrantsCreator: creatorManager.shipControlQuadrantsCreator,
                                                 shipButtonControlsCreator: creatorManager.shipButtonControlsCreator,
-                                                startButtonsCreator: creatorManager.startButtonsCreator),
+                                                startButtonsCreator: creatorManager.startScreenCreator),
                      priority: .update)
                 .add(system: transitionAppStateSystem,
                      priority: .preUpdate)
@@ -123,7 +123,7 @@ final class Swashteroids: NSObject {
         engine.gameStateComponent
     }
 
-    init(scene: GameScene, alertPresenter: PauseAlertPresenting, seed: Int = 0, touchManager: TouchManager) {
+    init(config: GameConfig, scene: GameScene, alertPresenter: PauseAlertPresenting, seed: Int = 0, touchManager: TouchManager) {
         self.scene = scene
         self.manager_touch = touchManager
         self.alertPresenter = alertPresenter
@@ -134,7 +134,7 @@ final class Swashteroids: NSObject {
         }
         orientation = UIDevice.current.orientation == .landscapeRight ? -1.0 : 1.0
         let appStateEntity = Entity(named: .appState)
-                .add(component: GameStateComponent(config: GameConfig(gameSize: scene.size)))
+                .add(component: GameStateComponent(config: config))
                 .add(component: ChangeGameStateComponent(from: .start, to: .start))
                 .add(component: TimePlayedComponent())
                 .add(component: AlienAppearancesComponent.shared) //HACK: find a better place for this
