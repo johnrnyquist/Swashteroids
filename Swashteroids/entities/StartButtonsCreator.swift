@@ -76,21 +76,21 @@ class StartButtonsCreator: StartButtonsCreatorUseCase {
         if GCController.isGameControllerConnected() {
             let a = SwashSpriteNode(imageNamed: "a.circle.fill")
             a.setScale(0.33)
-            a.anchorPoint = CGPoint(x: 0.5, y: 0.0)
+            a.anchorPoint = CGPoint(x: 0.5, y: 0)
             let aEntity = Entity()
                     .add(component: DisplayComponent(sknode: a))
-                    .add(component: PositionComponent(x: buttonsSprite.x + buttonsSprite.width,
-                                                      y: buttonsSprite.y,
+                    .add(component: PositionComponent(x: gameSize.width - 30,
+                                                      y: 20,
                                                       z: .top,
                                                       rotationDegrees: 0))
             engine.add(entity: aEntity)
             let controller = SwashSpriteNode(imageNamed: "gamecontroller.fill")
             controller.setScale(0.25)
-            controller.anchorPoint = CGPoint(x: 0.5, y: 0.0)
+            controller.anchorPoint = CGPoint(x: 0.5, y: 0)
             let controllerEntity = Entity()
                     .add(component: DisplayComponent(sknode: controller))
-                    .add(component: PositionComponent(x: buttonsSprite.x + buttonsSprite.width,
-                                                      y: buttonsSprite.y + a.height,
+                    .add(component: PositionComponent(x: gameSize.width - 30,
+                                                      y: 20 + a.size.height,
                                                       z: .top,
                                                       rotationDegrees: 0))
             engine.add(entity: controllerEntity)
