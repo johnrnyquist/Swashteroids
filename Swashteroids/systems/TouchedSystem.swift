@@ -29,7 +29,7 @@ class QuadrantComponent: Component {
 }
 
 final class TouchedComponent: Component {
-    let id: Int
+    let id: UITouch
     let num: Int
     var processed = false
     var requestedEnd = false
@@ -47,12 +47,13 @@ final class TouchedComponent: Component {
     let firstLocation: CGPoint
     var locationInScene: CGPoint
 
-    init(id: Int, num: Int, state: TouchState, locationInScene: CGPoint) {
+    init(id: UITouch, num: Int, state: TouchState, locationInScene: CGPoint) {
         self.id = id
         self.num = num
         self._state = state
         self.firstLocation = locationInScene
         self.locationInScene = locationInScene
+        print("TouchedComponent", num, id, state)
     }
 }
 
@@ -196,6 +197,7 @@ class TouchedButtonSystem: ListIteratingSystem {
         // handle the button's look and remove on ended
         switch touchedComponent.state {
             case .began:
+                print("began", touchedComponent.num, buttonEntity.name)
                 sprite.alpha = 0.6
                 hapticFeedbackComponent.impact()
                 touchedComponent.processed = true
@@ -205,8 +207,10 @@ class TouchedButtonSystem: ListIteratingSystem {
                     touchedComponent.state = .none
                 }
             case .ended, .cancelled:
+                print("ended-not processed", touchedComponent.num, buttonEntity.name)
                 guard touchedComponent.processed
                 else { return }
+                print("ended", touchedComponent.num, buttonEntity.name)
                 sprite.alpha = 0.2
                 touchManager.remove(touchedComponent.id)
                 buttonEntity.remove(componentClass: TouchedComponent.self)

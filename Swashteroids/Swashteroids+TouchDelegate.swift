@@ -20,7 +20,7 @@ protocol TouchDelegate: AnyObject {
 
 final class TouchManager {
     private var touchCount = 0
-    private var touchedComponents: [Int: TouchedComponent] = [:]
+    private var touchedComponents: [UITouch: TouchedComponent] = [:]
     let scene: SKScene
 
     init(scene: SKScene) {
@@ -28,34 +28,36 @@ final class TouchManager {
     }
 
     func began(_ touch: UITouch) {
-        print("BEGAN")
+        touchCount += 1
         let location = touch.location(in: scene)
+        let component = TouchedComponent(id: touch, num: touchCount, state: .began, locationInScene: location)
+        touchedComponents[touch] = component
+        print("BEGAN", touchedComponents[touch]?.num ?? -1)
         let nodes = scene.nodes(at: location)
         guard !nodes.isEmpty else { return }
         if let topEntity = nodes
                 .compactMap({ $0 as? SwashSpriteNode })
                 .filter({ $0.entity?.has(componentClass: TouchableComponent.self) == true })
+                .filter({ $0.entity?.has(componentClass: TouchedComponent.self) == false })
                 .max(by: { $0.zPosition < $1.zPosition }) {
-            touchCount += 1
-            let component = TouchedComponent(id: touch.hash, num: touchCount, state: .began, locationInScene: location)
             topEntity.entity?.add(component: component)
-            touchedComponents[touch.hash] = component
+            print("ADDED", component.num, topEntity.name!)
         }
     }
 
     func ended(_ touch: UITouch) {
-        print("ENDED")
-        touchedComponents[touch.hash]?.locationInScene = touch.location(in: scene)
-        touchedComponents[touch.hash]?.state = .ended
+        print("ENDED", touchedComponents[touch]?.num ?? -1)
+        touchedComponents[touch]?.locationInScene = touch.location(in: scene)
+        touchedComponents[touch]?.state = .ended
     }
 
     func moved(_ touch: UITouch) {
-        touchedComponents[touch.hash]?.locationInScene = touch.location(in: scene)
-        touchedComponents[touch.hash]?.state = .moved
+        touchedComponents[touch]?.locationInScene = touch.location(in: scene)
+        touchedComponents[touch]?.state = .moved
     }
 
-    func remove(_ id: Int) {
-        print("REMOVED")
+    func remove(_ id: UITouch) {
+        print("REMOVED", touchedComponents[id]?.num ?? -1)
         touchedComponents.removeValue(forKey: id)
     }
 }

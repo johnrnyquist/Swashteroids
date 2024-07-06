@@ -112,6 +112,8 @@ class GamepadInputManager: NSObject, ObservableObject, GameStateObserver {
         "X Button": "x.circle",
         "Y Button": "y.circle",
     ]
+    //HACK for updateMappings()
+    var pad: GCExtendedGamepad?
 
     init(game: Swashteroids, size: CGSize) {
         self.game = game
@@ -138,17 +140,13 @@ class GamepadInputManager: NSObject, ObservableObject, GameStateObserver {
                                        object: nil)
     }
 
-    //HACK for updateMappings()
-    var pad: GCExtendedGamepad? {
-        GCController.controllers().first?.extendedGamepad
-    }
-
     @objc private func controllerDidConnect() {
         controllers:
         for controller in GCController.controllers() {
             print("CONTROLLER DETECTED:", controller.vendorName ?? "Unknown Vendor")
             //Check to see whether it is an extended Game Controller (Such as a Nimbus)
             if let pad = controller.extendedGamepad {
+                self.pad = pad
                 game.setGamepadInputManager(self)
                 pad.valueChangedHandler = { [unowned self] (pad, element) in
                     if mode == .settings {
@@ -163,6 +161,7 @@ class GamepadInputManager: NSObject, ObservableObject, GameStateObserver {
     }
 
     @objc private func controllerDidDisconnect() {
+        pad = nil
         game.setGamepadInputManager(nil)
     }
 

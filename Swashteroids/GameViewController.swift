@@ -22,7 +22,7 @@ final class GameViewController: UIViewController, PauseAlertPresenting {
     private var skView: SKView?
     private var scene: GameScene!
     private var game: Swashteroids!
-    private var gamepadManager: GamepadInputManager!
+    private var gamepadManager: GamepadInputManager?
     private var settingsViewController: UIHostingController<SettingsView>!
     /// Flag to prevent the game from starting when the app returns from background.
     var isAlertPresented = false
@@ -55,8 +55,8 @@ final class GameViewController: UIViewController, PauseAlertPresenting {
         game?.start()
     }
 
-    private func gamepadManager_create() -> GamepadInputManager {
-        if let gamepadManager {
+    private func gamepadManager_create() -> GamepadInputManager? {
+        if let gamepadManager, let _ = gamepadManager.pad {
             gamepadManager.game = game
         } else {
             gamepadManager = GamepadInputManager(game: game, size: scene.size)
@@ -75,7 +75,7 @@ final class GameViewController: UIViewController, PauseAlertPresenting {
     private func swashteroids_create() -> Swashteroids {
         let seed = Int(Date().timeIntervalSince1970)
         var config = GameConfig(gameSize: scene.size)
-        if let gamepadManager {
+        if let _ = gamepadManager?.pad {
             config.shipControlsState = .usingGamepad
         }
         let swashteroids = Swashteroids(config: config,
@@ -115,6 +115,7 @@ final class GameViewController: UIViewController, PauseAlertPresenting {
 
     func showSettings() {
         dismiss(animated: true, completion: { [unowned self] in
+            guard let gamepadManager else { return }
             gamepadManager.mode = .settings
             let settingsViewController = UIHostingController(rootView:
                                                              SettingsView(
@@ -126,7 +127,7 @@ final class GameViewController: UIViewController, PauseAlertPresenting {
 
     func hideSettings() {
         dismiss(animated: true, completion: { [weak self] in
-            self?.gamepadManager.mode = .game
+            self?.gamepadManager?.mode = .game
             self?.showPauseAlert()
         })
     }

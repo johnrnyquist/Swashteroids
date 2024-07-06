@@ -96,9 +96,9 @@ class SystemsManager {
 
 final class Swashteroids: NSObject {
     //HACK: This is a hack to allow the gamepad to be used in the game. It is not a great solution.
-    func setGamepadInputManager(_ pad: GamepadInputManager?) {
-        manager_systems.transitionAppStateSystem.gamepadManager = pad
-        if let _ = pad {
+    func setGamepadInputManager(_ mgr: GamepadInputManager?) {
+        manager_systems.transitionAppStateSystem.gamepadManager = mgr
+        if let _ = mgr?.pad {
             usingGamepad()
         } else {
             usingScreenControls()
