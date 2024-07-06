@@ -11,6 +11,7 @@
 import Foundation
 import Swash
 import SpriteKit
+import GameController
 
 class StartButtonsCreator: StartButtonsCreatorUseCase {
     private let gameSize: CGSize
@@ -71,6 +72,30 @@ class StartButtonsCreator: StartButtonsCreatorUseCase {
         // add entities to engine
         engine.add(entity: noButtons)
         engine.add(entity: withButtons)
+
+        if GCController.isGameControllerConnected() {
+            let a = SwashSpriteNode(imageNamed: "a.circle.fill")
+            a.setScale(0.33)
+            a.anchorPoint = CGPoint(x: 0.5, y: 0.0)
+            let aEntity = Entity()
+                    .add(component: DisplayComponent(sknode: a))
+                    .add(component: PositionComponent(x: buttonsSprite.x + buttonsSprite.width,
+                                                      y: buttonsSprite.y,
+                                                      z: .top,
+                                                      rotationDegrees: 0))
+            engine.add(entity: aEntity)
+            let controller = SwashSpriteNode(imageNamed: "gamecontroller.fill")
+            controller.setScale(0.25)
+            controller.anchorPoint = CGPoint(x: 0.5, y: 0.0)
+            let controllerEntity = Entity()
+                    .add(component: DisplayComponent(sknode: controller))
+                    .add(component: PositionComponent(x: buttonsSprite.x + buttonsSprite.width,
+                                                      y: buttonsSprite.y + a.height,
+                                                      z: .top,
+                                                      rotationDegrees: 0))
+            engine.add(entity: controllerEntity)
+        }
+
     }
 
     func removeStartButtons() {
