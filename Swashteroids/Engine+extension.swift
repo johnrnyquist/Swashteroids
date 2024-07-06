@@ -17,7 +17,7 @@ extension Engine {
     var hud: Entity? {
         findEntity(named: .hud)
     }
-    var gameStateEntity: Entity {
+    var appStateEntity: Entity {
         guard let entity = findEntity(named: .appState) else {
             fatalError("Engine did not contain `appState` entity!")
         }
@@ -25,7 +25,7 @@ extension Engine {
     }
     // This is a convenience method for accessing the appState component. Because I’m weak. 
     var gameStateComponent: GameStateComponent {
-        guard let component = gameStateEntity.find(componentClass: GameStateComponent.self) else {
+        guard let component = appStateEntity.find(componentClass: GameStateComponent.self) else {
             fatalError("appStateEntity did not contain GameStateComponent!")
         }
         return component

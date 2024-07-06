@@ -67,7 +67,7 @@ class GameplayManagerSystem: System {
         guard let currentStateNode = appStates.head as? SwashteroidsStateNode,
               let entity = currentStateNode.entity,
               let appStateComponent = currentStateNode[GameStateComponent.self],
-              appStateComponent.gameState == .playing
+              appStateComponent.gameScreen == .playing
         else { return }
         handleGameState(appStateComponent: appStateComponent, entity: entity, time: time)
     }

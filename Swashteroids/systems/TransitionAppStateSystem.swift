@@ -50,8 +50,8 @@ final class TransitionAppStateSystem: ListIteratingSystem {
                 infoViewsTransition?.fromNoButtonsInfoScreen()
                 appStateComponent.shipControlsState = .usingAccelerometer
         }
-        appStateComponent.gameState = transitionComponent.to
-        gamepadManager?.onGameStateChange(state: appStateComponent.gameState)  //HACK
+        appStateComponent.gameScreen = transitionComponent.to
+        gamepadManager?.onGameStateChange(state: appStateComponent.gameScreen)  //HACK
         switch transitionComponent.to {
             case .start:
                 startTransition?.toStartScreen()

@@ -116,13 +116,13 @@ class TouchedButtonSystem: ListIteratingSystem {
         switch touchedComponent.state {
             case .began:
                 if buttonEntity.has(componentClass: ButtonWithButtonsComponent.self) {
-                    engine.gameStateEntity.add(component: ChangeGameStateComponent(from: .start, to: .infoButtons))
+                    engine.appStateEntity.add(component: ChangeGameStateComponent(from: .start, to: .infoButtons))
                 } else if buttonEntity.has(componentClass: ButtonWithAccelerometerComponent.self) {
-                    engine.gameStateEntity.add(component: ChangeGameStateComponent(from: .start, to: .infoNoButtons))
+                    engine.appStateEntity.add(component: ChangeGameStateComponent(from: .start, to: .infoNoButtons))
                 } else if buttonEntity.has(componentClass: ButtonWithButtonsInfoComponent.self) {
-                    engine.gameStateEntity.add(component: ChangeGameStateComponent(from: .infoButtons, to: .playing))
+                    engine.appStateEntity.add(component: ChangeGameStateComponent(from: .infoButtons, to: .playing))
                 } else if buttonEntity.has(componentClass: ButtonWithAccelerometerInfoComponent.self) {
-                    engine.gameStateEntity.add(component: ChangeGameStateComponent(from: .infoNoButtons, to: .playing))
+                    engine.appStateEntity.add(component: ChangeGameStateComponent(from: .infoNoButtons, to: .playing))
                 } else if buttonEntity.has(componentClass: ButtonFireComponent.self) {
                     engine.playerEntity?.add(component: FireDownComponent.shared)
                 } else if buttonEntity.has(componentClass: ButtonThrustComponent.self) {
@@ -140,7 +140,7 @@ class TouchedButtonSystem: ListIteratingSystem {
                 } else if buttonEntity.has(componentClass: ButtonHyperSpaceComponent.self) {
                     engine.playerEntity?.add(component: DoHyperspaceJumpComponent(size: scene.size))
                 } else if buttonEntity.has(componentClass: ButtonGameOverToHomeComponent.self) {
-                    engine.gameStateEntity.add(component: ChangeGameStateComponent(from: .gameOver, to: .start))
+                    engine.appStateEntity.add(component: ChangeGameStateComponent(from: .gameOver, to: .start))
                 } else if buttonEntity.has(componentClass: ButtonPauseComponent.self) {
                     buttonEntity.add(component: AlertPresentingComponent(state: .showPauseAlert))
                 } else if buttonEntity.has(componentClass: ButtonToggleComponent.self) {

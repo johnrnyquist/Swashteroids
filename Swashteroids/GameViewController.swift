@@ -85,8 +85,8 @@ final class GameViewController: UIViewController, PauseAlertPresenting {
     @IBAction func showPauseAlert() {
         guard let game else { fatalError("game is nil") }
         game.stop()
-        if game.engine.gameStateComponent.gameState == .playing ||
-           game.engine.gameStateComponent.gameState == .gameOver {
+        if game.engine.gameStateComponent.gameScreen == .playing ||
+           game.engine.gameStateComponent.gameScreen == .gameOver {
             let alertView = PauseAlert(
                 appState: game.gameStateComponent,
                 home: home,

@@ -40,7 +40,7 @@ class AlienCreator: AlienCreatorUseCase {
 //        if !foundWorker {
         let entrance = pickEntrance()
         warningAliens(scene: scene, leftSide: entrance.leftSide)
-        engine.gameStateEntity.add(component: AudioComponent(name: "alienEntrance", fileName: .alienEntrance)) //HACK
+        engine.appStateEntity.add(component: AudioComponent(name: "alienEntrance", fileName: .alienEntrance)) //HACK
         //        createTwoWorkers(entrance: entrance)
         //        createSoldier(entrance: entrance)
 //            createWorker(entrance: entrance)

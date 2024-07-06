@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-public enum GameState: String, CaseIterable {
+public enum GameScreen: String, CaseIterable {
     case start = "Start Screen"
     case infoButtons = "Buttons Information Screen"
     case infoNoButtons = "No Buttons Information Screen"
     case playing = "Playing Screen"
     case gameOver = "Game Over Screen"
-    var commandsPerState: [GameCommand] {
+    var commandsPerScreen: [GameCommand] {
         switch self {
             case .start:
                 return [.play]
@@ -32,7 +32,7 @@ public enum GameState: String, CaseIterable {
 struct SettingsView: View {
     @ObservedObject var gamepadManager: GamepadInputManager
     @State private var curCommand: GameCommand? = nil
-    @State private var currentAppState: GameState = .playing
+    @State private var currentAppState: GameScreen = .playing
     @State private var showAlert = false
     let hide: () -> Void
     var body: some View {
@@ -68,11 +68,11 @@ struct SettingsView: View {
                         .foregroundColor(.red)
             }
             Picker("Swashteroids State", selection: $currentAppState) {
-                ForEach(GameState.allCases, id: \.self) { state in
+                ForEach(GameScreen.allCases, id: \.self) { state in
                     Text(state.rawValue).tag(state)
                 }
             }.padding(0)
-            List(currentAppState.commandsPerState, id: \.self) { command in
+            List(currentAppState.commandsPerScreen, id: \.self) { command in
                 Button(action: {
                     curCommand = command
                     showAlert = true
@@ -110,7 +110,7 @@ struct SettingsView: View {
                   let localizedName = button?.localizedName
             else { return }
             // Iterate over the dictionary and nil out the previous place where localizedName was used
-            for (command, buttonName) in gamepadManager.gameCommandToButtonName where gamepadManager.game.gameState.commandsPerState.contains(command) {
+            for (command, buttonName) in gamepadManager.gameCommandToButtonName where gamepadManager.game.gameScreen.commandsPerScreen.contains(command) {
                 if buttonName == localizedName {
                     gamepadManager.gameCommandToButtonName[command] = nil_string
                 }

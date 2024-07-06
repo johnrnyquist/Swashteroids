@@ -20,7 +20,7 @@ final class TimePlayedSystem: ListIteratingSystem {
     private func updateNode(node: Node, time: TimeInterval) {
         guard let _ = node[TimePlayedComponent.self],
               let stateComponent = node[GameStateComponent.self],
-              stateComponent.gameState == .playing
+              stateComponent.gameScreen == .playing
         else { return }
         stateComponent.timePlayed += time
     }

@@ -162,7 +162,7 @@ final class GameplayManagerSystemTests: XCTestCase {
     func test_HandlePlayingState_NoShips() {
         let appStateComponent = GameStateComponent(config: GameConfig(gameSize: .zero))
         appStateComponent.numShips = 0
-        appStateComponent.gameState = .playing
+        appStateComponent.gameScreen = .playing
         let entity = Entity(named: "currentState")
         system.continueOrEnd(appStateComponent: appStateComponent, entity: entity)
         let result = entity[ChangeGameStateComponent.self]

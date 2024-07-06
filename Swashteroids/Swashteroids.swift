@@ -15,7 +15,7 @@ import GameController
 
 class SystemsManager {
     private(set) var transitionAppStateSystem: TransitionAppStateSystem
-    
+
     init(scene: GameScene,
          engine: Engine,
          creatorManager: CreatorsManager,
@@ -95,23 +95,29 @@ class SystemsManager {
 }
 
 final class Swashteroids: NSObject {
-    func setGamepadManager(_ pad: GamepadInputManager) {
-            manager_systems.transitionAppStateSystem.gamepadManager = pad //HACK
+    //HACK: This is a hack to allow the gamepad to be used in the game. It is not a great solution.
+    func setGamepadInputManager(_ pad: GamepadInputManager?) {
+        manager_systems.transitionAppStateSystem.gamepadManager = pad
+        if let _ = pad {
+            usingGamepad()
+        } else {
+            usingScreenControls()
+        }
     }
+
     lazy private var tickEngineListener = Listener(engine.update)
     let accelerometerComponent = AccelerometerComponent.shared // using in SKSceneDelegate extension
     let engine = Engine()
     let manager_motion: CMMotionManager? = CMMotionManager()
     let manager_touch: TouchManager
-    private let generator = UIImpactFeedbackGenerator(style: .heavy)
     private let manager_creators: CreatorsManager!
     private let manager_systems: SystemsManager!
-    private var tickProvider: TickProvider?
+    private(set) var tickProvider: TickProvider?
     private(set) var orientation = 1.0
     private(set) weak var scene: GameScene!
     weak var alertPresenter: PauseAlertPresenting!
-    public var gameState: GameState {
-        gameStateComponent.gameState
+    public var gameScreen: GameScreen {
+        gameStateComponent.gameScreen
     }
     public var gameStateComponent: GameStateComponent {
         engine.gameStateComponent
@@ -131,7 +137,7 @@ final class Swashteroids: NSObject {
                 .add(component: GameStateComponent(config: GameConfig(gameSize: scene.size)))
                 .add(component: ChangeGameStateComponent(from: .start, to: .start))
                 .add(component: TimePlayedComponent())
-                .add(component: AlienAppearancesComponent.shared) //TODO: find a better place for this
+                .add(component: AlienAppearancesComponent.shared) //HACK: find a better place for this
         engine.add(entity: appStateEntity)
         manager_creators = CreatorsManager(engine: engine,
                                            gameSize: scene.size,
@@ -151,15 +157,13 @@ final class Swashteroids: NSObject {
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
-    
+
     func usingGamepad() {
-        if GCController.isGameControllerConnected() {
-            engine.gameStateEntity.add(component: ChangeShipControlsStateComponent(to: .usingGameController))
-        }
+        engine.appStateEntity.add(component: ChangeShipControlsStateComponent(to: .usingGameController))
     }
 
     func usingScreenControls() {
-        engine.gameStateEntity.add(component: ChangeShipControlsStateComponent(to: .usingScreenControls))
+        engine.appStateEntity.add(component: ChangeShipControlsStateComponent(to: .usingScreenControls))
     }
 
     func start() {

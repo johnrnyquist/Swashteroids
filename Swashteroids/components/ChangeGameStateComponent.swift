@@ -11,10 +11,10 @@
 import Swash
 
 final class ChangeGameStateComponent: Component {
-    var from: GameState
-    var to: GameState
+    var from: GameScreen
+    var to: GameScreen
 
-    init(from: GameState, to: GameState) {
+    init(from: GameScreen, to: GameScreen) {
         self.from = from
         self.to = to
     }

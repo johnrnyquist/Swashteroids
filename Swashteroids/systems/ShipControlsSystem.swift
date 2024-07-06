@@ -59,7 +59,7 @@ class ShipControlsSystem: ListIteratingSystem {
     }
 
     private func usingScreenControls() {
-        if engine.gameStateComponent.gameState == .playing {
+        if engine.gameStateComponent.gameScreen == .playing {
             engine.playerEntity?.remove(componentClass: AccelerometerComponent.self)
             shipControlQuadrantsCreator.removeQuadrantControls()
             shipButtonControlsCreator.createShipControlButtons()
@@ -94,7 +94,7 @@ class ShipControlsSystem: ListIteratingSystem {
     }
 
     private func usingAccelerometer() {
-        if engine.gameStateComponent.gameState == .playing {
+        if engine.gameStateComponent.gameScreen == .playing {
             engine.playerEntity?.add(component: AccelerometerComponent.shared)
             shipControlQuadrantsCreator.createQuadrantControls()
             shipButtonControlsCreator.removeShipControlButtons()

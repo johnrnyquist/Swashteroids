@@ -34,7 +34,7 @@ class CollisionSystemTests: XCTestCase {
         engine = Engine()
         appStateComponent = GameStateComponent(config: GameConfig(gameSize: .zero))
         appStateComponent.numShips = 1
-        appStateComponent.gameState = .playing
+        appStateComponent.gameScreen = .playing
         appStateEntity = Entity(named: .appState)
                 .add(component: appStateComponent)
         engine.add(entity: appStateEntity)
@@ -243,7 +243,7 @@ class CollisionSystemTests: XCTestCase {
         asteroidNode.entity = asteroidEntity
         let appStateComponent = GameStateComponent(config: GameConfig(gameSize: .zero))
         appStateComponent.numShips = 1
-        appStateComponent.gameState = .playing
+        appStateComponent.gameScreen = .playing
         let appState = Entity(named: .appState)
                 .add(component: appStateComponent)
         engine.add(entity: appState)
