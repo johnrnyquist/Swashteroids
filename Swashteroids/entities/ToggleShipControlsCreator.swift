@@ -15,14 +15,11 @@ class ToggleShipControlsCreator: ToggleShipControlsCreatorUseCase {
     private let engine: Engine
     private let scaleManager: ScaleManaging
     private let size: CGSize
-    private var generator: UIImpactFeedbackGenerator?
 
     init(engine: Engine,
          size: CGSize,
-         generator: UIImpactFeedbackGenerator?,
          scaleManager: ScaleManaging = ScaleManager.shared) {
         self.engine = engine
-        self.generator = generator
         self.size = engine.gameStateComponent.gameSize
         self.scaleManager = ScaleManager.shared
     }

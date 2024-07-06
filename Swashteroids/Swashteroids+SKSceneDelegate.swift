@@ -14,7 +14,7 @@ import SpriteKit
 extension Swashteroids: SKSceneDelegate {
     func update(_ currentTime: TimeInterval, for scene: SKScene) {
         dispatchTick(currentTime) // This drives the game
-        guard let data = motionManager?.accelerometerData else { return }
+        guard let data = manager_motion?.accelerometerData else { return }
         switch data.acceleration.y * orientation {
             case let y where y > 0.05:
                 rotateLeft(by: data.acceleration.y * orientation)

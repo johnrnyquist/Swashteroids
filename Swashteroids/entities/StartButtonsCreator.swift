@@ -17,12 +17,10 @@ class StartButtonsCreator: StartButtonsCreatorUseCase {
     private let gameSize: CGSize
     private let startView: StartView
     private weak var engine: Engine!
-    private weak var generator: UIImpactFeedbackGenerator?
 
-    init(engine: Engine, gameSize: CGSize, generator: UIImpactFeedbackGenerator?) {
+    init(engine: Engine, gameSize: CGSize) {
         self.engine = engine
         self.gameSize = gameSize
-        self.generator = generator
         startView = StartView(gameSize: gameSize)
     }
 
@@ -37,7 +35,7 @@ class StartButtonsCreator: StartButtonsCreatorUseCase {
     }
 
     func removeStart() {
-        engine.removeEntities(named: [.start, .noButtons, .withButtons])
+        engine.removeEntities(named: [.start, .noButtons, .withButtons, .aCircleFill, .gamecontrollerFill])
     }
 
     func createStartButtons() {
@@ -74,20 +72,20 @@ class StartButtonsCreator: StartButtonsCreatorUseCase {
         engine.add(entity: withButtons)
 
         if GCController.isGameControllerConnected() {
-            let a = SwashSpriteNode(imageNamed: "a.circle.fill")
+            let a = SwashSpriteNode(imageNamed: .aCircleFill)
             a.setScale(0.33)
             a.anchorPoint = CGPoint(x: 0.5, y: 0)
-            let aEntity = Entity()
+            let aEntity = Entity(named: .aCircleFill)
                     .add(component: DisplayComponent(sknode: a))
                     .add(component: PositionComponent(x: gameSize.width - 30,
                                                       y: 20,
                                                       z: .top,
                                                       rotationDegrees: 0))
             engine.add(entity: aEntity)
-            let controller = SwashSpriteNode(imageNamed: "gamecontroller.fill")
+            let controller = SwashSpriteNode(imageNamed: .gamecontrollerFill)
             controller.setScale(0.25)
             controller.anchorPoint = CGPoint(x: 0.5, y: 0)
-            let controllerEntity = Entity()
+            let controllerEntity = Entity(named: .gamecontrollerFill)
                     .add(component: DisplayComponent(sknode: controller))
                     .add(component: PositionComponent(x: gameSize.width - 30,
                                                       y: 20 + a.size.height,
@@ -99,6 +97,6 @@ class StartButtonsCreator: StartButtonsCreatorUseCase {
     }
 
     func removeStartButtons() {
-        engine.removeEntities(named: [.noButtons, .withButtons])
+        engine.removeEntities(named: [.noButtons, .withButtons, .aCircleFill, .gamecontrollerFill])
     }
 }

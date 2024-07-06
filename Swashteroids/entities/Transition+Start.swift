@@ -26,7 +26,6 @@ class StartTransition: StartUseCase {
 
     /// The start screen is not an entity, but composed of entities.  It is the first screen the user sees.
     func toStartScreen() {
-        print("toStartScreen")
         startButtonsCreator.createStart()
         startButtonsCreator.createStartButtons()
     }

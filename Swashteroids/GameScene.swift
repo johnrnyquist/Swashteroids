@@ -26,8 +26,7 @@ class GameScene: SKScene {
 
 //    var cameraNode: SKCameraNode!
     override func didMove(to view: SKView) {
-        print(#function)
-        super.didMove(to: view)
+                super.didMove(to: view)
         backgroundColor = .background
 //        cameraNode = SKCameraNode()
 //        camera = cameraNode

@@ -16,7 +16,7 @@ final class TransitionAppStateSystem: ListIteratingSystem {
     private let infoViewsTransition: InfoViewsUseCase?
     private let playingTransition: PlayingUseCase?
     private let gameOverTransition: GameOverUseCase?
-    weak var gamePadManager: GameStateObserver?
+    weak var gamepadManager: GameStateObserver?
 
     init(
         startTransition: StartUseCase,
@@ -51,7 +51,7 @@ final class TransitionAppStateSystem: ListIteratingSystem {
                 appStateComponent.shipControlsState = .usingAccelerometer
         }
         appStateComponent.gameState = transitionComponent.to
-        gamePadManager?.onGameStateChange(state: appStateComponent.gameState)  //HACK
+        gamepadManager?.onGameStateChange(state: appStateComponent.gameState)  //HACK
         switch transitionComponent.to {
             case .start:
                 startTransition?.toStartScreen()

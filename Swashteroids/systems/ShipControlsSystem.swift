@@ -48,14 +48,11 @@ class ShipControlsSystem: ListIteratingSystem {
         engine.gameStateComponent.shipControlsState = to
         switch to {
             case .usingAccelerometer:
-                print("ShipControlsSystem: usingAccelerometer")
                 usingAccelerometer()
             case .usingScreenControls:
-                print("ShipControlsSystem: usingScreenControls")
                 usingScreenControls()
                 break
             case .usingGameController:
-                print("ShipControlsSystem: usingGameController")
                 usingGameController()
                 break
         }

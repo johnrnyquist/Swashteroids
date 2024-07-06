@@ -63,25 +63,25 @@ final class TouchManager {
 extension Swashteroids: TouchDelegate {
     func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
-            touchManager.began(touch)
+            manager_touch.began(touch)
         }
     }
 
     func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         touches.forEach { touch in
-            touchManager.ended(touch)
+            manager_touch.ended(touch)
         }
     }
 
     func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         touches.forEach { touch in
-            touchManager.moved(touch)
+            manager_touch.moved(touch)
         }
     }
 
     func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         touches.forEach { touch in
-            touchManager.ended(touch)
+            manager_touch.ended(touch)
         }
     }
 }

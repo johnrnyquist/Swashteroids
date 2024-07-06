@@ -22,10 +22,10 @@ final class GameViewController: UIViewController, PauseAlertPresenting {
     private var skView: SKView?
     private var gameScene: GameScene!
     private var game: Swashteroids!
-    private var gamePadManager: GamePadInputManager!
+    private var gamepadManager: GamepadInputManager!
     private var settingsViewController: UIHostingController<SettingsView>!
     /// Flag to prevent the game from starting when the app returns from background.
-    var isAlertPresented = false 
+    var isAlertPresented = false
 
     override func loadView() {
         skView = SKView()
@@ -34,19 +34,7 @@ final class GameViewController: UIViewController, PauseAlertPresenting {
 
     override func viewDidLoad() {
         skView_setup()
-       startNewGame()
-    }
-
-    func startNewGame() {
-        gameScene = gameScene_create()
-        game = swashteroids_create()
-        if let gamePadManager {
-            gamePadManager.game = game
-        } else {
-            gamePadManager = GamePadInputManager(game: game, size: gameScene.size)
-        }
-        gameScene_present()
-        game?.start()
+        startNewGame()
     }
 
     private func skView_setup() {
@@ -56,10 +44,21 @@ final class GameViewController: UIViewController, PauseAlertPresenting {
         skView?.isMultipleTouchEnabled = true
     }
 
+    func startNewGame() {
+        gameScene = gameScene_create()
+        game = swashteroids_create()
+        if let gamepadManager {
+            gamepadManager.game = game
+        } else {
+            gamepadManager = GamepadInputManager(game: game, size: gameScene.size)
+        }
+        gameScene_present()
+        game?.start()
+    }
+
     private func gameScene_create() -> GameScene {
         let screenSize = UIScreen.main.bounds
         let gameScene = GameScene(size: screenSize.size)
-        gameScene.name = "gameScene"
         gameScene.anchorPoint = .zero
         gameScene.scaleMode = .aspectFit
         return gameScene
@@ -67,10 +66,13 @@ final class GameViewController: UIViewController, PauseAlertPresenting {
 
     private func swashteroids_create() -> Swashteroids {
         let seed = Int(Date().timeIntervalSince1970)
-        let swashteroids = Swashteroids(scene: gameScene, alertPresenter: self, seed: seed, touchManager: TouchManager(scene: gameScene))
-        gameScene.delegate = swashteroids
-        gameScene.touchDelegate = swashteroids
-        gameScene.physicsWorld.contactDelegate = swashteroids
+        let swashteroids = Swashteroids(scene: gameScene,
+                                        alertPresenter: self,
+                                        seed: seed,
+                                        touchManager: TouchManager(scene: gameScene))
+        gameScene.delegate = swashteroids //SKSceneDelegate
+        gameScene.touchDelegate = swashteroids //TouchDelegate
+        gameScene.physicsWorld.contactDelegate = swashteroids //SKPhysicsContactDelegate
         gameScene.physicsWorld.gravity = CGVector(dx: 0, dy: 0)
         return swashteroids
     }
@@ -100,10 +102,10 @@ final class GameViewController: UIViewController, PauseAlertPresenting {
 
     func showSettings() {
         dismiss(animated: true, completion: { [unowned self] in
-            gamePadManager.mode = .settings
+            gamepadManager.mode = .settings
             let settingsViewController = UIHostingController(rootView:
                                                              SettingsView(
-                                                                 gamePadManager: gamePadManager,
+                                                                 gamepadManager: gamepadManager,
                                                                  hide: hideSettings))
             present(settingsViewController, animated: true, completion: nil)
         })
@@ -111,7 +113,7 @@ final class GameViewController: UIViewController, PauseAlertPresenting {
 
     func hideSettings() {
         dismiss(animated: true, completion: { [weak self] in
-            self?.gamePadManager.mode = .game
+            self?.gamepadManager.mode = .game
             self?.showPauseAlert()
         })
     }

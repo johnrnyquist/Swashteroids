@@ -24,17 +24,17 @@ class CreatorsManager {
     let treasureCreator: TreasureCreatorUseCase
     let startButtonsCreator: StartButtonsCreatorUseCase
 
-    init(engine: Engine, gameSize: CGSize, alertPresenter: PauseAlertPresenting, generator: UIImpactFeedbackGenerator, scene: GameScene) {
+    init(engine: Engine, gameSize: CGSize, alertPresenter: PauseAlertPresenting, scene: GameScene) {
         alienCreator = AlienCreator(scene: scene, engine: engine, size: gameSize)
         asteroidCreator = AsteroidCreator(engine: engine)
         hudCreator = HudCreator(engine: engine, alertPresenter: alertPresenter)
         powerUpCreator = PowerUpCreator(engine: engine, size: gameSize)
-        shipButtonControlsCreator = ShipButtonControlsCreator(engine: engine, size: gameSize, generator: generator)
-        shipControlQuadrantsCreator = QuadrantsControlsCreator(engine: engine, size: gameSize, generator: generator)
+        shipButtonControlsCreator = ShipButtonControlsCreator(engine: engine, size: gameSize)
+        shipControlQuadrantsCreator = QuadrantsControlsCreator(engine: engine, size: gameSize)
         shipCreator = PlayerCreator(engine: engine, size: gameSize)
-        toggleShipControlsCreator = ToggleShipControlsCreator(engine: engine, size: gameSize, generator: generator)
+        toggleShipControlsCreator = ToggleShipControlsCreator(engine: engine, size: gameSize)
         torpedoCreator = TorpedoCreator(engine: engine)
         treasureCreator = TreasureCreator(engine: engine)
-        startButtonsCreator = StartButtonsCreator(engine: engine, gameSize: gameSize, generator: generator)
+        startButtonsCreator = StartButtonsCreator(engine: engine, gameSize: gameSize)
     }
 }

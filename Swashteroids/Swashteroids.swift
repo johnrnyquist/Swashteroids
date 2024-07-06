@@ -19,7 +19,6 @@ class SystemsManager {
     init(scene: GameScene,
          engine: Engine,
          creatorManager: CreatorsManager,
-         generator: UIImpactFeedbackGenerator,
          alertPresenter: PauseAlertPresenting,
          touchManager: TouchManager) {
         let transition = PlayingTransition(
@@ -28,8 +27,8 @@ class SystemsManager {
             shipControlQuadrantsCreator: creatorManager.shipControlQuadrantsCreator,
             shipButtonControlsCreator: creatorManager.shipButtonControlsCreator)
         let startTransition = StartTransition(engine: engine, startButtonsCreator: creatorManager.startButtonsCreator)
-        let gameOverTransition = GameOverTransition(engine: engine, alert: alertPresenter, generator: generator)
-        let infoViewsTransition = InfoViewsTransition(engine: engine, generator: generator)
+        let gameOverTransition = GameOverTransition(engine: engine, alert: alertPresenter)
+        let infoViewsTransition = InfoViewsTransition(engine: engine)
         transitionAppStateSystem = TransitionAppStateSystem(startTransition: startTransition,
                                                             infoViewsTransition: infoViewsTransition,
                                                             playingTransition: transition,
@@ -96,19 +95,18 @@ class SystemsManager {
 }
 
 final class Swashteroids: NSObject {
-    public var gamePadManager: GamePadInputManager? {
-        didSet {
-            manager_systems.transitionAppStateSystem.gamePadManager = gamePadManager //HACK
-        }
+    func setGamepadManager(_ pad: GamepadInputManager) {
+            manager_systems.transitionAppStateSystem.gamepadManager = pad //HACK
     }
     lazy private var tickEngineListener = Listener(engine.update)
-    let motionManager: CMMotionManager? = CMMotionManager()
+    let accelerometerComponent = AccelerometerComponent.shared // using in SKSceneDelegate extension
+    let engine = Engine()
+    let manager_motion: CMMotionManager? = CMMotionManager()
+    let manager_touch: TouchManager
     private let generator = UIImpactFeedbackGenerator(style: .heavy)
+    private let manager_creators: CreatorsManager!
+    private let manager_systems: SystemsManager!
     private var tickProvider: TickProvider?
-    private(set) var engine = Engine()
-    private(set) var accelerometerComponent = AccelerometerComponent.shared // using in SKSceneDelegate extension
-    private(set) var manager_creators: CreatorsManager!
-    private(set) var manager_systems: SystemsManager!
     private(set) var orientation = 1.0
     private(set) weak var scene: GameScene!
     weak var alertPresenter: PauseAlertPresenting!
@@ -118,11 +116,10 @@ final class Swashteroids: NSObject {
     public var gameStateComponent: GameStateComponent {
         engine.gameStateComponent
     }
-    var touchManager: TouchManager
 
     init(scene: GameScene, alertPresenter: PauseAlertPresenting, seed: Int = 0, touchManager: TouchManager) {
         self.scene = scene
-        self.touchManager = touchManager
+        self.manager_touch = touchManager
         self.alertPresenter = alertPresenter
         if seed == 0 {
             Randomness.initialize(with: Int(Date().timeIntervalSince1970))
@@ -130,38 +127,32 @@ final class Swashteroids: NSObject {
             Randomness.initialize(with: seed)
         }
         orientation = UIDevice.current.orientation == .landscapeRight ? -1.0 : 1.0
-        super.init()
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(orientationChanged),
-                                               name: UIDevice.orientationDidChangeNotification, object: nil)
-        createInitialEntities(scene: scene)
-        manager_creators = CreatorsManager(engine: engine,
-                                           gameSize: scene.size,
-                                           alertPresenter: alertPresenter,
-                                           generator: generator,
-                                           scene: scene)
-        manager_systems = SystemsManager(scene: scene,
-                                         engine: engine,
-                                         creatorManager: manager_creators,
-                                         generator: generator,
-                                         alertPresenter: alertPresenter,
-                                         touchManager: touchManager)
-    }
-
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-
-    private func createInitialEntities(scene: GameScene) {
         let appStateEntity = Entity(named: .appState)
                 .add(component: GameStateComponent(config: GameConfig(gameSize: scene.size)))
                 .add(component: ChangeGameStateComponent(from: .start, to: .start))
                 .add(component: TimePlayedComponent())
                 .add(component: AlienAppearancesComponent.shared) //TODO: find a better place for this
         engine.add(entity: appStateEntity)
+        manager_creators = CreatorsManager(engine: engine,
+                                           gameSize: scene.size,
+                                           alertPresenter: alertPresenter,
+                                           scene: scene)
+        manager_systems = SystemsManager(scene: scene,
+                                         engine: engine,
+                                         creatorManager: manager_creators,
+                                         alertPresenter: alertPresenter,
+                                         touchManager: touchManager)
+        super.init()
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(orientationChanged),
+                                               name: UIDevice.orientationDidChangeNotification, object: nil)
     }
 
-    func usingGamePad() {
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    func usingGamepad() {
         if GCController.isGameControllerConnected() {
             engine.gameStateEntity.add(component: ChangeShipControlsStateComponent(to: .usingGameController))
         }
@@ -172,7 +163,7 @@ final class Swashteroids: NSObject {
     }
 
     func start() {
-        motionManager?.startAccelerometerUpdates()
+        manager_motion?.startAccelerometerUpdates()
         tickProvider = TickProvider()
         tickProvider?.add(tickEngineListener) // Then engine listens for ticks
         tickProvider?.start()
@@ -182,7 +173,7 @@ final class Swashteroids: NSObject {
         tickProvider?.stop()
         tickProvider?.remove(tickEngineListener)
         tickProvider = nil
-        motionManager?.stopAccelerometerUpdates()
+        manager_motion?.stopAccelerometerUpdates()
     }
 
     var currentTime = 0.0

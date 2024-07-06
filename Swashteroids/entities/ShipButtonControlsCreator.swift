@@ -21,11 +21,9 @@ class ShipButtonControlsCreator: ShipButtonControlsCreatorUseCase {
     var fireButtonEntity: Entity? //HACK Creator should NOT be holding onto this reference!
     var hyperspaceButtonEntity: Entity? //HACK Creator should NOT be holding onto this reference!
     var scaleManager: ScaleManaging
-    weak var generator: UIImpactFeedbackGenerator?
 
     init(engine: Engine,
          size: CGSize,
-         generator: UIImpactFeedbackGenerator?,
          scaleManager: ScaleManaging = ScaleManager.shared,
          randomness: Randomizing = Randomness.shared
     ) {
@@ -36,7 +34,6 @@ class ShipButtonControlsCreator: ShipButtonControlsCreatorUseCase {
         firstRowButtonPaddingY *= scaleManager.SCALE_FACTOR
         self.engine = engine
         self.size = size
-        self.generator = generator
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
            let window = appDelegate.window {
             buttonPaddingLeft += max(window.safeAreaInsets.left, 10)

@@ -14,12 +14,10 @@ import SpriteKit
 class QuadrantsControlsCreator: QuadrantsControlsCreatorUseCase {
     private var engine: Engine
     private var size: CGSize
-    private var generator: UIImpactFeedbackGenerator?
 
-    init(engine: Engine, size: CGSize, generator: UIImpactFeedbackGenerator?) {
+    init(engine: Engine, size: CGSize) {
         self.engine = engine
         self.size = size
-        self.generator = generator
     }
 
     func removeQuadrantControls() {

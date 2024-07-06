@@ -14,15 +14,13 @@ import SpriteKit
 class GameOverTransition: GameOverUseCase {
     let engine: Engine
     let alertPresenter: PauseAlertPresenting
-    let generator: UIImpactFeedbackGenerator?
     var gameSize: CGSize {
         engine.gameStateComponent.gameSize
     }
 
-    init(engine: Engine, alert: PauseAlertPresenting, generator: UIImpactFeedbackGenerator?) {
+    init(engine: Engine, alert: PauseAlertPresenting) {
         self.engine = engine
         self.alertPresenter = alert
-        self.generator = generator
     }
 
     func fromGameOverScreen() {

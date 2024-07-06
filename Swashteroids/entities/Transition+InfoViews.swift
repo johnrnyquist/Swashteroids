@@ -13,14 +13,12 @@ import SpriteKit
 
 class InfoViewsTransition: InfoViewsUseCase {
     let engine: Engine
-    let generator: UIImpactFeedbackGenerator?
     var gameSize: CGSize {
         engine.gameStateComponent.gameSize
     }
 
-    init(engine: Engine, generator: UIImpactFeedbackGenerator?) {
+    init(engine: Engine) {
         self.engine = engine
-        self.generator = generator
     }
 
     //MARK: - No buttons state
