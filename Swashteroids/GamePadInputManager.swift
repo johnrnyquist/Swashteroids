@@ -145,7 +145,7 @@ class GamepadInputManager: NSObject, ObservableObject, GameStateObserver {
         for controller in GCController.controllers() {
             print("CONTROLLER DETECTED:", controller.vendorName ?? "Unknown Vendor")
             //Check to see whether it is an extended Game Controller (Such as a Nimbus)
-            if let pad = controller.extendedGamepad {
+            if let pad = controller.extendedGamepad, controller.isAttachedToDevice {
                 self.pad = pad
                 game.setGamepadInputManager(self)
                 pad.valueChangedHandler = { [unowned self] (pad, element) in
