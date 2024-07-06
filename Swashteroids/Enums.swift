@@ -20,7 +20,7 @@ var POWER_UP_RADIUS = 7.0
 /// The state of the ship controls. Either showing or hiding. 
 enum ShipControlsState {
     case usingAccelerometer
-    case usingGameController
+    case usingGamepad
     case usingScreenControls
 }
 

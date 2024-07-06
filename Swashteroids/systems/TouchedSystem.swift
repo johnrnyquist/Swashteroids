@@ -118,11 +118,11 @@ class TouchedButtonSystem: ListIteratingSystem {
                 if buttonEntity.has(componentClass: ButtonWithButtonsComponent.self) {
                     engine.appStateEntity.add(component: ChangeGameStateComponent(from: .start, to: .infoButtons))
                 } else if buttonEntity.has(componentClass: ButtonWithAccelerometerComponent.self) {
-                    engine.appStateEntity.add(component: ChangeGameStateComponent(from: .start, to: .infoNoButtons))
+                    engine.appStateEntity.add(component: ChangeGameStateComponent(from: .start, to: .infoAccelerometer))
                 } else if buttonEntity.has(componentClass: ButtonWithButtonsInfoComponent.self) {
                     engine.appStateEntity.add(component: ChangeGameStateComponent(from: .infoButtons, to: .playing))
                 } else if buttonEntity.has(componentClass: ButtonWithAccelerometerInfoComponent.self) {
-                    engine.appStateEntity.add(component: ChangeGameStateComponent(from: .infoNoButtons, to: .playing))
+                    engine.appStateEntity.add(component: ChangeGameStateComponent(from: .infoAccelerometer, to: .playing))
                 } else if buttonEntity.has(componentClass: ButtonFireComponent.self) {
                     engine.playerEntity?.add(component: FireDownComponent.shared)
                 } else if buttonEntity.has(componentClass: ButtonThrustComponent.self) {

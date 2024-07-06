@@ -28,32 +28,40 @@ final class GameViewController: UIViewController, PauseAlertPresenting {
     var isAlertPresented = false
 
     override func loadView() {
+        super.loadView()
         skView = SKView()
         view = skView
     }
 
     override func viewDidLoad() {
+        super.viewDidLoad()
         skView_setup()
         startNewGame()
     }
 
     private func skView_setup() {
-        skView?.showsPhysics = false
-        skView?.ignoresSiblingOrder = true // true is more optimized rendering, but must set zPosition
-        skView?.isUserInteractionEnabled = true
-        skView?.isMultipleTouchEnabled = true
+        guard let skView else { fatalError("skView is nil") }
+        skView.showsPhysics = false
+        skView.ignoresSiblingOrder = true // true is more optimized rendering, but must set zPosition
+        skView.isUserInteractionEnabled = true
+        skView.isMultipleTouchEnabled = true
     }
 
     func startNewGame() {
         gameScene = gameScene_create()
         game = swashteroids_create()
+        gamepadManager = gamepadManager_create()
+        gameScene_present()
+        game?.start()
+    }
+
+    private func gamepadManager_create() -> GamepadInputManager {
         if let gamepadManager {
             gamepadManager.game = game
         } else {
             gamepadManager = GamepadInputManager(game: game, size: gameScene.size)
         }
-        gameScene_present()
-        game?.start()
+        return gamepadManager
     }
 
     private func gameScene_create() -> GameScene {
@@ -82,7 +90,7 @@ final class GameViewController: UIViewController, PauseAlertPresenting {
     }
 
     //MARK: - AlertPresenting
-    @IBAction func showPauseAlert() {
+    func showPauseAlert() {
         guard let game else { fatalError("game is nil") }
         game.stop()
         if game.engine.gameStateComponent.gameScreen == .playing ||

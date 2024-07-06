@@ -74,7 +74,7 @@ class PlayerCreator: PlayerCreatorUseCase {
         case .usingScreenControls:
             ship.remove(componentClass: AccelerometerComponent.self)
             break
-        case .usingGameController:
+        case .usingGamepad:
             ship.remove(componentClass: AccelerometerComponent.self)
             break
         }

@@ -48,7 +48,7 @@ final class TransitionAppStateSystemTests: XCTestCase {
         appStateComponent.level = 0
         appStateComponent.score = 0
         appStateComponent.shipControlsState = .usingAccelerometer
-        let transitionComponent = ChangeGameStateComponent(from: .start, to: .infoNoButtons)
+        let transitionComponent = ChangeGameStateComponent(from: .start, to: .infoAccelerometer)
         node.components[GameStateComponent.name] = appStateComponent
         node.components[ChangeGameStateComponent.name] = transitionComponent
         let appState = Entity(named: .appState)
@@ -57,7 +57,7 @@ final class TransitionAppStateSystemTests: XCTestCase {
         // SUT
         system.updateNode(node: node, time: 1)
         //
-        XCTAssertEqual(appStateComponent.gameScreen, .infoNoButtons)
+        XCTAssertEqual(appStateComponent.gameScreen, .infoAccelerometer)
     }
 
     func test_UpdateNodeFromStartToInfoButtons() throws {
@@ -120,9 +120,9 @@ final class TransitionAppStateSystemTests: XCTestCase {
         appStateComponent.numShips = 0
         appStateComponent.level = 0
         appStateComponent.score = 0
-        appStateComponent.gameScreen = .infoNoButtons
+        appStateComponent.gameScreen = .infoAccelerometer
         appStateComponent.shipControlsState = .usingAccelerometer
-        let transitionComponent = ChangeGameStateComponent(from: .infoNoButtons, to: .playing)
+        let transitionComponent = ChangeGameStateComponent(from: .infoAccelerometer, to: .playing)
         node.components[GameStateComponent.name] = appStateComponent
         node.components[ChangeGameStateComponent.name] = transitionComponent
         // SUT

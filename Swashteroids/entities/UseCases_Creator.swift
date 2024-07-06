@@ -61,9 +61,11 @@ protocol TreasureCreatorUseCase: AnyObject {
     func createTreasure(positionComponent: PositionComponent)
 }
 
-protocol StartButtonsCreatorUseCase: AnyObject {
-    func createStart()
-    func removeStart()
+protocol StartScreenCreatorUseCase: AnyObject {
+    func createGamepadIndicator()
     func createStartButtons()
+    func createStartScreen()
+    func removeGamepadIndicator()
     func removeStartButtons()
+    func removeStartScreen()
 }

@@ -132,7 +132,7 @@
 		8DE66F0F2C14C9BF00ECEE96 /* SplitAsteroidUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139921E04E8DBE2DF6800B /* SplitAsteroidUseCase.swift */; };
 		8DE66F112C14CA1500ECEE96 /* SplitAsteroidComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE66F102C14CA1500ECEE96 /* SplitAsteroidComponent.swift */; };
 		8DE66F132C14CA5000ECEE96 /* SplitAsteroidNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE66F122C14CA5000ECEE96 /* SplitAsteroidNode.swift */; };
-		93139064D7538345A09AE45E /* StartButtonsCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931391B4D76B8FBFE80781AD /* StartButtonsCreator.swift */; };
+		93139064D7538345A09AE45E /* StartScreenCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931391B4D76B8FBFE80781AD /* StartScreenCreator.swift */; };
 		9313907A8909C84DA2AD6394 /* ButtonComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931394434431C0AC2BEE28A0 /* ButtonComponents.swift */; };
 		931390FD65B5AF82D24FEB32 /* CollisionSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139BEB3AC5615963614D45 /* CollisionSystemTests.swift */; };
 		93139113FFD9F17E28DA721A /* DeathThroesSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931397AEAB4946A616156BF7 /* DeathThroesSystemTests.swift */; };
@@ -385,7 +385,7 @@
 		931390A6FDA46C0B8EFE6218 /* LifetimeComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LifetimeComponent.swift; sourceTree = "<group>"; };
 		931390BDEBA443104F781428 /* AudioSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioSystemTests.swift; sourceTree = "<group>"; };
 		931390C85278CB396AD27B7B /* LeftSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftSystemTests.swift; sourceTree = "<group>"; };
-		931391B4D76B8FBFE80781AD /* StartButtonsCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartButtonsCreator.swift; sourceTree = "<group>"; };
+		931391B4D76B8FBFE80781AD /* StartScreenCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartScreenCreator.swift; sourceTree = "<group>"; };
 		931391F6102BA3CDA3D121C7 /* SplitAsteroidSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitAsteroidSystem.swift; sourceTree = "<group>"; };
 		93139298C85B9795950A5BA6 /* MakeDecisionSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeDecisionSystemTests.swift; sourceTree = "<group>"; };
 		931392B2F2F0077756DDF207 /* PauseAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PauseAlert.swift; sourceTree = "<group>"; };
@@ -890,7 +890,7 @@
 				931395F838B2866767296F25 /* QuadrantsControlsCreator.swift */,
 				931392CF258F1370304A48B7 /* ShipButtonControlsCreator.swift */,
 				93139921E04E8DBE2DF6800B /* SplitAsteroidUseCase.swift */,
-				931391B4D76B8FBFE80781AD /* StartButtonsCreator.swift */,
+				931391B4D76B8FBFE80781AD /* StartScreenCreator.swift */,
 				93139E95FF431FF894CFD502 /* ToggleShipControlsCreator.swift */,
 				93139A97E15CCF640A73EC56 /* TorpedoCreator.swift */,
 				93139F2C79FC630142EA1605 /* TreasureCreator.swift */,
@@ -1245,7 +1245,7 @@
 				93139A6C0DBE796C7456682D /* LevelManagementSystem.swift in Sources */,
 				9313973A5076963CC0C269A5 /* GamePadInputManager.swift in Sources */,
 				9313913D152F44CFF69D3EDC /* Dictionary+extensions.swift in Sources */,
-				93139064D7538345A09AE45E /* StartButtonsCreator.swift in Sources */,
+				93139064D7538345A09AE45E /* StartScreenCreator.swift in Sources */,
 				931399CD2A31C40FAF304E01 /* HapticFeedbackComponent.swift in Sources */,
 				93139F95901841F594FAACC8 /* TouchedSystem.swift in Sources */,
 				9313907A8909C84DA2AD6394 /* ButtonComponents.swift in Sources */,

@@ -10,7 +10,7 @@ import SwiftUI
 public enum GameScreen: String, CaseIterable {
     case start = "Start Screen"
     case infoButtons = "Buttons Information Screen"
-    case infoNoButtons = "No Buttons Information Screen"
+    case infoAccelerometer = "No Buttons Information Screen"
     case playing = "Playing Screen"
     case gameOver = "Game Over Screen"
     var commandsPerScreen: [GameCommand] {
@@ -19,7 +19,7 @@ public enum GameScreen: String, CaseIterable {
                 return [.play]
             case .infoButtons:
                 return [.play]
-            case .infoNoButtons:
+            case .infoAccelerometer:
                 return [.play]
             case .playing:
                 return [.fire, .thrust, .hyperspace, .left, .right, .pause, .flip, .home, .settings, .resume]

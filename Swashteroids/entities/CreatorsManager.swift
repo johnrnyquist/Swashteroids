@@ -22,7 +22,7 @@ class CreatorsManager {
     let toggleShipControlsCreator: ToggleShipControlsCreatorUseCase
     let torpedoCreator: TorpedoCreatorUseCase
     let treasureCreator: TreasureCreatorUseCase
-    let startButtonsCreator: StartButtonsCreatorUseCase
+    let startButtonsCreator: StartScreenCreatorUseCase
 
     init(engine: Engine, gameSize: CGSize, alertPresenter: PauseAlertPresenting, scene: GameScene) {
         alienCreator = AlienCreator(scene: scene, engine: engine, size: gameSize)
@@ -35,6 +35,6 @@ class CreatorsManager {
         toggleShipControlsCreator = ToggleShipControlsCreator(engine: engine, size: gameSize)
         torpedoCreator = TorpedoCreator(engine: engine)
         treasureCreator = TreasureCreator(engine: engine)
-        startButtonsCreator = StartButtonsCreator(engine: engine, gameSize: gameSize)
+        startButtonsCreator = StartScreenCreator(engine: engine, gameSize: gameSize)
     }
 }

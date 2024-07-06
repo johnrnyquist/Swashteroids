@@ -46,7 +46,7 @@ final class TransitionAppStateSystem: ListIteratingSystem {
             case .infoButtons:
                 infoViewsTransition?.fromButtonsInfoScreen()
                 appStateComponent.shipControlsState = .usingScreenControls
-            case .infoNoButtons:
+            case .infoAccelerometer:
                 infoViewsTransition?.fromNoButtonsInfoScreen()
                 appStateComponent.shipControlsState = .usingAccelerometer
         }
@@ -62,7 +62,7 @@ final class TransitionAppStateSystem: ListIteratingSystem {
                 playingTransition?.toPlayingScreen(appStateComponent: appStateComponent)
             case .infoButtons:
                 infoViewsTransition?.toButtonsInfoScreen()
-            case .infoNoButtons:
+            case .infoAccelerometer:
                 infoViewsTransition?.toNoButtonsInfoScreen()
         }
         node.entity?.remove(componentClass: ChangeGameStateComponent.self)

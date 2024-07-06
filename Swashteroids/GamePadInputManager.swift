@@ -139,8 +139,8 @@ class GamepadInputManager: NSObject, ObservableObject, GameStateObserver {
     }
 
     //HACK for updateMappings()
-    var pad: GCExtendedGamepad {
-        GCController.controllers().first!.extendedGamepad!
+    var pad: GCExtendedGamepad? {
+        GCController.controllers().first?.extendedGamepad
     }
 
     @objc private func controllerDidConnect() {
@@ -176,7 +176,9 @@ class GamepadInputManager: NSObject, ObservableObject, GameStateObserver {
 
     func updateMappings() {
         mapCommandsToClosures(using: gameCommandToButtonName)
-        assignHandlersForCurrentState(pad: pad)
+        if let pad {
+            assignHandlersForCurrentState(pad: pad)
+        }
     }
 
     private func mapCommandsToClosures(using mappings: [GameCommand: ButtonName?]) {
@@ -320,7 +322,7 @@ class GamepadInputManager: NSObject, ObservableObject, GameStateObserver {
     // Simplified default handlers setup, potentially for debugging or default actions
     private func setupDefaultHandlers(pad: GCExtendedGamepad) {
         pad.allButtons.forEach { button in
-            button.pressedChangedHandler = { [unowned self] _, _, _ in
+            button.pressedChangedHandler = { _, _, _ in
                 print("Default handler for \(button.localizedName!)")
             }
         }

@@ -158,11 +158,11 @@ final class Swashteroids: NSObject {
         NotificationCenter.default.removeObserver(self)
     }
 
-    func usingGamepad() {
-        engine.appStateEntity.add(component: ChangeShipControlsStateComponent(to: .usingGameController))
+    private func usingGamepad() {
+        engine.appStateEntity.add(component: ChangeShipControlsStateComponent(to: .usingGamepad))
     }
 
-    func usingScreenControls() {
+    private func usingScreenControls() {
         engine.appStateEntity.add(component: ChangeShipControlsStateComponent(to: .usingScreenControls))
     }
 
