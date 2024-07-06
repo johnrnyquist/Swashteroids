@@ -21,27 +21,24 @@ class HudCreator: HudCreatorUseCase, PauseAlertPresenting {
     }
 
     func createHud(gameState: GameStateComponent) {
-        let view = HudView(gameSize: gameState.gameSize)
-        view.name = "hud"
+        let hudView = HudView(gameSize: gameState.gameSize)
+        hudView.name = "hud"
         let hudEntity = Entity(named: .hud)
-                .add(component: HudComponent(hudView: view))
-                .add(component: DisplayComponent(sknode: view))
+                .add(component: HudComponent(hudView: hudView))
+                .add(component: DisplayComponent(sknode: hudView))
                 .add(component: PositionComponent(x: 0, y: 0, z: .hud, rotationDegrees: 0))
                 .add(component: gameState)
-        let pauseButton = view.pauseButton!
+        let pauseButton = hudView.pauseButton!
         pauseButton.name = "pauseButton"
         pauseButton.removeFromParent()
         let position = PositionComponent(x: pauseButton.x, y: pauseButton.y, z: .hud, rotationDegrees: 0)
         let pause = Entity(named: .pauseButton) //HACK
-                .add(component: position)
-                .add(component: DisplayComponent(sknode: pauseButton))
-                .add(component: ButtonPauseComponent())
                 .add(component: TouchableComponent())
                 .add(component: ButtonComponent())
+                .add(component: ButtonPauseComponent())
                 .add(component: HapticFeedbackComponent.shared)
-                .add(component: ButtonBehaviorComponent { node in
-                    self.alertPresenter?.showPauseAlert()
-                })
+                .add(component: position)
+                .add(component: DisplayComponent(sknode: pauseButton))
         pauseButton.entity = pause
         engine.add(entity: hudEntity)
         engine.add(entity: pause)

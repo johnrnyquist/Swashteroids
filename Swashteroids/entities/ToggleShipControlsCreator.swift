@@ -38,7 +38,7 @@ class ToggleShipControlsCreator: ToggleShipControlsCreatorUseCase {
         sprite.name = name
         sprite.alpha = 0.2
         let x = size.width / 2
-        let y = 90.0 * scaleManager.SCALE_FACTOR
+        let y = sprite.height + 25
         let toggleEntity = Entity(named: .toggleButton)
                 .add(component: PositionComponent(x: x, y: y, z: .top))
                 .add(component: DisplayComponent(sknode: sprite))

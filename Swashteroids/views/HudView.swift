@@ -10,7 +10,7 @@
 
 import SpriteKit
 
-/// HudView is not visual, it's an SKNode, its children are.
+/// HudView is not visual, it's an SKNode, its children are visual.
 class HudView: SKNode {
     private var levelLabel: SKLabelNode!
     private var scoreLabel: SKLabelNode!
@@ -45,18 +45,19 @@ class HudView: SKNode {
         // pauseButtonArt does nothing
         pauseButtonArt = SKSpriteNode(imageNamed: "pause")
         pauseButtonArt.size = CGSize(width: scoreLabel.fontSize, height: scoreLabel.fontSize)
-        pauseButtonArt.anchorPoint = CGPoint(x: 1, y: 0)
-        pauseButtonArt.position = CGPoint(x: gameSize.width - textXPadding - 10, y: textY)
+        pauseButtonArt.anchorPoint = CGPoint(x: 1, y: 1)
+        pauseButtonArt.position = CGPoint(x: -10, y: -10)
         pauseButtonArt.zPosition = .top
-        addChild(pauseButtonArt)
         //
         // pauseButton is used by an Entity
-        pauseButton = SwashSpriteNode(color: .clear, size: CGSize(width: 100, height: 60 ))
+        pauseButton = SwashSpriteNode(color: .clear, size: CGSize(width: 60, height: 60 ))
+        pauseButton.alpha = 0.2
         pauseButton.anchorPoint = CGPoint(x: 1, y: 1)
-        pauseButton.x = gameSize.width 
+        pauseButton.x = gameSize.width
         pauseButton.y = gameSize.height
         pauseButton.zPosition = .buttons
         addChild(pauseButton)
+        pauseButton.addChild(pauseButtonArt)
         //
         levelLabel = createLabel(x: gameSize.width - pauseButtonArt.width - textXPadding * 3 - 10, y: textY, alignment: .right)
         addChild(levelLabel)
