@@ -31,7 +31,7 @@ extension String {
     static let gamecontrollerFill: EntityName = "gamecontroller.fill"
     // Info screens
     static let buttonsInfoView: EntityName = "buttonsInfoViewEntity"
-    static let noButtonsInfoView: EntityName = "noButtonsInfoViewEntity"
+    static let accelerometerInfoView: EntityName = "accelerometerInfoViewEntity"
     // Misc
     static let alienSoldier: EntityName = "alienSoldierEntity"
     static let alienWorker: EntityName = "alienWorkerEntity"

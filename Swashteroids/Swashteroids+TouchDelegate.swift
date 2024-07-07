@@ -41,12 +41,10 @@ final class TouchManager {
                 .filter({ $0.entity?.has(componentClass: TouchedComponent.self) == false })
                 .max(by: { $0.zPosition < $1.zPosition }) {
             topEntity.entity?.add(component: component)
-            print("ADDED", component.num, topEntity.name!)
         }
     }
 
     func ended(_ touch: UITouch) {
-        print("ENDED", touchedComponents[touch]?.num ?? -1)
         touchedComponents[touch]?.locationInScene = touch.location(in: scene)
         touchedComponents[touch]?.state = .ended
     }
@@ -57,7 +55,6 @@ final class TouchManager {
     }
 
     func remove(_ id: UITouch) {
-        print("REMOVED", touchedComponents[id]?.num ?? -1)
         touchedComponents.removeValue(forKey: id)
     }
 }

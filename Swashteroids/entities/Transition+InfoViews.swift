@@ -22,25 +22,29 @@ class InfoViewsTransition: InfoViewsUseCase {
     }
 
     //MARK: - No buttons state
-    func fromNoButtonsInfoScreen() {
-        engine.removeEntities(named: [.noButtonsInfoView])
+    func fromAccelerometerInfoScreen() {
+        engine.removeEntities(named: [.accelerometerInfoView])
     }
 
-    func toNoButtonsInfoScreen() {
+    func toAccelerometerInfoScreen() {
         let noButtonsInfoArt = SKScene(fileNamed: "NoButtonsInfo.sks")!
         guard let viewSprite = noButtonsInfoArt.childNode(withName: "quadrants") as? SwashScaledSpriteNode else {
             fatalError("Could not load 'quadrants' as SwashSpriteNode")
         }
-        viewSprite.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        let background = SwashSpriteNode(color: .clear, size: gameSize)
+        background.anchorPoint = CGPoint(x: 0, y: 0)
         viewSprite.removeFromParent()
-        let viewEntity = Entity(named: .noButtonsInfoView)
+        background.addChild(viewSprite)
+        viewSprite.anchorPoint = CGPoint(x: 0, y: 0)
+        viewSprite.position = CGPoint(x: gameSize.width/2, y: gameSize.height/2)
+        let viewEntity = Entity(named: .accelerometerInfoView)
                 .add(component: ButtonWithAccelerometerInfoComponent())
                 .add(component: ButtonComponent())
-                .add(component: DisplayComponent(sknode: viewSprite))
-                .add(component: PositionComponent(x: gameSize.width / 2, y: gameSize.height / 2, z: .buttons, rotationDegrees: 0))
+                .add(component: DisplayComponent(sknode: background))
+                .add(component: PositionComponent(x: 0, y: 0, z: .buttons, rotationDegrees: 0))
                 .add(component: TouchableComponent())
                 .add(component: HapticFeedbackComponent.shared)
-        viewSprite.entity = viewEntity
+        background.entity = viewEntity
         engine.add(entity: viewEntity)
     }
 

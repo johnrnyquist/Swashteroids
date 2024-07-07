@@ -16,8 +16,8 @@ protocol GameOverUseCase: AnyObject {
 }
 
 protocol InfoViewsUseCase: AnyObject {
-    func fromNoButtonsInfoScreen()
-    func toNoButtonsInfoScreen()
+    func fromAccelerometerInfoScreen()
+    func toAccelerometerInfoScreen()
     func fromButtonsInfoScreen()
     func toButtonsInfoScreen()
 }
