@@ -32,7 +32,6 @@ final class TouchManager {
         let location = touch.location(in: scene)
         let component = TouchedComponent(id: touch, num: touchCount, state: .began, locationInScene: location)
         touchedComponents[touch] = component
-        print("BEGAN", touchedComponents[touch]?.num ?? -1)
         let nodes = scene.nodes(at: location)
         guard !nodes.isEmpty else { return }
         if let topEntity = nodes

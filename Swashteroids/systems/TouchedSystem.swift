@@ -53,7 +53,6 @@ final class TouchedComponent: Component {
         self._state = state
         self.firstLocation = locationInScene
         self.locationInScene = locationInScene
-        print("TouchedComponent", num, id, state)
     }
 }
 
@@ -302,7 +301,6 @@ class TouchedQuadrantSystem: ListIteratingSystem {
             case .none:
                 break
         }
-
         switch touchedComponent.state {
             case .began:
                 hapticFeedbackComponent.impact()
@@ -328,6 +326,5 @@ class TouchedQuadrantSystem: ListIteratingSystem {
                 }
                 break
         }
-
     }
 }
