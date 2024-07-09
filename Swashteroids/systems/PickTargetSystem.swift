@@ -47,9 +47,9 @@ final class PickTargetSystem: ListIteratingSystem {
             // is there a ship and an asteroid?
             if let shipEntity = playerNodes.head?.entity,
                !shipEntity.has(componentClass: DeathThroesComponent.self),
-               let closestAsteroid = findClosestEntity(to: position.position, node: asteroidNodes?.head) {
+               let closestAsteroid = findClosestEntity(to: position.point, node: asteroidNodes?.head) {
                 // is ship closer than asteroid?
-                let distanceToAsteroid = position.position.distance(from: closestAsteroid[PositionComponent.self]!.position)
+                let distanceToAsteroid = position.point.distance(from: closestAsteroid[PositionComponent.self]!.point)
                 if distanceToAsteroid < alienComponent.maxTargetableRange / 1.5 {
                     updateMoveToTarget(entity: entity, targetedEntity: closestAsteroid)
                 } else {
@@ -79,7 +79,7 @@ final class PickTargetSystem: ListIteratingSystem {
             }
             if let shipEntity = playerNodes.head?.entity,
                !shipEntity.has(componentClass: DeathThroesComponent.self),
-               let targetedEntity = findClosestEntity(to: position.position,
+               let targetedEntity = findClosestEntity(to: position.point,
                                                       node: targetableNodes?.head,
                                                       excludingEntities: excludedEntityNames) {
                 updateMoveToTarget(entity: entity, targetedEntity: targetedEntity)
@@ -123,7 +123,7 @@ final class PickTargetSystem: ListIteratingSystem {
                   !excludedEntityNames.contains(entity.name) else {
                 return nil
             }
-            return (entity: entity, position: positionComponent.position)
+            return (entity: entity, position: positionComponent.point)
         }
         // Find and return the entity that is closest to the given position
         return findClosestEntity(to: position, in: entitiesWithPositions)

@@ -11,7 +11,7 @@
 import SpriteKit
 import Swash
 
-final class RenderSystem: System {
+final class DisplaySystem: System {
     weak var scene: GameScene!
     weak var nodes: NodeList?
 
@@ -20,7 +20,7 @@ final class RenderSystem: System {
     }
 
     override func addToEngine(engine: Engine) {
-        nodes = engine.getNodeList(nodeClassType: RenderNode.self)
+        nodes = engine.getNodeList(nodeClassType: DisplayNode.self)
         var node = nodes?.head
         while let currentNode = node {
             addToDisplay(currentNode)
@@ -31,33 +31,28 @@ final class RenderSystem: System {
     }
 
     private func addToDisplay(_ node: Node) {
-        guard
-            let component = node[DisplayComponent.self],
-            let sprite = component.sknode
+        guard let sknode = node[DisplayComponent.self]?.sknode
         else { return }
-        scene.addChild(sprite)
+        scene.addChild(sknode)
     }
 
     private func removeFromDisplay(_ node: Node) {
-        guard
-            let component = node[DisplayComponent.self],
-            let sprite = component.sknode
+        guard let sknode = node[DisplayComponent.self]?.sknode
         else { return }
-        sprite.removeFromParent()
+        sknode.removeFromParent()
     }
 
     override func update(time: TimeInterval) {
-        var renderNode = nodes?.head
-        while let currentNode = renderNode {
-            let displayDisplayComponent = currentNode[DisplayComponent.self]
-            let sknode = displayDisplayComponent?.sknode
+        var displayNode = nodes?.head
+        while let currentNode = displayNode {
+            let sknode = currentNode[DisplayComponent.self]?.sknode
             let positionComponent = currentNode[PositionComponent.self]
             if let positionComponent = positionComponent {
-                sknode?.position = positionComponent.position
+                sknode?.position = positionComponent.point
                 sknode?.zRotation = positionComponent.rotationDegrees * Double.pi / 180
                 sknode?.zPosition = positionComponent.layer
             }
-            renderNode = currentNode.next
+            displayNode = currentNode.next
         }
     }
 

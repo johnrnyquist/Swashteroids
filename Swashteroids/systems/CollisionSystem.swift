@@ -217,7 +217,7 @@ class CollisionSystem: System {
                     let nodeB_collision = currentNodeB[CollidableComponent.self],
                     let nodeA_collision = currentNodeA[CollidableComponent.self]
                 else { nodeB = currentNodeB.next; continue }
-                let distance = nodeB_position.position.distance(from: nodeA_position.position)
+                let distance = nodeB_position.point.distance(from: nodeA_position.point)
                 if (distance <= nodeB_collision.radius + nodeA_collision.radius) {
                     action(currentNodeA, currentNodeB)
                     break

@@ -13,15 +13,15 @@ import Swash
 
 final class PositionComponent: Component {
     var layer: Layer
-    var position: CGPoint
+    var point: CGPoint
     var rotationDegrees: Double
     var x: Double {
-        get { position.x }
-        set { position = CGPoint(x: newValue, y: y) }
+        get { point.x }
+        set { point = CGPoint(x: newValue, y: y) }
     }
     var y: Double {
-        get { position.y }
-        set { position = CGPoint(x: x, y: newValue) }
+        get { point.y }
+        set { point = CGPoint(x: x, y: newValue) }
     }
     var rotationRadians: Double {
         get { rotationDegrees * Double.pi / 180.0 }
@@ -29,7 +29,7 @@ final class PositionComponent: Component {
     }
 
     init(x: Double, y: Double, z: CGFloat, rotationDegrees: Double = 0.0) {
-        position = CGPoint(x: x, y: y)
+        point = CGPoint(x: x, y: y)
         self.rotationDegrees = rotationDegrees
         layer = z
     }

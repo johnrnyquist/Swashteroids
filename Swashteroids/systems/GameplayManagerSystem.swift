@@ -103,7 +103,7 @@ class GameplayManagerSystem: System {
         while let asteroid = currentAsteroidNode {
             if let positionComponent = asteroid[PositionComponent.self],
                let collisionComponent = asteroid[CollidableComponent.self] {
-                if positionComponent.position.distance(from: position) <= collisionComponent.radius + shipClearanceRadius {
+                if positionComponent.point.distance(from: position) <= collisionComponent.radius + shipClearanceRadius {
                     return false
                 }
             }

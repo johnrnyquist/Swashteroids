@@ -123,10 +123,6 @@ class GamepadInputManager: NSObject, ObservableObject, GameStateObserver {
         setupObservers()
     }
 
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-
     private func setupObservers() {
         NotificationCenter.default
                           .addObserver(self,

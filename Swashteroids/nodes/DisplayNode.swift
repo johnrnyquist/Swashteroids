@@ -10,7 +10,7 @@
 
 import Swash
 
-final class RenderNode: Node {
+final class DisplayNode: Node {
     required init() {
         super.init()
         components = [

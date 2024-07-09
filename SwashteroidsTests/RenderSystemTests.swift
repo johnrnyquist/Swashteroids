@@ -14,13 +14,13 @@ import SpriteKit
 @testable import Swashteroids
 
 final class RenderSystemTests: XCTestCase {
-    var system: RenderSystem!
+    var system: DisplaySystem!
     var container: MockScene!
     var engine: Engine!
 
     override func setUpWithError() throws {
         container = MockScene()
-        system = RenderSystem(scene: container)
+        system = DisplaySystem(scene: container)
         engine = Engine()
     }
 

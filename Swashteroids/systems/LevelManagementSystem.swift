@@ -69,7 +69,7 @@ class LevelManagementSystem: ListIteratingSystem {
         entity.add(component: AudioComponent(name: "levelUp", fileName: .levelUpSound))
         announceLevel(appStateComponent: appStateComponent)
         createAsteroids(count: appStateComponent.level,
-                        avoiding: playerPosition.position,
+                        avoiding: playerPosition.point,
                         level: appStateComponent.level)
     }
 

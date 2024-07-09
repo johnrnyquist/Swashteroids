@@ -90,7 +90,7 @@ class SystemsManager {
                 // render
                 .add(system: AudioSystem(), priority: .render)
                 .add(system: RepeatingAudioSystem(), priority: .render)
-                .add(system: RenderSystem(scene: scene), priority: .render)
+                .add(system: DisplaySystem(scene: scene), priority: .render)
     }
 }
 

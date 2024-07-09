@@ -21,7 +21,6 @@ class GameScene: SKScene {
         removeAllActions()
         removeFromParent()
         removeAllChildren()
-        NotificationCenter.default.removeObserver(self)
     }
 
 //    var cameraNode: SKCameraNode!

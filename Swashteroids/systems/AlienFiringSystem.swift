@@ -42,7 +42,7 @@ final class AlienFiringSystem: ListIteratingSystem {
         else { return }
         //
         guard gun.timeSinceLastShot >= gun.minimumShotInterval, 
-              gameRect.contains(position.position),
+              gameRect.contains(position.point),
               targetWithinRange(targetedEntity, alien, position)
         else { return }
         //

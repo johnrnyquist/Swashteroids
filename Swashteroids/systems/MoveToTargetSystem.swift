@@ -47,7 +47,7 @@ final class MoveToTargetSystem: ListIteratingSystem {
             entity.add(component: ExitScreenComponent())
             return
         }
-        if let targetPoint = engine.findEntity(named: targetComponent.targetedEntityName)?[PositionComponent.self]?.position {
+        if let targetPoint = engine.findEntity(named: targetComponent.targetedEntityName)?[PositionComponent.self]?.point {
             moveTowardTarget(cast: alienComponent.cast,
                              position: positionComponent,
                              velocity: velocityComponent,

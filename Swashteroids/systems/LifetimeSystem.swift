@@ -46,13 +46,12 @@ final class LifetimeSystem: ListIteratingSystem {
         }
     }
     func updateNode(node: Node, time: TimeInterval) {
-        guard let component = node[LifetimeComponent.self],
-              let display = node[DisplayComponent.self],
-              let sknode = display.sknode,
+        guard let lifetime = node[LifetimeComponent.self],
+              let sknode = node[DisplayComponent.self]?.sknode,
               let entity = node.entity
         else { return }
-        component.timeRemaining -= time
-        if component.timeRemaining <= 0 {
+        lifetime.timeRemaining -= time
+        if lifetime.timeRemaining <= 0 {
             entity.remove(componentClass: LifetimeComponent.self)
             fadeInAndOut(node: sknode, animationDuration: 0.25, totalDuration: 2) {
                 self.executeAfterDelay(on: sknode, delay: 3) {

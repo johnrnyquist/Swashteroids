@@ -196,7 +196,6 @@ class TouchedButtonSystem: ListIteratingSystem {
         // handle the button's look and remove on ended
         switch touchedComponent.state {
             case .began:
-                print("began", touchedComponent.num, buttonEntity.name)
                 sprite.alpha = 0.6
                 hapticFeedbackComponent.impact()
                 touchedComponent.processed = true
@@ -206,10 +205,8 @@ class TouchedButtonSystem: ListIteratingSystem {
                     touchedComponent.state = .none
                 }
             case .ended, .cancelled:
-                print("ended-not processed", touchedComponent.num, buttonEntity.name)
                 guard touchedComponent.processed
                 else { return }
-                print("ended", touchedComponent.num, buttonEntity.name)
                 sprite.alpha = 0.2
                 touchManager.remove(touchedComponent.id)
                 buttonEntity.remove(componentClass: TouchedComponent.self)

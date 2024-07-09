@@ -12,7 +12,7 @@ import SpriteKit
 import Swash
 
 final class DisplayComponent: Component {
-    private(set) var sknode: SKNode?
+    private(set) var sknode: SKNode
 
     init(sknode: SKNode) {
         self.sknode = sknode
