@@ -29,28 +29,66 @@ public enum GameScreen: String, CaseIterable {
     }
 }
 
-struct SettingsView: View {
+struct SettingsView {
     @ObservedObject var gamepadManager: GamepadInputManager
     @State private var curCommand: GameCommand? = nil
     @State private var currentAppState: GameScreen = .playing
     @State private var showAlert = false
     let hide: () -> Void
+}
+
+extension SettingsView: View {
     var body: some View {
         VStack {
-            HStack {
-                Spacer()
-                Button("Done") {
-                    // Save to UserDefaults
-                    let defaults = UserDefaults.standard
-                    let dictionary = gamepadManager.gameCommandToButtonName.mapKeys { $0.rawValue }
-                    defaults.set(dictionary, forKey: "GameCommandDict")
-                    gamepadManager.updateMappings()
-                   hide()
-                }.padding(0)
-                 .padding(.top, 20)
-                 .padding(.trailing, 20)
-                 .disabled(gamepadManager.gameCommandToButtonName.contains { $0.value == nil })
+            doneButton
+            header
+            picker
+            commands
+            footer
+        }.alert(isPresented: $showAlert) {
+            Alert(
+                title: Text("Assign Function"),
+                message: Text("Press a button on your game controller to assign to '\(curCommand?.rawValue ?? "Test")'"),
+                dismissButton: .cancel(Text("Cancel"))
+            )
+        }.onReceive(gamepadManager.$lastPressedButton) { button in
+            guard let command = curCommand,
+                  let localizedName = button?.localizedName
+            else { return }
+            // Iterate over the dictionary and nil out the previous place where localizedName was used
+            for (command, buttonName) in gamepadManager.gameCommandToButtonName where gamepadManager.game
+                                                                                                    .gameScreen
+                                                                                                    .commandsPerScreen
+                                                                                                    .contains(command) {
+                if buttonName == localizedName {
+                    gamepadManager.gameCommandToButtonName[command] = nil_string
+                }
             }
+            // Assign the new str to the current command
+            gamepadManager.gameCommandToButtonName[command] = localizedName
+            curCommand = nil
+            showAlert = false
+            print("Updated \(command.rawValue) to \(localizedName)")
+        }
+    }
+    var doneButton: some View {
+        HStack {
+            Spacer()
+            Button("Done") {
+                // Save to UserDefaults
+                let defaults = UserDefaults.standard
+                let dictionary = gamepadManager.gameCommandToButtonName.mapKeys { $0.rawValue }
+                defaults.set(dictionary, forKey: "GameCommandDict")
+                gamepadManager.updateMappings()
+                hide()
+            }.padding(0)
+             .padding(.top, 20)
+             .padding(.trailing, 20)
+             .disabled(gamepadManager.gameCommandToButtonName.contains { $0.value == nil })
+        }
+    }
+    var header: some View {
+        VStack {
             Text("Controller Settings")
                     .padding(0)
                     .font(.title)
@@ -67,60 +105,45 @@ struct SettingsView: View {
                         .font(.subheadline)
                         .foregroundColor(.red)
             }
-            Picker("Swashteroids State", selection: $currentAppState) {
-                ForEach(GameScreen.allCases, id: \.self) { state in
-                    Text(state.rawValue).tag(state)
-                }
-            }.padding(0)
-            List(currentAppState.commandsPerScreen, id: \.self) { command in
-                Button(action: {
-                    curCommand = command
-                    showAlert = true
-                }, label: {
-                    HStack {
-                        Text(command.rawValue)
-                        Spacer()
-                        if let sfSymbolName = gamepadManager.gameCommandToSymbolName(command) {
-                            Image(systemName: sfSymbolName)
-                        } else {
-                            Image(systemName: "exclamationmark.octagon.fill")
-                                    .foregroundColor(.red)
-                        }
-                        Text((gamepadManager.gameCommandToButtonName[command] ?? "Not Set") ?? "Not Set")
-                    }
-                })
-            }
-            HStack {
-                Button("Reset to Previous") {
-                    gamepadManager.gameCommandToButtonName = gamepadManager.loadSettings()
-                }
-                Spacer()
-                Button("Reset to Defaults") {
-                    gamepadManager.gameCommandToButtonName = GamepadInputManager.defaultMappings
-                }
-            }.padding()
-        }.alert(isPresented: $showAlert) {
-            Alert(
-                title: Text("Assign Function"),
-                message: Text("Press a button on your game controller to assign to '\(curCommand?.rawValue ?? "Test")'"),
-                dismissButton: .cancel(Text("Cancel"))
-            )
-        }.onReceive(gamepadManager.$lastPressedButton) { button in
-            guard let command = curCommand,
-                  let localizedName = button?.localizedName
-            else { return }
-            // Iterate over the dictionary and nil out the previous place where localizedName was used
-            for (command, buttonName) in gamepadManager.gameCommandToButtonName where gamepadManager.game.gameScreen.commandsPerScreen.contains(command) {
-                if buttonName == localizedName {
-                    gamepadManager.gameCommandToButtonName[command] = nil_string
-                }
-            }
-            // Assign the new str to the current command
-            gamepadManager.gameCommandToButtonName[command] = localizedName
-            curCommand = nil
-            showAlert = false
-            print("Updated \(command.rawValue) to \(localizedName)")
         }
+    }
+    var picker: some View {
+        Picker("Swashteroids State", selection: $currentAppState) {
+            ForEach(GameScreen.allCases, id: \.self) { state in
+                Text(state.rawValue).tag(state)
+            }
+        }.padding(0)
+    }
+    var commands: some View {
+        List(currentAppState.commandsPerScreen, id: \.self) { command in
+            Button(action: {
+                curCommand = command
+                showAlert = true
+            }, label: {
+                HStack {
+                    Text(command.rawValue)
+                    Spacer()
+                    if let sfSymbolName = gamepadManager.gameCommandToSymbolName(command) {
+                        Image(systemName: sfSymbolName)
+                    } else {
+                        Image(systemName: "exclamationmark.octagon.fill")
+                                .foregroundColor(.red)
+                    }
+                    Text((gamepadManager.gameCommandToButtonName[command] ?? "Not Set") ?? "Not Set")
+                }
+            })
+        }
+    }
+    var footer: some View {
+        HStack {
+            Button("Reset to Previous") {
+                gamepadManager.gameCommandToButtonName = gamepadManager.loadSettings()
+            }
+            Spacer()
+            Button("Reset to Defaults") {
+                gamepadManager.gameCommandToButtonName = GamepadInputManager.defaultMappings
+            }
+        }.padding()
     }
 }
 

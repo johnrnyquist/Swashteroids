@@ -11,7 +11,7 @@
 import SwiftUI
 import GameController
 
-struct PauseAlert: View {
+struct PauseAlert {
     var appState: GameStateComponent
     var home: () -> Void
     var resume: () -> Void
@@ -19,10 +19,13 @@ struct PauseAlert: View {
     private var dynamicHeight: CGFloat {
         var height: CGFloat = 320
         if !GCController.isGameControllerConnected() {
-            height -= 50 
+            height -= 50
         }
         return height
     }
+}
+
+extension PauseAlert: View {
     var body: some View {
         VStack(spacing: 10) {
             StatsView(appState: appState)
