@@ -56,26 +56,20 @@ extension SettingsView: View {
                   let localizedName = button?.localizedName
             else { return }
             // Iterate over the dictionary and nil out the previous place where localizedName was used
-            for (command, buttonName) in gamepadManager.gameCommandToButtonName where gamepadManager.game
-                                                                                                    .gameScreen
-                                                                                                    .commandsPerScreen
-                                                                                                    .contains(command) {
-                if buttonName == localizedName {
-                    gamepadManager.gameCommandToButtonName[command] = nil_string
-                }
+            for (command, buttonName) in gamepadManager.gameCommandToButtonName
+                where gamepadManager.game.gameScreen.commandsPerScreen.contains(command) && buttonName == localizedName {
+                let nil_string: String? = nil
+                gamepadManager.gameCommandToButtonName[command] = nil_string
             }
-            // Assign the new str to the current command
             gamepadManager.gameCommandToButtonName[command] = localizedName
             curCommand = nil
             showAlert = false
-            print("Updated \(command.rawValue) to \(localizedName)")
         }
     }
     var doneButton: some View {
         HStack {
             Spacer()
             Button("Done") {
-                // Save to UserDefaults
                 let defaults = UserDefaults.standard
                 let dictionary = gamepadManager.gameCommandToButtonName.mapKeys { $0.rawValue }
                 defaults.set(dictionary, forKey: "GameCommandDict")
@@ -147,7 +141,6 @@ extension SettingsView: View {
     }
 }
 
-public let nil_string: String? = nil
 //#Preview {
 //    SettingsView(gamepadManager: GamepadInputManager(game: Swashteroids(scene: GameScene(),
 //                                                                   alertPresenter: MockAlertPresenter()),
