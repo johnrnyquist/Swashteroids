@@ -14,10 +14,10 @@ final class PlayerCollisionNode: Node {
     required init() {
         super.init()
         components = [
-            PlayerComponent.name: nil_component,
-            CollidableComponent.name: nil_component,
-            PositionComponent.name: nil_component,
-            VelocityComponent.name: nil_component,
+            PlayerComponent.name: nil,
+            CollidableComponent.name: nil,
+            PositionComponent.name: nil,
+            VelocityComponent.name: nil,
         ]
     }
 }

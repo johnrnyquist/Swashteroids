@@ -14,7 +14,7 @@ class ReactionTimeNode: Node {
     required init() {
         super.init()
         components = [
-            ReactionTimeComponent.name: nil_component,
+            ReactionTimeComponent.name: nil,
         ]
     }
 }

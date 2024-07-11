@@ -14,12 +14,12 @@ final class AlienFiringNode: Node {
     required init() {
         super.init()
         components = [
-            AlienComponent.name: nil_component,
-            AlienFiringComponent.name: nil_component,
-            GunComponent.name: nil_component,
-            MoveToTargetComponent.name: nil_component,
-            PositionComponent.name: nil_component,
-            VelocityComponent.name: nil_component,
+            AlienComponent.name: nil,
+            AlienFiringComponent.name: nil,
+            GunComponent.name: nil,
+            MoveToTargetComponent.name: nil,
+            PositionComponent.name: nil,
+            VelocityComponent.name: nil,
         ]
     }
 }

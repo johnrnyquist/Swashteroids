@@ -14,7 +14,7 @@ final class RepeatingAudioNode: Node {
     required init() {
         super.init()
         components = [
-            RepeatingAudioComponent.name: nil_component,
+            RepeatingAudioComponent.name: nil,
         ]
     }
 }

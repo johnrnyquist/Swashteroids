@@ -11,10 +11,10 @@ class SplitAsteroidNode: Node {
     required init() {
         super.init()
         components = [
-            SplitAsteroidComponent.name: nil_component,
-            AsteroidComponent.name: nil_component,
-            PositionComponent.name: nil_component,
-            VelocityComponent.name: nil_component
+            SplitAsteroidComponent.name: nil,
+            AsteroidComponent.name: nil,
+            PositionComponent.name: nil,
+            VelocityComponent.name: nil
         ]
     }
 }

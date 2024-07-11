@@ -14,9 +14,9 @@ final class TorpedoCollisionNode: Node {
     required init() {
         super.init()
         components = [
-            TorpedoComponent.name: nil_component,
-            CollidableComponent.name: nil_component,
-            PositionComponent.name: nil_component,
+            TorpedoComponent.name: nil,
+            CollidableComponent.name: nil,
+            PositionComponent.name: nil,
         ]
     }
 }

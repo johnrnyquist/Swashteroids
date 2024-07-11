@@ -14,7 +14,7 @@ final class GunNode: Node {
     required init() {
         super.init()
         components = [
-            GunComponent.name: nil_component,
+            GunComponent.name: nil,
         ]
     }
 }

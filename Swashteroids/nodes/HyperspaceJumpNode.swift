@@ -14,10 +14,10 @@ final class HyperspaceJumpNode: Node {
     required init() {
         super.init()
         components = [
-            DoHyperspaceJumpComponent.name: nil_component,
-            HyperspaceDriveComponent.name: nil_component,
-            PositionComponent.name: nil_component,
-            DisplayComponent.name: nil_component,
+            DoHyperspaceJumpComponent.name: nil,
+            HyperspaceDriveComponent.name: nil,
+            PositionComponent.name: nil,
+            DisplayComponent.name: nil,
         ]
     }
 }
@@ -26,7 +26,7 @@ final class HyperspaceNode: Node {
     required init() {
         super.init()
         components = [
-            HyperspaceDriveComponent.name: nil_component,
+            HyperspaceDriveComponent.name: nil,
         ]
     }
 }

@@ -17,11 +17,11 @@ class PickTargetNode: Node {
     required init() {
         super.init()
         components = [
-            AlienComponent.name: nil_component,
-            PickTargetComponent.name: nil_component,
-            PositionComponent.name: nil_component,
-            VelocityComponent.name: nil_component,
-            GunComponent.name: nil_component,
+            AlienComponent.name: nil,
+            PickTargetComponent.name: nil,
+            PositionComponent.name: nil,
+            VelocityComponent.name: nil,
+            GunComponent.name: nil,
         ]
     }
 }

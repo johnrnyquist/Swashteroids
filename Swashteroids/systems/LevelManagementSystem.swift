@@ -16,7 +16,7 @@ class LevelManagementNode: Node {
     required init() {
         super.init()
         components = [
-            GameStateComponent.name: nil_component,
+            GameStateComponent.name: nil,
         ]
     }
 }

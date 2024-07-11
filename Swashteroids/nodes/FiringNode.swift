@@ -14,10 +14,10 @@ final class FiringNode: Node {
     required init() {
         super.init()
         components = [
-            VelocityComponent.name: nil_component,
-            PositionComponent.name: nil_component,
-            GunComponent.name: nil_component,
-            FireDownComponent.name: nil_component
+            VelocityComponent.name: nil,
+            PositionComponent.name: nil,
+            GunComponent.name: nil,
+            FireDownComponent.name: nil
         ]
     }
 }

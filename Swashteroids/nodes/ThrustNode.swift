@@ -14,11 +14,11 @@ final class ThrustNode: Node {
     required init() {
         super.init()
         components = [
-            PositionComponent.name: nil_component,
-            ApplyThrustComponent.name: nil_component,
-            VelocityComponent.name: nil_component,
-            MovementRateComponent.name: nil_component,
-            WarpDriveComponent.name: nil_component,
+            PositionComponent.name: nil,
+            ApplyThrustComponent.name: nil,
+            VelocityComponent.name: nil,
+            MovementRateComponent.name: nil,
+            WarpDriveComponent.name: nil,
         ]
     }
 }

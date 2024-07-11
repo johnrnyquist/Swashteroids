@@ -14,10 +14,10 @@ final class AsteroidCollisionNode: Node {
     required init() {
         super.init()
         components = [
-            AsteroidComponent.name: nil_component,
-            CollidableComponent.name: nil_component,
-            PositionComponent.name: nil_component,
-            VelocityComponent.name: nil_component,
+            AsteroidComponent.name: nil,
+            CollidableComponent.name: nil,
+            PositionComponent.name: nil,
+            VelocityComponent.name: nil,
         ]
     }
 }

@@ -14,8 +14,8 @@ class LifetimeNode: Node {
     required init() {
         super.init()
         components = [
-            LifetimeComponent.name: nil_component,
-            DisplayComponent.name: nil_component,
+            LifetimeComponent.name: nil,
+            DisplayComponent.name: nil,
         ]
     }
 }

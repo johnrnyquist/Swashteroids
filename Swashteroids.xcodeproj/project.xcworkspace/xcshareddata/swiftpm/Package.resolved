@@ -1,15 +1,6 @@
 {
   "pins" : [
     {
-      "identity" : "swash",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/johnrnyquist/Swash",
-      "state" : {
-        "branch" : "main",
-        "revision" : "423c09d98d3a692dabb9e08c7d418b9603baca0f"
-      }
-    },
-    {
       "identity" : "swiftysound",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/adamcichy/SwiftySound.git",

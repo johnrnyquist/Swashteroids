@@ -14,9 +14,9 @@ final class RightNode: Node {
     required init() {
         super.init()
         components = [
-            PositionComponent.name: nil_component,
-            MovementRateComponent.name: nil_component,
-            RightComponent.name: nil_component,
+            PositionComponent.name: nil,
+            MovementRateComponent.name: nil,
+            RightComponent.name: nil,
         ]
     }
 }

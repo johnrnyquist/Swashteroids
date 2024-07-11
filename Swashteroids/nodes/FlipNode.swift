@@ -14,8 +14,8 @@ final class FlipNode: Node {
     required init() {
         super.init()
         components = [
-            PositionComponent.name: nil_component,
-            FlipComponent.name: nil_component,
+            PositionComponent.name: nil,
+            FlipComponent.name: nil,
         ]
     }
 }

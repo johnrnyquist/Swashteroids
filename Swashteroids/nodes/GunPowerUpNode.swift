@@ -14,9 +14,9 @@ final class GunPowerUpNode: Node {
     required init() {
         super.init()
         components = [
-            CollidableComponent.name: nil_component,
-            PositionComponent.name: nil_component,
-            GunPowerUpComponent.name: nil_component,
+            CollidableComponent.name: nil,
+            PositionComponent.name: nil,
+            GunPowerUpComponent.name: nil,
         ]
     }
 }

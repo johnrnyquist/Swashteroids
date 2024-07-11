@@ -14,8 +14,8 @@ final class AlienWorkerTargetNode: Node {
     required init() {
         super.init()
         components = [
-            AlienWorkerTargetComponent.name: nil_component,
-            PositionComponent.name: nil_component,
+            AlienWorkerTargetComponent.name: nil,
+            PositionComponent.name: nil,
         ]
     }
 }

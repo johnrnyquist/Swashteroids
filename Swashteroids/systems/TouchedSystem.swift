@@ -60,10 +60,10 @@ class TouchedQuadrantNode: Node {
     required init() {
         super.init()
         components = [
-            TouchedComponent.name: nil_component,
-            QuadrantComponent.name: nil_component,
-            DisplayComponent.name: nil_component,
-            HapticFeedbackComponent.name: nil_component,
+            TouchedComponent.name: nil,
+            QuadrantComponent.name: nil,
+            DisplayComponent.name: nil,
+            HapticFeedbackComponent.name: nil,
         ]
     }
 }
@@ -72,10 +72,10 @@ class TouchedButtonNode: Node {
     required init() {
         super.init()
         components = [
-            TouchedComponent.name: nil_component,
-            ButtonComponent.name: nil_component,
-            DisplayComponent.name: nil_component,
-            HapticFeedbackComponent.name: nil_component,
+            TouchedComponent.name: nil,
+            ButtonComponent.name: nil,
+            DisplayComponent.name: nil,
+            HapticFeedbackComponent.name: nil,
         ]
     }
 }

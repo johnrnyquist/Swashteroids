@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,6 +11,7 @@
 		8D0A0D342B4E08D4007E9898 /* alien_entrance.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D0A0D332B4E08D4007E9898 /* alien_entrance.wav */; };
 		8D1925292C24B0F800A090F9 /* PickTargetSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1925282C24B0F800A090F9 /* PickTargetSystemTests.swift */; };
 		8D19252B2C26242E00A090F9 /* AlienFiringSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D19252A2C26242E00A090F9 /* AlienFiringSystemTests.swift */; };
+		8D1C1DD02C404DEA005137DE /* Swash in Frameworks */ = {isa = PBXBuildFile; productRef = 8D1C1DCF2C404DEA005137DE /* Swash */; };
 		8D23C1362B02C4CA00F7D878 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1352B02C4CA00F7D878 /* AppDelegate.swift */; };
 		8D23C13C2B02C4CA00F7D878 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C13B2B02C4CA00F7D878 /* GameScene.swift */; };
 		8D23C13E2B02C4CA00F7D878 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C13D2B02C4CA00F7D878 /* GameViewController.swift */; };
@@ -127,7 +128,6 @@
 		8DC1A0E42C2CED200009698B /* Swash in Frameworks */ = {isa = PBXBuildFile; productRef = 8DC1A0E32C2CED200009698B /* Swash */; };
 		8DD26DC92B22D7E300DA5BC3 /* AccelerometerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD26DC82B22D7E300DA5BC3 /* AccelerometerNode.swift */; };
 		8DDB04EA2C376AE20029248B /* SwiftySound in Frameworks */ = {isa = PBXBuildFile; productRef = 8DDB04E92C376AE20029248B /* SwiftySound */; };
-		8DDD71522C2E232700290D2D /* Swash in Frameworks */ = {isa = PBXBuildFile; productRef = 8DDD71512C2E232700290D2D /* Swash */; };
 		8DDD71542C2F3D7500290D2D /* GCController+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD71532C2F3D7500290D2D /* GCController+extensions.swift */; };
 		8DE66F0F2C14C9BF00ECEE96 /* SplitAsteroidUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139921E04E8DBE2DF6800B /* SplitAsteroidUseCase.swift */; };
 		8DE66F112C14CA1500ECEE96 /* SplitAsteroidComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE66F102C14CA1500ECEE96 /* SplitAsteroidComponent.swift */; };
@@ -504,10 +504,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D1C1DD02C404DEA005137DE /* Swash in Frameworks */,
 				8DC1A0DF2C2CECBA0009698B /* Swash in Frameworks */,
 				8DC1A0E42C2CED200009698B /* Swash in Frameworks */,
 				8D637EC32C29C92C006A2FD1 /* Swash in Frameworks */,
-				8DDD71522C2E232700290D2D /* Swash in Frameworks */,
 				8D98697E2C29DDB600A48A96 /* Swash in Frameworks */,
 				8DC1A0E12C2CECE70009698B /* Swash in Frameworks */,
 				8DDB04EA2C376AE20029248B /* SwiftySound in Frameworks */,
@@ -965,8 +965,8 @@
 				8DC1A0DE2C2CECBA0009698B /* Swash */,
 				8DC1A0E02C2CECE70009698B /* Swash */,
 				8DC1A0E32C2CED200009698B /* Swash */,
-				8DDD71512C2E232700290D2D /* Swash */,
 				8DDB04E92C376AE20029248B /* SwiftySound */,
+				8D1C1DCF2C404DEA005137DE /* Swash */,
 			);
 			productName = Swashteroids;
 			productReference = 8D23C1322B02C4CA00F7D878 /* Swashteroids.app */;
@@ -1019,8 +1019,8 @@
 			);
 			mainGroup = 8D23C1292B02C4C900F7D878;
 			packageReferences = (
-				8DDD71502C2E232700290D2D /* XCRemoteSwiftPackageReference "Swash" */,
 				8DDB04E82C376AE20029248B /* XCRemoteSwiftPackageReference "SwiftySound" */,
+				8D1C1DCE2C404DEA005137DE /* XCLocalSwiftPackageReference "../../Swash_Swift_Package/Swash" */,
 			);
 			productRefGroup = 8D23C1332B02C4CA00F7D878 /* Products */;
 			projectDirPath = "";
@@ -1584,6 +1584,13 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		8D1C1DCE2C404DEA005137DE /* XCLocalSwiftPackageReference "../../Swash_Swift_Package/Swash" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../Swash_Swift_Package/Swash;
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCRemoteSwiftPackageReference section */
 		8DDB04E82C376AE20029248B /* XCRemoteSwiftPackageReference "SwiftySound" */ = {
 			isa = XCRemoteSwiftPackageReference;
@@ -1593,17 +1600,13 @@
 				minimumVersion = 1.3.0;
 			};
 		};
-		8DDD71502C2E232700290D2D /* XCRemoteSwiftPackageReference "Swash" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/johnrnyquist/Swash";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		8D1C1DCF2C404DEA005137DE /* Swash */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Swash;
+		};
 		8D637EC22C29C92C006A2FD1 /* Swash */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Swash;
@@ -1628,11 +1631,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8DDB04E82C376AE20029248B /* XCRemoteSwiftPackageReference "SwiftySound" */;
 			productName = SwiftySound;
-		};
-		8DDD71512C2E232700290D2D /* Swash */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 8DDD71502C2E232700290D2D /* XCRemoteSwiftPackageReference "Swash" */;
-			productName = Swash;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

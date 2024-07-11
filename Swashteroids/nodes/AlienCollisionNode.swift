@@ -14,10 +14,10 @@ final class AlienCollisionNode: Node {
     required init() {
         super.init()
         components = [
-            AlienComponent.name: nil_component,
-            CollidableComponent.name: nil_component,
-            PositionComponent.name: nil_component,
-            VelocityComponent.name: nil_component,
+            AlienComponent.name: nil,
+            CollidableComponent.name: nil,
+            PositionComponent.name: nil,
+            VelocityComponent.name: nil,
         ]
     }
 }

@@ -19,9 +19,9 @@ class ExitScreenNode: Node {
     required init() {
         super.init()
         components = [
-            ExitScreenComponent.name: nil_component,
-            PositionComponent.name: nil_component,
-            AlienComponent.name: nil_component,
+            ExitScreenComponent.name: nil,
+            PositionComponent.name: nil,
+            AlienComponent.name: nil,
         ]
     }
 }

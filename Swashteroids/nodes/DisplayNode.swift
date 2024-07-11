@@ -14,8 +14,8 @@ final class DisplayNode: Node {
     required init() {
         super.init()
         components = [
-            DisplayComponent.name: nil_component,
-            PositionComponent.name: nil_component,
+            DisplayComponent.name: nil,
+            PositionComponent.name: nil,
         ]
     }
 }

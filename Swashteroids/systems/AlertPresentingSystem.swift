@@ -32,7 +32,7 @@ class AlertPresentingNode: Node {
     required init() {
         super.init()
         components = [
-            AlertPresentingComponent.name: nil_component,
+            AlertPresentingComponent.name: nil,
         ]
     }
 }

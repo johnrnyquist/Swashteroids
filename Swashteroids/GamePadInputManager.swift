@@ -167,8 +167,7 @@ class GamepadInputManager: NSObject, ObservableObject, GameStateObserver {
     func clearPreviousAssignment(for localizedName: String) {
         for (command, buttonName) in gameCommandToButtonName
             where game?.gameScreen.commandsPerScreen.contains(command) ?? false && buttonName == localizedName {
-            let nil_string: String? = nil
-            gameCommandToButtonName[command] = nil_string
+            gameCommandToButtonName.updateValue(nil, forKey: command)
         }
     }
 

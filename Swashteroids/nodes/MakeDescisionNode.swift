@@ -14,8 +14,8 @@ class MakeDecisionNode: Node {
     required init() {
         super.init()
         components = [
-            MakeDecisionComponent.name: nil_component,
-            ReactionTimeComponent.name: nil_component,
+            MakeDecisionComponent.name: nil,
+            ReactionTimeComponent.name: nil,
         ]
     }
 }

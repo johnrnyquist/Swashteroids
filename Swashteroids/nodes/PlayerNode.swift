@@ -14,8 +14,8 @@ final class PlayerNode: Node {
     required init() {
         super.init()
         components = [
-            PositionComponent.name: nil_component,
-            PlayerComponent.name: nil_component,
+            PositionComponent.name: nil,
+            PlayerComponent.name: nil,
         ]
     }
 }

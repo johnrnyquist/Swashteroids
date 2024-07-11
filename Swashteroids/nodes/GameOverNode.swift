@@ -14,8 +14,8 @@ final class GameOverNode: Node {
 	required init() {
 		super.init()
 		components = [
-			GameStateComponent.name: nil_component,
-			GameOverComponent.name: nil_component,
+			GameStateComponent.name: nil,
+			GameOverComponent.name: nil,
 		]
 	}
 }

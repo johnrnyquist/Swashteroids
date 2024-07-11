@@ -14,8 +14,8 @@ final class MovementNode: Node {
     required init() {
         super.init()
         components = [
-            VelocityComponent.name: nil_component,
-            PositionComponent.name: nil_component,
+            VelocityComponent.name: nil,
+            PositionComponent.name: nil,
         ]
     }
 }

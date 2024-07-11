@@ -15,10 +15,10 @@ class MoveToTargetNode: Node {
     required init() {
         super.init()
         components = [
-            AlienComponent.name: nil_component,
-            MoveToTargetComponent.name: nil_component,
-            PositionComponent.name: nil_component,
-            VelocityComponent.name: nil_component,
+            AlienComponent.name: nil,
+            MoveToTargetComponent.name: nil,
+            PositionComponent.name: nil,
+            VelocityComponent.name: nil,
         ]
     }
 }

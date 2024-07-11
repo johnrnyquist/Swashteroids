@@ -36,8 +36,8 @@ final class TimePlayedNode: Node {
     required init() {
         super.init()
         components = [
-            TimePlayedComponent.name: nil_component,
-            GameStateComponent.name: nil_component,
+            TimePlayedComponent.name: nil,
+            GameStateComponent.name: nil,
         ]
     }
 }

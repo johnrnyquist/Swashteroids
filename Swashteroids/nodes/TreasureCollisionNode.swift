@@ -14,9 +14,9 @@ class TreasureCollisionNode: Node {
     required init() {
         super.init()
         components = [
-            TreasureComponent.name: nil_component,
-            CollidableComponent.name: nil_component,
-            PositionComponent.name: nil_component,
+            TreasureComponent.name: nil,
+            CollidableComponent.name: nil,
+            PositionComponent.name: nil,
         ]
     }
 }

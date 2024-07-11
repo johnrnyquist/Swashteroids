@@ -14,7 +14,7 @@ final class TorpedoAgeNode: Node {
     required init() {
         super.init()
         components = [
-            TorpedoComponent.name: nil_component,
+            TorpedoComponent.name: nil,
         ]
     }
 }
