@@ -56,12 +56,16 @@ final class GameViewController: UIViewController, PauseAlertPresenting {
     }
 
     private func gamepadManager_create() -> GamepadInputManager? {
-        if let gamepadManager, let _ = gamepadManager.pad {
+        if let gamepadManager,
+           let _ = gamepadManager.pad {
+            gamepadManager.controllerDidDisconnect()
             gamepadManager.game = game
+            gamepadManager.controllerDidConnect()
+            return gamepadManager
         } else {
             gamepadManager = GamepadInputManager(game: game, size: scene.size)
+            return gamepadManager
         }
-        return gamepadManager
     }
 
     private func scene_create() -> GameScene {
@@ -204,7 +208,6 @@ final class GameViewController: UIViewController, PauseAlertPresenting {
 // let powerUpCategory: UInt32 = 0x1 << 4
 extension Swashteroids: SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
-        print(#function)
         if let a = contact.bodyA.node as? SwashSpriteNode,
            let b = contact.bodyB.node as? SwashSpriteNode,
            let ae = a.entity,
@@ -214,7 +217,6 @@ extension Swashteroids: SKPhysicsContactDelegate {
     }
 
     func didEnd(_ contact: SKPhysicsContact) {
-        print(#function)
     }
 }
 

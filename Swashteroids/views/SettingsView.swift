@@ -7,28 +7,6 @@
 
 import SwiftUI
 
-public enum GameScreen: String, CaseIterable {
-    case start = "Start Screen"
-    case infoButtons = "Buttons Information Screen"
-    case infoAccelerometer = "No Buttons Information Screen"
-    case playing = "Playing Screen"
-    case gameOver = "Game Over Screen"
-    var commandsPerScreen: [GameCommand] {
-        switch self {
-            case .start:
-                return [.play]
-            case .infoButtons:
-                return [.play]
-            case .infoAccelerometer:
-                return [.play]
-            case .playing:
-                return [.fire, .thrust, .hyperspace, .left, .right, .pause, .flip, .home, .settings, .resume]
-            case .gameOver:
-                return [.pause, .home, .settings, .resume]
-        }
-    }
-}
-
 struct SettingsView {
     @ObservedObject var gamepadManager: GamepadInputManager
     @State private var curCommand: GameCommand? = nil
@@ -36,6 +14,8 @@ struct SettingsView {
     @State private var showAlert = false
     let hide: () -> Void
 }
+
+import GameController
 
 extension SettingsView: View {
     var body: some View {
@@ -45,28 +25,28 @@ extension SettingsView: View {
             picker
             commands
             footer
-        }.alert(isPresented: $showAlert) {
-            Alert(
-                title: Text("Assign Function"),
-                message: Text("Press a button on your game controller to assign to '\(curCommand?.rawValue ?? "Test")'"),
-                dismissButton: .cancel(Text("Cancel"))
-            )
-        }.onReceive(gamepadManager.$lastPressedButton) { button in
-            guard let command = curCommand,
-                  let localizedName = button?.localizedName
-            else { return }
-            // Iterate over the dictionary and nil out the previous place where localizedName was used
-            for (command, buttonName) in gamepadManager.gameCommandToButtonName
-                where gamepadManager.game.gameScreen.commandsPerScreen.contains(command) && buttonName == localizedName {
-                let nil_string: String? = nil
-                gamepadManager.gameCommandToButtonName[command] = nil_string
-            }
-            gamepadManager.gameCommandToButtonName[command] = localizedName
-            curCommand = nil
-            showAlert = false
-        }
+        }.alert(isPresented: $showAlert) { assignmentAlert }
+         .onReceive(gamepadManager.$lastPressedButton, perform: updateButtonAssignment)
     }
-    var doneButton: some View {
+    var assignmentAlert: Alert {
+        Alert(
+            title: Text("Assign Function"),
+            message: Text("Press a button on your game controller to assign to '\(curCommand?.rawValue ?? "Test")'"),
+            dismissButton: .cancel(Text("Cancel"))
+        )
+    }
+
+    private func updateButtonAssignment(with button: GCControllerButtonInput?) {
+        guard let command = curCommand,
+              let localizedName = button?.localizedName
+        else { return }
+        gamepadManager.clearPreviousAssignment(for: localizedName)
+        gamepadManager.assignButton(localizedName, to: command)
+        curCommand = nil
+        showAlert = false
+    }
+
+    private var doneButton: some View {
         HStack {
             Spacer()
             Button("Done") {
@@ -81,7 +61,7 @@ extension SettingsView: View {
              .disabled(gamepadManager.gameCommandToButtonName.contains { $0.value == nil })
         }
     }
-    var header: some View {
+    private var header: some View {
         VStack {
             Text("Controller Settings")
                     .padding(0)
@@ -101,14 +81,14 @@ extension SettingsView: View {
             }
         }
     }
-    var picker: some View {
+    private var picker: some View {
         Picker("Swashteroids State", selection: $currentAppState) {
             ForEach(GameScreen.allCases, id: \.self) { state in
                 Text(state.rawValue).tag(state)
             }
         }.padding(0)
     }
-    var commands: some View {
+    private var commands: some View {
         List(currentAppState.commandsPerScreen, id: \.self) { command in
             Button(action: {
                 curCommand = command
@@ -128,7 +108,7 @@ extension SettingsView: View {
             })
         }
     }
-    var footer: some View {
+    private var footer: some View {
         HStack {
             Button("Reset to Previous") {
                 gamepadManager.gameCommandToButtonName = gamepadManager.loadSettings()

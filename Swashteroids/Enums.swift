@@ -36,3 +36,42 @@ enum RepeatingSoundState {
     case shouldStop
 }
 
+enum GameCommand: String, CaseIterable {
+    // Playing
+    case fire = "Fire"
+    case thrust = "Thrust"
+    case hyperspace = "Hyperspace"
+    case left = "Left"
+    case right = "Right"
+    case flip = "Flip"
+    case pause = "Pause"
+    // Alert
+    case home = "Home"
+    case resume = "Resume"
+    case settings = "Settings"
+    // Start
+    // Info
+    case play = "Play"
+}
+
+public enum GameScreen: String, CaseIterable {
+    case start = "Start Screen"
+    case infoButtons = "Buttons Information Screen"
+    case infoAccelerometer = "No Buttons Information Screen"
+    case playing = "Playing Screen"
+    case gameOver = "Game Over Screen"
+    var commandsPerScreen: [GameCommand] {
+        switch self {
+            case .start:
+                return [.play]
+            case .infoButtons:
+                return [.play]
+            case .infoAccelerometer:
+                return [.play]
+            case .playing:
+                return [.fire, .thrust, .hyperspace, .left, .right, .pause, .flip, .home, .settings, .resume]
+            case .gameOver:
+                return [.pause, .home, .settings, .resume]
+        }
+    }
+}

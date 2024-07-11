@@ -11,6 +11,10 @@
 import Foundation
 import Swash
 
+protocol GameStateObserver: AnyObject {
+    func onGameStateChange(state: GameScreen)
+}
+
 final class TransitionAppStateSystem: ListIteratingSystem {
     private let startTransition: StartUseCase?
     private let infoViewsTransition: InfoViewsUseCase?
