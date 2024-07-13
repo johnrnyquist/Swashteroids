@@ -84,6 +84,11 @@ class PowerUpCreator: PowerUpCreatorUseCase {
                 .add(component: positionComponent)
                 .add(component: velocityComponent)
                 .add(component: CollidableComponent(radius: radius))
+        //HACK
+        if type(of: component) == XRayPowerUpComponent.self {
+            velocityComponent.angularVelocity = 0.0
+            entity.add(component: LifetimeComponent(timeRemaining: 30))
+        }
         self.engine.add(entity: entity)
         sprite.alpha = 0.0
         let alphaUp = SKAction.fadeAlpha(to: 1.0, duration: 0.5)
