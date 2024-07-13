@@ -27,8 +27,8 @@ class PlayerCreator: PlayerCreatorUseCase {
         self.randomness = randomness
     }
 
-    func createShip(_ state: GameStateComponent) {
-        let ship = Entity(named: .player)
+    func createPlayer(_ state: GameStateComponent) {
+        let player = Entity(named: .player)
         let sprite = SwashScaledSpriteNode(texture: createShipTexture())
         //        sprite.physicsBody = SKPhysicsBody(rectangleOf: sprite.size.scaled(by: 0.8))//(circleOfRadius: 25 * scaleManager.SCALE_FACTOR)
         //        sprite.physicsBody?.isDynamic = true
@@ -43,8 +43,8 @@ class PlayerCreator: PlayerCreatorUseCase {
         nacellesSprite.isHidden = true
         nacellesSprite.name = "nacelles"
         sprite.addChild(nacellesSprite)
-        sprite.entity = ship
-        ship
+        sprite.entity = player
+        player
                 .add(component: PlayerComponent())
                 .add(component: HyperspaceDriveComponent(jumps: 0))
                 .add(component: GunComponent(offsetX: sprite.width / 2,
@@ -52,7 +52,7 @@ class PlayerCreator: PlayerCreatorUseCase {
                                              minimumShotInterval: 0.1,
                                              torpedoLifetime: 2,
                                              ownerType: .player,
-                                             ownerName: ship.name,
+                                             ownerName: player.name,
                                              numTorpedoes: 0))
                 .add(component: WarpDriveComponent())
                 .add(component: PositionComponent(x: state.gameSize.width / 2,
@@ -70,15 +70,13 @@ class PlayerCreator: PlayerCreatorUseCase {
                 .add(component: AlienWorkerTargetComponent.shared)
         switch state.shipControlsState {
         case .usingAccelerometer:
-                ship.add(component: AccelerometerComponent.shared)
+            player.add(component: AccelerometerComponent.shared)
         case .usingScreenControls:
-            ship.remove(componentClass: AccelerometerComponent.self)
-            break
+            player.remove(componentClass: AccelerometerComponent.self)
         case .usingGamepad:
-            ship.remove(componentClass: AccelerometerComponent.self)
-            break
+            player.remove(componentClass: AccelerometerComponent.self)
         }
-        engine.add(entity: ship)
+        engine.add(entity: player)
     }
 
     /// Removes and adds components to the ship entity to put in a destroyed state.
@@ -107,7 +105,6 @@ class PlayerCreator: PlayerCreatorUseCase {
                 .remove(componentClass: ExitScreenComponent.self)
                 .remove(componentClass: GunComponent.self)
                 .remove(componentClass: HyperspaceDriveComponent.self)
-//                .remove(componentClass: InputComponent.self)
                 .remove(componentClass: MoveToTargetComponent.self)
                 .remove(componentClass: MovementRateComponent.self)
                 .remove(componentClass: ReactionTimeComponent.self)

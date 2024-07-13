@@ -42,12 +42,12 @@ class SplitAsteroidSystem: ListIteratingSystem {
     // What if the phaser splits things differently? Straight line cut? Wobbling after? Or results in just one smaller?
     // Or splits into 3 (two small, one medium)? What if it destroys a medium sized one?
     func splitAsteroid(asteroidEntity: Entity, splits: Int = 2, level: Int) {
-        guard let collisionComponent = asteroidEntity[CollidableComponent.self],
+        guard let radius = asteroidEntity[CollidableComponent.self]?.radius,
               let asteroidComponent = asteroidEntity[AsteroidComponent.self],
-              let positionComponent = asteroidEntity[PositionComponent.self]
+              let point = asteroidEntity[PositionComponent.self]?.point
         else { return }
         if randomness.nextInt(from: 1, through: 3) == 3 {
-            treasureCreator.createTreasure(positionComponent: positionComponent)
+            treasureCreator.createTreasure(at: point)
         }
         switch asteroidComponent.size {
         case .small:
@@ -56,9 +56,9 @@ class SplitAsteroidSystem: ListIteratingSystem {
             // The smallest asteroid is 1/4 the size of the large asteroid.
             for _ in 1...splits {
                 // The new asteroid will be half the size of the original.
-                asteroidCreator.createAsteroid(radius: collisionComponent.radius * 1.0 / scaleManager.SCALE_FACTOR / 2.0,
-                                       x: positionComponent.x + randomness.nextDouble(from: -5.0, through: 5.0),
-                                       y: positionComponent.y + randomness.nextDouble(from: -5.0, through: 5.0),
+                asteroidCreator.createAsteroid(radius: radius / scaleManager.SCALE_FACTOR / 2.0,
+                                       x: point.x + randomness.nextDouble(from: -5.0, through: 5.0),
+                                       y: point.y + randomness.nextDouble(from: -5.0, through: 5.0),
                                        size: asteroidComponent.shrink(),
                                        level: level)
             }

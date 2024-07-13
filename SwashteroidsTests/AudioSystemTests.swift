@@ -17,14 +17,12 @@ final class AudioSystemTests: XCTestCase {
     var system: AudioSystem!
     var node: AudioNode!
     var component: AudioComponent!
-    var soundPlayer: MockSoundPlayer!
 
     override func setUpWithError() throws {
         component = AudioComponent(name: "bar", fileName: .thrust)
         node = AudioNode()
         node.components[AudioComponent.name] = component
-        soundPlayer = MockSoundPlayer()
-        system = AudioSystem(soundPlayer: soundPlayer)
+        system = AudioSystem()
     }
 
     override func tearDownWithError() throws {
@@ -36,25 +34,5 @@ final class AudioSystemTests: XCTestCase {
     func test_Init() throws {
         XCTAssertTrue(system.nodeClass == AudioNode.self)
         XCTAssertNotNil(system.nodeUpdateFunction)
-    }
-
-    func test_UpdateNode() throws {
-        system.updateNode(node: node, time: 1)
-        XCTAssertTrue(soundPlayer.actionCalled)
-        XCTAssertTrue(soundPlayer.runCalled)
-    }
-
-    class MockSoundPlayer: SoundPlaying {
-        var actionCalled = false
-        var runCalled = false
-
-        func action(forKey key: String) -> SKAction? {
-            actionCalled = true
-            return nil
-        }
-
-        func run(_ action: SKAction, withKey: String) {
-            runCalled = true
-        }
     }
 }

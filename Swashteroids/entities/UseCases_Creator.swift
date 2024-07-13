@@ -39,7 +39,7 @@ protocol ShipButtonControlsCreatorUseCase: AnyObject {
 }
 
 protocol PlayerCreatorUseCase: AnyObject {
-    func createShip(_ state: GameStateComponent)
+    func createPlayer(_ state: GameStateComponent)
     func destroy(entity: Entity)
 }
 
@@ -58,7 +58,7 @@ protocol TorpedoCreatorUseCase: AnyObject {
 }
 
 protocol TreasureCreatorUseCase: AnyObject {
-    func createTreasure(positionComponent: PositionComponent)
+    func createTreasure(at point: CGPoint)
 }
 
 protocol StartScreenCreatorUseCase: AnyObject {

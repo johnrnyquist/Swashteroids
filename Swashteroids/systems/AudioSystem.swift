@@ -12,11 +12,6 @@ import SpriteKit
 import Swash
 import SwiftySound
 
-protocol SoundPlaying: AnyObject {
-    func action(forKey: String) -> SKAction?
-    func run(_ action: SKAction, withKey: String)
-}
-
 final class AudioSystem: ListIteratingSystem {
     init() {
         super.init(nodeClass: AudioNode.self)

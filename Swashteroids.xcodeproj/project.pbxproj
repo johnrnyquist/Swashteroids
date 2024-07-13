@@ -118,7 +118,7 @@
 		8DB409EC2B1D3C6F008DE4EB /* ChangeGameStateComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB409EB2B1D3C6F008DE4EB /* ChangeGameStateComponent.swift */; };
 		8DB99F522B2BE7D700C3593A /* TestingAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB99F512B2BE7D700C3593A /* TestingAppDelegate.swift */; };
 		8DB99F542B2BE81800C3593A /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB99F532B2BE81800C3593A /* main.swift */; };
-		8DB99F572B2BE9EE00C3593A /* RenderSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB99F562B2BE9EE00C3593A /* RenderSystemTests.swift */; };
+		8DB99F572B2BE9EE00C3593A /* DisplaySystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB99F562B2BE9EE00C3593A /* DisplaySystemTests.swift */; };
 		8DB99F592B2BF2A700C3593A /* GameOverSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB99F582B2BF2A700C3593A /* GameOverSystemTests.swift */; };
 		8DB99F5B2B2C9B4500C3593A /* TransitionAppStateSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB99F5A2B2C9B4500C3593A /* TransitionAppStateSystemTests.swift */; };
 		8DB99F7B2B2E8BE400C3593A /* MovementSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931399F9256FB8B5F9EBA4E4 /* MovementSystemTests.swift */; };
@@ -195,6 +195,7 @@
 		931399C749E2BD0BE4E247A0 /* ApplyThrustComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931397D7C84D4E580EB51E4D /* ApplyThrustComponent.swift */; };
 		931399CD2A31C40FAF304E01 /* HapticFeedbackComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931394FCE0983D687FBC93BC /* HapticFeedbackComponent.swift */; };
 		931399FEBA1404DE9F734910 /* MovementRateComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139A62ACBE6CDFC10158E7 /* MovementRateComponent.swift */; };
+		93139A086390D256A1688C79 /* SystemsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313986D3E0A8543FBA57068 /* SystemsManager.swift */; };
 		93139A6C0DBE796C7456682D /* LevelManagementSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313963E69F992809FDF553A /* LevelManagementSystem.swift */; };
 		93139A8885E51A1D11E5F1D6 /* HudCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931397F86C674AD22210D173 /* HudCreator.swift */; };
 		93139A9EC82B1613E385C4DF /* CGFloat+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139AFE6A68E0D9B149BA93 /* CGFloat+extensions.swift */; };
@@ -371,7 +372,7 @@
 		8DB65D702C1132660030623B /* Swashteroids.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Swashteroids.xctestplan; sourceTree = "<group>"; };
 		8DB99F512B2BE7D700C3593A /* TestingAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingAppDelegate.swift; sourceTree = "<group>"; };
 		8DB99F532B2BE81800C3593A /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		8DB99F562B2BE9EE00C3593A /* RenderSystemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderSystemTests.swift; sourceTree = "<group>"; };
+		8DB99F562B2BE9EE00C3593A /* DisplaySystemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplaySystemTests.swift; sourceTree = "<group>"; };
 		8DB99F582B2BF2A700C3593A /* GameOverSystemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverSystemTests.swift; sourceTree = "<group>"; };
 		8DB99F5A2B2C9B4500C3593A /* TransitionAppStateSystemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionAppStateSystemTests.swift; sourceTree = "<group>"; };
 		8DC1A0DC2C2CE52E0009698B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -432,6 +433,7 @@
 		931397F86C674AD22210D173 /* HudCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudCreator.swift; sourceTree = "<group>"; };
 		9313984E48003E8BAEC01327 /* CreatorsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatorsManager.swift; sourceTree = "<group>"; };
 		9313984EED9DBB7390E4BFF1 /* PickTargetSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickTargetSystem.swift; sourceTree = "<group>"; };
+		9313986D3E0A8543FBA57068 /* SystemsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemsManager.swift; sourceTree = "<group>"; };
 		9313988C064025FB4880FF1F /* ThrustNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThrustNode.swift; sourceTree = "<group>"; };
 		93139921E04E8DBE2DF6800B /* SplitAsteroidUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitAsteroidUseCase.swift; sourceTree = "<group>"; };
 		93139927DCF5E5DC2AE98363 /* ReactionTimeNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReactionTimeNode.swift; sourceTree = "<group>"; };
@@ -700,6 +702,7 @@
 				8D23C1822B02C59C00F7D878 /* GameplayManagerSystem.swift */,
 				8DFB49FB2C2E0B8A006EFB8B /* list_iterating */,
 				8D23C1882B02C59C00F7D878 /* DisplaySystem.swift */,
+				9313986D3E0A8543FBA57068 /* SystemsManager.swift */,
 			);
 			path = systems;
 			sourceTree = "<group>";
@@ -778,7 +781,7 @@
 				93139C5C73E05D316598047C /* NacelleSystemTests.swift */,
 				8D1925282C24B0F800A090F9 /* PickTargetSystemTests.swift */,
 				8D88C4832B61D3FF00B75314 /* RandomnessTests.swift */,
-				8DB99F562B2BE9EE00C3593A /* RenderSystemTests.swift */,
+				8DB99F562B2BE9EE00C3593A /* DisplaySystemTests.swift */,
 				93139B1BA616F9CF29C1B194 /* RightSystemTests.swift */,
 				93139C4A1DEEA1037E802D8E /* ShipControlsSystemTests.swift */,
 				8DB99F512B2BE7D700C3593A /* TestingAppDelegate.swift */,
@@ -1020,7 +1023,7 @@
 			mainGroup = 8D23C1292B02C4C900F7D878;
 			packageReferences = (
 				8DDB04E82C376AE20029248B /* XCRemoteSwiftPackageReference "SwiftySound" */,
-				8D1C1DCE2C404DEA005137DE /* XCLocalSwiftPackageReference "../../Swash_Swift_Package/Swash" */,
+				8D1C1DCE2C404DEA005137DE /* XCLocalSwiftPackageReference */,
 			);
 			productRefGroup = 8D23C1332B02C4CA00F7D878 /* Products */;
 			projectDirPath = "";
@@ -1255,6 +1258,7 @@
 				9313917C504C1A8F1DEF19A8 /* CGSize+extensions.swift in Sources */,
 				93139411ABADC3F079CC2F3B /* Equatable+extensions.swift in Sources */,
 				931396DB4A4897E0A98702A1 /* AlienAppearancesSystem.swift in Sources */,
+				93139A086390D256A1688C79 /* SystemsManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1266,7 +1270,7 @@
 				8DB99F5B2B2C9B4500C3593A /* TransitionAppStateSystemTests.swift in Sources */,
 				8D19252B2C26242E00A090F9 /* AlienFiringSystemTests.swift in Sources */,
 				8DB99F522B2BE7D700C3593A /* TestingAppDelegate.swift in Sources */,
-				8DB99F572B2BE9EE00C3593A /* RenderSystemTests.swift in Sources */,
+				8DB99F572B2BE9EE00C3593A /* DisplaySystemTests.swift in Sources */,
 				8D384D9A2B28F3F300D5564C /* TorpedoAgeSystemTests.swift in Sources */,
 				8DB99F592B2BF2A700C3593A /* GameOverSystemTests.swift in Sources */,
 				93139BC5661C918BD0158277 /* HyperspaceSystemTests.swift in Sources */,
@@ -1585,7 +1589,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		8D1C1DCE2C404DEA005137DE /* XCLocalSwiftPackageReference "../../Swash_Swift_Package/Swash" */ = {
+		8D1C1DCE2C404DEA005137DE /* XCLocalSwiftPackageReference */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../../Swash_Swift_Package/Swash;
 		};

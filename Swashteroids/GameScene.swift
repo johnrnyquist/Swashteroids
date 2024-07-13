@@ -12,8 +12,6 @@ import SpriteKit
 import Swash
 import GameController
 
-extension GameScene: SoundPlaying {}
-
 class GameScene: SKScene {
     weak var touchDelegate: TouchDelegate?
 

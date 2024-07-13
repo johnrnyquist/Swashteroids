@@ -89,7 +89,7 @@ class GameplayManagerSystem: System {
             let newSpaceshipPosition = CGPoint(x: scene.size.width * shipPositionRatio,
                                                y: scene.size.height * shipPositionRatio)
             if isClearToAddSpaceship(at: newSpaceshipPosition) {
-                playerCreator.createShip(appStateComponent)
+                playerCreator.createPlayer(appStateComponent)
             }
         } else { // GAME OVER!
             entity.add(component: ChangeGameStateComponent(from: .playing, to: .gameOver))

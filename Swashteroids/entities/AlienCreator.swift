@@ -175,6 +175,7 @@ class AlienCreator: AlienCreatorUseCase {
 
     func createAlienWorker(startDestination: CGPoint, endDestination: CGPoint) {
         guard engine.findEntity(named: .player) != nil else { return }
+        let level = engine.gameStateComponent.level
         totalAliens += 1
         let sprite = SwashScaledSpriteNode(imageNamed: .alienWorker)
         sprite.name = "\(EntityName.alienWorker)_\(totalAliens)"
@@ -186,7 +187,7 @@ class AlienCreator: AlienCreatorUseCase {
         let alienComponent = AlienComponent(cast: .worker)
         alienComponent.destinationStart = startDestination
         alienComponent.destinationEnd = endDestination
-        let velocityX = 90.0 + Double(engine.gameStateComponent.level) * 5.0 + randomness.nextDouble(from: 0.0, through: 10.0)
+        let velocityX = 90.0 + Double(level) * 5.0 + randomness.nextDouble(from: 0.0, through: 10.0)
         let alienEntity = Entity(named: "\(EntityName.alienWorker)_\(totalAliens)")
         alienEntity
                 .add(component: alienComponent)
@@ -205,13 +206,14 @@ class AlienCreator: AlienCreatorUseCase {
                 .add(component: AlienFiringComponent.shared)
                 .add(component: CollidableComponent(radius: 25))
                 .add(component: DisplayComponent(sknode: sprite))
-                .add(component: ReactionTimeComponent(reactionSpeed: 0.4)) //TODO: Adjust based on level, wave, and/or cast
+                .add(component: ReactionTimeComponent(reactionSpeed: 0.5 - Double(level) * 0.02))
         sprite.entity = alienEntity
         engine.add(entity: alienEntity)
     }
 
     func createAlienSoldier(startDestination: CGPoint, endDestination: CGPoint) {
         guard engine.findEntity(named: .player) != nil else { return }
+        let level = engine.gameStateComponent.level
         totalAliens += 1
         let sprite = SwashScaledSpriteNode(imageNamed: .alienSoldier)
         sprite.name = "\(EntityName.alienSoldier)_\(totalAliens)"
@@ -223,7 +225,7 @@ class AlienCreator: AlienCreatorUseCase {
         let alienComponent = AlienComponent(cast: .soldier)
         alienComponent.destinationStart = startDestination
         alienComponent.destinationEnd = endDestination
-        let velocityX = 120.0 + Double(engine.gameStateComponent.level) * 5.0 + randomness.nextDouble(from: 0.0, through: 10.0)
+        let velocityX = 120.0 + Double(level) * 5.0 + randomness.nextDouble(from: 0.0, through: 10.0)
         let alienEntity = Entity(named: "\(EntityName.alienSoldier)_\(totalAliens)")
         alienEntity
                 .add(component: alienComponent)
@@ -243,7 +245,7 @@ class AlienCreator: AlienCreatorUseCase {
                 .add(component: AlienFiringComponent.shared)
                 .add(component: CollidableComponent(radius: 25))
                 .add(component: DisplayComponent(sknode: sprite))
-                .add(component: ReactionTimeComponent(reactionSpeed: 0.4)) //TODO: Adjust based on level, wave, and/or cast
+                .add(component: ReactionTimeComponent(reactionSpeed: 0.4 - Double(level) * 0.02))
         sprite.entity = alienEntity
         engine.add(entity: alienEntity)
     }

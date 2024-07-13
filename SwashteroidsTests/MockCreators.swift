@@ -58,7 +58,7 @@ class MockPlayerCreator: PlayerCreatorUseCase {
     var createShipCalled = false
     var destroyCalled = false
 
-    func createShip(_ state: GameStateComponent) {
+    func createPlayer(_ state: GameStateComponent) {
         createShipCalled = true
     }
 

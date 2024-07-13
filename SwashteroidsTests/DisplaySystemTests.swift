@@ -13,7 +13,7 @@ import SpriteKit
 @testable import Swash
 @testable import Swashteroids
 
-final class RenderSystemTests: XCTestCase {
+final class DisplaySystemTests: XCTestCase {
     var system: DisplaySystem!
     var container: MockScene!
     var engine: Engine!

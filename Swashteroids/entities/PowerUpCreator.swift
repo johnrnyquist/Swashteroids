@@ -62,8 +62,8 @@ class PowerUpCreator: PowerUpCreatorUseCase {
         addEmitter(colored: color, on: sprite)
         let entity = Entity(named: entityName)
         sprite.entity = entity
-        let positionComponent = self.createRandomPosition(level: Double(level), layer: .asteroids)
-        let velocityComponent = self.createRandomVelocity(level: Double(level))
+        let positionComponent = createRandomPosition(level: Double(level), layer: .asteroids)
+        let velocityComponent = createRandomVelocity(level: Double(level))
         velocityComponent.angularVelocity = 25.0
         entity
                 .add(component: DisplayComponent(sknode: sprite))
@@ -82,7 +82,7 @@ class PowerUpCreator: PowerUpCreatorUseCase {
         sprite.run(sequence)
     }
 
-    func createRandomPosition(level: Double, layer: Layer) -> PositionComponent {
+    private func createRandomPosition(level: Double, layer: Layer) -> PositionComponent {
         let dir = [-1.0, 1.0]
         let r1 = randomness.nextDouble(from: 75.0, through: level * 130.0) * dir[randomness.nextInt(upTo: dir.count)]
         let r2 = randomness.nextDouble(from: 75.0, through: level * 100) * dir[randomness.nextInt(upTo: dir.count)]
@@ -91,13 +91,13 @@ class PowerUpCreator: PowerUpCreatorUseCase {
         return PositionComponent(x: centerX, y: centerY, z: layer, rotationDegrees: 0.0)
     }
 
-    func createRandomVelocity(level: Double) -> VelocityComponent {
+    private func createRandomVelocity(level: Double) -> VelocityComponent {
         let velocityX = randomness.nextDouble(from: -10.0, through: 10.0) * Double(level)
         let velocityY = randomness.nextDouble(from: -10.0, through: 10.0) * Double(level)
         return VelocityComponent(velocityX: velocityX, velocityY: velocityY, dampening: 0, base: 60.0)
     }
 
-    func addEmitter(colored color: UIColor, on sknode: SKNode) {
+    private func addEmitter(colored color: UIColor, on sknode: SKNode) {
         if let emitter = SKEmitterNode(fileNamed: "fireflies_mod.sks") {
             // emitter.setScale(1.0 * scaleManager.SCALE_FACTOR)
 //             let colorRamp: [UIColor] = [color.lighter(by: 30.0).shiftHue(by: 10.0)]

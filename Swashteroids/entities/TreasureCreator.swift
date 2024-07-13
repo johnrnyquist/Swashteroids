@@ -21,7 +21,7 @@ class TreasureCreator: TreasureCreatorUseCase {
         self.randomness = randomness
     }
 
-    func createTreasure(positionComponent: PositionComponent) {
+    func createTreasure(at point: CGPoint) {
         let treasureIsSpecial = randomness.nextInt(from: 1, through: 5) == 5
         let standard = (color: UIColor.systemGreen, value: treasure_standard_value)
         let special = (color: UIColor.systemPink, value: treasure_special_value)
@@ -31,8 +31,8 @@ class TreasureCreator: TreasureCreatorUseCase {
         totalTreasures += 1
         let treasureEntity = Entity(named: "treasure" + "_\(totalTreasures)")
                 .add(component: TreasureComponent(value: treasureData.value))
-                .add(component: PositionComponent(x: positionComponent.x,
-                                                  y: positionComponent.y,
+                .add(component: PositionComponent(x: point.x,
+                                                  y: point.y,
                                                   z: .asteroids,
                                                   rotationDegrees: 45))
                 .add(component: VelocityComponent(velocityX: 0, velocityY: 0, angularVelocity: 25, wraps: true, base: 0))

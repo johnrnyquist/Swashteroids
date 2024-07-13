@@ -11,14 +11,17 @@
 import Foundation
 import Swash
 
-class ReactionTimeComponent: Component {
+final class ReactionTimeComponent: Component {
     var reactionSpeed: TimeInterval
     var timeSinceLastReaction: TimeInterval = 0.0
 
     // MARK: - Computed Properties
-    var canReact: Bool { timeSinceLastReaction >= reactionSpeed }
+    var canReact: Bool {
+        timeSinceLastReaction >= reactionSpeed
+    }
 
     init(reactionSpeed: Double) {
+        print("ReactionTimeComponent", reactionSpeed)
         self.reactionSpeed = reactionSpeed
     }
 
