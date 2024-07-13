@@ -11,10 +11,6 @@
 import SpriteKit
 import Swash
 
-//HACK global constants for now
-let treasure_standard_value = 75
-let treasure_special_value = 350
-
 /// This class is an argument for switching to the SpriteKit physics engine.
 class CollisionSystem: System {
     private let asteroidCreator: AsteroidCreatorUseCase
@@ -27,6 +23,7 @@ class CollisionSystem: System {
     private weak var asteroids: NodeList!
     private weak var engine: Engine!
     private weak var hyperspacePowerUp: NodeList!
+    private weak var xRayPowerUp: NodeList!
     private weak var shipButtonControlsCreator: ShipButtonControlsCreatorUseCase!
     private weak var players: NodeList!
     private weak var torpedoPowerUp: NodeList!
@@ -56,6 +53,7 @@ class CollisionSystem: System {
         torpedoes = engine.getNodeList(nodeClassType: TorpedoCollisionNode.self)
         torpedoPowerUp = engine.getNodeList(nodeClassType: GunPowerUpNode.self)
         hyperspacePowerUp = engine.getNodeList(nodeClassType: HyperspacePowerUpNode.self)
+        xRayPowerUp = engine.getNodeList(nodeClassType: XRayPowerUpNode.self)
         treasures = engine.getNodeList(nodeClassType: TreasureCollisionNode.self)
     }
 
@@ -64,6 +62,7 @@ class CollisionSystem: System {
     override public func update(time: TimeInterval) {
         collisionCheck(nodeA: players.head, nodeB: torpedoPowerUp.head, action: shipAndTorpedoPowerUp)
         collisionCheck(nodeA: players.head, nodeB: hyperspacePowerUp.head, action: shipAndHyperspacePowerUp)
+        collisionCheck(nodeA: players.head, nodeB: xRayPowerUp.head, action: shipAndXRayPowerUp)
         collisionCheck(nodeA: torpedoes.head, nodeB: asteroids.head, action: torpedoesAndAsteroids)
         for vehicle in [players.head, aliens.head] {
             collisionCheck(nodeA: torpedoes.head, nodeB: vehicle, action: torpedoAndVehicle)
@@ -92,9 +91,9 @@ class CollisionSystem: System {
         //END_HACK
     }
 
-    func shipAndHyperspacePowerUp(shipNode: Node, hyperspace: Node) {
+    func shipAndHyperspacePowerUp(playerNode: Node, hyperspace: Node) {
         engine.remove(entity: hyperspace.entity!)
-        guard let player = shipNode.entity else { return }
+        guard let player = playerNode.entity else { return }
         player.remove(componentClass: HyperspaceDriveComponent.self) //HACK to prevent having one in the chamber
         player
                 .add(component: HyperspaceDriveComponent(jumps: 5))
@@ -102,6 +101,14 @@ class CollisionSystem: System {
         //HACK for immediate gratification
         shipButtonControlsCreator.showHyperspaceButton()
         //END_HACK
+    }
+    
+    func shipAndXRayPowerUp(playerNode: Node, xRayPowerUp: Node) {
+        engine.remove(entity: xRayPowerUp.entity!)
+        guard let player = playerNode.entity else { return }
+        player
+                .add(component: XRayVisionComponent())
+                .add(component: AudioComponent(name: "powerup.wav", fileName: .powerUp))
     }
 
     func torpedoesAndAsteroids(torpedoNode: Node, asteroidNode: Node) {
@@ -128,10 +135,10 @@ class CollisionSystem: System {
         else { return }
         let torpedoOwner = torpedoNode[TorpedoComponent.self]!.owner
         switch torpedoOwner {
-        case .player:
-            if let _ = ve[PlayerComponent.self] { return }
-        case .computerOpponent:
-            if let _ = ve[AlienComponent.self] { return }
+            case .player:
+                if let _ = ve[PlayerComponent.self] { return }
+            case .computerOpponent:
+                if let _ = ve[AlienComponent.self] { return }
         }
         if let torpedo = torpedoNode.entity { engine.remove(entity: torpedo) }
         if ve[PlayerComponent.self] != nil {
@@ -173,16 +180,16 @@ class CollisionSystem: System {
 
     func vehiclesAndTreasures(vehicleNode: Node, treasureNode: Node) {
         engine.remove(entity: treasureNode.entity!)
-        if
-            let _ = vehicleNode[PlayerComponent.self], // it’s the player
-            let ship = vehicleNode.entity,
-            let appState = appStateNodes.head?[GameStateComponent.self],
-            let value = treasureNode[TreasureComponent.self]?.value {
-            appState.score += value
-            if value == treasure_special_value {
-                ship.add(component: AudioComponent(name: "treasure", fileName: .treasureSpecial))
-            } else {
-                ship.add(component: AudioComponent(name: "treasure", fileName: .treasureStandard))
+        if let _ = vehicleNode[PlayerComponent.self], 
+           let ship = vehicleNode.entity,
+           let appState = appStateNodes.head?[GameStateComponent.self],
+           let type = treasureNode[TreasureComponent.self]?.type {
+            appState.score += type.value
+            switch type {
+                case .standard:
+                    ship.add(component: AudioComponent(name: "treasure", fileName: .treasureStandard))
+                case .special:
+                    ship.add(component: AudioComponent(name: "treasure", fileName: .treasureSpecial))
             }
         }
     }

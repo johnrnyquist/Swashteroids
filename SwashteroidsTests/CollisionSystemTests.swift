@@ -84,7 +84,7 @@ class CollisionSystemTests: XCTestCase {
                 .add(component: DisplayComponent(sknode: SKNode()))
         engine.add(entity: torpedoEntity_player)
         treasureEntity = Entity(named: "treasure_1")
-                .add(component: TreasureComponent(value: 1))
+                .add(component: TreasureComponent(type: 1))
                 .add(component: CollidableComponent(radius: 10, scaleManager: MockScaleManager()))
                 .add(component: PositionComponent(x: 0, y: 0, z: 0))
         shipButtonControlsCreator = MockShipButtonControlsCreator()
@@ -222,7 +222,7 @@ class CollisionSystemTests: XCTestCase {
         }
         hyperspacePowerUp.entity = hyperspacePowerUpEntity
         // SUT
-        system.shipAndHyperspacePowerUp(shipNode: shipCollisionNode, hyperspace: hyperspacePowerUp)
+        system.shipAndHyperspacePowerUp(playerNode: shipCollisionNode, hyperspace: hyperspacePowerUp)
         //
         XCTAssertTrue(shipEntity.has(componentClassName: HyperspaceDriveComponent.name))
         XCTAssertTrue(shipEntity.has(componentClassName: AudioComponent.name))

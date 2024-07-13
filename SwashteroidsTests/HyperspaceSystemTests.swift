@@ -26,13 +26,13 @@ final class HyperspaceSystemTests: XCTestCase {
     }
 
     func test_Init() throws {
-        XCTAssertTrue(system.nodeClass == HyperspaceJumpNode.self)
+        XCTAssertTrue(system.nodeClass == DoHyperspaceJumpNode.self)
         XCTAssertNotNil(system.nodeUpdateFunction)
     }
 
     func test_UpdateNode() throws {
         let entity = Entity()
-        let node = HyperspaceJumpNode()
+        let node = DoHyperspaceJumpNode()
         node.entity = entity
         let hyperEngine = HyperspaceDriveComponent(jumps: 20)
         let hyperJump = DoHyperspaceJumpComponent(size: .zero, randomness: Randomness.initialize(with: 1))

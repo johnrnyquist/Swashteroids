@@ -54,7 +54,7 @@ class PlayerCreator: PlayerCreatorUseCase {
                                              ownerType: .player,
                                              ownerName: player.name,
                                              numTorpedoes: 0))
-                .add(component: WarpDriveComponent())
+                .add(component: ImpulseDriveComponent())
                 .add(component: PositionComponent(x: state.gameSize.width / 2,
                                                   y: state.gameSize.height / 2,
                                                   z: .player,

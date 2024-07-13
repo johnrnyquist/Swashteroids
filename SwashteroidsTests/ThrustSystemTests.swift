@@ -36,13 +36,13 @@ final class ThrustSystemTests: XCTestCase {
         let motionControls = MovementRateComponent(accelerationRate: 10.0,
                                                      rotationRate: 0.0,
                                                      scaleManager: MockScaleManager())
-        let warpdrive = WarpDriveComponent()
+        let warpdrive = ImpulseDriveComponent()
         let node = ThrustNode()
         node.components[PositionComponent.name] = position
         node.components[ApplyThrustComponent.name] = applythrust
         node.components[VelocityComponent.name] = motion
         node.components[MovementRateComponent.name] = motionControls
-        node.components[WarpDriveComponent.name] = warpdrive
+        node.components[ImpulseDriveComponent.name] = warpdrive
         node.components[PositionComponent.name] = position
         if system.nodeUpdateFunction == nil {
             XCTFail("nodeUpdateFunction is nil")

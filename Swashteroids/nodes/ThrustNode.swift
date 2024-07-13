@@ -18,7 +18,7 @@ final class ThrustNode: Node {
             ApplyThrustComponent.name: nil,
             VelocityComponent.name: nil,
             MovementRateComponent.name: nil,
-            WarpDriveComponent.name: nil,
+            ImpulseDriveComponent.name: nil,
         ]
     }
 }

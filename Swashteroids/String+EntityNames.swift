@@ -41,6 +41,7 @@ extension String {
     static let gameOver: EntityName = "gameOver"
     static let hud: EntityName = "hudEntity"
     static let hyperspacePowerUp: EntityName = "hyperspacePowerUpEntity"
+    static let xRayPowerUp: EntityName = "xrayPowerUpEntity"
     static let input: EntityName = "inputEntity"
     static let pauseButton: EntityName = "pauseButtonEntity"
     static let player: EntityName = "playerEntity"

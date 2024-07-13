@@ -78,6 +78,8 @@ final class GameViewController: UIViewController, PauseAlertPresenting {
 
     private func swashteroids_create() -> Swashteroids {
         let seed = Int(Date().timeIntervalSince1970)
+        // seed 1720875684 // Starts with an empty, then splits to a red, then that splits with a green
+        print("seed", seed)
         var config = GameConfig(gameSize: scene.size)
         if let _ = gamepadManager?.pad {
             config.shipControlsState = .usingGamepad

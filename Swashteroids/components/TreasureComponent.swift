@@ -10,11 +10,43 @@
 
 import Swash
 import Foundation
+import SpriteKit
 
+enum TreasureType {
+    case standard
+    case special
+    var color: UIColor {
+        switch self {
+            case .standard:
+                return .systemGreen
+            case .special:
+                return .systemPink
+        }
+    }
+    var value: Int {
+        switch self {
+            case .standard:
+                return 75
+            case .special:
+                return 350
+        }
+    }
+}
+
+/// Used by the asteroid entities
+final class TreasureInfoComponent: Component {
+    let type: TreasureType
+
+    init(of type: TreasureType) {
+        self.type = type
+    }
+}
+
+/// Used by the treasure entities, used for Collisions
 final class TreasureComponent: Component {
-    var value: Int
+    let type: TreasureType
 
-    init(value: Int) {
-        self.value = value
+    init(type: TreasureType) {
+        self.type = type
     }
 }

@@ -20,11 +20,11 @@ final class NacellesSystem: ListIteratingSystem {
 
     private func updateNode(node: Node, time: TimeInterval) {
         guard
-            let warpDrive = node[WarpDriveComponent.self],
+            let impulseDrive = node[ImpulseDriveComponent.self],
             let sprite = node[DisplayComponent.self]?.sprite
         else { return }
         //HACK I'm not crazy about the isThrusting flag and the child node access here
-        if warpDrive.isThrusting {
+        if impulseDrive.isThrusting {
             sprite.childNode(withName: "//nacelles")?.isHidden = false
         } else {
             sprite.childNode(withName: "//nacelles")?.isHidden = true

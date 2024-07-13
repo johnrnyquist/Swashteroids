@@ -10,7 +10,7 @@
 
 import Swash
 
-final class HyperspaceJumpNode: Node {
+final class DoHyperspaceJumpNode: Node {
     required init() {
         super.init()
         components = [
@@ -22,7 +22,7 @@ final class HyperspaceJumpNode: Node {
     }
 }
 
-final class HyperspaceNode: Node {
+final class HyperspaceDriveNode: Node {
     required init() {
         super.init()
         components = [

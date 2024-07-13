@@ -128,7 +128,7 @@ class TouchedButtonSystem: ListIteratingSystem {
                 } else if buttonEntity.has(componentClass: ButtonThrustComponent.self) {
                     if let ship = engine.playerEntity {
                         ship.add(component: ApplyThrustComponent.shared)
-                        ship[WarpDriveComponent.self]?.isThrusting = true
+                        ship[ImpulseDriveComponent.self]?.isThrusting = true
                         ship[RepeatingAudioComponent.self]?.state = .shouldBegin
                     }
                 } else if buttonEntity.has(componentClass: ButtonRightComponent.self) {
@@ -155,7 +155,7 @@ class TouchedButtonSystem: ListIteratingSystem {
                 if buttonEntity.has(componentClass: ButtonThrustComponent.self) {
                     if let playerEntity = engine.playerEntity {
                         playerEntity.remove(componentClass: ApplyThrustComponent.self)
-                        playerEntity[WarpDriveComponent.self]?.isThrusting = false
+                        playerEntity[ImpulseDriveComponent.self]?.isThrusting = false
                         playerEntity[RepeatingAudioComponent.self]?.state = .shouldStop
                     }
                 } else if buttonEntity.has(componentClass: ButtonRightComponent.self) {
@@ -168,7 +168,7 @@ class TouchedButtonSystem: ListIteratingSystem {
                     if buttonEntity.has(componentClass: ButtonThrustComponent.self) {
                         if let playerEntity = engine.playerEntity {
                             playerEntity.add(component: ApplyThrustComponent.shared)
-                            playerEntity[WarpDriveComponent.self]?.isThrusting = true
+                            playerEntity[ImpulseDriveComponent.self]?.isThrusting = true
                             playerEntity[RepeatingAudioComponent.self]?.state = .shouldBegin
                         }
                     } else if buttonEntity.has(componentClass: ButtonRightComponent.self) {
@@ -181,7 +181,7 @@ class TouchedButtonSystem: ListIteratingSystem {
                         if let playerEntity = engine.playerEntity,
                            playerEntity.has(componentClass: ApplyThrustComponent.self) {
                             playerEntity.remove(componentClass: ApplyThrustComponent.self)
-                            playerEntity[WarpDriveComponent.self]?.isThrusting = false
+                            playerEntity[ImpulseDriveComponent.self]?.isThrusting = false
                             playerEntity[RepeatingAudioComponent.self]?.state = .shouldStop
                         }
                     } else if buttonEntity.has(componentClass: ButtonRightComponent.self) {
@@ -272,7 +272,7 @@ class TouchedQuadrantSystem: ListIteratingSystem {
                     case .q3:
                         if let ship = self.engine.playerEntity {
                             ship.add(component: ApplyThrustComponent.shared)
-                            ship[WarpDriveComponent.self]?.isThrusting = true
+                            ship[ImpulseDriveComponent.self]?.isThrusting = true
                             ship[RepeatingAudioComponent.self]?.state = .shouldBegin
                         }
                     case .q4:
@@ -285,7 +285,7 @@ class TouchedQuadrantSystem: ListIteratingSystem {
                     case .q3:
                         if let ship = self.engine.playerEntity {
                             ship.remove(componentClass: ApplyThrustComponent.self)
-                            ship[WarpDriveComponent.self]?.isThrusting = false
+                            ship[ImpulseDriveComponent.self]?.isThrusting = false
                             ship[RepeatingAudioComponent.self]?.state = .shouldStop
                         }
                     default:

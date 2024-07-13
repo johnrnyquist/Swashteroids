@@ -88,5 +88,6 @@ class SystemsManager {
                 .add(system: AudioSystem(), priority: .render)
                 .add(system: RepeatingAudioSystem(), priority: .render)
                 .add(system: DisplaySystem(scene: scene), priority: .render)
+                .add(system: XRayVisionSystem(), priority: .render)
     }
 }

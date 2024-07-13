@@ -10,6 +10,6 @@
 
 import Swash
 
-final class WarpDriveComponent: Component {
+final class ImpulseDriveComponent: Component {
     var isThrusting = false
 }

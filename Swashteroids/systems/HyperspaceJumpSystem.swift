@@ -16,7 +16,7 @@ final class HyperspaceJumpSystem: ListIteratingSystem {
     private weak var powerUpCreator: PowerUpCreator?
 
     init(engine: Engine) {
-        super.init(nodeClass: HyperspaceJumpNode.self)
+        super.init(nodeClass: DoHyperspaceJumpNode.self)
         self.engine = engine
         nodeUpdateFunction = updateNode
     }

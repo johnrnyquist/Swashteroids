@@ -26,6 +26,10 @@ class PowerUpCreator: PowerUpCreatorUseCase {
         createHyperspacePowerUp(level: level, radius: POWER_UP_RADIUS)
     }
 
+    func createXRayPowerUp(level: Int) {
+        createXRayPowerUp(level: level, radius: POWER_UP_RADIUS)
+    }
+
     func createTorpedoesPowerUp(level: Int) {
         createTorpedoesPowerUp(level: level, radius: POWER_UP_RADIUS)
     }
@@ -49,12 +53,21 @@ class PowerUpCreator: PowerUpCreatorUseCase {
                       component: HyperspacePowerUpComponent())
     }
 
-    func createPowerUp(level: Int,
-                       radius: Double,
-                       entityName: EntityName,
-                       sprite: SwashScaledSpriteNode,
-                       color: UIColor,
-                       component: Component) {
+    func createXRayPowerUp(level: Int, radius: Double = POWER_UP_RADIUS) {
+        createPowerUp(level: level,
+                      radius: radius,
+                      entityName: .xRayPowerUp,
+                      sprite: SwashScaledSpriteNode(imageNamed: "visionpro.circle"),
+                      color: .powerUpXRay,
+                      component: XRayPowerUpComponent())
+    }
+
+    private func createPowerUp(level: Int,
+                               radius: Double,
+                               entityName: EntityName,
+                               sprite: SwashScaledSpriteNode,
+                               color: UIColor,
+                               component: Component) {
         guard engine.findEntity(named: entityName) == nil else { return }
         sprite.name = entityName
         sprite.color = color

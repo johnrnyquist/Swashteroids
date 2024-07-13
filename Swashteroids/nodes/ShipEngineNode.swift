@@ -15,7 +15,7 @@ final class ShipEngineNode: Node {
         super.init()
         components = [
             DisplayComponent.name: nil,
-            WarpDriveComponent.name: nil,
+            ImpulseDriveComponent.name: nil,
         ]
     }
 }

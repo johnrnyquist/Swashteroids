@@ -403,11 +403,11 @@ class GamepadInputManager: NSObject, ObservableObject, GameStateObserver {
     private func thrust(_ button: GCControllerButtonInput, _ value: Float, _ pressed: Bool) {
         if pressed {
             game?.engine.playerEntity?.add(component: ApplyThrustComponent.shared)
-            game?.engine.playerEntity?[WarpDriveComponent.self]?.isThrusting = true
+            game?.engine.playerEntity?[ImpulseDriveComponent.self]?.isThrusting = true
             game?.engine.playerEntity?[RepeatingAudioComponent.self]?.state = .shouldBegin
         } else {
             game?.engine.playerEntity?.remove(componentClass: ApplyThrustComponent.self)
-            game?.engine.playerEntity?[WarpDriveComponent.self]?.isThrusting = false
+            game?.engine.playerEntity?[ImpulseDriveComponent.self]?.isThrusting = false
             game?.engine.playerEntity?[RepeatingAudioComponent.self]?.state = .shouldStop
         }
     }

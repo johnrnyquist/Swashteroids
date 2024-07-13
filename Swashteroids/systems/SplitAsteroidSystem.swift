@@ -18,7 +18,7 @@ class SplitAsteroidSystem: ListIteratingSystem {
     let randomness: Randomizing
     let scaleManager: ScaleManaging
 
-    init(asteroidCreator: AsteroidCreatorUseCase, 
+    init(asteroidCreator: AsteroidCreatorUseCase,
          treasureCreator: TreasureCreatorUseCase,
          randomness: Randomizing = Randomness.shared,
          scaleManager: ScaleManaging = ScaleManager.shared
@@ -46,22 +46,24 @@ class SplitAsteroidSystem: ListIteratingSystem {
               let asteroidComponent = asteroidEntity[AsteroidComponent.self],
               let point = asteroidEntity[PositionComponent.self]?.point
         else { return }
-        if randomness.nextInt(from: 1, through: 3) == 3 {
-            treasureCreator.createTreasure(at: point)
+        if let treasureInfo = asteroidEntity[TreasureInfoComponent.self] {
+            treasureCreator.createTreasure(at: point, using: treasureInfo)
         }
         switch asteroidComponent.size {
-        case .small:
-            break
-        case .medium, .large:
-            // The smallest asteroid is 1/4 the size of the large asteroid.
-            for _ in 1...splits {
-                // The new asteroid will be half the size of the original.
-                asteroidCreator.createAsteroid(radius: radius / scaleManager.SCALE_FACTOR / 2.0,
-                                       x: point.x + randomness.nextDouble(from: -5.0, through: 5.0),
-                                       y: point.y + randomness.nextDouble(from: -5.0, through: 5.0),
-                                       size: asteroidComponent.shrink(),
-                                       level: level)
-            }
+            case .small:
+                break
+            case .medium, .large:
+                // The smallest asteroid is 1/4 the size of the large asteroid.
+                for _ in 1...splits {
+                    // The new asteroid will be half the size of the original.
+                    // Divide by the scale factor to get the actual size.
+                    // Then divide by 2 to get the new size.
+                    asteroidCreator.createAsteroid(radius: radius / scaleManager.SCALE_FACTOR / 2.0,
+                                                   x: point.x + randomness.nextDouble(from: -5.0, through: 5.0),
+                                                   y: point.y + randomness.nextDouble(from: -5.0, through: 5.0),
+                                                   size: asteroidComponent.shrink(),
+                                                   level: level)
+                }
         }
         if let emitter = SKEmitterNode(fileNamed: "shipExplosion.sks") {
             asteroidEntity
@@ -71,7 +73,7 @@ class SplitAsteroidSystem: ListIteratingSystem {
             skNode.name = "explosion on \(asteroidEntity.name)"
             skNode.addChild(emitter)
             asteroidEntity
-                .add(component: AudioComponent(name: asteroidEntity.name, fileName: .explosion))
+                    .add(component: AudioComponent(name: asteroidEntity.name, fileName: .explosion))
                     .add(component: DisplayComponent(sknode: skNode))
                     .add(component: DeathThroesComponent(countdown: 0.2))
         }

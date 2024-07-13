@@ -29,7 +29,7 @@ class NacellesSystemTests: XCTestCase {
     }
 
     func test_Warping() throws {
-        let warpdrive = WarpDriveComponent()
+        let warpdrive = ImpulseDriveComponent()
         warpdrive.isThrusting = true
         let sprite = SwashScaledSpriteNode()
         let nacelles = SwashScaledSpriteNode()
@@ -37,7 +37,7 @@ class NacellesSystemTests: XCTestCase {
         sprite.addChild(nacelles)   
         let display = DisplayComponent(sknode: sprite)
         let node = ShipEngineNode()
-        node.components[WarpDriveComponent.name] = warpdrive
+        node.components[ImpulseDriveComponent.name] = warpdrive
         node.components[DisplayComponent.name] = display
         if system.nodeUpdateFunction == nil {
             XCTFail("nodeUpdateFunction is nil")
@@ -48,7 +48,7 @@ class NacellesSystemTests: XCTestCase {
     }
     
     func test_NotWarping() throws {
-        let warpdrive = WarpDriveComponent()
+        let warpdrive = ImpulseDriveComponent()
         warpdrive.isThrusting = false
         let sprite = SwashScaledSpriteNode()
         let nacelles = SwashScaledSpriteNode()
@@ -56,7 +56,7 @@ class NacellesSystemTests: XCTestCase {
         sprite.addChild(nacelles)   
         let display = DisplayComponent(sknode: sprite)
         let node = ShipEngineNode()
-        node.components[WarpDriveComponent.name] = warpdrive
+        node.components[ImpulseDriveComponent.name] = warpdrive
         node.components[DisplayComponent.name] = display
         if system.nodeUpdateFunction == nil {
             XCTFail("nodeUpdateFunction is nil")

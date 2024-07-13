@@ -15,6 +15,7 @@ import SpriteKit
 final class HudSystem: ListIteratingSystem {
     private weak var gunNodes: NodeList?
     private weak var hyperspaceNodes: NodeList?
+    private weak var xRayNodes: NodeList?
     private weak var engine: Engine?
     private weak var powerUpCreator: PowerUpCreatorUseCase?
 
@@ -28,7 +29,8 @@ final class HudSystem: ListIteratingSystem {
         super.addToEngine(engine: engine)
         self.engine = engine
         gunNodes = engine.getNodeList(nodeClassType: GunNode.self)
-        hyperspaceNodes = engine.getNodeList(nodeClassType: HyperspaceNode.self)
+        hyperspaceNodes = engine.getNodeList(nodeClassType: HyperspaceDriveNode.self)
+        xRayNodes = engine.getNodeList(nodeClassType: XRayVisionNode.self)
     }
 
     func updateNode(_ hudNode: Node, _ time: TimeInterval) {
@@ -47,6 +49,13 @@ final class HudSystem: ListIteratingSystem {
         }
         guard let hyperspaceNode = hyperspaceNodes?.head else { return }
         updateForHyperspaceNode(hyperspaceNode[HyperspaceDriveComponent.self], hudNode)
+        updateForXRayNode()
+    }
+
+    private func updateForXRayNode() {
+        if xRayNodes?.head == nil {
+            powerUpCreator?.createXRayPowerUp(level: 1)
+        }
     }
 
     func updateForHyperspaceNode(_ hyperspaceComponent: HyperspaceDriveComponent?, _ hudNode: Node?) {

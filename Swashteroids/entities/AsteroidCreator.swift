@@ -16,11 +16,14 @@ class AsteroidCreator: AsteroidCreatorUseCase {
     private var totalAsteroids = 0
     private weak var randomness: Randomizing!
     private weak var scaleManager: ScaleManaging!
+    private weak var treasureCreator: TreasureCreatorUseCase?
 
     init(engine: Engine,
+         treasureCreator: TreasureCreatorUseCase,
          randomness: Randomizing = Randomness.shared,
          scaleManager: ScaleManaging = ScaleManager.shared) {
         self.engine = engine
+        self.treasureCreator = treasureCreator
         self.randomness = randomness
         self.scaleManager = scaleManager
     }
@@ -55,6 +58,15 @@ class AsteroidCreator: AsteroidCreatorUseCase {
                 .add(component: DisplayComponent(sknode: sprite))
                 .add(component: ShootableComponent.shared)
                 .add(component: AlienWorkerTargetComponent.shared)
+        if randomness.nextInt(from: 1, through: 3) == 1 {
+            let type: TreasureType
+            if randomness.nextInt(from: 1, through: 5) == 5 {
+                type = .special
+            } else {
+                type = .standard
+            }
+            entity.add(component: TreasureInfoComponent(of: type))
+        }
         sprite.entity = entity
         engine.add(entity: entity)
     }
@@ -63,7 +75,7 @@ class AsteroidCreator: AsteroidCreatorUseCase {
         var vx = 0.0
         while abs(vx) < 3.0 || abs(vx) > (100.0 * speedModifier) {
             vx = randomness.nextDouble(from: -82.0, through: 82.0) * speedModifier
-        }        
+        }
         var vy = 0.0
         while abs(vy) < 3.0 || abs(vy) > (100.0 * speedModifier) {
             vy = randomness.nextDouble(from: -82.0, through: 82.0) * speedModifier
