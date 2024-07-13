@@ -21,18 +21,33 @@ class LevelManagementNode: Node {
     }
 }
 
+/// LevelManagementSystem is responsible for managing the progression of levels 
+/// within the game. It listens for specific game state changes, such as when all 
+/// asteroids are cleared, to transition the game to the next level. 
+/// 
+/// This system also handles the creation of new asteroids at the start of each level, ensuring they are 
+/// placed at a safe distance from the player. 
+/// 
+/// Additionally, it manages level announcements and adjusts HUD elements like level text to reflect the current level. 
+/// 
 class LevelManagementSystem: ListIteratingSystem {
-    private weak var engine: Engine!
-    private weak var asteroidCreator: AsteroidCreatorUseCase!
+    private let hudTextFontName = "Futura Condensed Medium"
+    private var hudTextFontSize: CGFloat = 64
+    //
+    private var minimumAsteroidDistance: CGFloat = 80 //TODO: figure out distance that works with ScaleManager
+    //
     private var asteroids: NodeList!
     private var players: NodeList!
-    private var minimumAsteroidDistance: CGFloat = 80
-    private weak var randomness: Randomizing!
+    //
+    private weak var engine: Engine!
     private weak var scene: GameScene!
-    private var hudTextFontSize: CGFloat = 64
-    private let hudTextFontName = "Futura Condensed Medium"
+    //
+    private weak var asteroidCreator: AsteroidCreatorUseCase!
+    private weak var randomness: Randomizing!
+    //
+    private var size: CGSize { scene.size }
 
-    init(asteroidCreator: AsteroidCreatorUseCase, 
+    init(asteroidCreator: AsteroidCreatorUseCase,
          scene: GameScene,
          randomness: Randomizing = Randomness.shared,
          scaleManager: ScaleManaging = ScaleManager.shared) {
@@ -87,8 +102,6 @@ class LevelManagementSystem: ListIteratingSystem {
                                            level: level)
         }
     }
-
-    var size: CGSize { scene.size }
 
     /// Create a random position on the screen
     func randomPosition() -> CGPoint {
