@@ -21,7 +21,6 @@ final class ReactionTimeComponent: Component {
     }
 
     init(reactionSpeed: Double) {
-        print("ReactionTimeComponent", reactionSpeed)
         self.reactionSpeed = reactionSpeed
     }
 
