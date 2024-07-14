@@ -15,7 +15,6 @@ import SpriteKit
 final class HudSystem: ListIteratingSystem {
     private weak var gunNodes: NodeList?
     private weak var hyperspaceNodes: NodeList?
-    private weak var xRayNodes: NodeList?
     private weak var engine: Engine?
     private weak var powerUpCreator: PowerUpCreatorUseCase?
 
@@ -30,7 +29,6 @@ final class HudSystem: ListIteratingSystem {
         self.engine = engine
         gunNodes = engine.getNodeList(nodeClassType: GunNode.self)
         hyperspaceNodes = engine.getNodeList(nodeClassType: HyperspaceDriveNode.self)
-        xRayNodes = engine.getNodeList(nodeClassType: XRayVisionNode.self)
     }
 
     func updateNode(_ hudNode: Node, _ time: TimeInterval) {
@@ -41,23 +39,18 @@ final class HudSystem: ListIteratingSystem {
         hudComponent.hudView.setScore(appStateComponent.score)
         hudComponent.hudView.setLevel(appStateComponent.level)
         //
-        guard let gunNodes else { return }
-        var gunNode = gunNodes.head
-        while let currentGunNode = gunNode {
-            updateForGunNode(currentGunNode[GunComponent.self], gunNode?.entity, hudNode)
-            gunNode = currentGunNode.next
+        if let gunNodes {
+            var gunNode = gunNodes.head
+            while let currentGunNode = gunNode {
+                updateForGunNode(currentGunNode[GunComponent.self], gunNode?.entity, hudNode)
+                gunNode = currentGunNode.next
+            }
         }
-        guard let hyperspaceNode = hyperspaceNodes?.head else { return }
-        updateForHyperspaceNode(hyperspaceNode[HyperspaceDriveComponent.self], hudNode)
-        updateForXRayNode()
-    }
-
-    private func updateForXRayNode() {
-        if xRayNodes?.head == nil {
-            powerUpCreator?.createXRayPowerUp(level: 1)
+        if let hyperspaceNode = hyperspaceNodes?.head {
+            updateForHyperspaceNode(hyperspaceNode[HyperspaceDriveComponent.self], hudNode)
         }
     }
-
+    
     func updateForHyperspaceNode(_ hyperspaceComponent: HyperspaceDriveComponent?, _ hudNode: Node?) {
         if let hyperspaceComponent {
             hudNode?[HudComponent.self]?.hudView.setJumps(hyperspaceComponent.jumps)

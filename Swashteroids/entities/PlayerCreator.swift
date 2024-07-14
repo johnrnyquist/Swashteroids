@@ -69,12 +69,12 @@ class PlayerCreator: PlayerCreatorUseCase {
                 .add(component: ShootableComponent.shared)
                 .add(component: AlienWorkerTargetComponent.shared)
         switch state.shipControlsState {
-        case .usingAccelerometer:
-            player.add(component: AccelerometerComponent.shared)
-        case .usingScreenControls:
-            player.remove(componentClass: AccelerometerComponent.self)
-        case .usingGamepad:
-            player.remove(componentClass: AccelerometerComponent.self)
+            case .usingAccelerometer:
+                player.add(component: AccelerometerComponent.shared)
+            case .usingScreenControls:
+                player.remove(componentClass: AccelerometerComponent.self)
+            case .usingGamepad:
+                player.remove(componentClass: AccelerometerComponent.self)
         }
         engine.add(entity: player)
     }
@@ -109,7 +109,8 @@ class PlayerCreator: PlayerCreatorUseCase {
                 .remove(componentClass: MovementRateComponent.self)
                 .remove(componentClass: ReactionTimeComponent.self)
                 .remove(componentClass: ShootableComponent.self)
-        // Change components
+                .remove(componentClass: XRayVisionComponent.self)
+        // Change components                
         entity[VelocityComponent.self]?.angularVelocity = randomness.nextDouble(from: -100.0, through: 100.0)
         // Add components
         entity

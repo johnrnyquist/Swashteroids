@@ -62,9 +62,13 @@ class XRayVisionSystem: ListIteratingSystem {
     }
 
     func updateNode(node: Node, time: TimeInterval) {
-        guard let sprite = node[DisplayComponent.self]?.sprite,
-              let treasureInfo = node[TreasureInfoComponent.self]?.type,
-                let _ = xRayNodes?.head
+        //HACK I'm brute forcing the colors at-the-moment
+        guard let sprite = node[DisplayComponent.self]?.sprite
+        else { return }
+        sprite.color = .asteroid
+        sprite.colorBlendFactor = 1.0
+        guard let treasureInfo = node[TreasureInfoComponent.self]?.type,
+              let _ = xRayNodes?.head
         else { return }
         sprite.color = treasureInfo.color
         sprite.colorBlendFactor = 1.0

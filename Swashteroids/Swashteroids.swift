@@ -52,6 +52,7 @@ final class Swashteroids: NSObject {
         }
         orientation = UIDevice.current.orientation == .landscapeRight ? -1.0 : 1.0
         let appStateEntity = Entity(named: .appState)
+                .add(component: XRayPowerUpsLevelLogComponent())
                 .add(component: GameStateComponent(config: config))
                 .add(component: ChangeGameStateComponent(from: .start, to: .start))
                 .add(component: TimePlayedComponent())

@@ -1,0 +1,63 @@
+//
+// https://github.com/johnrnyquist/Swashteroids
+//
+// Download Swashteroids from the App Store:
+// https://apps.apple.com/us/app/swashteroids/id6472061502
+//
+// Made with Swash, give it a try!
+// https://github.com/johnrnyquist/Swash
+//
+
+import Swash
+import Foundation.NSDate
+
+class DoCreateXRayPowerUpComponent: Component {}
+
+class XRayPowerUpsLevelLogComponent: Component {
+    var levels: [Int] = []
+}
+
+class CreateXRayPowerUpNode: Node {
+    required init() {
+        super.init()
+        components = [
+            DoCreateXRayPowerUpComponent.name: nil,
+            XRayPowerUpsLevelLogComponent.name: nil,
+            GameStateComponent.name: nil,
+        ]
+    }
+}
+
+class CreateXRayPowerUpSystem: ListIteratingSystem {
+    var powerUpCreator: PowerUpCreatorUseCase?
+    var powerUpNodes: NodeList?
+    var visionNodes: NodeList?
+
+    init(powerUpCreator: PowerUpCreatorUseCase) {
+        self.powerUpCreator = powerUpCreator
+        super.init(nodeClass: CreateXRayPowerUpNode.self)
+        nodeUpdateFunction = updateNode
+    }
+
+    override func addToEngine(engine: Engine) {
+        super.addToEngine(engine: engine)
+        powerUpNodes = engine.getNodeList(nodeClassType: XRayPowerUpNode.self)
+        visionNodes = engine.getNodeList(nodeClassType: XRayVisionNode.self)
+    }
+
+    private func updateNode(node: Node, time: TimeInterval) {
+        guard let entity = node.entity,
+              let xRayPowerUpsCreatedComponent = node[XRayPowerUpsLevelLogComponent.self],
+              let level = node[GameStateComponent.self]?.level
+        else { return }
+        entity.remove(componentClass: DoCreateXRayPowerUpComponent.self)
+        if powerUpNodes?.empty == true, // There are no xray powerup nodes floating around
+           visionNodes?.empty == true, // Player does not have xray vision
+           !xRayPowerUpsCreatedComponent.levels.contains(level) // A powerup for this level has not been created
+        {
+            xRayPowerUpsCreatedComponent.levels.append(level)
+            powerUpCreator?.createXRayPowerUp(level: level)
+        }
+    }
+}
+

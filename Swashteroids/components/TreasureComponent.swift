@@ -18,9 +18,9 @@ enum TreasureType {
     var color: UIColor {
         switch self {
             case .standard:
-                return .systemGreen
+                return .treasureStandard
             case .special:
-                return .systemPink
+                return .treasureSpecial
         }
     }
     var value: Int {
