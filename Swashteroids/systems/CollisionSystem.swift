@@ -81,11 +81,7 @@ class CollisionSystem: System {
         collisionCheck(nodeA: shields.head, nodeB: torpedoes.head, action: shieldsAndTorpedoes)
     }
 
-    func shieldsAndAliens(shields: Node, aliens: Node) {
-        engine.remove(entity: shields.entity!)
-        appStateNodes.head?[GameStateComponent.self]?.numAliensDestroyed += 1
-        guard let alien = aliens.entity else { return }
-        playerCreator.destroy(entity: alien)
+    private func updateShields(shields: Node) {
         if let shieldsComponent = shields.entity?[ShieldsComponent.self],
            shieldsComponent.strength > 0 {
             shieldsComponent.strength -= 1
@@ -95,14 +91,16 @@ class CollisionSystem: System {
         }
     }
 
+    func shieldsAndAliens(shields: Node, aliens: Node) {
+        engine.remove(entity: shields.entity!)
+        appStateNodes.head?[GameStateComponent.self]?.numAliensDestroyed += 1
+        guard let alien = aliens.entity else { return }
+        playerCreator.destroy(entity: alien)
+        updateShields(shields: shields)
+    }
+
     func shieldsAndAsteroids(shields: Node, asteroidNode: Node) {
-        if let shieldsComponent = shields.entity?[ShieldsComponent.self],
-           shieldsComponent.strength > 0 {
-            shieldsComponent.strength -= 1
-            if shieldsComponent.strength == 0 {
-                engine.remove(entity: shields.entity!)
-            }
-        }
+        updateShields(shields: shields)
         let level = appStateNodes.head?[GameStateComponent.self]?.level ?? 1
         if let entity = asteroidNode.entity,
            let player = players.head?.entity,
@@ -122,13 +120,7 @@ class CollisionSystem: System {
     func shieldsAndTorpedoes(shields: Node, torpedoes: Node) {
         if torpedoes[TorpedoComponent.self]?.owner == .computerOpponent {
             if let entity = torpedoes.entity { engine.remove(entity: entity) }
-            if let shieldsComponent = shields.entity?[ShieldsComponent.self],
-               shieldsComponent.strength > 0 {
-                shieldsComponent.strength -= 1
-                if shieldsComponent.strength == 0 {
-                    engine.remove(entity: shields.entity!)
-                }
-            }
+            updateShields(shields: shields)
         }
     }
 
@@ -182,12 +174,13 @@ class CollisionSystem: System {
         let spriteNode = SwashSpriteNode(imageNamed: "circle.dotted.circle")
         spriteNode.color = .shields
         spriteNode.colorBlendFactor = 1.0
-        spriteNode.scale = 1.5
+        spriteNode.scale = (2.0 * radius * 1.60) / spriteNode.size.width
         let entity = Entity(named: .shields)
                 .add(component: ShieldsComponent())
-                .add(component: CollidableComponent(radius: 2.0 * radius * 1.2))
+                .add(component: CollidableComponent(radius: spriteNode.size.width/2.0))
                 .add(component: PositionComponent(x: point.x, y: point.y, z: .player))
                 .add(component: DisplayComponent(sknode: spriteNode))
+                .add(component: VelocityComponent(velocityX: 0, velocityY: 0, angularVelocity: 15))
         spriteNode.entity = entity
         engine.add(entity: entity)
     }

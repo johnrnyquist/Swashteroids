@@ -26,7 +26,7 @@ class CreateShieldsPowerUpNode: Node {
     required init() {
         super.init()
         components = [
-            DoCreateXRayPowerUpComponent.name: nil,
+            DoCreateShieldsPowerUpComponent.name: nil,
         ]
     }
 }
@@ -58,10 +58,10 @@ class ShieldsNode: Node {
 /// This is mainly du to the presence of DoCreateXRayPowerUpComponent.
 /// It usese XRayPowerUpsLevelLogComponent and GameStateComponent from the Node
 /// and uses XRayPowerUpNodes and XRayVisionNodes.
-class CreateShieldsPowerUpSystem: ListIteratingSystem {
-    var powerUpCreator: PowerUpCreatorUseCase?
-    var powerUpNodes: NodeList?
-    var shieldsNodes: NodeList?
+final class CreateShieldsPowerUpSystem: ListIteratingSystem {
+    private weak var powerUpCreator: PowerUpCreatorUseCase?
+    private weak var powerUpNodes: NodeList?
+    private weak var shieldsNodes: NodeList?
 
     init(powerUpCreator: PowerUpCreatorUseCase) {
         self.powerUpCreator = powerUpCreator
@@ -76,9 +76,6 @@ class CreateShieldsPowerUpSystem: ListIteratingSystem {
     }
 
     private func updateNode(node: Node, time: TimeInterval) {
-//        guard let entity = node.entity
-//        else { return }
-//        entity.remove(componentClass: DoCreateShieldsPowerUpComponent.self)
         if powerUpNodes?.empty == true,
            shieldsNodes?.empty == true {
             powerUpCreator?.createShieldsPowerUp()
@@ -87,8 +84,8 @@ class CreateShieldsPowerUpSystem: ListIteratingSystem {
 }
 
 final class ShieldsSystem: ListIteratingSystem {
-    var shieldsNodes: NodeList?
-    var playerNodes: NodeList?
+    private weak var shieldsNodes: NodeList?
+    private weak var playerNodes: NodeList?
 
     init() {
         super.init(nodeClass: ShieldsNode.self)
@@ -109,6 +106,6 @@ final class ShieldsSystem: ListIteratingSystem {
         else { return }
         shieldsPosition.x = playerPosition.x
         shieldsPosition.y = playerPosition.y
-        sprite.alpha = CGFloat(shields.strength)/CGFloat(shields.max)
+        sprite.alpha = CGFloat(shields.strength) / CGFloat(shields.max)
     }
 }

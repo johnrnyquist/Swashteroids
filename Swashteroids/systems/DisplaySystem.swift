@@ -14,13 +14,13 @@ import Swash
 final class DisplaySystem: System {
     weak var scene: GameScene!
     weak var nodes: NodeList?
-//    let circles = SKSpriteNode()
+    let circles = SKSpriteNode()
 
     init(scene: GameScene) {
         self.scene = scene
-//        circles.name = "circles"
-//        circles.anchorPoint = .zero
-//        scene.addChild(circles)
+        circles.name = "circles"
+        circles.anchorPoint = .zero
+        scene.addChild(circles)
     }
 
     override func addToEngine(engine: Engine) {
@@ -58,11 +58,11 @@ final class DisplaySystem: System {
             }
             displayNode = currentNode.next
         }
-//        circles.removeAllChildren()
-//        let foos = scene.children
-//                        .compactMap { $0 as? SwashSpriteNode }
-//                        .compactMap { $0.entity }
-//                        .filter { $0.has(componentClass: CollidableComponent.self) }
+        circles.removeAllChildren()
+        let foos = scene.children
+                        .compactMap { $0 as? SwashSpriteNode }
+                        .compactMap { $0.entity }
+                        .filter { $0.has(componentClass: CollidableComponent.self) }
 //        for foo in foos {
 //            guard let point = foo[PositionComponent.self]?.point,
 //                  let radius = foo[CollidableComponent.self]?.radius
