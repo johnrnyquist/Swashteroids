@@ -24,11 +24,13 @@ class CollisionSystem: System {
     private weak var engine: Engine!
     private weak var hyperspacePowerUp: NodeList!
     private weak var xRayPowerUp: NodeList!
+    private weak var shieldsPowerUp: NodeList!
     private weak var shipButtonControlsCreator: ShipButtonControlsCreatorUseCase!
     private weak var players: NodeList!
     private weak var torpedoPowerUp: NodeList!
     private weak var torpedoes: NodeList!
     private weak var treasures: NodeList!
+    private weak var shields: NodeList!
 
     init(shipCreator: PlayerCreatorUseCase,
          asteroidCreator: AsteroidCreatorUseCase,
@@ -55,24 +57,82 @@ class CollisionSystem: System {
         hyperspacePowerUp = engine.getNodeList(nodeClassType: HyperspacePowerUpNode.self)
         xRayPowerUp = engine.getNodeList(nodeClassType: XRayPowerUpNode.self)
         treasures = engine.getNodeList(nodeClassType: TreasureCollisionNode.self)
+        shieldsPowerUp = engine.getNodeList(nodeClassType: ShieldsPowerUpNode.self)
+        shields = engine.getNodeList(nodeClassType: ShieldsNode.self)
     }
 
     /// 
     /// - Parameter time: The time since the last update
     override public func update(time: TimeInterval) {
-        collisionCheck(nodeA: players.head, nodeB: torpedoPowerUp.head, action: shipAndTorpedoPowerUp)
-        collisionCheck(nodeA: players.head, nodeB: hyperspacePowerUp.head, action: shipAndHyperspacePowerUp)
-        collisionCheck(nodeA: players.head, nodeB: xRayPowerUp.head, action: shipAndXRayPowerUp)
+        collisionCheck(nodeA: players.head, nodeB: torpedoPowerUp.head, action: playerAndTorpedoPowerUp)
+        collisionCheck(nodeA: players.head, nodeB: hyperspacePowerUp.head, action: playerAndHyperspacePowerUp)
+        collisionCheck(nodeA: players.head, nodeB: xRayPowerUp.head, action: playerAndXRayPowerUp)
+        collisionCheck(nodeA: players.head, nodeB: shieldsPowerUp.head, action: playerAndShieldsPowerUp)
         collisionCheck(nodeA: torpedoes.head, nodeB: asteroids.head, action: torpedoesAndAsteroids)
         for vehicle in [players.head, aliens.head] {
-            collisionCheck(nodeA: torpedoes.head, nodeB: vehicle, action: torpedoAndVehicle)
+            collisionCheck(nodeA: vehicle, nodeB: torpedoes.head, action: vehiclesAndTorpedoes)
             collisionCheck(nodeA: vehicle, nodeB: asteroids.head, action: vehiclesAndAsteroids)
             collisionCheck(nodeA: vehicle, nodeB: treasures.head, action: vehiclesAndTreasures)
         }
-        collisionCheck(nodeA: players.head, nodeB: aliens.head, action: shipsAndAliens)
+        collisionCheck(nodeA: players.head, nodeB: aliens.head, action: playersAndAliens)
+        // 
+        collisionCheck(nodeA: shields.head, nodeB: aliens.head, action: shieldsAndAliens)
+        collisionCheck(nodeA: shields.head, nodeB: asteroids.head, action: shieldsAndAsteroids)
+        collisionCheck(nodeA: shields.head, nodeB: torpedoes.head, action: shieldsAndTorpedoes)
     }
 
-    func shipAndTorpedoPowerUp(shipNode: Node, torpedoPowerUpNode: Node) {
+    func shieldsAndAliens(shields: Node, aliens: Node) {
+        engine.remove(entity: shields.entity!)
+        appStateNodes.head?[GameStateComponent.self]?.numAliensDestroyed += 1
+        guard let alien = aliens.entity else { return }
+        playerCreator.destroy(entity: alien)
+        if let shieldsComponent = shields.entity?[ShieldsComponent.self],
+           shieldsComponent.strength > 0 {
+            shieldsComponent.strength -= 1
+            if shieldsComponent.strength == 0 {
+                engine.remove(entity: shields.entity!)
+            }
+        }
+    }
+
+    func shieldsAndAsteroids(shields: Node, asteroidNode: Node) {
+        if let shieldsComponent = shields.entity?[ShieldsComponent.self],
+           shieldsComponent.strength > 0 {
+            shieldsComponent.strength -= 1
+            if shieldsComponent.strength == 0 {
+                engine.remove(entity: shields.entity!)
+            }
+        }
+        let level = appStateNodes.head?[GameStateComponent.self]?.level ?? 1
+        if let entity = asteroidNode.entity,
+           let player = players.head?.entity,
+           let velocity = player[VelocityComponent.self] {
+            velocity.x = -velocity.x
+            velocity.y = -velocity.y
+            entity.add(component: SplitAsteroidComponent(level: level, splits: 2))
+            if let gameStateNode = appStateNodes.head,
+               let appStateComponent = gameStateNode[GameStateComponent.self] {
+                appStateComponent.score += 25
+                appStateComponent.numHits += 1
+                appStateComponent.numAsteroidsMined += 1
+            }
+        }
+    }
+
+    func shieldsAndTorpedoes(shields: Node, torpedoes: Node) {
+        if torpedoes[TorpedoComponent.self]?.owner == .computerOpponent {
+            if let entity = torpedoes.entity { engine.remove(entity: entity) }
+            if let shieldsComponent = shields.entity?[ShieldsComponent.self],
+               shieldsComponent.strength > 0 {
+                shieldsComponent.strength -= 1
+                if shieldsComponent.strength == 0 {
+                    engine.remove(entity: shields.entity!)
+                }
+            }
+        }
+    }
+
+    func playerAndTorpedoPowerUp(shipNode: Node, torpedoPowerUpNode: Node) {
         engine.remove(entity: torpedoPowerUpNode.entity!)
         guard let player = shipNode.entity else { return }
         player.remove(componentClass: FireDownComponent.self) //HACK to prevent having one in the chamber
@@ -91,7 +151,7 @@ class CollisionSystem: System {
         //END_HACK
     }
 
-    func shipAndHyperspacePowerUp(playerNode: Node, hyperspace: Node) {
+    func playerAndHyperspacePowerUp(playerNode: Node, hyperspace: Node) {
         engine.remove(entity: hyperspace.entity!)
         guard let player = playerNode.entity else { return }
         player.remove(componentClass: HyperspaceDriveComponent.self) //HACK to prevent having one in the chamber
@@ -102,13 +162,34 @@ class CollisionSystem: System {
         shipButtonControlsCreator.showHyperspaceButton()
         //END_HACK
     }
-    
-    func shipAndXRayPowerUp(playerNode: Node, xRayPowerUp: Node) {
+
+    func playerAndXRayPowerUp(playerNode: Node, xRayPowerUp: Node) {
         engine.remove(entity: xRayPowerUp.entity!)
         guard let player = playerNode.entity else { return }
         player
                 .add(component: XRayVisionComponent())
                 .add(component: AudioComponent(name: "powerup.wav", fileName: .powerUp))
+    }
+
+    func playerAndShieldsPowerUp(playerNode: Node, shieldsPowerUp: Node) {
+        engine.remove(entity: shieldsPowerUp.entity!)
+        guard let player = playerNode.entity,
+              let point = player[PositionComponent.self]?.point,
+              let radius = player[CollidableComponent.self]?.radius
+        else { return }
+        player
+                .add(component: AudioComponent(name: "powerup.wav", fileName: .powerUp))
+        let spriteNode = SwashSpriteNode(imageNamed: "circle.dotted.circle")
+        spriteNode.color = .shields
+        spriteNode.colorBlendFactor = 1.0
+        spriteNode.scale = 1.5
+        let entity = Entity(named: .shields)
+                .add(component: ShieldsComponent())
+                .add(component: CollidableComponent(radius: 2.0 * radius * 1.2))
+                .add(component: PositionComponent(x: point.x, y: point.y, z: .player))
+                .add(component: DisplayComponent(sknode: spriteNode))
+        spriteNode.entity = entity
+        engine.add(entity: entity)
     }
 
     func torpedoesAndAsteroids(torpedoNode: Node, asteroidNode: Node) {
@@ -126,7 +207,7 @@ class CollisionSystem: System {
         }
     }
 
-    func torpedoAndVehicle(torpedoNode: Node, vehicleNode: Node) {
+    func vehiclesAndTorpedoes(vehicleNode: Node, torpedoNode: Node) {
         // Shooter can’t shoot himself
         guard let teName = torpedoNode[TorpedoComponent.self]?.ownerName,
               let te = engine.findEntity(named: teName),
@@ -180,7 +261,7 @@ class CollisionSystem: System {
 
     func vehiclesAndTreasures(vehicleNode: Node, treasureNode: Node) {
         engine.remove(entity: treasureNode.entity!)
-        if let _ = vehicleNode[PlayerComponent.self], 
+        if let _ = vehicleNode[PlayerComponent.self],
            let ship = vehicleNode.entity,
            let appState = appStateNodes.head?[GameStateComponent.self],
            let type = treasureNode[TreasureComponent.self]?.type {
@@ -194,7 +275,7 @@ class CollisionSystem: System {
         }
     }
 
-    func shipsAndAliens(shipNode: Node, alienNode: Node) {
+    func playersAndAliens(shipNode: Node, alienNode: Node) {
         guard let shipEntity = shipNode.entity,
               let alienEntity = alienNode.entity,
               let shipVelocity = shipNode[VelocityComponent.self],

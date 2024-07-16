@@ -26,10 +26,12 @@ protocol HudCreatorUseCase: AnyObject {
 protocol PowerUpCreatorUseCase: AnyObject {
     func createHyperspacePowerUp(level: Int)
     func createHyperspacePowerUp(level: Int, radius: Double)
-    func createXRayPowerUp(level: Int)
-    func createXRayPowerUp(level: Int, radius: Double)
+    func createShieldsPowerUp()
+    func createShieldsPowerUp(radius: Double)
     func createTorpedoesPowerUp(level: Int)
     func createTorpedoesPowerUp(level: Int, radius: Double)
+    func createXRayPowerUp(level: Int)
+    func createXRayPowerUp(level: Int, radius: Double)
 }
 
 protocol ShipButtonControlsCreatorUseCase: AnyObject {

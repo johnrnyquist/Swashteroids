@@ -50,3 +50,13 @@ final class TreasureComponent: Component {
         self.type = type
     }
 }
+
+final class TreasureInfoNode: Node {
+    required init() {
+        super.init()
+        components = [
+            TreasureInfoComponent.name: nil,
+            DisplayComponent.name: nil,
+        ]
+    }
+}

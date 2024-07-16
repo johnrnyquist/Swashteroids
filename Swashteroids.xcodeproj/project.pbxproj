@@ -216,6 +216,7 @@
 		93139C836F9BF1E2D1F59D81 /* FiringSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139BA0869A8C42C820CEDA /* FiringSystem.swift */; };
 		93139C9255ADC566131EAEE7 /* RepeatingAudioSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139EFE2FEE83D932F6AFBA /* RepeatingAudioSystem.swift */; };
 		93139CB863A15BF4B1274D41 /* PlayerCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139F43221229D3FBAC46D9 /* PlayerCreator.swift */; };
+		93139CD92FFC547190EE44DE /* CreateShieldsPowerUpSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139C8044AA2C3F2199DEA0 /* CreateShieldsPowerUpSystem.swift */; };
 		93139D10A3929204EC8DF9BF /* FlipSystemTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139C3D0D48098244988F2F /* FlipSystemTest.swift */; };
 		93139D16F77B51882659E4F7 /* ShipControlsSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139F522F09D6409294A901 /* ShipControlsSystem.swift */; };
 		93139D342AB9B2EF7FAB1C6C /* Transition+Playing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313938353DF3012CCAE66D1 /* Transition+Playing.swift */; };
@@ -473,6 +474,7 @@
 		93139C5C73E05D316598047C /* NacelleSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NacelleSystemTests.swift; sourceTree = "<group>"; };
 		93139C73A66D8863A166745D /* PowerUpCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PowerUpCreator.swift; sourceTree = "<group>"; };
 		93139C76E92BDD6C851476EC /* PickTargetNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickTargetNode.swift; sourceTree = "<group>"; };
+		93139C8044AA2C3F2199DEA0 /* CreateShieldsPowerUpSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateShieldsPowerUpSystem.swift; sourceTree = "<group>"; };
 		93139CBF7A7836DA7371F38A /* AccelerometerSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccelerometerSystem.swift; sourceTree = "<group>"; };
 		93139CC64C9CFC7E61D7DCFE /* FlipNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlipNode.swift; sourceTree = "<group>"; };
 		93139D029684C918FEDD3DC1 /* LeftNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftNode.swift; sourceTree = "<group>"; };
@@ -934,6 +936,7 @@
 				931397321E614AC7F5F6747A /* TransitionAppStateSystem.swift */,
 				93139F09F2C98C12D1AAF3F0 /* XRayVisionSystem.swift */,
 				931390E7E012D44706CDE097 /* CreateXRayPowerUpSystem.swift */,
+				93139C8044AA2C3F2199DEA0 /* CreateShieldsPowerUpSystem.swift */,
 			);
 			name = list_iterating;
 			sourceTree = "<group>";
@@ -1029,7 +1032,7 @@
 			mainGroup = 8D23C1292B02C4C900F7D878;
 			packageReferences = (
 				8DDB04E82C376AE20029248B /* XCRemoteSwiftPackageReference "SwiftySound" */,
-				8D1C1DCE2C404DEA005137DE /* XCLocalSwiftPackageReference "../../Swash_Swift_Package/Swash" */,
+				8D1C1DCE2C404DEA005137DE /* XCLocalSwiftPackageReference */,
 			);
 			productRefGroup = 8D23C1332B02C4CA00F7D878 /* Products */;
 			projectDirPath = "";
@@ -1267,6 +1270,7 @@
 				93139A086390D256A1688C79 /* SystemsManager.swift in Sources */,
 				931399A1C5D96A723496B933 /* XRayVisionSystem.swift in Sources */,
 				93139DBD16DFD049C47DC7B6 /* CreateXRayPowerUpSystem.swift in Sources */,
+				93139CD92FFC547190EE44DE /* CreateShieldsPowerUpSystem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1597,7 +1601,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		8D1C1DCE2C404DEA005137DE /* XCLocalSwiftPackageReference "../../Swash_Swift_Package/Swash" */ = {
+		8D1C1DCE2C404DEA005137DE /* XCLocalSwiftPackageReference */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../../Swash_Swift_Package/Swash;
 		};

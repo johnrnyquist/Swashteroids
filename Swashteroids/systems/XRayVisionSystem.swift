@@ -24,6 +24,7 @@ final class XRayPowerUpNode: Node {
     }
 }
 
+/// The entity with the x-ray vision has this
 final class XRayVisionComponent: Component {}
 
 class XRayVisionNode: Node {
@@ -31,16 +32,6 @@ class XRayVisionNode: Node {
         super.init()
         components = [
             XRayVisionComponent.name: nil,
-        ]
-    }
-}
-
-class TreasureInfoNode: Node {
-    required init() {
-        super.init()
-        components = [
-            TreasureInfoComponent.name: nil,
-            DisplayComponent.name: nil,
         ]
     }
 }

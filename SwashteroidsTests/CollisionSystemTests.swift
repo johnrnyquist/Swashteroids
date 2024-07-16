@@ -158,7 +158,7 @@ class CollisionSystemTests: XCTestCase {
         }
         alienCollisionNode.entity = alienEntity
         // SUT
-        system.torpedoAndVehicle(torpedoNode: torpedoNode, vehicleNode: alienCollisionNode)
+        system.vehiclesAndTorpedoes(torpedoNode: torpedoNode, vehicleNode: alienCollisionNode)
         //
         XCTAssertTrue(shipCreator.destroyCalled)
         XCTAssertEqual(appStateComponent.score, 350)
@@ -183,7 +183,7 @@ class CollisionSystemTests: XCTestCase {
         }
         shipCollisionNode.entity = shipEntity
         // SUT
-        system.torpedoAndVehicle(torpedoNode: torpedoNode, vehicleNode: shipCollisionNode)
+        system.vehiclesAndTorpedoes(torpedoNode: torpedoNode, vehicleNode: shipCollisionNode)
         //
         XCTAssertTrue(shipCreator.destroyCalled)
         XCTAssertEqual(appStateComponent.numShips, 0)
@@ -202,7 +202,7 @@ class CollisionSystemTests: XCTestCase {
         }
         torpedoPowerUpNode.entity = torpedoPowerUpEntity
         // SUT
-        system.shipAndTorpedoPowerUp(shipNode: shipCollisionNode, torpedoPowerUpNode: torpedoPowerUpNode)
+        system.playerAndTorpedoPowerUp(shipNode: shipCollisionNode, torpedoPowerUpNode: torpedoPowerUpNode)
         //
         XCTAssertTrue(shipEntity.has(componentClassName: GunComponent.name))
         XCTAssertTrue(shipEntity.has(componentClassName: AudioComponent.name))
@@ -222,7 +222,7 @@ class CollisionSystemTests: XCTestCase {
         }
         hyperspacePowerUp.entity = hyperspacePowerUpEntity
         // SUT
-        system.shipAndHyperspacePowerUp(playerNode: shipCollisionNode, hyperspace: hyperspacePowerUp)
+        system.playerAndHyperspacePowerUp(playerNode: shipCollisionNode, hyperspace: hyperspacePowerUp)
         //
         XCTAssertTrue(shipEntity.has(componentClassName: HyperspaceDriveComponent.name))
         XCTAssertTrue(shipEntity.has(componentClassName: AudioComponent.name))
@@ -305,7 +305,7 @@ class CollisionSystemTests: XCTestCase {
         }
         alienCollisionNode.entity = alienEntity
         // SUT
-        system.shipsAndAliens(shipNode: shipCollisionNode, alienNode: alienCollisionNode)
+        system.playersAndAliens(shipNode: shipCollisionNode, alienNode: alienCollisionNode)
         //
         XCTAssertTrue(shipCreator.destroyCalled)
         XCTAssertTrue(appStateComponent.numShips == 0)

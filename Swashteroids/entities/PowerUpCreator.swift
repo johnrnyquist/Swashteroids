@@ -62,6 +62,20 @@ class PowerUpCreator: PowerUpCreatorUseCase {
                       component: XRayPowerUpComponent())
     }
 
+    func createShieldsPowerUp() {
+        createShieldsPowerUp(radius: POWER_UP_RADIUS)
+
+    }
+
+    func createShieldsPowerUp(radius: Double = POWER_UP_RADIUS) {
+        createPowerUp(level: 1, 
+                      radius: radius, 
+                      entityName: .shieldsPowerUp, 
+                      sprite: SwashScaledSpriteNode(imageNamed: "circle.dotted.circle"), 
+                      color: .shields, 
+                      component: ShieldsPowerUpComponent())
+    }
+
     private func createPowerUp(level: Int,
                                radius: Double,
                                entityName: EntityName,

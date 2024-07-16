@@ -56,6 +56,8 @@ class SystemsManager {
                 .add(system: transitionAppStateSystem,
                      priority: .preUpdate)
                 // update
+                .add(system: CreateShieldsPowerUpSystem(powerUpCreator: creatorManager.powerUpCreator), priority: .update)
+                .add(system: ShieldsSystem(), priority: .update)
                 .add(system: CreateXRayPowerUpSystem(powerUpCreator: creatorManager.powerUpCreator), priority: .update)
                 .add(system: AlienAppearancesSystem(alienCreator: creatorManager.alienCreator), priority: .update)
                 .add(system: LifetimeSystem(), priority: .update)
