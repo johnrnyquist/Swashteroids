@@ -23,3 +23,8 @@ extension Layer {
     static let top: Layer = 7
 }
 
+extension CGFloat {
+    var cgSize: CGSize {
+        return CGSize(width: CGFloat(self), height: CGFloat(self))
+    }
+}

@@ -167,17 +167,18 @@ class CollisionSystem: System {
         engine.remove(entity: shieldsPowerUp.entity!)
         guard let player = playerNode.entity,
               let point = player[PositionComponent.self]?.point,
-              let radius = player[CollidableComponent.self]?.radius
+              let radius = player[CollidableComponent.self]?.radius,
+              let playerSprite = player[DisplayComponent.self]?.sprite
         else { return }
         player
                 .add(component: AudioComponent(name: "powerup.wav", fileName: .powerUp))
         let spriteNode = SwashSpriteNode(imageNamed: "circle.dotted.circle")
         spriteNode.color = .shields
         spriteNode.colorBlendFactor = 1.0
-        spriteNode.scale = (2.0 * radius * 1.60) / spriteNode.size.width
+        spriteNode.size = playerSprite.size.width.cgSize * 1.7
         let entity = Entity(named: .shields)
                 .add(component: ShieldsComponent())
-                .add(component: CollidableComponent(radius: spriteNode.size.width/2.0))
+                .add(component: CollidableComponent(radius: radius/scaleManager.SCALE_FACTOR * 1.7 )) //undo scaleManager scaling on radius
                 .add(component: PositionComponent(x: point.x, y: point.y, z: .player))
                 .add(component: DisplayComponent(sknode: spriteNode))
                 .add(component: VelocityComponent(velocityX: 0, velocityY: 0, angularVelocity: 15))

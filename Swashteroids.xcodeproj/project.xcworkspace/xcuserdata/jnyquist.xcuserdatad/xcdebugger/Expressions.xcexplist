@@ -6,6 +6,14 @@
          contextName = "Signaler2.dispatch(_:_:):Signaler2.swift">
       </ContextState>
       <ContextState
+         contextName = "GLOBAL">
+         <PersistentStrings>
+            <PersistentString
+               value = "scaleManager.SCALE_FACTOR">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "ListenerNodePool.get():ListenerNodePool.swift">
       </ContextState>
       <ContextState

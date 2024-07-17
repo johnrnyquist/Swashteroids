@@ -63,17 +63,17 @@ final class DisplaySystem: System {
                         .compactMap { $0 as? SwashSpriteNode }
                         .compactMap { $0.entity }
                         .filter { $0.has(componentClass: CollidableComponent.self) }
-//        for foo in foos {
-//            guard let point = foo[PositionComponent.self]?.point,
-//                  let radius = foo[CollidableComponent.self]?.radius
-//            else { continue }
-//            let circle = SKShapeNode(circleOfRadius: CGFloat(radius))
-//            circle.position = point
-//            circle.strokeColor = .red
-//            circle.lineWidth = 1
-//            circle.zPosition = .top
-//            circles.addChild(circle)
-//        }
+        for foo in foos {
+            guard let point = foo[PositionComponent.self]?.point,
+                  let radius = foo[CollidableComponent.self]?.radius
+            else { continue }
+            let circle = SKShapeNode(circleOfRadius: CGFloat(radius))
+            circle.position = point
+            circle.strokeColor = .red
+            circle.lineWidth = 1
+            circle.zPosition = .top
+            circles.addChild(circle)
+        }
     }
 
     override func removeFromEngine(engine: Engine) {

@@ -11,15 +11,19 @@
 import Foundation
 
 extension CGSize {
-    mutating func scale(by factor: CGFloat) {
-        self.width *= factor
-        self.height *= factor
+    static func *(size: CGSize, scalar: Double) -> CGSize {
+        CGSize(width: size.width * CGFloat(scalar), height: size.height * CGFloat(scalar))
     }
 
-    func scaled(by factor: CGFloat) -> CGSize {
-        var newSize = self
-        newSize.width *= factor
-        newSize.height *= factor
-        return newSize
+    static func /(size: CGSize, scalar: Double) -> CGSize {
+        CGSize(width: size.width / CGFloat(scalar), height: size.height / CGFloat(scalar))
+    }
+
+    static func +(size: CGSize, scalar: Double) -> CGSize {
+        CGSize(width: size.width + CGFloat(scalar), height: size.height + CGFloat(scalar))
+    }
+
+    static func -(size: CGSize, scalar: Double) -> CGSize {
+        CGSize(width: size.width - CGFloat(scalar), height: size.height - CGFloat(scalar))
     }
 }

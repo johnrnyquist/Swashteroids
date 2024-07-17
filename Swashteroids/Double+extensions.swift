@@ -19,3 +19,11 @@ extension Double {
         return self < min ? min : (self > max ? max : self)
     }
 }
+
+import Foundation
+
+extension Double {
+    var cgSize: CGSize {
+        return CGSize(width: CGFloat(self), height: CGFloat(self))
+    }
+}
