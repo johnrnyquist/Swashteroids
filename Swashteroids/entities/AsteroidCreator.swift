@@ -81,8 +81,8 @@ class AsteroidCreator: AsteroidCreatorUseCase {
             vy = randomness.nextDouble(from: -82.0, through: 82.0) * speedModifier
         }
         if level == 1 {
-            vx = max(10, vx)
-            vy = max(10, vy)
+            vx = min(40.0, abs(vx))
+            vy = min(40.0, abs(vy))
         }
         let angularVelocity = randomness.nextDouble(from: -100, through: 100)
         return VelocityComponent(velocityX: vx,
