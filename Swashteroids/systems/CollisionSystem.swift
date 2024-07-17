@@ -175,10 +175,10 @@ class CollisionSystem: System {
         let spriteNode = SwashSpriteNode(imageNamed: "circle.dotted.circle")
         spriteNode.color = .shields
         spriteNode.colorBlendFactor = 1.0
-        spriteNode.size = playerSprite.size.width.cgSize * 1.7
+        spriteNode.size = playerSprite.size.width.cgSize * 1.6
         let entity = Entity(named: .shields)
                 .add(component: ShieldsComponent())
-                .add(component: CollidableComponent(radius: radius/scaleManager.SCALE_FACTOR * 1.7 )) //undo scaleManager scaling on radius
+                .add(component: CollidableComponent(radius: radius/scaleManager.SCALE_FACTOR * 1.6 )) //undo scaleManager scaling on radius
                 .add(component: PositionComponent(x: point.x, y: point.y, z: .player))
                 .add(component: DisplayComponent(sknode: spriteNode))
                 .add(component: VelocityComponent(velocityX: 0, velocityY: 0, angularVelocity: 15))

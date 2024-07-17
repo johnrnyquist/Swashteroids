@@ -57,7 +57,6 @@ class SystemsManager {
                      priority: .preUpdate)
                 // update
                 .add(system: CreateShieldsPowerUpSystem(powerUpCreator: creatorManager.powerUpCreator), priority: .update)
-                .add(system: ShieldsSystem(), priority: .update)
                 .add(system: CreateXRayPowerUpSystem(powerUpCreator: creatorManager.powerUpCreator), priority: .update)
                 .add(system: AlienAppearancesSystem(alienCreator: creatorManager.alienCreator), priority: .update)
                 .add(system: LifetimeSystem(), priority: .update)
@@ -79,6 +78,7 @@ class SystemsManager {
                 // move
                 .add(system: AccelerometerSystem(), priority: .move)
                 .add(system: MovementSystem(gameSize: scene.size), priority: .move)
+                .add(system: ShieldsSystem(), priority: .move) 
                 // resolve collisions
                 .add(system: CollisionSystem(shipCreator: creatorManager.shipCreator,
                                              asteroidCreator: creatorManager.asteroidCreator,

@@ -52,7 +52,7 @@ class AsteroidCreator: AsteroidCreatorUseCase {
         let speedModifier = lvl * 0.1 + 1.0  // 1.1, 1.2, 1.3, 1.4
         entity
                 .add(component: PositionComponent(x: x, y: y, z: .asteroids, rotationDegrees: 0.0))
-                .add(component: createVelocity(speedModifier: speedModifier))
+                .add(component: createVelocity(speedModifier: speedModifier, level: Int(lvl)))
                 .add(component: CollidableComponent(radius: radius))
                 .add(component: AsteroidComponent(size: size))
                 .add(component: DisplayComponent(sknode: sprite))
@@ -71,7 +71,7 @@ class AsteroidCreator: AsteroidCreatorUseCase {
         engine.add(entity: entity)
     }
 
-    private func createVelocity(speedModifier: Double) -> VelocityComponent {
+    private func createVelocity(speedModifier: Double, level: Int) -> VelocityComponent {
         var vx = 0.0
         while abs(vx) < 3.0 || abs(vx) > (100.0 * speedModifier) {
             vx = randomness.nextDouble(from: -82.0, through: 82.0) * speedModifier
@@ -79,6 +79,10 @@ class AsteroidCreator: AsteroidCreatorUseCase {
         var vy = 0.0
         while abs(vy) < 3.0 || abs(vy) > (100.0 * speedModifier) {
             vy = randomness.nextDouble(from: -82.0, through: 82.0) * speedModifier
+        }
+        if level == 1 {
+            vx = max(10, vx)
+            vy = max(10, vy)
         }
         let angularVelocity = randomness.nextDouble(from: -100, through: 100)
         return VelocityComponent(velocityX: vx,
