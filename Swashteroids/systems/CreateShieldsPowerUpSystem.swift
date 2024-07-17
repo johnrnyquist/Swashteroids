@@ -27,6 +27,8 @@ class CreateShieldsPowerUpNode: Node {
         super.init()
         components = [
             DoCreateShieldsPowerUpComponent.name: nil,
+            ShieldsPowerUpsLevelLogComponent.name: nil,
+            GameStateComponent.name: nil,
         ]
     }
 }
@@ -54,6 +56,10 @@ class ShieldsNode: Node {
     }
 }
 
+class ShieldsPowerUpsLevelLogComponent: Component {
+    var levels: [Int] = []
+}
+
 /// Creates an X-Ray Power-Up when a CreateXRayPowerUpNode is found.
 /// This is mainly du to the presence of DoCreateXRayPowerUpComponent.
 /// It usese XRayPowerUpsLevelLogComponent and GameStateComponent from the Node
@@ -78,6 +84,18 @@ final class CreateShieldsPowerUpSystem: ListIteratingSystem {
     private func updateNode(node: Node, time: TimeInterval) {
         if powerUpNodes?.empty == true,
            shieldsNodes?.empty == true {
+            powerUpCreator?.createShieldsPowerUp()
+        }
+        guard let entity = node.entity,
+              let shieldsPowerUpsCreatedComponent = node[ShieldsPowerUpsLevelLogComponent.self],
+              let level = node[GameStateComponent.self]?.level
+        else { return }
+        entity.remove(componentClass: DoCreateShieldsPowerUpComponent.self)
+        if powerUpNodes?.empty == true, // There are no xray powerup nodes floating around
+           shieldsNodes?.empty == true, // Player does not have xray vision
+           !shieldsPowerUpsCreatedComponent.levels.contains(level) // A powerup for this level has not been created
+        {
+            shieldsPowerUpsCreatedComponent.levels.append(level)
             powerUpCreator?.createShieldsPowerUp()
         }
     }

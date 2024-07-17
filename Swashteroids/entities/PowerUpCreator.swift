@@ -99,7 +99,7 @@ class PowerUpCreator: PowerUpCreatorUseCase {
                 .add(component: velocityComponent)
                 .add(component: CollidableComponent(radius: radius))
         //HACK
-        if type(of: component) == XRayPowerUpComponent.self {
+        if type(of: component) == XRayPowerUpComponent.self || type(of: component) == ShieldsPowerUpComponent.self {
             velocityComponent.angularVelocity = 0.0
             entity.add(component: LifetimeComponent(timeRemaining: 30))
         }
