@@ -53,7 +53,7 @@ final class XRayVisionSystem: ListIteratingSystem {
     }
 
     func updateNode(node: Node, time: TimeInterval) {
-        //HACK I'm brute forcing the colors at-the-moment
+        //HACK I'm brute forcing the application colors at-the-moment
         guard let sprite = node[DisplayComponent.self]?.sprite
         else { return }
         sprite.color = .asteroid

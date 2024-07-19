@@ -11,10 +11,9 @@
 import Swash
 import Foundation
 
-// TODO: Replace global variables with a struct or class 
-var LARGE_ASTEROID_RADIUS = 54.0
-var MEDIUM_ASTEROID_RADIUS = 27.0
-var SMALL_ASTEROID_RADIUS = 13.5
+enum AsteroidAttributes {
+    static let large = 54.0
+}
 
 /// The state of the ship controls. Either showing or hiding. 
 enum ShipControlsState {

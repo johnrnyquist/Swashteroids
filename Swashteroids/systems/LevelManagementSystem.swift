@@ -98,7 +98,7 @@ final class LevelManagementSystem: ListIteratingSystem {
             repeat {
                 position = randomPosition()
             } while (position.distance(from: positionToAvoid) <= minimumAsteroidDistance)
-            asteroidCreator.createAsteroid(radius: LARGE_ASTEROID_RADIUS,
+            asteroidCreator.createAsteroid(radius: AsteroidAttributes.large,
                                            x: position.x,
                                            y: position.y,
                                            size: .large,
