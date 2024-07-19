@@ -15,7 +15,6 @@ import Foundation
 var LARGE_ASTEROID_RADIUS = 54.0
 var MEDIUM_ASTEROID_RADIUS = 27.0
 var SMALL_ASTEROID_RADIUS = 13.5
-var POWER_UP_RADIUS = 7.0
 
 /// The state of the ship controls. Either showing or hiding. 
 enum ShipControlsState {

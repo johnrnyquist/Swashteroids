@@ -21,8 +21,8 @@ class PowerUpCreator: PowerUpCreatorUseCase {
         self.size = size
         self.randomness = randomness
     }
-    
-    func createTorpedoesPowerUp(level: Int, radius: Double = POWER_UP_RADIUS) {
+
+    func createTorpedoesPowerUp(level: Int, radius: Double) {
         createPowerUp(level: level,
                       radius: radius,
                       entityName: .torpedoPowerUp,
@@ -32,7 +32,7 @@ class PowerUpCreator: PowerUpCreatorUseCase {
         )
     }
 
-    func createHyperspacePowerUp(level: Int, radius: Double = POWER_UP_RADIUS) {
+    func createHyperspacePowerUp(level: Int, radius: Double) {
         createPowerUp(level: level,
                       radius: radius,
                       entityName: .hyperspacePowerUp,
@@ -41,7 +41,7 @@ class PowerUpCreator: PowerUpCreatorUseCase {
                       component: HyperspacePowerUpComponent())
     }
 
-    func createXRayPowerUp(level: Int, radius: Double = POWER_UP_RADIUS) {
+    func createXRayPowerUp(level: Int, radius: Double) {
         createPowerUp(level: level,
                       radius: radius,
                       entityName: .xRayPowerUp,
@@ -50,12 +50,12 @@ class PowerUpCreator: PowerUpCreatorUseCase {
                       component: XRayPowerUpComponent())
     }
 
-    func createShieldsPowerUp(radius: Double = POWER_UP_RADIUS) {
-        createPowerUp(level: 1, 
-                      radius: radius, 
-                      entityName: .shieldsPowerUp, 
-                      sprite: SwashScaledSpriteNode(imageNamed: "circle.dotted.circle"), 
-                      color: .shields, 
+    func createShieldsPowerUp(radius: Double) {
+        createPowerUp(level: 1,
+                      radius: radius,
+                      entityName: .shieldsPowerUp,
+                      sprite: SwashScaledSpriteNode(imageNamed: "circle.dotted.circle"),
+                      color: .shields,
                       component: ShieldsPowerUpComponent())
     }
 
