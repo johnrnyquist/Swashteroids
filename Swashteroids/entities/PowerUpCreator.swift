@@ -53,10 +53,10 @@ class PowerUpCreator: PowerUpCreatorUseCase {
     func createShieldsPowerUp(radius: Double) {
         createPowerUp(level: 1,
                       radius: radius,
-                      entityName: .shieldsPowerUp,
+                      entityName: .shieldPowerUp,
                       sprite: SwashScaledSpriteNode(imageNamed: "circle.dotted.circle"),
                       color: .shields,
-                      component: ShieldsPowerUpComponent())
+                      component: ShieldPowerUpComponent())
     }
 
     private func createPowerUp(level: Int,
@@ -82,7 +82,7 @@ class PowerUpCreator: PowerUpCreatorUseCase {
                 .add(component: velocityComponent)
                 .add(component: CollidableComponent(radius: radius))
         //HACK
-        if type(of: component) == XRayPowerUpComponent.self || type(of: component) == ShieldsPowerUpComponent.self {
+        if type(of: component) == XRayPowerUpComponent.self || type(of: component) == ShieldPowerUpComponent.self {
             velocityComponent.angularVelocity = 0.0
             entity.add(component: LifetimeComponent(timeRemaining: 30))
         }
