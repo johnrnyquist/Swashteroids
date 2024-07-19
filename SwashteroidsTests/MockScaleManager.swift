@@ -11,10 +11,10 @@
 import Foundation
 @testable import Swashteroids
 
-class MockScaleManager: ScaleManaging {
+final class MockScaleManager: ScaleManaging {
     var SCALE_FACTOR: CGFloat { 1.0 }
 }
 
-class MockScaleManager_halfSize: ScaleManaging {
+final class MockScaleManager_halfSize: ScaleManaging {
     var SCALE_FACTOR: CGFloat { 0.5 }
 }

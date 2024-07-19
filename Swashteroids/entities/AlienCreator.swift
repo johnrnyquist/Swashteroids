@@ -11,7 +11,7 @@
 import Swash
 import SpriteKit
 
-class AlienCreator: AlienCreatorUseCase {
+final class AlienCreator: AlienCreatorUseCase {
     private let size: CGSize
     private var totalAliens = 0
     private weak var engine: Engine!

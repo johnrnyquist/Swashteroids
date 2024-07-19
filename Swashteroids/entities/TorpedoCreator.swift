@@ -11,7 +11,7 @@
 import Swash
 import SpriteKit
 
-class TorpedoCreator: TorpedoCreatorUseCase {
+final class TorpedoCreator: TorpedoCreatorUseCase {
     private weak var engine: Engine!
     private weak var scaleManager: ScaleManaging!
 

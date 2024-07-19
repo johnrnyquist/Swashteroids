@@ -12,7 +12,7 @@ import Foundation
 import Swash
 import SpriteKit
 
-class LevelManagementNode: Node {
+final class LevelManagementNode: Node {
     required init() {
         super.init()
         components = [
@@ -30,7 +30,7 @@ class LevelManagementNode: Node {
 /// 
 /// Additionally, it manages level announcements and adjusts HUD elements like level text to reflect the current level. 
 /// 
-class LevelManagementSystem: ListIteratingSystem {
+final class LevelManagementSystem: ListIteratingSystem {
     private let hudTextFontName = "Futura Condensed Medium"
     private var hudTextFontSize: CGFloat = 64
     //

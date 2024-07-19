@@ -10,7 +10,7 @@
 
 import SpriteKit
 
-class GameOverView: SwashScaledSpriteNode {
+final class GameOverView: SwashScaledSpriteNode {
     private var gameOver: SKLabelNode = {
         let gameOver = SKLabelNode(text: "Game Over")
         gameOver.name = "gameOverLabel"

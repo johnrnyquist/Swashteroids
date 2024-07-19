@@ -11,7 +11,7 @@
 import Swash
 import SpriteKit
 
-class PlayerCreator: PlayerCreatorUseCase {
+final class PlayerCreator: PlayerCreatorUseCase {
     let engine: Engine
     let size: CGSize
     let randomness: Randomizing

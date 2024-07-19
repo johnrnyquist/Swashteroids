@@ -10,7 +10,7 @@
 
 import Swash
 
-class ReactionTimeNode: Node {
+final class ReactionTimeNode: Node {
     required init() {
         super.init()
         components = [

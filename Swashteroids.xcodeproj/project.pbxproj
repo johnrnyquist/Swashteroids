@@ -890,6 +890,24 @@
 			name = Transitions;
 			sourceTree = "<group>";
 		};
+		8DD15B092C4AA3F100EAD1D1 /* Shields */ = {
+			isa = PBXGroup;
+			children = (
+				93139C8044AA2C3F2199DEA0 /* CreateShieldPowerUpSystem.swift */,
+				931396957CF9E0BFE9D62FF7 /* ShieldSystem.swift */,
+			);
+			name = Shields;
+			sourceTree = "<group>";
+		};
+		8DD15B0A2C4AA40100EAD1D1 /* XRay */ = {
+			isa = PBXGroup;
+			children = (
+				931390E7E012D44706CDE097 /* CreateXRayPowerUpSystem.swift */,
+				93139F09F2C98C12D1AAF3F0 /* XRayVisionSystem.swift */,
+			);
+			name = XRay;
+			sourceTree = "<group>";
+		};
 		8DD84A8C2C15368800895086 /* Creators */ = {
 			isa = PBXGroup;
 			children = (
@@ -939,10 +957,8 @@
 				931392CF77E20F3291B5EBF1 /* TorpedoAgeSystem.swift */,
 				9313948C3BEED583518640EB /* TouchedSystem.swift */,
 				931397321E614AC7F5F6747A /* TransitionAppStateSystem.swift */,
-				93139F09F2C98C12D1AAF3F0 /* XRayVisionSystem.swift */,
-				931390E7E012D44706CDE097 /* CreateXRayPowerUpSystem.swift */,
-				93139C8044AA2C3F2199DEA0 /* CreateShieldPowerUpSystem.swift */,
-				931396957CF9E0BFE9D62FF7 /* ShieldSystem.swift */,
+				8DD15B0A2C4AA40100EAD1D1 /* XRay */,
+				8DD15B092C4AA3F100EAD1D1 /* Shields */,
 			);
 			name = list_iterating;
 			sourceTree = "<group>";
@@ -1038,7 +1054,7 @@
 			mainGroup = 8D23C1292B02C4C900F7D878;
 			packageReferences = (
 				8DDB04E82C376AE20029248B /* XCRemoteSwiftPackageReference "SwiftySound" */,
-				8D1C1DCE2C404DEA005137DE /* XCLocalSwiftPackageReference */,
+				8D1C1DCE2C404DEA005137DE /* XCLocalSwiftPackageReference "../../Swash_Swift_Package/Swash" */,
 			);
 			productRefGroup = 8D23C1332B02C4CA00F7D878 /* Products */;
 			projectDirPath = "";
@@ -1609,7 +1625,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		8D1C1DCE2C404DEA005137DE /* XCLocalSwiftPackageReference */ = {
+		8D1C1DCE2C404DEA005137DE /* XCLocalSwiftPackageReference "../../Swash_Swift_Package/Swash" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../../Swash_Swift_Package/Swash;
 		};

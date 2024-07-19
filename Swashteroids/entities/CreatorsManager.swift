@@ -11,7 +11,7 @@
 import Swash
 import SpriteKit
 
-class CreatorsManager {
+final class CreatorsManager {
     let alienCreator: AlienCreatorUseCase
     let asteroidCreator: AsteroidCreatorUseCase
     let hudCreator: HudCreatorUseCase

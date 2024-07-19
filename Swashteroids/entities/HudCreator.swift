@@ -11,7 +11,7 @@
 import Swash
 import SpriteKit
 
-class HudCreator: HudCreatorUseCase, PauseAlertPresenting {
+final class HudCreator: HudCreatorUseCase, PauseAlertPresenting {
     private weak var engine: Engine!
     private weak var alertPresenter: PauseAlertPresenting?
 

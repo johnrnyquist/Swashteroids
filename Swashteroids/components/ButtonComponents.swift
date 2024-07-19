@@ -10,43 +10,43 @@
 
 import Swash
 
-class ButtonComponent: Component {}
+final class ButtonComponent: Component {}
 
 // TODO I considered namespacing the below but decided to keep it simple.
 // Gamescreen buttons
-class ButtonFireComponent: Component {}
+final class ButtonFireComponent: Component {}
 
-class ButtonFlipComponent: Component {}
+final class ButtonFlipComponent: Component {}
 
-class ButtonHyperSpaceComponent: Component {}
+final class ButtonHyperSpaceComponent: Component {}
 
-class ButtonLeftComponent: Component {}
+final class ButtonLeftComponent: Component {}
 
-class ButtonRightComponent: Component {}
+final class ButtonRightComponent: Component {}
 
-class ButtonThrustComponent: Component {}
+final class ButtonThrustComponent: Component {}
 
-class ButtonPauseComponent: Component {}
+final class ButtonPauseComponent: Component {}
 
-class ButtonToggleComponent: Component {}
+final class ButtonToggleComponent: Component {}
 
 // Alert popup buttons
-class ButtonHomeComponent: Component {}
+final class ButtonHomeComponent: Component {}
 
-class ButtonResumeComponent: Component {}
+final class ButtonResumeComponent: Component {}
 
-class ButtonSettingsComponent: Component {}
+final class ButtonSettingsComponent: Component {}
 
 // Start and info screen buttons
-class ButtonPlayComponent: Component {}
+final class ButtonPlayComponent: Component {}
 
-class ButtonWithButtonsComponent: Component {}
+final class ButtonWithButtonsComponent: Component {}
 
-class ButtonWithAccelerometerComponent: Component {}
+final class ButtonWithAccelerometerComponent: Component {}
 
-class ButtonWithButtonsInfoComponent: Component {}
+final class ButtonWithButtonsInfoComponent: Component {}
 
-class ButtonWithAccelerometerInfoComponent: Component {}
+final class ButtonWithAccelerometerInfoComponent: Component {}
 
 // GameOver only
-class ButtonGameOverToHomeComponent: Component {}
+final class ButtonGameOverToHomeComponent: Component {}

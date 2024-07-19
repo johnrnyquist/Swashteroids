@@ -8,20 +8,20 @@
 // https://github.com/johnrnyquist/Swash
 //
 
-import Swash
 import Foundation.NSDate
+import Swash
 
 /// Used to intiate the creation of an X-Ray Power-Up
-class DoCreateXRayPowerUpComponent: Component {}
+final class DoCreateXRayPowerUpComponent: Component {}
 
 /// The game logs the creation of X-Ray Power-Ups and stores it here.
 /// It notes when one has been created for a level.
 /// This is a game rule: X-Ray Power-Ups appear at most, once per level. They will not appear if player already has one.
-class XRayPowerUpsLevelLogComponent: Component {
+final class XRayPowerUpsLevelLogComponent: Component {
     var levels: [Int] = []
 }
 
-class CreateXRayPowerUpNode: Node {
+final class CreateXRayPowerUpNode: Node {
     required init() {
         super.init()
         components = [
@@ -36,7 +36,7 @@ class CreateXRayPowerUpNode: Node {
 /// This is mainly du to the presence of DoCreateXRayPowerUpComponent.
 /// It usese XRayPowerUpsLevelLogComponent and GameStateComponent from the Node
 /// and uses XRayPowerUpNodes and XRayVisionNodes.
-class CreateXRayPowerUpSystem: ListIteratingSystem {
+final class CreateXRayPowerUpSystem: ListIteratingSystem {
     var powerUpCreator: PowerUpCreatorUseCase?
     var powerUpNodes: NodeList?
     var visionNodes: NodeList?

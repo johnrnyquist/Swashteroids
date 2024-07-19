@@ -12,7 +12,7 @@ import Foundation
 import SpriteKit
 import Swash
 
-class HapticFeedbackComponent: Component {
+final class HapticFeedbackComponent: Component {
     static let shared = HapticFeedbackComponent()
     private let generator = UIImpactFeedbackGenerator(style: .heavy)
 

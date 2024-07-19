@@ -10,7 +10,7 @@
 
 import Swash
 
-class TreasureCollisionNode: Node {
+final class TreasureCollisionNode: Node {
     required init() {
         super.init()
         components = [

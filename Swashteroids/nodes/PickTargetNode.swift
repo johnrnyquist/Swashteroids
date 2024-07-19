@@ -13,7 +13,7 @@ import Swash
 
 // Right now this is an alien-only class because of the AlienComponent
 // but it could be generalized to any entity that needs to pick a target.
-class PickTargetNode: Node {
+final class PickTargetNode: Node {
     required init() {
         super.init()
         components = [

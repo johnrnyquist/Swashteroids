@@ -11,7 +11,7 @@
 import Swash
 import SpriteKit
 
-class GameOverTransition: GameOverUseCase {
+final class GameOverTransition: GameOverUseCase {
     let engine: Engine
     let alertPresenter: PauseAlertPresenting
     var gameSize: CGSize {

@@ -20,7 +20,7 @@ enum PauseAlertAction {
     case none
 }
 
-class AlertPresentingComponent: Component {
+final class AlertPresentingComponent: Component {
     var action: PauseAlertAction
 
     init(state: PauseAlertAction) {
@@ -28,7 +28,7 @@ class AlertPresentingComponent: Component {
     }
 }
 
-class AlertPresentingNode: Node {
+final class AlertPresentingNode: Node {
     required init() {
         super.init()
         components = [

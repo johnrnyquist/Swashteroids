@@ -11,7 +11,7 @@
 import SpriteKit
 
 /// HudView is not visual, it's an SKNode, its children are visual.
-class HudView: SKNode {
+final class HudView: SKNode {
     private var levelLabel: SKLabelNode!
     private var scoreLabel: SKLabelNode!
     private var shipsLabel: SKLabelNode!
@@ -122,7 +122,7 @@ class HudView: SKNode {
     }
 }
 
-class AmmoView: SKSpriteNode {
+final class AmmoView: SKSpriteNode {
     var ammo: Int = 0 {
         didSet {
             refresh()

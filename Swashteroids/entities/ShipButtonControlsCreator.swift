@@ -11,7 +11,7 @@
 import Swash
 import SpriteKit
 
-class ShipButtonControlsCreator: ShipButtonControlsCreatorUseCase {
+final class ShipButtonControlsCreator: ShipButtonControlsCreatorUseCase {
     weak var engine: Engine!
     var size: CGSize
     var buttonPadding = 30.0

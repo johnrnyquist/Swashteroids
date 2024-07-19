@@ -8,8 +8,8 @@
 // https://github.com/johnrnyquist/Swash
 //
 
-import Swash
 import Foundation.NSDate
+import Swash
 
 final class XRayPowerUpComponent: Component {}
 
@@ -27,7 +27,7 @@ final class XRayPowerUpNode: Node {
 /// The entity with the x-ray vision has this
 final class XRayVisionComponent: Component {}
 
-class XRayVisionNode: Node {
+final class XRayVisionNode: Node {
     required init() {
         super.init()
         components = [
@@ -39,7 +39,7 @@ class XRayVisionNode: Node {
 // This system needs two different nod types. TreasureInfoNode and XRayVisionNode. 
 // Entities of different types are required at the moment.
 // The player has XRay vision and the asteroids have the treasure info.
-class XRayVisionSystem: ListIteratingSystem {
+final class XRayVisionSystem: ListIteratingSystem {
     private weak var xRayNodes: NodeList?
 
     init() {

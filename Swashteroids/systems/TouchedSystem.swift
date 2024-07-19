@@ -20,7 +20,7 @@ enum TouchState {
     case none
 }
 
-class QuadrantComponent: Component {
+final class QuadrantComponent: Component {
     var quadrant: EntityName
 
     init(quadrant: EntityName) {
@@ -56,7 +56,7 @@ final class TouchedComponent: Component {
     }
 }
 
-class TouchedQuadrantNode: Node {
+final class TouchedQuadrantNode: Node {
     required init() {
         super.init()
         components = [
@@ -68,7 +68,7 @@ class TouchedQuadrantNode: Node {
     }
 }
 
-class TouchedButtonNode: Node {
+final class TouchedButtonNode: Node {
     required init() {
         super.init()
         components = [
@@ -80,7 +80,7 @@ class TouchedButtonNode: Node {
     }
 }
 
-class TouchedButtonSystem: ListIteratingSystem {
+final class TouchedButtonSystem: ListIteratingSystem {
     private weak var engine: Engine!
     private weak var touchManager: TouchManager!
 
@@ -226,7 +226,7 @@ class TouchedButtonSystem: ListIteratingSystem {
     }
 }
 
-class TouchedQuadrantSystem: ListIteratingSystem {
+final class TouchedQuadrantSystem: ListIteratingSystem {
     private weak var engine: Engine!
     private weak var touchManager: TouchManager!
 

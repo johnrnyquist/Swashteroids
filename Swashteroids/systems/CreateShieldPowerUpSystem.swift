@@ -8,21 +8,21 @@
 // https://github.com/johnrnyquist/Swash
 //
 
-import Foundation
+import Foundation.NSDate
 import Swash
 
 /// Used to initiate the creation of an X-Ray Power-Up
-class DoCreateShieldPowerUpComponent: Component {}
+final class DoCreateShieldPowerUpComponent: Component {}
 
 /// The entity being shielded has this
-class ShieldComponent: Component {
+final class ShieldComponent: Component {
     let maxCollisions = 3
     var strength = 3
 }
 
-class ShieldPowerUpComponent: Component {}
+final class ShieldPowerUpComponent: Component {}
 
-class CreateShieldPowerUpNode: Node {
+final class CreateShieldPowerUpNode: Node {
     required init() {
         super.init()
         components = [
@@ -33,7 +33,7 @@ class CreateShieldPowerUpNode: Node {
     }
 }
 
-class ShieldPowerUpNode: Node {
+final class ShieldPowerUpNode: Node {
     required init() {
         super.init()
         components = [
@@ -44,7 +44,7 @@ class ShieldPowerUpNode: Node {
     }
 }
 
-class ShieldNode: Node {
+final class ShieldNode: Node {
     required init() {
         super.init()
         components = [
@@ -56,7 +56,7 @@ class ShieldNode: Node {
     }
 }
 
-class ShieldPowerUpsLevelLogComponent: Component {
+final class ShieldPowerUpsLevelLogComponent: Component {
     var levels: [Int] = []
 }
 
@@ -82,10 +82,6 @@ final class CreateShieldPowerUpSystem: ListIteratingSystem {
     }
 
     private func updateNode(node: Node, time: TimeInterval) {
-        if powerUpNodes?.empty == true,
-           shieldNodes?.empty == true {
-            powerUpCreator?.createShieldsPowerUp()
-        }
         guard let entity = node.entity,
               let shieldPowerUpsCreatedComponent = node[ShieldPowerUpsLevelLogComponent.self],
               let level = node[GameStateComponent.self]?.level

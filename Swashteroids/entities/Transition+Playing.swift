@@ -11,7 +11,7 @@
 import Swash
 import SpriteKit
 
-class PlayingTransition: PlayingUseCase {
+final class PlayingTransition: PlayingUseCase {
     weak var hudCreator: HudCreatorUseCase?
     weak var toggleShipControlsCreator: ToggleShipControlsCreatorUseCase?
     weak var shipControlQuadrantsCreator: QuadrantsControlsCreatorUseCase?

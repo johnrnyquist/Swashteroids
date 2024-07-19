@@ -12,14 +12,14 @@ import Foundation
 import Swash
 
 
-class AlienAppearancesComponent: Component {
+final class AlienAppearancesComponent: Component {
 //    var alienNextAppearance: TimeInterval = 0.0
 //    var alienAppearanceRateDefault: TimeInterval = 0.0
     static let shared = AlienAppearancesComponent()
     private override init() {}
 }
 
-class AlienAppearancesNode: Node {
+final class AlienAppearancesNode: Node {
     required init() {
         super.init()
         components = [
@@ -29,7 +29,7 @@ class AlienAppearancesNode: Node {
     }
 }
 
-class AlienAppearancesSystem: ListIteratingSystem {
+final class AlienAppearancesSystem: ListIteratingSystem {
     private weak var engine: Engine!
     private weak var alienCreator: AlienCreatorUseCase!
 

@@ -21,7 +21,7 @@ protocol Randomizing: AnyObject {
 
 /// `Randomness` is a class for generating random numbers. 
 // It is really just a wrapper around the `srand48` and `drand48` functions.
-class Randomness: Randomizing {
+final class Randomness: Randomizing {
     static private var randomness: Randomness!
     static var shared: Randomizing {
         if let randomness {

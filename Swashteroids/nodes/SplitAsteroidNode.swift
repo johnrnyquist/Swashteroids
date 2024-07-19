@@ -7,7 +7,7 @@
 
 import Swash
 
-class SplitAsteroidNode: Node {
+final class SplitAsteroidNode: Node {
     required init() {
         super.init()
         components = [

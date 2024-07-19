@@ -8,8 +8,8 @@
 // https://github.com/johnrnyquist/Swash
 //
 
-import Swash
 import Foundation.NSDate
+import Swash
 
 final class ShieldSystem: ListIteratingSystem {
     private weak var shieldNodes: NodeList?

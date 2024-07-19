@@ -11,7 +11,7 @@
 import Swash
 import SpriteKit
 
-class AsteroidCreator: AsteroidCreatorUseCase {
+final class AsteroidCreator: AsteroidCreatorUseCase {
     private let engine: Engine
     private var totalAsteroids = 0
     private weak var randomness: Randomizing!

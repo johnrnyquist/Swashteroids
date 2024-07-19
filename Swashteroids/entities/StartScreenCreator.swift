@@ -13,7 +13,7 @@ import Swash
 import SpriteKit
 import GameController
 
-class StartScreenCreator: StartScreenCreatorUseCase {
+final class StartScreenCreator: StartScreenCreatorUseCase {
     private let gameSize: CGSize
     private let startView: StartView
     private weak var engine: Engine!

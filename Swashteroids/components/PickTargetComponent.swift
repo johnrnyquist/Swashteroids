@@ -11,4 +11,4 @@
 import Foundation
 import Swash
 
-class PickTargetComponent: Component {}
+final class PickTargetComponent: Component {}

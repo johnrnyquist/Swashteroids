@@ -11,7 +11,7 @@
 import Swash
 import SpriteKit
 
-class QuadrantsControlsCreator: QuadrantsControlsCreatorUseCase {
+final class QuadrantsControlsCreator: QuadrantsControlsCreatorUseCase {
     private var engine: Engine
     private var size: CGSize
 

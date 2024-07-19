@@ -10,7 +10,7 @@
 
 import Swash
 
-class SystemsManager {
+final class SystemsManager {
     private(set) var transitionAppStateSystem: TransitionAppStateSystem
 
     init(scene: GameScene,

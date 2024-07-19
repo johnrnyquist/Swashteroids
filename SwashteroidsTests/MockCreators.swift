@@ -12,7 +12,7 @@ import Foundation
 import Swash
 @testable import Swashteroids
 
-class MockAlienCreator: AlienCreatorUseCase {
+final class MockAlienCreator: AlienCreatorUseCase {
     func createAliens() {
     }
     
@@ -29,7 +29,7 @@ class MockAlienCreator: AlienCreatorUseCase {
     }
 }
 
-class MockAsteroidCreator: AsteroidCreatorUseCase {
+final class MockAsteroidCreator: AsteroidCreatorUseCase {
     var createAsteroidCalled = 0
 
     func createAsteroid(radius: Double, x: Double, y: Double, size: AsteroidSize, level: Int) {
@@ -37,12 +37,12 @@ class MockAsteroidCreator: AsteroidCreatorUseCase {
     }
 }
 
-class MockHudCreator: HudCreatorUseCase {
+final class MockHudCreator: HudCreatorUseCase {
     func createHud(gameState: GameStateComponent) {
     }
 }
 
-class MockShipButtonControlsCreator: ShipButtonControlsCreatorUseCase {
+final class MockShipButtonControlsCreator: ShipButtonControlsCreatorUseCase {
     func createShipControlButtons() {}
 
     func enableShipControlButtons() {}
@@ -54,7 +54,7 @@ class MockShipButtonControlsCreator: ShipButtonControlsCreatorUseCase {
     func showHyperspaceButton() {}
 }
 
-class MockPlayerCreator: PlayerCreatorUseCase {
+final class MockPlayerCreator: PlayerCreatorUseCase {
     var createShipCalled = false
     var destroyCalled = false
 
@@ -67,7 +67,7 @@ class MockPlayerCreator: PlayerCreatorUseCase {
     }
 }
 
-class MockQuadrantsButtonToggleCreator: QuadrantsControlsCreatorUseCase, ShipButtonControlsCreatorUseCase, ToggleShipControlsCreatorUseCase {
+final class MockQuadrantsButtonToggleCreator: QuadrantsControlsCreatorUseCase, ShipButtonControlsCreatorUseCase, ToggleShipControlsCreatorUseCase {
     //MARK: - ShipQuadrantsControlsManager
     var createShipControlQuadrantsCalled = false
     var removeShipControlQuadrantsCalled = false

@@ -11,7 +11,7 @@
 import Foundation
 import Swash
 
-class MoveToTargetComponent: Component {
+final class MoveToTargetComponent: Component {
     let hunterEntityName: String
     var targetedEntityName: String
 

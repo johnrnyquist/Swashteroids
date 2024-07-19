@@ -11,7 +11,7 @@
 import Swash
 
 // Right now this is an alien-only class because of the AlienComponent
-class MoveToTargetNode: Node {
+final class MoveToTargetNode: Node {
     required init() {
         super.init()
         components = [

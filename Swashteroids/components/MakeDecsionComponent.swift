@@ -10,4 +10,4 @@
 
 import Swash
 
-class MakeDecisionComponent: Component {}
+final class MakeDecisionComponent: Component {}

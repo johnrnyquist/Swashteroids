@@ -19,7 +19,7 @@ Creates the level.
 Determines if a ship needs to be made.
  */
 //TODO: Has too many responsibilities, needs to be reconsidered.
-class GameplayManagerSystem: System {
+final class GameplayManagerSystem: System {
     private let minimumLevel = 1
     private let shipPositionRatio: CGFloat = 0.5
     private var shipClearanceRadius: CGFloat = 50

@@ -13,7 +13,7 @@ import SpriteKit
 import Foundation
 
 /// This should be the place for all changes on the Ship’s controls
-class ShipControlsSystem: ListIteratingSystem {
+final class ShipControlsSystem: ListIteratingSystem {
     private weak var engine: Engine!
     private weak var toggleShipControlsCreator: ToggleShipControlsCreatorUseCase!
     private weak var shipControlQuadrantsCreator: QuadrantsControlsCreatorUseCase!

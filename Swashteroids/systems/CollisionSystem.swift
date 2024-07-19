@@ -12,7 +12,7 @@ import SpriteKit
 import Swash
 
 /// This class is an argument for switching to the SpriteKit physics engine.
-class CollisionSystem: System {
+final class CollisionSystem: System {
     private let asteroidCreator: AsteroidCreatorUseCase
     private weak var randomness: Randomizing!
     private let scaleManager: ScaleManaging
@@ -52,13 +52,13 @@ class CollisionSystem: System {
         players = engine.getNodeList(nodeClassType: PlayerCollisionNode.self)
         aliens = engine.getNodeList(nodeClassType: AlienCollisionNode.self)
         asteroids = engine.getNodeList(nodeClassType: AsteroidCollisionNode.self)
-        torpedoes = engine.getNodeList(nodeClassType: TorpedoCollisionNode.self)
-        torpedoPowerUp = engine.getNodeList(nodeClassType: GunPowerUpNode.self)
         hyperspacePowerUp = engine.getNodeList(nodeClassType: HyperspacePowerUpNode.self)
-        xRayPowerUp = engine.getNodeList(nodeClassType: XRayPowerUpNode.self)
-        treasures = engine.getNodeList(nodeClassType: TreasureCollisionNode.self)
-        shieldsPowerUp = engine.getNodeList(nodeClassType: ShieldPowerUpNode.self)
         shields = engine.getNodeList(nodeClassType: ShieldNode.self)
+        shieldsPowerUp = engine.getNodeList(nodeClassType: ShieldPowerUpNode.self)
+        torpedoPowerUp = engine.getNodeList(nodeClassType: GunPowerUpNode.self)
+        torpedoes = engine.getNodeList(nodeClassType: TorpedoCollisionNode.self)
+        treasures = engine.getNodeList(nodeClassType: TreasureCollisionNode.self)
+        xRayPowerUp = engine.getNodeList(nodeClassType: XRayPowerUpNode.self)
     }
 
     /// 

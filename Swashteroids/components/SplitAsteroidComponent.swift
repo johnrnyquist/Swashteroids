@@ -7,7 +7,7 @@
 
 import Swash
 
-class SplitAsteroidComponent: Component {
+final class SplitAsteroidComponent: Component {
     let level: Int
     let splits: Int
 

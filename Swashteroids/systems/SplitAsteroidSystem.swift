@@ -12,7 +12,7 @@ import Swash
 import Foundation
 import SpriteKit
 
-class SplitAsteroidSystem: ListIteratingSystem {
+final class SplitAsteroidSystem: ListIteratingSystem {
     let asteroidCreator: AsteroidCreatorUseCase
     let treasureCreator: TreasureCreatorUseCase
     let randomness: Randomizing

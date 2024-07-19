@@ -10,7 +10,7 @@
 
 import Swash
 
-class MakeDecisionNode: Node {
+final class MakeDecisionNode: Node {
     required init() {
         super.init()
         components = [

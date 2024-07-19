@@ -11,7 +11,7 @@
 import Swash
 import SpriteKit
 
-class PowerUpCreator: PowerUpCreatorUseCase {
+final class PowerUpCreator: PowerUpCreatorUseCase {
     private let size: CGSize
     private weak var engine: Engine!
     private weak var randomness: Randomizing!

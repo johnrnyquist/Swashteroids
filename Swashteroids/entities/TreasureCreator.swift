@@ -11,7 +11,7 @@
 import Swash
 import SpriteKit
 
-class TreasureCreator: TreasureCreatorUseCase {
+final class TreasureCreator: TreasureCreatorUseCase {
     private var totalTreasures = 0
     private weak var engine: Engine!
     private weak var randomness: Randomizing!

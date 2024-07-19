@@ -10,7 +10,7 @@
 
 import Swash
 
-class LifetimeNode: Node {
+final class LifetimeNode: Node {
     required init() {
         super.init()
         components = [

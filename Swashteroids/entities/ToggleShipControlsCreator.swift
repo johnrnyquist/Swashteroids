@@ -11,7 +11,7 @@
 import Swash
 import SpriteKit
 
-class ToggleShipControlsCreator: ToggleShipControlsCreatorUseCase {
+final class ToggleShipControlsCreator: ToggleShipControlsCreatorUseCase {
     private let engine: Engine
     private let scaleManager: ScaleManaging
     private let size: CGSize

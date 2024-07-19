@@ -11,7 +11,7 @@
 import Swash
 import SpriteKit
 
-class StartTransition: StartUseCase {
+final class StartTransition: StartUseCase {
     let engine: Engine
     let startScreenCreator: StartScreenCreatorUseCase
 

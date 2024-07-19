@@ -12,7 +12,7 @@ import SpriteKit
 import Swash
 import GameController
 
-class GameScene: SKScene {
+final class GameScene: SKScene {
     weak var touchDelegate: TouchDelegate?
 
     deinit {

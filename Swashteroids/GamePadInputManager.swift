@@ -31,7 +31,7 @@ let buttonTypes: [GameCommand: ButtonTypes] = [
     .play: .inputOnce,
 ]
 
-class GamepadInputManager: NSObject, ObservableObject, GameStateObserver {
+final class GamepadInputManager: NSObject, ObservableObject, GameStateObserver {
     typealias ButtonName = String
     typealias SymbolName = String
     @Published var gameCommandToButtonName: [GameCommand: ButtonName?]

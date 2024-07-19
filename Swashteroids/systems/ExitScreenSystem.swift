@@ -12,10 +12,10 @@ import Foundation
 import Swash
 
 /// Added to entity to make it exit the screen
-class ExitScreenComponent: Component {}
+final class ExitScreenComponent: Component {}
 
 // TODO: Right now this is an alien-only class because of the AlienComponent
-class ExitScreenNode: Node {
+final class ExitScreenNode: Node {
     required init() {
         super.init()
         components = [

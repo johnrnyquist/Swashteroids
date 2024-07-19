@@ -11,7 +11,7 @@
 import Foundation
 @testable import Swashteroids
 
-class MockRandom: Randomizing {
+final class MockRandom: Randomizing {
     func nextDouble() -> Double { 0 }
 
     func nextInt(upTo max: Int) -> Int { 0 }

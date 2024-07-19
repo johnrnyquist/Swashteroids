@@ -15,7 +15,7 @@ protocol ScaleManaging: AnyObject {
 }
 
 /// ScaleManager is a singleton that calculates the scale factor based on the screen size.
-class ScaleManager: ScaleManaging {
+final class ScaleManager: ScaleManaging {
     /// The shared instance of the ScaleManager.
     static let shared: ScaleManaging = ScaleManager()
     /// The scale factor based on the screen size.
