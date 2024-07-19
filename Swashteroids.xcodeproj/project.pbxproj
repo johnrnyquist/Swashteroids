@@ -239,6 +239,7 @@
 		93139ED17AF0B2679783AE64 /* TickProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139406E9C8BCF53204C6FC /* TickProvider.swift */; };
 		93139EFCD84F2131FD44424E /* TreasureComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931395FA04809CC11F1BF287 /* TreasureComponent.swift */; };
 		93139F067948B1148080FA8D /* MoveToTargetSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931390044D76A66DFCED70FA /* MoveToTargetSystemTests.swift */; };
+		93139F124896C46B9D486F34 /* PowerUpCreatorUseCase+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313906C8CDA8631883247FB /* PowerUpCreatorUseCase+extensions.swift */; };
 		93139F441AD923E1149DA311 /* ThrustNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313988C064025FB4880FF1F /* ThrustNode.swift */; };
 		93139F483A7EBF1691C156C4 /* PickTargetComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139358A724D53199935722 /* PickTargetComponent.swift */; };
 		93139F4C2D7C76E0668F0B1C /* AllSoundsComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313979ABDA67BAEA7682AC7 /* AllSoundsComponent.swift */; };
@@ -385,6 +386,7 @@
 		8DE66F122C14CA5000ECEE96 /* SplitAsteroidNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitAsteroidNode.swift; sourceTree = "<group>"; };
 		931390044D76A66DFCED70FA /* MoveToTargetSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveToTargetSystemTests.swift; sourceTree = "<group>"; };
 		93139054E0404F880A6C7CE8 /* MoveToTargetComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveToTargetComponent.swift; sourceTree = "<group>"; };
+		9313906C8CDA8631883247FB /* PowerUpCreatorUseCase+extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PowerUpCreatorUseCase+extensions.swift"; sourceTree = "<group>"; };
 		931390993573DD02D04EE52C /* TreasureCollisionNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreasureCollisionNode.swift; sourceTree = "<group>"; };
 		931390A6FDA46C0B8EFE6218 /* LifetimeComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LifetimeComponent.swift; sourceTree = "<group>"; };
 		931390BDEBA443104F781428 /* AudioSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioSystemTests.swift; sourceTree = "<group>"; };
@@ -903,6 +905,7 @@
 				93139A97E15CCF640A73EC56 /* TorpedoCreator.swift */,
 				93139F2C79FC630142EA1605 /* TreasureCreator.swift */,
 				931392DF56F435244258EDD3 /* UseCases_Creator.swift */,
+				9313906C8CDA8631883247FB /* PowerUpCreatorUseCase+extensions.swift */,
 			);
 			name = Creators;
 			sourceTree = "<group>";
@@ -1032,7 +1035,7 @@
 			mainGroup = 8D23C1292B02C4C900F7D878;
 			packageReferences = (
 				8DDB04E82C376AE20029248B /* XCRemoteSwiftPackageReference "SwiftySound" */,
-				8D1C1DCE2C404DEA005137DE /* XCLocalSwiftPackageReference "../../Swash_Swift_Package/Swash" */,
+				8D1C1DCE2C404DEA005137DE /* XCLocalSwiftPackageReference */,
 			);
 			productRefGroup = 8D23C1332B02C4CA00F7D878 /* Products */;
 			projectDirPath = "";
@@ -1271,6 +1274,7 @@
 				931399A1C5D96A723496B933 /* XRayVisionSystem.swift in Sources */,
 				93139DBD16DFD049C47DC7B6 /* CreateXRayPowerUpSystem.swift in Sources */,
 				93139CD92FFC547190EE44DE /* CreateShieldsPowerUpSystem.swift in Sources */,
+				93139F124896C46B9D486F34 /* PowerUpCreatorUseCase+extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1601,7 +1605,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		8D1C1DCE2C404DEA005137DE /* XCLocalSwiftPackageReference "../../Swash_Swift_Package/Swash" */ = {
+		8D1C1DCE2C404DEA005137DE /* XCLocalSwiftPackageReference */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../../Swash_Swift_Package/Swash;
 		};

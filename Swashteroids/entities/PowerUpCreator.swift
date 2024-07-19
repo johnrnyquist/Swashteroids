@@ -21,19 +21,7 @@ class PowerUpCreator: PowerUpCreatorUseCase {
         self.size = size
         self.randomness = randomness
     }
-
-    func createHyperspacePowerUp(level: Int) {
-        createHyperspacePowerUp(level: level, radius: POWER_UP_RADIUS)
-    }
-
-    func createXRayPowerUp(level: Int) {
-        createXRayPowerUp(level: level, radius: POWER_UP_RADIUS)
-    }
-
-    func createTorpedoesPowerUp(level: Int) {
-        createTorpedoesPowerUp(level: level, radius: POWER_UP_RADIUS)
-    }
-
+    
     func createTorpedoesPowerUp(level: Int, radius: Double = POWER_UP_RADIUS) {
         createPowerUp(level: level,
                       radius: radius,
@@ -60,11 +48,6 @@ class PowerUpCreator: PowerUpCreatorUseCase {
                       sprite: SwashScaledSpriteNode(imageNamed: "visionpro.circle"),
                       color: .powerUpXRay,
                       component: XRayPowerUpComponent())
-    }
-
-    func createShieldsPowerUp() {
-        createShieldsPowerUp(radius: POWER_UP_RADIUS)
-
     }
 
     func createShieldsPowerUp(radius: Double = POWER_UP_RADIUS) {
