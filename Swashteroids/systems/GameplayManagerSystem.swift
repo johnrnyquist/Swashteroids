@@ -21,18 +21,18 @@ Determines if a ship needs to be made.
 //TODO: Has too many responsibilities, needs to be reconsidered.
 final class GameplayManagerSystem: System {
     private let minimumLevel = 1
+    private let shipClearanceRadius: CGFloat = 50
     private let shipPositionRatio: CGFloat = 0.5
-    private var shipClearanceRadius: CGFloat = 50
     private weak var alienCreator: AlienCreatorUseCase!
+    private weak var aliens: NodeList!
     private weak var appStates: NodeList!
     private weak var asteroidCreator: AsteroidCreatorUseCase!
-    private weak var randomness: Randomizing!
-    private weak var scene: GameScene!
+    private weak var asteroids: NodeList!
     private weak var playerCreator: PlayerCreatorUseCase!
     private weak var players: NodeList!
+    private weak var randomness: Randomizing!
+    private weak var scene: GameScene!
     private weak var torpedoes: NodeList!
-    weak var aliens: NodeList!
-    weak var asteroids: NodeList!
 
     init(asteroidCreator: AsteroidCreatorUseCase,
          alienCreator: AlienCreatorUseCase,

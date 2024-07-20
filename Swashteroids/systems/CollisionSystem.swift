@@ -138,9 +138,7 @@ final class CollisionSystem: System {
                                              ownerName: player.name,
                                              numTorpedoes: 20))
                 .add(component: AudioComponent(name: "powerup.wav", fileName: .powerUp))
-        //HACK for immediate gratification
         shipButtonControlsCreator.showFireButton()
-        //END_HACK
     }
 
     func playerAndHyperspacePowerUp(playerNode: Node, hyperspace: Node) {
@@ -150,9 +148,7 @@ final class CollisionSystem: System {
         player
                 .add(component: HyperspaceDriveComponent(jumps: 5))
                 .add(component: AudioComponent(name: "powerup.wav", fileName: .powerUp))
-        //HACK for immediate gratification
         shipButtonControlsCreator.showHyperspaceButton()
-        //END_HACK
     }
 
     func playerAndXRayPowerUp(playerNode: Node, xRayPowerUp: Node) {
