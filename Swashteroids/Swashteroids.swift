@@ -24,6 +24,7 @@ final class Swashteroids: NSObject {
     }
 
     lazy private var tickEngineListener = Listener(engine.update)
+    let accelerometerComponent = AccelerometerComponent.shared // using in SKSceneDelegate extension
     let engine = Engine()
     let manager_motion: CMMotionManager? = CMMotionManager()
     let manager_touch: TouchManager
