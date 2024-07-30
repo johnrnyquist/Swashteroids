@@ -13,6 +13,7 @@ import Foundation.NSDate
 import SpriteKit
 
 enum TutorialState {
+    case thisIsYourShip
     case thrusting
     case turning
     case flipping
@@ -36,7 +37,7 @@ class TutorialTransition: TutorialUseCase {
 
     func toTutorialScreen() {
         let tutorial = Entity(named: "Tutorial")
-                .add(component: TutorialComponent(tutorialState: .thrusting))
+                .add(component: TutorialComponent(tutorialState: .thisIsYourShip))
         engine.add(entity: tutorial)
     }
 }
@@ -49,6 +50,7 @@ class TutorialComponent: Component {
     }
     
     // MARK: - Tutorial Progress in order
+    var completedThisIsYourShip = false
     var completedThrusting = false
     var completedFlipping = false
     var completedTurning = false
@@ -101,7 +103,7 @@ class TutorialSystem: ListIteratingSystem {
     private func format(string: String) -> NSAttributedString {
         let attributed = NSMutableAttributedString(string: string)
         let range = NSRange(location: 0, length: attributed.length)
-        let font = UIFont(name: "BadlocICG", size: 24.0)!
+        let font = UIFont(name: "Futura Condensed Medium", size: 24.0)!
         let color = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = NSTextAlignment.center
@@ -122,12 +124,20 @@ class TutorialSystem: ListIteratingSystem {
             engine.add(entity: tutorialText)
         }
         switch tutorialComponent.state {
-            case .thrusting:
-                if engine.findEntity(named: .thrustButton) == nil {
-                    message(text: "This is your ship.\nTry pressing and holding the thrust button to increase your speed.") {}
+            case .thisIsYourShip:
+                if !tutorialComponent.completedThisIsYourShip {
+                    tutorialComponent.completedThisIsYourShip = true
+                    message(text: "This is your ship.") {
+                        tutorialComponent.state = .thrusting
+                    }
                     systemsManager?.configureTutorialThrusting()
                     playerCreator?.createPlayer(engine.gameStateComponent)
+                    engine.playerEntity?.flash(3, endAlpha: 1.0)
+                }
+            case .thrusting:
+                if engine.findEntity(named: .thrustButton) == nil {
                     shipButtonControlsCreator?.createThrustButton()
+                    message(text: "Try pressing and holding the thrust button to increase your speed.") {}
                 } else if !tutorialComponent.completedThrusting,
                           let x = engine.playerEntity![PositionComponent.self]?.x,
                           x > gameSize.width / 2.0 + gameSize.width / 5.0 {

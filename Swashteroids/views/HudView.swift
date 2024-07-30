@@ -14,7 +14,7 @@ import SpriteKit
 final class HudView: SKNode {
     private var levelLabel: SKLabelNode!
     private var scoreLabel: SKLabelNode!
-    private var shipsLabel: SKLabelNode!
+//    private var shipsLabel: SKLabelNode!
     private var pauseButtonArt: SKSpriteNode!
     var pauseButton: SwashSpriteNode!
     var ammoView: AmmoView!
@@ -30,17 +30,20 @@ final class HudView: SKNode {
         jumpsView.ammo = jumps
     }
 
+    var textY = 0.0
+    var textXPadding = 0.0
+
     init(gameSize: CGSize, scaleManager: ScaleManaging = ScaleManager.shared) {
         super.init()
-        var textY = gameSize.height - 65 * scaleManager.SCALE_FACTOR
-        var textXPadding = 12.0 * scaleManager.SCALE_FACTOR
+          textY = gameSize.height - 65 * scaleManager.SCALE_FACTOR
+          textXPadding = 12.0 * scaleManager.SCALE_FACTOR
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
            let window = appDelegate.window {
             textXPadding += window.safeAreaInsets.left
             textY += window.safeAreaInsets.top
         }
         scoreLabel = createLabel(x: gameSize.width / 2, y: textY, alignment: .center)
-        shipsLabel = createLabel(x: textXPadding, y: textY, alignment: .left)
+//        shipsLabel = createLabel(x: textXPadding, y: textY, alignment: .left)
         //
         // pauseButtonArt does nothing
         pauseButtonArt = SKSpriteNode(imageNamed: "pause")
@@ -62,7 +65,7 @@ final class HudView: SKNode {
         levelLabel = createLabel(x: gameSize.width - pauseButtonArt.width - textXPadding - pauseButtonArt.width, y: textY, alignment: .right)
         addChild(levelLabel)
         addChild(scoreLabel)
-        addChild(shipsLabel)
+//        addChild(shipsLabel)
         // Ammo
         ammoView = AmmoView(circleColor: .powerUpTorpedo, size: gameSize, icon: TorpedoesPowerUpView(imageNamed: .torpedoPowerUp))
         ammoView.zPosition = .top
@@ -75,6 +78,11 @@ final class HudView: SKNode {
         jumpsView.x = gameSize.width * 3 / 4 - jumpsView.width
         jumpsView.y = textY
         addChild(jumpsView)
+
+        let ships = SKNode()
+        ships.position = CGPoint(x: textXPadding, y: textY)
+        ships.name = "ships"
+        addChild(ships)
     }
 
     required init?(coder: NSCoder) {
@@ -85,8 +93,23 @@ final class HudView: SKNode {
         scoreLabel.text = "SCORE: \(value.formattedWithCommas)"
     }
 
+
+    func createShips(num: Int) {
+        guard let ships = childNode(withName: "//ships") else { return }
+        ships.removeAllChildren()
+        guard num > 0 else { return }
+        for i in 1..<num {
+            let ship = SwashScaledSpriteNode(texture: createShipTexture())
+            ship.zRotation = Double.pi/2.0
+            ship.alpha = 0.5
+            ship.scale *= 0.7
+            ship.position = CGPoint(x: CGFloat(i) * ship.height, y: ship.width/2)
+            ships.addChild(ship)
+        }
+    }
     func setNumShips(_ value: Int) {
-        shipsLabel.text = "SHIPS: \(value)"
+//        shipsLabel.text = "SHIPS: \(value)"
+        createShips(num: value)
     }
 
     func setLevel(_ value: Int) {
@@ -99,9 +122,9 @@ final class HudView: SKNode {
         scoreLabel.text ?? ""
     }
 
-    func getNumShipsText() -> String {
-        shipsLabel.text ?? ""
-    }
+//    func getNumShipsText() -> String {
+//        shipsLabel.text ?? ""
+//    }
 
     func getLevelText() -> String {
         levelLabel.text ?? ""

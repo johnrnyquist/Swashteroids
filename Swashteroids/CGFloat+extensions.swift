@@ -18,9 +18,9 @@ extension Layer {
     static let gameOver: Layer = 2.5
     static let torpedoes: Layer = 3
     static let player: Layer = 4
-    static let hud: Layer = 5
     static let buttons: Layer = 6
-    static let top: Layer = 7
+    static let hud: Layer = 7
+    static let top: Layer = 8
 }
 
 extension CGFloat {
