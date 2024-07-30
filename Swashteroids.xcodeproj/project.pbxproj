@@ -147,6 +147,7 @@
 		931392BC342CBC595CB879B5 /* FlipComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139EB3AE52346EF745211F /* FlipComponent.swift */; };
 		931392BD76462D7EADE0426C /* TransitionAppStateSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931397321E614AC7F5F6747A /* TransitionAppStateSystem.swift */; };
 		931392F3976CE8B5D2FE4EA1 /* MakeDescisionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931399834CAB8241633CF6FE /* MakeDescisionNode.swift */; };
+		9313934346206818B2709CA8 /* Transition+Tutorial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139118555F426578F535CA /* Transition+Tutorial.swift */; };
 		9313935D542E2721BFFADDC1 /* TreasureCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139F2C79FC630142EA1605 /* TreasureCreator.swift */; };
 		931393799C3434FBF3FC0CCD /* AccelerometerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931396DD35CCD39E8E4EDB16 /* AccelerometerComponent.swift */; };
 		9313939131825EF42A421FE2 /* UseCases_Transition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139548F1C806045B42CEE6 /* UseCases_Transition.swift */; };
@@ -213,7 +214,7 @@
 		93139C20B2FFD62FCF1E45B6 /* AlienWorkerTargetNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313950AEA94DBF1217EA852 /* AlienWorkerTargetNode.swift */; };
 		93139C3B1FFB9F93B1C851C9 /* AnimationSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931395F7A6839B6FA4C0F01C /* AnimationSystem.swift */; };
 		93139C6BCF2ED1CDD8504B1C /* TorpedoCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139A97E15CCF640A73EC56 /* TorpedoCreator.swift */; };
-		93139C71990002FF2B995C07 /* ShipButtonControlsCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931392CF258F1370304A48B7 /* ShipButtonControlsCreator.swift */; };
+		93139C71990002FF2B995C07 /* ShipButtonsCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931392CF258F1370304A48B7 /* ShipButtonsCreator.swift */; };
 		93139C836F9BF1E2D1F59D81 /* FiringSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139BA0869A8C42C820CEDA /* FiringSystem.swift */; };
 		93139C9255ADC566131EAEE7 /* RepeatingAudioSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139EFE2FEE83D932F6AFBA /* RepeatingAudioSystem.swift */; };
 		93139CB863A15BF4B1274D41 /* PlayerCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139F43221229D3FBAC46D9 /* PlayerCreator.swift */; };
@@ -393,11 +394,12 @@
 		931390BDEBA443104F781428 /* AudioSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioSystemTests.swift; sourceTree = "<group>"; };
 		931390C85278CB396AD27B7B /* LeftSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftSystemTests.swift; sourceTree = "<group>"; };
 		931390E7E012D44706CDE097 /* CreateXRayPowerUpSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateXRayPowerUpSystem.swift; sourceTree = "<group>"; };
+		93139118555F426578F535CA /* Transition+Tutorial.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Transition+Tutorial.swift"; sourceTree = "<group>"; };
 		931391B4D76B8FBFE80781AD /* StartScreenCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartScreenCreator.swift; sourceTree = "<group>"; };
 		931391F6102BA3CDA3D121C7 /* SplitAsteroidSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitAsteroidSystem.swift; sourceTree = "<group>"; };
 		93139298C85B9795950A5BA6 /* MakeDecisionSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeDecisionSystemTests.swift; sourceTree = "<group>"; };
 		931392B2F2F0077756DDF207 /* PauseAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PauseAlert.swift; sourceTree = "<group>"; };
-		931392CF258F1370304A48B7 /* ShipButtonControlsCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipButtonControlsCreator.swift; sourceTree = "<group>"; };
+		931392CF258F1370304A48B7 /* ShipButtonsCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipButtonsCreator.swift; sourceTree = "<group>"; };
 		931392CF77E20F3291B5EBF1 /* TorpedoAgeSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TorpedoAgeSystem.swift; sourceTree = "<group>"; };
 		931392DF56F435244258EDD3 /* UseCases_Creator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UseCases_Creator.swift; sourceTree = "<group>"; };
 		931392EBF79FD204C1174E11 /* MakeDecisionSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeDecisionSystem.swift; sourceTree = "<group>"; };
@@ -886,6 +888,7 @@
 				9313938353DF3012CCAE66D1 /* Transition+Playing.swift */,
 				93139DD21263C6EFB274FB5B /* Transition+Start.swift */,
 				93139548F1C806045B42CEE6 /* UseCases_Transition.swift */,
+				93139118555F426578F535CA /* Transition+Tutorial.swift */,
 			);
 			name = Transitions;
 			sourceTree = "<group>";
@@ -918,7 +921,7 @@
 				93139F43221229D3FBAC46D9 /* PlayerCreator.swift */,
 				93139C73A66D8863A166745D /* PowerUpCreator.swift */,
 				931395F838B2866767296F25 /* QuadrantsControlsCreator.swift */,
-				931392CF258F1370304A48B7 /* ShipButtonControlsCreator.swift */,
+				931392CF258F1370304A48B7 /* ShipButtonsCreator.swift */,
 				93139921E04E8DBE2DF6800B /* SplitAsteroidUseCase.swift */,
 				931391B4D76B8FBFE80781AD /* StartScreenCreator.swift */,
 				93139E95FF431FF894CFD502 /* ToggleShipControlsCreator.swift */,
@@ -1054,7 +1057,7 @@
 			mainGroup = 8D23C1292B02C4C900F7D878;
 			packageReferences = (
 				8DDB04E82C376AE20029248B /* XCRemoteSwiftPackageReference "SwiftySound" */,
-				8D1C1DCE2C404DEA005137DE /* XCLocalSwiftPackageReference "../../Swash_Swift_Package/Swash" */,
+				8D1C1DCE2C404DEA005137DE /* XCLocalSwiftPackageReference */,
 			);
 			productRefGroup = 8D23C1332B02C4CA00F7D878 /* Products */;
 			projectDirPath = "";
@@ -1191,7 +1194,7 @@
 				9313996AA764792E9B8670A5 /* FireDownComponent.swift in Sources */,
 				8DA97A962B23581100E7495A /* Int+extensions.swift in Sources */,
 				931397073B11911E75B9BFA0 /* QuadrantsControlsCreator.swift in Sources */,
-				93139C71990002FF2B995C07 /* ShipButtonControlsCreator.swift in Sources */,
+				93139C71990002FF2B995C07 /* ShipButtonsCreator.swift in Sources */,
 				8DE66F112C14CA1500ECEE96 /* SplitAsteroidComponent.swift in Sources */,
 				93139F78DDEA725367C42BFD /* AsteroidCreator.swift in Sources */,
 				93139CB863A15BF4B1274D41 /* PlayerCreator.swift in Sources */,
@@ -1295,6 +1298,7 @@
 				93139CD92FFC547190EE44DE /* CreateShieldPowerUpSystem.swift in Sources */,
 				93139F124896C46B9D486F34 /* PowerUpCreatorUseCase+extensions.swift in Sources */,
 				93139C0AF2CE44E81DEB9C48 /* ShieldSystem.swift in Sources */,
+				9313934346206818B2709CA8 /* Transition+Tutorial.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1625,7 +1629,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		8D1C1DCE2C404DEA005137DE /* XCLocalSwiftPackageReference "../../Swash_Swift_Package/Swash" */ = {
+		8D1C1DCE2C404DEA005137DE /* XCLocalSwiftPackageReference */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../../Swash_Swift_Package/Swash;
 		};

@@ -17,12 +17,12 @@ final class ShipControlsSystem: ListIteratingSystem {
     private weak var engine: Engine!
     private weak var toggleShipControlsCreator: ToggleShipControlsCreatorUseCase!
     private weak var shipControlQuadrantsCreator: QuadrantsControlsCreatorUseCase!
-    private weak var shipButtonControlsCreator: ShipButtonControlsCreatorUseCase!
+    private weak var shipButtonControlsCreator: ShipButtonCreatorUseCase!
     private let startButtonsCreator: StartScreenCreatorUseCase!
 
     init(toggleShipControlsCreator: ToggleShipControlsCreatorUseCase,
          shipControlQuadrantsCreator: QuadrantsControlsCreatorUseCase,
-         shipButtonControlsCreator: ShipButtonControlsCreatorUseCase,
+         shipButtonControlsCreator: ShipButtonCreatorUseCase,
          startButtonsCreator: StartScreenCreatorUseCase) {
         self.toggleShipControlsCreator = toggleShipControlsCreator
         self.shipControlQuadrantsCreator = shipControlQuadrantsCreator
@@ -88,6 +88,8 @@ final class ShipControlsSystem: ListIteratingSystem {
                 toggleShipControlsCreator.createToggleButton(.on)
             case .gameOver:
                 break
+            case .tutorial:
+                break
         }
     }
 
@@ -104,6 +106,8 @@ final class ShipControlsSystem: ListIteratingSystem {
                 shipButtonControlsCreator.removeShipControlButtons()
                 toggleShipControlsCreator.removeToggleButton()
             case .gameOver:
+                break
+            case .tutorial:
                 break
         }
     }
@@ -122,6 +126,8 @@ final class ShipControlsSystem: ListIteratingSystem {
                 toggleShipControlsCreator.removeToggleButton()
                 toggleShipControlsCreator.createToggleButton(.off)
             case .gameOver:
+                break
+            case .tutorial:
                 break
         }
     }

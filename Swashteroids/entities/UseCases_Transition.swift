@@ -31,3 +31,8 @@ protocol StartUseCase: AnyObject {
     func fromStartScreen()
     func toStartScreen()
 }
+
+protocol TutorialUseCase: AnyObject {
+    func fromTutorialScreen()
+    func toTutorialScreen()
+}

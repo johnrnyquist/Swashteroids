@@ -9,44 +9,46 @@
 //
 
 import Swash
-
-final class ButtonComponent: Component {}
+ 
+class ButtonComponent: Component {
+    var tapCount = 0
+}
 
 // TODO I considered namespacing the below but decided to keep it simple.
 // Gamescreen buttons
-final class ButtonFireComponent: Component {}
+final class ButtonFireComponent: ButtonComponent {}
 
-final class ButtonFlipComponent: Component {}
+final class ButtonFlipComponent: ButtonComponent {}
 
-final class ButtonHyperSpaceComponent: Component {}
+final class ButtonHyperspaceComponent: ButtonComponent {}
 
-final class ButtonLeftComponent: Component {}
+final class ButtonLeftComponent: ButtonComponent {}
 
-final class ButtonRightComponent: Component {}
+final class ButtonRightComponent: ButtonComponent {}
 
-final class ButtonThrustComponent: Component {}
+final class ButtonThrustComponent: ButtonComponent {}
 
-final class ButtonPauseComponent: Component {}
+final class ButtonPauseComponent: ButtonComponent {}
 
-final class ButtonToggleComponent: Component {}
+final class ButtonToggleComponent: ButtonComponent {}
 
 // Alert popup buttons
-final class ButtonHomeComponent: Component {}
+final class ButtonHomeComponent: ButtonComponent {}
 
-final class ButtonResumeComponent: Component {}
+final class ButtonResumeComponent: ButtonComponent {}
 
-final class ButtonSettingsComponent: Component {}
+final class ButtonSettingsComponent: ButtonComponent {}
 
 // Start and info screen buttons
-final class ButtonPlayComponent: Component {}
+final class ButtonPlayComponent: ButtonComponent {}
 
-final class ButtonWithButtonsComponent: Component {}
+final class ButtonWithButtonsComponent: ButtonComponent {}
 
-final class ButtonWithAccelerometerComponent: Component {}
+final class ButtonWithAccelerometerComponent: ButtonComponent {}
 
-final class ButtonWithButtonsInfoComponent: Component {}
+final class ButtonWithButtonsInfoComponent: ButtonComponent {}
 
-final class ButtonWithAccelerometerInfoComponent: Component {}
+final class ButtonWithAccelerometerInfoComponent: ButtonComponent {}
 
 // GameOver only
-final class ButtonGameOverToHomeComponent: Component {}
+final class ButtonGameOverToHomeComponent: ButtonComponent {}

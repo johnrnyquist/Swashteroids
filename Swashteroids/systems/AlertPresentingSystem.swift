@@ -23,8 +23,8 @@ enum PauseAlertAction {
 final class AlertPresentingComponent: Component {
     var action: PauseAlertAction
 
-    init(state: PauseAlertAction) {
-        self.action = state
+    init(action: PauseAlertAction) {
+        self.action = action
     }
 }
 

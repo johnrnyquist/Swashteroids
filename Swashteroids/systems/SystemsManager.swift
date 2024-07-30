@@ -9,15 +9,91 @@
 //
 
 import Swash
+import Foundation
+
+extension Engine {
+    func remove(systemType: System.Type) {
+        systems.forEach { system in
+            if type(of: system) == systemType {
+                remove(system: system)
+            }
+        }
+    }
+}
 
 final class SystemsManager {
-    private(set) var transitionAppStateSystem: TransitionAppStateSystem
+    private let engine: Engine
+    private let creatorManager: CreatorsManager
+    private(set) var transitionAppStateSystem: TransitionAppStateSystem?
+    private let size: CGSize
 
-    init(scene: GameScene,
-         engine: Engine,
-         creatorManager: CreatorsManager,
-         alertPresenter: PauseAlertPresenting,
-         touchManager: TouchManager) {
+    init(engine: Engine, creatorManager: CreatorsManager, size: CGSize) {
+        self.engine = engine
+        self.creatorManager = creatorManager
+        self.size = size
+    }
+
+    func configureTutorialThrusting() {
+        // These are what we need:
+        //        AlertPresentingSystem
+        //        AudioSystem
+        //        DisplaySystem
+        //        FlipSystem
+        //        LeftSystem
+        //        MovementSystem
+        //        NacellesSystem
+        //        RepeatingAudioSystem
+        //        RightSystem
+        //        ShipControlsSystem
+        //        ThrustSystem
+        //        TouchedButtonSystem
+        //        TransitionAppStateSystem
+        //        TutorialSystem
+        // For now, we subtract from what we have
+        engine.remove(systemType: AccelerometerSystem.self)
+        engine.remove(systemType: AlienAppearancesSystem.self)
+        engine.remove(systemType: AlienFiringSystem.self)
+        engine.remove(systemType: AnimationSystem.self)
+        engine.remove(systemType: CollisionSystem.self)
+        engine.remove(systemType: CreateShieldPowerUpSystem.self)
+        engine.remove(systemType: CreateXRayPowerUpSystem.self)
+        engine.remove(systemType: DeathThroesSystem.self)
+        engine.remove(systemType: ExitScreenSystem.self)
+        engine.remove(systemType: FiringSystem.self)
+        engine.remove(systemType: GameOverSystem.self)
+        engine.remove(systemType: GameplayManagerSystem.self)
+        engine.remove(systemType: HudSystem.self)
+        engine.remove(systemType: HyperspaceJumpSystem.self)
+        engine.remove(systemType: LevelManagementSystem.self)
+        engine.remove(systemType: LifetimeSystem.self)
+        engine.remove(systemType: MoveToTargetSystem.self)
+        engine.remove(systemType: PickTargetSystem.self)
+        engine.remove(systemType: ReactionTimeSystem.self)
+        engine.remove(systemType: ShieldSystem.self)
+        engine.remove(systemType: SplitAsteroidSystem.self)
+        engine.remove(systemType: TimePlayedSystem.self)
+        engine.remove(systemType: TouchedQuadrantSystem.self)
+        engine.remove(systemType: XRayVisionSystem.self)
+        for system in engine.systems {
+            print(system)
+        }
+    }
+
+    func configureTutorialTurning() {}
+
+    func configureTutorialHUD() {
+        engine.add(system: HudSystem(powerUpCreator: creatorManager.powerUpCreator), priority: .update)
+              .add(system: HyperspaceJumpSystem(engine: engine), priority: .preUpdate)
+              .add(system: FiringSystem(torpedoCreator: creatorManager.torpedoCreator), priority: .preUpdate)
+              .add(system: CollisionSystem(shipCreator: creatorManager.playerCreator,
+                                           asteroidCreator: creatorManager.asteroidCreator,
+                                           shipButtonControlsCreator: creatorManager.shipButtonControlsCreator,
+                                           size: size),
+                   priority: .resolveCollisions)
+        creatorManager.hudCreator.createHud(gameState: engine.gameStateComponent)
+    }
+
+    func configureSystems(scene: GameScene, alertPresenter: PauseAlertPresenting, touchManager: TouchManager) {
         let transition = PlayingTransition(
             hudCreator: creatorManager.hudCreator,
             toggleShipControlsCreator: creatorManager.toggleShipControlsCreator,
@@ -26,12 +102,15 @@ final class SystemsManager {
         let startTransition = StartTransition(engine: engine, startScreenCreator: creatorManager.startScreenCreator)
         let gameOverTransition = GameOverTransition(engine: engine, alert: alertPresenter)
         let infoViewsTransition = InfoViewsTransition(engine: engine)
+        let tutorialTransition = TutorialTransition(engine: engine)
         transitionAppStateSystem = TransitionAppStateSystem(startTransition: startTransition,
                                                             infoViewsTransition: infoViewsTransition,
                                                             playingTransition: transition,
-                                                            gameOverTransition: gameOverTransition)
+                                                            gameOverTransition: gameOverTransition,
+                                                            tutorialTransition: tutorialTransition)
         engine
             // preupdate
+                .add(system: transitionAppStateSystem!, priority: .preUpdate)
                 .add(system: TouchedButtonSystem(touchManager: touchManager), priority: .preUpdate)
                 .add(system: TouchedQuadrantSystem(touchManager: touchManager), priority: .preUpdate)
                 .add(system: AlertPresentingSystem(alertPresenting: alertPresenter), priority: .preUpdate)
@@ -44,7 +123,7 @@ final class SystemsManager {
                 .add(system: TimePlayedSystem(), priority: .preUpdate)
                 .add(system: GameplayManagerSystem(asteroidCreator: creatorManager.asteroidCreator,
                                                    alienCreator: creatorManager.alienCreator,
-                                                   playerCreator: creatorManager.shipCreator,
+                                                   playerCreator: creatorManager.playerCreator,
                                                    scene: scene),
                      priority: .preUpdate)
                 .add(system: GameOverSystem(), priority: .preUpdate)
@@ -53,9 +132,12 @@ final class SystemsManager {
                                                 shipButtonControlsCreator: creatorManager.shipButtonControlsCreator,
                                                 startButtonsCreator: creatorManager.startScreenCreator),
                      priority: .update)
-                .add(system: transitionAppStateSystem,
-                     priority: .preUpdate)
                 // update
+                .add(system: TutorialSystem(systemsManager: self,
+                                            gameSize: scene.size,
+                                            playerCreator: creatorManager.playerCreator,
+                                            shipButtonControlsCreator: creatorManager.shipButtonControlsCreator),
+                     priority: .update)
                 .add(system: CreateShieldPowerUpSystem(powerUpCreator: creatorManager.powerUpCreator), priority: .update)
                 .add(system: CreateXRayPowerUpSystem(powerUpCreator: creatorManager.powerUpCreator), priority: .update)
                 .add(system: AlienAppearancesSystem(alienCreator: creatorManager.alienCreator), priority: .update)
@@ -78,9 +160,9 @@ final class SystemsManager {
                 // move
                 .add(system: AccelerometerSystem(), priority: .move)
                 .add(system: MovementSystem(gameSize: scene.size), priority: .move)
-                .add(system: ShieldSystem(), priority: .move) 
+                .add(system: ShieldSystem(), priority: .move)
                 // resolve collisions
-                .add(system: CollisionSystem(shipCreator: creatorManager.shipCreator,
+                .add(system: CollisionSystem(shipCreator: creatorManager.playerCreator,
                                              asteroidCreator: creatorManager.asteroidCreator,
                                              shipButtonControlsCreator: creatorManager.shipButtonControlsCreator,
                                              size: scene.size),

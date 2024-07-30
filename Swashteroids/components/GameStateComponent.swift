@@ -12,8 +12,7 @@ import Swash
 import Foundation
 
 struct GameConfig {
-    var alienNextAppearance: TimeInterval = 0.0
-    var swashteroidsState: GameScreen = .start
+    var alienNextAppearance: TimeInterval = Randomness.shared.nextDouble(from: 15.0, through: 90.0)
     var gameSize: CGSize
     var level: Int = 0
     var levelBonus: Int = 500
@@ -27,6 +26,7 @@ struct GameConfig {
     var numTorpedoesPlayerFired: Int = 0
     var score: Int = 0
     var shipControlsState: ShipControlsState = .usingScreenControls
+    var swashteroidsState: GameScreen = .start
     var timePlayed: Double = 0.0
 }
 

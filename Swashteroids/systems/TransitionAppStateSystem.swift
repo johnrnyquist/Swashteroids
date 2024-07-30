@@ -20,18 +20,21 @@ final class TransitionAppStateSystem: ListIteratingSystem {
     private let infoViewsTransition: InfoViewsUseCase?
     private let playingTransition: PlayingUseCase?
     private let gameOverTransition: GameOverUseCase?
+    private let tutorialTransition: TutorialUseCase?
     weak var gamepadManager: GameStateObserver?
 
     init(
         startTransition: StartUseCase,
         infoViewsTransition: InfoViewsUseCase,
         playingTransition: PlayingUseCase,
-        gameOverTransition: GameOverUseCase
+        gameOverTransition: GameOverUseCase,
+        tutorialTransition: TutorialUseCase
     ) {
         self.startTransition = startTransition
         self.gameOverTransition = gameOverTransition
         self.infoViewsTransition = infoViewsTransition
         self.playingTransition = playingTransition
+        self.tutorialTransition = tutorialTransition
         super.init(nodeClass: TransitionAppStateNode.self)
         nodeUpdateFunction = updateNode
     }
@@ -53,6 +56,8 @@ final class TransitionAppStateSystem: ListIteratingSystem {
             case .infoAccelerometer:
                 infoViewsTransition?.fromAccelerometerInfoScreen()
                 appStateComponent.shipControlsState = .usingAccelerometer
+            case .tutorial:
+                tutorialTransition?.fromTutorialScreen()
         }
         appStateComponent.gameScreen = transitionComponent.to
         gamepadManager?.onGameStateChange(state: appStateComponent.gameScreen)  //HACK
@@ -68,6 +73,8 @@ final class TransitionAppStateSystem: ListIteratingSystem {
                 infoViewsTransition?.toButtonsInfoScreen()
             case .infoAccelerometer:
                 infoViewsTransition?.toAccelerometerInfoScreen()
+            case .tutorial:
+                tutorialTransition?.toTutorialScreen()
         }
         node.entity?.remove(componentClass: ChangeGameStateComponent.self)
     }

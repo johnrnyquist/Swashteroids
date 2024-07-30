@@ -75,7 +75,7 @@ struct GeometryGetter: View {
     @Binding var height: CGFloat
     var body: some View {
         GeometryReader { geometry in
-            self.createView(proxy: geometry)
+            createView(proxy: geometry)
         }
     }
 

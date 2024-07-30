@@ -27,6 +27,7 @@ extension String {
     static let start: EntityName = "startEntity"
     static let noButtons: EntityName = "noButtonsEntity"
     static let withButtons: EntityName = "withButtonsEntity"
+    static let tutorialButton: EntityName = "tutorialButtonEntity"
     static let aCircleFill: EntityName = "a.circle.fill"
     static let gamecontrollerFill: EntityName = "gamecontroller.fill"
     // Info screens
@@ -49,5 +50,6 @@ extension String {
     static let toggleButton: EntityName = "toggleButtonEntity"
     static let torpedo: EntityName = "torpedoEntity"
     static let torpedoPowerUp: EntityName = "torpedoPowerUpEntity"
+    static let tutorialText: EntityName = "tutorialTextEntity"
     static let xRayPowerUp: EntityName = "xrayPowerUpEntity"
 }

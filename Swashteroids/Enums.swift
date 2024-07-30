@@ -58,6 +58,7 @@ public enum GameScreen: String, CaseIterable {
     case infoAccelerometer = "No Buttons Information Screen"
     case playing = "Playing Screen"
     case gameOver = "Game Over Screen"
+    case tutorial = "Tutorial"
     var commandsPerScreen: [GameCommand] {
         switch self {
             case .start:
@@ -70,6 +71,8 @@ public enum GameScreen: String, CaseIterable {
                 return [.fire, .thrust, .hyperspace, .left, .right, .pause, .flip, .home, .settings, .resume]
             case .gameOver:
                 return [.pause, .home, .settings, .resume]
+            case .tutorial:
+                return [.play]
         }
     }
 }

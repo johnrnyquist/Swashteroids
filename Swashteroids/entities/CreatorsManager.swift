@@ -15,23 +15,23 @@ final class CreatorsManager {
     let alienCreator: AlienCreatorUseCase
     let asteroidCreator: AsteroidCreatorUseCase
     let hudCreator: HudCreatorUseCase
+    let playerCreator: PlayerCreatorUseCase
     let powerUpCreator: PowerUpCreatorUseCase
-    let shipButtonControlsCreator: ShipButtonControlsCreatorUseCase
+    let shipButtonControlsCreator: ShipButtonCreatorUseCase
     let shipControlQuadrantsCreator: QuadrantsControlsCreatorUseCase
-    let shipCreator: PlayerCreatorUseCase
+    let startScreenCreator: StartScreenCreatorUseCase
     let toggleShipControlsCreator: ToggleShipControlsCreatorUseCase
     let torpedoCreator: TorpedoCreatorUseCase
     let treasureCreator: TreasureCreatorUseCase
-    let startScreenCreator: StartScreenCreatorUseCase
 
     init(engine: Engine, gameSize: CGSize, alertPresenter: PauseAlertPresenting, scene: GameScene) {
         startScreenCreator = StartScreenCreator(engine: engine, gameSize: gameSize)
         alienCreator = AlienCreator(scene: scene, engine: engine, size: gameSize)
         hudCreator = HudCreator(engine: engine, alertPresenter: alertPresenter)
         powerUpCreator = PowerUpCreator(engine: engine, size: gameSize)
-        shipButtonControlsCreator = ShipButtonControlsCreator(engine: engine, size: gameSize)
+        shipButtonControlsCreator = ShipButtonsCreator(engine: engine, size: gameSize)
         shipControlQuadrantsCreator = QuadrantsControlsCreator(engine: engine, size: gameSize)
-        shipCreator = PlayerCreator(engine: engine, size: gameSize)
+        playerCreator = PlayerCreator(engine: engine, size: gameSize)
         toggleShipControlsCreator = ToggleShipControlsCreator(engine: engine, size: gameSize)
         torpedoCreator = TorpedoCreator(engine: engine)
         treasureCreator = TreasureCreator(engine: engine)

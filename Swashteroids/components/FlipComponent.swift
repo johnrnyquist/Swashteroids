@@ -14,6 +14,7 @@ import Swash
 final class FlipComponent: Component {
     /// If something is just a flag that I use frequently, I make it a shared instance. 
     static let shared = FlipComponent()
+    public var flipCount = 0
 
     private override init() {}
 }

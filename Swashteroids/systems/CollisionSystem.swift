@@ -25,7 +25,7 @@ final class CollisionSystem: System {
     private weak var hyperspacePowerUp: NodeList!
     private weak var xRayPowerUp: NodeList!
     private weak var shieldsPowerUp: NodeList!
-    private weak var shipButtonControlsCreator: ShipButtonControlsCreatorUseCase!
+    private weak var shipButtonControlsCreator: ShipButtonCreatorUseCase!
     private weak var players: NodeList!
     private weak var torpedoPowerUp: NodeList!
     private weak var torpedoes: NodeList!
@@ -34,7 +34,7 @@ final class CollisionSystem: System {
 
     init(shipCreator: PlayerCreatorUseCase,
          asteroidCreator: AsteroidCreatorUseCase,
-         shipButtonControlsCreator: ShipButtonControlsCreatorUseCase,
+         shipButtonControlsCreator: ShipButtonCreatorUseCase,
          size: CGSize,
          randomness: Randomizing = Randomness.shared,
          scaleManager: ScaleManaging = ScaleManager.shared) {

@@ -15,12 +15,12 @@ final class PlayingTransition: PlayingUseCase {
     weak var hudCreator: HudCreatorUseCase?
     weak var toggleShipControlsCreator: ToggleShipControlsCreatorUseCase?
     weak var shipControlQuadrantsCreator: QuadrantsControlsCreatorUseCase?
-    weak var shipButtonControlsCreator: ShipButtonControlsCreatorUseCase?
+    weak var shipButtonControlsCreator: ShipButtonCreatorUseCase?
 
     init(hudCreator: HudCreatorUseCase,
          toggleShipControlsCreator: ToggleShipControlsCreatorUseCase,
          shipControlQuadrantsCreator: QuadrantsControlsCreatorUseCase,
-         shipButtonControlsCreator: ShipButtonControlsCreatorUseCase
+         shipButtonControlsCreator: ShipButtonCreatorUseCase
     ) {
         self.hudCreator = hudCreator
         self.toggleShipControlsCreator = toggleShipControlsCreator

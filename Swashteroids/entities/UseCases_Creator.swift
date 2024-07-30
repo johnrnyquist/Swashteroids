@@ -30,7 +30,14 @@ protocol PowerUpCreatorUseCase: AnyObject {
     func createXRayPowerUp(level: Int, radius: Double)
 }
 
-protocol ShipButtonControlsCreatorUseCase: AnyObject {
+protocol ShipButtonCreatorUseCase: AnyObject {
+    func createThrustButton()
+    func createLeftButton()
+    func createRightButton()
+    func createFlipButton()
+    func createFireButton()
+    func createHyperspaceButton()
+    
     func createShipControlButtons()
     func enableShipControlButtons()
     func removeShipControlButtons()

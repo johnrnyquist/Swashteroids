@@ -115,7 +115,9 @@ final class TouchedButtonSystem: ListIteratingSystem {
         // HACK I've improved things from an ECS POV by pulling this code from the components into a system but I do not like the big if statement
         switch touchedComponent.state {
             case .began:
-                if buttonEntity.has(componentClass: ButtonWithButtonsComponent.self) {
+                if buttonEntity.has(componentClass: ButtonTutorialComponent.self) {
+                    engine.appStateEntity.add(component: ChangeGameStateComponent(from: .start, to: .tutorial))
+                } else if buttonEntity.has(componentClass: ButtonWithButtonsComponent.self) {
                     engine.appStateEntity.add(component: ChangeGameStateComponent(from: .start, to: .infoButtons))
                 } else if buttonEntity.has(componentClass: ButtonWithAccelerometerComponent.self) {
                     engine.appStateEntity.add(component: ChangeGameStateComponent(from: .start, to: .infoAccelerometer))
@@ -124,25 +126,31 @@ final class TouchedButtonSystem: ListIteratingSystem {
                 } else if buttonEntity.has(componentClass: ButtonWithAccelerometerInfoComponent.self) {
                     engine.appStateEntity.add(component: ChangeGameStateComponent(from: .infoAccelerometer, to: .playing))
                 } else if buttonEntity.has(componentClass: ButtonFireComponent.self) {
+                    buttonEntity[ButtonFireComponent.self]?.tapCount += 1 //HACK
                     engine.playerEntity?.add(component: FireDownComponent.shared)
                 } else if buttonEntity.has(componentClass: ButtonThrustComponent.self) {
                     if let ship = engine.playerEntity {
+                        buttonEntity[ButtonThrustComponent.self]?.tapCount += 1 //HACK
                         ship.add(component: ApplyThrustComponent.shared)
                         ship[ImpulseDriveComponent.self]?.isThrusting = true
                         ship[RepeatingAudioComponent.self]?.state = .shouldBegin
                     }
                 } else if buttonEntity.has(componentClass: ButtonRightComponent.self) {
-                    self.engine.playerEntity?.add(component: RightComponent.shared)
+                    buttonEntity[ButtonRightComponent.self]?.tapCount += 1 //HACK
+                    engine.playerEntity?.add(component: RightComponent.shared)
                 } else if buttonEntity.has(componentClass: ButtonLeftComponent.self) {
-                    self.engine.playerEntity?.add(component: LeftComponent.shared)
+                    buttonEntity[ButtonLeftComponent.self]?.tapCount += 1 //HACK
+                    engine.playerEntity?.add(component: LeftComponent.shared)
                 } else if buttonEntity.has(componentClass: ButtonFlipComponent.self) {
+                    buttonEntity[ButtonFlipComponent.self]?.tapCount += 1 //HACK
                     engine.playerEntity?.add(component: FlipComponent.shared)
-                } else if buttonEntity.has(componentClass: ButtonHyperSpaceComponent.self) {
+                } else if buttonEntity.has(componentClass: ButtonHyperspaceComponent.self) {
+                    buttonEntity[ButtonHyperspaceComponent.self]?.tapCount += 1 //HACK
                     engine.playerEntity?.add(component: DoHyperspaceJumpComponent(size: scene.size))
                 } else if buttonEntity.has(componentClass: ButtonGameOverToHomeComponent.self) {
                     engine.appStateEntity.add(component: ChangeGameStateComponent(from: .gameOver, to: .start))
                 } else if buttonEntity.has(componentClass: ButtonPauseComponent.self) {
-                    buttonEntity.add(component: AlertPresentingComponent(state: .showPauseAlert))
+                    buttonEntity.add(component: AlertPresentingComponent(action: .showPauseAlert))
                 } else if buttonEntity.has(componentClass: ButtonToggleComponent.self) {
                     let curState = engine.shipControlsState
                     let toggleState: Toggle = curState == .usingAccelerometer ? .off : .on

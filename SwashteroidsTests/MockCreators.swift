@@ -42,7 +42,7 @@ final class MockHudCreator: HudCreatorUseCase {
     }
 }
 
-final class MockShipButtonControlsCreator: ShipButtonControlsCreatorUseCase {
+final class MockShipButtonControlsCreator: ShipButtonCreatorUseCase {
     func createShipControlButtons() {}
 
     func enableShipControlButtons() {}
@@ -67,7 +67,7 @@ final class MockPlayerCreator: PlayerCreatorUseCase {
     }
 }
 
-final class MockQuadrantsButtonToggleCreator: QuadrantsControlsCreatorUseCase, ShipButtonControlsCreatorUseCase, ToggleShipControlsCreatorUseCase {
+final class MockQuadrantsButtonToggleCreator: QuadrantsControlsCreatorUseCase, ShipButtonCreatorUseCase, ToggleShipControlsCreatorUseCase {
     //MARK: - ShipQuadrantsControlsManager
     var createShipControlQuadrantsCalled = false
     var removeShipControlQuadrantsCalled = false
