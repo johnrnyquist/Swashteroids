@@ -51,7 +51,7 @@ final class StartScreenCreator: StartScreenCreatorUseCase {
 
     
     func removeStartButtons() {
-        engine.removeEntities(named: [.noButtons, .withButtons])
+        engine.removeEntities(named: [.tutorialButton, .withButtons])
     }
 
     func removeGamepadIndicator() {
@@ -82,47 +82,36 @@ final class StartScreenCreator: StartScreenCreatorUseCase {
     }
 
     func createStartButtons() {
-        let noButtonsSprite = startView.noButtons
-        let buttonsSprite = startView.buttons
-        let tutorialSprite = SwashScaledSpriteNode(color: .red, size: CGSize(width: 50, height: 50))
-        noButtonsSprite.name = .noButtons
-        buttonsSprite.name = .withButtons
-        noButtonsSprite.removeFromParent()
-        buttonsSprite.removeFromParent()
+        let tutorialSprite = startView.tutorial
+        let playSprite = startView.play
+        tutorialSprite.name = .tutorialButton
+        playSprite.name = .withButtons
+        tutorialSprite.removeFromParent()
+        playSprite.removeFromParent()
         // create the entities
-        let withButtons = Entity(named: .withButtons)
-        let withAccelerometer = Entity(named: .noButtons)
+        let playButton = Entity(named: .withButtons)
         let tutorial = Entity(named: .tutorialButton)
         // assign entities to sprites
-        noButtonsSprite.entity = withAccelerometer
-        buttonsSprite.entity = withButtons
         tutorialSprite.entity = tutorial
-        // the button to tap if you want to play with no buttons on the screen
-        withAccelerometer
-                .add(component: ButtonWithAccelerometerComponent())
-                .add(component: ButtonComponent())
-                .add(component: TouchableComponent())
-                .add(component: HapticFeedbackComponent.shared)
-                .add(component: DisplayComponent(sknode: noButtonsSprite))
-                .add(component: PositionComponent(x: noButtonsSprite.x, y: noButtonsSprite.y, z: Layer.top, rotationDegrees: 0))
-        // the button to tap if you want to play with buttons on the screen
-        withButtons
-                .add(component: ButtonWithButtonsComponent())
-                .add(component: ButtonComponent())
-                .add(component: TouchableComponent())
-                .add(component: HapticFeedbackComponent.shared)
-                .add(component: DisplayComponent(sknode: buttonsSprite))
-                .add(component: PositionComponent(x: buttonsSprite.x, y: buttonsSprite.y, z: Layer.top, rotationDegrees: 0))
+        playSprite.entity = playButton
+        tutorialSprite.entity = tutorial
+        // Configure entities
         tutorial
                 .add(component: ButtonTutorialComponent())
                 .add(component: ButtonComponent())
                 .add(component: TouchableComponent())
                 .add(component: HapticFeedbackComponent.shared)
                 .add(component: DisplayComponent(sknode: tutorialSprite))
-                .add(component: PositionComponent(x: gameSize.width/2, y: 20, z: Layer.top, rotationDegrees: 0))
+                .add(component: PositionComponent(x: tutorialSprite.x, y: tutorialSprite.y, z: Layer.top, rotationDegrees: 0))
+        playButton
+                .add(component: ButtonWithButtonsComponent())
+                .add(component: ButtonComponent())
+                .add(component: TouchableComponent())
+                .add(component: HapticFeedbackComponent.shared)
+                .add(component: DisplayComponent(sknode: playSprite))
+                .add(component: PositionComponent(x: playSprite.x, y: playSprite.y, z: Layer.top, rotationDegrees: 0))
         // add entities to engine
         engine.add(entity: tutorial)
-        engine.add(entity: withAccelerometer)
-        engine.add(entity: withButtons)
+        engine.add(entity: playButton)
     }
 }

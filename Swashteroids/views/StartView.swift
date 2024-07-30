@@ -11,8 +11,8 @@
 import SpriteKit
 
 final class StartView: SwashSpriteNode {
-    let buttons: SwashSpriteNode
-    let noButtons: SwashSpriteNode
+    let play: SwashSpriteNode
+    let tutorial: SwashSpriteNode
     let title: SKSpriteNode
     let versionInfo: SKLabelNode
     var versionInfoFontSize = 21.0
@@ -22,8 +22,8 @@ final class StartView: SwashSpriteNode {
         // Initialize StartView constants
         versionInfo = SKLabelNode(text: "Nyquist Art + Logic, LLC v\(appVersion) (build \(appBuild))")
         title = SwashScaledSpriteNode(imageNamed: "title")
-        noButtons = SwashScaledSpriteNode(imageNamed: "nobuttons")
-        buttons = SwashScaledSpriteNode(imageNamed: "buttons")
+        tutorial = SwashScaledSpriteNode(imageNamed: "tutorial")
+        play = SwashScaledSpriteNode(imageNamed: "play")
         // Configure StartView
         super.init(texture: nil, color: .clear, size: gameSize)
         anchorPoint = .zero
@@ -74,14 +74,14 @@ final class StartView: SwashSpriteNode {
         // Configure buttons
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
            let window = appDelegate.window {
-            noButtons.anchorPoint = .zero
-            noButtons.name = "nobuttons"
-            noButtons.alpha = 0.2
-            noButtons.position = CGPoint(x: max(window.safeAreaInsets.left, 10), y: max(window.safeAreaInsets.bottom, 10))
-            buttons.anchorPoint = .zero
-            buttons.name = "buttons"
-            buttons.alpha = 0.2
-            buttons.position = CGPoint(x: gameSize.width - buttons.size.width - max(window.safeAreaInsets.right, 10),
+            tutorial.anchorPoint = .zero
+            tutorial.name = "tutorial"
+            tutorial.alpha = 0.2
+            tutorial.position = CGPoint(x: max(window.safeAreaInsets.left, 10), y: max(window.safeAreaInsets.bottom, 10))
+            play.anchorPoint = .zero
+            play.name = "buttons"
+            play.alpha = 0.2
+            play.position = CGPoint(x: gameSize.width - play.size.width - max(window.safeAreaInsets.right, 10),
                                        y: max(window.safeAreaInsets.bottom, 10))
         }
         // Add children

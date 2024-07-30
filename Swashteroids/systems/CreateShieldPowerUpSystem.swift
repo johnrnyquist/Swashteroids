@@ -89,7 +89,7 @@ final class CreateShieldPowerUpSystem: ListIteratingSystem {
         entity.remove(componentClass: DoCreateShieldPowerUpComponent.self)
         if powerUpNodes?.empty == true, // There are no xray powerup nodes floating around
            shieldNodes?.empty == true, // Player does not have xray vision
-           level > 2, // Shield Power-Ups are not created in level 1 or 2
+           level > 1, 
            !shieldPowerUpsCreatedComponent.levels.contains(level) // A powerup for this level has not been created
         {
             shieldPowerUpsCreatedComponent.levels.append(level)

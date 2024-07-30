@@ -98,7 +98,7 @@ class TutorialSystem: ListIteratingSystem {
         self.engine = engine
     }
 
-    func format(string: String) -> NSAttributedString {
+    private func format(string: String) -> NSAttributedString {
         let attributed = NSMutableAttributedString(string: string)
         let range = NSRange(location: 0, length: attributed.length)
         let font = UIFont(name: "BadlocICG", size: 24.0)!
@@ -206,8 +206,7 @@ class TutorialSystem: ListIteratingSystem {
                 if !tutorialComponent.completedTryFiring {
                     tutorialComponent.completedTryFiring = true
                     message(text: "Try firing a torpedo!") {}
-                }
-                if let fireButton = engine.findEntity(named: .fireButton),
+                } else if let fireButton = engine.findEntity(named: .fireButton),
                    let tapCount = fireButton[ButtonFireComponent.self]?.tapCount,
                    tapCount > 0 {
                     tutorialComponent.state = .tryHyperspace
@@ -216,8 +215,7 @@ class TutorialSystem: ListIteratingSystem {
                 if !tutorialComponent.completedTryHyperspace {
                     tutorialComponent.completedTryHyperspace = true
                     message(text: "Try a hyperspace jump!") {}
-                }
-                if let hyperspaceButton = engine.findEntity(named: .hyperspaceButton),
+                } else if let hyperspaceButton = engine.findEntity(named: .hyperspaceButton),
                    let tapCount = hyperspaceButton[ButtonHyperspaceComponent.self]?.tapCount,
                    tapCount > 0 {
                     tutorialComponent.state = .complete
@@ -231,7 +229,6 @@ class TutorialSystem: ListIteratingSystem {
     }
 
     private func message(text: String, action: @escaping () -> Void) {
-        print(text)
         tutorialText.remove(componentClass: PositionComponent.self)
         let skNode = tutorialText[DisplayComponent.self]!.sknode
         skNode.alpha = 1.0
@@ -246,7 +243,7 @@ class TutorialSystem: ListIteratingSystem {
         //
         let wait3 = SKAction.wait(forDuration: 3)
         let wait2 = SKAction.wait(forDuration: 2)
-        let fade = SKAction.fadeAlpha(to: 0.2, duration: 0.25)
+        let fade = SKAction.fadeAlpha(to: 0.3, duration: 0.25)
         let seq = SKAction.sequence([wait3, fade, wait2])
         skNode.run(seq, completion: action)
     }
