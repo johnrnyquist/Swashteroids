@@ -11,10 +11,6 @@
 import Swash
 import Foundation
 
-enum AsteroidAttributes {
-    static let large = 54.0
-}
-
 /// The state of the ship controls. Either showing or hiding. 
 enum ShipControlsState {
     case usingAccelerometer

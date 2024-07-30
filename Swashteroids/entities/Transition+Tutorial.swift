@@ -21,6 +21,8 @@ enum TutorialState {
     case powerups
     case tryFiring
     case tryHyperspace
+    case asteroid
+    case treasure
     case complete
     case none
 }
@@ -43,12 +45,7 @@ class TutorialTransition: TutorialUseCase {
 }
 
 class TutorialComponent: Component {
-    var state: TutorialState {
-        didSet {
-            print("\(oldValue) -> \(state)")
-        }
-    }
-    
+    var state: TutorialState
     // MARK: - Tutorial Progress in order
     var completedThisIsYourShip = false
     var completedThrusting = false
@@ -60,7 +57,10 @@ class TutorialComponent: Component {
     var completedHyperspacePowerup = false
     var completedTryFiring = false
     var completedTryHyperspace = false
-    
+    var completedAsteroid = false
+    var completedTreasure = false
+    var completedAsteroid2 = false
+
     init(tutorialState: TutorialState) {
         self.state = tutorialState
     }
@@ -82,15 +82,22 @@ class TutorialSystem: ListIteratingSystem {
     weak var playerCreator: PlayerCreatorUseCase?
     weak var shipButtonControlsCreator: ShipButtonCreatorUseCase?
     weak var systemsManager: SystemsManager?
+    weak var asteroidCreator: AsteroidCreatorUseCase?
+    weak var treasureCreator: TreasureCreatorUseCase?
 
     init(systemsManager: SystemsManager,
          gameSize: CGSize,
          playerCreator: PlayerCreatorUseCase,
-         shipButtonControlsCreator: ShipButtonCreatorUseCase) {
+         shipButtonControlsCreator: ShipButtonCreatorUseCase,
+         asteroidCreator: AsteroidCreatorUseCase,
+         treasureCreator: TreasureCreatorUseCase
+    ) {
         self.systemsManager = systemsManager
         self.gameSize = gameSize
         self.playerCreator = playerCreator
         self.shipButtonControlsCreator = shipButtonControlsCreator
+        self.asteroidCreator = asteroidCreator
+        self.treasureCreator = treasureCreator
         super.init(nodeClass: TutorialNode.self)
         nodeUpdateFunction = updateNode
     }
@@ -140,7 +147,7 @@ class TutorialSystem: ListIteratingSystem {
                     message(text: "Try pressing and holding the thrust button to increase your speed.") {}
                 } else if !tutorialComponent.completedThrusting,
                           let x = engine.playerEntity![PositionComponent.self]?.x,
-                          x > gameSize.width / 2.0 + gameSize.width / 5.0 {
+                          x > gameSize.halfWidth + gameSize.width / 5.0 {
                     tutorialComponent.completedThrusting = true
                     message(text: "Feel the roar of the engines!") {
                         tutorialComponent.state = .flipping
@@ -149,7 +156,7 @@ class TutorialSystem: ListIteratingSystem {
             case .flipping:
                 if engine.findEntity(named: .flipButton) == nil {
                     systemsManager?.configureTutorialTurning()
-                    message(text: "The Flip button flips your ship 180 degrees, it's good for slowing down.\nTry flipping your ship.") {}
+                    message(text: "The Flip button flips your ship 180 degrees. \nTry flipping your ship.") {}
                     shipButtonControlsCreator?.createFlipButton()
                 } else if !tutorialComponent.completedFlipping,
                           let button = engine.findEntity(named: .flipButton),
@@ -210,15 +217,6 @@ class TutorialSystem: ListIteratingSystem {
                     tutorialComponent.completedHyperspacePowerup = true
                 }
                 if tutorialComponent.completedTorpedoPowerup && tutorialComponent.completedHyperspacePowerup {
-                    tutorialComponent.state = .tryFiring
-                }
-            case .tryFiring:
-                if !tutorialComponent.completedTryFiring {
-                    tutorialComponent.completedTryFiring = true
-                    message(text: "Try firing a torpedo!") {}
-                } else if let fireButton = engine.findEntity(named: .fireButton),
-                   let tapCount = fireButton[ButtonFireComponent.self]?.tapCount,
-                   tapCount > 0 {
                     tutorialComponent.state = .tryHyperspace
                 }
             case .tryHyperspace:
@@ -226,12 +224,60 @@ class TutorialSystem: ListIteratingSystem {
                     tutorialComponent.completedTryHyperspace = true
                     message(text: "Try a hyperspace jump!") {}
                 } else if let hyperspaceButton = engine.findEntity(named: .hyperspaceButton),
-                   let tapCount = hyperspaceButton[ButtonHyperspaceComponent.self]?.tapCount,
-                   tapCount > 0 {
+                          let tapCount = hyperspaceButton[ButtonHyperspaceComponent.self]?.tapCount,
+                          tapCount > 0 {
+                    tutorialComponent.state = .tryFiring
+                }
+            case .tryFiring:
+                if !tutorialComponent.completedTryFiring {
+                    tutorialComponent.completedTryFiring = true
+                    message(text: "Try firing a torpedo!") {}
+                } else if let fireButton = engine.findEntity(named: .fireButton),
+                          let tapCount = fireButton[ButtonFireComponent.self]?.tapCount,
+                          tapCount > 0 {
+                    tutorialComponent.state = .asteroid
+                }
+            case .asteroid:
+                if engine.getNodeList(nodeClassType: TorpedoCollisionNode.self).head == nil {
+                    if !tutorialComponent.completedAsteroid {
+                        tutorialComponent.completedAsteroid = true
+                        engine.add(system: SplitAsteroidSystem(asteroidCreator: asteroidCreator!,
+                                                               treasureCreator: treasureCreator!), priority: .update)
+                        engine.add(system: DeathThroesSystem(), priority: .update)
+                        message(text: "This is an asteroid.\nYour job is to mine treasures by shooting them.") {}
+                        let asteroid = asteroidCreator?.createAsteroid(radius: AsteroidSize.small.rawValue,
+                                                                       x: gameSize.halfWidth + gameSize.width / 6,
+                                                                       y: gameSize.halfHeight,
+                                                                       size: .small,
+                                                                       level: 1)
+                        // give it a treasure
+                        asteroid?.remove(componentClass: TreasureInfoComponent.self)
+                        asteroid?.add(component: TreasureInfoComponent(of: .standard))
+                        asteroid?[VelocityComponent.self]?.linearVelocity = .zero
+                        asteroid?[PositionComponent.self]?.point = CGPoint(x: gameSize.halfWidth + gameSize.width / 5,
+                                                                           y: gameSize.halfHeight)
+                        engine.playerEntity?[VelocityComponent.self]?.linearVelocity = .zero
+                        engine.playerEntity?[PositionComponent.self]?.point = CGPoint(x: gameSize.halfWidth,
+                                                                                      y: gameSize.halfHeight)
+                        engine.playerEntity?[PositionComponent.self]?.rotationDegrees = 0.0
+                    } else if engine.findEntity(named: "asteroidEntity_1") == nil,
+                              tutorialComponent.completedAsteroid,
+                              !tutorialComponent.completedAsteroid2 {
+                        tutorialComponent.completedAsteroid2 = true
+                        message(text: "You just got some points!") {
+                            tutorialComponent.state = .treasure
+                        }
+                    }
+                }
+            case .treasure:
+                if !tutorialComponent.completedTreasure {
+                    tutorialComponent.completedTreasure = true
+                    message(text: "That asteroid had a treasure in it!\nFly into it to collect it.") {}
+                } else if engine.findEntity(named: "treasureEntity_1") == nil, tutorialComponent.completedTreasure {
                     tutorialComponent.state = .complete
                 }
             case .complete:
-                message(text: "Tutorial complete!\nYou're ready to play!") {}
+                message(text: "Tutorial complete!\nYou're ready to play!\n\nDid I mention we're not alone out here...") {}
                 tutorialComponent.state = .none
             case .none:
                 break
@@ -249,7 +295,7 @@ class TutorialSystem: ListIteratingSystem {
         //
         let y = gameSize.height - (24.0 * CGFloat((4 + text.components(separatedBy: "\n").count)))
         tutorialText
-                .add(component: PositionComponent(x: gameSize.width / 2.0, y: CGFloat(y), z: .top))
+                .add(component: PositionComponent(x: gameSize.halfWidth, y: CGFloat(y), z: .top))
         //
         let wait3 = SKAction.wait(forDuration: 3)
         let wait2 = SKAction.wait(forDuration: 2)

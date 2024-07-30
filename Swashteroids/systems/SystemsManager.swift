@@ -136,7 +136,9 @@ final class SystemsManager {
                 .add(system: TutorialSystem(systemsManager: self,
                                             gameSize: scene.size,
                                             playerCreator: creatorManager.playerCreator,
-                                            shipButtonControlsCreator: creatorManager.shipButtonControlsCreator),
+                                            shipButtonControlsCreator: creatorManager.shipButtonControlsCreator,
+                                            asteroidCreator: creatorManager.asteroidCreator,
+                                            treasureCreator: creatorManager.treasureCreator),
                      priority: .update)
                 .add(system: CreateShieldPowerUpSystem(powerUpCreator: creatorManager.powerUpCreator), priority: .update)
                 .add(system: CreateXRayPowerUpSystem(powerUpCreator: creatorManager.powerUpCreator), priority: .update)

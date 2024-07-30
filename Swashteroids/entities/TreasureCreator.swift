@@ -25,7 +25,7 @@ final class TreasureCreator: TreasureCreatorUseCase {
         let sprite = SwashScaledSpriteNode(color: treasureInfo.type.color, size: CGSize(width: 12, height: 12))
         addEmitter(colored: treasureInfo.type.color, on: sprite)
         totalTreasures += 1
-        let treasureEntity = Entity(named: "treasure" + "_\(totalTreasures)")
+        let treasureEntity = Entity(named: "treasureEntity" + "_\(totalTreasures)")
                 .add(component: TreasureComponent(type: treasureInfo.type))
                 .add(component: PositionComponent(x: point.x,
                                                   y: point.y,

@@ -36,7 +36,8 @@ final class AsteroidCreator: AsteroidCreatorUseCase {
     ///   - y: The y position of the asteroid.
     ///   - size: The size of the asteroid.
     ///   - level: This is the Game's current level. Value is used to determine the speed of the asteroid.
-    func createAsteroid(radius: Double, x: Double, y: Double, size: AsteroidSize, level: Int) {
+    @discardableResult
+    func createAsteroid(radius: Double, x: Double, y: Double, size: AsteroidSize, level: Int) -> Entity {
         totalAsteroids += 1
         let sprite = SwashScaledSpriteNode(texture: createAsteroidTexture(radius: radius, color: .asteroid))
 //        sprite.physicsBody = SKPhysicsBody(circleOfRadius: CGFloat(radius * scaleManager.SCALE_FACTOR))
@@ -69,6 +70,7 @@ final class AsteroidCreator: AsteroidCreatorUseCase {
         }
         sprite.entity = entity
         engine.add(entity: entity)
+        return entity
     }
 
     private func createVelocity(speedModifier: Double, level: Int) -> VelocityComponent {

@@ -16,7 +16,8 @@ protocol AlienCreatorUseCase: AnyObject {
 }
 
 protocol AsteroidCreatorUseCase: AnyObject {
-    func createAsteroid(radius: Double, x: Double, y: Double, size: AsteroidSize, level: Int)
+    @discardableResult
+    func createAsteroid(radius: Double, x: Double, y: Double, size: AsteroidSize, level: Int) -> Entity
 }
 
 protocol HudCreatorUseCase: AnyObject {

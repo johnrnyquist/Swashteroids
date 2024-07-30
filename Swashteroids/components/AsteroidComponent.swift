@@ -10,10 +10,10 @@
 
 import Swash
 
-enum AsteroidSize {
-    case small
-    case medium
-    case large
+enum AsteroidSize: Double {
+    case small = 13.5
+    case medium = 27.0
+    case large = 54.0
 }
 
 final class AsteroidComponent: Component {

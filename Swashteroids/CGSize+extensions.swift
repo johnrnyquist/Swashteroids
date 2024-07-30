@@ -11,6 +11,9 @@
 import Foundation
 
 extension CGSize {
+    var halfWidth: Double { width / 2.0 }
+    var halfHeight: Double { height / 2.0 }
+
     static func *(size: CGSize, scalar: Double) -> CGSize {
         CGSize(width: size.width * CGFloat(scalar), height: size.height * CGFloat(scalar))
     }

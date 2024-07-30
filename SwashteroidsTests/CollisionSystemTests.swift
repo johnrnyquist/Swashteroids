@@ -53,7 +53,7 @@ class CollisionSystemTests: XCTestCase {
         engine.add(entity: alienEntity)
         asteroidEntity = Entity(named: "asteroidEntity")
                 .add(component: AsteroidComponent(size: .large))
-                .add(component: CollidableComponent(radius: AsteroidAttributes.large, scaleManager: MockScaleManager()))
+                .add(component: CollidableComponent(radius: AsteroidSize.large.rawValue, scaleManager: MockScaleManager()))
                 .add(component: PositionComponent(x: 0, y: 0, z: 0))
                 .add(component: DisplayComponent(sknode: SKNode()))
                 .add(component: VelocityComponent(velocityX: 0, velocityY: 0, dampening: 0, base: 60.0))
