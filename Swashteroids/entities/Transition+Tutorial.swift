@@ -27,7 +27,7 @@ enum TutorialStep: CaseIterable {
     case none
 }
 
-enum TutorialCompletion {
+enum TutorialStepCompletionStatus {
     case notStarted
     case inProgress
     case completed
@@ -52,11 +52,11 @@ class TutorialTransition: TutorialUseCase {
 
 class TutorialComponent: Component {
     var state: TutorialStep
-    var completionStatus: [TutorialStep: TutorialCompletion]
+    var completionStatus: [TutorialStep: TutorialStepCompletionStatus]
 
     init(tutorialState: TutorialStep) {
-        self.state = tutorialState
-        self.completionStatus = Dictionary(uniqueKeysWithValues: TutorialStep.allCases.map { ($0, .notStarted) })
+        state = tutorialState
+        completionStatus = Dictionary(uniqueKeysWithValues: TutorialStep.allCases.map { ($0, .notStarted) })
     }
 }
 
@@ -78,7 +78,7 @@ class TutorialSystem: ListIteratingSystem {
     weak var systemsManager: SystemsManager?
     weak var asteroidCreator: AsteroidCreatorUseCase?
     weak var treasureCreator: TreasureCreatorUseCase?
-    private var message: MessageHandler?
+    private var message: TutorialMessageHandler?
 
     init(systemsManager: SystemsManager,
          gameSize: CGSize,
@@ -107,7 +107,7 @@ class TutorialSystem: ListIteratingSystem {
                     .add(component: DisplayComponent(sknode: skNode))
             engine.add(entity: tutorialText)
         }
-        message = MessageHandler(gameSize: gameSize, tutorialText: tutorialText)
+        message = TutorialMessageHandler(gameSize: gameSize, tutorialText: tutorialText)
     }
 
     private func format(string: String) -> NSAttributedString {
@@ -206,10 +206,10 @@ class TutorialSystem: ListIteratingSystem {
                     shipButtonControlsCreator?.createFireButton()
                     shipButtonControlsCreator?.createHyperspaceButton()
                     message?(text: """
-                                  These are power-ups for torpedoes and hyperspace jumps.
-                                  They'll appear soon after you run out.
-                                  Try to get them to be able to fire and jump.
-                                  """) {
+                                   These are power-ups for torpedoes and hyperspace jumps.
+                                   They'll appear soon after you run out.
+                                   Try to get them to be able to fire and jump.
+                                   """) {
                     }
                 }
                 if tutorialComponent.completionStatus[.powerups] == .notStarted,
@@ -298,21 +298,21 @@ class TutorialSystem: ListIteratingSystem {
             // Continue updating other cases similarly...
             case .complete:
                 message?(text: """
-                              Training complete!
-                              Enter the spiraling wormhole when you're ready to enter the asteroid field.
-                              And be careful, you may not be alone out there...
-                              """) {}
-                let wormholeSprite = SwashScaledSpriteNode(imageNamed: "spiral")
-                wormholeSprite.color = .yellow
-                wormholeSprite.colorBlendFactor = 1.0
-                let wormhole = Entity(named: "wormholeEntity")
+                               Training complete!
+                               Enter the warp tunnel when you're ready to enter the asteroid field.
+                               And be careful, you may not be alone out there...
+                               """) {}
+                let tunnelSprite = SwashScaledSpriteNode(imageNamed: "spiral")
+                tunnelSprite.color = .yellow
+                tunnelSprite.colorBlendFactor = 1.0
+                let tunnel = Entity(named: "tunnelEntity")
                         .add(component: BridgeComponent())
-                        .add(component: DisplayComponent(sknode: wormholeSprite))
+                        .add(component: DisplayComponent(sknode: tunnelSprite))
                         .add(component: PositionComponent(x: gameSize.halfWidth, y: gameSize.halfHeight, z: .asteroids))
-                        .add(component: CollidableComponent(radius: wormholeSprite.size.width / 2))
+                        .add(component: CollidableComponent(radius: tunnelSprite.size.width / 2))
                         .add(component: VelocityComponent(velocityX: 0.0, velocityY: 0.0, angularVelocity: 100))
-                wormholeSprite.entity = wormhole
-                engine.add(entity: wormhole)
+                tunnelSprite.entity = tunnel
+                engine.add(entity: tunnel)
                 tutorialComponent.state = .none
             case .none:
                 break
@@ -334,55 +334,3 @@ class BridgeNode: Node {
     }
 }
 
-class MessageHandler {
-    private let gameSize: CGSize
-    private let tutorialText: Entity
-
-    init(gameSize: CGSize, tutorialText: Entity) {
-        self.gameSize = gameSize
-        self.tutorialText = tutorialText
-    }
-
-    func callAsFunction(text: String, action: @escaping () -> Void) {
-        tutorialText.remove(componentClass: PositionComponent.self)
-        let skNode = tutorialText[DisplayComponent.self]!.sknode
-        skNode.alpha = 1.0
-        skNode.removeAllChildren()
-        let label = createLabel(with: text)
-        skNode.addChild(label)
-        positionTutorialText(for: text)
-        runMessageSequence(on: skNode, completion: action)
-    }
-
-    private func createLabel(with text: String) -> SKLabelNode {
-        let label = SKLabelNode(attributedText: format(string: text))
-        label.numberOfLines = 0
-        return label
-    }
-
-    private func positionTutorialText(for text: String) {
-        let y = gameSize.height - (24.0 * CGFloat((4 + text.components(separatedBy: "\n").count)))
-        tutorialText.add(component: PositionComponent(x: gameSize.halfWidth, y: CGFloat(y), z: .top))
-    }
-
-    private func runMessageSequence(on node: SKNode, completion: @escaping () -> Void) {
-        let wait3 = SKAction.wait(forDuration: 3)
-        let wait2 = SKAction.wait(forDuration: 1)
-        let fade = SKAction.fadeAlpha(to: 0.3, duration: 1)
-        let seq = SKAction.sequence([wait3, fade, wait2])
-        node.run(seq, completion: completion)
-    }
-
-    private func format(string: String) -> NSAttributedString {
-        let attributed = NSMutableAttributedString(string: string)
-        let range = NSRange(location: 0, length: attributed.length)
-        let font = UIFont(name: "Futura Condensed Medium", size: 24.0)!
-        let color = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = NSTextAlignment.center
-        attributed.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: range)
-        attributed.addAttribute(NSAttributedString.Key.font, value: font, range: range)
-        attributed.addAttribute(NSAttributedString.Key.foregroundColor, value: color, range: range)
-        return NSAttributedString(attributedString: attributed)
-    }
-}

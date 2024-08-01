@@ -152,6 +152,7 @@
 		9313935D542E2721BFFADDC1 /* TreasureCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139F2C79FC630142EA1605 /* TreasureCreator.swift */; };
 		931393799C3434FBF3FC0CCD /* AccelerometerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931396DD35CCD39E8E4EDB16 /* AccelerometerComponent.swift */; };
 		9313939131825EF42A421FE2 /* UseCases_Transition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139548F1C806045B42CEE6 /* UseCases_Transition.swift */; };
+		931393CD3F728BABB5788D43 /* TutorialMessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139C9A40B100BCC1DD5CC1 /* TutorialMessageHandler.swift */; };
 		93139411ABADC3F079CC2F3B /* Equatable+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931392FF3F02DBEB0D5C9AC7 /* Equatable+extensions.swift */; };
 		931394210CA0B09962A22946 /* MoveToTargetNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139D2354DE8E8246A21D37 /* MoveToTargetNode.swift */; };
 		9313942D68445B44D257ABD0 /* Transition+GameOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139DCC3081D67FB711D68B /* Transition+GameOver.swift */; };
@@ -485,6 +486,7 @@
 		93139C73A66D8863A166745D /* PowerUpCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PowerUpCreator.swift; sourceTree = "<group>"; };
 		93139C76E92BDD6C851476EC /* PickTargetNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickTargetNode.swift; sourceTree = "<group>"; };
 		93139C8044AA2C3F2199DEA0 /* CreateShieldPowerUpSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateShieldPowerUpSystem.swift; sourceTree = "<group>"; };
+		93139C9A40B100BCC1DD5CC1 /* TutorialMessageHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialMessageHandler.swift; sourceTree = "<group>"; };
 		93139CBF7A7836DA7371F38A /* AccelerometerSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccelerometerSystem.swift; sourceTree = "<group>"; };
 		93139CC64C9CFC7E61D7DCFE /* FlipNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlipNode.swift; sourceTree = "<group>"; };
 		93139D029684C918FEDD3DC1 /* LeftNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftNode.swift; sourceTree = "<group>"; };
@@ -599,6 +601,7 @@
 				8D8F24B72B51D4B100B2E223 /* extensions */,
 				8D59EDDD2B138ED6003BD073 /* Badloc ICG.ttf */,
 				93139933EFC2AE82B11922C6 /* String+SoundFileName.swift */,
+				93139C9A40B100BCC1DD5CC1 /* TutorialMessageHandler.swift */,
 			);
 			path = Swashteroids;
 			sourceTree = "<group>";
@@ -1063,7 +1066,7 @@
 			mainGroup = 8D23C1292B02C4C900F7D878;
 			packageReferences = (
 				8DDB04E82C376AE20029248B /* XCRemoteSwiftPackageReference "SwiftySound" */,
-				8D1C1DCE2C404DEA005137DE /* XCLocalSwiftPackageReference "../../Swash_Swift_Package/Swash" */,
+				8D1C1DCE2C404DEA005137DE /* XCLocalSwiftPackageReference */,
 			);
 			productRefGroup = 8D23C1332B02C4CA00F7D878 /* Products */;
 			projectDirPath = "";
@@ -1307,6 +1310,7 @@
 				93139C0AF2CE44E81DEB9C48 /* ShieldSystem.swift in Sources */,
 				9313934346206818B2709CA8 /* Transition+Tutorial.swift in Sources */,
 				93139A47A19BA778268A7D5A /* StartNewGameSystem.swift in Sources */,
+				931393CD3F728BABB5788D43 /* TutorialMessageHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1637,7 +1641,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		8D1C1DCE2C404DEA005137DE /* XCLocalSwiftPackageReference "../../Swash_Swift_Package/Swash" */ = {
+		8D1C1DCE2C404DEA005137DE /* XCLocalSwiftPackageReference */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../../Swash_Swift_Package/Swash;
 		};
