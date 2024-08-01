@@ -110,6 +110,7 @@ final class SystemsManager {
                                                             tutorialTransition: tutorialTransition)
         engine
             // preupdate
+                .add(system: StartNewGameSystem(alertPresenter: alertPresenter), priority: .preUpdate)
                 .add(system: transitionAppStateSystem!, priority: .preUpdate)
                 .add(system: TouchedButtonSystem(touchManager: touchManager), priority: .preUpdate)
                 .add(system: TouchedQuadrantSystem(touchManager: touchManager), priority: .preUpdate)

@@ -50,9 +50,9 @@ final class TransitionAppStateSystem: ListIteratingSystem {
                 gameOverTransition?.fromGameOverScreen()
             case .playing:
                 playingTransition?.fromPlayingScreen()
-            case .infoButtons:
-                infoViewsTransition?.fromButtonsInfoScreen()
-                appStateComponent.shipControlsState = .usingScreenControls
+//            case .infoButtons:
+//                infoViewsTransition?.fromButtonsInfoScreen()
+//                appStateComponent.shipControlsState = .usingScreenControls
             case .infoAccelerometer:
                 infoViewsTransition?.fromAccelerometerInfoScreen()
                 appStateComponent.shipControlsState = .usingAccelerometer
@@ -69,8 +69,8 @@ final class TransitionAppStateSystem: ListIteratingSystem {
             case .playing:
                 appStateComponent.timePlayed = 0.0
                 playingTransition?.toPlayingScreen(appStateComponent: appStateComponent)
-            case .infoButtons:
-                infoViewsTransition?.toButtonsInfoScreen()
+//            case .infoButtons:
+//                infoViewsTransition?.toButtonsInfoScreen()
             case .infoAccelerometer:
                 infoViewsTransition?.toAccelerometerInfoScreen()
             case .tutorial:

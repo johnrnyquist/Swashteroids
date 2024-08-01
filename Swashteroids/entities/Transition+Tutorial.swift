@@ -57,9 +57,9 @@ class TutorialComponent: Component {
     var completedHyperspacePowerup = false
     var completedTryFiring = false
     var completedTryHyperspace = false
-    var completedAsteroid = false
-    var completedTreasure = false
+    var completedAsteroid1 = false
     var completedAsteroid2 = false
+    var completedTreasure = false
 
     init(tutorialState: TutorialState) {
         self.state = tutorialState
@@ -134,7 +134,7 @@ class TutorialSystem: ListIteratingSystem {
             case .thisIsYourShip:
                 if !tutorialComponent.completedThisIsYourShip {
                     tutorialComponent.completedThisIsYourShip = true
-                    message(text: "This is your ship.") {
+                    message(text: "This is your ship:\nThe USS Swashbuckler!") {
                         tutorialComponent.state = .thrusting
                     }
                     systemsManager?.configureTutorialThrusting()
@@ -239,8 +239,8 @@ class TutorialSystem: ListIteratingSystem {
                 }
             case .asteroid:
                 if engine.getNodeList(nodeClassType: TorpedoCollisionNode.self).head == nil {
-                    if !tutorialComponent.completedAsteroid {
-                        tutorialComponent.completedAsteroid = true
+                    if !tutorialComponent.completedAsteroid1 {
+                        tutorialComponent.completedAsteroid1 = true
                         engine.add(system: SplitAsteroidSystem(asteroidCreator: asteroidCreator!,
                                                                treasureCreator: treasureCreator!), priority: .update)
                         engine.add(system: DeathThroesSystem(), priority: .update)
@@ -261,11 +261,19 @@ class TutorialSystem: ListIteratingSystem {
                                                                                       y: gameSize.halfHeight)
                         engine.playerEntity?[PositionComponent.self]?.rotationDegrees = 0.0
                     } else if engine.findEntity(named: "asteroidEntity_1") == nil,
-                              tutorialComponent.completedAsteroid,
                               !tutorialComponent.completedAsteroid2 {
                         tutorialComponent.completedAsteroid2 = true
-                        message(text: "You just got some points!") {
-                            tutorialComponent.state = .treasure
+                        // asteroid has been destroyed in some manner
+                        if engine.findEntity(named: .player) == nil || engine.findEntity(named: .player)!
+                                                                             .has(componentClass: DeathThroesComponent.self) {
+                            message(text: "You don't get points for destroying asteroids that way!") { [unowned self] in
+                                tutorialComponent.state = .treasure
+                                playerCreator?.createPlayer(engine.gameStateComponent)
+                            }
+                        } else {
+                            message(text: "You just got some points!") {
+                                tutorialComponent.state = .treasure
+                            }
                         }
                     }
                 }
@@ -273,11 +281,27 @@ class TutorialSystem: ListIteratingSystem {
                 if !tutorialComponent.completedTreasure {
                     tutorialComponent.completedTreasure = true
                     message(text: "That asteroid had a treasure in it!\nFly into it to collect it.") {}
-                } else if engine.findEntity(named: "treasureEntity_1") == nil, tutorialComponent.completedTreasure {
+                } else if engine.findEntity(named: "treasureEntity_1") == nil,
+                          tutorialComponent.completedTreasure {
                     tutorialComponent.state = .complete
                 }
             case .complete:
-                message(text: "Tutorial complete!\nYou're ready to play!\n\nDid I mention we're not alone out here...") {}
+                message(text: """
+                              Training complete!
+                              Enter the spiraling wormhole when you're ready to enter the asteroid field.
+                              And be careful, you may not be alone out there...
+                              """) {}
+                let wormholeSprite = SwashScaledSpriteNode(imageNamed: "spiral")
+                wormholeSprite.color = .yellow
+                wormholeSprite.colorBlendFactor = 1.0
+                let wormhole = Entity(named: "wormholeEntity")
+                        .add(component: BridgeComponent())
+                        .add(component: DisplayComponent(sknode: wormholeSprite))
+                        .add(component: PositionComponent(x: gameSize.halfWidth, y: gameSize.halfHeight, z: .asteroids))
+                        .add(component: CollidableComponent(radius: wormholeSprite.size.width / 2))
+                        .add(component: VelocityComponent(velocityX: 0.0, velocityY: 0.0, angularVelocity: 100))
+                wormholeSprite.entity = wormhole
+                engine.add(entity: wormhole)
                 tutorialComponent.state = .none
             case .none:
                 break
@@ -298,9 +322,23 @@ class TutorialSystem: ListIteratingSystem {
                 .add(component: PositionComponent(x: gameSize.halfWidth, y: CGFloat(y), z: .top))
         //
         let wait3 = SKAction.wait(forDuration: 3)
-        let wait2 = SKAction.wait(forDuration: 2)
-        let fade = SKAction.fadeAlpha(to: 0.3, duration: 0.25)
+        let wait2 = SKAction.wait(forDuration: 1)
+        let fade = SKAction.fadeAlpha(to: 0.3, duration: 1)
         let seq = SKAction.sequence([wait3, fade, wait2])
         skNode.run(seq, completion: action)
+    }
+}
+
+class BridgeComponent: Component {}
+
+class BridgeNode: Node {
+    required init() {
+        super.init()
+        components = [
+            BridgeComponent.name: nil,
+            CollidableComponent.name: nil,
+            PositionComponent.name: nil,
+            VelocityComponent.name: nil,
+        ]
     }
 }

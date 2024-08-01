@@ -61,7 +61,7 @@ final class ShipControlsSystem: ListIteratingSystem {
             case .start:
                 startButtonsCreator.createStartButtons()
                 startButtonsCreator.removeGamepadIndicator()
-            case .infoAccelerometer, .infoButtons:
+            case .infoAccelerometer: //, .infoButtons:
                 break
             case .playing:
                 engine.playerEntity?.remove(componentClass: AccelerometerComponent.self)
@@ -98,7 +98,7 @@ final class ShipControlsSystem: ListIteratingSystem {
             case .start:
                 startButtonsCreator.removeStartButtons()
                 startButtonsCreator.createGamepadIndicator()
-            case .infoAccelerometer, .infoButtons:
+            case .infoAccelerometer: //, .infoButtons:
                 break
             case .playing:
                 shipControlQuadrantsCreator.removeQuadrantControls()
@@ -117,7 +117,7 @@ final class ShipControlsSystem: ListIteratingSystem {
             case .start:
                 startButtonsCreator.removeGamepadIndicator()
                 startButtonsCreator.createStartButtons()
-            case .infoAccelerometer, .infoButtons:
+            case .infoAccelerometer: //, .infoButtons:
                 break
             case .playing:
                 engine.playerEntity?.add(component: AccelerometerComponent.shared)

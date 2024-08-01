@@ -14,23 +14,24 @@ import Swash
 /// This class is an argument for switching to the SpriteKit physics engine.
 final class CollisionSystem: System {
     private let asteroidCreator: AsteroidCreatorUseCase
-    private weak var randomness: Randomizing!
-    private let scaleManager: ScaleManaging
     private let playerCreator: PlayerCreatorUseCase
+    private let scaleManager: ScaleManaging
     private var size: CGSize
     private weak var aliens: NodeList!
     private weak var appStateNodes: NodeList!
     private weak var asteroids: NodeList!
     private weak var engine: Engine!
     private weak var hyperspacePowerUp: NodeList!
-    private weak var xRayPowerUp: NodeList!
+    private weak var players: NodeList!
+    private weak var randomness: Randomizing!
+    private weak var shields: NodeList!
     private weak var shieldsPowerUp: NodeList!
     private weak var shipButtonControlsCreator: ShipButtonCreatorUseCase!
-    private weak var players: NodeList!
     private weak var torpedoPowerUp: NodeList!
     private weak var torpedoes: NodeList!
     private weak var treasures: NodeList!
-    private weak var shields: NodeList!
+    private weak var xRayPowerUp: NodeList!
+    private weak var bridges: NodeList!
 
     init(shipCreator: PlayerCreatorUseCase,
          asteroidCreator: AsteroidCreatorUseCase,
@@ -59,6 +60,7 @@ final class CollisionSystem: System {
         torpedoes = engine.getNodeList(nodeClassType: TorpedoCollisionNode.self)
         treasures = engine.getNodeList(nodeClassType: TreasureCollisionNode.self)
         xRayPowerUp = engine.getNodeList(nodeClassType: XRayPowerUpNode.self)
+        bridges = engine.getNodeList(nodeClassType: BridgeNode.self)
     }
 
     /// 
@@ -68,6 +70,7 @@ final class CollisionSystem: System {
         collisionCheck(nodeA: players.head, nodeB: hyperspacePowerUp.head, action: playerAndHyperspacePowerUp)
         collisionCheck(nodeA: players.head, nodeB: xRayPowerUp.head, action: playerAndXRayPowerUp)
         collisionCheck(nodeA: players.head, nodeB: shieldsPowerUp.head, action: playerAndShieldsPowerUp)
+        collisionCheck(nodeA: players.head, nodeB: bridges.head, action: playerAndBridge)
         collisionCheck(nodeA: torpedoes.head, nodeB: asteroids.head, action: torpedoesAndAsteroids)
         for vehicle in [players.head, aliens.head] {
             collisionCheck(nodeA: vehicle, nodeB: torpedoes.head, action: vehiclesAndTorpedoes)
@@ -151,6 +154,13 @@ final class CollisionSystem: System {
         shipButtonControlsCreator.showHyperspaceButton()
     }
 
+    func playerAndBridge(playerNode: Node, bridge: Node) {
+        engine.remove(entity: bridge.entity!)
+        guard let player = playerNode.entity else { return }
+        player
+                .add(component: StartNewGameComponent())
+    }
+    
     func playerAndXRayPowerUp(playerNode: Node, xRayPowerUp: Node) {
         engine.remove(entity: xRayPowerUp.entity!)
         guard let player = playerNode.entity else { return }
