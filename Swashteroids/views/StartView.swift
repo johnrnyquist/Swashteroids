@@ -22,7 +22,7 @@ final class StartView: SwashSpriteNode {
         // Initialize StartView constants
         versionInfo = SKLabelNode(text: "Nyquist Art + Logic, LLC v\(appVersion) (build \(appBuild))")
         title = SwashScaledSpriteNode(imageNamed: "title")
-        tutorial = SwashScaledSpriteNode(imageNamed: "tutorial")
+        tutorial = SwashScaledSpriteNode(imageNamed: "training")
         play = SwashScaledSpriteNode(imageNamed: "play")
         // Configure StartView
         super.init(texture: nil, color: .clear, size: gameSize)
@@ -75,7 +75,7 @@ final class StartView: SwashSpriteNode {
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
            let window = appDelegate.window {
             tutorial.anchorPoint = .zero
-            tutorial.name = "tutorial"
+            tutorial.name = "training"
             tutorial.alpha = 0.2
             tutorial.position = CGPoint(x: max(window.safeAreaInsets.left, 10), y: max(window.safeAreaInsets.bottom, 10))
             play.anchorPoint = .zero

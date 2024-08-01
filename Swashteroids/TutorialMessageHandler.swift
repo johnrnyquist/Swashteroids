@@ -10,6 +10,7 @@
 
 import Foundation
 import Swash
+import SpriteKit
 
 class TutorialMessageHandler {
     private let gameSize: CGSize
