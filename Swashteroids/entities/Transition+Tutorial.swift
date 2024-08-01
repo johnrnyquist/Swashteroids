@@ -327,7 +327,7 @@ class TutorialSystem: ListIteratingSystem {
                 if engine.findEntity(named: .player) == nil || engine.findEntity(named: .player)!
                                                                      .has(componentClass: DeathThroesComponent.self) {
                     Sound.play(file: "no_points.mp3")
-                    message?(text: "You don't get points for destroying asteroids that way!") { [unowned self] in
+                    message?(text: "You don't get points for destroying an asteroid that way!") { [unowned self] in
                         tutorialComponent.state = .treasure
                         playerCreator?.createPlayer(engine.gameStateComponent)
                     }
