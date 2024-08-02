@@ -55,7 +55,6 @@
 		8D23C1C42B02C59D00F7D878 /* plasmaTorpedo.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C1792B02C59C00F7D878 /* plasmaTorpedo.sks */; };
 		8D23C1C52B02C59D00F7D878 /* hyperspace.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C17A2B02C59C00F7D878 /* hyperspace.sks */; };
 		8D23C1C62B02C59D00F7D878 /* CollisionSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C17C2B02C59C00F7D878 /* CollisionSystem.swift */; };
-		8D23C1CC2B02C59D00F7D878 /* GameplayManagerSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1822B02C59C00F7D878 /* GameplayManagerSystem.swift */; };
 		8D23C1D22B02C59D00F7D878 /* DisplaySystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23C1882B02C59C00F7D878 /* DisplaySystem.swift */; };
 		8D23C1D72B02C59D00F7D878 /* bang_large.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C18F2B02C59D00F7D878 /* bang_large.wav */; };
 		8D23C1D82B02C59D00F7D878 /* thrust.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C1902B02C59D00F7D878 /* thrust.wav */; };
@@ -152,6 +151,7 @@
 		8DE66F132C14CA5000ECEE96 /* SplitAsteroidNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE66F122C14CA5000ECEE96 /* SplitAsteroidNode.swift */; };
 		93139064D7538345A09AE45E /* StartScreenCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931391B4D76B8FBFE80781AD /* StartScreenCreator.swift */; };
 		9313907A8909C84DA2AD6394 /* ButtonComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931394434431C0AC2BEE28A0 /* ButtonComponents.swift */; };
+		931390A5E2BD15CDAA95200C /* GameOverCheckSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931399149FA177C4CB383E33 /* GameOverCheckSystem.swift */; };
 		931390FD65B5AF82D24FEB32 /* CollisionSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139BEB3AC5615963614D45 /* CollisionSystemTests.swift */; };
 		93139113FFD9F17E28DA721A /* DeathThroesSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931397AEAB4946A616156BF7 /* DeathThroesSystemTests.swift */; };
 		9313913D152F44CFF69D3EDC /* Dictionary+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139A5C099B78460F248810 /* Dictionary+extensions.swift */; };
@@ -181,9 +181,10 @@
 		93139570309C2C458E38119C /* SplitAsteroidSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931391F6102BA3CDA3D121C7 /* SplitAsteroidSystem.swift */; };
 		931395AF8EBAE3884AD6D062 /* MoveToTargetSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139DCC274CF7D0D8BB365E /* MoveToTargetSystem.swift */; };
 		931395B7663D16FCCED5149D /* ThrustSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139F0E80056358D9592482 /* ThrustSystem.swift */; };
-		931395D538E04ADF9327C7A2 /* RightSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931397BBDE301981BDA7FD3A /* RightSystem.swift */; };
+		931395D538E04ADF9327C7A2 /* TurnRightSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931397BBDE301981BDA7FD3A /* TurnRightSystem.swift */; };
 		93139618E8DF6418583B092A /* MakeDecsionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139B029886D2F4E8A723AA /* MakeDecsionComponent.swift */; };
 		9313961BE93AEE536D58C27B /* AudioSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931390BDEBA443104F781428 /* AudioSystemTests.swift */; };
+		9313963FAE95415F29615984 /* ShipCreationSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931393C0D49E3433F42A9EF7 /* ShipCreationSystem.swift */; };
 		9313966752D333AF0D13BDA5 /* AlertPresentingSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931397C38072F0E64E4C6A38 /* AlertPresentingSystem.swift */; };
 		93139685D7989EDB5860D704 /* DeathThroesSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139DAEBBD9BE19DC446051 /* DeathThroesSystem.swift */; };
 		931396A2070DB4DA286B21D7 /* RightNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139FDF0C76049256DAE28C /* RightNode.swift */; };
@@ -202,7 +203,7 @@
 		931398B1CA8906CC519B170B /* HyperspaceDriveComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139BD2BE63CAC32979ABA3 /* HyperspaceDriveComponent.swift */; };
 		931398B923409B4EED0FE0C1 /* Transition+InfoViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139FB3B77918091B9E8B88 /* Transition+InfoViews.swift */; };
 		931398C2D1DD1F1813892505 /* HudSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139A8C456EC20FE5A68E87 /* HudSystem.swift */; };
-		931398EB227B8ED76B3BCD5D /* LeftSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313949E284EC7C41EFB7FD5 /* LeftSystem.swift */; };
+		931398EB227B8ED76B3BCD5D /* TurnLeftSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313949E284EC7C41EFB7FD5 /* TurnLeftSystem.swift */; };
 		931398FFEAC38E75EF83728C /* TouchableNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139489970BEA17AF74C95E /* TouchableNode.swift */; };
 		931399014B035D5448AE2D4F /* ReactionTimeSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139A6E99AFA9F956DD8A0A /* ReactionTimeSystem.swift */; };
 		93139909ADC0F687EEE55314 /* HyperspacePowerUpNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139A9A62746DE5FA459C2B /* HyperspacePowerUpNode.swift */; };
@@ -335,7 +336,6 @@
 		8D23C1792B02C59C00F7D878 /* plasmaTorpedo.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = plasmaTorpedo.sks; sourceTree = "<group>"; };
 		8D23C17A2B02C59C00F7D878 /* hyperspace.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = hyperspace.sks; sourceTree = "<group>"; };
 		8D23C17C2B02C59C00F7D878 /* CollisionSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollisionSystem.swift; sourceTree = "<group>"; };
-		8D23C1822B02C59C00F7D878 /* GameplayManagerSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameplayManagerSystem.swift; sourceTree = "<group>"; };
 		8D23C1882B02C59C00F7D878 /* DisplaySystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplaySystem.swift; sourceTree = "<group>"; };
 		8D23C18F2B02C59D00F7D878 /* bang_large.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bang_large.wav; sourceTree = "<group>"; };
 		8D23C1902B02C59D00F7D878 /* thrust.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = thrust.wav; sourceTree = "<group>"; };
@@ -447,13 +447,14 @@
 		9313938353DF3012CCAE66D1 /* Transition+Playing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Transition+Playing.swift"; sourceTree = "<group>"; };
 		9313938556F1CDA1CF877048 /* CGSize+extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGSize+extensions.swift"; sourceTree = "<group>"; };
 		93139397EA8AF9AD7F1837D4 /* GamePadInputManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GamePadInputManager.swift; sourceTree = "<group>"; };
+		931393C0D49E3433F42A9EF7 /* ShipCreationSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipCreationSystem.swift; sourceTree = "<group>"; };
 		931393FE8CC28A572666583C /* ThrustSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThrustSystemTests.swift; sourceTree = "<group>"; };
 		93139406E9C8BCF53204C6FC /* TickProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TickProvider.swift; sourceTree = "<group>"; };
 		931394434431C0AC2BEE28A0 /* ButtonComponents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonComponents.swift; sourceTree = "<group>"; };
 		93139489970BEA17AF74C95E /* TouchableNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchableNode.swift; sourceTree = "<group>"; };
 		9313948C3BEED583518640EB /* TouchedSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchedSystem.swift; sourceTree = "<group>"; };
 		9313948D41437D9630A7EE7E /* AlienAppearancesSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlienAppearancesSystem.swift; sourceTree = "<group>"; };
-		9313949E284EC7C41EFB7FD5 /* LeftSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftSystem.swift; sourceTree = "<group>"; };
+		9313949E284EC7C41EFB7FD5 /* TurnLeftSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TurnLeftSystem.swift; sourceTree = "<group>"; };
 		931394D1D0B636772EE1DFF7 /* String+EntityNames.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+EntityNames.swift"; sourceTree = "<group>"; };
 		931394FCE0983D687FBC93BC /* HapticFeedbackComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HapticFeedbackComponent.swift; sourceTree = "<group>"; };
 		9313950AEA94DBF1217EA852 /* AlienWorkerTargetNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlienWorkerTargetNode.swift; sourceTree = "<group>"; };
@@ -475,7 +476,7 @@
 		9313979ABDA67BAEA7682AC7 /* AllSoundsComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllSoundsComponent.swift; sourceTree = "<group>"; };
 		931397A00F1CE63F6242C2F2 /* Sequence+extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Sequence+extensions.swift"; sourceTree = "<group>"; };
 		931397AEAB4946A616156BF7 /* DeathThroesSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeathThroesSystemTests.swift; sourceTree = "<group>"; };
-		931397BBDE301981BDA7FD3A /* RightSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightSystem.swift; sourceTree = "<group>"; };
+		931397BBDE301981BDA7FD3A /* TurnRightSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TurnRightSystem.swift; sourceTree = "<group>"; };
 		931397C38072F0E64E4C6A38 /* AlertPresentingSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertPresentingSystem.swift; sourceTree = "<group>"; };
 		931397D7C84D4E580EB51E4D /* ApplyThrustComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplyThrustComponent.swift; sourceTree = "<group>"; };
 		931397F86C674AD22210D173 /* HudCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudCreator.swift; sourceTree = "<group>"; };
@@ -483,6 +484,7 @@
 		9313984EED9DBB7390E4BFF1 /* PickTargetSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickTargetSystem.swift; sourceTree = "<group>"; };
 		9313986D3E0A8543FBA57068 /* SystemsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemsManager.swift; sourceTree = "<group>"; };
 		9313988C064025FB4880FF1F /* ThrustNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThrustNode.swift; sourceTree = "<group>"; };
+		931399149FA177C4CB383E33 /* GameOverCheckSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverCheckSystem.swift; sourceTree = "<group>"; };
 		93139921E04E8DBE2DF6800B /* SplitAsteroidUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitAsteroidUseCase.swift; sourceTree = "<group>"; };
 		93139927DCF5E5DC2AE98363 /* ReactionTimeNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReactionTimeNode.swift; sourceTree = "<group>"; };
 		93139933EFC2AE82B11922C6 /* String+SoundFileName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+SoundFileName.swift"; sourceTree = "<group>"; };
@@ -752,11 +754,12 @@
 			children = (
 				8D1925322C27350800A090F9 /* alien_specific */,
 				8D23C17C2B02C59C00F7D878 /* CollisionSystem.swift */,
-				8D23C1822B02C59C00F7D878 /* GameplayManagerSystem.swift */,
 				8DFB49FB2C2E0B8A006EFB8B /* list_iterating */,
 				8D23C1882B02C59C00F7D878 /* DisplaySystem.swift */,
 				9313986D3E0A8543FBA57068 /* SystemsManager.swift */,
 				93139AF196684B36FB3779BD /* StartNewGameSystem.swift */,
+				931393C0D49E3433F42A9EF7 /* ShipCreationSystem.swift */,
+				931399149FA177C4CB383E33 /* GameOverCheckSystem.swift */,
 			);
 			path = systems;
 			sourceTree = "<group>";
@@ -1006,13 +1009,13 @@
 				93139DC1597F3F8E4CCB80FE /* GameOverSystem.swift */,
 				93139A8C456EC20FE5A68E87 /* HudSystem.swift */,
 				931395CA810B1C808B62673A /* HyperspaceJumpSystem.swift */,
-				9313949E284EC7C41EFB7FD5 /* LeftSystem.swift */,
+				9313949E284EC7C41EFB7FD5 /* TurnLeftSystem.swift */,
 				9313963E69F992809FDF553A /* LevelManagementSystem.swift */,
 				93139E220EA6A3480457FD0B /* LifetimeSystem.swift */,
 				9313955D97F515D3DE4A3DD7 /* MovementSystem.swift */,
 				931399EE25531368708F9E58 /* NacellesSystem.swift */,
 				93139EFE2FEE83D932F6AFBA /* RepeatingAudioSystem.swift */,
-				931397BBDE301981BDA7FD3A /* RightSystem.swift */,
+				931397BBDE301981BDA7FD3A /* TurnRightSystem.swift */,
 				93139F522F09D6409294A901 /* ShipControlsSystem.swift */,
 				931391F6102BA3CDA3D121C7 /* SplitAsteroidSystem.swift */,
 				93139F0E80056358D9592482 /* ThrustSystem.swift */,
@@ -1117,7 +1120,7 @@
 			mainGroup = 8D23C1292B02C4C900F7D878;
 			packageReferences = (
 				8DDB04E82C376AE20029248B /* XCRemoteSwiftPackageReference "SwiftySound" */,
-				8D1C1DCE2C404DEA005137DE /* XCLocalSwiftPackageReference "../../Swash_Swift_Package/Swash" */,
+				8D1C1DCE2C404DEA005137DE /* XCLocalSwiftPackageReference */,
 			);
 			productRefGroup = 8D23C1332B02C4CA00F7D878 /* Products */;
 			projectDirPath = "";
@@ -1261,7 +1264,6 @@
 				8D23C1362B02C4CA00F7D878 /* AppDelegate.swift in Sources */,
 				8D23C1E22B02C59D00F7D878 /* PowerUpsViews.swift in Sources */,
 				8D23C1DF2B02C59D00F7D878 /* Create_Texture.swift in Sources */,
-				8D23C1CC2B02C59D00F7D878 /* GameplayManagerSystem.swift in Sources */,
 				8D23C1AA2B02C59D00F7D878 /* TorpedoCollisionNode.swift in Sources */,
 				8D41E21F2B1FA2D00031AF54 /* Entity+extension.swift in Sources */,
 				8D23C1A92B02C59D00F7D878 /* ShipEngineNode.swift in Sources */,
@@ -1341,11 +1343,11 @@
 				931395B7663D16FCCED5149D /* ThrustSystem.swift in Sources */,
 				93139570309C2C458E38119C /* SplitAsteroidSystem.swift in Sources */,
 				93139D16F77B51882659E4F7 /* ShipControlsSystem.swift in Sources */,
-				931395D538E04ADF9327C7A2 /* RightSystem.swift in Sources */,
+				931395D538E04ADF9327C7A2 /* TurnRightSystem.swift in Sources */,
 				93139C9255ADC566131EAEE7 /* RepeatingAudioSystem.swift in Sources */,
 				93139E841E3AC27007294E88 /* NacellesSystem.swift in Sources */,
 				93139D8B959847D616BACF3F /* MovementSystem.swift in Sources */,
-				931398EB227B8ED76B3BCD5D /* LeftSystem.swift in Sources */,
+				931398EB227B8ED76B3BCD5D /* TurnLeftSystem.swift in Sources */,
 				93139F62E2877702DC4551BA /* HyperspaceJumpSystem.swift in Sources */,
 				9313943DDCC0A5507A83366B /* GameOverSystem.swift in Sources */,
 				93139E078A90FF358339F568 /* FlipSystem.swift in Sources */,
@@ -1379,6 +1381,8 @@
 				9313934346206818B2709CA8 /* Transition+Tutorial.swift in Sources */,
 				93139A47A19BA778268A7D5A /* StartNewGameSystem.swift in Sources */,
 				931393CD3F728BABB5788D43 /* TutorialMessageHandler.swift in Sources */,
+				9313963FAE95415F29615984 /* ShipCreationSystem.swift in Sources */,
+				931390A5E2BD15CDAA95200C /* GameOverCheckSystem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1709,7 +1713,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		8D1C1DCE2C404DEA005137DE /* XCLocalSwiftPackageReference "../../Swash_Swift_Package/Swash" */ = {
+		8D1C1DCE2C404DEA005137DE /* XCLocalSwiftPackageReference */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../../Swash_Swift_Package/Swash;
 		};

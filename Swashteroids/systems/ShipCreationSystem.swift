@@ -14,35 +14,25 @@ import Swash
 
 /**
 Detects if there are no ships, if game is playing, if there are no asteroids, no torpedoes.
-Determines when to go to next level.
-Creates the level.
 Determines if a ship needs to be made.
  */
-//TODO: Has too many responsibilities, needs to be reconsidered.
-final class GameplayManagerSystem: System {
-    private let minimumLevel = 1
+final class ShipCreationSystem: System {
     private let shipClearanceRadius: CGFloat = 50
     private let shipPositionRatio: CGFloat = 0.5
-    private weak var alienCreator: AlienCreatorUseCase!
+    private var gameSize: CGSize
     private weak var aliens: NodeList!
     private weak var appStates: NodeList!
-    private weak var asteroidCreator: AsteroidCreatorUseCase!
     private weak var asteroids: NodeList!
     private weak var playerCreator: PlayerCreatorUseCase!
     private weak var players: NodeList!
     private weak var randomness: Randomizing!
-    private weak var scene: GameScene!
     private weak var torpedoes: NodeList!
 
-    init(asteroidCreator: AsteroidCreatorUseCase,
-         alienCreator: AlienCreatorUseCase,
-         playerCreator: PlayerCreatorUseCase,
-         scene: GameScene,
+    init(playerCreator: PlayerCreatorUseCase,
+         gameSize: CGSize,
          randomness: Randomizing = Randomness.shared) {
-        self.asteroidCreator = asteroidCreator
-        self.alienCreator = alienCreator
         self.playerCreator = playerCreator
-        self.scene = scene
+        self.gameSize = gameSize
         self.randomness = randomness
     }
 
@@ -65,34 +55,26 @@ final class GameplayManagerSystem: System {
 
     override func update(time: TimeInterval) {
         guard let currentStateNode = appStates.head as? SwashteroidsStateNode,
-              let entity = currentStateNode.entity,
               let appStateComponent = currentStateNode[GameStateComponent.self],
               appStateComponent.gameScreen == .playing
         else { return }
-        handleGameState(appStateComponent: appStateComponent, entity: entity, time: time)
+        checkForShips(appStateComponent: appStateComponent)
     }
 
     // MARK: - Game Logic
     /// If there are no ships and is playing, handle it. 
     /// If there are no asteroids, no torpedoes and there is a ship then you finished the level, go to the next.
-    func handleGameState(appStateComponent: GameStateComponent, entity: Entity, time: TimeInterval) {
+    func checkForShips(appStateComponent: GameStateComponent) {
         // No ships in the NodeList, but we're still playing.
         if players.empty {
-            continueOrEnd(appStateComponent: appStateComponent, entity: entity)
-        }
-    }
-
-    /// If we have ships, make one. Otherwise, go to game over state.
-    func continueOrEnd(appStateComponent: GameStateComponent, entity: Entity) {
-        // If we have any ships left, make another and some power-ups
-        if appStateComponent.numShips > 0 {
-            let newSpaceshipPosition = CGPoint(x: scene.size.width * shipPositionRatio,
-                                               y: scene.size.height * shipPositionRatio)
-            if isClearToAddSpaceship(at: newSpaceshipPosition) {
-                playerCreator.createPlayer(appStateComponent)
+            // If we have any ships left, make another and some power-ups
+            if appStateComponent.numShips > 0 {
+                let newSpaceshipPosition = CGPoint(x: gameSize.width * shipPositionRatio,
+                                                   y: gameSize.height * shipPositionRatio)
+                if isClearToAddSpaceship(at: newSpaceshipPosition) {
+                    playerCreator.createPlayer(appStateComponent)
+                }
             }
-        } else { // GAME OVER!
-            entity.add(component: ChangeGameStateComponent(from: .playing, to: .gameOver))
         }
     }
 

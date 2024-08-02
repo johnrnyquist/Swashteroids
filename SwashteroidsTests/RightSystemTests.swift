@@ -13,10 +13,10 @@ import XCTest
 @testable import Swash
 
 final class RightSystemTests: XCTestCase {
-    var system: RightSystem!
+    var system: TurnRightSystem!
 
     override func setUpWithError() throws {
-        system = RightSystem()
+        system = TurnRightSystem()
     }
 
     override func tearDownWithError() throws {

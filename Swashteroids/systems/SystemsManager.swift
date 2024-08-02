@@ -39,15 +39,15 @@ final class SystemsManager {
         //        AudioSystem
         //        DisplaySystem
         //        FlipSystem
-        //        LeftSystem
         //        MovementSystem
         //        NacellesSystem
         //        RepeatingAudioSystem
-        //        RightSystem
         //        ShipControlsSystem
         //        ThrustSystem
         //        TouchedButtonSystem
         //        TransitionAppStateSystem
+        //        TurnLeftSystem
+        //        TurnRightSystem
         //        TutorialSystem
         // For now, we subtract from what we have
         engine.remove(systemType: AccelerometerSystem.self)
@@ -61,7 +61,7 @@ final class SystemsManager {
         engine.remove(systemType: ExitScreenSystem.self)
         engine.remove(systemType: FiringSystem.self)
         engine.remove(systemType: GameOverSystem.self)
-        engine.remove(systemType: GameplayManagerSystem.self)
+        engine.remove(systemType: GameOverCheckSystem.self)
         engine.remove(systemType: HudSystem.self)
         engine.remove(systemType: HyperspaceJumpSystem.self)
         engine.remove(systemType: LevelManagementSystem.self)
@@ -118,15 +118,16 @@ final class SystemsManager {
                 .add(system: HyperspaceJumpSystem(engine: engine), priority: .preUpdate)
                 .add(system: FiringSystem(torpedoCreator: creatorManager.torpedoCreator), priority: .preUpdate)
                 .add(system: FlipSystem(), priority: .preUpdate)
-                .add(system: LeftSystem(), priority: .preUpdate)
-                .add(system: RightSystem(), priority: .preUpdate)
+                .add(system: TurnLeftSystem(), priority: .preUpdate)
+                .add(system: TurnRightSystem(), priority: .preUpdate)
                 .add(system: ThrustSystem(), priority: .preUpdate)
                 .add(system: TimePlayedSystem(), priority: .preUpdate)
-                .add(system: GameplayManagerSystem(asteroidCreator: creatorManager.asteroidCreator,
-                                                   alienCreator: creatorManager.alienCreator,
-                                                   playerCreator: creatorManager.playerCreator,
-                                                   scene: scene),
+                .add(system: ShipCreationSystem(playerCreator: creatorManager.playerCreator, gameSize: scene.size),
                      priority: .preUpdate)
+                .add(system: GameOverCheckSystem(), priority: .preUpdate)
+//                .add(system: GameplayManagerSystem(playerCreator: creatorManager.playerCreator,
+//                                                   gameSize: scene.size),
+//                     priority: .preUpdate)
                 .add(system: GameOverSystem(), priority: .preUpdate)
                 .add(system: ShipControlsSystem(toggleShipControlsCreator: creatorManager.toggleShipControlsCreator,
                                                 shipControlQuadrantsCreator: creatorManager.shipControlQuadrantsCreator,
