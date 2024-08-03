@@ -66,7 +66,7 @@ final class PlayerCreator: PlayerCreatorUseCase {
                 .add(component: AccelerometerComponent.shared)
                 .add(component: ChangeShipControlsStateComponent(to: state.shipControlsState))
                 .add(component: RepeatingAudioComponent(name: "thrust", fileName: .thrust))
-                .add(component: ShootableComponent.shared)
+                .add(component: AlienCanShootComponent.shared)
                 .add(component: AlienWorkerTargetComponent.shared)
         switch state.shipControlsState {
             case .usingAccelerometer:
@@ -108,7 +108,7 @@ final class PlayerCreator: PlayerCreatorUseCase {
                 .remove(componentClass: MoveToTargetComponent.self)
                 .remove(componentClass: MovementRateComponent.self)
                 .remove(componentClass: ReactionTimeComponent.self)
-                .remove(componentClass: ShootableComponent.self)
+                .remove(componentClass: AlienCanShootComponent.self)
                 .remove(componentClass: XRayVisionComponent.self)
         // Change components                
         entity[VelocityComponent.self]?.angularVelocity = randomness.nextDouble(from: -100.0, through: 100.0)

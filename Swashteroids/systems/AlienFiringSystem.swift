@@ -65,7 +65,7 @@ final class AlienFiringSystem: ListIteratingSystem {
 
     func targetWithinRange(_ targetedEntity: Entity, _ alien: AlienComponent, _ position: PositionComponent) -> Bool {
         guard let targetPosition = targetedEntity.find(componentClass: PositionComponent.self) else { return false }
-        guard let _ = targetedEntity.find(componentClass: ShootableComponent.self) else { return false }
+        guard let _ = targetedEntity.find(componentClass: AlienCanShootComponent.self) else { return false }
         let distance = hypot(targetPosition.x - position.x, targetPosition.y - position.y)
         return distance < alien.maxTargetableRange
     }

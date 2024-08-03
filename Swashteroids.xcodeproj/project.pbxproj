@@ -199,7 +199,6 @@
 		9313980591ADC1AE59CE15CF /* MakeDecisionSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139298C85B9795950A5BA6 /* MakeDecisionSystemTests.swift */; };
 		93139837E8C25570F6134663 /* RepeatingAudioNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313961CB4F5B39D06FE5B0F /* RepeatingAudioNode.swift */; };
 		931398A1B70C60540B24F30B /* MockPowerUpCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139AACD0733A9656662B03 /* MockPowerUpCreator.swift */; };
-		931398B178A3200C9AA53ED2 /* AlienFiringComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313996FDF7208F45DD67644 /* AlienFiringComponent.swift */; };
 		931398B1CA8906CC519B170B /* HyperspaceDriveComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139BD2BE63CAC32979ABA3 /* HyperspaceDriveComponent.swift */; };
 		931398B923409B4EED0FE0C1 /* Transition+InfoViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139FB3B77918091B9E8B88 /* Transition+InfoViews.swift */; };
 		931398C2D1DD1F1813892505 /* HudSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139A8C456EC20FE5A68E87 /* HudSystem.swift */; };
@@ -490,7 +489,6 @@
 		93139933EFC2AE82B11922C6 /* String+SoundFileName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+SoundFileName.swift"; sourceTree = "<group>"; };
 		93139949CD856130C98A8834 /* HudSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudSystemTests.swift; sourceTree = "<group>"; };
 		9313995C9360F53AD9D2BB65 /* AlienFiringNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlienFiringNode.swift; sourceTree = "<group>"; };
-		9313996FDF7208F45DD67644 /* AlienFiringComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlienFiringComponent.swift; sourceTree = "<group>"; };
 		931399834CAB8241633CF6FE /* MakeDescisionNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeDescisionNode.swift; sourceTree = "<group>"; };
 		931399840A8AC5987DF6D3D4 /* FireDownComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireDownComponent.swift; sourceTree = "<group>"; };
 		931399879CDD5E4D20463D32 /* ReactionTimeComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReactionTimeComponent.swift; sourceTree = "<group>"; };
@@ -694,7 +692,6 @@
 				8D61B9D22C34822F004F453B /* buttons */,
 				931396DD35CCD39E8E4EDB16 /* AccelerometerComponent.swift */,
 				93139E651DD82D706FDF1B26 /* AlienComponent.swift */,
-				9313996FDF7208F45DD67644 /* AlienFiringComponent.swift */,
 				9313979ABDA67BAEA7682AC7 /* AllSoundsComponent.swift */,
 				8D23C1692B02C59C00F7D878 /* AnimationComponent.swift */,
 				931397D7C84D4E580EB51E4D /* ApplyThrustComponent.swift */,
@@ -1120,7 +1117,7 @@
 			mainGroup = 8D23C1292B02C4C900F7D878;
 			packageReferences = (
 				8DDB04E82C376AE20029248B /* XCRemoteSwiftPackageReference "SwiftySound" */,
-				8D1C1DCE2C404DEA005137DE /* XCLocalSwiftPackageReference "../../Swash_Swift_Package/Swash" */,
+				8D1C1DCE2C404DEA005137DE /* XCLocalSwiftPackageReference */,
 			);
 			productRefGroup = 8D23C1332B02C4CA00F7D878 /* Products */;
 			projectDirPath = "";
@@ -1307,7 +1304,6 @@
 				931392438E0382586D8988D5 /* AlienFiringNode.swift in Sources */,
 				931391D71C321C0A29A57949 /* GunNode.swift in Sources */,
 				8DC1A0DD2C2CE52E0009698B /* SettingsView.swift in Sources */,
-				931398B178A3200C9AA53ED2 /* AlienFiringComponent.swift in Sources */,
 				93139E360C9751C14F46F8DA /* AlienComponent.swift in Sources */,
 				9313945BF406DE5979CDEA51 /* Randomness.swift in Sources */,
 				8D61B9992C3227B1004F453B /* PauseAlertPresenting.swift in Sources */,
@@ -1713,7 +1709,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		8D1C1DCE2C404DEA005137DE /* XCLocalSwiftPackageReference "../../Swash_Swift_Package/Swash" */ = {
+		8D1C1DCE2C404DEA005137DE /* XCLocalSwiftPackageReference */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../../Swash_Swift_Package/Swash;
 		};

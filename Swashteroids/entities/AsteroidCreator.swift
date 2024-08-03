@@ -57,7 +57,7 @@ final class AsteroidCreator: AsteroidCreatorUseCase {
                 .add(component: CollidableComponent(radius: radius * 0.9))
                 .add(component: AsteroidComponent(size: size))
                 .add(component: DisplayComponent(sknode: sprite))
-                .add(component: ShootableComponent.shared)
+                .add(component: AlienCanShootComponent.shared)
                 .add(component: AlienWorkerTargetComponent.shared)
         if randomness.nextInt(from: 1, through: 3) == 1 {
             let type: TreasureType

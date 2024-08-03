@@ -37,7 +37,7 @@ final class AlienFiringSystemTests: XCTestCase {
         let alienEntity = Entity()
         let targetedEntity = Entity()
                 .add(component: PositionComponent(x: 10, y: 0, z: 0))
-                .add(component: ShootableComponent.shared)
+                .add(component: AlienCanShootComponent.shared)
         let alienComponent = AlienComponent(cast: .soldier, scaleManager: ScaleManager.shared)
         let alienFiringComponent = AlienFiringComponent.shared
         let gunComponent = GunComponent(offsetX: 0,

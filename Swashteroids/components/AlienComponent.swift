@@ -30,6 +30,9 @@ enum AlienCast {
     }
 }
 
+/// Used by aliens to indicate that they are aliens.
+/// Has a cast, a score value, and a max targetable range.
+/// Also has a destination start and end point.
 final class AlienComponent: Component {
     let cast: AlienCast
     var destinationEnd: CGPoint = .zero
@@ -42,4 +45,26 @@ final class AlienComponent: Component {
         scoreValue = cast.scoreValue
         maxTargetableRange = 300 * scaleManager.SCALE_FACTOR
     }
+}
+
+/// Used by aliens to indicate that they are firing.
+/// Essentially a flag for the AlienFiringSystem.
+final class AlienFiringComponent: Component {
+    static let shared = AlienFiringComponent()
+
+    private override init() {}
+}
+
+/// Any entity with this component can be shot at by the aliens.
+final class AlienCanShootComponent: Component {
+    static let shared = AlienCanShootComponent()
+
+    private override init() {}
+}
+
+/// Any entity with this component can be targeted by an alien worker (like an asteroid, a treasure, or the player).
+final class AlienWorkerTargetComponent: Component {
+    static let shared = AlienWorkerTargetComponent()
+
+    private override init() {}
 }
