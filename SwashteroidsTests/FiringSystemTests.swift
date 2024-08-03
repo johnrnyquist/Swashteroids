@@ -42,7 +42,7 @@ class FiringSystemTests: XCTestCase {
                                minimumShotInterval: minimumShotInterval,
                                torpedoLifetime: 0,
                                torpedoColor: .torpedo,
-                               ownerType: .player, 
+                               ownerType: .player,
                                ownerName: entity.name,
                                numTorpedoes: 20)
         let fireDown = FireDownComponent.shared
@@ -55,7 +55,7 @@ class FiringSystemTests: XCTestCase {
         engine.add(entity: entity)
         let appStateComponent = GameStateComponent(config: GameConfig(gameSize: .zero))
         let appState = Entity(named: .appState)
-            .add(component: appStateComponent)
+                .add(component: appStateComponent)
         engine.add(entity: appState)
         // SUT
         system.update(time: time)
@@ -63,13 +63,16 @@ class FiringSystemTests: XCTestCase {
         XCTAssertTrue(torpedoCreator.fired)
         XCTAssertEqual(gun.numTorpedoes, 19)
     }
-    
+
     class MockTorpedoCreator: TorpedoCreatorUseCase & PowerUpCreatorUseCase {
         var fired = false
         var createHyperspacePowerUpCalled = false
         var createHyperspacePowerUpRadiusCalled = false
         var createPlasmaTorpedoesPowerUpCalled = false
         var createPlasmaTorpedoesPowerUpRadiusCalled = false
+
+        func createPowerUp(level: Int, type: PowerUpType) {
+        }
 
         func createTorpedo(_ gunComponent: GunComponent, _ parentPosition: PositionComponent, _ parentVelocity: VelocityComponent) {
             fired = true

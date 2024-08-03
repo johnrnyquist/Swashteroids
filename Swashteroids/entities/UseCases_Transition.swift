@@ -15,13 +15,6 @@ protocol GameOverUseCase: AnyObject {
     func toGameOverScreen()
 }
 
-protocol InfoViewsUseCase: AnyObject {
-    func fromAccelerometerInfoScreen()
-    func toAccelerometerInfoScreen()
-    func fromButtonsInfoScreen()
-    func toButtonsInfoScreen()
-}
-
 protocol PlayingUseCase: AnyObject {
     func fromPlayingScreen()
     func toPlayingScreen(appStateComponent: GameStateComponent)

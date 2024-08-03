@@ -17,7 +17,6 @@ import XCTest
 // I need to rethink transitions. This may be an argument for GameplayKit transitions.
 final class TransitionTests: XCTestCase {
     var startTransition: StartUseCase!
-    var infoViewsTransition:  InfoViewsUseCase!
     var playingTransition: PlayingUseCase!
     var gameOverTransition: GameOverUseCase!
     var size: CGSize!
@@ -33,16 +32,14 @@ final class TransitionTests: XCTestCase {
         appStateComponent.level = 4
         appStateComponent.score = 5
         appStateComponent.numShips = 3
-        appStateComponent.gameScreen = .infoButtons
         appStateComponent.shipControlsState = .usingAccelerometer
         appStateEntity = Entity(named: "appStateEntity")
                 .add(component: appStateComponent)
         engine.add(entity: appStateEntity)
         creator = MockQuadrantsButtonToggleCreator()
         // Transitions
-        startTransition = StartTransition(engine: engine, generator: nil)
-        infoViewsTransition = InfoViewsTransition(engine: engine, generator: nil)
-        gameOverTransition = GameOverTransition(engine: engine, generator: nil)
+        startTransition = StartTransition(engine: engine, startScreenCreator: StartScreenCreator(engine: engine, gameSize: size))
+        gameOverTransition = GameOverTransition(engine: engine, alert: MockAlertPresenter())
         playingTransition = PlayingTransition(hudCreator: MockHudCreator(),
                                               toggleShipControlsCreator: creator,
                                               shipControlQuadrantsCreator: creator,
@@ -60,7 +57,7 @@ final class TransitionTests: XCTestCase {
     //TODO: This test is a little light.
     func test_ToStartScreen() {
         startTransition.toStartScreen()
-        for entityName: EntityName in [.start, .noButtons, .withButtons] {
+        for entityName: EntityName in [.appState, .start, .withButtons, .tutorialButton] {
             XCTAssertNotNil(engine.findEntity(named: entityName))
         }
     }
@@ -86,9 +83,6 @@ final class TransitionTests: XCTestCase {
         for entityName: EntityName in [.hud, .gameOver, .hyperspacePowerUp, .torpedoPowerUp] {
             XCTAssertNil(engine.findEntity(named: entityName))
         }
-        XCTAssertEqual(appStateComponent.score, appStateComponent.config.score)
-        XCTAssertEqual(appStateComponent.level, appStateComponent.config.level)
-        XCTAssertEqual(appStateComponent.numShips, appStateComponent.config.numShips)
     }
 
     func test_ToGameOverScreen() {

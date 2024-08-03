@@ -60,7 +60,7 @@ class CollisionSystemTests: XCTestCase {
         engine.add(entity: asteroidEntity)
         torpedoPowerUpEntity = Entity(named: .torpedoPowerUp)
                 .add(component: GunPowerUpComponent())
-                .add(component: CollidableComponent(radius: POWER_UP_RADIUS, scaleManager: MockScaleManager()))
+                .add(component: CollidableComponent(radius: PowerUpType.torpedoes.radius, scaleManager: MockScaleManager()))
                 .add(component: PositionComponent(x: 0, y: 0, z: 0))
                 .add(component: DisplayComponent(sknode: SKNode()))
         engine.add(entity: torpedoPowerUpEntity)
@@ -71,20 +71,20 @@ class CollisionSystemTests: XCTestCase {
                 .add(component: DisplayComponent(sknode: SKNode()))
         engine.add(entity: hyperspacePowerUpEntity)
         torpedoEntity_player = Entity(named: .torpedo)
-            .add(component: TorpedoComponent(lifeRemaining: 1, owner: .player, ownerName: shipEntity.name))
+                .add(component: TorpedoComponent(lifeRemaining: 1, owner: .player, ownerName: shipEntity.name))
                 .add(component: GunPowerUpComponent())
                 .add(component: CollidableComponent(radius: 10, scaleManager: MockScaleManager()))
                 .add(component: PositionComponent(x: 0, y: 0, z: 0))
                 .add(component: DisplayComponent(sknode: SKNode()))
         torpedoEntity_alien = Entity(named: .torpedo)
-            .add(component: TorpedoComponent(lifeRemaining: 1, owner: .computerOpponent, ownerName: alienEntity.name))
+                .add(component: TorpedoComponent(lifeRemaining: 1, owner: .computerOpponent, ownerName: alienEntity.name))
                 .add(component: GunPowerUpComponent())
                 .add(component: CollidableComponent(radius: 10, scaleManager: MockScaleManager()))
                 .add(component: PositionComponent(x: 0, y: 0, z: 0))
                 .add(component: DisplayComponent(sknode: SKNode()))
         engine.add(entity: torpedoEntity_player)
         treasureEntity = Entity(named: "treasure_1")
-                .add(component: TreasureComponent(type: 1))
+                .add(component: TreasureComponent(type: .standard))
                 .add(component: CollidableComponent(radius: 10, scaleManager: MockScaleManager()))
                 .add(component: PositionComponent(x: 0, y: 0, z: 0))
         shipButtonControlsCreator = MockShipButtonControlsCreator()
@@ -108,7 +108,7 @@ class CollisionSystemTests: XCTestCase {
 
     func test_Update() {
         let system = MockCollisionSystem(shipCreator: shipCreator,
-                                         asteroidCreator: asteroidCreator, 
+                                         asteroidCreator: asteroidCreator,
                                          shipButtonControlsCreator: shipButtonControlsCreator,
                                          size: .zero,
                                          randomness: Randomness.initialize(with: 1))
@@ -158,7 +158,7 @@ class CollisionSystemTests: XCTestCase {
         }
         alienCollisionNode.entity = alienEntity
         // SUT
-        system.vehiclesAndTorpedoes(torpedoNode: torpedoNode, vehicleNode: alienCollisionNode)
+        system.vehiclesAndTorpedoes(vehicleNode: alienCollisionNode, torpedoNode: torpedoNode)
         //
         XCTAssertTrue(shipCreator.destroyCalled)
         XCTAssertEqual(appStateComponent.score, 350)
@@ -183,7 +183,7 @@ class CollisionSystemTests: XCTestCase {
         }
         shipCollisionNode.entity = shipEntity
         // SUT
-        system.vehiclesAndTorpedoes(torpedoNode: torpedoNode, vehicleNode: shipCollisionNode)
+        system.vehiclesAndTorpedoes(vehicleNode: shipCollisionNode, torpedoNode: torpedoNode)
         //
         XCTAssertTrue(shipCreator.destroyCalled)
         XCTAssertEqual(appStateComponent.numShips, 0)

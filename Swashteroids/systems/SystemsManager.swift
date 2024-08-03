@@ -101,10 +101,8 @@ final class SystemsManager {
             shipButtonControlsCreator: creatorManager.shipButtonControlsCreator)
         let startTransition = StartTransition(engine: engine, startScreenCreator: creatorManager.startScreenCreator)
         let gameOverTransition = GameOverTransition(engine: engine, alert: alertPresenter)
-        let infoViewsTransition = InfoViewsTransition(engine: engine)
         let tutorialTransition = TutorialTransition(engine: engine)
         transitionAppStateSystem = TransitionAppStateSystem(startTransition: startTransition,
-                                                            infoViewsTransition: infoViewsTransition,
                                                             playingTransition: transition,
                                                             gameOverTransition: gameOverTransition,
                                                             tutorialTransition: tutorialTransition)

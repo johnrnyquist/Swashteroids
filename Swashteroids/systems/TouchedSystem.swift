@@ -119,12 +119,6 @@ final class TouchedButtonSystem: ListIteratingSystem {
                     engine.appStateEntity.add(component: ChangeGameStateComponent(from: .start, to: .tutorial))
                 } else if buttonEntity.has(componentClass: ButtonWithButtonsComponent.self) {
                     engine.appStateEntity.add(component: ChangeGameStateComponent(from: .start, to: .playing))
-                } else if buttonEntity.has(componentClass: ButtonWithAccelerometerComponent.self) {
-                    engine.appStateEntity.add(component: ChangeGameStateComponent(from: .start, to: .infoAccelerometer))
-//                } else if buttonEntity.has(componentClass: ButtonWithButtonsInfoComponent.self) {
-//                    engine.appStateEntity.add(component: ChangeGameStateComponent(from: .infoButtons, to: .playing))
-                } else if buttonEntity.has(componentClass: ButtonWithAccelerometerInfoComponent.self) {
-                    engine.appStateEntity.add(component: ChangeGameStateComponent(from: .infoAccelerometer, to: .playing))
                 } else if buttonEntity.has(componentClass: ButtonFireComponent.self) {
                     buttonEntity[ButtonFireComponent.self]?.tapCount += 1 //HACK
                     engine.playerEntity?.add(component: FireDownComponent.shared)

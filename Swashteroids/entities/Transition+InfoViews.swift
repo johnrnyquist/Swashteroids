@@ -11,7 +11,7 @@
 import Swash
 import SpriteKit
 
-final class InfoViewsTransition: InfoViewsUseCase {
+final class InfoViewsTransition {
     let engine: Engine
     var gameSize: CGSize {
         engine.gameStateComponent.gameSize

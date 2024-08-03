@@ -17,7 +17,6 @@ protocol GameStateObserver: AnyObject {
 
 final class TransitionAppStateSystem: ListIteratingSystem {
     private let startTransition: StartUseCase?
-    private let infoViewsTransition: InfoViewsUseCase?
     private let playingTransition: PlayingUseCase?
     private let gameOverTransition: GameOverUseCase?
     private let tutorialTransition: TutorialUseCase?
@@ -25,14 +24,12 @@ final class TransitionAppStateSystem: ListIteratingSystem {
 
     init(
         startTransition: StartUseCase,
-        infoViewsTransition: InfoViewsUseCase,
         playingTransition: PlayingUseCase,
         gameOverTransition: GameOverUseCase,
         tutorialTransition: TutorialUseCase
     ) {
         self.startTransition = startTransition
         self.gameOverTransition = gameOverTransition
-        self.infoViewsTransition = infoViewsTransition
         self.playingTransition = playingTransition
         self.tutorialTransition = tutorialTransition
         super.init(nodeClass: TransitionAppStateNode.self)
@@ -50,12 +47,6 @@ final class TransitionAppStateSystem: ListIteratingSystem {
                 gameOverTransition?.fromGameOverScreen()
             case .playing:
                 playingTransition?.fromPlayingScreen()
-//            case .infoButtons:
-//                infoViewsTransition?.fromButtonsInfoScreen()
-//                appStateComponent.shipControlsState = .usingScreenControls
-            case .infoAccelerometer:
-                infoViewsTransition?.fromAccelerometerInfoScreen()
-                appStateComponent.shipControlsState = .usingAccelerometer
             case .tutorial:
                 tutorialTransition?.fromTutorialScreen()
         }
@@ -69,10 +60,6 @@ final class TransitionAppStateSystem: ListIteratingSystem {
             case .playing:
                 appStateComponent.timePlayed = 0.0
                 playingTransition?.toPlayingScreen(appStateComponent: appStateComponent)
-//            case .infoButtons:
-//                infoViewsTransition?.toButtonsInfoScreen()
-            case .infoAccelerometer:
-                infoViewsTransition?.toAccelerometerInfoScreen()
             case .tutorial:
                 tutorialTransition?.toTutorialScreen()
         }

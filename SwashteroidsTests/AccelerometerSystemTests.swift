@@ -30,7 +30,7 @@ final class AccelerometerSystemTests: XCTestCase {
 
     func test_RotateIsDown() throws {
         let node = AccelerometerNode()
-        let accelerometer = AccelerometerComponent()
+        let accelerometer = AccelerometerComponent.shared
         let input = AccelerometerComponent.shared
         input.rotate = (true, 1.0)
         let position = PositionComponent(x: 0, y: 0, z: .player, rotationDegrees: 0.0)
@@ -51,7 +51,7 @@ final class AccelerometerSystemTests: XCTestCase {
     
     func test_RotateIsNotDown() throws {
         let node = AccelerometerNode()
-        let accelerometer = AccelerometerComponent()
+        let accelerometer = AccelerometerComponent.shared
         let input = AccelerometerComponent.shared
         input.rotate = (false, 0.0)
         let position = PositionComponent(x: 0, y: 0, z: .player, rotationDegrees: 0.0)

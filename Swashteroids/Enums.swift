@@ -50,18 +50,12 @@ enum GameCommand: String, CaseIterable {
 
 public enum GameScreen: String, CaseIterable {
     case start = "Start Screen"
-//    case infoButtons = "Buttons Information Screen"
-    case infoAccelerometer = "No Buttons Information Screen"
     case playing = "Playing Screen"
     case gameOver = "Game Over Screen"
     case tutorial = "Tutorial"
     var commandsPerScreen: [GameCommand] {
         switch self {
             case .start:
-                return [.play]
-//            case .infoButtons:
-//                return [.play]
-            case .infoAccelerometer:
                 return [.play]
             case .playing:
                 return [.fire, .thrust, .hyperspace, .left, .right, .pause, .flip, .home, .settings, .resume]

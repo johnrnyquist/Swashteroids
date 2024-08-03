@@ -242,7 +242,7 @@
 		93139D10A3929204EC8DF9BF /* FlipSystemTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139C3D0D48098244988F2F /* FlipSystemTest.swift */; };
 		93139D16F77B51882659E4F7 /* ShipControlsSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139F522F09D6409294A901 /* ShipControlsSystem.swift */; };
 		93139D342AB9B2EF7FAB1C6C /* Transition+Playing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313938353DF3012CCAE66D1 /* Transition+Playing.swift */; };
-		93139D4F7B05532BC0F56A6C /* GameplayManagerSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139A6D529EF901F7F45FFD /* GameplayManagerSystemTests.swift */; };
+		93139D4F7B05532BC0F56A6C /* ShipCreationSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139A6D529EF901F7F45FFD /* ShipCreationSystemTests.swift */; };
 		93139D8B959847D616BACF3F /* MovementSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313955D97F515D3DE4A3DD7 /* MovementSystem.swift */; };
 		93139D95B51622F2F0A0817C /* TreasureCollisionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931390993573DD02D04EE52C /* TreasureCollisionNode.swift */; };
 		93139DB6913344090273397D /* String+EntityNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931394D1D0B636772EE1DFF7 /* String+EntityNames.swift */; };
@@ -498,7 +498,7 @@
 		931399F9256FB8B5F9EBA4E4 /* MovementSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovementSystemTests.swift; sourceTree = "<group>"; };
 		93139A5C099B78460F248810 /* Dictionary+extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+extensions.swift"; sourceTree = "<group>"; };
 		93139A62ACBE6CDFC10158E7 /* MovementRateComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovementRateComponent.swift; sourceTree = "<group>"; };
-		93139A6D529EF901F7F45FFD /* GameplayManagerSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameplayManagerSystemTests.swift; sourceTree = "<group>"; };
+		93139A6D529EF901F7F45FFD /* ShipCreationSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipCreationSystemTests.swift; sourceTree = "<group>"; };
 		93139A6E99AFA9F956DD8A0A /* ReactionTimeSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReactionTimeSystem.swift; sourceTree = "<group>"; };
 		93139A8C456EC20FE5A68E87 /* HudSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudSystem.swift; sourceTree = "<group>"; };
 		93139A97E15CCF640A73EC56 /* TorpedoCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TorpedoCreator.swift; sourceTree = "<group>"; };
@@ -842,7 +842,7 @@
 				93139DE76BF1939914D55E38 /* FiringSystemTests.swift */,
 				93139C3D0D48098244988F2F /* FlipSystemTest.swift */,
 				8DB99F582B2BF2A700C3593A /* GameOverSystemTests.swift */,
-				93139A6D529EF901F7F45FFD /* GameplayManagerSystemTests.swift */,
+				93139A6D529EF901F7F45FFD /* ShipCreationSystemTests.swift */,
 				93139949CD856130C98A8834 /* HudSystemTests.swift */,
 				9313964664F31540DA9D0416 /* HyperspaceSystemTests.swift */,
 				931390C85278CB396AD27B7B /* LeftSystemTests.swift */,
@@ -1413,7 +1413,7 @@
 				8D4D4EFA2C233C5800293B13 /* MockRandom.swift in Sources */,
 				8D4D4EF82C2338A200293B13 /* MockScaleManager.swift in Sources */,
 				931394AC921BF3C3D7CABD13 /* FiringSystemTests.swift in Sources */,
-				93139D4F7B05532BC0F56A6C /* GameplayManagerSystemTests.swift in Sources */,
+				93139D4F7B05532BC0F56A6C /* ShipCreationSystemTests.swift in Sources */,
 				93139AF6101463528E309EA7 /* ShipControlsSystemTests.swift in Sources */,
 				931390FD65B5AF82D24FEB32 /* CollisionSystemTests.swift in Sources */,
 				8D88C4842B61D3FF00B75314 /* RandomnessTests.swift in Sources */,

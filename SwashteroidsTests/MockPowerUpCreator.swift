@@ -16,6 +16,9 @@ final class MockPowerUpCreator: PowerUpCreatorUseCase {
     var createTorpedoesPowerUpCalled = false
     var createTorpedoesPowerUpRadiusCalled = false
 
+    func createPowerUp(level: Int, type: PowerUpType) {
+    }
+
     func createHyperspacePowerUp(level: Int) {
         createHyperspacePowerUpCalled = true
     }

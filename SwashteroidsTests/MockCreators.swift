@@ -15,7 +15,7 @@ import Swash
 final class MockAlienCreator: AlienCreatorUseCase {
     func createAliens() {
     }
-    
+
     var createAliensCalled = false
 
     func createAlienWorker(startDestination: CGPoint, endDestination: CGPoint) {
@@ -32,9 +32,24 @@ final class MockAlienCreator: AlienCreatorUseCase {
 final class MockAsteroidCreator: AsteroidCreatorUseCase {
     var createAsteroidCalled = 0
 
-    func createAsteroid(radius: Double, x: Double, y: Double, size: AsteroidSize, level: Int) {
+    func createAsteroid(radius: Double, x: Double, y: Double, size: AsteroidSize, level: Int) -> Entity {
         createAsteroidCalled += 1
+        return Entity()
     }
+}
+
+final class MockStartScreenCreator: StartScreenCreatorUseCase {
+    func createGamepadIndicator() {}
+
+    func createStartButtons() {}
+
+    func createStartScreen() {}
+
+    func removeGamepadIndicator() {}
+
+    func removeStartButtons() {}
+
+    func removeStartScreen() {}
 }
 
 final class MockHudCreator: HudCreatorUseCase {
@@ -43,6 +58,18 @@ final class MockHudCreator: HudCreatorUseCase {
 }
 
 final class MockShipButtonControlsCreator: ShipButtonCreatorUseCase {
+    func createThrustButton() {}
+
+    func createLeftButton() {}
+
+    func createRightButton() {}
+
+    func createFlipButton() {}
+
+    func createFireButton() {}
+
+    func createHyperspaceButton() {}
+
     func createShipControlButtons() {}
 
     func enableShipControlButtons() {}
@@ -67,7 +94,47 @@ final class MockPlayerCreator: PlayerCreatorUseCase {
     }
 }
 
-final class MockQuadrantsButtonToggleCreator: QuadrantsControlsCreatorUseCase, ShipButtonCreatorUseCase, ToggleShipControlsCreatorUseCase {
+final class MockQuadrantsButtonToggleCreator: QuadrantsControlsCreatorUseCase,
+                                              ShipButtonCreatorUseCase,
+                                              ToggleShipControlsCreatorUseCase,
+                                              StartScreenCreatorUseCase {
+    var createFireButtonCalled = false
+    var createFlipButtonCalled = false
+    var createGamepadIndicatorCalled = false
+    var createHyperspaceButtonCalled = false
+    var createLeftButtonCalled = false
+    var createRightButtonCalled = false
+    var createStartButtonsCalled = false
+    var createStartScreenCalled = false
+    var createThrustButtonCalled = false
+    var removeGamepadIndicatorCalled = false
+    var removeStartButtonsCalled = false
+    var removeStartScreenCalled = false
+
+    func createFireButton() { createFireButtonCalled = true }
+
+    func createFlipButton() { createFlipButtonCalled = true }
+
+    func createGamepadIndicator() { createGamepadIndicatorCalled = true }
+
+    func createHyperspaceButton() { createHyperspaceButtonCalled = true }
+
+    func createLeftButton() { createLeftButtonCalled = true }
+
+    func createRightButton() { createRightButtonCalled = true }
+
+    func createStartButtons() { createStartButtonsCalled = true }
+
+    func createStartScreen() { createStartScreenCalled = true }
+
+    func createThrustButton() { createThrustButtonCalled = true }
+
+    func removeGamepadIndicator() { removeGamepadIndicatorCalled = true }
+
+    func removeStartButtons() { removeStartButtonsCalled = true }
+
+    func removeStartScreen() { removeStartScreenCalled = true }
+
     //MARK: - ShipQuadrantsControlsManager
     var createShipControlQuadrantsCalled = false
     var removeShipControlQuadrantsCalled = false

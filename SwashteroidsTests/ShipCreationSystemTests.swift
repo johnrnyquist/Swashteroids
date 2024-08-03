@@ -13,16 +13,17 @@ import SpriteKit
 @testable import Swash
 @testable import Swashteroids
 
-final class GameplayManagerSystemTests: XCTestCase {
+final class ShipCreationSystemTests: XCTestCase {
     var engine: Engine!
     var scene: GameScene!
     var alienCreator: MockAlienCreator!
     var asteroidCreator: MockAsteroidCreator!
     var shipCreator: PlayerCreatorUseCase!
-    var system: GameplayManagerSystem!
+    var system: ShipCreationSystem! //TODO: Set to actual system
     var appStateComponent: GameStateComponent!
     let aliens = NodeList()
     let asteroids = NodeList()
+    var players = NodeList()
 
     override func setUpWithError() throws {
         engine = Engine()
@@ -32,9 +33,10 @@ final class GameplayManagerSystemTests: XCTestCase {
         scene = GameScene()
         appStateComponent = GameStateComponent(config: GameConfig(gameSize: .zero))
         appStateComponent.level = 1
-        system = GameplayManagerSystem(asteroidCreator: asteroidCreator, alienCreator: alienCreator, playerCreator: shipCreator, scene: scene)
+        system = ShipCreationSystem(playerCreator: shipCreator, gameSize: .zero)
         system.aliens = aliens
         system.asteroids = asteroids
+        system.players = players
     }
 
     override func tearDownWithError() throws {
@@ -117,19 +119,16 @@ final class GameplayManagerSystemTests: XCTestCase {
 //            }
 //        }
 //    }
-
     func test_HandlePlayingState_HavingShips_IsClearToAddShips() {
-        let system = MockGameManagerSystem_HandlePlayingState(asteroidCreator: asteroidCreator,
-                                                              alienCreator: alienCreator,
-                                                              playerCreator: shipCreator,
-                                                              scene: scene,
-                                                              randomness: Randomness.initialize(with: 1))
-        system.continueOrEnd(appStateComponent: appStateComponent, entity: Entity())
+        let system = MockShipCreationSystem_HandlePlayingState(playerCreator: shipCreator, gameSize: .zero)
+        engine.add(system: system, priority: 1)
+        appStateComponent.gameScreen = .playing
+        appStateComponent.numShips = 1
+        system.checkForShips(appStateComponent: appStateComponent)
         XCTAssertEqual(system.isClearToAddSpaceshipCalled, true)
 
-        class MockGameManagerSystem_HandlePlayingState: GameplayManagerSystem {
+        class MockShipCreationSystem_HandlePlayingState: ShipCreationSystem {
             var isClearToAddSpaceshipCalled = false
-            var createPowerUpsCalled = false
 
             override func isClearToAddSpaceship(at position: CGPoint) -> Bool {
                 isClearToAddSpaceshipCalled = true
@@ -159,18 +158,6 @@ final class GameplayManagerSystemTests: XCTestCase {
 //        }
 //    }
 
-    func test_HandlePlayingState_NoShips() {
-        let appStateComponent = GameStateComponent(config: GameConfig(gameSize: .zero))
-        appStateComponent.numShips = 0
-        appStateComponent.gameScreen = .playing
-        let entity = Entity(named: "currentState")
-        system.continueOrEnd(appStateComponent: appStateComponent, entity: entity)
-        let result = entity[ChangeGameStateComponent.self]
-        XCTAssertNotNil(result)
-        XCTAssertEqual(result?.from, .playing)
-        XCTAssertEqual(result?.to, .gameOver)
-    }
-
 //    func test_HandleGameState_NoShips_Playing() {
 //        let system = MockGameManagerSystem_NoShips_Playing(asteroidCreator: asteroidCreator,
 //                                                           alienCreator: alienCreator,
@@ -193,13 +180,11 @@ final class GameplayManagerSystemTests: XCTestCase {
 //            }
 //        }
 //    }
-
 //    func test_HandleAlienAppearances() {
 //        appStateComponent.alienNextAppearance = 1.0
 //        system.handleAlienAppearances(appStateComponent: appStateComponent, time: 1.0)
 //        XCTAssertTrue(alienCreator.createAliensCalled)
 //    }
-
 //    func test_HandleGameState_NoAsteroidsTorpedoes() {
 //        // need to look at this function's logic
 //        let system = MockGameManagerSystem_NoAsteroidsTorpedoes(asteroidCreator: asteroidCreator,

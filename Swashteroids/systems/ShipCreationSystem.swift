@@ -16,15 +16,19 @@ import Swash
 Detects if there are no ships, if game is playing, if there are no asteroids, no torpedoes.
 Determines if a ship needs to be made.
  */
-final class ShipCreationSystem: System {
+class ShipCreationSystem: System {
     private let shipClearanceRadius: CGFloat = 50
     private let shipPositionRatio: CGFloat = 0.5
     private var gameSize: CGSize
-    private weak var aliens: NodeList!
+    weak var aliens: NodeList!
     private weak var appStates: NodeList!
-    private weak var asteroids: NodeList!
+    weak var asteroids: NodeList!
     private weak var playerCreator: PlayerCreatorUseCase!
-    private weak var players: NodeList!
+    weak var players: NodeList! {
+        didSet {
+            print("ShipCreationSystem: players set to \(players)")
+        }
+    }
     private weak var randomness: Randomizing!
     private weak var torpedoes: NodeList!
 

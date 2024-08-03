@@ -14,13 +14,13 @@ import Swash
 final class DisplaySystem: System {
     weak var scene: GameScene!
     weak var nodes: NodeList?
-    let circles = SKSpriteNode()
+//    let circles = SKSpriteNode()
 
     init(scene: GameScene) {
         self.scene = scene
-        circles.name = "circles"
-        circles.anchorPoint = .zero
-        scene.addChild(circles)
+//        circles.name = "circles"
+//        circles.anchorPoint = .zero
+//        scene.addChild(circles)
     }
 
     override func addToEngine(engine: Engine) {

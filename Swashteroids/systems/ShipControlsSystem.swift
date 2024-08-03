@@ -13,7 +13,7 @@ import SpriteKit
 import Foundation
 
 /// This should be the place for all changes on the Ship’s controls
-final class ShipControlsSystem: ListIteratingSystem {
+class ShipControlsSystem: ListIteratingSystem {
     private weak var engine: Engine!
     private weak var toggleShipControlsCreator: ToggleShipControlsCreatorUseCase!
     private weak var shipControlQuadrantsCreator: QuadrantsControlsCreatorUseCase!
@@ -61,8 +61,6 @@ final class ShipControlsSystem: ListIteratingSystem {
             case .start:
                 startButtonsCreator.createStartButtons()
                 startButtonsCreator.removeGamepadIndicator()
-            case .infoAccelerometer: //, .infoButtons:
-                break
             case .playing:
                 engine.playerEntity?.remove(componentClass: AccelerometerComponent.self)
                 shipControlQuadrantsCreator.removeQuadrantControls()
@@ -98,8 +96,6 @@ final class ShipControlsSystem: ListIteratingSystem {
             case .start:
                 startButtonsCreator.removeStartButtons()
                 startButtonsCreator.createGamepadIndicator()
-            case .infoAccelerometer: //, .infoButtons:
-                break
             case .playing:
                 shipControlQuadrantsCreator.removeQuadrantControls()
                 engine.playerEntity?.remove(componentClass: AccelerometerComponent.self)
@@ -117,8 +113,6 @@ final class ShipControlsSystem: ListIteratingSystem {
             case .start:
                 startButtonsCreator.removeGamepadIndicator()
                 startButtonsCreator.createStartButtons()
-            case .infoAccelerometer: //, .infoButtons:
-                break
             case .playing:
                 engine.playerEntity?.add(component: AccelerometerComponent.shared)
                 shipControlQuadrantsCreator.createQuadrantControls()

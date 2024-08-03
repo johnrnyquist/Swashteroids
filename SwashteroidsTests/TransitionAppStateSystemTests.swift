@@ -21,13 +21,14 @@ final class TransitionAppStateSystemTests: XCTestCase {
         size = CGSize(width: 1024.0, height: 768.0)
         engine = Engine()
         let creator = MockQuadrantsButtonToggleCreator()
-        system = TransitionAppStateSystem(startTransition: StartTransition(engine: engine, generator: nil),
-                                          infoViewsTransition: InfoViewsTransition(engine: engine, generator: nil),
+        system = TransitionAppStateSystem(startTransition: StartTransition(engine: engine,
+                                                                           startScreenCreator: MockStartScreenCreator()),
                                           playingTransition: PlayingTransition(hudCreator: MockHudCreator(),
                                                                                toggleShipControlsCreator: creator,
                                                                                shipControlQuadrantsCreator: creator,
                                                                                shipButtonControlsCreator: creator),
-                                          gameOverTransition: GameOverTransition(engine: engine, generator: nil))
+                                          gameOverTransition: GameOverTransition(engine: engine, alert: MockAlertPresenter()),
+                                          tutorialTransition: TutorialTransition(engine: engine))
     }
 
     override func tearDownWithError() throws {
@@ -39,60 +40,6 @@ final class TransitionAppStateSystemTests: XCTestCase {
     func test_Init() throws {
         XCTAssertTrue(system.nodeClass == TransitionAppStateNode.self)
         XCTAssertNotNil(system.nodeUpdateFunction)
-    }
-
-    func test_UpdateNodeFromStartToInfoNoButtons() throws {
-        let node = TransitionAppStateNode()
-        let appStateComponent = GameStateComponent(config: GameConfig(gameSize: .zero))
-        appStateComponent.numShips = 0
-        appStateComponent.level = 0
-        appStateComponent.score = 0
-        appStateComponent.shipControlsState = .usingAccelerometer
-        let transitionComponent = ChangeGameStateComponent(from: .start, to: .infoAccelerometer)
-        node.components[GameStateComponent.name] = appStateComponent
-        node.components[ChangeGameStateComponent.name] = transitionComponent
-        let appState = Entity(named: .appState)
-                .add(component: appStateComponent)
-        engine.add(entity: appState)
-        // SUT
-        system.updateNode(node: node, time: 1)
-        //
-        XCTAssertEqual(appStateComponent.gameScreen, .infoAccelerometer)
-    }
-
-    func test_UpdateNodeFromStartToInfoButtons() throws {
-        let node = TransitionAppStateNode()
-        let appStateComponent = GameStateComponent(config: GameConfig(gameSize: .zero))
-        appStateComponent.numShips = 0
-        appStateComponent.level = 0
-        appStateComponent.score = 0
-
-        let transitionComponent = ChangeGameStateComponent(from: .start, to: .infoButtons)
-        node.components[GameStateComponent.name] = appStateComponent
-        node.components[ChangeGameStateComponent.name] = transitionComponent
-        let appState = Entity(named: .appState)
-                .add(component: appStateComponent)
-        engine.add(entity: appState)
-        // SUT
-        system.updateNode(node: node, time: 1)
-        //
-        XCTAssertEqual(appStateComponent.gameScreen, .infoButtons)
-    }
-
-    func test_UpdateNodeFromInfoButtonsToPlaying() throws {
-        let node = TransitionAppStateNode()
-        let appStateComponent = GameStateComponent(config: GameConfig(gameSize: .zero))
-        appStateComponent.numShips = 0
-        appStateComponent.level = 0
-        appStateComponent.score = 0
-        appStateComponent.gameScreen = .infoButtons
-        let transitionComponent = ChangeGameStateComponent(from: .infoButtons, to: .playing)
-        node.components[GameStateComponent.name] = appStateComponent
-        node.components[ChangeGameStateComponent.name] = transitionComponent
-        // SUT
-        system.updateNode(node: node, time: 1)
-        //
-        XCTAssertEqual(appStateComponent.gameScreen, .playing)
     }
 
     func test_UpdateNodeFromGameOverToStart() throws {
@@ -112,23 +59,6 @@ final class TransitionAppStateSystemTests: XCTestCase {
         system.updateNode(node: node, time: 1)
         //
         XCTAssertEqual(appStateComponent.gameScreen, .start)
-    }
-
-    func test_UpdateNodeFromInfoNoButtonsToPlaying() throws {
-        let node = TransitionAppStateNode()
-        let appStateComponent = GameStateComponent(config: GameConfig(gameSize: .zero))
-        appStateComponent.numShips = 0
-        appStateComponent.level = 0
-        appStateComponent.score = 0
-        appStateComponent.gameScreen = .infoAccelerometer
-        appStateComponent.shipControlsState = .usingAccelerometer
-        let transitionComponent = ChangeGameStateComponent(from: .infoAccelerometer, to: .playing)
-        node.components[GameStateComponent.name] = appStateComponent
-        node.components[ChangeGameStateComponent.name] = transitionComponent
-        // SUT
-        system.updateNode(node: node, time: 1)
-        //
-        XCTAssertEqual(appStateComponent.gameScreen, .playing)
     }
 
     func test_UpdateNodeFromPlayingWithButtonsToGameOver() throws {

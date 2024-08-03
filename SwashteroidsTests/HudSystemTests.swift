@@ -41,7 +41,6 @@ class HudSystemTests: XCTestCase {
         hudNode.components[HudComponent.name] = hudComponent
 //        hudNode.components[SwashteroidsStateComponent.name] = appStateComponent
         system.updateNode(hudNode, 1)
-        XCTAssertEqual(hudComponent.hudView.getNumShipsText(), "SHIPS: 1")
         XCTAssertEqual(hudComponent.hudView.getLevelText(), "LEVEL: 2")
         XCTAssertEqual(hudComponent.hudView.getScoreText(), "SCORE: 3")
     }

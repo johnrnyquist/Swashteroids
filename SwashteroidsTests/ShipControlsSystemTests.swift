@@ -30,7 +30,8 @@ final class ShipControlsSystemTests: XCTestCase {
     func test_Init() throws {
         let system = ShipControlsSystem(toggleShipControlsCreator: creator,
                                         shipControlQuadrantsCreator: creator,
-                                        shipButtonControlsCreator: creator)
+                                        shipButtonControlsCreator: creator,
+                                        startButtonsCreator: creator)
         XCTAssertTrue(system.nodeClass == ShipControlsStateNode.self)
         XCTAssertNotNil(system.nodeUpdateFunction)
     }
@@ -38,7 +39,8 @@ final class ShipControlsSystemTests: XCTestCase {
     func test_UpdateNode() {
         let system = MockShipControlsSystem_DoToggleButtons(toggleShipControlsCreator: creator,
                                                             shipControlQuadrantsCreator: creator,
-                                                            shipButtonControlsCreator: creator)
+                                                            shipButtonControlsCreator: creator,
+                                                            startButtonsCreator: creator)
         let node = ShipControlsStateNode()
         let change = ChangeShipControlsStateComponent(to: .usingAccelerometer)
         node.components[ChangeShipControlsStateComponent.name] = change
@@ -61,16 +63,18 @@ final class ShipControlsSystemTests: XCTestCase {
     func test_DoToggleButtons_ToShowingButtons_NoGunNoHyperspace() {
         let system = ShipControlsSystem(toggleShipControlsCreator: creator,
                                         shipControlQuadrantsCreator: creator,
-                                        shipButtonControlsCreator: creator)
+                                        shipButtonControlsCreator: creator,
+                                        startButtonsCreator: creator)
         engine.add(system: system, priority: 1)
         //TODO: do_toggleButtons requires the ShipEntity type as it uses engine.ship. 
         let ship = Entity(named: .player)
-                .add(component: AccelerometerComponent())
+                .add(component: AccelerometerComponent.shared)
         engine.add(entity: ship)
         let appStateComponent = GameStateComponent(config: GameConfig(gameSize: .zero))
         appStateComponent.numShips = 0
         appStateComponent.level = 0
         appStateComponent.shipControlsState = .usingAccelerometer
+        appStateComponent.gameScreen = .playing
         let appState = Entity(named: .appState)
                 .add(component: appStateComponent)
         engine.add(entity: appState)
@@ -87,12 +91,13 @@ final class ShipControlsSystemTests: XCTestCase {
     func test_DoToggleButtons_ToShowingButtons_HasGun() {
         let system = ShipControlsSystem(toggleShipControlsCreator: creator,
                                         shipControlQuadrantsCreator: creator,
-                                        shipButtonControlsCreator: creator)
+                                        shipButtonControlsCreator: creator, 
+                                        startButtonsCreator: creator)
         engine.add(system: system, priority: 1)
         //TODO: do_toggleButtons requires the ShipEntity type as it uses engine.ship. 
         let ship = Entity(named: .player)
         ship
-                .add(component: AccelerometerComponent())
+                .add(component: AccelerometerComponent.shared)
                 .add(component: GunComponent(offsetX: 0,
                                              offsetY: 0,
                                              minimumShotInterval: 0,
@@ -109,6 +114,7 @@ final class ShipControlsSystemTests: XCTestCase {
         appStateComponent.numShips = 0
         appStateComponent.level = 0
         appStateComponent.shipControlsState = .usingAccelerometer
+        appStateComponent.gameScreen = .playing
         let appState = Entity(named: .appState)
                 .add(component: appStateComponent)
         engine.add(entity: appState)
@@ -126,11 +132,12 @@ final class ShipControlsSystemTests: XCTestCase {
     func test_DoToggleButtons_ToShowingButtons_HasHyperspace() {
         let system = ShipControlsSystem(toggleShipControlsCreator: creator,
                                         shipControlQuadrantsCreator: creator,
-                                        shipButtonControlsCreator: creator)
+                                        shipButtonControlsCreator: creator,
+                                        startButtonsCreator: creator)
         engine.add(system: system, priority: 1)
         //TODO: do_toggleButtons requires the ShipEntity type as it uses engine.ship. 
         let ship = Entity(named: .player)
-                .add(component: AccelerometerComponent())
+                .add(component: AccelerometerComponent.shared)
                 .add(component: HyperspaceDriveComponent(jumps: 20))
         engine.add(entity: ship)
         let hyperspaceButton = Entity(named: .hyperspaceButton)
@@ -140,6 +147,7 @@ final class ShipControlsSystemTests: XCTestCase {
         appStateComponent.numShips = 0
         appStateComponent.level = 0
         appStateComponent.shipControlsState = .usingAccelerometer
+        appStateComponent.gameScreen = .playing
         let appState = Entity(named: .appState)
                 .add(component: appStateComponent)
         engine.add(entity: appState)
@@ -156,11 +164,12 @@ final class ShipControlsSystemTests: XCTestCase {
     func test_DoToggleButtons_ToHidingButtons() {
         let system = ShipControlsSystem(toggleShipControlsCreator: creator,
                                         shipControlQuadrantsCreator: creator,
-                                        shipButtonControlsCreator: creator)
+                                        shipButtonControlsCreator: creator,
+                                        startButtonsCreator: creator)
         engine.add(system: system, priority: 1)
         let ship = Entity()
         ship
-                .add(component: AccelerometerComponent())
+                .add(component: AccelerometerComponent.shared)
                 .add(component: GunComponent(offsetX: 0,
                                              offsetY: 0,
                                              minimumShotInterval: 0,
@@ -181,10 +190,8 @@ final class ShipControlsSystemTests: XCTestCase {
         engine.add(entity: appState)
         //
         system.handleChange(to: .usingAccelerometer)
-        XCTAssertTrue(creator.createShipControlQuadrantsCalled)
-        XCTAssertTrue(creator.removeShipControlButtonsCalled)
-        XCTAssertTrue(creator.removeToggleButtonCalled)
-        XCTAssertTrue(creator.createToggleButtonCalled)
+        XCTAssertTrue(creator.removeGamepadIndicatorCalled)
+        XCTAssertTrue(creator.createStartButtonsCalled)
         XCTAssertTrue(ship.has(componentClassName: AccelerometerComponent.name))
     }
 }

@@ -12,7 +12,7 @@ import SpriteKit
 import Swash
 
 /// This class is an argument for switching to the SpriteKit physics engine.
-final class CollisionSystem: System {
+class CollisionSystem: System {
     private let asteroidCreator: AsteroidCreatorUseCase
     private let playerCreator: PlayerCreatorUseCase
     private let scaleManager: ScaleManaging
