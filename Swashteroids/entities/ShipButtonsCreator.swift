@@ -13,12 +13,13 @@ import SpriteKit
 
 extension Entity {
     @discardableResult
-    func flash(_ numFlashes: Int = 1, endAlpha: Double = 0.2) -> Entity {
-        let fadeIn = SKAction.fadeAlpha(to: 1.0, duration: 0.2)
-        let fadeOut = SKAction.fadeAlpha(to: 0.2, duration: 0.2)
+    func flash(_ numFlashes: Int = 1, duration: TimeInterval = 0.2, endAlpha: Double = 0.2, wait: TimeInterval = 0) -> Entity {
+        let fadeIn = SKAction.fadeAlpha(to: 1.0, duration: duration)
+        let wait = SKAction.wait(forDuration: wait)
+        let fadeOut = SKAction.fadeAlpha(to: 0.2, duration: duration)
         let flashes = Array(repeating: [fadeIn, fadeOut], count: numFlashes).flatMap { $0 }
         let flashSeq = SKAction.sequence(flashes)
-        let seq = SKAction.sequence([flashSeq, SKAction.fadeAlpha(to: CGFloat(endAlpha), duration: 0.2)])
+        let seq = SKAction.sequence([flashSeq, wait, SKAction.fadeAlpha(to: CGFloat(endAlpha), duration: duration)])
         let sknode = self[DisplayComponent.self]?.sknode
         sknode?.run(seq)
         return self
