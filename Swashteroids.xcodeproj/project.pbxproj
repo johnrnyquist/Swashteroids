@@ -169,13 +169,13 @@
 		9313935D542E2721BFFADDC1 /* TreasureCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139F2C79FC630142EA1605 /* TreasureCreator.swift */; };
 		931393799C3434FBF3FC0CCD /* AccelerometerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931396DD35CCD39E8E4EDB16 /* AccelerometerComponent.swift */; };
 		9313939131825EF42A421FE2 /* UseCases_Transition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139548F1C806045B42CEE6 /* UseCases_Transition.swift */; };
-		931393CD3F728BABB5788D43 /* TutorialMessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139C9A40B100BCC1DD5CC1 /* TutorialMessageHandler.swift */; };
 		93139411ABADC3F079CC2F3B /* Equatable+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931392FF3F02DBEB0D5C9AC7 /* Equatable+extensions.swift */; };
 		931394210CA0B09962A22946 /* MoveToTargetNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139D2354DE8E8246A21D37 /* MoveToTargetNode.swift */; };
 		9313942D68445B44D257ABD0 /* Transition+GameOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139DCC3081D67FB711D68B /* Transition+GameOver.swift */; };
 		9313943DDCC0A5507A83366B /* GameOverSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139DC1597F3F8E4CCB80FE /* GameOverSystem.swift */; };
 		9313945BF406DE5979CDEA51 /* Randomness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313959F4B35EA9D7843BD7A /* Randomness.swift */; };
 		931394AC921BF3C3D7CABD13 /* FiringSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139DE76BF1939914D55E38 /* FiringSystemTests.swift */; };
+		93139529F3CFB174F3C6FFFD /* String+SoundFileName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931390FEE1AF3B1E3FE97CC0 /* String+SoundFileName.swift */; };
 		9313953EA0F8B372247B5B83 /* Sequence+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931397A00F1CE63F6242C2F2 /* Sequence+extensions.swift */; };
 		93139562CC6BB542C42A3493 /* LeftNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139D029684C918FEDD3DC1 /* LeftNode.swift */; };
 		93139570309C2C458E38119C /* SplitAsteroidSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931391F6102BA3CDA3D121C7 /* SplitAsteroidSystem.swift */; };
@@ -188,7 +188,6 @@
 		9313966752D333AF0D13BDA5 /* AlertPresentingSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931397C38072F0E64E4C6A38 /* AlertPresentingSystem.swift */; };
 		93139685D7989EDB5860D704 /* DeathThroesSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139DAEBBD9BE19DC446051 /* DeathThroesSystem.swift */; };
 		931396A2070DB4DA286B21D7 /* RightNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139FDF0C76049256DAE28C /* RightNode.swift */; };
-		931396AF5AFDC6659C91000F /* String+SoundFileName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139933EFC2AE82B11922C6 /* String+SoundFileName.swift */; };
 		931396B7DDF80F066196BA15 /* MakeDecisionSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931392EBF79FD204C1174E11 /* MakeDecisionSystem.swift */; };
 		931396DB4A4897E0A98702A1 /* AlienAppearancesSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313948D41437D9630A7EE7E /* AlienAppearancesSystem.swift */; };
 		931397073B11911E75B9BFA0 /* QuadrantsControlsCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931395F838B2866767296F25 /* QuadrantsControlsCreator.swift */; };
@@ -225,6 +224,7 @@
 		93139AF6101463528E309EA7 /* ShipControlsSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139C4A1DEEA1037E802D8E /* ShipControlsSystemTests.swift */; };
 		93139B0DBC3E222D982D6420 /* TouchableComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139E5342C2A2829DF79063 /* TouchableComponent.swift */; };
 		93139B6F7A6F444E5E8DC889 /* TimePlayedSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139E465420E10AF4C52087 /* TimePlayedSystem.swift */; };
+		93139B9981B13D585FE4A87B /* TutorialMessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139E63558753F279F505E2 /* TutorialMessageHandler.swift */; };
 		93139BB63DB9036243796001 /* RepeatingAudioComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931399A8022AF1B7FCC53B49 /* RepeatingAudioComponent.swift */; };
 		93139BC5661C918BD0158277 /* HyperspaceSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313964664F31540DA9D0416 /* HyperspaceSystemTests.swift */; };
 		93139BEFEEFBB1E49B13DF7E /* Transition+Start.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139DD21263C6EFB274FB5B /* Transition+Start.swift */; };
@@ -249,6 +249,7 @@
 		93139DBD16DFD049C47DC7B6 /* CreateXRayPowerUpSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931390E7E012D44706CDE097 /* CreateXRayPowerUpSystem.swift */; };
 		93139DE4C74978A3165A2479 /* LifetimeSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139E220EA6A3480457FD0B /* LifetimeSystem.swift */; };
 		93139E078A90FF358339F568 /* FlipSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931396351269B112C60D01C6 /* FlipSystem.swift */; };
+		93139E2F60C53E645077D657 /* TutorialSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139D3CEF831324ED804D7E /* TutorialSystem.swift */; };
 		93139E360C9751C14F46F8DA /* AlienComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139E651DD82D706FDF1B26 /* AlienComponent.swift */; };
 		93139E3F25213600B5CECC6D /* RightComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139323EC193D378DF26BB7 /* RightComponent.swift */; };
 		93139E522DE6E55682187915 /* ReactionTimeComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931399879CDD5E4D20463D32 /* ReactionTimeComponent.swift */; };
@@ -431,6 +432,7 @@
 		931390BDEBA443104F781428 /* AudioSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioSystemTests.swift; sourceTree = "<group>"; };
 		931390C85278CB396AD27B7B /* LeftSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftSystemTests.swift; sourceTree = "<group>"; };
 		931390E7E012D44706CDE097 /* CreateXRayPowerUpSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateXRayPowerUpSystem.swift; sourceTree = "<group>"; };
+		931390FEE1AF3B1E3FE97CC0 /* String+SoundFileName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+SoundFileName.swift"; sourceTree = "<group>"; };
 		93139118555F426578F535CA /* Transition+Tutorial.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Transition+Tutorial.swift"; sourceTree = "<group>"; };
 		931391B4D76B8FBFE80781AD /* StartScreenCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartScreenCreator.swift; sourceTree = "<group>"; };
 		931391F6102BA3CDA3D121C7 /* SplitAsteroidSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitAsteroidSystem.swift; sourceTree = "<group>"; };
@@ -486,7 +488,6 @@
 		931399149FA177C4CB383E33 /* GameOverCheckSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverCheckSystem.swift; sourceTree = "<group>"; };
 		93139921E04E8DBE2DF6800B /* SplitAsteroidUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitAsteroidUseCase.swift; sourceTree = "<group>"; };
 		93139927DCF5E5DC2AE98363 /* ReactionTimeNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReactionTimeNode.swift; sourceTree = "<group>"; };
-		93139933EFC2AE82B11922C6 /* String+SoundFileName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+SoundFileName.swift"; sourceTree = "<group>"; };
 		93139949CD856130C98A8834 /* HudSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudSystemTests.swift; sourceTree = "<group>"; };
 		9313995C9360F53AD9D2BB65 /* AlienFiringNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlienFiringNode.swift; sourceTree = "<group>"; };
 		931399834CAB8241633CF6FE /* MakeDescisionNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeDescisionNode.swift; sourceTree = "<group>"; };
@@ -520,11 +521,11 @@
 		93139C73A66D8863A166745D /* PowerUpCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PowerUpCreator.swift; sourceTree = "<group>"; };
 		93139C76E92BDD6C851476EC /* PickTargetNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickTargetNode.swift; sourceTree = "<group>"; };
 		93139C8044AA2C3F2199DEA0 /* CreateShieldPowerUpSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateShieldPowerUpSystem.swift; sourceTree = "<group>"; };
-		93139C9A40B100BCC1DD5CC1 /* TutorialMessageHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialMessageHandler.swift; sourceTree = "<group>"; };
 		93139CBF7A7836DA7371F38A /* AccelerometerSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccelerometerSystem.swift; sourceTree = "<group>"; };
 		93139CC64C9CFC7E61D7DCFE /* FlipNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlipNode.swift; sourceTree = "<group>"; };
 		93139D029684C918FEDD3DC1 /* LeftNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftNode.swift; sourceTree = "<group>"; };
 		93139D2354DE8E8246A21D37 /* MoveToTargetNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveToTargetNode.swift; sourceTree = "<group>"; };
+		93139D3CEF831324ED804D7E /* TutorialSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialSystem.swift; sourceTree = "<group>"; };
 		93139D4336E12C89FC8BE06B /* TransitionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionTests.swift; sourceTree = "<group>"; };
 		93139DA5BE3616991E768E8C /* AlienFiringSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlienFiringSystem.swift; sourceTree = "<group>"; };
 		93139DAEBBD9BE19DC446051 /* DeathThroesSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeathThroesSystem.swift; sourceTree = "<group>"; };
@@ -537,6 +538,7 @@
 		93139E220EA6A3480457FD0B /* LifetimeSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LifetimeSystem.swift; sourceTree = "<group>"; };
 		93139E465420E10AF4C52087 /* TimePlayedSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimePlayedSystem.swift; sourceTree = "<group>"; };
 		93139E5342C2A2829DF79063 /* TouchableComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchableComponent.swift; sourceTree = "<group>"; };
+		93139E63558753F279F505E2 /* TutorialMessageHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialMessageHandler.swift; sourceTree = "<group>"; };
 		93139E651DD82D706FDF1B26 /* AlienComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlienComponent.swift; sourceTree = "<group>"; };
 		93139E79623BA0A03F3FDF2B /* GunNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GunNode.swift; sourceTree = "<group>"; };
 		93139E95FF431FF894CFD502 /* ToggleShipControlsCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToggleShipControlsCreator.swift; sourceTree = "<group>"; };
@@ -634,8 +636,6 @@
 				8D23C18C2B02C59D00F7D878 /* sounds */,
 				8D8F24B72B51D4B100B2E223 /* extensions */,
 				8D59EDDD2B138ED6003BD073 /* Badloc ICG.ttf */,
-				93139933EFC2AE82B11922C6 /* String+SoundFileName.swift */,
-				93139C9A40B100BCC1DD5CC1 /* TutorialMessageHandler.swift */,
 			);
 			path = Swashteroids;
 			sourceTree = "<group>";
@@ -936,6 +936,7 @@
 				8D714E2D2B3535DC009E1586 /* SKSpriteNode+extensions.swift */,
 				931394D1D0B636772EE1DFF7 /* String+EntityNames.swift */,
 				8D8F24B52B51D47700B2E223 /* UIColor+extensions.swift */,
+				931390FEE1AF3B1E3FE97CC0 /* String+SoundFileName.swift */,
 			);
 			name = extensions;
 			sourceTree = "<group>";
@@ -1022,6 +1023,8 @@
 				931397321E614AC7F5F6747A /* TransitionAppStateSystem.swift */,
 				8DD15B0A2C4AA40100EAD1D1 /* XRay */,
 				8DD15B092C4AA3F100EAD1D1 /* Shields */,
+				93139D3CEF831324ED804D7E /* TutorialSystem.swift */,
+				93139E63558753F279F505E2 /* TutorialMessageHandler.swift */,
 			);
 			name = list_iterating;
 			sourceTree = "<group>";
@@ -1364,7 +1367,6 @@
 				93139B0DBC3E222D982D6420 /* TouchableComponent.swift in Sources */,
 				9313953EA0F8B372247B5B83 /* Sequence+extensions.swift in Sources */,
 				9313966752D333AF0D13BDA5 /* AlertPresentingSystem.swift in Sources */,
-				931396AF5AFDC6659C91000F /* String+SoundFileName.swift in Sources */,
 				9313917C504C1A8F1DEF19A8 /* CGSize+extensions.swift in Sources */,
 				93139411ABADC3F079CC2F3B /* Equatable+extensions.swift in Sources */,
 				931396DB4A4897E0A98702A1 /* AlienAppearancesSystem.swift in Sources */,
@@ -1376,9 +1378,11 @@
 				93139C0AF2CE44E81DEB9C48 /* ShieldSystem.swift in Sources */,
 				9313934346206818B2709CA8 /* Transition+Tutorial.swift in Sources */,
 				93139A47A19BA778268A7D5A /* StartNewGameSystem.swift in Sources */,
-				931393CD3F728BABB5788D43 /* TutorialMessageHandler.swift in Sources */,
 				9313963FAE95415F29615984 /* ShipCreationSystem.swift in Sources */,
 				931390A5E2BD15CDAA95200C /* GameOverCheckSystem.swift in Sources */,
+				93139529F3CFB174F3C6FFFD /* String+SoundFileName.swift in Sources */,
+				93139E2F60C53E645077D657 /* TutorialSystem.swift in Sources */,
+				93139B9981B13D585FE4A87B /* TutorialMessageHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

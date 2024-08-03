@@ -213,8 +213,8 @@ extension Swashteroids: SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
         if let a = contact.bodyA.node as? SwashSpriteNode,
            let b = contact.bodyB.node as? SwashSpriteNode,
-           let ae = a.entity,
-           let be = b.entity {
+           let ae = a.swashEntity,
+           let be = b.swashEntity {
             print("\(ae.name) hit \(be.name)")
         }
     }

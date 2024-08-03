@@ -43,7 +43,7 @@ final class ToggleShipControlsCreator: ToggleShipControlsCreatorUseCase {
                 .add(component: HapticFeedbackComponent.shared)
                 .add(component: ButtonToggleComponent())
                 .add(component: ButtonComponent())
-        sprite.entity = toggleEntity
+        sprite.swashEntity = toggleEntity
         engine.add(entity: toggleEntity)
     }
 }

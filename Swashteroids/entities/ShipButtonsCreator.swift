@@ -70,7 +70,7 @@ final class ShipButtonsCreator: ShipButtonCreatorUseCase {
         let buttonEntity = Entity(named: named)
                 .add(component: PositionComponent(x: position.x, y: position.y, z: .buttons, rotationDegrees: 0.0))
                 .add(component: DisplayComponent(sknode: button))
-        button.entity = buttonEntity
+        button.swashEntity = buttonEntity
         engine.add(entity: buttonEntity)
         return buttonEntity
     }

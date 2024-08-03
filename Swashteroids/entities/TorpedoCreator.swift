@@ -57,7 +57,7 @@ final class TorpedoCreator: TorpedoCreatorUseCase {
                 .add(component: AudioComponent(name: name, fileName: .launchTorpedo))
                 .add(component: CollidableComponent(radius: 0))
                 .add(component: torpedoComponent)
-        sprite.entity = torpedo
+        sprite.swashEntity = torpedo
         return torpedo
     }
 
@@ -126,7 +126,7 @@ final class TorpedoCreator: TorpedoCreatorUseCase {
 //        sprite.physicsBody?.affectedByGravity = false
 //        sprite.physicsBody?.categoryBitMask = torpedoCategory
 //        sprite.physicsBody?.contactTestBitMask = asteroidCategory | playerCategory | alienCategory
-        sprite.entity = entity
+        sprite.swashEntity = entity
         sprite.addChild(emitter)
         sprite.name = entity.name
         sprite.zPosition = .asteroids

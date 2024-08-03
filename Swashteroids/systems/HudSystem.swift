@@ -56,7 +56,7 @@ final class HudSystem: ListIteratingSystem {
             hudNode?[HudComponent.self]?.hudView.setJumps(hyperspaceComponent.jumps)
             if hyperspaceComponent.jumps == 0 {
                 hyperspaceNodes?.head?.entity?.remove(componentClass: HyperspaceDriveComponent.self)
-                powerUpCreator?.createHyperspacePowerUp(level: 1) //TODO: get real level
+                powerUpCreator?.createPowerUp(level: 1, type: .hyperspace) //TODO: get real level
                 if let hyperspaceButton = engine?.findEntity(named: .hyperspaceButton),
                    engine?.gameStateComponent.shipControlsState == .usingScreenControls { //HACK
                     engine?.remove(entity: hyperspaceButton)
@@ -71,7 +71,7 @@ final class HudSystem: ListIteratingSystem {
             hudNode?[HudComponent.self]?.hudView.setAmmo(gunComponent.numTorpedoes)
             if gunComponent.numTorpedoes == 0 {
                 shipEntity?.remove(componentClass: GunComponent.self)
-                powerUpCreator?.createTorpedoesPowerUp(level: 1) //TODO: get real level 
+                powerUpCreator?.createPowerUp(level: 1, type: .torpedoes) //TODO: get real level 
                 if let fireButton = engine?.findEntity(named: .fireButton),
                    engine?.gameStateComponent.shipControlsState == .usingScreenControls { //HACK
                     engine?.remove(entity: fireButton)

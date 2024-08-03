@@ -60,7 +60,7 @@ final class CollisionSystem: System {
         torpedoes = engine.getNodeList(nodeClassType: TorpedoCollisionNode.self)
         treasures = engine.getNodeList(nodeClassType: TreasureCollisionNode.self)
         xRayPowerUp = engine.getNodeList(nodeClassType: XRayPowerUpNode.self)
-        bridges = engine.getNodeList(nodeClassType: BridgeNode.self)
+        bridges = engine.getNodeList(nodeClassType: WarpTunnelNode.self)
     }
 
     /// 
@@ -188,7 +188,7 @@ final class CollisionSystem: System {
                 .add(component: PositionComponent(x: point.x, y: point.y, z: .player))
                 .add(component: DisplayComponent(sknode: spriteNode))
                 .add(component: VelocityComponent(velocityX: 0, velocityY: 0, angularVelocity: 15))
-        spriteNode.entity = entity
+        spriteNode.swashEntity = entity
         engine.add(entity: entity)
     }
 

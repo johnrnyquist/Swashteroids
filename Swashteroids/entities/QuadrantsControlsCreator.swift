@@ -42,7 +42,7 @@ final class QuadrantsControlsCreator: QuadrantsControlsCreatorUseCase {
         let quadrantSprite = SwashSpriteNode(color: .black, size: CGSize(width: size.width / 2, height: size.height / 2))
         quadrantSprite.anchorPoint = CGPoint(x: 0, y: 0)
         quadrantSprite.position = position
-        quadrantSprite.entity = entity
+        quadrantSprite.swashEntity = entity
         return quadrantSprite
     }
 

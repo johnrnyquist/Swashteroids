@@ -93,7 +93,7 @@ final class CreateShieldPowerUpSystem: ListIteratingSystem {
            !shieldPowerUpsCreatedComponent.levels.contains(level) // A powerup for this level has not been created
         {
             shieldPowerUpsCreatedComponent.levels.append(level)
-            powerUpCreator?.createShieldsPowerUp()
+            powerUpCreator?.createPowerUp(level: level, type: .shields)
         }
     }
 }

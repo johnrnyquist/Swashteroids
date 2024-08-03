@@ -12,6 +12,7 @@ import Foundation
 import Swash
 import SpriteKit
 
+/// Used by TutorialSystem to display messages.
 class TutorialMessageHandler {
     private let gameSize: CGSize
     private let tutorialText: Entity

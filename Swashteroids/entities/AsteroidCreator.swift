@@ -68,7 +68,7 @@ final class AsteroidCreator: AsteroidCreatorUseCase {
             }
             entity.add(component: TreasureInfoComponent(of: type))
         }
-        sprite.entity = entity
+        sprite.swashEntity = entity
         engine.add(entity: entity)
         return entity
     }

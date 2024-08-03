@@ -42,7 +42,7 @@ final class DisplaySystemTests: XCTestCase {
                 .add(component: display)
                 .add(component: position)
         engine.add(entity: entity)
-        sprite.entity = entity
+        sprite.swashEntity = entity
         engine.add(system: system, priority: 1)
         system.update(time: 1)
         XCTAssertTrue(sprite.position.x == 1)

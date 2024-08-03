@@ -36,10 +36,10 @@ final class TouchManager {
         guard !nodes.isEmpty else { return }
         if let topEntity = nodes
                 .compactMap({ $0 as? SwashSpriteNode })
-                .filter({ $0.entity?.has(componentClass: TouchableComponent.self) == true })
-                .filter({ $0.entity?.has(componentClass: TouchedComponent.self) == false })
+                .filter({ $0.swashEntity?.has(componentClass: TouchableComponent.self) == true })
+                .filter({ $0.swashEntity?.has(componentClass: TouchedComponent.self) == false })
                 .max(by: { $0.zPosition < $1.zPosition }) {
-            topEntity.entity?.add(component: component)
+            topEntity.swashEntity?.add(component: component)
         }
     }
 

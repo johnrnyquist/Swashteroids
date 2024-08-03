@@ -29,7 +29,7 @@ final class StartScreenCreator: StartScreenCreatorUseCase {
     func createStartScreen() {
         startView.name = .start
         let startEntity = Entity(named: .start)
-        startView.entity = startEntity
+        startView.swashEntity = startEntity
         engine.add(entity: startEntity)
         startEntity
                 .add(component: DisplayComponent(sknode: startView))
@@ -92,9 +92,9 @@ final class StartScreenCreator: StartScreenCreatorUseCase {
         let playButton = Entity(named: .withButtons)
         let tutorial = Entity(named: .tutorialButton)
         // assign entities to sprites
-        tutorialSprite.entity = tutorial
-        playSprite.entity = playButton
-        tutorialSprite.entity = tutorial
+        tutorialSprite.swashEntity = tutorial
+        playSprite.swashEntity = playButton
+        tutorialSprite.swashEntity = tutorial
         // Configure entities
         tutorial
                 .add(component: ButtonTutorialComponent())

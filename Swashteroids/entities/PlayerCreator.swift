@@ -43,7 +43,7 @@ final class PlayerCreator: PlayerCreatorUseCase {
         nacellesSprite.isHidden = true
         nacellesSprite.name = "nacelles"
         sprite.addChild(nacellesSprite)
-        sprite.entity = player
+        sprite.swashEntity = player
         player
                 .add(component: PlayerComponent())
                 .add(component: HyperspaceDriveComponent(jumps: 0))

@@ -42,7 +42,7 @@ final class GameOverTransition: GameOverUseCase {
                                                   z: .gameOver,
                                                   rotationDegrees: 0))
                 .add(component: engine.gameStateComponent)
-        gameOverView.entity = gameOverEntity
+        gameOverView.swashEntity = gameOverEntity
         engine.add(entity: gameOverEntity)
     }
 }

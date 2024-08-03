@@ -39,7 +39,7 @@ final class HudCreator: HudCreatorUseCase, PauseAlertPresenting {
                 .add(component: HapticFeedbackComponent.shared)
                 .add(component: position)
                 .add(component: DisplayComponent(sknode: pauseButton))
-        pauseButton.entity = pause
+        pauseButton.swashEntity = pause
         engine.add(entity: hudEntity)
         engine.add(entity: pause)
     }

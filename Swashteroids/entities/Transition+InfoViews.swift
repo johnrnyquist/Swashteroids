@@ -44,7 +44,7 @@ final class InfoViewsTransition: InfoViewsUseCase {
                 .add(component: PositionComponent(x: 0, y: 0, z: .buttons, rotationDegrees: 0))
                 .add(component: TouchableComponent())
                 .add(component: HapticFeedbackComponent.shared)
-        background.entity = viewEntity
+        background.swashEntity = viewEntity
         engine.add(entity: viewEntity)
     }
 
@@ -70,7 +70,7 @@ final class InfoViewsTransition: InfoViewsUseCase {
                 .add(component: PositionComponent(x: gameSize.width / 2, y: gameSize.height / 2, z: .buttons, rotationDegrees: 0))
                 .add(component: TouchableComponent())
                 .add(component: HapticFeedbackComponent.shared)
-        viewSprite.entity = viewEntity
+        viewSprite.swashEntity = viewEntity
         viewSprite.name = .buttonsInfoView
         engine.add(entity: viewEntity)
     }

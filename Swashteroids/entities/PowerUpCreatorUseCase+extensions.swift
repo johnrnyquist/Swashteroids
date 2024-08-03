@@ -7,22 +7,4 @@
 // Made with Swash, give it a try!
 // https://github.com/johnrnyquist/Swash
 //
-extension PowerUpCreatorUseCase {
-    var powerUpRadius: Double { 7.0 }
 
-    func createHyperspacePowerUp(level: Int) {
-        createHyperspacePowerUp(level: level, radius: powerUpRadius)
-    }
-
-    func createShieldsPowerUp() {
-        createShieldsPowerUp(radius: powerUpRadius)
-    }
-
-    func createTorpedoesPowerUp(level: Int) {
-        createTorpedoesPowerUp(level: level, radius: powerUpRadius)
-    }
-
-    func createXRayPowerUp(level: Int) {
-        createXRayPowerUp(level: level, radius: powerUpRadius)
-    }
-}

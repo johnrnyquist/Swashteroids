@@ -13,7 +13,7 @@ import Swash
 
 /// A Swash sprite has an Entity
 class SwashSpriteNode: SKSpriteNode {
-    weak var entity: Entity?
+    weak var swashEntity: Entity?
 }
 
 // Most of the time we use this to scale the sprite

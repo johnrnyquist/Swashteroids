@@ -207,7 +207,7 @@ final class AlienCreator: AlienCreatorUseCase {
                 .add(component: CollidableComponent(radius: 25))
                 .add(component: DisplayComponent(sknode: sprite))
                 .add(component: ReactionTimeComponent(reactionSpeed: 0.5 - Double(level) * 0.02))
-        sprite.entity = alienEntity
+        sprite.swashEntity = alienEntity
         engine.add(entity: alienEntity)
     }
 
@@ -246,7 +246,7 @@ final class AlienCreator: AlienCreatorUseCase {
                 .add(component: CollidableComponent(radius: 25))
                 .add(component: DisplayComponent(sknode: sprite))
                 .add(component: ReactionTimeComponent(reactionSpeed: 0.4 - Double(level) * 0.02))
-        sprite.entity = alienEntity
+        sprite.swashEntity = alienEntity
         engine.add(entity: alienEntity)
     }
 }

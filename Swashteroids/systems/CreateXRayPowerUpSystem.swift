@@ -65,7 +65,7 @@ final class CreateXRayPowerUpSystem: ListIteratingSystem {
            !xRayPowerUpsCreatedComponent.levels.contains(level) // A powerup for this level has not been created
         {
             xRayPowerUpsCreatedComponent.levels.append(level)
-            powerUpCreator?.createXRayPowerUp(level: level)
+            powerUpCreator?.createPowerUp(level: level, type: .xRay)
         }
     }
 }
