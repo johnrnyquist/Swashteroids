@@ -54,7 +54,7 @@ final class AsteroidCreator: AsteroidCreatorUseCase {
         entity
                 .add(component: PositionComponent(x: x, y: y, z: .asteroids, rotationDegrees: 0.0))
                 .add(component: createVelocity(speedModifier: speedModifier, level: Int(lvl)))
-                .add(component: CollidableComponent(radius: radius))
+                .add(component: CollidableComponent(radius: radius * 0.9))
                 .add(component: AsteroidComponent(size: size))
                 .add(component: DisplayComponent(sknode: sprite))
                 .add(component: ShootableComponent.shared)
