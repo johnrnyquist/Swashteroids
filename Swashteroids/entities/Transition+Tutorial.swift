@@ -42,7 +42,6 @@ enum TutorialStep: CaseIterable {
 
 enum TutorialStepCompletionStatus {
     case notStarted
-    case inProgress
     case completed
 }
 
@@ -57,7 +56,7 @@ class TutorialTransition: TutorialUseCase {
     }
 
     func toTutorialScreen() {
-        let tutorial = Entity(named: "Tutorial")
+        let tutorial = Entity(named: .tutorial)
                 .add(component: TutorialComponent())
         engine.add(entity: tutorial)
     }

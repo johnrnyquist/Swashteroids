@@ -51,5 +51,6 @@ extension String {
     static let torpedo: EntityName = "torpedoEntity"
     static let torpedoPowerUp: EntityName = "torpedoPowerUpEntity"
     static let tutorialText: EntityName = "tutorialTextEntity"
+    static let tutorial: EntityName = "tutorialEntity"
     static let xRayPowerUp: EntityName = "xrayPowerUpEntity"
 }
