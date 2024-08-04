@@ -66,6 +66,9 @@ final class QuadrantsControlsCreator: QuadrantsControlsCreatorUseCase {
 
     /// Instead of visible buttons, the player will be able to touch quadrants on the screen to control the ship.
     func createQuadrantControls() {
+        let entityNames: [EntityName] = [.fireQuadrant, .flipQuadrant, .thrustQuadrant, .hyperspaceQuadrant]
+        let entities = engine.entities.filter { entityNames.contains($0.name) }
+        guard entities.isEmpty else { return }
         // Create the entities
         let fireEntity = Entity(named: .fireQuadrant)
         let flipEntity = Entity(named: .flipQuadrant)
@@ -88,34 +91,34 @@ final class QuadrantsControlsCreator: QuadrantsControlsCreatorUseCase {
         let upperLeft = CGPoint(x: 0, y: size.halfHeight)
         // Set flash arguments
         let numFlashes = 1
-        let endAlpha = 0.15
+        let endAlpha = 0.01
         let duration = 1.2
         let wait = 0.0
         // Add the components
         fireEntity
                 .add(component: DisplayComponent(sknode: fireSprite))
-                .add(component: PositionComponent(point: lowerRight, z: .bottom, rotationDegrees: 0))
+                .add(component: PositionComponent(point: lowerLeft, z: .bottom, rotationDegrees: 0))
                 .add(component: TouchableComponent())
                 .add(component: HapticFeedbackComponent.shared)
                 .add(component: QuadrantComponent(quadrant: .fireQuadrant))
                 .flash(numFlashes, duration: duration, endAlpha: endAlpha, wait: wait)
         flipEntity
                 .add(component: DisplayComponent(sknode: flipSprite))
-                .add(component: PositionComponent(point: upperRight, z: .bottom, rotationDegrees: 0))
+                .add(component: PositionComponent(point: upperLeft, z: .bottom, rotationDegrees: 0))
                 .add(component: TouchableComponent())
                 .add(component: HapticFeedbackComponent.shared)
                 .add(component: QuadrantComponent(quadrant: .flipQuadrant))
                 .flash(numFlashes, duration: duration, endAlpha: endAlpha, wait: wait)
         thrustEntity
                 .add(component: DisplayComponent(sknode: thrustSprite))
-                .add(component: PositionComponent(point: lowerLeft, z: .bottom, rotationDegrees: 0))
+                .add(component: PositionComponent(point: lowerRight, z: .bottom, rotationDegrees: 0))
                 .add(component: TouchableComponent())
                 .add(component: HapticFeedbackComponent.shared)
                 .add(component: QuadrantComponent(quadrant: .thrustQuadrant))
                 .flash(numFlashes, duration: duration, endAlpha: endAlpha, wait: wait)
         hyperspaceEntity
                 .add(component: DisplayComponent(sknode: hyperspaceSprite))
-                .add(component: PositionComponent(point: upperLeft, z: .bottom, rotationDegrees: 0))
+                .add(component: PositionComponent(point: upperRight, z: .bottom, rotationDegrees: 0))
                 .add(component: TouchableComponent())
                 .add(component: HapticFeedbackComponent.shared)
                 .add(component: QuadrantComponent(quadrant: .hyperspaceQuadrant))
