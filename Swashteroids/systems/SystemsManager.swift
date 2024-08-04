@@ -123,9 +123,6 @@ final class SystemsManager {
                 .add(system: ShipCreationSystem(playerCreator: creatorManager.playerCreator, gameSize: scene.size),
                      priority: .preUpdate)
                 .add(system: GameOverCheckSystem(), priority: .preUpdate)
-//                .add(system: GameplayManagerSystem(playerCreator: creatorManager.playerCreator,
-//                                                   gameSize: scene.size),
-//                     priority: .preUpdate)
                 .add(system: GameOverSystem(), priority: .preUpdate)
                 .add(system: ShipControlsSystem(toggleShipControlsCreator: creatorManager.toggleShipControlsCreator,
                                                 shipControlQuadrantsCreator: creatorManager.shipControlQuadrantsCreator,

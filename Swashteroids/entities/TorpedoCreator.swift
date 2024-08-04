@@ -44,13 +44,16 @@ final class TorpedoCreator: TorpedoCreatorUseCase {
         let (x, y) = calculatePosition(gunComponent: gunComponent, parentPosition: parentPosition)
         let torpedoPosition = PositionComponent(x: x, y: y, z: Layer.torpedoes, rotationDegrees: 0)
         // VelocityComponent
-        let torpedoVelocity = calculateVelocity(gunComponent: gunComponent, parentPosition: parentPosition, parentVelocity: parentVelocity)
+        let torpedoVelocity = calculateVelocity(gunComponent: gunComponent,
+                                                parentPosition: parentPosition,
+                                                parentVelocity: parentVelocity)
         // TorpedoComponent
         let torpedoComponent = TorpedoComponent(lifeRemaining: gunComponent.torpedoLifetime,
                                                 owner: gunComponent.ownerType,
                                                 ownerName: gunComponent.ownerName)
         let torpedo = Entity(named: name)
         torpedo
+                .add(component: LifetimeComponent(timeRemaining: gunComponent.torpedoLifetime))
                 .add(component: torpedoPosition)
                 .add(component: torpedoVelocity)
                 .add(component: displayComponent)
@@ -98,59 +101,5 @@ final class TorpedoCreator: TorpedoCreatorUseCase {
         emitter.particleColorSequence = colorSequence
         emitter.emissionAngle = position.rotationRadians + Double.pi
         return emitter
-    }
-
-    func createTorpedo2(_ gunComponent: GunComponent, _ position: PositionComponent, _ velocity: VelocityComponent) {
-        //TODO: this should be re-thought
-        var name = "torpedo_"
-        guard let appStateEntity = engine.findEntity(named: .appState),
-              let appStateComponent = appStateEntity[GameStateComponent.self]
-        else {
-            fatalError("Could not find AppStateComponent.")
-        }
-        // TODO: This changing of an existing component does not feel right.
-        appStateComponent.numTorpedoesFired += 1
-        name += "\(appStateComponent.numTorpedoesFired)"
-        //
-        let entity = Entity(named: name)
-        let emitter = SKEmitterNode(fileNamed: "plasmaTorpedo.sks")!
-        let colorRamp: [UIColor] = [gunComponent.torpedoColor]
-        let keyTimes: [NSNumber] = [1.0]
-        let colorSequence = SKKeyframeSequence(keyframeValues: colorRamp, times: keyTimes)
-        let cos = cos(position.rotationRadians)
-        let sin = sin(position.rotationRadians)
-        let sprite = SwashScaledSpriteNode(texture: createTorpedoTexture(color: gunComponent.torpedoColor))
-        //
-//        sprite.physicsBody = SKPhysicsBody(rectangleOf: sprite.size)
-//        sprite.physicsBody?.isDynamic = true
-//        sprite.physicsBody?.affectedByGravity = false
-//        sprite.physicsBody?.categoryBitMask = torpedoCategory
-//        sprite.physicsBody?.contactTestBitMask = asteroidCategory | playerCategory | alienCategory
-        sprite.swashEntity = entity
-        sprite.addChild(emitter)
-        sprite.name = entity.name
-        sprite.zPosition = .asteroids
-        emitter.particleColorSequence = colorSequence
-        emitter.emissionAngle = position.rotationRadians + Double.pi
-        engine.add(entity: entity)
-        entity
-                .add(component: PositionComponent(
-                    x: cos * gunComponent.offsetFromParent.x - sin * gunComponent.offsetFromParent.y + position.x,
-                    y: sin * gunComponent.offsetFromParent.x + cos * gunComponent.offsetFromParent.y + position.y,
-                    z: Layer.torpedoes,
-                    rotationDegrees: 0))
-                .add(component: VelocityComponent(velocityX: cos * 220 + velocity.linearVelocity
-                                                                                 .x * 1.0 / scaleManager.SCALE_FACTOR,
-                                                  velocityY: sin * 220 + velocity.linearVelocity
-                                                                                 .y * 1.0 / scaleManager.SCALE_FACTOR,
-                                                  angularVelocity: 0 + velocity.angularVelocity,
-                                                  dampening: 0 + velocity.dampening,
-                                                  base: 60.0))
-                .add(component: DisplayComponent(sknode: sprite))
-                .add(component: AudioComponent(name: name, fileName: .launchTorpedo))
-                .add(component: CollidableComponent(radius: 0))
-                .add(component: TorpedoComponent(lifeRemaining: gunComponent.torpedoLifetime,
-                                                 owner: gunComponent.ownerType,
-                                                 ownerName: gunComponent.ownerName))
     }
 }
