@@ -28,23 +28,16 @@ final class LifetimeSystem: ListIteratingSystem {
         self.engine = engine
     }
 
-    func executeAfterDelay(on node: SKNode, delay: TimeInterval, code: @escaping () -> Void) {
-        let delayAction = SKAction.wait(forDuration: delay)
-        let runBlockAction = SKAction.run(code)
-        let sequenceAction = SKAction.sequence([delayAction, runBlockAction])
-        node.run(sequenceAction)
-    }
-
-    func fadeInAndOut(node: SKNode, animationDuration: TimeInterval, totalDuration: TimeInterval, completion: @escaping () -> Void) {
+    func fadeInAndOut(sknode: SKNode, animationDuration: TimeInterval, totalDuration: TimeInterval, completion: @escaping () -> Void) {
         let fadeIn = SKAction.fadeIn(withDuration: animationDuration / 2)
         let fadeOut = SKAction.fadeOut(withDuration: animationDuration / 2)
         let sequence = SKAction.sequence([fadeIn, fadeOut])
         let repeatForDuration = SKAction.repeat(sequence, count: Int(totalDuration / animationDuration))
-
-        node.run(repeatForDuration) {
+        sknode.run(repeatForDuration) {
             completion()
         }
     }
+
     func updateNode(node: Node, time: TimeInterval) {
         guard let lifetime = node[LifetimeComponent.self],
               let sknode = node[DisplayComponent.self]?.sknode,
@@ -53,10 +46,8 @@ final class LifetimeSystem: ListIteratingSystem {
         lifetime.timeRemaining -= time
         if lifetime.timeRemaining <= 0 {
             entity.remove(componentClass: LifetimeComponent.self)
-            fadeInAndOut(node: sknode, animationDuration: 0.25, totalDuration: 2) {
-                self.executeAfterDelay(on: sknode, delay: 3) {
-                    self.engine.remove(entity: entity)
-                }
+            fadeInAndOut(sknode: sknode, animationDuration: 0.25, totalDuration: 2) {
+                self.engine.remove(entity: entity)
             }
         }
     }
