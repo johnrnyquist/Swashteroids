@@ -83,7 +83,7 @@ final class SystemsManager {
 
     func configureTutorialHUD() {
         engine.add(system: HudSystem(powerUpCreator: creatorManager.powerUpCreator), priority: .update)
-              .add(system: HyperspaceJumpSystem(engine: engine), priority: .preUpdate)
+              .add(system: HyperspaceJumpSystem(), priority: .preUpdate)
               .add(system: FiringSystem(torpedoCreator: creatorManager.torpedoCreator), priority: .preUpdate)
               .add(system: CollisionSystem(shipCreator: creatorManager.playerCreator,
                                            asteroidCreator: creatorManager.asteroidCreator,
@@ -113,7 +113,7 @@ final class SystemsManager {
                 .add(system: TouchedButtonSystem(touchManager: touchManager), priority: .preUpdate)
                 .add(system: TouchedQuadrantSystem(touchManager: touchManager), priority: .preUpdate)
                 .add(system: AlertPresentingSystem(alertPresenting: alertPresenter), priority: .preUpdate)
-                .add(system: HyperspaceJumpSystem(engine: engine), priority: .preUpdate)
+                .add(system: HyperspaceJumpSystem(), priority: .preUpdate)
                 .add(system: FiringSystem(torpedoCreator: creatorManager.torpedoCreator), priority: .preUpdate)
                 .add(system: FlipSystem(), priority: .preUpdate)
                 .add(system: TurnLeftSystem(), priority: .preUpdate)

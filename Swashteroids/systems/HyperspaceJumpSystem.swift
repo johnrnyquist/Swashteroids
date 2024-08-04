@@ -12,11 +12,9 @@ import Swash
 import SpriteKit
 
 final class HyperspaceJumpSystem: ListIteratingSystem {
-    private weak var engine: Engine?
 
-    init(engine: Engine) {
+    init() {
         super.init(nodeClass: DoHyperspaceJumpNode.self)
-        self.engine = engine
         nodeUpdateFunction = updateNode
     }
 
