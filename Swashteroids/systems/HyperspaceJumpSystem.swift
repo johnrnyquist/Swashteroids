@@ -12,7 +12,6 @@ import Swash
 import SpriteKit
 
 final class HyperspaceJumpSystem: ListIteratingSystem {
-
     init() {
         super.init(nodeClass: DoHyperspaceJumpNode.self)
         nodeUpdateFunction = updateNode

@@ -14,11 +14,11 @@ import XCTest
 
 final class HyperspaceSystemTests: XCTestCase {
     var system: HyperspaceJumpSystem!
-    
+
     override func setUpWithError() throws {
         system = HyperspaceJumpSystem()
     }
-    
+
     override func tearDownWithError() throws {
         system = nil
     }
@@ -36,14 +36,14 @@ final class HyperspaceSystemTests: XCTestCase {
         let hyperJump = DoHyperspaceJumpComponent(size: .zero, randomness: Randomness.initialize(with: 1))
         let position = PositionComponent(x: 0, y: 0, z: .player)
         let display = DisplayComponent(sknode: SwashScaledSpriteNode())
-        entity.add(component: hyperEngine)
-        entity.add(component: hyperJump)
-        entity.add(component: position)
-        entity.add(component: display)
-        node.components[HyperspaceDriveComponent.name] = hyperEngine
-        node.components[DoHyperspaceJumpComponent.name] = hyperJump
-        node.components[PositionComponent.name] = position
-        node.components[DisplayComponent.name] = display
+        entity
+                .add(component: hyperEngine)
+                .add(component: hyperJump)
+                .add(component: position)
+                .add(component: display)
+        for component in entity.components {
+            node.components[type(of: component).name] = component
+        }
         if system.nodeUpdateFunction == nil {
             XCTFail("nodeUpdateFunction is nil")
         } else {
