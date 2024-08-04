@@ -28,92 +28,102 @@ final class QuadrantsControlsCreator: QuadrantsControlsCreatorUseCase {
     }
 
     func removeQuadrantControls() {
-        let quadrants: [EntityName] = [.q1, .q2, .q3, .q4]
+        let quadrants: [EntityName] = [.fireQuadrant, .flipQuadrant, .thrustQuadrant, .hyperspaceQuadrant]
         engine.removeEntities(named: quadrants)
     }
 
     func createQuadrantSprite(quadrant: QuadrantAction, entity: Entity) -> SwashSpriteNode {
+        // Create the quadrant sprite
         let quadrantSprite = SwashSpriteNode(color: .black, size: CGSize(width: size.halfWidth, height: size.halfHeight))
-        quadrantSprite.alpha = 0.0
+        quadrantSprite.alpha = 0.01
+        quadrantSprite.anchorPoint = CGPoint(x: 0, y: 0)
+        quadrantSprite.swashEntity = entity
+        // Create the background
         let background = SwashSpriteNode(color: .white, size: CGSize(width: size.halfWidth - 6, height: size.halfHeight - 6))
         background.position = CGPoint(x: 3, y: 3)
-        background.alpha = 0.3
+        background.alpha = 0.2
         background.anchorPoint = .zero
-        quadrantSprite.addChild(background)
-        let position: CGPoint
-        let sprite: SwashSpriteNode
+        // Create the button image
+        let buttonImageSprite: SwashSpriteNode
         switch quadrant {
             case .hyperspace:
-                position = CGPoint(x: 0, y: size.halfHeight)
-                sprite = SwashSpriteNode(imageNamed: .hyperspaceButton)
+                buttonImageSprite = SwashSpriteNode(imageNamed: .hyperspaceButton)
             case .flip:
-                position = CGPoint(x: size.halfWidth, y: size.halfHeight)
-                sprite = SwashSpriteNode(imageNamed: .flipButton)
+                buttonImageSprite = SwashSpriteNode(imageNamed: .flipButton)
             case .thrust:
-                position = CGPoint(x: 0, y: 0)
-                sprite = SwashSpriteNode(imageNamed: .thrustButton)
+                buttonImageSprite = SwashSpriteNode(imageNamed: .thrustButton)
             case .fire:
-                position = CGPoint(x: size.halfWidth, y: 0)
-                sprite = SwashSpriteNode(imageNamed: .fireButton)
+                buttonImageSprite = SwashSpriteNode(imageNamed: .fireButton)
         }
-        sprite.position = CGPoint(x: size.halfWidth / 2, y: size.halfHeight / 2)
-        sprite.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        background.addChild(sprite)
-        quadrantSprite.anchorPoint = CGPoint(x: 0, y: 0)
-        quadrantSprite.position = position
-        quadrantSprite.swashEntity = entity
+        buttonImageSprite.position = CGPoint(x: quadrantSprite.size.halfWidth, y: quadrantSprite.size.halfHeight)
+        buttonImageSprite.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        buttonImageSprite.alpha = 0.8
+        // Add child nodes
+        background.addChild(buttonImageSprite)
+        quadrantSprite.addChild(background)
         return quadrantSprite
     }
 
     /// Instead of visible buttons, the player will be able to touch quadrants on the screen to control the ship.
     func createQuadrantControls() {
         // Create the entities
-        let q1Entity = Entity(named: .q1)
-        let q2Entity = Entity(named: .q2)
-        let q3Entity = Entity(named: .q3)
-        let q4Entity = Entity(named: .q4)
-        // Create the sprites, with associated entities
-        let q1Sprite = createQuadrantSprite(quadrant: .fire, entity: q1Entity)
-        let q2Sprite = createQuadrantSprite(quadrant: .flip, entity: q2Entity)
-        let q3Sprite = createQuadrantSprite(quadrant: .thrust, entity: q3Entity)
-        let q4Sprite = createQuadrantSprite(quadrant: .hyperspace, entity: q4Entity)
-        q1Sprite.name = .q1
-        q2Sprite.name = .q2
-        q3Sprite.name = .q3
-        q4Sprite.name = .q4
+        let fireEntity = Entity(named: .fireQuadrant)
+        let flipEntity = Entity(named: .flipQuadrant)
+        let thrustEntity = Entity(named: .thrustQuadrant)
+        let hyperspaceEntity = Entity(named: .hyperspaceQuadrant)
+        // Create the sprites
+        let fireSprite = createQuadrantSprite(quadrant: .fire, entity: fireEntity)
+        let flipSprite = createQuadrantSprite(quadrant: .flip, entity: flipEntity)
+        let thrustSprite = createQuadrantSprite(quadrant: .thrust, entity: thrustEntity)
+        let hyperspaceSprite = createQuadrantSprite(quadrant: .hyperspace, entity: hyperspaceEntity)
+        // Set the names
+        fireSprite.name = .fireQuadrant
+        flipSprite.name = .flipQuadrant
+        thrustSprite.name = .thrustQuadrant
+        hyperspaceSprite.name = .hyperspaceQuadrant
+        // Set the positions
+        let lowerRight = CGPoint(x: size.halfWidth, y: 0)
+        let upperRight = CGPoint(x: size.halfWidth, y: size.halfHeight)
+        let lowerLeft = CGPoint(x: 0, y: 0)
+        let upperLeft = CGPoint(x: 0, y: size.halfHeight)
+        // Set flash arguments
+        let numFlashes = 1
+        let endAlpha = 0.15
+        let duration = 1.2
+        let wait = 0.0
+        // Add the components
+        fireEntity
+                .add(component: DisplayComponent(sknode: fireSprite))
+                .add(component: PositionComponent(point: lowerRight, z: .bottom, rotationDegrees: 0))
+                .add(component: TouchableComponent())
+                .add(component: HapticFeedbackComponent.shared)
+                .add(component: QuadrantComponent(quadrant: .fireQuadrant))
+                .flash(numFlashes, duration: duration, endAlpha: endAlpha, wait: wait)
+        flipEntity
+                .add(component: DisplayComponent(sknode: flipSprite))
+                .add(component: PositionComponent(point: upperRight, z: .bottom, rotationDegrees: 0))
+                .add(component: TouchableComponent())
+                .add(component: HapticFeedbackComponent.shared)
+                .add(component: QuadrantComponent(quadrant: .flipQuadrant))
+                .flash(numFlashes, duration: duration, endAlpha: endAlpha, wait: wait)
+        thrustEntity
+                .add(component: DisplayComponent(sknode: thrustSprite))
+                .add(component: PositionComponent(point: lowerLeft, z: .bottom, rotationDegrees: 0))
+                .add(component: TouchableComponent())
+                .add(component: HapticFeedbackComponent.shared)
+                .add(component: QuadrantComponent(quadrant: .thrustQuadrant))
+                .flash(numFlashes, duration: duration, endAlpha: endAlpha, wait: wait)
+        hyperspaceEntity
+                .add(component: DisplayComponent(sknode: hyperspaceSprite))
+                .add(component: PositionComponent(point: upperLeft, z: .bottom, rotationDegrees: 0))
+                .add(component: TouchableComponent())
+                .add(component: HapticFeedbackComponent.shared)
+                .add(component: QuadrantComponent(quadrant: .hyperspaceQuadrant))
+                .flash(numFlashes, duration: duration, endAlpha: endAlpha, wait: wait)
         // Add the entities to the engine
-        engine.add(entity: q1Entity)
-        engine.add(entity: q2Entity)
-        engine.add(entity: q3Entity)
-        engine.add(entity: q4Entity)
-        // Configure the entities
-        q1Entity
-                .add(component: DisplayComponent(sknode: q1Sprite))
-                .add(component: PositionComponent(x: q1Sprite.x, y: q1Sprite.y, z: .bottom, rotationDegrees: 0))
-                .add(component: TouchableComponent())
-                .add(component: HapticFeedbackComponent.shared)
-                .add(component: QuadrantComponent(quadrant: .q1))
-                .flash(1, duration: 0.75, endAlpha: 0, wait: 2)
-        q2Entity
-                .add(component: DisplayComponent(sknode: q2Sprite))
-                .add(component: PositionComponent(x: q2Sprite.x, y: q2Sprite.y, z: .bottom, rotationDegrees: 0))
-                .add(component: TouchableComponent())
-                .add(component: HapticFeedbackComponent.shared)
-                .add(component: QuadrantComponent(quadrant: .q2))
-                .flash(1, duration: 0.75, endAlpha: 0, wait: 2)
-        q3Entity
-                .add(component: DisplayComponent(sknode: q3Sprite))
-                .add(component: PositionComponent(x: q3Sprite.x, y: q3Sprite.y, z: .bottom, rotationDegrees: 0))
-                .add(component: TouchableComponent())
-                .add(component: HapticFeedbackComponent.shared)
-                .add(component: QuadrantComponent(quadrant: .q3))
-                .flash(1, duration: 0.75, endAlpha: 0, wait: 2)
-        q4Entity
-                .add(component: DisplayComponent(sknode: q4Sprite))
-                .add(component: PositionComponent(x: q4Sprite.x, y: q4Sprite.y, z: .bottom, rotationDegrees: 0))
-                .add(component: TouchableComponent())
-                .add(component: HapticFeedbackComponent.shared)
-                .add(component: QuadrantComponent(quadrant: .q4))
-                .flash(1, duration: 0.75, endAlpha: 0, wait: 2)
+        engine.add(entity: fireEntity)
+        engine.add(entity: flipEntity)
+        engine.add(entity: thrustEntity)
+        engine.add(entity: hyperspaceEntity)
     }
 }

@@ -28,8 +28,12 @@ final class PositionComponent: Component {
         set { rotationDegrees = newValue * 180.0 / Double.pi }
     }
 
-    init(x: Double, y: Double, z: CGFloat, rotationDegrees: Double = 0.0) {
-        point = CGPoint(x: x, y: y)
+    convenience init(x: Double, y: Double, z: CGFloat, rotationDegrees: Double = 0.0) {
+        self.init(point: CGPoint(x: x, y: y), z: z, rotationDegrees: rotationDegrees)
+    }
+    
+    init(point: CGPoint, z: CGFloat, rotationDegrees: Double = 0.0) {
+        self.point = point
         self.rotationDegrees = rotationDegrees
         layer = z
     }

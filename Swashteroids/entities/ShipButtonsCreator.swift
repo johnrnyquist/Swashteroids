@@ -12,6 +12,12 @@ import Swash
 import SpriteKit
 
 extension Entity {
+    /// Flash the entity's sprite
+    /// - Parameters:
+    /// - numFlashes: The number of times to flash
+    /// - duration: The duration the fadeIn/fadeOut
+    /// - endAlpha: The final alpha value
+    /// - wait: The time to wait between flashes
     @discardableResult
     func flash(_ numFlashes: Int = 1, duration: TimeInterval = 0.2, endAlpha: Double = 0.2, wait: TimeInterval = 0) -> Entity {
         let fadeIn = SKAction.fadeAlpha(to: 1.0, duration: duration)

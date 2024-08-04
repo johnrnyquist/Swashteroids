@@ -263,28 +263,28 @@ final class TouchedQuadrantSystem: ListIteratingSystem {
         switch touchedComponent.state {
             case .began:
                 switch quadrantComponent.quadrant {
-                    case .q1:
+                    case .hyperspaceQuadrant:
                         //TODO: Should this check be here?
                         if let ship = self.engine.playerEntity,
                            ship.has(componentClassName: HyperspaceDriveComponent.name) {
                             engine.playerEntity?.add(component: DoHyperspaceJumpComponent(size: scene.size))
                         }
-                    case .q2:
+                    case .flipQuadrant:
                         engine.playerEntity?.add(component: FlipComponent.shared)
-                    case .q3:
+                    case .thrustQuadrant:
                         if let ship = self.engine.playerEntity {
                             ship.add(component: ApplyThrustComponent.shared)
                             ship[ImpulseDriveComponent.self]?.isThrusting = true
                             ship[RepeatingAudioComponent.self]?.state = .shouldBegin
                         }
-                    case .q4:
+                    case .fireQuadrant:
                         engine.playerEntity?.add(component: FireDownComponent.shared)
                     default:
                         break
                 }
             case .ended, .cancelled:
                 switch quadrantComponent.quadrant {
-                    case .q3:
+                    case .thrustQuadrant:
                         if let ship = self.engine.playerEntity {
                             ship.remove(componentClass: ApplyThrustComponent.self)
                             ship[ImpulseDriveComponent.self]?.isThrusting = false
