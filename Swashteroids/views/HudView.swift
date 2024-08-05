@@ -14,8 +14,8 @@ import SpriteKit
 final class HudView: SKNode {
     private var levelLabel: SKLabelNode!
     private var scoreLabel: SKLabelNode!
-//    private var shipsLabel: SKLabelNode!
     private var pauseButtonArt: SKSpriteNode!
+    private var numShips = 0
     var pauseButton: SwashSpriteNode!
     var ammoView: AmmoView!
     var jumpsView: AmmoView!
@@ -35,8 +35,8 @@ final class HudView: SKNode {
 
     init(gameSize: CGSize, scaleManager: ScaleManaging = ScaleManager.shared) {
         super.init()
-          textY = gameSize.height - 65 * scaleManager.SCALE_FACTOR
-          textXPadding = 12.0 * scaleManager.SCALE_FACTOR
+        textY = gameSize.height - 65 * scaleManager.SCALE_FACTOR
+        textXPadding = 12.0 * scaleManager.SCALE_FACTOR
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
            let window = appDelegate.window {
             textXPadding += window.safeAreaInsets.left
@@ -53,7 +53,7 @@ final class HudView: SKNode {
         pauseButtonArt.zPosition = .top
         //
         // pauseButton is used by an Entity
-        pauseButton = SwashSpriteNode(color: .clear, size: CGSize(width: 60, height: 60 ))
+        pauseButton = SwashSpriteNode(color: .clear, size: CGSize(width: 60, height: 60))
         pauseButton.alpha = 0.2
         pauseButton.anchorPoint = CGPoint(x: 1, y: 1)
         pauseButton.x = gameSize.width - textXPadding
@@ -62,7 +62,9 @@ final class HudView: SKNode {
         addChild(pauseButton)
         pauseButton.addChild(pauseButtonArt)
         //
-        levelLabel = createLabel(x: gameSize.width - pauseButtonArt.width - textXPadding - pauseButtonArt.width, y: textY, alignment: .right)
+        levelLabel = createLabel(x: gameSize.width - pauseButtonArt.width - textXPadding - pauseButtonArt.width,
+                                 y: textY,
+                                 alignment: .right)
         addChild(levelLabel)
         addChild(scoreLabel)
 //        addChild(shipsLabel)
@@ -73,12 +75,13 @@ final class HudView: SKNode {
         ammoView.y = textY
         addChild(ammoView)
         // Jumps
-        jumpsView = AmmoView(circleColor: .powerUpHyperspace, size: gameSize, icon: HyperspacePowerUpView(imageNamed: .hyperspacePowerUp))
+        jumpsView = AmmoView(circleColor: .powerUpHyperspace,
+                             size: gameSize,
+                             icon: HyperspacePowerUpView(imageNamed: .hyperspacePowerUp))
         jumpsView.zPosition = .top
         jumpsView.x = gameSize.width * 3 / 4 - jumpsView.width
         jumpsView.y = textY
         addChild(jumpsView)
-
         let ships = SKNode()
         ships.position = CGPoint(x: textXPadding, y: textY)
         ships.name = "ships"
@@ -93,38 +96,35 @@ final class HudView: SKNode {
         scoreLabel.text = "SCORE: \(value.formattedWithCommas)"
     }
 
-
     func createShips(num: Int) {
-        guard let ships = childNode(withName: "//ships") else { return }
+        guard let ships = childNode(withName: "//ships"),
+              numShips != num else { return }
+        numShips = num
         ships.removeAllChildren()
         guard num > 0 else { return }
         for i in 1..<num {
             let ship = SwashScaledSpriteNode(texture: createShipTexture())
-            ship.zRotation = Double.pi/2.0
+            ship.zRotation = Double.pi / 2.0
             ship.alpha = 0.5
             ship.scale *= 0.7
-            ship.position = CGPoint(x: CGFloat(i) * ship.height, y: ship.width/2)
+            ship.position = CGPoint(x: CGFloat(i) * ship.height, y: ship.width / 2)
             ships.addChild(ship)
         }
     }
+
     func setNumShips(_ value: Int) {
-//        shipsLabel.text = "SHIPS: \(value)"
         createShips(num: value)
     }
 
     func setLevel(_ value: Int) {
         var val = value
-        if val == 0 { val = 1 }
+        if val == 0 { val = 1 } //HACK
         levelLabel.text = "LEVEL: \(val)"
     }
 
     func getScoreText() -> String {
         scoreLabel.text ?? ""
     }
-
-//    func getNumShipsText() -> String {
-//        shipsLabel.text ?? ""
-//    }
 
     func getLevelText() -> String {
         levelLabel.text ?? ""
@@ -159,7 +159,7 @@ final class AmmoView: SKSpriteNode {
     let columns = 10
     let padding: CGFloat = 3.0
     var icon: SKSpriteNode!
-    
+
     func refresh() {
         for (index, circle) in circles.enumerated() {
             circle.isHidden = index >= ammo
