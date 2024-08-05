@@ -31,7 +31,7 @@ class CollisionSystem: System {
     private weak var torpedoes: NodeList!
     private weak var treasures: NodeList!
     private weak var xRayPowerUp: NodeList!
-    private weak var bridges: NodeList!
+    private weak var tunnels: NodeList!
 
     init(shipCreator: PlayerCreatorUseCase,
          asteroidCreator: AsteroidCreatorUseCase,
@@ -60,7 +60,7 @@ class CollisionSystem: System {
         torpedoes = engine.getNodeList(nodeClassType: TorpedoCollisionNode.self)
         treasures = engine.getNodeList(nodeClassType: TreasureCollisionNode.self)
         xRayPowerUp = engine.getNodeList(nodeClassType: XRayPowerUpNode.self)
-        bridges = engine.getNodeList(nodeClassType: WarpTunnelNode.self)
+        tunnels = engine.getNodeList(nodeClassType: WarpTunnelNode.self)
     }
 
     /// 
@@ -70,7 +70,7 @@ class CollisionSystem: System {
         collisionCheck(nodeA: players.head, nodeB: hyperspacePowerUp.head, action: playerAndHyperspacePowerUp)
         collisionCheck(nodeA: players.head, nodeB: xRayPowerUp.head, action: playerAndXRayPowerUp)
         collisionCheck(nodeA: players.head, nodeB: shieldsPowerUp.head, action: playerAndShieldsPowerUp)
-        collisionCheck(nodeA: players.head, nodeB: bridges.head, action: playerAndBridge)
+        collisionCheck(nodeA: players.head, nodeB: tunnels.head, action: playerAndTunnel)
         collisionCheck(nodeA: torpedoes.head, nodeB: asteroids.head, action: torpedoesAndAsteroids)
         for vehicle in [players.head, aliens.head] {
             collisionCheck(nodeA: vehicle, nodeB: torpedoes.head, action: vehiclesAndTorpedoes)
@@ -154,13 +154,14 @@ class CollisionSystem: System {
         shipButtonControlsCreator.showHyperspaceButton()
     }
 
-    func playerAndBridge(playerNode: Node, bridge: Node) {
+    func playerAndTunnel(playerNode: Node, bridge: Node) {
         engine.remove(entity: bridge.entity!)
         guard let player = playerNode.entity else { return }
         player
+                .add(component: AudioComponent(name: "newPowerUp", fileName: .powerUpAppearance))
                 .add(component: StartNewGameComponent())
     }
-    
+
     func playerAndXRayPowerUp(playerNode: Node, xRayPowerUp: Node) {
         engine.remove(entity: xRayPowerUp.entity!)
         guard let player = playerNode.entity else { return }
@@ -184,7 +185,7 @@ class CollisionSystem: System {
         spriteNode.size = playerSprite.size.width.cgSize * 1.6
         let entity = Entity(named: .shield)
                 .add(component: ShieldComponent())
-                .add(component: CollidableComponent(radius: radius/scaleManager.SCALE_FACTOR * 1.6 )) //undo scaleManager scaling on radius
+                .add(component: CollidableComponent(radius: radius / scaleManager.SCALE_FACTOR * 1.6)) //undo scaleManager scaling on radius
                 .add(component: PositionComponent(x: point.x, y: point.y, z: .player))
                 .add(component: DisplayComponent(sknode: spriteNode))
                 .add(component: VelocityComponent(velocityX: 0, velocityY: 0, angularVelocity: 15))
