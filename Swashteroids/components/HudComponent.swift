@@ -12,9 +12,37 @@ import Swash
 
 /// This is really a special DisplayComponent.
 final class HudComponent: Component {
-    var hudView: HudView
+    private var hudView: HudView?
 
-    init(hudView: HudView) {
+    init(hudView: HudView?) {
         self.hudView = hudView
+    }
+
+    func setNumShips(_ ships: Int) {
+        hudView?.setNumShips(ships)
+    }
+
+    func setScore(_ score: Int) {
+        hudView?.setScore(score)
+    }
+
+    func setLevel(_ level: Int) {
+        hudView?.setLevel(level)
+    }
+
+    func setJumps(_ jumps: Int) {
+        hudView?.setJumps(jumps)
+    }
+
+    func setAmmo(_ torpedoes: Int) {
+        hudView?.setAmmo(torpedoes)
+    }
+
+    public func getLevelText() -> String? {
+        hudView?.getLevelText()
+    }
+
+    public func getScoreText() -> String? {
+        hudView?.getScoreText()
     }
 }

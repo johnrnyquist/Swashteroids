@@ -95,9 +95,8 @@ enum PowerUpType {
         }
     }
 
-    func createEntity(level: Int, gameSize: CGSize) -> Entity {
+    func createEntity(level: Int, at positionComponent: PositionComponent) -> Entity {
         let entity = Entity(named: entityName)
-        let positionComponent = createRandomPosition(level: Double(level), gameSize: gameSize, layer: .asteroids)
         let velocityComponent = createRandomVelocity(level: Double(level))
         switch self {
             case .torpedoes:
@@ -120,13 +119,32 @@ enum PowerUpType {
         return entity
     }
 
-    private func createRandomPosition(level: Double, gameSize: CGSize, layer: Layer, randomness: Randomizing = Randomness.shared) -> PositionComponent {
+    func createRandomPosition(avoiding avoidPoint: CGPoint? = nil, level: Double, gameSize: CGSize, layer: Layer, randomness: Randomizing = Randomness.shared) -> PositionComponent {
+        // Use the point to avoid or default to the center of the game area
+        let point = avoidPoint ?? CGPoint(x: gameSize.halfWidth, y: gameSize.halfHeight)
         let dir = [-1.0, 1.0]
-        let r1 = randomness.nextDouble(from: 75.0, through: level * 130.0) * dir[randomness.nextInt(upTo: dir.count)]
-        let r2 = randomness.nextDouble(from: 75.0, through: level * 100) * dir[randomness.nextInt(upTo: dir.count)]
-        let centerX = min(gameSize.width / 2.0 + r1, gameSize.width)
-        let centerY = min(gameSize.height / 2.0 + r2, gameSize.height)
-        return PositionComponent(x: centerX, y: centerY, z: layer, rotationDegrees: 0.0)
+        let minValue: Double = 75.0
+        let maxX: Double = level * 130.0
+        let maxY: Double = level * 100.0
+        let maxAttempts = 100 // Maximum number of attempts to find a valid position
+        // Function to generate a random position within the game boundaries
+        func generateRandomPosition() -> CGPoint {
+            let r1 = randomness.nextDouble(from: minValue, through: maxX) * dir[randomness.nextInt(upTo: dir.count)]
+            let r2 = randomness.nextDouble(from: minValue, through: maxY) * dir[randomness.nextInt(upTo: dir.count)]
+            let x = min(max(point.x + r1, 0), gameSize.width)
+            let y = min(max(point.y + r2, 0), gameSize.height)
+            return CGPoint(x: x, y: y)
+        }
+
+        var randomPoint: CGPoint
+        var attempts = 0
+        // Generate random positions until a valid one is found or max attempts are reached
+        repeat {
+            randomPoint = generateRandomPosition()
+            attempts += 1
+        } while point.distance(from: randomPoint) < minValue && attempts < maxAttempts
+        // Return the generated position as a PositionComponent
+        return PositionComponent(x: randomPoint.x, y: randomPoint.y, z: layer, rotationDegrees: 0.0)
     }
 
     private func createRandomVelocity(level: Double, randomness: Randomizing = Randomness.shared) -> VelocityComponent {
@@ -148,8 +166,13 @@ final class PowerUpCreator: PowerUpCreatorUseCase {
     }
 
     func createPowerUp(level: Int, type: PowerUpType) {
-        guard engine.findEntity(named: type.entityName) == nil else { return } 
-        let entity = type.createEntity(level: level, gameSize: size)
+        createPowerUp(level: level, type: type, avoiding: nil)
+    }
+
+    func createPowerUp(level: Int, type: PowerUpType, avoiding point: CGPoint?) {
+        guard engine.findEntity(named: type.entityName) == nil else { return }
+        let positionComponent = type.createRandomPosition(avoiding: point, level: Double(level), gameSize: size, layer: .powerUps)
+        let entity = type.createEntity(level: level, at: positionComponent)
         let sprite = entity.sprite!
         addEmitter(colored: type.color, on: entity[DisplayComponent.self]!.sknode)
         engine.add(entity: entity)

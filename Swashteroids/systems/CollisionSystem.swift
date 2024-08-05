@@ -158,7 +158,7 @@ class CollisionSystem: System {
         engine.remove(entity: bridge.entity!)
         guard let player = playerNode.entity else { return }
         player
-                .add(component: AudioComponent(name: "newPowerUp", fileName: .powerUpAppearance))
+                .add(component: AudioComponent(name: "levelUp", fileName: .levelUpSound))
                 .add(component: StartNewGameComponent())
     }
 

@@ -8,6 +8,7 @@
 // https://github.com/johnrnyquist/Swash
 //
 
+import Foundation
 @testable import Swashteroids
 
 final class MockPowerUpCreator: PowerUpCreatorUseCase {
@@ -15,8 +16,14 @@ final class MockPowerUpCreator: PowerUpCreatorUseCase {
     var createHyperspacePowerUpRadiusCalled = false
     var createTorpedoesPowerUpCalled = false
     var createTorpedoesPowerUpRadiusCalled = false
+    var createPowerUpCalled = false
 
     func createPowerUp(level: Int, type: PowerUpType) {
+        createPowerUpCalled = true
+    }
+
+    func createPowerUp(level: Int, type: PowerUpType, avoiding point: CGPoint? = nil) {
+        createPowerUpCalled = true
     }
 
     func createHyperspacePowerUp(level: Int) {

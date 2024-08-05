@@ -25,6 +25,7 @@ protocol HudCreatorUseCase: AnyObject {
 }
 
 protocol PowerUpCreatorUseCase: AnyObject {
+    func createPowerUp(level: Int, type: PowerUpType, avoiding point: CGPoint?)
     func createPowerUp(level: Int, type: PowerUpType)
 }
 

@@ -64,34 +64,11 @@ class FiringSystemTests: XCTestCase {
         XCTAssertEqual(gun.numTorpedoes, 19)
     }
 
-    class MockTorpedoCreator: TorpedoCreatorUseCase & PowerUpCreatorUseCase {
+    class MockTorpedoCreator: TorpedoCreatorUseCase {
         var fired = false
-        var createHyperspacePowerUpCalled = false
-        var createHyperspacePowerUpRadiusCalled = false
-        var createPlasmaTorpedoesPowerUpCalled = false
-        var createPlasmaTorpedoesPowerUpRadiusCalled = false
-
-        func createPowerUp(level: Int, type: PowerUpType) {
-        }
 
         func createTorpedo(_ gunComponent: GunComponent, _ parentPosition: PositionComponent, _ parentVelocity: VelocityComponent) {
             fired = true
-        }
-
-        func createHyperspacePowerUp(level: Int) {
-            createHyperspacePowerUpCalled = true
-        }
-
-        func createHyperspacePowerUp(level: Int, radius: Double) {
-            createHyperspacePowerUpRadiusCalled = true
-        }
-
-        func createTorpedoesPowerUp(level: Int) {
-            createPlasmaTorpedoesPowerUpCalled = true
-        }
-
-        func createTorpedoesPowerUp(level: Int, radius: Double) {
-            createPlasmaTorpedoesPowerUpRadiusCalled = true
         }
     }
 }

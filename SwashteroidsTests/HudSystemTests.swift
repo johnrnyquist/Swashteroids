@@ -40,8 +40,8 @@ class HudSystemTests: XCTestCase {
         appStateComponent.score = 3
         hudNode.components[HudComponent.name] = hudComponent
         system.updateNode(hudNode, 1)
-        XCTAssertEqual(hudComponent.hudView.getLevelText(), "LEVEL: 2")
-        XCTAssertEqual(hudComponent.hudView.getScoreText(), "SCORE: 3")
+        XCTAssertEqual(hudComponent.getLevelText(), "LEVEL: 2")
+        XCTAssertEqual(hudComponent.getScoreText(), "SCORE: 3")
     }
 
     func test_UpdateNode_hasGunNodeAndFireButton() throws {
@@ -65,8 +65,8 @@ class HudSystemTests: XCTestCase {
         appStateComponent.score = 3
         hudNode.components[HudComponent.name] = hudComponent
         system.updateNode(hudNode, 1)
-        XCTAssertEqual(hudComponent.hudView.getLevelText(), "LEVEL: 2")
-        XCTAssertEqual(hudComponent.hudView.getScoreText(), "SCORE: 3")
+        XCTAssertEqual(hudComponent.getLevelText(), "LEVEL: 2")
+        XCTAssertEqual(hudComponent.getScoreText(), "SCORE: 3")
     }
 
     func test_UpdateNode_hasHyperspaceNodeAndHyperspaceButton() throws {
@@ -84,8 +84,8 @@ class HudSystemTests: XCTestCase {
         appStateComponent.score = 3
         hudNode.components[HudComponent.name] = hudComponent
         system.updateNode(hudNode, 1)
-        XCTAssertEqual(hudComponent.hudView.getLevelText(), "LEVEL: 2")
-        XCTAssertEqual(hudComponent.hudView.getScoreText(), "SCORE: 3")
+        XCTAssertEqual(hudComponent.getLevelText(), "LEVEL: 2")
+        XCTAssertEqual(hudComponent.getScoreText(), "SCORE: 3")
     }
 }
 
