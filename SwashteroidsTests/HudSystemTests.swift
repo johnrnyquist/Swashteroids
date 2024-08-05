@@ -30,7 +30,7 @@ class HudSystemTests: XCTestCase {
     override func tearDownWithError() throws {
         system = nil
     }
-    
+
     func test_UpdateNode() throws {
         let hudNode = HudNode()
         let hudComponent = HudComponent(hudView: HudView(gameSize: .zero))
@@ -39,11 +39,53 @@ class HudSystemTests: XCTestCase {
         appStateComponent.level = 2
         appStateComponent.score = 3
         hudNode.components[HudComponent.name] = hudComponent
-//        hudNode.components[SwashteroidsStateComponent.name] = appStateComponent
         system.updateNode(hudNode, 1)
         XCTAssertEqual(hudComponent.hudView.getLevelText(), "LEVEL: 2")
         XCTAssertEqual(hudComponent.hudView.getScoreText(), "SCORE: 3")
     }
 
+    func test_UpdateNode_hasGunNodeAndFireButton() throws {
+        let gun = Entity()
+                .add(component: GunComponent(offsetX: 0,
+                                             offsetY: 0,
+                                             minimumShotInterval: 0,
+                                             torpedoLifetime: 0,
+                                             ownerType: .player,
+                                             ownerName: .player,
+                                             numTorpedoes: 0))
+        engine.add(entity: gun)
+        let fireButton = Entity(named: .fireButton)
+        engine.add(entity: fireButton)
+        let hudNode = HudNode()
+        let hudComponent = HudComponent(hudView: HudView(gameSize: .zero))
+        let appStateComponent = engine.gameStateComponent
+        appStateComponent.shipControlsState = .usingScreenControls
+        appStateComponent.numShips = 1
+        appStateComponent.level = 2
+        appStateComponent.score = 3
+        hudNode.components[HudComponent.name] = hudComponent
+        system.updateNode(hudNode, 1)
+        XCTAssertEqual(hudComponent.hudView.getLevelText(), "LEVEL: 2")
+        XCTAssertEqual(hudComponent.hudView.getScoreText(), "SCORE: 3")
+    }
+
+    func test_UpdateNode_hasHyperspaceNodeAndHyperspaceButton() throws {
+        let hyperspaceDrive = Entity()
+                .add(component: HyperspaceDriveComponent(jumps: 0))
+        engine.add(entity: hyperspaceDrive)
+        let hyperspaceButton = Entity(named: .hyperspaceButton)
+        engine.add(entity: hyperspaceButton)
+        let hudNode = HudNode()
+        let hudComponent = HudComponent(hudView: HudView(gameSize: .zero))
+        let appStateComponent = engine.gameStateComponent
+        appStateComponent.shipControlsState = .usingScreenControls
+        appStateComponent.numShips = 1
+        appStateComponent.level = 2
+        appStateComponent.score = 3
+        hudNode.components[HudComponent.name] = hudComponent
+        system.updateNode(hudNode, 1)
+        XCTAssertEqual(hudComponent.hudView.getLevelText(), "LEVEL: 2")
+        XCTAssertEqual(hudComponent.hudView.getScoreText(), "SCORE: 3")
+    }
 }
 

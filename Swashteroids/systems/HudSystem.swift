@@ -50,7 +50,7 @@ final class HudSystem: ListIteratingSystem {
             updateForHyperspaceNode(hyperspaceNode[HyperspaceDriveComponent.self], hudNode)
         }
     }
-    
+
     func updateForHyperspaceNode(_ hyperspaceComponent: HyperspaceDriveComponent?, _ hudNode: Node?) {
         if let hyperspaceComponent {
             hudNode?[HudComponent.self]?.hudView.setJumps(hyperspaceComponent.jumps)
