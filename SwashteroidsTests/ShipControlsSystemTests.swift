@@ -37,7 +37,7 @@ final class ShipControlsSystemTests: XCTestCase {
     }
 
     func test_UpdateNode() {
-        let system = MockShipControlsSystem_DoToggleButtons(toggleShipControlsCreator: creator,
+        let system = TestableShipControlsSystem_DoToggleButtons(toggleShipControlsCreator: creator,
                                                             shipControlQuadrantsCreator: creator,
                                                             shipButtonControlsCreator: creator,
                                                             startButtonsCreator: creator)
@@ -51,7 +51,7 @@ final class ShipControlsSystemTests: XCTestCase {
         XCTAssertFalse(entity.has(componentClassName: ChangeShipControlsStateComponent.name))
         XCTAssertTrue(system.do_toggleButtonsCalled)
 
-        class MockShipControlsSystem_DoToggleButtons: ShipControlsSystem {
+        class TestableShipControlsSystem_DoToggleButtons: ShipControlsSystem {
             var do_toggleButtonsCalled = false
 
             override func handleChange(to: ShipControlsState) {

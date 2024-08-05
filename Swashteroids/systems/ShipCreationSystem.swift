@@ -20,17 +20,13 @@ class ShipCreationSystem: System {
     private let shipClearanceRadius: CGFloat = 50
     private let shipPositionRatio: CGFloat = 0.5
     private var gameSize: CGSize
-    weak var aliens: NodeList!
     private weak var appStates: NodeList!
-    weak var asteroids: NodeList!
     private weak var playerCreator: PlayerCreatorUseCase!
-    weak var players: NodeList! {
-        didSet {
-            print("ShipCreationSystem: players set to \(players)")
-        }
-    }
     private weak var randomness: Randomizing!
     private weak var torpedoes: NodeList!
+    weak var aliens: NodeList!
+    weak var asteroids: NodeList!
+    weak var players: NodeList!
 
     init(playerCreator: PlayerCreatorUseCase,
          gameSize: CGSize,
@@ -62,28 +58,27 @@ class ShipCreationSystem: System {
               let appStateComponent = currentStateNode[GameStateComponent.self],
               appStateComponent.gameScreen == .playing
         else { return }
-        checkForShips(appStateComponent: appStateComponent)
+        playerCheck(appStateComponent: appStateComponent)
     }
 
-    // MARK: - Game Logic
-    /// If there are no ships and is playing, handle it. 
+    /// If there is no player, handle it. 
     /// If there are no asteroids, no torpedoes and there is a ship then you finished the level, go to the next.
-    func checkForShips(appStateComponent: GameStateComponent) {
+    func playerCheck(appStateComponent: GameStateComponent) {
         // No ships in the NodeList, but we're still playing.
         if players.empty {
             // If we have any ships left, make another and some power-ups
             if appStateComponent.numShips > 0 {
-                let newSpaceshipPosition = CGPoint(x: gameSize.width * shipPositionRatio,
-                                                   y: gameSize.height * shipPositionRatio)
-                if isClearToAddSpaceship(at: newSpaceshipPosition) {
+                let newPlayerPosition = CGPoint(x: gameSize.width * shipPositionRatio,
+                                                y: gameSize.height * shipPositionRatio)
+                if isClear(at: newPlayerPosition) {
                     playerCreator.createPlayer(appStateComponent)
                 }
             }
         }
     }
 
-    /// Detects if there is an asteroid too close to the new spaceship position
-    func isClearToAddSpaceship(at position: CGPoint) -> Bool {
+    /// Detects if there is an asteroid too close to the new position
+    func isClear(at position: CGPoint) -> Bool {
         guard aliens.head == nil else { return false }
         var currentAsteroidNode = asteroids.head
         while let asteroid = currentAsteroidNode {

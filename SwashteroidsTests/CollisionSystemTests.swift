@@ -107,7 +107,7 @@ class CollisionSystemTests: XCTestCase {
     }
 
     func test_Update() {
-        let system = MockCollisionSystem(shipCreator: shipCreator,
+        let system = TestableCollisionSystem(shipCreator: shipCreator,
                                          asteroidCreator: asteroidCreator,
                                          shipButtonControlsCreator: shipButtonControlsCreator,
                                          size: .zero,
@@ -118,7 +118,7 @@ class CollisionSystemTests: XCTestCase {
         //
         XCTAssertTrue(system.collisionCheckCalled > 0) //TODO: make better assertion
 
-        class MockCollisionSystem: CollisionSystem {
+        class TestableCollisionSystem: CollisionSystem {
             var collisionCheckCalled = 0
 
             override func collisionCheck(nodeA: Node?, nodeB: Node?, action: (Node, Node) -> Void) {
