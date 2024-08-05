@@ -64,7 +64,7 @@ final class Swashteroids: NSObject {
                                            alertPresenter: alertPresenter,
                                            scene: scene)
         manager_systems = SystemsManager(engine: engine, creatorManager: manager_creators, size: scene.size)
-        manager_systems.configureSystems(scene: scene, alertPresenter: alertPresenter, touchManager: manager_touch)
+        manager_systems.configureGameSystems(scene: scene, alertPresenter: alertPresenter, touchManager: manager_touch)
         super.init()
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(orientationChanged),

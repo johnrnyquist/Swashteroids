@@ -93,7 +93,7 @@ final class SystemsManager {
         creatorManager.hudCreator.createHud(gameState: engine.gameStateComponent)
     }
 
-    func configureSystems(scene: GameScene, alertPresenter: PauseAlertPresenting, touchManager: TouchManager) {
+    func configureGameSystems(scene: GameScene, alertPresenter: PauseAlertPresenting, touchManager: TouchManager) {
         let transition = PlayingTransition(
             hudCreator: creatorManager.hudCreator,
             toggleShipControlsCreator: creatorManager.toggleShipControlsCreator,
