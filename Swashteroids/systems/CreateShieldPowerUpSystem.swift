@@ -16,8 +16,14 @@ final class DoCreateShieldPowerUpComponent: Component {}
 
 /// The entity being shielded has this
 final class ShieldComponent: Component {
-    let maxCollisions = 3
-    var strength = 3
+    var maxStrength: Double
+    var curStrength: Double
+
+    init(maxStrength: Double, curStrength: Double) {
+        self.maxStrength = maxStrength
+        self.curStrength = curStrength
+        super.init()
+    }
 }
 
 final class ShieldPowerUpComponent: Component {}
@@ -89,7 +95,7 @@ final class CreateShieldPowerUpSystem: ListIteratingSystem {
         entity.remove(componentClass: DoCreateShieldPowerUpComponent.self)
         if powerUpNodes?.empty == true, // There are no xray powerup nodes floating around
            shieldNodes?.empty == true, // Player does not have xray vision
-           level > 1, 
+           level > 1,
            !shieldPowerUpsCreatedComponent.levels.contains(level) // A powerup for this level has not been created
         {
             shieldPowerUpsCreatedComponent.levels.append(level)

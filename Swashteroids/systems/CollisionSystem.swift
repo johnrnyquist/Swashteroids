@@ -86,9 +86,9 @@ class CollisionSystem: System {
 
     private func updateShield(shields: Node) {
         if let shieldComponent = shields.entity?[ShieldComponent.self],
-           shieldComponent.strength > 0 {
-            shieldComponent.strength -= 1
-            if shieldComponent.strength == 0 {
+           shieldComponent.curStrength > 0 {
+            shieldComponent.curStrength -= 1
+            if shieldComponent.curStrength == 0 {
                 engine.remove(entity: shields.entity!)
             }
         }
@@ -184,7 +184,7 @@ class CollisionSystem: System {
         spriteNode.colorBlendFactor = 1.0
         spriteNode.size = playerSprite.size.width.cgSize * 1.6
         let entity = Entity(named: .shield)
-                .add(component: ShieldComponent())
+                .add(component: ShieldComponent(maxStrength: 3.0, curStrength: 3.0))
                 .add(component: CollidableComponent(radius: radius / scaleManager.SCALE_FACTOR * 1.6)) //undo scaleManager scaling on radius
                 .add(component: PositionComponent(x: point.x, y: point.y, z: .player))
                 .add(component: DisplayComponent(sknode: spriteNode))

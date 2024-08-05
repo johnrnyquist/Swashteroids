@@ -34,7 +34,7 @@ final class ShieldSystem: ListIteratingSystem {
         else { return }
         shieldPosition.x = playerPosition.x
         shieldPosition.y = playerPosition.y
-        sprite.alpha = CGFloat(shield.strength) / CGFloat(shield.maxCollisions)
+        sprite.alpha = CGFloat(shield.curStrength) / CGFloat(shield.maxStrength)
     }
 }
 
