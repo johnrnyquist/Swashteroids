@@ -28,6 +28,12 @@ enum AlienCast {
             case .worker: return 50
         }
     }
+    var name: String {
+        switch self {
+            case .soldier: return "soldier"
+            case .worker: return "worker"
+        }
+    }
 }
 
 /// Used by aliens to indicate that they are aliens.

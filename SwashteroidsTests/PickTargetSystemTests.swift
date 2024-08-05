@@ -14,186 +14,98 @@ import XCTest
 
 class PickTargetSystemTests: XCTestCase {
     var system: PickTargetSystem!
-    let shipNodes = NodeList()
-    let asteroidNodes = NodeList()
+//    var shipNodes : NodeList!
+//    var asteroidNodes : NodeList!
+    var engine: Engine!
+    var player: Entity!
 
     override func setUp() {
         super.setUp()
+        engine = Engine()
         system = PickTargetSystem()
-        system.playerNodes = shipNodes
-        let playerNode = PlayerNode()
-        system.playerNodes.add(node: playerNode)
-        let playerComponent = PlayerComponent()
-        let shipPosition = PositionComponent(x: 0, y: 0, z: .player, rotationDegrees: 0)
-        playerNode.components = [
-            PlayerComponent.name: playerComponent,
-            PositionComponent.name: shipPosition,
-        ]
-        let shipEntity = Entity()
-                .add(component: playerComponent)
-                .add(component: shipPosition)
-        playerNode.entity = shipEntity
-        system.asteroidNodes = asteroidNodes
+        engine.add(system: system, priority: 0)
+        player = Entity(named: "player")
+                .add(component: PlayerComponent())
+                .add(component: PositionComponent(x: 0, y: 0, z: .player, rotationDegrees: 0))
+                .add(component: AlienWorkerTargetComponent.shared)
+        engine.add(entity: player)
     }
 
     override func tearDown() {
         system = nil
+        engine = nil
         super.tearDown()
     }
 
-    func test_pickTarget_soldier() throws {
-        // ARRANGE
-        let alienComponent = AlienComponent(cast: .soldier, scaleManager: ScaleManager.shared)
-        let position = PositionComponent(x: 0, y: 0, z: .asteroids, rotationDegrees: 0)
-        let velocity = VelocityComponent(velocityX: 0, velocityY: 0)
-        let entity = Entity()
-        // ACT
-        system.pickTarget(entity: entity, alienComponent: alienComponent, position: position, velocity: velocity)
-        // ASSERT
-//        XCTAssertNil(alienComponent.targetedEntity)
+    func test_pickTarget_shipIsClosest() {
+        for cast in [AlienCast.soldier, AlienCast.worker] {
+            // ARRANGE
+            let alienComponent = AlienComponent(cast: cast, scaleManager: ScaleManager.shared)
+            let position = PositionComponent(x: 0, y: 0, z: .asteroids, rotationDegrees: 0)
+            let velocity = VelocityComponent(velocityX: 0, velocityY: 0)
+            let entity = Entity()
+                    .add(component: alienComponent)
+                    .add(component: position)
+                    .add(component: velocity)
+            engine.add(entity: entity)
+            // ACT
+            system.pickTarget(entity: entity, alienComponent: alienComponent, position: position, velocity: velocity)
+            let result = entity.find(componentClass: MoveToTargetComponent.self)
+            // ASSERT
+            XCTAssertNotNil(result)
+            XCTAssertEqual(result?.targetedEntityName, player.name)
+        }
     }
 
-    func test_pickTarget_shipIsClosest() throws {
-        // ARRANGE
-        let engine = Engine()
-        engine.add(system: system, priority: 0)
-        let alienComponent = AlienComponent(cast: .worker, scaleManager: ScaleManager.shared)
-        let position = PositionComponent(x: 0, y: 0, z: .asteroids, rotationDegrees: 0)
-        let velocity = VelocityComponent(velocityX: 0, velocityY: 0)
-        let entity = Entity()
-                .add(component: alienComponent)
-                .add(component: position)
-                .add(component: velocity)
-        engine.add(entity: entity)
-        let ship = Entity()
-            .add(component: PlayerComponent())
-            .add(component: PositionComponent(x: 0, y: 0, z: 0))
-        engine.add(entity: ship)
-        // ACT
-        system.pickTarget(entity: entity, alienComponent: alienComponent, position: position, velocity: velocity)
-        let result = entity.find(componentClass: MoveToTargetComponent.self)
-        // ASSERT
-        XCTAssertNotNil(result)
-        XCTAssertEqual(result?.targetedEntityName, ship.name)
+    func test_pickTarget_closestAsteroid() {
+        for alien in [
+            (cast: AlienCast.soldier, targetName: "player", x: 100.0),
+            (cast: AlienCast.soldier, targetName: "asteroid", x: 10.0),
+            (cast: AlienCast.worker, targetName: "asteroid", x: 100.0)] {
+            // ARRANGE
+            let alienComponent = AlienComponent(cast: alien.cast, scaleManager: ScaleManager.shared)
+            let position = PositionComponent(x: 0, y: 0, z: .asteroids, rotationDegrees: 0)
+            let velocity = VelocityComponent(velocityX: 0, velocityY: 0)
+            let entity = Entity()
+                    .add(component: alienComponent)
+                    .add(component: position)
+                    .add(component: velocity)
+            engine.add(entity: entity)
+            player[PositionComponent.self]?.point = CGPoint(x: 200, y: 0)
+            let asteroid = Entity(named: "asteroid")
+                    .add(component: AsteroidComponent(size: .large))
+                    .add(component: CollidableComponent(radius: 10))
+                    .add(component: PositionComponent(x: alien.x, y: 0, z: .asteroids))
+                    .add(component: VelocityComponent(velocityX: 0, velocityY: 0))
+                    .add(component: AlienWorkerTargetComponent.shared)
+            engine.add(entity: asteroid)
+            // ACT
+            system.pickTarget(entity: entity, alienComponent: alienComponent, position: position, velocity: velocity)
+            let result = entity.find(componentClass: MoveToTargetComponent.self)
+            // ASSERT
+            XCTAssertNotNil(result)
+            XCTAssertEqual(result?.targetedEntityName, alien.targetName)
+        }
     }
 
-    func test_pickTarget_closestAsteroid() throws {
-        // ARRANGE
-        let system = PickTargetSystem()
-        let asteroidComponent = AsteroidComponent(size: .large)
-        let positionComponent = PositionComponent(x: 0, y: 0, z: .asteroids, rotationDegrees: 0)
-        let collidableComponent = CollidableComponent(radius: 10)
-        let velocityComponent = VelocityComponent(velocityX: 0, velocityY: 0)
-        let asteroidEntity = Entity()
-                .add(component: asteroidComponent)
-                .add(component: positionComponent)
-                .add(component: collidableComponent)
-                .add(component: velocityComponent)
-        let asteroidNode = AsteroidCollisionNode()
-        asteroidNode.components = [
-            AsteroidComponent.name: asteroidComponent,
-            PositionComponent.name: positionComponent,
-            CollidableComponent.name: collidableComponent,
-            VelocityComponent.name: velocityComponent,
-        ]
-        asteroidNode.entity = asteroidEntity
-        system.asteroidNodes = asteroidNodes
-        system.asteroidNodes?.add(node: asteroidNode)
-        system.playerNodes = shipNodes
-//        let soldier = AlienComponent(cast: .soldier, reactionTime: 0.4, scoreValue: 50)
-        let position = PositionComponent(x: 0, y: 0, z: .asteroids, rotationDegrees: 0)
-        // ACT
-//        system.pickTarget(alienComponent: soldier, position: position)
-        // ASSERT
-//        XCTAssertNotNil(soldier.targetedEntity)
-//        XCTAssertEqual(asteroidEntity, soldier.targetedEntity)
-    }
-
-    func test_pickTarget_ship() throws {
-        // ARRANGE
-        let system = PickTargetSystem()
-        let asteroidComponent = AsteroidComponent(size: .large)
-        let positionComponent = PositionComponent(x: 1000, y: 0, z: .asteroids, rotationDegrees: 0)
-        let collidableComponent = CollidableComponent(radius: 10)
-        let velocityComponent = VelocityComponent(velocityX: 0, velocityY: 0)
-        let asteroid = Entity()
-                .add(component: asteroidComponent)
-                .add(component: positionComponent)
-                .add(component: collidableComponent)
-                .add(component: velocityComponent)
-        let asteroidNode = AsteroidCollisionNode()
-        asteroidNode.components = [
-            AsteroidComponent.name: asteroidComponent,
-            PositionComponent.name: positionComponent,
-            CollidableComponent.name: collidableComponent,
-            VelocityComponent.name: velocityComponent,
-        ]
-        asteroidNode.entity = asteroid
-        system.asteroidNodes = asteroidNodes
-        system.asteroidNodes?.add(node: asteroidNode)
-        system.playerNodes = shipNodes
-//        let soldier = AlienComponent(cast: .soldier, reactionTime: 0.4, scoreValue: 50)
-        let position = PositionComponent(x: 0, y: 0, z: .asteroids, rotationDegrees: 0)
-        // ACT
-//        system.pickTarget(alienComponent: soldier, position: position)
-        // ASSERT
-//        XCTAssertNotNil(soldier.targetedEntity)
-//        XCTAssertEqual(shipEntity, soldier.targetedEntity)
-    }
-
-    func test_findClosestEntity_to_in() {
-        // Create some entities with positions
-        let entity1 = Entity()
-        entity1.add(component: PositionComponent(x: 0, y: 0, z: 0))
-        let entity2 = Entity()
-        entity1.add(component: PositionComponent(x: 10, y: 10, z: 0))
-        let entity3 = Entity()
-        entity1.add(component: PositionComponent(x: 5, y: 5, z: 0))
-        let entitiesWithPositions
-            = [(entity1, CGPoint(x: 0, y: 0)),
-               (entity2, CGPoint(x: 10, y: 10)),
-               (entity3, CGPoint(x: 5, y: 5))]
-        // Call the method to test
-        let closestEntity
-            = system.findClosestEntity(to: CGPoint(x: 6, y: 6), in: entitiesWithPositions)
-        // Assert that the closest entity is the correct one
-        XCTAssertEqual(closestEntity, entity3, "The closest entity was not correctly identified.")
-    }
-
-    func test_findClosestObject_to_in() {
-        // Create some entities with positions
-        let entity1 = Entity()
-        entity1.add(component: PositionComponent(x: 0, y: 0, z: 0))
-        let entity2 = Entity()
-        entity2.add(component: PositionComponent(x: 10, y: 10, z: 0))
-        let entity3 = Entity()
-        entity3.add(component: PositionComponent(x: 5, y: 5, z: 0))
-        let entities = [entity1, entity2, entity3]
-        // Call the method to test
-//        let closestEntity
-//            = system.findClosestObject(to: CGPoint(x: 6, y: 6), in: entities)
-        // Assert that the closest entity is the correct one
-//        XCTAssertEqual(closestEntity, entity3, "The closest entity was not correctly identified.")
-    }
-
-    func test_findClosestEntity_to_node() {
-        // Create some nodes with entities and positions
-        let entity1 = Entity()
-        let entity2 = Entity()
-        let entity3 = Entity()
-        entity1.add(component: PositionComponent(x: 0, y: 0, z: 0))
-        entity2.add(component: PositionComponent(x: 10, y: 10, z: 0))
-        entity3.add(component: PositionComponent(x: 5, y: 5, z: 0))
-        let node1 = Node()
-        let node2 = Node()
-        let node3 = Node()
-        node1.entity = entity1
-        node2.entity = entity2
-        node3.entity = entity3
-        node1.next = node2
-        node2.next = node3
-        let closestEntity = system.findClosestEntity(to: CGPoint(x: 6, y: 6), node: node1)
-        XCTAssertEqual(closestEntity, entity3, "The closest entity was not correctly identified.")
+    func test_pickTarget_noEntities() {
+        for cast in [AlienCast.soldier, AlienCast.worker] {
+            // ARRANGE
+            let alienComponent = AlienComponent(cast: cast, scaleManager: ScaleManager.shared)
+            let position = PositionComponent(x: 0, y: 0, z: .asteroids, rotationDegrees: 0)
+            let velocity = VelocityComponent(velocityX: 0, velocityY: 0)
+            let entity = Entity()
+                    .add(component: alienComponent)
+                    .add(component: position)
+                    .add(component: velocity)
+            engine.add(entity: entity)
+            engine.remove(entity: player)
+            // ACT
+            system.pickTarget(entity: entity, alienComponent: alienComponent, position: position, velocity: velocity)
+            let result = entity.find(componentClass: MoveToTargetComponent.self)
+            // ASSERT
+            XCTAssertNil(result)
+        }
     }
 }
     
