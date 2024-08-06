@@ -108,23 +108,23 @@
 		8D71C0472B3603CF004D6D0C /* ScaleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139DE0BD2F73AFFAEDE2DA /* ScaleManager.swift */; };
 		8D88C4842B61D3FF00B75314 /* RandomnessTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D88C4832B61D3FF00B75314 /* RandomnessTests.swift */; };
 		8D88FE012B5334F900937FF1 /* powerup_appearance.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D88FE002B5334F900937FF1 /* powerup_appearance.wav */; };
-		8D8C95572C5C2F3C000380BA /* welcome.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C95562C5C2F3B000380BA /* welcome.mp3 */; };
-		8D8C95592C5C2F44000380BA /* this_is_your_ship.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C95582C5C2F44000380BA /* this_is_your_ship.mp3 */; };
-		8D8C955B2C5C314A000380BA /* try_thrust.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C955A2C5C314A000380BA /* try_thrust.mp3 */; };
-		8D8C955D2C5C3222000380BA /* feel.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C955C2C5C3222000380BA /* feel.mp3 */; };
-		8D8C95602C5C343B000380BA /* flipping.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C955E2C5C343B000380BA /* flipping.mp3 */; };
-		8D8C95612C5C343B000380BA /* way_to_flip.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C955F2C5C343B000380BA /* way_to_flip.mp3 */; };
-		8D8C956C2C5C3A6B000380BA /* nice_turning.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C95622C5C3A6A000380BA /* nice_turning.mp3 */; };
-		8D8C956D2C5C3A6B000380BA /* try_hyperspace.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C95632C5C3A6A000380BA /* try_hyperspace.mp3 */; };
-		8D8C956E2C5C3A6B000380BA /* try_firing.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C95642C5C3A6A000380BA /* try_firing.mp3 */; };
-		8D8C956F2C5C3A6B000380BA /* left_right.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C95652C5C3A6A000380BA /* left_right.mp3 */; };
-		8D8C95702C5C3A6B000380BA /* these_are_the_powerups.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C95662C5C3A6B000380BA /* these_are_the_powerups.mp3 */; };
-		8D8C95712C5C3A6B000380BA /* congratulations.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C95672C5C3A6B000380BA /* congratulations.mp3 */; };
-		8D8C95722C5C3A6B000380BA /* collect_treasure.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C95682C5C3A6B000380BA /* collect_treasure.mp3 */; };
-		8D8C95732C5C3A6B000380BA /* no_points.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C95692C5C3A6B000380BA /* no_points.mp3 */; };
-		8D8C95742C5C3A6B000380BA /* got_points.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C956A2C5C3A6B000380BA /* got_points.mp3 */; };
-		8D8C95752C5C3A6B000380BA /* this_is_an_asteroid.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C956B2C5C3A6B000380BA /* this_is_an_asteroid.mp3 */; };
-		8D8C95772C5C3CAC000380BA /* hud.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C95762C5C3CAC000380BA /* hud.mp3 */; };
+		8D8C95572C5C2F3C000380BA /* tut_welcome.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C95562C5C2F3B000380BA /* tut_welcome.mp3 */; };
+		8D8C95592C5C2F44000380BA /* tut_this_is_your_ship.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C95582C5C2F44000380BA /* tut_this_is_your_ship.mp3 */; };
+		8D8C955B2C5C314A000380BA /* tut_try_thrust.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C955A2C5C314A000380BA /* tut_try_thrust.mp3 */; };
+		8D8C955D2C5C3222000380BA /* tut_feel_the_roar.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C955C2C5C3222000380BA /* tut_feel_the_roar.mp3 */; };
+		8D8C95602C5C343B000380BA /* tut_flipping.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C955E2C5C343B000380BA /* tut_flipping.mp3 */; };
+		8D8C95612C5C343B000380BA /* tut_way_to_flip.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C955F2C5C343B000380BA /* tut_way_to_flip.mp3 */; };
+		8D8C956C2C5C3A6B000380BA /* tut_nice_turning.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C95622C5C3A6A000380BA /* tut_nice_turning.mp3 */; };
+		8D8C956D2C5C3A6B000380BA /* tut_try_hyperspace.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C95632C5C3A6A000380BA /* tut_try_hyperspace.mp3 */; };
+		8D8C956E2C5C3A6B000380BA /* tut_try_firing.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C95642C5C3A6A000380BA /* tut_try_firing.mp3 */; };
+		8D8C956F2C5C3A6B000380BA /* tut_left_right.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C95652C5C3A6A000380BA /* tut_left_right.mp3 */; };
+		8D8C95702C5C3A6B000380BA /* tut_these_are_the_powerups.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C95662C5C3A6B000380BA /* tut_these_are_the_powerups.mp3 */; };
+		8D8C95712C5C3A6B000380BA /* tut_congratulations.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C95672C5C3A6B000380BA /* tut_congratulations.mp3 */; };
+		8D8C95722C5C3A6B000380BA /* tut_collect_treasure.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C95682C5C3A6B000380BA /* tut_collect_treasure.mp3 */; };
+		8D8C95732C5C3A6B000380BA /* tut_no_points.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C95692C5C3A6B000380BA /* tut_no_points.mp3 */; };
+		8D8C95742C5C3A6B000380BA /* tut_got_points.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C956A2C5C3A6B000380BA /* tut_got_points.mp3 */; };
+		8D8C95752C5C3A6B000380BA /* tut_this_is_an_asteroid.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C956B2C5C3A6B000380BA /* tut_this_is_an_asteroid.mp3 */; };
+		8D8C95772C5C3CAC000380BA /* tut_this_is_your_hud.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C95762C5C3CAC000380BA /* tut_this_is_your_hud.mp3 */; };
 		8D8F24B22B51B8FA00B2E223 /* CGRect+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8F24B12B51B8FA00B2E223 /* CGRect+extensions.swift */; };
 		8D8F24B42B51CC6B00B2E223 /* treasure.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D8F24B32B51CC6B00B2E223 /* treasure.wav */; };
 		8D8F24B62B51D47700B2E223 /* UIColor+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8F24B52B51D47700B2E223 /* UIColor+extensions.swift */; };
@@ -390,23 +390,23 @@
 		8D714E2D2B3535DC009E1586 /* SKSpriteNode+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SKSpriteNode+extensions.swift"; sourceTree = "<group>"; };
 		8D88C4832B61D3FF00B75314 /* RandomnessTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomnessTests.swift; sourceTree = "<group>"; };
 		8D88FE002B5334F900937FF1 /* powerup_appearance.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = powerup_appearance.wav; sourceTree = "<group>"; };
-		8D8C95562C5C2F3B000380BA /* welcome.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = welcome.mp3; sourceTree = "<group>"; };
-		8D8C95582C5C2F44000380BA /* this_is_your_ship.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = this_is_your_ship.mp3; sourceTree = "<group>"; };
-		8D8C955A2C5C314A000380BA /* try_thrust.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = try_thrust.mp3; sourceTree = "<group>"; };
-		8D8C955C2C5C3222000380BA /* feel.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = feel.mp3; sourceTree = "<group>"; };
-		8D8C955E2C5C343B000380BA /* flipping.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = flipping.mp3; sourceTree = "<group>"; };
-		8D8C955F2C5C343B000380BA /* way_to_flip.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = way_to_flip.mp3; sourceTree = "<group>"; };
-		8D8C95622C5C3A6A000380BA /* nice_turning.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = nice_turning.mp3; sourceTree = "<group>"; };
-		8D8C95632C5C3A6A000380BA /* try_hyperspace.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = try_hyperspace.mp3; sourceTree = "<group>"; };
-		8D8C95642C5C3A6A000380BA /* try_firing.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = try_firing.mp3; sourceTree = "<group>"; };
-		8D8C95652C5C3A6A000380BA /* left_right.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = left_right.mp3; sourceTree = "<group>"; };
-		8D8C95662C5C3A6B000380BA /* these_are_the_powerups.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = these_are_the_powerups.mp3; sourceTree = "<group>"; };
-		8D8C95672C5C3A6B000380BA /* congratulations.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = congratulations.mp3; sourceTree = "<group>"; };
-		8D8C95682C5C3A6B000380BA /* collect_treasure.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = collect_treasure.mp3; sourceTree = "<group>"; };
-		8D8C95692C5C3A6B000380BA /* no_points.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = no_points.mp3; sourceTree = "<group>"; };
-		8D8C956A2C5C3A6B000380BA /* got_points.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = got_points.mp3; sourceTree = "<group>"; };
-		8D8C956B2C5C3A6B000380BA /* this_is_an_asteroid.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = this_is_an_asteroid.mp3; sourceTree = "<group>"; };
-		8D8C95762C5C3CAC000380BA /* hud.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = hud.mp3; sourceTree = "<group>"; };
+		8D8C95562C5C2F3B000380BA /* tut_welcome.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tut_welcome.mp3; sourceTree = "<group>"; };
+		8D8C95582C5C2F44000380BA /* tut_this_is_your_ship.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tut_this_is_your_ship.mp3; sourceTree = "<group>"; };
+		8D8C955A2C5C314A000380BA /* tut_try_thrust.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tut_try_thrust.mp3; sourceTree = "<group>"; };
+		8D8C955C2C5C3222000380BA /* tut_feel_the_roar.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tut_feel_the_roar.mp3; sourceTree = "<group>"; };
+		8D8C955E2C5C343B000380BA /* tut_flipping.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tut_flipping.mp3; sourceTree = "<group>"; };
+		8D8C955F2C5C343B000380BA /* tut_way_to_flip.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tut_way_to_flip.mp3; sourceTree = "<group>"; };
+		8D8C95622C5C3A6A000380BA /* tut_nice_turning.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tut_nice_turning.mp3; sourceTree = "<group>"; };
+		8D8C95632C5C3A6A000380BA /* tut_try_hyperspace.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tut_try_hyperspace.mp3; sourceTree = "<group>"; };
+		8D8C95642C5C3A6A000380BA /* tut_try_firing.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tut_try_firing.mp3; sourceTree = "<group>"; };
+		8D8C95652C5C3A6A000380BA /* tut_left_right.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tut_left_right.mp3; sourceTree = "<group>"; };
+		8D8C95662C5C3A6B000380BA /* tut_these_are_the_powerups.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tut_these_are_the_powerups.mp3; sourceTree = "<group>"; };
+		8D8C95672C5C3A6B000380BA /* tut_congratulations.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tut_congratulations.mp3; sourceTree = "<group>"; };
+		8D8C95682C5C3A6B000380BA /* tut_collect_treasure.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tut_collect_treasure.mp3; sourceTree = "<group>"; };
+		8D8C95692C5C3A6B000380BA /* tut_no_points.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tut_no_points.mp3; sourceTree = "<group>"; };
+		8D8C956A2C5C3A6B000380BA /* tut_got_points.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tut_got_points.mp3; sourceTree = "<group>"; };
+		8D8C956B2C5C3A6B000380BA /* tut_this_is_an_asteroid.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tut_this_is_an_asteroid.mp3; sourceTree = "<group>"; };
+		8D8C95762C5C3CAC000380BA /* tut_this_is_your_hud.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tut_this_is_your_hud.mp3; sourceTree = "<group>"; };
 		8D8F24B12B51B8FA00B2E223 /* CGRect+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+extensions.swift"; sourceTree = "<group>"; };
 		8D8F24B32B51CC6B00B2E223 /* treasure.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = treasure.wav; sourceTree = "<group>"; };
 		8D8F24B52B51D47700B2E223 /* UIColor+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+extensions.swift"; sourceTree = "<group>"; };
@@ -782,32 +782,32 @@
 				8D0A0D332B4E08D4007E9898 /* alien_entrance.wav */,
 				8D23C18F2B02C59D00F7D878 /* explosion.wav */,
 				8D6D81542B1A562900AD8D18 /* level_up.wav */,
-				8D8C95682C5C3A6B000380BA /* collect_treasure.mp3 */,
-				8D8C95672C5C3A6B000380BA /* congratulations.mp3 */,
-				8D8C955C2C5C3222000380BA /* feel.mp3 */,
+				8D8C95682C5C3A6B000380BA /* tut_collect_treasure.mp3 */,
+				8D8C95672C5C3A6B000380BA /* tut_congratulations.mp3 */,
+				8D8C955C2C5C3222000380BA /* tut_feel_the_roar.mp3 */,
 				8D23C1912B02C59D00F7D878 /* launch_torpedo.wav */,
-				8D8C955E2C5C343B000380BA /* flipping.mp3 */,
-				8D8C956A2C5C3A6B000380BA /* got_points.mp3 */,
-				8D8C95762C5C3CAC000380BA /* hud.mp3 */,
+				8D8C955E2C5C343B000380BA /* tut_flipping.mp3 */,
+				8D8C956A2C5C3A6B000380BA /* tut_got_points.mp3 */,
+				8D8C95762C5C3CAC000380BA /* tut_this_is_your_hud.mp3 */,
 				8D688FBC2B0680D900056CD3 /* hyperspace.wav */,
-				8D8C95652C5C3A6A000380BA /* left_right.mp3 */,
-				8D8C95622C5C3A6A000380BA /* nice_turning.mp3 */,
-				8D8C95692C5C3A6B000380BA /* no_points.mp3 */,
+				8D8C95652C5C3A6A000380BA /* tut_left_right.mp3 */,
+				8D8C95622C5C3A6A000380BA /* tut_nice_turning.mp3 */,
+				8D8C95692C5C3A6B000380BA /* tut_no_points.mp3 */,
 				8D88FE002B5334F900937FF1 /* powerup_appearance.wav */,
 				8D4627652B251761007F01E6 /* powerup.wav */,
-				8D8C95662C5C3A6B000380BA /* these_are_the_powerups.mp3 */,
-				8D8C956B2C5C3A6B000380BA /* this_is_an_asteroid.mp3 */,
-				8D8C95582C5C2F44000380BA /* this_is_your_ship.mp3 */,
+				8D8C95662C5C3A6B000380BA /* tut_these_are_the_powerups.mp3 */,
+				8D8C956B2C5C3A6B000380BA /* tut_this_is_an_asteroid.mp3 */,
+				8D8C95582C5C2F44000380BA /* tut_this_is_your_ship.mp3 */,
 				8D23C1902B02C59D00F7D878 /* thrust.wav */,
 				8D6D81622B1AC52200AD8D18 /* toggle.wav */,
 				8D8F24B82B5204B100B2E223 /* treasure_special.wav */,
 				8D8F24B92B5204B100B2E223 /* treasure_standard.wav */,
 				8D8F24B32B51CC6B00B2E223 /* treasure.wav */,
-				8D8C95642C5C3A6A000380BA /* try_firing.mp3 */,
-				8D8C95632C5C3A6A000380BA /* try_hyperspace.mp3 */,
-				8D8C955A2C5C314A000380BA /* try_thrust.mp3 */,
-				8D8C955F2C5C343B000380BA /* way_to_flip.mp3 */,
-				8D8C95562C5C2F3B000380BA /* welcome.mp3 */,
+				8D8C95642C5C3A6A000380BA /* tut_try_firing.mp3 */,
+				8D8C95632C5C3A6A000380BA /* tut_try_hyperspace.mp3 */,
+				8D8C955A2C5C314A000380BA /* tut_try_thrust.mp3 */,
+				8D8C955F2C5C343B000380BA /* tut_way_to_flip.mp3 */,
+				8D8C95562C5C2F3B000380BA /* tut_welcome.mp3 */,
 			);
 			path = sounds;
 			sourceTree = "<group>";
@@ -1143,50 +1143,50 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D8C95772C5C3CAC000380BA /* hud.mp3 in Resources */,
+				8D8C95772C5C3CAC000380BA /* tut_this_is_your_hud.mp3 in Resources */,
 				8D59EDDE2B139088003BD073 /* Badloc ICG.ttf in Resources */,
-				8D8C955B2C5C314A000380BA /* try_thrust.mp3 in Resources */,
+				8D8C955B2C5C314A000380BA /* tut_try_thrust.mp3 in Resources */,
 				8D8F24B42B51CC6B00B2E223 /* treasure.wav in Resources */,
 				8D23C1EE2B02D00700F7D878 /* swashteroids.png in Resources */,
-				8D8C956F2C5C3A6B000380BA /* left_right.mp3 in Resources */,
-				8D8C95592C5C2F44000380BA /* this_is_your_ship.mp3 in Resources */,
+				8D8C956F2C5C3A6B000380BA /* tut_left_right.mp3 in Resources */,
+				8D8C95592C5C2F44000380BA /* tut_this_is_your_ship.mp3 in Resources */,
 				8D6D815F2B1A7A9E00AD8D18 /* ButtonsInfo.sks in Resources */,
 				8D23C1D92B02C59D00F7D878 /* launch_torpedo.wav in Resources */,
 				8D23C1C52B02C59D00F7D878 /* hyperspace.sks in Resources */,
 				8D23C1C32B02C59D00F7D878 /* shipExplosion.sks in Resources */,
 				8D5E06BC2C5ABE350018A3D3 /* YourParticleFile.sks in Resources */,
-				8D8C95612C5C343B000380BA /* way_to_flip.mp3 in Resources */,
+				8D8C95612C5C343B000380BA /* tut_way_to_flip.mp3 in Resources */,
 				8D0A9E9F2C62C00E0080517C /* shield_hit.mp3 in Resources */,
 				8D6D81592B1A648400AD8D18 /* StartScene.sks in Resources */,
 				8D6D81572B1A5EC200AD8D18 /* NoButtonsInfo.sks in Resources */,
-				8D8C95722C5C3A6B000380BA /* collect_treasure.mp3 in Resources */,
+				8D8C95722C5C3A6B000380BA /* tut_collect_treasure.mp3 in Resources */,
 				8D23C1D82B02C59D00F7D878 /* thrust.wav in Resources */,
-				8D8C956D2C5C3A6B000380BA /* try_hyperspace.mp3 in Resources */,
+				8D8C956D2C5C3A6B000380BA /* tut_try_hyperspace.mp3 in Resources */,
 				8D23C1D72B02C59D00F7D878 /* explosion.wav in Resources */,
 				8D6D81552B1A562900AD8D18 /* level_up.wav in Resources */,
 				8D8F24BB2B5204B100B2E223 /* treasure_standard.wav in Resources */,
-				8D8C95732C5C3A6B000380BA /* no_points.mp3 in Resources */,
+				8D8C95732C5C3A6B000380BA /* tut_no_points.mp3 in Resources */,
 				8D688FBD2B0680D900056CD3 /* hyperspace.wav in Resources */,
-				8D8C95572C5C2F3C000380BA /* welcome.mp3 in Resources */,
+				8D8C95572C5C2F3C000380BA /* tut_welcome.mp3 in Resources */,
 				8D5911602B4CA6F300A31B95 /* fireflies_mod.sks in Resources */,
-				8D8C95712C5C3A6B000380BA /* congratulations.mp3 in Resources */,
+				8D8C95712C5C3A6B000380BA /* tut_congratulations.mp3 in Resources */,
 				8D8F24BA2B5204B100B2E223 /* treasure_special.wav in Resources */,
-				8D8C956E2C5C3A6B000380BA /* try_firing.mp3 in Resources */,
-				8D8C95742C5C3A6B000380BA /* got_points.mp3 in Resources */,
+				8D8C956E2C5C3A6B000380BA /* tut_try_firing.mp3 in Resources */,
+				8D8C95742C5C3A6B000380BA /* tut_got_points.mp3 in Resources */,
 				8D23C1EB2B02CD9800F7D878 /* LICENSE.md in Resources */,
-				8D8C956C2C5C3A6B000380BA /* nice_turning.mp3 in Resources */,
+				8D8C956C2C5C3A6B000380BA /* tut_nice_turning.mp3 in Resources */,
 				8D88FE012B5334F900937FF1 /* powerup_appearance.wav in Resources */,
 				8D0A0D342B4E08D4007E9898 /* alien_entrance.wav in Resources */,
 				8D23C1432B02C4CC00F7D878 /* SwashteroidsAssets.xcassets in Resources */,
 				8D23C1E92B02CD7E00F7D878 /* README.md in Resources */,
 				8D23C1C42B02C59D00F7D878 /* plasmaTorpedo.sks in Resources */,
-				8D8C955D2C5C3222000380BA /* feel.mp3 in Resources */,
+				8D8C955D2C5C3222000380BA /* tut_feel_the_roar.mp3 in Resources */,
 				8D4627662B251761007F01E6 /* powerup.wav in Resources */,
 				8D23C1462B02C4CC00F7D878 /* LaunchScreen.storyboard in Resources */,
-				8D8C95702C5C3A6B000380BA /* these_are_the_powerups.mp3 in Resources */,
+				8D8C95702C5C3A6B000380BA /* tut_these_are_the_powerups.mp3 in Resources */,
 				8D6D81632B1AC52200AD8D18 /* toggle.wav in Resources */,
-				8D8C95752C5C3A6B000380BA /* this_is_an_asteroid.mp3 in Resources */,
-				8D8C95602C5C343B000380BA /* flipping.mp3 in Resources */,
+				8D8C95752C5C3A6B000380BA /* tut_this_is_an_asteroid.mp3 in Resources */,
+				8D8C95602C5C343B000380BA /* tut_flipping.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

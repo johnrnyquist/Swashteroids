@@ -74,9 +74,6 @@ final class SystemsManager {
         engine.remove(systemType: TimePlayedSystem.self)
         engine.remove(systemType: TouchedQuadrantSystem.self)
         engine.remove(systemType: XRayVisionSystem.self)
-        for system in engine.systems {
-            print(system)
-        }
     }
 
     func configureTutorialTurning() {}

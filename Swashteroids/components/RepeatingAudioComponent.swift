@@ -26,7 +26,7 @@ final class RepeatingAudioComponent: Component {
             if let url = Bundle.main.url(forResource: name, withExtension: ext) {
                 sound = Sound(url: url)
             } else {
-                print("File `\(name)` not found.")
+                print("FILE `\(name)` NOT FOUND.")
             }
         }
         super.init()

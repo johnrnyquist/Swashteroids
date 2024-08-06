@@ -27,66 +27,67 @@ enum AudioAsset: String, CaseIterable {
 
     case alien_entrance
     case explosion
-    case level_up
-    case collect_treasure
-    case congratulations
-    case feel
-    case launch_torpedo
-    case flipping
-    case got_points
-    case hud
     case hyperspace
-    case left_right
-    case nice_turning
-    case no_points
+    case launch_torpedo
+    case level_up
     case powerup
     case powerup_appearance
     case shield_hit
-    case these_are_the_powerups
-    case this_is_an_asteroid
-    case this_is_your_ship
     case thrust
     case toggle
     case treasure
     case treasure_special
     case treasure_standard
-    case try_firing
-    case try_hyperspace
-    case try_thrust
-    case way_to_flip
-    case welcome
+    // Tutorial-only sounds
+    case tut_collect_treasure
+    case tut_congratulations
+    case tut_feel_the_roar
+    case tut_flipping
+    case tut_got_points
+    case tut_this_is_your_hud
+    case tut_left_right
+    case tut_nice_turning
+    case tut_no_points
+    case tut_these_are_the_powerups
+    case tut_this_is_an_asteroid
+    case tut_this_is_your_ship
+    case tut_try_firing
+    case tut_try_hyperspace
+    case tut_try_thrust
+    case tut_way_to_flip
+    case tut_welcome
     var fileName: AudioFileName {
         switch self {
             case .alien_entrance: return "alien_entrance.wav"
             case .explosion: return "explosion.wav"
-            case .level_up: return "level_up.wav"
-            case .collect_treasure: return "collect_treasure.mp3"
-            case .congratulations: return "congratulations.mp3"
-            case .feel: return "feel.mp3"
-            case .launch_torpedo: return "launch_torpedo.wav"
-            case .flipping: return "flipping.mp3"
-            case .got_points: return "got_points.mp3"
-            case .hud: return "hud.mp3"
             case .hyperspace: return "hyperspace.wav"
-            case .left_right: return "left_right.mp3"
-            case .nice_turning: return "nice_turning.mp3"
-            case .no_points: return "no_points.mp3"
+            case .launch_torpedo: return "launch_torpedo.wav"
+            case .level_up: return "level_up.wav"
             case .powerup: return "powerup.wav"
             case .powerup_appearance: return "powerup_appearance.wav"
             case .shield_hit: return "shield_hit.mp3"
-            case .these_are_the_powerups: return "these_are_the_powerups.mp3"
-            case .this_is_an_asteroid: return "this_is_an_asteroid.mp3"
-            case .this_is_your_ship: return "this_is_your_ship.mp3"
             case .thrust: return "thrust.wav"
             case .toggle: return "toggle.wav"
             case .treasure: return "treasure.wav"
             case .treasure_special: return "treasure_special.wav"
             case .treasure_standard: return "treasure_standard.wav"
-            case .try_firing: return "try_firing.mp3"
-            case .try_hyperspace: return "try_hyperspace.mp3"
-            case .try_thrust: return "try_thrust.mp3"
-            case .way_to_flip: return "way_to_flip.mp3"
-            case .welcome: return "welcome.mp3"
+            case .tut_collect_treasure: return "tut_collect_treasure.mp3"
+            case .tut_congratulations: return "tut_congratulations.mp3"
+            case .tut_feel_the_roar: return "tut_feel_the_roar.mp3"
+            case .tut_flipping: return "tut_flipping.mp3"
+            case .tut_got_points: return "tut_got_points.mp3"
+            case .tut_this_is_your_hud: return "tut_this_is_your_hud.mp3"
+            case .tut_left_right: return "tut_left_right.mp3"
+            case .tut_nice_turning: return "tut_nice_turning.mp3"
+            case .tut_no_points: return "tut_no_points.mp3"
+            case .tut_these_are_the_powerups: return "tut_these_are_the_powerups.mp3"
+            case .tut_this_is_an_asteroid: return "tut_this_is_an_asteroid.mp3"
+            case .tut_this_is_your_ship: return "tut_this_is_your_ship.mp3"
+            case .tut_try_firing: return "tut_try_firing.mp3"
+            case .tut_try_hyperspace: return "tut_try_hyperspace.mp3"
+            case .tut_try_thrust: return "tut_try_thrust.mp3"
+            case .tut_way_to_flip: return "tut_way_to_flip.mp3"
+            case .tut_welcome: return "tut_welcome.mp3"
         }
     }
 }

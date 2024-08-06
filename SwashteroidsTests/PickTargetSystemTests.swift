@@ -165,7 +165,6 @@ class PickTargetSystemTests: XCTestCase {
             (cast: .soldier, node: AsteroidCollisionNode.self),
             (cast: .worker, node: AlienWorkerTargetNode.self)
         ] {
-            print("\n--\(#function) \(data.cast)--------")
             // ARRANGE
             let alien = Entity()
                     .add(component: AlienComponent(cast: data.cast, scaleManager: ScaleManager.shared))
@@ -191,7 +190,6 @@ class PickTargetSystemTests: XCTestCase {
     }
 
     func test_pickTarget_workerChoosesPlayer() {
-        print("\n--\(#function)--------")
         // ARRANGE
         let alien = Entity()
                 .add(component: AlienComponent(cast: .worker, scaleManager: ScaleManager.shared))

@@ -313,7 +313,7 @@ final class GamepadManager: NSObject, ObservableObject, GameStateObserver {
     private func setupDefaultHandlers(pad: GCExtendedGamepad) {
         pad.allButtons.forEach { button in
             button.pressedChangedHandler = { _, _, _ in
-                print("Default handler for \(button.localizedName!)")
+                print("DEFAULT HANDLER FOR \(button.localizedName!)")
             }
         }
     }

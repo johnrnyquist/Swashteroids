@@ -65,7 +65,7 @@ final class GameViewController: UIViewController, PauseAlertPresenting {
 
     private func swashteroids_create(scene: GameScene) -> Swashteroids {
         let seed = Int(Date().timeIntervalSince1970)
-        print("seed", seed)
+        print("SEED", seed)
         var config = GameConfig(gameSize: scene.size)
         if let _ = gamepadManager?.pad {
             config.shipControlsState = .usingGamepad
@@ -221,4 +221,3 @@ extension Swashteroids: SKPhysicsContactDelegate {
     func didEnd(_ contact: SKPhysicsContact) {
     }
 }
-

@@ -76,7 +76,6 @@ final class PickTargetSystem: ListIteratingSystem {
                     excludedEntityNames = engine.findComponents(componentClass: MoveToTargetComponent.self)
                                                 .map(\.targetedEntityName)
                                                 .filter { $0 != currentTarget }
-                    print("excludedEntityNames: \(excludedEntityNames)")
                 } else {
                     excludedEntityNames = []
                 }
@@ -86,11 +85,9 @@ final class PickTargetSystem: ListIteratingSystem {
                                                           node: targetableNodes?.head,
                                                           excludingEntities: excludedEntityNames) {
                     updateMoveToTarget(entity: entity, targetedEntity: targetedEntity)
-                    print("targetedEntity: \(targetedEntity.name)")
                 } else if let shipEntity = playerNodes.head?.entity,
                           !shipEntity.has(componentClass: DeathThroesComponent.self) {
                     updateMoveToTarget(entity: entity, targetedEntity: shipEntity)
-                    print("targeting: shipEntity: \(shipEntity.name)")
                 } else {
                     // Nothing to target, exit screen
                     position.rotationRadians = alienComponent.destinationEnd.x > 0 ? 0 : CGFloat.pi
@@ -99,7 +96,6 @@ final class PickTargetSystem: ListIteratingSystem {
                     entity.remove(componentClass: GunComponent.self)
                     entity.remove(componentClass: MoveToTargetComponent.self)
                     entity.add(component: ExitScreenComponent())
-                    print("Nothing to target, exiting screen")
                 }
         }
     }
