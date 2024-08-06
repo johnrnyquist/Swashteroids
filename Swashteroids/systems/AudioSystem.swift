@@ -21,7 +21,7 @@ final class AudioSystem: ListIteratingSystem {
     func updateNode(node: Node, time: TimeInterval) {
         guard let audioComponent = node[AudioComponent.self]
         else { return }
-        Sound.play(file: audioComponent.fileName)
+        Sound.play(file: audioComponent.asset.fileName)
         node.entity?.remove(componentClass: AudioComponent.self)
     }
 }

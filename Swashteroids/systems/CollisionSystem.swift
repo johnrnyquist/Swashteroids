@@ -89,7 +89,7 @@ class CollisionSystem: System {
            shieldComponent.curStrength > 0 {
             shieldComponent.curStrength -= 1
             engine.appStateEntity
-                .add(component: AudioComponent(name: "shield_hit.mp3", fileName: "shield_hit.mp3"))
+                  .add(component: AudioComponent(asset: .shield_hit))
             if shieldComponent.curStrength == 0 {
                 engine.remove(entity: shields.entity!)
             }
@@ -97,7 +97,6 @@ class CollisionSystem: System {
     }
 
     func shieldsAndAliens(shields: Node, aliens: Node) {
-        engine.remove(entity: shields.entity!)
         appStateNodes.head?[GameStateComponent.self]?.numAliensDestroyed += 1
         guard let alien = aliens.entity else { return }
         playerCreator.destroy(entity: alien)
@@ -142,7 +141,7 @@ class CollisionSystem: System {
                                              ownerType: .player,
                                              ownerName: player.name,
                                              numTorpedoes: 20))
-                .add(component: AudioComponent(name: "powerup.wav", fileName: .powerUp))
+                .add(component: AudioComponent(asset: .powerup))
         shipButtonControlsCreator.showFireButton()
     }
 
@@ -152,7 +151,7 @@ class CollisionSystem: System {
         player.remove(componentClass: HyperspaceDriveComponent.self) //HACK to prevent having one in the chamber
         player
                 .add(component: HyperspaceDriveComponent(jumps: 5))
-                .add(component: AudioComponent(name: "powerup.wav", fileName: .powerUp))
+                .add(component: AudioComponent(asset: .powerup))
         shipButtonControlsCreator.showHyperspaceButton()
     }
 
@@ -160,7 +159,7 @@ class CollisionSystem: System {
         engine.remove(entity: bridge.entity!)
         guard let player = playerNode.entity else { return }
         player
-                .add(component: AudioComponent(name: "levelUp", fileName: .levelUpSound))
+                .add(component: AudioComponent(asset: .level_up))
                 .add(component: StartNewGameComponent())
     }
 
@@ -169,7 +168,7 @@ class CollisionSystem: System {
         guard let player = playerNode.entity else { return }
         player
                 .add(component: XRayVisionComponent())
-                .add(component: AudioComponent(name: "powerup.wav", fileName: .powerUp))
+                .add(component: AudioComponent(asset: .powerup))
     }
 
     func playerAndShieldsPowerUp(playerNode: Node, shieldsPowerUp: Node) {
@@ -180,7 +179,7 @@ class CollisionSystem: System {
               let playerSprite = player[DisplayComponent.self]?.sprite
         else { return }
         player
-                .add(component: AudioComponent(name: "powerup.wav", fileName: .powerUp))
+                .add(component: AudioComponent(asset: .powerup))
         let spriteNode = SwashSpriteNode(imageNamed: "circle.dotted.circle")
         spriteNode.color = .shields
         spriteNode.colorBlendFactor = 1.0
@@ -271,9 +270,9 @@ class CollisionSystem: System {
             appState.score += type.value
             switch type {
                 case .standard:
-                    ship.add(component: AudioComponent(name: "treasure", fileName: .treasureStandard))
+                    ship.add(component: AudioComponent(asset: .treasure_standard))
                 case .special:
-                    ship.add(component: AudioComponent(name: "treasure", fileName: .treasureSpecial))
+                    ship.add(component: AudioComponent(asset: .treasure_special))
             }
         }
     }

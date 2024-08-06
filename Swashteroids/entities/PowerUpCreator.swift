@@ -182,7 +182,7 @@ final class PowerUpCreator: PowerUpCreatorUseCase {
         let waitToMake = SKAction.wait(forDuration: randomness.nextDouble(from: 4.0, through: 6.0))
         let action = SKAction.run {
             entity
-                    .add(component: AudioComponent(name: "newPowerUp", fileName: .powerUpAppearance))
+                    .add(component: AudioComponent(asset: .powerup_appearance))
                     .add(component: CollidableComponent(radius: type.radius))
             switch type {
                 case .torpedoes:

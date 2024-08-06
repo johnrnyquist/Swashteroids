@@ -12,12 +12,10 @@ import SpriteKit
 import Swash
 
 final class AudioComponent: Component {
-    let name: String
-    let fileName: String
+    let asset: AudioAsset
 
-    init(name: String, fileName: SoundFileName) {
-        self.name = name
-        self.fileName = fileName
+    init(asset: AudioAsset) {
+        self.asset = asset
         super.init()
     }
 }

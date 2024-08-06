@@ -65,7 +65,7 @@ final class PlayerCreator: PlayerCreatorUseCase {
                 .add(component: MovementRateComponent(accelerationRate: 90, rotationRate: 100))
                 .add(component: AccelerometerComponent.shared)
                 .add(component: ChangeShipControlsStateComponent(to: state.shipControlsState))
-                .add(component: RepeatingAudioComponent(name: "thrust", fileName: .thrust))
+                .add(component: RepeatingAudioComponent(asset: .thrust))
                 .add(component: AlienCanShootComponent.shared)
                 .add(component: AlienWorkerTargetComponent.shared)
         switch state.shipControlsState {
@@ -116,7 +116,7 @@ final class PlayerCreator: PlayerCreatorUseCase {
         entity
                 .add(component: DisplayComponent(sknode: spriteNode))
                 .add(component: DeathThroesComponent(countdown: 3.0))
-                .add(component: AudioComponent(name: "shipExplosion", fileName: .explosion))
+                .add(component: AudioComponent(asset: .explosion))
     }
 
     func screenFlashRed() {

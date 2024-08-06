@@ -73,7 +73,7 @@ final class SplitAsteroidSystem: ListIteratingSystem {
             skNode.name = "explosion on \(asteroidEntity.name)"
             skNode.addChild(emitter)
             asteroidEntity
-                    .add(component: AudioComponent(name: asteroidEntity.name, fileName: .explosion))
+                    .add(component: AudioComponent(asset: .explosion))
                     .add(component: DisplayComponent(sknode: skNode))
                     .add(component: DeathThroesComponent(countdown: 0.2))
         }

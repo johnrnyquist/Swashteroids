@@ -31,6 +31,7 @@ final class GameViewController: UIViewController, PauseAlertPresenting {
         super.loadView()
         skView = SKView()
         view = skView
+        AudioAsset.validateAudioFilesExist()
     }
 
     override func viewDidLoad() {

@@ -19,7 +19,7 @@ final class AudioSystemTests: XCTestCase {
     var component: AudioComponent!
 
     override func setUpWithError() throws {
-        component = AudioComponent(name: "bar", fileName: .thrust)
+        component = AudioComponent(asset: .thrust)
         node = AudioNode()
         node.components[AudioComponent.name] = component
         system = AudioSystem()

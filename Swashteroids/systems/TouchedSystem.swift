@@ -151,7 +151,7 @@ final class TouchedButtonSystem: ListIteratingSystem {
                     let toState: ShipControlsState = toggleState == .on ? .usingAccelerometer : .usingScreenControls
                     engine.gameStateComponent.shipControlsState = toState //HACK remove? Add TransitionAppStateComponent?
                     engine.hud?.add(component: ChangeShipControlsStateComponent(to: toState))
-                    engine.hud?.add(component: AudioComponent(name: "toggle\(toggleState.rawValue)", fileName: .toggle))
+                    engine.hud?.add(component: AudioComponent(asset: .toggle))
                 }
             case .ended, .cancelled:
                 if buttonEntity.has(componentClass: ButtonThrustComponent.self) {

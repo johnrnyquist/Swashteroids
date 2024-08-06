@@ -177,7 +177,7 @@
 		9313943DDCC0A5507A83366B /* GameOverSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139DC1597F3F8E4CCB80FE /* GameOverSystem.swift */; };
 		9313945BF406DE5979CDEA51 /* Randomness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313959F4B35EA9D7843BD7A /* Randomness.swift */; };
 		931394AC921BF3C3D7CABD13 /* FiringSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139DE76BF1939914D55E38 /* FiringSystemTests.swift */; };
-		93139529F3CFB174F3C6FFFD /* String+SoundFileName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931390FEE1AF3B1E3FE97CC0 /* String+SoundFileName.swift */; };
+		93139529F3CFB174F3C6FFFD /* AudioAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931390FEE1AF3B1E3FE97CC0 /* AudioAsset.swift */; };
 		9313953EA0F8B372247B5B83 /* Sequence+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931397A00F1CE63F6242C2F2 /* Sequence+extensions.swift */; };
 		93139562CC6BB542C42A3493 /* LeftNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139D029684C918FEDD3DC1 /* LeftNode.swift */; };
 		93139570309C2C458E38119C /* SplitAsteroidSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931391F6102BA3CDA3D121C7 /* SplitAsteroidSystem.swift */; };
@@ -435,7 +435,7 @@
 		931390BDEBA443104F781428 /* AudioSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioSystemTests.swift; sourceTree = "<group>"; };
 		931390C85278CB396AD27B7B /* LeftSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftSystemTests.swift; sourceTree = "<group>"; };
 		931390E7E012D44706CDE097 /* CreateXRayPowerUpSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateXRayPowerUpSystem.swift; sourceTree = "<group>"; };
-		931390FEE1AF3B1E3FE97CC0 /* String+SoundFileName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+SoundFileName.swift"; sourceTree = "<group>"; };
+		931390FEE1AF3B1E3FE97CC0 /* AudioAsset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioAsset.swift; sourceTree = "<group>"; };
 		93139118555F426578F535CA /* Transition+Tutorial.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Transition+Tutorial.swift"; sourceTree = "<group>"; };
 		931391B4D76B8FBFE80781AD /* StartScreenCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartScreenCreator.swift; sourceTree = "<group>"; };
 		931391F6102BA3CDA3D121C7 /* SplitAsteroidSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitAsteroidSystem.swift; sourceTree = "<group>"; };
@@ -942,7 +942,7 @@
 				8D714E2D2B3535DC009E1586 /* SKSpriteNode+extensions.swift */,
 				931394D1D0B636772EE1DFF7 /* String+EntityNames.swift */,
 				8D8F24B52B51D47700B2E223 /* UIColor+extensions.swift */,
-				931390FEE1AF3B1E3FE97CC0 /* String+SoundFileName.swift */,
+				931390FEE1AF3B1E3FE97CC0 /* AudioAsset.swift */,
 			);
 			name = extensions;
 			sourceTree = "<group>";
@@ -1126,7 +1126,7 @@
 			mainGroup = 8D23C1292B02C4C900F7D878;
 			packageReferences = (
 				8DDB04E82C376AE20029248B /* XCRemoteSwiftPackageReference "SwiftySound" */,
-				8D1C1DCE2C404DEA005137DE /* XCLocalSwiftPackageReference "../../Swash_Swift_Package/Swash" */,
+				8D1C1DCE2C404DEA005137DE /* XCLocalSwiftPackageReference */,
 			);
 			productRefGroup = 8D23C1332B02C4CA00F7D878 /* Products */;
 			projectDirPath = "";
@@ -1387,7 +1387,7 @@
 				93139A47A19BA778268A7D5A /* StartNewGameSystem.swift in Sources */,
 				9313963FAE95415F29615984 /* ShipCreationSystem.swift in Sources */,
 				931390A5E2BD15CDAA95200C /* GameOverCheckSystem.swift in Sources */,
-				93139529F3CFB174F3C6FFFD /* String+SoundFileName.swift in Sources */,
+				93139529F3CFB174F3C6FFFD /* AudioAsset.swift in Sources */,
 				93139E2F60C53E645077D657 /* TutorialSystem.swift in Sources */,
 				93139B9981B13D585FE4A87B /* TutorialMessageHandler.swift in Sources */,
 			);
@@ -1721,7 +1721,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		8D1C1DCE2C404DEA005137DE /* XCLocalSwiftPackageReference "../../Swash_Swift_Package/Swash" */ = {
+		8D1C1DCE2C404DEA005137DE /* XCLocalSwiftPackageReference */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../../Swash_Swift_Package/Swash;
 		};

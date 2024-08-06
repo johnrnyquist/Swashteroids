@@ -57,7 +57,7 @@ final class TorpedoCreator: TorpedoCreatorUseCase {
                 .add(component: torpedoPosition)
                 .add(component: torpedoVelocity)
                 .add(component: displayComponent)
-                .add(component: AudioComponent(name: name, fileName: .launchTorpedo))
+                .add(component: AudioComponent(asset: .launch_torpedo))
                 .add(component: CollidableComponent(radius: 0))
                 .add(component: torpedoComponent)
         sprite.swashEntity = torpedo

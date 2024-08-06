@@ -155,7 +155,8 @@ class TutorialSystem: ListIteratingSystem {
     private func handleWelcome(_ tutorialComponent: TutorialComponent) {
         guard tutorialComponent.completionStatus[.welcome] == .notStarted else { return }
         tutorialComponent.completionStatus[.welcome] = .completed
-        node?.entity?.add(component: AudioComponent(name: "welcome.mp3", fileName: "welcome.mp3"))
+        node?.entity?
+             .add(component: AudioComponent(asset: .welcome))
         message?(text: """
                        Welcome aboard, Captain!
                        Here you’ll learn to mine asteroids for treasures!
@@ -167,7 +168,8 @@ class TutorialSystem: ListIteratingSystem {
     private func handleThisIsYourShip(_ tutorialComponent: TutorialComponent) {
         guard tutorialComponent.completionStatus[.thisIsYourShip] == .notStarted else { return }
         tutorialComponent.completionStatus[.thisIsYourShip] = .completed
-        node?.entity?.add(component: AudioComponent(name: "this_is_your_ship.mp3", fileName: "this_is_your_ship.mp3"))
+        node?.entity?
+             .add(component: AudioComponent(asset: .this_is_your_ship))
         message?(text: """
                        This is your ship:
                        The USS Swashbuckler!
@@ -183,7 +185,8 @@ class TutorialSystem: ListIteratingSystem {
         guard tutorialComponent.completionStatus[.thrusting1] == .notStarted else { return }
         tutorialComponent.completionStatus[.thrusting1] = .completed
         shipButtonControlsCreator?.createThrustButton()
-        node?.entity?.add(component: AudioComponent(name: "try_thrust.mp3", fileName: "try_thrust.mp3"))
+        node?.entity?
+             .add(component: AudioComponent(asset: .try_thrust))
         message?(text: "Try pressing and holding the thrust button to increase your speed.") {
             tutorialComponent.state = .thrusting2
         }
@@ -195,7 +198,7 @@ class TutorialSystem: ListIteratingSystem {
               playerPositionX > gameSize.halfWidth + gameSize.width / 5.0 || playerPositionX < gameSize.halfWidth
         else { return }
         tutorialComponent.completionStatus[.thrusting2] = .completed
-        node?.entity?.add(component: AudioComponent(name: "feel.mp3", fileName: "feel.mp3"))
+        node?.entity?.add(component: AudioComponent(asset: .feel))
         message?(text: "Feel the roar of the engines!") {
             tutorialComponent.state = .flipping1
         }
@@ -205,7 +208,8 @@ class TutorialSystem: ListIteratingSystem {
         guard tutorialComponent.completionStatus[.flipping1] == .notStarted else { return }
         tutorialComponent.completionStatus[.flipping1] = .completed
         systemsManager?.configureTutorialTurning()
-        node?.entity?.add(component: AudioComponent(name: "flipping.mp3", fileName: "flipping.mp3"))
+        node?.entity?
+             .add(component: AudioComponent(asset: .flipping))
         message?(text: """
                        The Flip button flips your ship 180 degrees.
                        Try flipping your ship.
@@ -222,7 +226,8 @@ class TutorialSystem: ListIteratingSystem {
               flipCount > 0
         else { return }
         tutorialComponent.completionStatus[.flipping2] = .completed
-        node?.entity?.add(component: AudioComponent(name: "way_to_flip.mp3", fileName: "way_to_flip.mp3"))
+        node?.entity?
+             .add(component: AudioComponent(asset: .way_to_flip))
         message?(text: "Way to flip a ship!", wait2: 1) {
             tutorialComponent.state = .turning1
         }
@@ -234,7 +239,8 @@ class TutorialSystem: ListIteratingSystem {
         systemsManager?.configureTutorialTurning()
         shipButtonControlsCreator?.createLeftButton()
         shipButtonControlsCreator?.createRightButton()
-        node?.entity?.add(component: AudioComponent(name: "left_right.mp3", fileName: "left_right.mp3"))
+        node?.entity?
+             .add(component: AudioComponent(asset: .left_right))
         message?(text: "Now try turning with the left and right buttons.") {
             tutorialComponent.state = .turning2
         }
@@ -250,7 +256,8 @@ class TutorialSystem: ListIteratingSystem {
               rightCount > 0
         else { return }
         tutorialComponent.completionStatus[.turning2] = .completed
-        node?.entity?.add(component: AudioComponent(name: "nice_turning.mp3", fileName: "nice_turning.mp3"))
+        node?.entity?
+             .add(component: AudioComponent(asset: .nice_turning))
         message?(text: "Nice turning!") {
             tutorialComponent.state = .hud
         }
@@ -261,7 +268,7 @@ class TutorialSystem: ListIteratingSystem {
         tutorialComponent.completionStatus[.hud] = .completed
         systemsManager?.configureTutorialHUD()
         engine.findEntity(named: .hud)?.flash(3, endAlpha: 1.0)
-        node?.entity?.add(component: AudioComponent(name: "hud.mp3", fileName: "hud.mp3"))
+        node?.entity?.add(component: AudioComponent(asset: .hud))
         message?(text: "The HUD shows your remaining ships, score, and level.") {
             tutorialComponent.state = .powerups1
         }
@@ -273,7 +280,7 @@ class TutorialSystem: ListIteratingSystem {
         shipButtonControlsCreator?.createFireButton()
         shipButtonControlsCreator?.createHyperspaceButton()
         node?.entity?
-             .add(component: AudioComponent(name: "these_are_the_powerups.mp3", fileName: "these_are_the_powerups.mp3"))
+             .add(component: AudioComponent(asset: .these_are_the_powerups))
         message?(text: """
                        These are power-ups for torpedoes and hyperspace jumps.
                        They'll appear soon after you run out.
@@ -317,7 +324,8 @@ class TutorialSystem: ListIteratingSystem {
     private func handleTryFiring1(_ tutorialComponent: TutorialComponent) {
         guard tutorialComponent.completionStatus[.tryFiring1] == .notStarted else { return }
         tutorialComponent.completionStatus[.tryFiring1] = .completed
-        node?.entity?.add(component: AudioComponent(name: "try_firing.mp3", fileName: "try_firing.mp3"))
+        node?.entity?
+             .add(component: AudioComponent(asset: .try_firing))
         message?(text: "Try firing a torpedo!") {
             tutorialComponent.state = .tryFiring2
         }
@@ -334,7 +342,8 @@ class TutorialSystem: ListIteratingSystem {
     private func handleTryHyperspace1(_ tutorialComponent: TutorialComponent) {
         guard tutorialComponent.completionStatus[.tryHyperspace1] == .notStarted else { return }
         tutorialComponent.completionStatus[.tryHyperspace1] = .completed
-        node?.entity?.add(component: AudioComponent(name: "try_hyperspace.mp3", fileName: "try_hyperspace.mp3"))
+        node?.entity?
+             .add(component: AudioComponent(asset: .try_hyperspace))
         message?(text: "Try a hyperspace jump!") {
             tutorialComponent.state = .tryHyperspace2
         }
@@ -360,7 +369,7 @@ class TutorialSystem: ListIteratingSystem {
                                                        treasureCreator: treasureCreator!), priority: .update)
                 engine.add(system: DeathThroesSystem(), priority: .update)
                 node?.entity?
-                     .add(component: AudioComponent(name: "this_is_an_asteroid.mp3", fileName: "this_is_an_asteroid.mp3"))
+                     .add(component: AudioComponent(asset: .this_is_an_asteroid))
                 message?(text: """
                                This is an asteroid.
                                Your job is to mine treasures by shooting them.
@@ -386,13 +395,15 @@ class TutorialSystem: ListIteratingSystem {
                 // asteroid has been destroyed in some manner
                 let player = engine.findEntity(named: .player)
                 if player == nil || player!.has(componentClass: DeathThroesComponent.self) {
-                    node?.entity?.add(component: AudioComponent(name: "no_points.mp3", fileName: "no_points.mp3"))
+                    node?.entity?
+                         .add(component: AudioComponent(asset: .no_points))
                     message?(text: "You don't get points for destroying an asteroid that way!") { [unowned self] in
                         tutorialComponent.state = .treasure1
                         playerCreator?.createPlayer(engine.gameStateComponent)
                     }
                 } else {
-                    node?.entity?.add(component: AudioComponent(name: "got_points.mp3", fileName: "got_points.mp3"))
+                    node?.entity?
+                         .add(component: AudioComponent(asset: .got_points))
                     message?(text: "You just got some points!", wait1: 0, fade: 0, wait2: 2) {
                         tutorialComponent.state = .treasure1
                     }
@@ -404,7 +415,8 @@ class TutorialSystem: ListIteratingSystem {
     private func handleTreasure1(_ tutorialComponent: TutorialComponent) {
         guard tutorialComponent.completionStatus[.treasure1] == .notStarted else { return }
         tutorialComponent.completionStatus[.treasure1] = .completed
-        node?.entity?.add(component: AudioComponent(name: "collect_treasure.mp3", fileName: "collect_treasure.mp3"))
+        node?.entity?
+             .add(component: AudioComponent(asset: .collect_treasure))
         message?(text: """
                        That asteroid had a treasure in it!
                        Fly into it to collect it.
@@ -422,7 +434,8 @@ class TutorialSystem: ListIteratingSystem {
     }
 
     private func handleComplete(_ tutorialComponent: TutorialComponent) {
-        node?.entity?.add(component: AudioComponent(name: "congratulations.mp3", fileName: "congratulations.mp3"))
+        node?.entity?
+             .add(component: AudioComponent(asset: .congratulations))
         message?(text: """
                        Congratulations! You’ve completed the training!
                        Enter the warp tunnel when you're ready to enter the asteroid field.
