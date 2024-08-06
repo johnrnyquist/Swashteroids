@@ -10,8 +10,8 @@
 
 import SpriteKit
 
-final class GameOverView: SwashScaledSpriteNode {
-    private var gameOver: SKLabelNode = {
+final class GameOverView: SwashSpriteNode {
+    private var gameOverLabel: SKLabelNode = {
         let gameOver = SKLabelNode(text: "Game Over")
         gameOver.name = "gameOverLabel"
         gameOver.fontName = "Badloc ICG"
@@ -21,29 +21,28 @@ final class GameOverView: SwashScaledSpriteNode {
         return gameOver
     }()
 
-
     init(gameSize: CGSize, hitPercent: Int, scaleManager: ScaleManaging = ScaleManager.shared) {
         super.init(texture: nil, color: .clear, size: gameSize)
-        let background = SKSpriteNode(color: .clear, size: gameSize)
-        background.name = "gameOverBackground"
-        addChild(background)
-        let container = SwashSpriteNode(color: .clear, size: gameSize)  
-        container.name = "gameOverBackground"
-        addChild(container)
-        name = "gameOverView"
-        container.addChild(gameOver)
-        gameOver.y = size.height / 3
+        gameOverLabel.y = gameSize.height / 3
         //
-        let swash = SKSpriteNode(imageNamed: "swash")
-        swash.name = "swash"
-        swash.anchorPoint = CGPoint(x: 0.5, y: 1)
-        swash.scale = scaleManager.SCALE_FACTOR == 1.0 ? 0.8 : 1.0
-        swash.alpha = 0.2
-        swash.color = .systemBlue
-        swash.colorBlendFactor = 0.2
-        swash.y = gameOver.y - 40
-        container.addChild(swash)
-        zPosition = .top
+        let background = SKSpriteNode(color: .black, size: gameSize)
+        background.alpha = 0.01
+        let scaledContainer = SwashScaledSpriteNode(color: .clear, size: gameSize)
+        //
+        let swashLogo = SKSpriteNode(imageNamed: "swash")
+        swashLogo.anchorPoint = CGPoint(x: 0.5, y: 1)
+        swashLogo.scale = scaleManager.SCALE_FACTOR == 1.0 ? 0.8 : 1.0
+        swashLogo.alpha = 0.2
+        swashLogo.color = .systemBlue
+        swashLogo.colorBlendFactor = 0.2
+        swashLogo.y = gameOverLabel.y - 40
+        //
+        addChild(background)
+        addChild(scaledContainer)
+        scaledContainer.addChild(gameOverLabel)
+        scaledContainer.addChild(swashLogo)
+        //
+        zPosition = .bottom
     }
 
     required init?(coder aDecoder: NSCoder) {

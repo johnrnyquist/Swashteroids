@@ -29,7 +29,6 @@ final class GameOverTransition: GameOverUseCase {
 
     func toGameOverScreen() {
         let gameOverView = GameOverView(gameSize: gameSize, hitPercent: engine.gameStateComponent.hitPercentage)
-        gameOverView.name = "gameOverView"
         let gameOverEntity = Entity(named: .gameOver)
                 .add(component: ButtonComponent())
                 .add(component: ButtonGameOverToHomeComponent())
@@ -37,8 +36,8 @@ final class GameOverTransition: GameOverUseCase {
                 .add(component: HapticFeedbackComponent.shared)
                 .add(component: GameOverComponent())
                 .add(component: DisplayComponent(sknode: gameOverView))
-                .add(component: PositionComponent(x: gameSize.width / 2,
-                                                  y: gameSize.height / 2,
+                .add(component: PositionComponent(x: gameSize.halfWidth,
+                                                  y: gameSize.halfHeight,
                                                   z: .gameOver,
                                                   rotationDegrees: 0))
                 .add(component: engine.gameStateComponent)
