@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SettingsView {
-    @ObservedObject var gamepadManager: GamepadInputManager
+    @ObservedObject var gamepadManager: GamepadManager
     @State private var curCommand: GameCommand? = nil
     @State private var currentAppState: GameScreen = .playing
     @State private var showAlert = false
@@ -115,7 +115,7 @@ extension SettingsView: View {
             }
             Spacer()
             Button("Reset to Defaults") {
-                gamepadManager.gameCommandToButtonName = GamepadInputManager.defaultMappings
+                gamepadManager.gameCommandToButtonName = GamepadManager.defaultMappings
             }
         }.padding()
     }

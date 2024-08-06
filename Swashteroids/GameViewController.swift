@@ -21,8 +21,8 @@ enum CurrentViewController {
 final class GameViewController: UIViewController, PauseAlertPresenting {
     private var skView: SKView?
     private var scene: GameScene!
-    private var game: Swashteroids!
-    private var gamepadManager: GamepadInputManager?
+    private var swashteroids: Swashteroids!
+    private var gamepadManager: GamepadManager?
     private var settingsViewController: UIHostingController<SettingsView>!
     /// Flag to prevent the game from starting when the app returns from background.
     var isAlertPresented = false
@@ -48,37 +48,22 @@ final class GameViewController: UIViewController, PauseAlertPresenting {
     }
 
     func startNewGame() {
-        scene = scene_create()
-        game = swashteroids_create()
+        scene = scene_create(size: UIScreen.main.bounds.size)
+        swashteroids = swashteroids_create(scene: scene)
         gamepadManager = gamepadManager_create()
         scene_present()
-        game?.start()
+        swashteroids?.start()
     }
 
-    private func gamepadManager_create() -> GamepadInputManager? {
-        if let gamepadManager,
-           let _ = gamepadManager.pad {
-            gamepadManager.controllerDidDisconnect()
-            gamepadManager.game = game
-            gamepadManager.controllerDidConnect()
-            return gamepadManager
-        } else {
-            gamepadManager = GamepadInputManager(game: game, size: scene.size)
-            return gamepadManager
-        }
-    }
-
-    private func scene_create() -> GameScene {
-        let screenSize = UIScreen.main.bounds
-        let gameScene = GameScene(size: screenSize.size)
+    private func scene_create(size: CGSize) -> GameScene {
+        let gameScene = GameScene(size: size)
         gameScene.anchorPoint = .zero
         gameScene.scaleMode = .aspectFit
         return gameScene
     }
 
-    private func swashteroids_create() -> Swashteroids {
+    private func swashteroids_create(scene: GameScene) -> Swashteroids {
         let seed = Int(Date().timeIntervalSince1970)
-        // seed 1720875684 // Starts with an empty, then splits to a red, then that splits with a green
         print("seed", seed)
         var config = GameConfig(gameSize: scene.size)
         if let _ = gamepadManager?.pad {
@@ -96,19 +81,32 @@ final class GameViewController: UIViewController, PauseAlertPresenting {
         return swashteroids
     }
 
+    private func gamepadManager_create() -> GamepadManager? {
+        if let gamepadManager,
+           let _ = gamepadManager.pad {
+            gamepadManager.controllerDidDisconnect()
+            gamepadManager.game = swashteroids
+            gamepadManager.controllerDidConnect()
+            return gamepadManager
+        } else {
+            gamepadManager = GamepadManager(game: swashteroids, size: scene.size)
+            return gamepadManager
+        }
+    }
+
     private func scene_present() {
         skView?.presentScene(scene)
     }
 
     //MARK: - AlertPresenting
     func showPauseAlert() {
-        guard let game else { fatalError("game is nil") }
-        game.stop()
-        if game.engine.gameStateComponent.gameScreen == .playing ||
-           game.engine.gameStateComponent.gameScreen == .gameOver ||
-           game.engine.gameStateComponent.gameScreen == .tutorial {
+        guard let swashteroids else { fatalError("game is nil") }
+        swashteroids.stop()
+        if swashteroids.engine.gameStateComponent.gameScreen == .playing ||
+           swashteroids.engine.gameStateComponent.gameScreen == .gameOver ||
+           swashteroids.engine.gameStateComponent.gameScreen == .tutorial {
             let alertView = PauseAlert(
-                appState: game.gameStateComponent,
+                appState: swashteroids.gameStateComponent,
                 home: home,
                 resume: resume,
                 showSettings: showSettings)
@@ -149,13 +147,13 @@ final class GameViewController: UIViewController, PauseAlertPresenting {
     func resume() {
         dismiss(animated: true, completion: { [unowned self] in
             isAlertPresented = false
-            game?.start()
+            swashteroids?.start()
         })
     }
 
     func appDidBecomeActive() {
         if isAlertPresented == false {
-            game?.start()
+            swashteroids?.start()
         }
     }
 
@@ -165,7 +163,7 @@ final class GameViewController: UIViewController, PauseAlertPresenting {
     }
 
     func printAllComponents() {
-        if let entities = game?.engine.entities {
+        if let entities = swashteroids?.engine.entities {
             for entity in entities {
                 print(entity.name)
                 for component in entity.components {

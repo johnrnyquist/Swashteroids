@@ -14,7 +14,7 @@ import CoreMotion
 
 final class Swashteroids: NSObject {
     //HACK: This is a hack to allow the gamepad to be used in the game. It is not a great solution.
-    func setGamepadInputManager(_ mgr: GamepadInputManager?) {
+    func setGamepadInputManager(_ mgr: GamepadManager?) {
         manager_systems.transitionAppStateSystem?.gamepadManager = mgr
         if let _ = mgr?.pad {
             usingGamepad()

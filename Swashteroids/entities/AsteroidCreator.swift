@@ -46,8 +46,7 @@ final class AsteroidCreator: AsteroidCreatorUseCase {
 //        sprite.physicsBody?.categoryBitMask = asteroidCategory
 //        sprite.physicsBody?.contactTestBitMask =  playerCategory | torpedoCategory
 //        sprite.physicsBody?.collisionBitMask = 0
-        let entity = Entity()
-        entity.name = .asteroid + "_\(totalAsteroids)"
+        let entity = Entity(named: .asteroid + "_\(totalAsteroids)")
         sprite.name = entity.name
         let lvl = Double(level > 0 ? level : 1)
         let speedModifier = lvl * 0.1 + 1.0  // 1.1, 1.2, 1.3, 1.4
