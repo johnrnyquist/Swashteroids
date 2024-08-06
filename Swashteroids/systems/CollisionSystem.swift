@@ -88,6 +88,8 @@ class CollisionSystem: System {
         if let shieldComponent = shields.entity?[ShieldComponent.self],
            shieldComponent.curStrength > 0 {
             shieldComponent.curStrength -= 1
+            engine.appStateEntity
+                .add(component: AudioComponent(name: "shield_hit.mp3", fileName: "shield_hit.mp3"))
             if shieldComponent.curStrength == 0 {
                 engine.remove(entity: shields.entity!)
             }

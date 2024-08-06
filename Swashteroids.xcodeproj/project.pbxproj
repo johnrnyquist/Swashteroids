@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8D0A0D322B4E01C0007E9898 /* AlienCollisionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0A0D312B4E01C0007E9898 /* AlienCollisionNode.swift */; };
 		8D0A0D342B4E08D4007E9898 /* alien_entrance.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D0A0D332B4E08D4007E9898 /* alien_entrance.wav */; };
+		8D0A9E9F2C62C00E0080517C /* shield_hit.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8D0A9E9E2C62C00E0080517C /* shield_hit.mp3 */; };
 		8D1925292C24B0F800A090F9 /* PickTargetSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1925282C24B0F800A090F9 /* PickTargetSystemTests.swift */; };
 		8D19252B2C26242E00A090F9 /* AlienFiringSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D19252A2C26242E00A090F9 /* AlienFiringSystemTests.swift */; };
 		8D1C1DD02C404DEA005137DE /* Swash in Frameworks */ = {isa = PBXBuildFile; productRef = 8D1C1DCF2C404DEA005137DE /* Swash */; };
@@ -291,6 +292,7 @@
 /* Begin PBXFileReference section */
 		8D0A0D312B4E01C0007E9898 /* AlienCollisionNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlienCollisionNode.swift; sourceTree = "<group>"; };
 		8D0A0D332B4E08D4007E9898 /* alien_entrance.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = alien_entrance.wav; sourceTree = "<group>"; };
+		8D0A9E9E2C62C00E0080517C /* shield_hit.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shield_hit.mp3; sourceTree = "<group>"; };
 		8D1925282C24B0F800A090F9 /* PickTargetSystemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickTargetSystemTests.swift; sourceTree = "<group>"; };
 		8D19252A2C26242E00A090F9 /* AlienFiringSystemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlienFiringSystemTests.swift; sourceTree = "<group>"; };
 		8D23C1322B02C4CA00F7D878 /* Swashteroids.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swashteroids.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -776,6 +778,7 @@
 		8D23C18C2B02C59D00F7D878 /* sounds */ = {
 			isa = PBXGroup;
 			children = (
+				8D0A9E9E2C62C00E0080517C /* shield_hit.mp3 */,
 				8D0A0D332B4E08D4007E9898 /* alien_entrance.wav */,
 				8D23C18F2B02C59D00F7D878 /* bang_large.wav */,
 				8D6D81542B1A562900AD8D18 /* braam-6150.wav */,
@@ -1153,6 +1156,7 @@
 				8D23C1C32B02C59D00F7D878 /* shipExplosion.sks in Resources */,
 				8D5E06BC2C5ABE350018A3D3 /* YourParticleFile.sks in Resources */,
 				8D8C95612C5C343B000380BA /* way_to_flip.mp3 in Resources */,
+				8D0A9E9F2C62C00E0080517C /* shield_hit.mp3 in Resources */,
 				8D6D81592B1A648400AD8D18 /* StartScene.sks in Resources */,
 				8D6D81572B1A5EC200AD8D18 /* NoButtonsInfo.sks in Resources */,
 				8D8C95722C5C3A6B000380BA /* collect_treasure.mp3 in Resources */,
