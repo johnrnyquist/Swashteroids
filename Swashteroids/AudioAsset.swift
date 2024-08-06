@@ -58,12 +58,12 @@ enum AudioAsset: String, CaseIterable {
     var fileName: AudioFileName {
         switch self {
             case .alien_entrance: return "alien_entrance.wav"
-            case .explosion: return "bang_large.wav"
-            case .level_up: return "braam-6150.wav"
+            case .explosion: return "explosion.wav"
+            case .level_up: return "level_up.wav"
             case .collect_treasure: return "collect_treasure.mp3"
             case .congratulations: return "congratulations.mp3"
             case .feel: return "feel.mp3"
-            case .launch_torpedo: return "fire.wav"
+            case .launch_torpedo: return "launch_torpedo.wav"
             case .flipping: return "flipping.mp3"
             case .got_points: return "got_points.mp3"
             case .hud: return "hud.mp3"
