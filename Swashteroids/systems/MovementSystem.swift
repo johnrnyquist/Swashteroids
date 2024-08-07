@@ -43,7 +43,7 @@ final class MovementSystem: ListIteratingSystem {
         position.rotationDegrees += velocity.angularVelocity * time
         if (velocity.dampening > 0) {
             let xDamp: Double = abs(cos(position.rotationDegrees) * velocity.dampening * time)
-            let yDamp: Double = abs(cos(position.rotationDegrees) * velocity.dampening * time)
+            let yDamp: Double = abs(sin(position.rotationDegrees) * velocity.dampening * time)
             if (velocity.linearVelocity.x > xDamp) {
                 velocity.linearVelocity.x -= xDamp
             } else if (velocity.linearVelocity.x < -xDamp) {
