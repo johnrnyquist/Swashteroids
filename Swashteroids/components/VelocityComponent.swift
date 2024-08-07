@@ -16,7 +16,7 @@ final class VelocityComponent: Component {
     var base: Double
     var dampening: Double
     var exitSpeed: Double
-    var linearVelocity = CGPoint()
+    var linearVelocity: CGPoint
     var wraps: Bool
     var x: Double {
         get { Double(linearVelocity.x) }

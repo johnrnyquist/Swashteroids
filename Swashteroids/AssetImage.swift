@@ -25,6 +25,10 @@ enum AssetImage: String, CaseIterable {
     }
 
     case alienSoldier
+    case alienSoldierLeftPiece
+    case alienSoldierRightPiece
+    case alienSoldierLeftDamaged
+    case alienSoldierBothDamaged
     case alienWorker
     case fireButton
     case flipButton
@@ -54,8 +58,8 @@ enum AssetImage: String, CaseIterable {
     var sprite: SKSpriteNode {
         SKSpriteNode(imageNamed: name)
     }
-    var swashSprite: SwashScaledSpriteNode {
-        SwashScaledSpriteNode(imageNamed: name)
+    var swashSprite: SwashSpriteNode {
+        SwashSpriteNode(imageNamed: name)
     }
     var swashScaledSprite: SwashScaledSpriteNode {
         SwashScaledSpriteNode(imageNamed: name)
@@ -63,6 +67,11 @@ enum AssetImage: String, CaseIterable {
     var name: String {
         switch self {
             case .alienSoldier: return "alienSoldier"
+            case .alienSoldierLeftPiece: return "alienSoldierLeftPiece"
+            case .alienSoldierRightPiece: return "alienSoldierRightPiece"
+            case .alienSoldierLeftDamaged: return "alienSoldierLeftBroke"
+            case .alienSoldierBothDamaged: return "alienSoldierBothBroke"
+
             case .alienWorker: return "alienWorker"
             case .fireButton: return "fireButton"
             case .flipButton: return "flipButton"

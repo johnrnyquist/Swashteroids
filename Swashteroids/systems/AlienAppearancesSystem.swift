@@ -12,8 +12,6 @@ import Foundation
 import Swash
 
 final class AlienAppearancesComponent: Component {
-//    var alienNextAppearance: TimeInterval = 0.0
-//    var alienAppearanceRateDefault: TimeInterval = 0.0
     static let shared = AlienAppearancesComponent()
 
     private override init() {}

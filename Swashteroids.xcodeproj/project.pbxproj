@@ -636,6 +636,8 @@
 				9313959F4B35EA9D7843BD7A /* Randomness.swift */,
 				93139DE0BD2F73AFFAEDE2DA /* ScaleManager.swift */,
 				93139406E9C8BCF53204C6FC /* TickProvider.swift */,
+				931390FEE1AF3B1E3FE97CC0 /* AssetAudio.swift */,
+				93139DBB358B9AFA7F53AB1C /* AssetImage.swift */,
 				8D688FBE2B068E2200056CD3 /* Info.plist */,
 				8D23C1892B02C59D00F7D878 /* entities */,
 				8D23C1642B02C59C00F7D878 /* components */,
@@ -950,8 +952,6 @@
 				8D714E2D2B3535DC009E1586 /* SKSpriteNode+extensions.swift */,
 				931394D1D0B636772EE1DFF7 /* String+EntityNames.swift */,
 				8D8F24B52B51D47700B2E223 /* UIColor+extensions.swift */,
-				931390FEE1AF3B1E3FE97CC0 /* AssetAudio.swift */,
-				93139DBB358B9AFA7F53AB1C /* AssetImage.swift */,
 			);
 			name = extensions;
 			sourceTree = "<group>";

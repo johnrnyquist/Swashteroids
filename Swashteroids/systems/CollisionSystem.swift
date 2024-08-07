@@ -11,6 +11,20 @@
 import SpriteKit
 import Swash
 
+enum Damage {
+    case light
+    case heavy
+}
+
+class DamagedComponent: Component {
+    var damage: Damage = .light
+
+    init(damage: Damage) {
+        self.damage = damage
+        super.init()
+    }
+}
+
 /// This class is an argument for switching to the SpriteKit physics engine.
 class CollisionSystem: System {
     private let asteroidCreator: AsteroidCreatorUseCase
@@ -225,11 +239,65 @@ class CollisionSystem: System {
         }
         if let torpedo = torpedoNode.entity { engine.remove(entity: torpedo) }
         if ve[PlayerComponent.self] != nil {
-            appStateNodes.head?[GameStateComponent.self]?.numShips -= 1
-        } else {
-            appStateNodes.head?[GameStateComponent.self]?.numAliensDestroyed += 1
+//            appStateNodes.head?[GameStateComponent.self]?.numShips -= 1
+//            playerCreator.destroy(entity: ve)
+        } else if ve[AlienComponent.self]?.cast == .soldier {
+            guard let damageComponent = ve[DamagedComponent.self] else {
+                // change DisplayComponent to show damage
+                ve.remove(componentClass: DisplayComponent.self)
+                ve.add(component: DisplayComponent(sknode: AssetImage.alienSoldierLeftDamaged.swashScaledSprite))
+                // change VelocityComponent to show damaged velocity
+                ve[VelocityComponent.self]?.base = ve[VelocityComponent.self]!.base / 2.0
+                // mark that entity is damaged
+                ve.add(component: DamagedComponent(damage: .light))
+                //
+                let pieceSprite = AssetImage.alienSoldierLeftPiece.swashScaledSprite
+                let fade = SKAction.fadeOut(withDuration: 3.0)
+                let emitter = SKEmitterNode(fileNamed: "shipExplosion.sks")!
+                emitter.setScale(0.35)
+                pieceSprite.addChild(emitter)
+                pieceSprite.run(fade)
+                let piece = Entity()
+                        .add(component: PositionComponent(x: ve[PositionComponent.self]!.point.x,
+                                                          y: ve[PositionComponent.self]!.point.y,
+                                                          z: .asteroids))
+                        .add(component: createVelocity(speedModifier: 1.0, level: 1))
+                        .add(component: DisplayComponent(sknode: pieceSprite))
+                        .add(component: LifetimeComponent(timeRemaining: 1.0))
+                        .add(component: AudioComponent(asset: .explosion))
+                engine.add(entity: piece)
+                //
+                return
+            }
+            if damageComponent.damage == .light {
+                damageComponent.damage = .heavy
+                // change DisplayComponent to show damage
+                ve.remove(componentClass: DisplayComponent.self)
+                ve.add(component: DisplayComponent(sknode: AssetImage.alienSoldierBothDamaged.swashScaledSprite))
+                // change VelocityComponent to show damaged velocity
+                ve[VelocityComponent.self]?.base = ve[VelocityComponent.self]!.base / 2.0
+                //
+                let pieceSprite = AssetImage.alienSoldierRightPiece.swashScaledSprite
+                let fade = SKAction.fadeOut(withDuration: 3.0)
+                let emitter = SKEmitterNode(fileNamed: "shipExplosion.sks")!
+                emitter.setScale(0.35)
+                pieceSprite.addChild(emitter)
+                pieceSprite.run(fade)
+                let piece = Entity()
+                        .add(component: PositionComponent(x: ve[PositionComponent.self]!.point.x,
+                                                          y: ve[PositionComponent.self]!.point.y,
+                                                          z: .asteroids))
+                        .add(component: createVelocity(speedModifier: 1.0, level: 1))
+                        .add(component: DisplayComponent(sknode: pieceSprite))
+                        .add(component: LifetimeComponent(timeRemaining: 1.0))
+                        .add(component: AudioComponent(asset: .explosion))
+                engine.add(entity: piece)
+                //
+            } else {
+                appStateNodes.head?[GameStateComponent.self]?.numAliensDestroyed += 1
+                playerCreator.destroy(entity: ve)
+            }
         }
-        playerCreator.destroy(entity: ve)
         //TODO: refactor the below
         if let gameStateNode = appStateNodes.head,
            let appStateComponent = gameStateNode[GameStateComponent.self],
