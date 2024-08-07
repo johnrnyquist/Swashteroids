@@ -12,7 +12,7 @@ import SpriteKit
 import Swash
 import SwiftySound
 
-final class AudioSystem: ListIteratingSystem {
+class AudioSystem: ListIteratingSystem {
     init() {
         super.init(nodeClass: AudioNode.self)
         nodeUpdateFunction = updateNode

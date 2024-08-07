@@ -13,18 +13,9 @@ import Swash
 @testable import Swashteroids
 
 final class MockAlienCreator: AlienCreatorUseCase {
-    func createAliens() {
-    }
-
     var createAliensCalled = false
 
-    func createAlienWorker(startDestination: CGPoint, endDestination: CGPoint) {
-    }
-
-    func createAlienSoldier(startDestination: CGPoint, endDestination: CGPoint) {
-    }
-
-    func createAliens(scene: GameScene) {
+    func createAliens() {
         createAliensCalled = true
     }
 }

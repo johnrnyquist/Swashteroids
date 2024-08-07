@@ -26,7 +26,7 @@ final class ExitScreenNode: Node {
     }
 }
 
-final class ExitScreenSystem: ListIteratingSystem {
+class ExitScreenSystem: ListIteratingSystem {
     var engine: Engine!
 
     init() {
@@ -40,8 +40,7 @@ final class ExitScreenSystem: ListIteratingSystem {
     }
 
     func updateNode(node: Node, time: TimeInterval) {
-        guard let _ = node[ExitScreenComponent.self],
-              let position = node[PositionComponent.self],
+        guard let position = node[PositionComponent.self],
               let alienComponent = node[AlienComponent.self],
               let entity = node.entity
         else { return }

@@ -104,6 +104,7 @@
 		8D6D81632B1AC52200AD8D18 /* toggle.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D6D81622B1AC52200AD8D18 /* toggle.wav */; };
 		8D70211B2B4EFEAE0032107A /* AlienCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D70211A2B4EFEAE0032107A /* AlienCreator.swift */; };
 		8D70211D2B4F1C960032107A /* Nodelist+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D70211C2B4F1C960032107A /* Nodelist+extensions.swift */; };
+		8D70E5D32C63B8B50041FAEB /* AlienAppearancesSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139A42FAE4FCE28244F835 /* AlienAppearancesSystemTests.swift */; };
 		8D714E2E2B3535DC009E1586 /* SKSpriteNode+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D714E2D2B3535DC009E1586 /* SKSpriteNode+extensions.swift */; };
 		8D71C0472B3603CF004D6D0C /* ScaleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139DE0BD2F73AFFAEDE2DA /* ScaleManager.swift */; };
 		8D88C4842B61D3FF00B75314 /* RandomnessTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D88C4832B61D3FF00B75314 /* RandomnessTests.swift */; };
@@ -198,6 +199,7 @@
 		931397107B66C99AB0E78548 /* UseCases_Creator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931392DF56F435244258EDD3 /* UseCases_Creator.swift */; };
 		931397331CB4B456762FBEE7 /* PickTargetNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139C76E92BDD6C851476EC /* PickTargetNode.swift */; };
 		9313973A5076963CC0C269A5 /* GamePadInputManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139397EA8AF9AD7F1837D4 /* GamePadInputManager.swift */; };
+		9313975AD196613E285DC1B4 /* ExitSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931399498DC3438747194F19 /* ExitSystemTests.swift */; };
 		9313980591ADC1AE59CE15CF /* MakeDecisionSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139298C85B9795950A5BA6 /* MakeDecisionSystemTests.swift */; };
 		93139837E8C25570F6134663 /* RepeatingAudioNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313961CB4F5B39D06FE5B0F /* RepeatingAudioNode.swift */; };
 		931398A1B70C60540B24F30B /* MockPowerUpCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139AACD0733A9656662B03 /* MockPowerUpCreator.swift */; };
@@ -492,6 +494,7 @@
 		931399149FA177C4CB383E33 /* GameOverCheckSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverCheckSystem.swift; sourceTree = "<group>"; };
 		93139921E04E8DBE2DF6800B /* SplitAsteroidUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitAsteroidUseCase.swift; sourceTree = "<group>"; };
 		93139927DCF5E5DC2AE98363 /* ReactionTimeNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReactionTimeNode.swift; sourceTree = "<group>"; };
+		931399498DC3438747194F19 /* ExitSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExitSystemTests.swift; sourceTree = "<group>"; };
 		93139949CD856130C98A8834 /* HudSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudSystemTests.swift; sourceTree = "<group>"; };
 		9313995C9360F53AD9D2BB65 /* AlienFiringNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlienFiringNode.swift; sourceTree = "<group>"; };
 		931399834CAB8241633CF6FE /* MakeDescisionNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeDescisionNode.swift; sourceTree = "<group>"; };
@@ -500,6 +503,7 @@
 		931399A8022AF1B7FCC53B49 /* RepeatingAudioComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatingAudioComponent.swift; sourceTree = "<group>"; };
 		931399EE25531368708F9E58 /* NacellesSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NacellesSystem.swift; sourceTree = "<group>"; };
 		931399F9256FB8B5F9EBA4E4 /* MovementSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovementSystemTests.swift; sourceTree = "<group>"; };
+		93139A42FAE4FCE28244F835 /* AlienAppearancesSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlienAppearancesSystemTests.swift; sourceTree = "<group>"; };
 		93139A5C099B78460F248810 /* Dictionary+extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+extensions.swift"; sourceTree = "<group>"; };
 		93139A62ACBE6CDFC10158E7 /* MovementRateComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovementRateComponent.swift; sourceTree = "<group>"; };
 		93139A6D529EF901F7F45FFD /* ShipCreationSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipCreationSystemTests.swift; sourceTree = "<group>"; };
@@ -868,6 +872,8 @@
 				8DB99F5A2B2C9B4500C3593A /* TransitionAppStateSystemTests.swift */,
 				93139D4336E12C89FC8BE06B /* TransitionTests.swift */,
 				93139FF5A772AFA6F84E441B /* ShieldSystemTests.swift */,
+				93139A42FAE4FCE28244F835 /* AlienAppearancesSystemTests.swift */,
+				931399498DC3438747194F19 /* ExitSystemTests.swift */,
 			);
 			path = SwashteroidsTests;
 			sourceTree = "<group>";
@@ -1411,6 +1417,7 @@
 				93139BC5661C918BD0158277 /* HyperspaceSystemTests.swift in Sources */,
 				8DB99F7B2B2E8BE400C3593A /* MovementSystemTests.swift in Sources */,
 				93139999C782AFD3B2ACD018 /* TransitionTests.swift in Sources */,
+				8D70E5D32C63B8B50041FAEB /* AlienAppearancesSystemTests.swift in Sources */,
 				8D512A992B41B47D00C30AC7 /* AccelerometerSystemTests.swift in Sources */,
 				931399BCC437F101AA0DA3CB /* HudSystemTests.swift in Sources */,
 				93139F65DD1FA0CE5A373FB0 /* LeftSystemTests.swift in Sources */,
@@ -1434,6 +1441,7 @@
 				93139FA4FA84A393896F7414 /* AlienCreatorUseCaseTests.swift in Sources */,
 				93139F067948B1148080FA8D /* MoveToTargetSystemTests.swift in Sources */,
 				9313980591ADC1AE59CE15CF /* MakeDecisionSystemTests.swift in Sources */,
+				9313975AD196613E285DC1B4 /* ExitSystemTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

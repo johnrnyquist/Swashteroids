@@ -11,11 +11,11 @@
 import Foundation
 import Swash
 
-
 final class AlienAppearancesComponent: Component {
 //    var alienNextAppearance: TimeInterval = 0.0
 //    var alienAppearanceRateDefault: TimeInterval = 0.0
     static let shared = AlienAppearancesComponent()
+
     private override init() {}
 }
 
@@ -29,7 +29,7 @@ final class AlienAppearancesNode: Node {
     }
 }
 
-final class AlienAppearancesSystem: ListIteratingSystem {
+class AlienAppearancesSystem: ListIteratingSystem {
     private weak var engine: Engine!
     private weak var alienCreator: AlienCreatorUseCase!
 
@@ -45,9 +45,8 @@ final class AlienAppearancesSystem: ListIteratingSystem {
     }
 
     func updateNode(node: Node, time: TimeInterval) {
-        guard
-            let appStateComponent = node[GameStateComponent.self],
-            appStateComponent.gameScreen == .playing
+        guard let appStateComponent = node[GameStateComponent.self],
+              appStateComponent.gameScreen == .playing
         else { return }
         appStateComponent.alienNextAppearance -= time
         if appStateComponent.alienNextAppearance <= 0 {

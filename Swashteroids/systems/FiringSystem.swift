@@ -12,7 +12,7 @@ import Foundation
 import Swash
 import SpriteKit
 
-final class FiringSystem: ListIteratingSystem {
+class FiringSystem: ListIteratingSystem {
     private weak var torpedoCreator: TorpedoCreatorUseCase?
     private weak var engine: Engine?
     
@@ -28,19 +28,19 @@ final class FiringSystem: ListIteratingSystem {
     }
     
     override public func removeFromEngine(engine: Engine) {
-        super.removeFromEngine(engine: engine)
         self.engine = nil
         torpedoCreator = nil
+        super.removeFromEngine(engine: engine)
     }
 
     func updateNode(node: Node, time: TimeInterval) {
         guard let velocity = node[VelocityComponent.self],
               let position = node[PositionComponent.self],
-              let gun = node[GunComponent.self],
-              let _ = node[FireDownComponent.self]
+              let gun = node[GunComponent.self]
         else { return }
         gun.timeSinceLastShot += time
-        guard gun.timeSinceLastShot >= gun.minimumShotInterval else { return }
+        guard gun.timeSinceLastShot >= gun.minimumShotInterval 
+        else { return }
         gun.timeSinceLastShot = 0
         node.entity?.remove(componentClass: FireDownComponent.self)
         let pos = PositionComponent(x: position.x, y: position.y, z: .asteroids, rotationDegrees: position.rotationDegrees)
