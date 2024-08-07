@@ -10,6 +10,7 @@
 
 import func Foundation.hypot
 import struct Foundation.CGPoint
+import struct Foundation.CGFloat
 
 extension CGPoint {
     static func +(left: CGPoint, right: CGPoint) -> CGPoint {
@@ -26,5 +27,10 @@ extension CGPoint {
 
     func distance(from other: CGPoint) -> Double {
         hypot(x - other.x, y - other.y)
+    }
+
+    // divide by scalar
+    static func /(left: CGPoint, right: CGFloat) -> CGPoint {
+        CGPoint(x: left.x / right, y: left.y / right)
     }
 }
