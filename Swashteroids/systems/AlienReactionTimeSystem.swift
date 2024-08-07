@@ -11,7 +11,7 @@
 import Foundation
 import Swash
 
-final class ReactionTimeSystem: ListIteratingSystem {
+final class AlienReactionTimeSystem: ListIteratingSystem {
     init() {
         super.init(nodeClass: ReactionTimeNode.self)
         nodeUpdateFunction = updateNode

@@ -208,7 +208,7 @@
 		931398C2D1DD1F1813892505 /* HudSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139A8C456EC20FE5A68E87 /* HudSystem.swift */; };
 		931398EB227B8ED76B3BCD5D /* TurnLeftSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313949E284EC7C41EFB7FD5 /* TurnLeftSystem.swift */; };
 		931398FFEAC38E75EF83728C /* TouchableNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139489970BEA17AF74C95E /* TouchableNode.swift */; };
-		931399014B035D5448AE2D4F /* ReactionTimeSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139A6E99AFA9F956DD8A0A /* ReactionTimeSystem.swift */; };
+		931399014B035D5448AE2D4F /* AlienReactionTimeSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139A6E99AFA9F956DD8A0A /* AlienReactionTimeSystem.swift */; };
 		93139909ADC0F687EEE55314 /* HyperspacePowerUpNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139A9A62746DE5FA459C2B /* HyperspacePowerUpNode.swift */; };
 		9313994EE65DC5F613776E1B /* PauseAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931392B2F2F0077756DDF207 /* PauseAlert.swift */; };
 		9313996AA764792E9B8670A5 /* FireDownComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931399840A8AC5987DF6D3D4 /* FireDownComponent.swift */; };
@@ -507,7 +507,7 @@
 		93139A5C099B78460F248810 /* Dictionary+extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+extensions.swift"; sourceTree = "<group>"; };
 		93139A62ACBE6CDFC10158E7 /* MovementRateComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovementRateComponent.swift; sourceTree = "<group>"; };
 		93139A6D529EF901F7F45FFD /* ShipCreationSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipCreationSystemTests.swift; sourceTree = "<group>"; };
-		93139A6E99AFA9F956DD8A0A /* ReactionTimeSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReactionTimeSystem.swift; sourceTree = "<group>"; };
+		93139A6E99AFA9F956DD8A0A /* AlienReactionTimeSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlienReactionTimeSystem.swift; sourceTree = "<group>"; };
 		93139A8C456EC20FE5A68E87 /* HudSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudSystem.swift; sourceTree = "<group>"; };
 		93139A97E15CCF640A73EC56 /* TorpedoCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TorpedoCreator.swift; sourceTree = "<group>"; };
 		93139A9A62746DE5FA459C2B /* HyperspacePowerUpNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HyperspacePowerUpNode.swift; sourceTree = "<group>"; };
@@ -1052,7 +1052,7 @@
 				931392EBF79FD204C1174E11 /* MakeDecisionSystem.swift */,
 				93139DCC274CF7D0D8BB365E /* MoveToTargetSystem.swift */,
 				9313984EED9DBB7390E4BFF1 /* PickTargetSystem.swift */,
-				93139A6E99AFA9F956DD8A0A /* ReactionTimeSystem.swift */,
+				93139A6E99AFA9F956DD8A0A /* AlienReactionTimeSystem.swift */,
 				9313948D41437D9630A7EE7E /* AlienAppearancesSystem.swift */,
 			);
 			name = list_iterating;
@@ -1335,7 +1335,7 @@
 				93139BEFEEFBB1E49B13DF7E /* Transition+Start.swift in Sources */,
 				9313939131825EF42A421FE2 /* UseCases_Transition.swift in Sources */,
 				931396B7DDF80F066196BA15 /* MakeDecisionSystem.swift in Sources */,
-				931399014B035D5448AE2D4F /* ReactionTimeSystem.swift in Sources */,
+				931399014B035D5448AE2D4F /* AlienReactionTimeSystem.swift in Sources */,
 				93139EB5B4D0B1D42C9BA6C2 /* PickTargetSystem.swift in Sources */,
 				931395AF8EBAE3884AD6D062 /* MoveToTargetSystem.swift in Sources */,
 				93139FAF58CEF5B89C66056B /* ExitScreenSystem.swift in Sources */,

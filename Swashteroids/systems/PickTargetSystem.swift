@@ -31,7 +31,8 @@ final class PickTargetSystem: ListIteratingSystem {
     }
 
     func updateNode(node: Node, time: TimeInterval) {
-        guard let entity = node.entity
+        guard let entity = node.entity,
+              !entity.has(componentClass: ExitScreenComponent.self) // Don't pick a target if the alien is exiting the screen
         else { return }
         entity.remove(componentClass: PickTargetComponent.self)
         pickTarget(entity: entity)
@@ -44,60 +45,63 @@ final class PickTargetSystem: ListIteratingSystem {
         else { return }
         switch alienComponent.cast {
             case .soldier:
-                // is there a ship and an asteroid?
-                if let shipEntity = playerNodes.head?.entity,
-                   !shipEntity.has(componentClass: DeathThroesComponent.self),
-                   let closestAsteroid = findClosestEntity(to: position.point, 
-                                                           node: asteroidNodes?.head) {
-                    // is ship closer than asteroid?
-                    let distanceToAsteroid = position.point.distance(from: closestAsteroid[PositionComponent.self]!.point)
-                    if distanceToAsteroid < alienComponent.maxTargetableRange / 1.5 {
-                        updateMoveToTarget(entity: entity, targetedEntity: closestAsteroid)
-                    } else {
-                        updateMoveToTarget(entity: entity, targetedEntity: shipEntity)
-                    }
-                } else if let shipEntity = playerNodes.head?.entity,
-                          !shipEntity.has(componentClass: DeathThroesComponent.self) {
-                    updateMoveToTarget(entity: entity, targetedEntity: shipEntity)
-                } else {
-                    // No ship, exit screen
-                    position.rotationRadians = alienComponent.destinationEnd.x > 0 ? 0 : CGFloat.pi
-                    velocity.linearVelocity = CGPoint(x: (alienComponent.destinationEnd
-                                                                        .x > 0 ? velocity.exitSpeed : -velocity.exitSpeed), y: 0)
-                    entity.remove(componentClass: GunComponent.self)
-                    entity.remove(componentClass: MoveToTargetComponent.self)
-                    entity.add(component: ExitScreenComponent())
-                }
+                handleSoldierTargeting(entity: entity, position: position, velocity: velocity, alienComponent: alienComponent)
             case .worker:
-                let excludedEntityNames: [String]
-                // does the alien already have a target?
-                if let currentTarget = entity.find(componentClass: MoveToTargetComponent.self)?.targetedEntityName {
-                    // I don't want to target something that another alien is already targeting
-                    excludedEntityNames = engine.findComponents(componentClass: MoveToTargetComponent.self)
-                                                .map(\.targetedEntityName)
-                                                .filter { $0 != currentTarget }
-                } else {
-                    excludedEntityNames = []
-                }
-                if let shipEntity = playerNodes.head?.entity,
-                   !shipEntity.has(componentClass: DeathThroesComponent.self),
-                   let targetedEntity = findClosestEntity(to: position.point,
-                                                          node: targetableNodes?.head,
-                                                          excludingEntities: excludedEntityNames) {
-                    updateMoveToTarget(entity: entity, targetedEntity: targetedEntity)
-                } else if let shipEntity = playerNodes.head?.entity,
-                          !shipEntity.has(componentClass: DeathThroesComponent.self) {
-                    updateMoveToTarget(entity: entity, targetedEntity: shipEntity)
-                } else {
-                    // Nothing to target, exit screen
-                    position.rotationRadians = alienComponent.destinationEnd.x > 0 ? 0 : CGFloat.pi
-                    velocity.linearVelocity = CGPoint(x: (alienComponent.destinationEnd
-                                                                        .x > 0 ? velocity.exitSpeed : -velocity.exitSpeed), y: 0)
-                    entity.remove(componentClass: GunComponent.self)
-                    entity.remove(componentClass: MoveToTargetComponent.self)
-                    entity.add(component: ExitScreenComponent())
-                }
+                handleWorkerTargeting(entity: entity, position: position, alienComponent: alienComponent)
         }
+    }
+
+    private func handleSoldierTargeting(entity: Entity, position: PositionComponent, velocity: VelocityComponent, alienComponent: AlienComponent) {
+        guard let player = playerNodes.head?.entity,
+              !player.has(componentClass: DeathThroesComponent.self) else {
+            exitScreen(position: position, velocity: velocity, alienComponent: alienComponent, entity: entity)
+            return
+        }
+        if let closestAsteroid = findClosestEntity(to: position.point, node: asteroidNodes?.head) {
+            let distanceToAsteroid = position.point.distance(from: closestAsteroid[PositionComponent.self]!.point)
+            if distanceToAsteroid < alienComponent.maxTargetableRange / 1.5 {
+                updateMoveToTarget(entity: entity, targetedEntity: closestAsteroid)
+                return
+            }
+        }
+        updateMoveToTarget(entity: entity, targetedEntity: player)
+    }
+
+    private func handleWorkerTargeting(entity: Entity, position: PositionComponent, alienComponent: AlienComponent) {
+        guard let player = playerNodes.head?.entity,
+              !player.has(componentClass: DeathThroesComponent.self) else {
+            exitScreen(position: position,
+                       velocity: entity[VelocityComponent.self]!,
+                       alienComponent: alienComponent,
+                       entity: entity)
+            return
+        }
+        let excludedEntityNames = getExcludedEntityNames(currentTarget: entity.find(componentClass: MoveToTargetComponent.self)?
+                                                                              .targetedEntityName)
+        if let targetedEntity = findClosestEntity(to: position.point,
+                                                  node: targetableNodes?.head,
+                                                  excludingEntities: excludedEntityNames) {
+            updateMoveToTarget(entity: entity, targetedEntity: targetedEntity)
+        } else {
+            updateMoveToTarget(entity: entity, targetedEntity: player)
+        }
+    }
+
+    private func getExcludedEntityNames(currentTarget: String?) -> [String] {
+        guard let currentTarget = currentTarget else { return [] }
+        return engine.findComponents(componentClass: MoveToTargetComponent.self)
+                     .map(\.targetedEntityName)
+                     .filter { $0 != currentTarget }
+    }
+
+    private func exitScreen(position: PositionComponent, velocity: VelocityComponent, alienComponent: AlienComponent, entity: Entity) {
+        position.rotationRadians = alienComponent.destinationEnd.x > 0 ? 0 : CGFloat.pi
+        velocity.angularVelocity = 0
+        velocity.linearVelocity = CGPoint(x: (alienComponent.destinationEnd.x > 0 ? velocity.exitSpeed : -velocity.exitSpeed),
+                                          y: 0)
+        entity.remove(componentClass: GunComponent.self)
+        entity.remove(componentClass: MoveToTargetComponent.self)
+        entity.add(component: ExitScreenComponent())
     }
 
     private func updateMoveToTarget(entity: Entity, targetedEntity: Entity) {
@@ -108,18 +112,9 @@ final class PickTargetSystem: ListIteratingSystem {
         }
     }
 
-    /// Find the entity closest to the given position.
-    /// Called from pickTarget(alienComponent:position:)
-    /// - Parameters:
-    ///   - position: The position to compare against.
-    ///   - node: The node to start the search from.
-    ///   - excludedEntityNames: An optional array of entity names to exclude from the search.
-    /// - Returns: The entity closest to the given position.
     func findClosestEntity(to position: CGPoint, node: Node?, excludingEntities excludedEntityNames: [String] = []) -> Entity? {
         guard let node = node else { return nil }
-        // Create a sequence of nodes starting from the given node
         let nodeSequence = sequence(first: node, next: { $0.next })
-        // Extract entities and their positions from the sequence of nodes
         let entitiesWithPositions = nodeSequence.compactMap { node -> (entity: Entity, position: CGPoint)? in
             guard let entity = node.entity,
                   let positionComponent = entity[PositionComponent.self],
@@ -128,7 +123,6 @@ final class PickTargetSystem: ListIteratingSystem {
             }
             return (entity: entity, position: positionComponent.point)
         }
-        // Find and return the entity that is closest to the given position
         return findClosestEntity(to: position, in: entitiesWithPositions)
     }
 
@@ -138,5 +132,3 @@ final class PickTargetSystem: ListIteratingSystem {
                                     .entity
     }
 }
-
-
