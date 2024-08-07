@@ -86,7 +86,7 @@ final class LevelManagementSystem: ListIteratingSystem {
                 .add(component: DoCreateShieldPowerUpComponent())
                 .add(component: AudioComponent(asset: .level_up))
         announceLevel(appStateComponent: appStateComponent)
-        createAsteroids(count: min(appStateComponent.level, 10),
+        createAsteroids(count: min(appStateComponent.level, 6),
                         avoiding: playerPosition.point,
                         level: appStateComponent.level)
     }

@@ -96,13 +96,15 @@ final class AsteroidCreator: AsteroidCreatorUseCase {
 }
 
 func createVelocity(speedModifier: Double, level: Int, randomness: Randomizing = Randomness.shared) -> VelocityComponent {
+    let max = 70.0
+    let min = 10.0
     var vx = 0.0
-    while abs(vx) < 10.0 {
-        vx = randomness.nextDouble(from: -82.0, through: 82.0) * speedModifier
+    while abs(vx) < min {
+        vx = randomness.nextDouble(from: -max, through: max) * speedModifier
     }
     var vy = 0.0
-    while abs(vy) < 10.0 {
-        vy = randomness.nextDouble(from: -82.0, through: 82.0) * speedModifier
+    while abs(vy) < min {
+        vy = randomness.nextDouble(from: -max, through: max) * speedModifier
     }
     let angularVelocity = randomness.nextDouble(from: -100, through: 100)
     return VelocityComponent(velocityX: vx,
