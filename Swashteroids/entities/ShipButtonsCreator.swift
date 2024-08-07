@@ -101,7 +101,7 @@ final class ShipButtonsCreator: ShipButtonCreatorUseCase {
     }
 
     func createThrustButton() {
-        let thrustSprite = SwashScaledSpriteNode(imageNamed: .thrustButton)
+        let thrustSprite = SwashScaledSpriteNode(imageNamed: ImageAsset.thrustButton.name)
         let thrustX = size.width - thrustSprite.size.width / 2 - buttonPaddingRight
         let thrustY = thrustSprite.size.height / 2 + firstRowButtonPaddingY
         createButtonEntity(sprite: thrustSprite,
@@ -116,7 +116,7 @@ final class ShipButtonsCreator: ShipButtonCreatorUseCase {
     }
 
     func createLeftButton() {
-        let leftSprite = SwashScaledSpriteNode(imageNamed: .leftButton)
+        let leftSprite = SwashScaledSpriteNode(imageNamed: ImageAsset.leftButton.name)
         let leftX = leftSprite.size.width / 2 + buttonPaddingLeft
         let leftY = leftSprite.size.height / 2 + firstRowButtonPaddingY
         createButtonEntity(sprite: leftSprite,
@@ -131,7 +131,7 @@ final class ShipButtonsCreator: ShipButtonCreatorUseCase {
     }
 
     func createRightButton() {
-        let rightSprite = SwashScaledSpriteNode(imageNamed: .rightButton)
+        let rightSprite = SwashScaledSpriteNode(imageNamed: ImageAsset.rightButton.name)
         let leftX = rightSprite.size.width / 2 + buttonPaddingLeft
         let rightX = rightSprite.size.width + buttonPadding + leftX
         let rightY = rightSprite.size.height / 2 + firstRowButtonPaddingY
@@ -147,7 +147,7 @@ final class ShipButtonsCreator: ShipButtonCreatorUseCase {
     }
 
     func createFlipButton() {
-        let flipSprite = SwashScaledSpriteNode(imageNamed: .flipButton)
+        let flipSprite = SwashScaledSpriteNode(imageNamed: ImageAsset.flipButton.name)
         let flipX = flipSprite.size.width / 2 + buttonPaddingLeft
         let flipY = flipSprite.size.height / 2 + firstRowButtonPaddingY + flipSprite.size.height + buttonPadding
         createButtonEntity(sprite: flipSprite,
@@ -162,7 +162,7 @@ final class ShipButtonsCreator: ShipButtonCreatorUseCase {
     }
 
     func createFireButton() {
-        let fireSprite = SwashScaledSpriteNode(imageNamed: .fireButton)
+        let fireSprite = SwashScaledSpriteNode(imageNamed: ImageAsset.fireButton.name)
         let thrustSprite = SwashScaledSpriteNode(imageNamed: .thrustButton)
         let thrustX = size.width - thrustSprite.size.width / 2 - buttonPaddingRight
         let fireX = -thrustSprite.size.width - buttonPadding + thrustX
@@ -182,7 +182,7 @@ final class ShipButtonsCreator: ShipButtonCreatorUseCase {
     }
 
     func createHyperspaceButton() {
-        let hyperspaceSprite = SwashScaledSpriteNode(imageNamed: .hyperspaceButton)
+        let hyperspaceSprite = SwashScaledSpriteNode(imageNamed: ImageAsset.hyperspaceButton.name)
         let thrustSprite = SwashScaledSpriteNode(imageNamed: .thrustButton)
         let thrustX = size.width - thrustSprite.size.width / 2 - buttonPaddingRight
         let hyperspaceX = thrustX
@@ -205,17 +205,17 @@ final class ShipButtonsCreator: ShipButtonCreatorUseCase {
 
     func createShipControlButtons() {
         // left
-        let leftSprite = SwashScaledSpriteNode(imageNamed: .leftButton)
+        let leftSprite = SwashScaledSpriteNode(imageNamed: ImageAsset.leftButton.name)
         let leftX = leftSprite.size.width / 2 + buttonPaddingLeft
         let leftY = leftSprite.size.height / 2 + firstRowButtonPaddingY
         createButtonEntity(sprite: leftSprite, color: .leftButton, position: CGPoint(x: leftX, y: leftY), named: .leftButton)
         // right
-        let rightSprite = SwashScaledSpriteNode(imageNamed: .rightButton)
+        let rightSprite = SwashScaledSpriteNode(imageNamed: ImageAsset.rightButton.name)
         let rightX = rightSprite.size.width + buttonPadding + leftX
         let rightY = leftY
         createButtonEntity(sprite: rightSprite, color: .rightButton, position: CGPoint(x: rightX, y: rightY), named: .rightButton)
         // thrust
-        let thrustSprite = SwashScaledSpriteNode(imageNamed: .thrustButton)
+        let thrustSprite = SwashScaledSpriteNode(imageNamed: ImageAsset.thrustButton.name)
         let thrustX = size.width - thrustSprite.size.width / 2 - buttonPaddingRight
         let thrustY = leftY
         createButtonEntity(sprite: thrustSprite,
@@ -223,7 +223,7 @@ final class ShipButtonsCreator: ShipButtonCreatorUseCase {
                            position: CGPoint(x: thrustX, y: thrustY),
                            named: .thrustButton)
         // fire
-        let fireSprite = SwashScaledSpriteNode(imageNamed: .fireButton)
+        let fireSprite = SwashScaledSpriteNode(imageNamed: ImageAsset.fireButton.name)
         let fireX = -thrustSprite.size.width - buttonPadding + thrustX
         let fireY = leftY
         // I'm storing the fire button so it can be added and removed from the engine without re-creating.
@@ -232,12 +232,12 @@ final class ShipButtonsCreator: ShipButtonCreatorUseCase {
                                               position: CGPoint(x: fireX, y: fireY),
                                               named: .fireButton)
         // flip
-        let flipSprite = SwashScaledSpriteNode(imageNamed: .flipButton)
+        let flipSprite = SwashScaledSpriteNode(imageNamed: ImageAsset.flipButton.name)
         let flipX = leftX
         let flipY = leftY + flipSprite.size.height + buttonPadding
         createButtonEntity(sprite: flipSprite, color: .flipButton, position: CGPoint(x: flipX, y: flipY), named: .flipButton)
         // hyperspace
-        let hyperspaceSprite = SwashScaledSpriteNode(imageNamed: .hyperspaceButton)
+        let hyperspaceSprite = SwashScaledSpriteNode(imageNamed: ImageAsset.hyperspaceButton.name)
         let hyperspaceX = thrustX
         let hyperspaceY = flipY
         // I'm storing the fire button so it can be added and removed from the engine without re-creating.

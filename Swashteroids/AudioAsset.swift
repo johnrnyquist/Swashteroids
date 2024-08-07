@@ -91,3 +91,79 @@ enum AudioAsset: String, CaseIterable {
         }
     }
 }
+
+import UIKit
+
+enum ImageAsset: String, CaseIterable {
+    static func validateImagesFilesExist() {
+        var errors = [String]()
+        for asset in ImageAsset.allCases {
+            let fileExists = UIImage(named: asset.name) != nil
+            if !fileExists {
+                errors.append(asset.name)
+            }
+        }
+        if !errors.isEmpty {
+            fatalError("Missing image files: \(errors)")
+        }
+    }
+
+    case aCircleFill
+    case alienSoldier
+    case alienWorker
+    case circle_dotted_circle
+    case fireButton
+    case flipButton
+    case gamecontrollerFill
+    case gradientLeft
+    case gradientRight
+    case hyperspaceButton
+    case hyperspacePowerUp
+    case leftButton
+    case pause
+    case play
+    case rightButton
+    case rocks_left
+    case rocks_right
+    case ship
+    case spiral
+    case swash
+    case thrustButton
+    case title
+    case toggleButtonsOff
+    case toggleButtonsOn
+    case torpedoPowerUp
+    case training
+    case visionpro_circle
+    var name: String {
+        switch self {
+            case .aCircleFill: return "a.circle.fill"
+            case .alienSoldier: return "alienSoldier"
+            case .alienWorker: return "alienWorker"
+            case .circle_dotted_circle: return "circle_dotted_circle"
+            case .fireButton: return "fireButton"
+            case .flipButton: return "flipButton"
+            case .gamecontrollerFill: return "gamecontroller.fill"
+            case .gradientLeft: return "gradientLeft"
+            case .gradientRight: return "gradientRight"
+            case .hyperspaceButton: return "hyperspaceButton"
+            case .hyperspacePowerUp: return "hyperspacePowerUp"
+            case .leftButton: return "leftButton"
+            case .pause: return "pause"
+            case .play: return "play"
+            case .rightButton: return "rightButton"
+            case .rocks_left: return "rocks_left"
+            case .rocks_right: return "rocks_right"
+            case .ship: return "ship"
+            case .spiral: return "spiral"
+            case .swash: return "swash"
+            case .thrustButton: return "thrustButton"
+            case .title: return "title"
+            case .toggleButtonsOff: return "toggleButtonsOff"
+            case .toggleButtonsOn: return "toggleButtonsOn"
+            case .torpedoPowerUp: return "torpedoPowerUp"
+            case .training: return "training"
+            case .visionpro_circle: return "visionpro_circle"
+        }
+    }
+}

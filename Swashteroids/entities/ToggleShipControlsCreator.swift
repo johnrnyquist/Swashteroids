@@ -30,7 +30,7 @@ final class ToggleShipControlsCreator: ToggleShipControlsCreatorUseCase {
     }
 
     func createToggleButton(_ toggleState: Toggle) {
-        let name = toggleState == .on ? "toggleButtonsOn" : "toggleButtonsOff"
+        let name = toggleState == .on ? ImageAsset.toggleButtonsOn.name : ImageAsset.toggleButtonsOff.name
         let sprite = SwashScaledSpriteNode(imageNamed: name)
         sprite.name = name
         sprite.alpha = 0.2

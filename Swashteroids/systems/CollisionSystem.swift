@@ -180,7 +180,7 @@ class CollisionSystem: System {
         else { return }
         player
                 .add(component: AudioComponent(asset: .powerup))
-        let spriteNode = SwashSpriteNode(imageNamed: "circle.dotted.circle")
+        let spriteNode = SwashSpriteNode(imageNamed: ImageAsset.circle_dotted_circle.name)
         spriteNode.color = .shields
         spriteNode.colorBlendFactor = 1.0
         spriteNode.size = playerSprite.size.width.cgSize * 1.6

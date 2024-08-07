@@ -59,7 +59,7 @@ final class StartScreenCreator: StartScreenCreatorUseCase {
     }
 
     func createGamepadIndicator() {
-        let aSprite = SwashSpriteNode(imageNamed: .aCircleFill)
+        let aSprite = SwashSpriteNode(imageNamed: ImageAsset.aCircleFill.name)
         aSprite.setScale(0.33)
         aSprite.anchorPoint = CGPoint(x: 0.5, y: 0)
         let aEntity = Entity(named: .aCircleFill)
@@ -69,7 +69,7 @@ final class StartScreenCreator: StartScreenCreatorUseCase {
                                                   z: .top,
                                                   rotationDegrees: 0))
         engine.add(entity: aEntity)
-        let padSprite = SwashSpriteNode(imageNamed: .gamecontrollerFill)
+        let padSprite = SwashSpriteNode(imageNamed: ImageAsset.gamecontrollerFill.name)
         padSprite.setScale(0.25)
         padSprite.anchorPoint = CGPoint(x: 0.5, y: 0)
         let padEntity = Entity(named: .gamecontrollerFill)

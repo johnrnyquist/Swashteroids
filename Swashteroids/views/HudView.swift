@@ -46,7 +46,7 @@ final class HudView: SKNode {
 //        shipsLabel = createLabel(x: textXPadding, y: textY, alignment: .left)
         //
         // pauseButtonArt does nothing
-        pauseButtonArt = SKSpriteNode(imageNamed: "pause")
+        pauseButtonArt = SKSpriteNode(imageNamed: ImageAsset.pause.name)
         pauseButtonArt.size = CGSize(width: scoreLabel.fontSize, height: scoreLabel.fontSize)
         pauseButtonArt.anchorPoint = CGPoint(x: 1, y: 1)
         pauseButtonArt.position = CGPoint(x: 0, y: 0)
@@ -69,7 +69,7 @@ final class HudView: SKNode {
         addChild(scoreLabel)
 //        addChild(shipsLabel)
         // Ammo
-        ammoView = AmmoView(circleColor: .powerUpTorpedo, size: gameSize, icon: TorpedoesPowerUpView(imageNamed: .torpedoPowerUp))
+        ammoView = AmmoView(circleColor: .powerUpTorpedo, size: gameSize, icon: TorpedoesPowerUpView(imageNamed: ImageAsset.torpedoPowerUp.name))
         ammoView.zPosition = .top
         ammoView.x = gameSize.width * 1 / 3 - ammoView.width
         ammoView.y = textY
@@ -77,7 +77,7 @@ final class HudView: SKNode {
         // Jumps
         jumpsView = AmmoView(circleColor: .powerUpHyperspace,
                              size: gameSize,
-                             icon: HyperspacePowerUpView(imageNamed: .hyperspacePowerUp))
+                             icon: HyperspacePowerUpView(imageNamed: ImageAsset.hyperspacePowerUp.name))
         jumpsView.zPosition = .top
         jumpsView.x = gameSize.width * 3 / 4 - jumpsView.width
         jumpsView.y = textY

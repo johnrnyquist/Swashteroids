@@ -47,13 +47,13 @@ final class QuadrantsControlsCreator: QuadrantsControlsCreatorUseCase {
         let buttonImageSprite: SwashSpriteNode
         switch quadrant {
             case .hyperspace:
-                buttonImageSprite = SwashSpriteNode(imageNamed: .hyperspaceButton)
+                buttonImageSprite = SwashSpriteNode(imageNamed: ImageAsset.hyperspaceButton.name)
             case .flip:
-                buttonImageSprite = SwashSpriteNode(imageNamed: .flipButton)
+                buttonImageSprite = SwashSpriteNode(imageNamed: ImageAsset.flipButton.name)
             case .thrust:
-                buttonImageSprite = SwashSpriteNode(imageNamed: .thrustButton)
+                buttonImageSprite = SwashSpriteNode(imageNamed: ImageAsset.thrustButton.name)
             case .fire:
-                buttonImageSprite = SwashSpriteNode(imageNamed: .fireButton)
+                buttonImageSprite = SwashSpriteNode(imageNamed: ImageAsset.fireButton.name)
         }
         buttonImageSprite.position = CGPoint(x: quadrantSprite.size.halfWidth, y: quadrantSprite.size.halfHeight)
         buttonImageSprite.anchorPoint = CGPoint(x: 0.5, y: 0.5)

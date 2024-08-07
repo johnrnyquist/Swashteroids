@@ -144,9 +144,9 @@ final class AlienCreator: AlienCreatorUseCase {
     func warningAliens(scene: GameScene, leftSide: Bool) {
         let warningSprite: SKSpriteNode
         if leftSide {
-            warningSprite = SKSpriteNode(imageNamed: "gradientLeft")
+            warningSprite = SKSpriteNode(imageNamed: ImageAsset.gradientLeft.name)
         } else {
-            warningSprite = SKSpriteNode(imageNamed: "gradientRight")
+            warningSprite = SKSpriteNode(imageNamed: ImageAsset.gradientRight.name)
         }
         scene.addChild(warningSprite)
         warningSprite.scale = scene.size.height / warningSprite.height
@@ -177,7 +177,7 @@ final class AlienCreator: AlienCreatorUseCase {
         guard engine.findEntity(named: .player) != nil else { return }
         let level = engine.gameStateComponent.level
         totalAliens += 1
-        let sprite = SwashScaledSpriteNode(imageNamed: .alienWorker)
+        let sprite = SwashScaledSpriteNode(imageNamed: ImageAsset.alienWorker.name)
         sprite.name = "\(EntityName.alienWorker)_\(totalAliens)"
         //        sprite.physicsBody = SKPhysicsBody(rectangleOf: sprite.size)
         //        sprite.physicsBody?.isDynamic = true
@@ -215,7 +215,7 @@ final class AlienCreator: AlienCreatorUseCase {
         guard engine.findEntity(named: .player) != nil else { return }
         let level = engine.gameStateComponent.level
         totalAliens += 1
-        let sprite = SwashScaledSpriteNode(imageNamed: .alienSoldier)
+        let sprite = SwashScaledSpriteNode(imageNamed: ImageAsset.alienSoldier.name)
         sprite.name = "\(EntityName.alienSoldier)_\(totalAliens)"
         //        sprite.physicsBody = SKPhysicsBody(rectangleOf: sprite.size)
         //        sprite.physicsBody?.isDynamic = true
