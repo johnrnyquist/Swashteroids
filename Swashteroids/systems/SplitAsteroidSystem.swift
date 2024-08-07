@@ -41,30 +41,56 @@ final class SplitAsteroidSystem: ListIteratingSystem {
 
     // What if the phaser splits things differently? Straight line cut? Wobbling after? Or results in just one smaller?
     // Or splits into 3 (two small, one medium)? What if it destroys a medium sized one?
-    func splitAsteroid(asteroidEntity: Entity, splits: Int = 2, level: Int) {
+    private func splitAsteroid(asteroidEntity: Entity, splits: Int = 2, level: Int) {
         guard let radius = asteroidEntity[CollidableComponent.self]?.radius,
               let asteroidComponent = asteroidEntity[AsteroidComponent.self],
-              let point = asteroidEntity[PositionComponent.self]?.point
-        else { return }
+              let point = asteroidEntity[PositionComponent.self]?.point else { return }
+        // Create treasure if the asteroid contains treasure info
         if let treasureInfo = asteroidEntity[TreasureInfoComponent.self] {
             treasureCreator.createTreasure(at: point, using: treasureInfo)
         }
+        // Handle splitting based on asteroid size
         switch asteroidComponent.size {
             case .small:
+                // No splitting for small asteroids
                 break
             case .medium, .large:
-                // The smallest asteroid is 1/4 the size of the large asteroid.
-                for _ in 1...splits {
-                    // The new asteroid will be half the size of the original.
-                    // Divide by the scale factor to get the actual size.
-                    // Then divide by 2 to get the new size.
-                    asteroidCreator.createAsteroid(radius: radius / scaleManager.SCALE_FACTOR / 2.0,
-                                                   x: point.x + randomness.nextDouble(from: -5.0, through: 5.0),
-                                                   y: point.y + randomness.nextDouble(from: -5.0, through: 5.0),
-                                                   size: asteroidComponent.shrink(),
-                                                   level: level)
-                }
+                splitMediumOrLargeAsteroid(radius: radius,
+                                           point: point,
+                                           asteroidComponent: asteroidComponent,
+                                           splits: splits,
+                                           level: level)
         }
+        // Add explosion effect
+        addExplosionEffect(to: asteroidEntity)
+    }
+
+    private func splitMediumOrLargeAsteroid(radius: Double, point: CGPoint, asteroidComponent: AsteroidComponent, splits: Int, level: Int) {
+        var asteroids = [Entity]()
+        for _ in 1...splits {
+            let newAsteroid = asteroidCreator.createAsteroid(
+                radius: radius / scaleManager.SCALE_FACTOR / 2.0,
+                x: point.x + randomness.nextDouble(from: -5.0, through: 5.0),
+                y: point.y + randomness.nextDouble(from: -5.0, through: 5.0),
+                size: asteroidComponent.shrink(),
+                level: level
+            )
+            asteroids.append(newAsteroid)
+        }
+        adjustAsteroidVelocities(asteroids: asteroids)
+    }
+
+    private func adjustAsteroidVelocities(asteroids: [Entity]) {
+        guard asteroids.count >= 2,
+              let velocity1 = asteroids[0][VelocityComponent.self],
+              let velocity2 = asteroids[1][VelocityComponent.self] else { return }
+        // If the asteroids are moving in the same direction, change one of them
+        if velocity1.linearVelocity.x.sign == velocity2.linearVelocity.x.sign {
+            velocity2.x = -velocity2.x
+        }
+    }
+
+    private func addExplosionEffect(to asteroidEntity: Entity) {
         if let emitter = SKEmitterNode(fileNamed: "shipExplosion.sks") {
             asteroidEntity
                     .remove(componentClass: DisplayComponent.self)

@@ -71,7 +71,7 @@ final class AsteroidCreator: AsteroidCreatorUseCase {
         engine.add(entity: entity)
         return entity
     }
-    
+
     func createAsteroidTexture(radius: Double, color: UIColor) -> SKTexture {
         let renderer = UIGraphicsImageRenderer(size: CGSize(width: radius * 2, height: radius * 2))
         let asteroid = renderer.image { ctx in
@@ -97,16 +97,12 @@ final class AsteroidCreator: AsteroidCreatorUseCase {
 
 func createVelocity(speedModifier: Double, level: Int, randomness: Randomizing = Randomness.shared) -> VelocityComponent {
     var vx = 0.0
-    while abs(vx) < 3.0 || abs(vx) > (100.0 * speedModifier) {
+    while abs(vx) < 10.0 {
         vx = randomness.nextDouble(from: -82.0, through: 82.0) * speedModifier
     }
     var vy = 0.0
-    while abs(vy) < 3.0 || abs(vy) > (100.0 * speedModifier) {
+    while abs(vy) < 10.0 {
         vy = randomness.nextDouble(from: -82.0, through: 82.0) * speedModifier
-    }
-    if level == 1 {
-        vx = min(40.0, abs(vx))
-        vy = min(40.0, abs(vy))
     }
     let angularVelocity = randomness.nextDouble(from: -100, through: 100)
     return VelocityComponent(velocityX: vx,
