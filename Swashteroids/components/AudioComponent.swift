@@ -12,9 +12,9 @@ import SpriteKit
 import Swash
 
 final class AudioComponent: Component {
-    let asset: AudioAsset
+    let asset: AssetAudio
 
-    init(asset: AudioAsset) {
+    init(asset: AssetAudio) {
         self.asset = asset
         super.init()
     }

@@ -31,13 +31,13 @@ enum PowerUpType {
     var imageName: String {
         switch self {
             case .torpedoes:
-                return ImageAsset.torpedoPowerUp.name
+                return AssetImage.torpedoPowerUp.name
             case .hyperspace:
-                return ImageAsset.hyperspacePowerUp.name
+                return AssetImage.hyperspacePowerUp.name
             case .xRay:
-                return ImageAsset.visionpro_circle.name
+                return AssetImage.xray.name
             case .shields:
-                return ImageAsset.circle_dotted_circle.name
+                return AssetImage.shield.name
         }
     }
     var createSprite: SwashScaledSpriteNode {

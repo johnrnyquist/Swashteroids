@@ -29,7 +29,7 @@ final class GameOverView: SwashSpriteNode {
         background.alpha = 0.01
         let scaledContainer = SwashScaledSpriteNode(color: .clear, size: gameSize)
         //
-        let swashLogo = SKSpriteNode(imageNamed: ImageAsset.swash.name)
+        let swashLogo = AssetImage.swashLogo.sprite
         swashLogo.anchorPoint = CGPoint(x: 0.5, y: 1)
         swashLogo.scale = scaleManager.SCALE_FACTOR == 1.0 ? 0.8 : 1.0
         swashLogo.alpha = 0.2

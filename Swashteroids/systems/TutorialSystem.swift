@@ -441,7 +441,7 @@ class TutorialSystem: ListIteratingSystem {
                        Enter the warp tunnel when you're ready to enter the asteroid field.
                        And be careful, you may not be alone out there...
                        """) {}
-        let tunnelSprite = SwashScaledSpriteNode(imageNamed: ImageAsset.spiral.name)
+        let tunnelSprite = AssetImage.tunnel.swashScaledSprite
         tunnelSprite.color = .yellow
         tunnelSprite.colorBlendFactor = 1.0
         let tunnel = Entity(named: "tunnelEntity")

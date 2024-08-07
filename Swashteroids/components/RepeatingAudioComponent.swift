@@ -15,9 +15,9 @@ import SwiftySound
 final class RepeatingAudioComponent: Component {
     var state: RepeatingSoundState = .notPlaying
     var sound: Sound?
-    let asset: AudioAsset
+    let asset: AssetAudio
 
-    init(asset: AudioAsset) {
+    init(asset: AssetAudio) {
         self.asset = asset
         let components = asset.fileName.components(separatedBy: ".")
         if components.count == 2,
