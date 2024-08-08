@@ -190,9 +190,9 @@ final class PowerUpCreator: PowerUpCreatorUseCase {
                 case .hyperspace:
                     break
                 case .xRay:
-                    entity.add(component: LifetimeComponent(timeRemaining: 30))
+                    entity.add(component: LifetimeComponent(timeRemaining: 30, numberOfFlashes: 5))
                 case .shields:
-                    entity.add(component: LifetimeComponent(timeRemaining: 30))
+                    entity.add(component: LifetimeComponent(timeRemaining: 30, numberOfFlashes: 5))
             }
         }
         let sequence = SKAction.sequence([waitToMake, alphaUp, action, scaleUp, scaleDown])

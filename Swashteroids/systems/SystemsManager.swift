@@ -144,7 +144,6 @@ final class SystemsManager {
                 .add(system: ExitScreenSystem(), priority: .update)
                 .add(system: AlienFiringSystem(torpedoCreator: creatorManager.torpedoCreator, gameSize: scene.size),
                      priority: .update)
-                .add(system: TorpedoAgeSystem(), priority: .update)
                 .add(system: DeathThroesSystem(), priority: .update)
                 .add(system: NacellesSystem(), priority: .update)
                 .add(system: HudSystem(powerUpCreator: creatorManager.powerUpCreator), priority: .update)

@@ -15,8 +15,10 @@ import Swash
 // I might add it to torpedoes.
 final class LifetimeComponent: Component {
     var timeRemaining: TimeInterval
+    var numberOfFlashes: Int
 
-    init(timeRemaining: TimeInterval) {
+    init(timeRemaining: TimeInterval, numberOfFlashes: Int = 0) {
         self.timeRemaining = timeRemaining
+        self.numberOfFlashes = numberOfFlashes
     }
 }

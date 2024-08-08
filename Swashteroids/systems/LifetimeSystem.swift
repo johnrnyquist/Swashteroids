@@ -46,8 +46,12 @@ final class LifetimeSystem: ListIteratingSystem {
         lifetime.timeRemaining -= time
         if lifetime.timeRemaining <= 0 {
             entity.remove(componentClass: LifetimeComponent.self)
-            fadeInAndOut(sknode: sknode, animationDuration: 0.25, totalDuration: 2) {
-                self.engine.remove(entity: entity)
+            if lifetime.numberOfFlashes == 0 {
+                engine.remove(entity: entity)
+            } else {
+                fadeInAndOut(sknode: sknode, animationDuration: 0.25, totalDuration: 2) {
+                    self.engine.remove(entity: entity)
+                }
             }
         }
     }

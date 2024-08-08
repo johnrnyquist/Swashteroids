@@ -287,6 +287,8 @@ class CollisionSystem: System {
             let fade = SKAction.fadeOut(withDuration: 3.0)
             let emitter = SKEmitterNode(fileNamed: "shipExplosion.sks")!
             emitter.setScale(0.35)
+            pieceSprite.colorBlendFactor = 1.0
+            pieceSprite.color = .red
             pieceSprite.addChild(emitter)
             pieceSprite.run(fade)
             let piece = Entity()
@@ -295,7 +297,7 @@ class CollisionSystem: System {
                                                       z: .asteroids))
                     .add(component: createVelocity(speedModifier: 1.0, level: 1))
                     .add(component: DisplayComponent(sknode: pieceSprite))
-                    .add(component: LifetimeComponent(timeRemaining: 1.0))
+                    .add(component: LifetimeComponent(timeRemaining: 2.0))
                     .add(component: AudioComponent(asset: .explosion))
             engine.add(entity: piece)
         }
@@ -303,7 +305,8 @@ class CollisionSystem: System {
 
     func vehiclesAndAsteroids(vehicleNode: Node, asteroidNode: Node) {
         if let asteroidVelocity = asteroidNode[VelocityComponent.self],
-           let shipVelocity = vehicleNode[VelocityComponent.self] {
+           let shipVelocity = vehicleNode[VelocityComponent.self],
+           vehicleNode.entity?[ExitScreenComponent.self] == nil {
             shipVelocity.linearVelocity = asteroidVelocity.linearVelocity
             shipVelocity.angularVelocity = asteroidVelocity.angularVelocity
         }
