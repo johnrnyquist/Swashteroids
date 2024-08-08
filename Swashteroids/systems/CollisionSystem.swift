@@ -99,14 +99,13 @@ class CollisionSystem: System {
     }
 
     private func updateShield(shields: Node) {
-        if let shieldComponent = shields.entity?[ShieldComponent.self],
-           shieldComponent.curStrength > 0 {
-            shieldComponent.curStrength -= 1
-            engine.appStateEntity
-                  .add(component: AudioComponent(asset: .shield_hit))
-            if shieldComponent.curStrength == 0 {
-                engine.remove(entity: shields.entity!)
-            }
+        guard let shieldComponent = shields.entity?[ShieldComponent.self],
+              shieldComponent.curStrength > 0
+        else { return }
+        shieldComponent.curStrength -= 1
+        engine.appStateEntity.add(component: AudioComponent(asset: .shield_hit))
+        if shieldComponent.curStrength == 0 {
+            engine.remove(entity: shields.entity!)
         }
     }
 
@@ -224,35 +223,41 @@ class CollisionSystem: System {
     }
 
     func vehiclesAndTorpedoes(vehicleNode: Node, torpedoNode: Node) {
-        // Shooter can’t shoot himself
-        guard let teName = torpedoNode[TorpedoComponent.self]?.ownerName,
-              let te = engine.findEntity(named: teName),
-              let ve = vehicleNode.entity,
-              te != ve
-        else { return }
-        let torpedoOwner = torpedoNode[TorpedoComponent.self]!.owner
+        guard let torpedoOwner = torpedoNode[TorpedoComponent.self]?.owner,
+              let torpedoOwnerName = torpedoNode[TorpedoComponent.self]?.ownerName,
+              let torpedoEntity = torpedoNode.entity,
+              let vehicleEntity = vehicleNode.entity,
+              let torpedoOwnerEntity = engine.findEntity(named: torpedoOwnerName),
+              torpedoOwnerEntity != vehicleEntity else { return }
+        if isFriendlyFire(torpedoOwner: torpedoOwner, vehicleEntity: vehicleEntity) { return }
+        engine.remove(entity: torpedoEntity)
+        handleVehicleDestruction(vehicleEntity: vehicleEntity, torpedoOwner: torpedoOwner)
+    }
+
+    private func isFriendlyFire(torpedoOwner: OwnerType, vehicleEntity: Entity) -> Bool {
         switch torpedoOwner {
             case .player:
-                if let _ = ve[PlayerComponent.self] { return }
+                return vehicleEntity[PlayerComponent.self] != nil
             case .computerOpponent:
-                if let _ = ve[AlienComponent.self] { return }
+                return vehicleEntity[AlienComponent.self] != nil
         }
-        if let torpedo = torpedoNode.entity { engine.remove(entity: torpedo) }
-        if ve[PlayerComponent.self] != nil {
+    }
+
+    private func handleVehicleDestruction(vehicleEntity: Entity, torpedoOwner: OwnerType) {
+        if vehicleEntity[PlayerComponent.self] != nil {
             appStateNodes.head?[GameStateComponent.self]?.numShips -= 1
-            playerCreator.destroy(entity: ve)
-        } else if ve[AlienComponent.self]?.cast == .soldier {
-            alienSoldierHit(alien: ve)
-            return
+            playerCreator.destroy(entity: vehicleEntity)
+        } else if let alienComponent = vehicleEntity[AlienComponent.self],
+                  alienComponent.cast == .soldier {
+            alienSoldierHit(alien: vehicleEntity)
         } else {
             appStateNodes.head?[GameStateComponent.self]?.numAliensDestroyed += 1
-            playerCreator.destroy(entity: ve)
+            playerCreator.destroy(entity: vehicleEntity)
         }
-        //TODO: refactor the below
         if let gameStateNode = appStateNodes.head,
            let appStateComponent = gameStateNode[GameStateComponent.self],
-           torpedoNode[TorpedoComponent.self]?.owner == .player,
-           let scoreValue = vehicleNode[AlienComponent.self]?.scoreValue {
+           torpedoOwner == .player,
+           let scoreValue = vehicleEntity[AlienComponent.self]?.scoreValue {
             appStateComponent.score += scoreValue
             appStateComponent.numHits += 1
         }
@@ -310,24 +315,32 @@ class CollisionSystem: System {
             shipVelocity.linearVelocity = asteroidVelocity.linearVelocity
             shipVelocity.angularVelocity = asteroidVelocity.angularVelocity
         }
-        // If a vehicle hits an asteroid, it enters its death throes. Removing its ability to move or shoot.
-        // A vehicle in its death throes can still hit an asteroid. 
-        if vehicleNode.entity?
-                      .has(componentClassName: DeathThroesComponent.name) == false { //HACK not sure I like this check
-            if vehicleNode.entity?[PlayerComponent.self] != nil {
-                appStateNodes.head?[GameStateComponent.self]?.numShips -= 1
-            }
-            if let alien = vehicleNode.entity,
-               let alienComponent = alien[AlienComponent.self],
-               alienComponent.cast == .soldier {
-                alienSoldierHit(alien: alien)
-            } else {
-                playerCreator.destroy(entity: vehicleNode.entity!)
+        if let vehicle = vehicleNode.entity {
+            // If a vehicle hits an asteroid, it enters its death throes. Removing its ability to move or shoot.
+            // A vehicle in its death throes can still hit an asteroid.
+            if vehicle.has(componentClassName: DeathThroesComponent.name) == false {
+                handleVehicleAsteroidCollision(vehicle: vehicle)
             }
         }
+        splitAsteroidIfNeeded(asteroidNode: asteroidNode)
+    }
+
+    private func splitAsteroidIfNeeded(asteroidNode: Node) {
         let level = appStateNodes.head?[GameStateComponent.self]?.level ?? 1
         if let entity = asteroidNode.entity {
             entity.add(component: SplitAsteroidComponent(level: level, splits: 2))
+        }
+    }
+
+    private func handleVehicleAsteroidCollision(vehicle: Entity) {
+        if let _ = vehicle[PlayerComponent.self] {
+            appStateNodes.head?[GameStateComponent.self]?.numShips -= 1
+        }
+        if let alienComponent = vehicle[AlienComponent.self],
+           alienComponent.cast == .soldier {
+            alienSoldierHit(alien: vehicle)
+        } else {
+            playerCreator.destroy(entity: vehicle)
         }
     }
 
