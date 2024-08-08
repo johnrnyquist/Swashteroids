@@ -85,7 +85,7 @@ final class SystemsManager {
               .add(system: CollisionSystem(shipCreator: creatorManager.playerCreator,
                                            asteroidCreator: creatorManager.asteroidCreator,
                                            shipButtonControlsCreator: creatorManager.shipButtonControlsCreator,
-                                           size: size),
+                                           gameSize: size),
                    priority: .resolveCollisions)
         creatorManager.hudCreator.createHud(gameState: engine.gameStateComponent)
     }
@@ -160,7 +160,7 @@ final class SystemsManager {
                 .add(system: CollisionSystem(shipCreator: creatorManager.playerCreator,
                                              asteroidCreator: creatorManager.asteroidCreator,
                                              shipButtonControlsCreator: creatorManager.shipButtonControlsCreator,
-                                             size: scene.size),
+                                             gameSize: scene.size),
                      priority: .resolveCollisions)
                 // animate
                 .add(system: AnimationSystem(), priority: .animate)

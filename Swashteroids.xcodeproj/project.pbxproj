@@ -70,7 +70,6 @@
 		8D23C1E92B02CD7E00F7D878 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C1E82B02CD7E00F7D878 /* README.md */; };
 		8D23C1EB2B02CD9800F7D878 /* LICENSE.md in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C1EA2B02CD9800F7D878 /* LICENSE.md */; };
 		8D23C1EE2B02D00700F7D878 /* swashteroids.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D23C1ED2B02D00700F7D878 /* swashteroids.png */; };
-		8D384D9A2B28F3F300D5564C /* TorpedoAgeSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D384D982B28F3F300D5564C /* TorpedoAgeSystemTests.swift */; };
 		8D384D9B2B28F3F300D5564C /* AnimationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D384D992B28F3F300D5564C /* AnimationTests.swift */; };
 		8D3C177C2C61366F00A1273A /* ShieldSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139FF5A772AFA6F84E441B /* ShieldSystemTests.swift */; };
 		8D41E2112B1E64530031AF54 /* ChangeShipControlsStateComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D41E2102B1E64530031AF54 /* ChangeShipControlsStateComponent.swift */; };
@@ -261,7 +260,6 @@
 		93139E5DCD4193CB19DDB025 /* PowerUpCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139C73A66D8863A166745D /* PowerUpCreator.swift */; };
 		93139E841E3AC27007294E88 /* NacellesSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931399EE25531368708F9E58 /* NacellesSystem.swift */; };
 		93139E9EAA1EF70B2FE63374 /* FlipNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139CC64C9CFC7E61D7DCFE /* FlipNode.swift */; };
-		93139EA3E79F3CF3F18E4C05 /* TorpedoAgeSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931392CF77E20F3291B5EBF1 /* TorpedoAgeSystem.swift */; };
 		93139EB5B4D0B1D42C9BA6C2 /* PickTargetSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313984EED9DBB7390E4BFF1 /* PickTargetSystem.swift */; };
 		93139EB726F6A591F339A9E1 /* ThrustSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931393FE8CC28A572666583C /* ThrustSystemTests.swift */; };
 		93139ED17AF0B2679783AE64 /* TickProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139406E9C8BCF53204C6FC /* TickProvider.swift */; };
@@ -357,7 +355,6 @@
 		8D23C1EA2B02CD9800F7D878 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		8D23C1ED2B02D00700F7D878 /* swashteroids.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = swashteroids.png; sourceTree = "<group>"; };
 		8D384D8F2B28F30D00D5564C /* SwashteroidsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwashteroidsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		8D384D982B28F3F300D5564C /* TorpedoAgeSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TorpedoAgeSystemTests.swift; sourceTree = "<group>"; };
 		8D384D992B28F3F300D5564C /* AnimationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationTests.swift; sourceTree = "<group>"; };
 		8D41E2102B1E64530031AF54 /* ChangeShipControlsStateComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeShipControlsStateComponent.swift; sourceTree = "<group>"; };
 		8D41E2122B1E65950031AF54 /* ShipControlsStateNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipControlsStateNode.swift; sourceTree = "<group>"; };
@@ -445,7 +442,6 @@
 		93139298C85B9795950A5BA6 /* MakeDecisionSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeDecisionSystemTests.swift; sourceTree = "<group>"; };
 		931392B2F2F0077756DDF207 /* PauseAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PauseAlert.swift; sourceTree = "<group>"; };
 		931392CF258F1370304A48B7 /* ShipButtonsCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipButtonsCreator.swift; sourceTree = "<group>"; };
-		931392CF77E20F3291B5EBF1 /* TorpedoAgeSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TorpedoAgeSystem.swift; sourceTree = "<group>"; };
 		931392DF56F435244258EDD3 /* UseCases_Creator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UseCases_Creator.swift; sourceTree = "<group>"; };
 		931392EBF79FD204C1174E11 /* MakeDecisionSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeDecisionSystem.swift; sourceTree = "<group>"; };
 		931392FF3F02DBEB0D5C9AC7 /* Equatable+extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Equatable+extensions.swift"; sourceTree = "<group>"; };
@@ -870,7 +866,6 @@
 				93139C4A1DEEA1037E802D8E /* ShipControlsSystemTests.swift */,
 				8DB99F512B2BE7D700C3593A /* TestingAppDelegate.swift */,
 				931393FE8CC28A572666583C /* ThrustSystemTests.swift */,
-				8D384D982B28F3F300D5564C /* TorpedoAgeSystemTests.swift */,
 				8DB99F5A2B2C9B4500C3593A /* TransitionAppStateSystemTests.swift */,
 				93139D4336E12C89FC8BE06B /* TransitionTests.swift */,
 				93139FF5A772AFA6F84E441B /* ShieldSystemTests.swift */,
@@ -1033,7 +1028,6 @@
 				931391F6102BA3CDA3D121C7 /* SplitAsteroidSystem.swift */,
 				93139F0E80056358D9592482 /* ThrustSystem.swift */,
 				93139E465420E10AF4C52087 /* TimePlayedSystem.swift */,
-				931392CF77E20F3291B5EBF1 /* TorpedoAgeSystem.swift */,
 				9313948C3BEED583518640EB /* TouchedSystem.swift */,
 				931397321E614AC7F5F6747A /* TransitionAppStateSystem.swift */,
 				8DD15B0A2C4AA40100EAD1D1 /* XRay */,
@@ -1135,7 +1129,7 @@
 			mainGroup = 8D23C1292B02C4C900F7D878;
 			packageReferences = (
 				8DDB04E82C376AE20029248B /* XCRemoteSwiftPackageReference "SwiftySound" */,
-				8D1C1DCE2C404DEA005137DE /* XCLocalSwiftPackageReference "../../Swash_Swift_Package/Swash" */,
+				8D1C1DCE2C404DEA005137DE /* XCLocalSwiftPackageReference */,
 			);
 			productRefGroup = 8D23C1332B02C4CA00F7D878 /* Products */;
 			projectDirPath = "";
@@ -1353,7 +1347,6 @@
 				93139AE05A503658D2F46565 /* CreatorsManager.swift in Sources */,
 				93139DE4C74978A3165A2479 /* LifetimeSystem.swift in Sources */,
 				931392BD76462D7EADE0426C /* TransitionAppStateSystem.swift in Sources */,
-				93139EA3E79F3CF3F18E4C05 /* TorpedoAgeSystem.swift in Sources */,
 				93139B6F7A6F444E5E8DC889 /* TimePlayedSystem.swift in Sources */,
 				931395B7663D16FCCED5149D /* ThrustSystem.swift in Sources */,
 				93139570309C2C458E38119C /* SplitAsteroidSystem.swift in Sources */,
@@ -1412,7 +1405,6 @@
 				8D19252B2C26242E00A090F9 /* AlienFiringSystemTests.swift in Sources */,
 				8DB99F522B2BE7D700C3593A /* TestingAppDelegate.swift in Sources */,
 				8DB99F572B2BE9EE00C3593A /* DisplaySystemTests.swift in Sources */,
-				8D384D9A2B28F3F300D5564C /* TorpedoAgeSystemTests.swift in Sources */,
 				8DB99F592B2BF2A700C3593A /* GameOverSystemTests.swift in Sources */,
 				93139BC5661C918BD0158277 /* HyperspaceSystemTests.swift in Sources */,
 				8DB99F7B2B2E8BE400C3593A /* MovementSystemTests.swift in Sources */,
@@ -1733,7 +1725,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		8D1C1DCE2C404DEA005137DE /* XCLocalSwiftPackageReference "../../Swash_Swift_Package/Swash" */ = {
+		8D1C1DCE2C404DEA005137DE /* XCLocalSwiftPackageReference */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../../Swash_Swift_Package/Swash;
 		};
