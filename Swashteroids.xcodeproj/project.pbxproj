@@ -102,7 +102,6 @@
 		8D6D815F2B1A7A9E00AD8D18 /* ButtonsInfo.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8D6D815E2B1A7A9E00AD8D18 /* ButtonsInfo.sks */; };
 		8D6D81632B1AC52200AD8D18 /* toggle.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D6D81622B1AC52200AD8D18 /* toggle.wav */; };
 		8D70211B2B4EFEAE0032107A /* AlienCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D70211A2B4EFEAE0032107A /* AlienCreator.swift */; };
-		8D70211D2B4F1C960032107A /* Nodelist+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D70211C2B4F1C960032107A /* Nodelist+extensions.swift */; };
 		8D70E5D32C63B8B50041FAEB /* AlienAppearancesSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139A42FAE4FCE28244F835 /* AlienAppearancesSystemTests.swift */; };
 		8D714E2E2B3535DC009E1586 /* SKSpriteNode+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D714E2D2B3535DC009E1586 /* SKSpriteNode+extensions.swift */; };
 		8D71C0472B3603CF004D6D0C /* ScaleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139DE0BD2F73AFFAEDE2DA /* ScaleManager.swift */; };
@@ -148,7 +147,6 @@
 		8DD26DC92B22D7E300DA5BC3 /* AccelerometerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD26DC82B22D7E300DA5BC3 /* AccelerometerNode.swift */; };
 		8DDB04EA2C376AE20029248B /* SwiftySound in Frameworks */ = {isa = PBXBuildFile; productRef = 8DDB04E92C376AE20029248B /* SwiftySound */; };
 		8DDD71542C2F3D7500290D2D /* GCController+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD71532C2F3D7500290D2D /* GCController+extensions.swift */; };
-		8DE66F0F2C14C9BF00ECEE96 /* SplitAsteroidUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139921E04E8DBE2DF6800B /* SplitAsteroidUseCase.swift */; };
 		8DE66F112C14CA1500ECEE96 /* SplitAsteroidComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE66F102C14CA1500ECEE96 /* SplitAsteroidComponent.swift */; };
 		8DE66F132C14CA5000ECEE96 /* SplitAsteroidNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE66F122C14CA5000ECEE96 /* SplitAsteroidNode.swift */; };
 		93139064D7538345A09AE45E /* StartScreenCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931391B4D76B8FBFE80781AD /* StartScreenCreator.swift */; };
@@ -179,7 +177,6 @@
 		9313945BF406DE5979CDEA51 /* Randomness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313959F4B35EA9D7843BD7A /* Randomness.swift */; };
 		931394AC921BF3C3D7CABD13 /* FiringSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139DE76BF1939914D55E38 /* FiringSystemTests.swift */; };
 		93139529F3CFB174F3C6FFFD /* AssetAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931390FEE1AF3B1E3FE97CC0 /* AssetAudio.swift */; };
-		9313953EA0F8B372247B5B83 /* Sequence+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931397A00F1CE63F6242C2F2 /* Sequence+extensions.swift */; };
 		93139562CC6BB542C42A3493 /* LeftNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139D029684C918FEDD3DC1 /* LeftNode.swift */; };
 		93139570309C2C458E38119C /* SplitAsteroidSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931391F6102BA3CDA3D121C7 /* SplitAsteroidSystem.swift */; };
 		931395AF8EBAE3884AD6D062 /* MoveToTargetSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93139DCC274CF7D0D8BB365E /* MoveToTargetSystem.swift */; };
@@ -386,7 +383,6 @@
 		8D6D815E2B1A7A9E00AD8D18 /* ButtonsInfo.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ButtonsInfo.sks; sourceTree = "<group>"; };
 		8D6D81622B1AC52200AD8D18 /* toggle.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = toggle.wav; sourceTree = "<group>"; };
 		8D70211A2B4EFEAE0032107A /* AlienCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlienCreator.swift; sourceTree = "<group>"; };
-		8D70211C2B4F1C960032107A /* Nodelist+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Nodelist+extensions.swift"; sourceTree = "<group>"; };
 		8D714E2D2B3535DC009E1586 /* SKSpriteNode+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SKSpriteNode+extensions.swift"; sourceTree = "<group>"; };
 		8D88C4832B61D3FF00B75314 /* RandomnessTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomnessTests.swift; sourceTree = "<group>"; };
 		8D88FE002B5334F900937FF1 /* powerup_appearance.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = powerup_appearance.wav; sourceTree = "<group>"; };
@@ -477,7 +473,6 @@
 		931396DD35CCD39E8E4EDB16 /* AccelerometerComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccelerometerComponent.swift; sourceTree = "<group>"; };
 		931397321E614AC7F5F6747A /* TransitionAppStateSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionAppStateSystem.swift; sourceTree = "<group>"; };
 		9313979ABDA67BAEA7682AC7 /* AllSoundsComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllSoundsComponent.swift; sourceTree = "<group>"; };
-		931397A00F1CE63F6242C2F2 /* Sequence+extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Sequence+extensions.swift"; sourceTree = "<group>"; };
 		931397AEAB4946A616156BF7 /* DeathThroesSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeathThroesSystemTests.swift; sourceTree = "<group>"; };
 		931397BBDE301981BDA7FD3A /* TurnRightSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TurnRightSystem.swift; sourceTree = "<group>"; };
 		931397C38072F0E64E4C6A38 /* AlertPresentingSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertPresentingSystem.swift; sourceTree = "<group>"; };
@@ -488,7 +483,6 @@
 		9313986D3E0A8543FBA57068 /* SystemsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemsManager.swift; sourceTree = "<group>"; };
 		9313988C064025FB4880FF1F /* ThrustNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThrustNode.swift; sourceTree = "<group>"; };
 		931399149FA177C4CB383E33 /* GameOverCheckSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverCheckSystem.swift; sourceTree = "<group>"; };
-		93139921E04E8DBE2DF6800B /* SplitAsteroidUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitAsteroidUseCase.swift; sourceTree = "<group>"; };
 		93139927DCF5E5DC2AE98363 /* ReactionTimeNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReactionTimeNode.swift; sourceTree = "<group>"; };
 		931399498DC3438747194F19 /* ExitSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExitSystemTests.swift; sourceTree = "<group>"; };
 		93139949CD856130C98A8834 /* HudSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudSystemTests.swift; sourceTree = "<group>"; };
@@ -942,8 +936,6 @@
 				8DDD71532C2F3D7500290D2D /* GCController+extensions.swift */,
 				8D23C1762B02C59C00F7D878 /* Hashable+extensions.swift */,
 				8DA97A952B23581100E7495A /* Int+extensions.swift */,
-				8D70211C2B4F1C960032107A /* Nodelist+extensions.swift */,
-				931397A00F1CE63F6242C2F2 /* Sequence+extensions.swift */,
 				8D714E2D2B3535DC009E1586 /* SKSpriteNode+extensions.swift */,
 				931394D1D0B636772EE1DFF7 /* String+EntityNames.swift */,
 				8D8F24B52B51D47700B2E223 /* UIColor+extensions.swift */,
@@ -993,7 +985,6 @@
 				93139C73A66D8863A166745D /* PowerUpCreator.swift */,
 				931395F838B2866767296F25 /* QuadrantsControlsCreator.swift */,
 				931392CF258F1370304A48B7 /* ShipButtonsCreator.swift */,
-				93139921E04E8DBE2DF6800B /* SplitAsteroidUseCase.swift */,
 				931391B4D76B8FBFE80781AD /* StartScreenCreator.swift */,
 				93139E95FF431FF894CFD502 /* ToggleShipControlsCreator.swift */,
 				93139A97E15CCF640A73EC56 /* TorpedoCreator.swift */,
@@ -1129,7 +1120,7 @@
 			mainGroup = 8D23C1292B02C4C900F7D878;
 			packageReferences = (
 				8DDB04E82C376AE20029248B /* XCRemoteSwiftPackageReference "SwiftySound" */,
-				8D1C1DCE2C404DEA005137DE /* XCLocalSwiftPackageReference "../../Swash_Swift_Package/Swash" */,
+				8D1C1DCE2C404DEA005137DE /* XCLocalSwiftPackageReference */,
 			);
 			productRefGroup = 8D23C1332B02C4CA00F7D878 /* Products */;
 			projectDirPath = "";
@@ -1253,7 +1244,6 @@
 				8D23C1B32B02C59D00F7D878 /* GameStateComponent.swift in Sources */,
 				8D8F24B62B51D47700B2E223 /* UIColor+extensions.swift in Sources */,
 				8D23C1C22B02C59D00F7D878 /* Hashable+extensions.swift in Sources */,
-				8D70211D2B4F1C960032107A /* Nodelist+extensions.swift in Sources */,
 				8D651D6E2B278C1C0088AEEF /* Swashteroids+TouchDelegate.swift in Sources */,
 				8D23C1B62B02C59D00F7D878 /* AsteroidComponent.swift in Sources */,
 				8D23C1A22B02C59D00F7D878 /* AudioNode.swift in Sources */,
@@ -1308,7 +1298,6 @@
 				931396A2070DB4DA286B21D7 /* RightNode.swift in Sources */,
 				93139E9EAA1EF70B2FE63374 /* FlipNode.swift in Sources */,
 				93139F441AD923E1149DA311 /* ThrustNode.swift in Sources */,
-				8DE66F0F2C14C9BF00ECEE96 /* SplitAsteroidUseCase.swift in Sources */,
 				93139A9EC82B1613E385C4DF /* CGFloat+extensions.swift in Sources */,
 				93139909ADC0F687EEE55314 /* HyperspacePowerUpNode.swift in Sources */,
 				93139EFCD84F2131FD44424E /* TreasureComponent.swift in Sources */,
@@ -1374,7 +1363,6 @@
 				93139F95901841F594FAACC8 /* TouchedSystem.swift in Sources */,
 				9313907A8909C84DA2AD6394 /* ButtonComponents.swift in Sources */,
 				93139B0DBC3E222D982D6420 /* TouchableComponent.swift in Sources */,
-				9313953EA0F8B372247B5B83 /* Sequence+extensions.swift in Sources */,
 				9313966752D333AF0D13BDA5 /* AlertPresentingSystem.swift in Sources */,
 				9313917C504C1A8F1DEF19A8 /* CGSize+extensions.swift in Sources */,
 				93139411ABADC3F079CC2F3B /* Equatable+extensions.swift in Sources */,
@@ -1725,7 +1713,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		8D1C1DCE2C404DEA005137DE /* XCLocalSwiftPackageReference "../../Swash_Swift_Package/Swash" */ = {
+		8D1C1DCE2C404DEA005137DE /* XCLocalSwiftPackageReference */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../../Swash_Swift_Package/Swash;
 		};

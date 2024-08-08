@@ -11,16 +11,6 @@
 import Swash
 import Foundation
 
-extension Engine {
-    func remove(systemType: System.Type) {
-        systems.forEach { system in
-            if type(of: system) == systemType {
-                remove(system: system)
-            }
-        }
-    }
-}
-
 final class SystemsManager {
     private let engine: Engine
     private let creatorManager: CreatorsManager
