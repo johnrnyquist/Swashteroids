@@ -65,7 +65,6 @@ final class SystemsManager {
         engine.remove(systemType: HudSystem.self)
         engine.remove(systemType: HyperspaceJumpSystem.self)
         engine.remove(systemType: LevelManagementSystem.self)
-        engine.remove(systemType: LifetimeSystem.self)
         engine.remove(systemType: MoveToTargetSystem.self)
         engine.remove(systemType: PickTargetSystem.self)
         engine.remove(systemType: AlienReactionTimeSystem.self)

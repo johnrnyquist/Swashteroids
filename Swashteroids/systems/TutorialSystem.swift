@@ -415,6 +415,9 @@ class TutorialSystem: ListIteratingSystem {
     private func handleTreasure1(_ tutorialComponent: TutorialComponent) {
         guard tutorialComponent.completionStatus[.treasure1] == .notStarted else { return }
         tutorialComponent.completionStatus[.treasure1] = .completed
+        if let treasure = engine.findEntity(named: "treasureEntity_1"), treasure[LifetimeComponent.self] != nil {
+            treasure.remove(componentClass: LifetimeComponent.self)
+        }
         node?.entity?
              .add(component: AudioComponent(asset: .tut_collect_treasure))
         message?(text: """
